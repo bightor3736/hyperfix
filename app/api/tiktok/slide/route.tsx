@@ -515,6 +515,195 @@ function IllustratedSlide({
   );
 }
 
+// ── Pexels ────────────────────────────────────────────────────────────────
+
+// One search query per pack — picked to match the pack's emotional vibe
+const PACK_PHOTO_QUERY = [
+  "notebook pen obsession studying focus",  // 0 — you might be hyperfixated if
+  "music vinyl headphones concert light",   // 1 — types of hyperfixation
+  "night window rain solitude empty room",  // 2 — post-fix grief
+  "spark fire discovery light curiosity",   // 3 — stages
+  "friends coffee conversation laughing",   // 4 — things people say
+  "mind calm focus desk minimal",           // 5 — ADHD brains
+];
+
+type PexelsPhoto = { src: { large2x: string; large: string } };
+type PexelsResponse = { photos: PexelsPhoto[] };
+
+async function fetchPexelsPhoto(query: string, seed: number): Promise<string | null> {
+  const apiKey = process.env.PEXELS_API_KEY;
+  if (!apiKey) return null;
+  try {
+    const res = await fetch(
+      `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=15&orientation=portrait&size=large`,
+      { headers: { Authorization: apiKey } }
+    );
+    if (!res.ok) return null;
+    const data = await res.json() as PexelsResponse;
+    const photos = data.photos ?? [];
+    if (!photos.length) return null;
+    // Deterministic pick so same pack+slide always uses the same photo
+    const photo = photos[seed % photos.length];
+    return photo.src.large2x ?? photo.src.large ?? null;
+  } catch {
+    return null;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// STYLE 5 — "Photo"
+// Full-bleed Pexels photo, heavy dark gradient, lime text overlay.
+// CTA slides always flip to lime-on-dark (no photo needed).
+// ─────────────────────────────────────────────────────────────────────────
+function PhotoSlide({
+  slide, n, total, photoUrl,
+}: {
+  slide: Slide; n: number; total: number; photoUrl: string | null;
+}) {
+  const isCta = !!slide.cta;
+  const fs = fontSize(slide.headline);
+
+  if (isCta) {
+    return (
+      <div style={{
+        width: "100%", height: "100%",
+        background: "#A3E635",
+        display: "flex", flexDirection: "column",
+        padding: "90px 80px",
+        fontFamily: "serif",
+      }}>
+        <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", border: "2px solid rgba(0,0,0,0.25)", color: "rgba(0,0,0,0.6)", padding: "10px 20px", fontSize: 18, letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "monospace" }}>
+            {slide.eyebrow ?? "join the community"}
+          </div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "center", gap: 32 }}>
+          <span style={{ color: "#010201", fontSize: fs, fontWeight: 900, lineHeight: 1.04, letterSpacing: "-0.03em" }}>
+            {slide.headline}
+          </span>
+          {slide.sub && (
+            <span style={{ color: "rgba(0,0,0,0.55)", fontSize: 34, fontFamily: "monospace", lineHeight: 1.5 }}>
+              {slide.sub}
+            </span>
+          )}
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", paddingTop: 24 }}>
+          <span style={{ color: "rgba(0,0,0,0.45)", fontSize: 28, fontFamily: "monospace", fontWeight: 700, letterSpacing: "0.04em" }}>
+            hyperfix.app
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{
+      width: "100%", height: "100%",
+      background: "#060606",
+      display: "flex", flexDirection: "column",
+      position: "relative",
+      overflow: "hidden",
+      fontFamily: "serif",
+    }}>
+      {/* Pexels photo — full bleed */}
+      {photoUrl && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={photoUrl}
+          alt=""
+          style={{
+            position: "absolute",
+            top: 0, left: 0,
+            width: "100%", height: "100%",
+            objectFit: "cover",
+            objectPosition: "center",
+          }}
+        />
+      )}
+
+      {/* Gradient overlay — heavier at top and bottom for text legibility */}
+      <div style={{
+        position: "absolute",
+        top: 0, left: 0, right: 0, bottom: 0,
+        background: "linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 38%, rgba(0,0,0,0.3) 55%, rgba(0,0,0,0.88) 100%)",
+        display: "flex",
+      }} />
+
+      {/* Content layer */}
+      <div style={{
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        height: "100%",
+        padding: "80px 76px",
+        color: "#F4F4F4",
+      }}>
+        {/* Header */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span style={{ color: "#A3E635", fontSize: 30, fontWeight: 900, letterSpacing: "-0.02em" }}>
+            hyperfix
+          </span>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            {Array.from({ length: total }).map((_, i) => (
+              <div key={i} style={{
+                width: i + 1 === n ? 32 : 8, height: 8, borderRadius: 4,
+                background: i + 1 === n ? "#A3E635" : "rgba(163,230,53,0.3)",
+                display: "flex",
+              }} />
+            ))}
+          </div>
+        </div>
+
+        {/* Text block — pinned to bottom */}
+        <div style={{ display: "flex", flexDirection: "column", marginTop: "auto", gap: 28 }}>
+          {slide.eyebrow && (
+            <span style={{
+              color: "rgba(163,230,53,0.85)",
+              fontSize: 24, fontFamily: "monospace",
+              textTransform: "uppercase", letterSpacing: "0.12em", lineHeight: 1.4,
+            }}>
+              {slide.eyebrow}
+            </span>
+          )}
+
+          {/* Lime rule */}
+          <div style={{ width: 52, height: 4, background: "#A3E635", borderRadius: 2, display: "flex" }} />
+
+          <span style={{
+            color: "#F4F4F4",
+            fontSize: fs,
+            fontWeight: 900,
+            lineHeight: 1.06,
+            letterSpacing: "-0.025em",
+          }}>
+            {slide.headline}
+          </span>
+
+          {slide.sub && (
+            <span style={{
+              color: "rgba(244,244,244,0.65)",
+              fontSize: 33, fontFamily: "monospace", lineHeight: 1.5,
+            }}>
+              {slide.sub}
+            </span>
+          )}
+
+          {/* Footer row */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 8 }}>
+            <span style={{ color: "rgba(244,244,244,0.25)", fontSize: 22, fontFamily: "monospace" }}>
+              {n < total ? "swipe →" : ""}
+            </span>
+            <span style={{ color: "rgba(163,230,53,0.45)", fontSize: 22, fontFamily: "monospace" }}>
+              hyperfix.app
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── route ──────────────────────────────────────────────────────────────────
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -524,7 +713,7 @@ export async function GET(req: NextRequest) {
   const slide    = PACKS[packIdx].slides[slideNum - 1];
 
   // Style auto-assigned per pack: 0,3→Zine | 1,4→Orbit | 2,5→ColorPop
-  // Override with ?style=1|2|3|4  (4 = Illustrated)
+  // Override with ?style=1|2|3|4|5  (5 = Photo / Pexels)
   const styleOverride = searchParams.get("style");
   const styleIdx = styleOverride
     ? parseInt(styleOverride, 10)
@@ -532,6 +721,13 @@ export async function GET(req: NextRequest) {
 
   const emoji = PACK_EMOJI[packIdx]?.[slideNum - 1] ?? "💚";
   const props = { slide, n: slideNum, total };
+
+  if (styleIdx === 5) {
+    const query = PACK_PHOTO_QUERY[packIdx] ?? "focus minimal obsession";
+    const photoUrl = await fetchPexelsPhoto(query, slideNum - 1);
+    const jsx = <PhotoSlide {...props} photoUrl={photoUrl} />;
+    return new ImageResponse(jsx, { width: W, height: H });
+  }
 
   const jsx =
     styleIdx === 2 ? <OrbitSlide {...props} /> :
