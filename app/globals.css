@@ -1,0 +1,255 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: #080808;
+  color: #F4F4F4;
+  font-feature-settings: "ss01", "ss02";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle grain on pure black — very light, screen blend */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Masonry column grid */
+.masonry-grid {
+  column-count: 1;
+  column-gap: 16px;
+}
+@media (min-width: 640px) {
+  .masonry-grid {
+    column-count: 2;
+  }
+}
+@media (min-width: 1024px) {
+  .masonry-grid {
+    column-count: 3;
+  }
+}
+
+/* Tabular figures for counters */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Display headline tracking */
+.display {
+  font-feature-settings: "ss01", "ss02", "kern";
+  font-optical-sizing: auto;
+}
+
+/* Wavy underline on links */
+.link-wave {
+  background-image: linear-gradient(transparent calc(100% - 2px), currentColor 2px);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.4s ease;
+}
+.link-wave:hover {
+  background-size: 100% 0;
+}
+
+/* Stamp / postmark effect */
+.stamp {
+  border: 1.5px solid #F4F4F4;
+  padding: 0.25rem 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  display: inline-block;
+}
+
+/* Card shadow — on near-black, use a glow rather than drop shadow */
+.paper-card {
+  box-shadow:
+    0 0 0 1px rgba(244, 244, 244, 0.07),
+    0 2px 8px rgba(0, 0, 0, 0.5),
+    0 12px 32px -8px rgba(0, 0, 0, 0.7);
+}
+
+/* Slight tilt for diary-style cards */
+.tilt-l {
+  transform: rotate(-1.4deg);
+}
+.tilt-r {
+  transform: rotate(1.2deg);
+}
+
+/* Marquee for the live ticker */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee {
+  animation: marquee 60s linear infinite;
+}
+
+/* Reveal animation for hero */
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  animation: reveal 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+
+/* Ticker: fade edges */
+.ticker-wrap {
+  position: relative;
+}
+.ticker-wrap::before,
+.ticker-wrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 96px;
+  z-index: 2;
+  pointer-events: none;
+}
+.ticker-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, #080808 20%, transparent);
+}
+.ticker-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, #080808 20%, transparent);
+}
+
+/* FAQ: smooth reveal when details opens */
+details[open] > p,
+details[open] > div {
+  animation: detailsReveal 0.25s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+@keyframes detailsReveal {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Balanced headline text */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Pulse animation for live indicator dot */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Hide scrollbar but keep scroll behaviour */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox FAQ details marker */
+details > summary {
+  list-style: none;
+}
+details > summary::marker,
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Animated ambient orbs — used on pricing page */
+@keyframes orb-drift-1 {
+  0%,100% { transform: translate(0px, 0px) scale(1); }
+  25%      { transform: translate(55px, -40px) scale(1.12); }
+  50%      { transform: translate(20px, 30px) scale(0.92); }
+  75%      { transform: translate(-40px, -15px) scale(1.06); }
+}
+@keyframes orb-drift-2 {
+  0%,100% { transform: translate(0px, 0px) scale(1); }
+  30%      { transform: translate(-45px, 35px) scale(1.08); }
+  60%      { transform: translate(30px, -30px) scale(0.94); }
+  85%      { transform: translate(15px, 20px) scale(1.04); }
+}
+@keyframes orb-drift-3 {
+  0%,100% { transform: translate(0px, 0px) scale(1); }
+  40%      { transform: translate(35px, 45px) scale(1.06); }
+  70%      { transform: translate(-20px, -35px) scale(0.96); }
+}
+.orb-1 { animation: orb-drift-1 20s ease-in-out infinite; will-change: transform; }
+.orb-2 { animation: orb-drift-2 26s ease-in-out infinite; will-change: transform; }
+.orb-3 { animation: orb-drift-3 16s ease-in-out infinite; will-change: transform; }
+
+/* Range slider — styled to match brand */
+.hyperfix-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: rgba(244, 244, 244, 0.12);
+  outline: none;
+  cursor: pointer;
+}
+.hyperfix-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #A3E635;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.hyperfix-range::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+.hyperfix-range::-moz-range-track {
+  background: rgba(244, 244, 244, 0.12);
+  height: 2px;
+  border-radius: 999px;
+}
+.hyperfix-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #A3E635;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+/* Toast slide-up + fade */
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes toast-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(8px) scale(0.96); }
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #161616 25%, #1e1e20 50%, #161616 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}

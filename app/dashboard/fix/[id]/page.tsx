@@ -1,0 +1,267 @@
+import { createClient } from "@/lib/supabase/server";
+import Link from "next/link";
+import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
+import { notFound, redirect } from "next/navigation";
+import { FixDetailClient } from "./FixDetailClient";
+import { ShareButton } from "@/components/ShareButton";
+import { Sparkline } from "@/components/Sparkline";
+
+type Fix = {
+  id: string;
+  user_id: string;
+  title: string;
+  category: string;
+  status: string;
+  intensity: number;
+  note: string | null;
+  eulogy: string | null;
+  is_public: boolean;
+  started_at: string;
+  ended_at: string | null;
+  created_at: string;
+  tags: string[];
+};
+
+const VALID_STATUSES: FixStatus[] = [
+  "Day 1", "Obsessing", "On loop", "Fading", "Post-fix", "Ended", "Dormant", "Send help",
+];
+
+function isValidStatus(s: string): s is FixStatus {
+  return VALID_STATUSES.includes(s as FixStatus);
+}
+
+function getDayCount(startedAt: string): number {
+  const start = new Date(startedAt);
+  const now = new Date();
+  const diff = now.getTime() - start.getTime();
+  return Math.max(1, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+}
+
+function formatDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+export default async function FixDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/auth/login");
+  }
+
+  const { data: fix, error } = await supabase
+    .from("fixes")
+    .select("id, user_id, title, category, status, intensity, note, eulogy, is_public, started_at, ended_at, created_at, tags")
+    .eq("id", id)
+    .eq("user_id", user.id)
+    .single();
+
+  if (error || !fix) {
+    notFound();
+  }
+
+  const typedFix = fix as Fix;
+  const days = getDayCount(typedFix.started_at);
+  const status = isValidStatus(typedFix.status) ? typedFix.status : "Day 1";
+
+  // Check if already checked in today
+  const today = new Date().toISOString().split("T")[0];
+  const { data: todayEntry } = await supabase
+    .from("fix_entries")
+    .select("id")
+    .eq("fix_id", id)
+    .eq("date", today)
+    .maybeSingle();
+  const hasCheckedInToday = !!todayEntry;
+
+  // Fetch real entry history for sparkline
+  const { data: entriesData } = await supabase
+    .from("fix_entries")
+    .select("date, intensity")
+    .eq("fix_id", id)
+    .order("date", { ascending: true })
+    .limit(14);
+  const entries = (entriesData ?? []) as { date: string; intensity: number }[];
+
+  // Check if this fix is pinned on the user's profile
+  const { data: profileData } = await supabase
+    .from("profiles")
+    .select("pinned_fix_id")
+    .eq("id", user.id)
+    .single();
+  const isPinned = profileData?.pinned_fix_id === id;
+
+  return (
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "#0A0A0A" }}>
+      <div className="max-w-2xl mx-auto">
+
+        {/* Back button + share */}
+        <div className="flex items-center justify-between mb-8">
+          <Link
+            href="/dashboard"
+            className="inline-flex items-center gap-2 font-sans text-sm transition-colors hover:text-accent"
+            style={{ color: "rgba(244,244,244,0.4)" }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+            My fixes
+          </Link>
+          <ShareButton fixId={id} isPublic={typedFix.is_public} />
+        </div>
+
+        {/* Title + meta */}
+        <div className="mb-6">
+          <div className="flex flex-wrap items-start gap-3 mb-4">
+            <span
+              className="font-mono text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full"
+              style={{
+                background: "rgba(244,244,244,0.06)",
+                border: "1px solid rgba(244,244,244,0.1)",
+                color: "rgba(244,244,244,0.45)",
+              }}
+            >
+              {typedFix.category}
+            </span>
+          </div>
+
+          <h1
+            className="font-display font-bold mb-4 leading-tight"
+            style={{
+              color: "#F4F4F4",
+              fontSize: "clamp(32px, 6vw, 56px)",
+              letterSpacing: "-0.03em",
+            }}
+          >
+            {typedFix.title}
+          </h1>
+
+          {/* Status pill — interactive */}
+          <FixDetailClient
+            fixId={id}
+            title={typedFix.title}
+            category={typedFix.category}
+            days={days}
+            status={status}
+            intensity={typedFix.intensity}
+            ended={typedFix.status === "Ended"}
+            eulogyInitial={typedFix.eulogy}
+            hasCheckedInToday={hasCheckedInToday}
+            isPublic={typedFix.is_public}
+            tagsInitial={typedFix.tags ?? []}
+            isPinned={isPinned}
+          />
+        </div>
+
+        {/* Day counter */}
+        <div
+          className="rounded-2xl p-6 mb-4"
+          style={{
+            background: "#111113",
+            border: "1px solid rgba(244,244,244,0.07)",
+          }}
+        >
+          <div className="flex items-baseline gap-2 mb-1">
+            <span
+              className="font-display font-black leading-none"
+              style={{
+                color: "#F4F4F4",
+                fontSize: "clamp(72px, 14vw, 120px)",
+                letterSpacing: "-0.05em",
+                fontVariantNumeric: "tabular-nums",
+              }}
+            >
+              {days}
+            </span>
+            <span
+              className="font-sans font-medium"
+              style={{ color: "rgba(244,244,244,0.35)", fontSize: "clamp(20px,4vw,32px)" }}
+            >
+              day{days !== 1 ? "s" : ""}
+            </span>
+          </div>
+          <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.35)" }}>
+            Since {formatDate(typedFix.started_at)}
+            {typedFix.ended_at && (
+              <> · Ended {formatDate(typedFix.ended_at)}</>
+            )}
+          </p>
+
+          {/* Sparkline */}
+          <div className="mt-4">
+            <Sparkline entries={entries} />
+          </div>
+        </div>
+
+        {/* Note */}
+        {typedFix.note && (
+          <div
+            className="rounded-2xl p-5 mb-4"
+            style={{
+              background: "#111113",
+              border: "1px solid rgba(244,244,244,0.07)",
+            }}
+          >
+            <p
+              className="font-sans text-[13px] uppercase tracking-widest mb-3"
+              style={{ color: "rgba(244,244,244,0.3)" }}
+            >
+              Note
+            </p>
+            <p
+              className="font-display italic text-[17px] leading-relaxed"
+              style={{
+                color: "rgba(244,244,244,0.75)",
+                borderLeft: "2px solid rgba(163,230,53,0.35)",
+                paddingLeft: 16,
+              }}
+            >
+              {typedFix.note}
+            </p>
+          </div>
+        )}
+
+        {/* Eulogy (if ended) */}
+        {typedFix.eulogy && (
+          <div
+            className="rounded-2xl p-5 mb-4"
+            style={{
+              background: "#111113",
+              border: "1px solid rgba(244,244,244,0.07)",
+            }}
+          >
+            <p
+              className="font-sans text-[13px] uppercase tracking-widest mb-3"
+              style={{ color: "rgba(244,244,244,0.3)" }}
+            >
+              Farewell
+            </p>
+            <p
+              className="font-display italic text-[17px] leading-relaxed"
+              style={{
+                color: "rgba(244,244,244,0.6)",
+                borderLeft: "2px solid rgba(244,244,244,0.15)",
+                paddingLeft: 16,
+              }}
+            >
+              {typedFix.eulogy}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
