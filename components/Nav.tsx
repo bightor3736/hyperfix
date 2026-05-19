@@ -2,14 +2,27 @@
 
 import { useEffect, useState } from "react";
 import { LogoLockup } from "@/components/Logo";
+import { createClient } from "@/lib/supabase/client";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
+  }, []);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getSession().then(({ data }) => {
+      setIsLoggedIn(!!data.session);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session);
+    });
+    return () => subscription.unsubscribe();
   }, []);
 
   return (
@@ -47,12 +60,21 @@ export default function Nav() {
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
         </a>
-        <a
-          href="/auth/signup"
-          className="font-mono text-[11px] uppercase tracking-widest px-5 py-2.5 rounded-full bg-accent text-[#0A0A0A] font-bold hover:bg-accent/90 transition-colors"
-        >
-          Get started →
-        </a>
+        {isLoggedIn ? (
+          <a
+            href="/dashboard"
+            className="font-mono text-[11px] uppercase tracking-widest px-5 py-2.5 rounded-full bg-accent text-[#0A0A0A] font-bold hover:bg-accent/90 transition-colors"
+          >
+            Dashboard →
+          </a>
+        ) : (
+          <a
+            href="/auth/signup"
+            className="font-mono text-[11px] uppercase tracking-widest px-5 py-2.5 rounded-full bg-accent text-[#0A0A0A] font-bold hover:bg-accent/90 transition-colors"
+          >
+            Get started →
+          </a>
+        )}
       </nav>
     </header>
   );

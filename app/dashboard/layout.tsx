@@ -68,17 +68,17 @@ export default async function DashboardLayout({
             paddingBottom: "env(safe-area-inset-bottom)",
           }}
         >
-          <MobileNavLink href="/dashboard" label="Dashboard">
+          <MobileNavLink href="/dashboard" label="Home">
             <HomeIcon />
           </MobileNavLink>
-          <MobileNavLink href="/dashboard/lists" label="Lists">
-            <ListsIcon />
+          <MobileNavLink href="/explore" label="Explore">
+            <ExploreIcon />
           </MobileNavLink>
           <MobileNavLink href="/dashboard/new" label="New fix">
             <PlusIcon />
           </MobileNavLink>
-          <MobileNavLink href="/dashboard/graveyard" label="Graveyard">
-            <TombstoneIcon />
+          <MobileNavLink href="/dashboard/lists" label="Lists">
+            <ListsIcon />
           </MobileNavLink>
           <MobileNavLink href="/dashboard/settings" label="Settings">
             <GearIcon />
