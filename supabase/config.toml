@@ -1,0 +1,3 @@
+[project]
+# Find this in: supabase.com → your project → Settings → General → Reference ID
+id = "your-project-ref"
