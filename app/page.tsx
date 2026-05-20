@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import { LogoLockup } from "@/components/Logo";
+import { RevealSection } from "@/components/RevealSection";
 
 async function getWaitlistCount(): Promise<number> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -324,16 +325,17 @@ export default async function Page({
 
         {/* HERO ----------------------------------------------------------- */}
         <section className="relative overflow-hidden px-6 sm:px-10 pt-20 sm:pt-28 pb-24 sm:pb-32">
-          {/* Teal radial bloom — emerges from bottom-center */}
+          {/* Teal radial bloom — slowly breathing from bottom-center */}
           <div
             aria-hidden
-            className="absolute pointer-events-none"
+            className="absolute pointer-events-none anim-bloom"
             style={{
               inset: 0,
               background:
                 "radial-gradient(ellipse 80% 70% at 50% 100%, #5EEAD4 0%, #2DD4BF 18%, #0E4F47 38%, #08231F 58%, #070708 78%)",
               opacity: 0.95,
               zIndex: 0,
+              transformOrigin: "50% 100%",
             }}
           />
           {/* Heavy grain on hero */}
@@ -364,8 +366,23 @@ export default async function Page({
           />
 
           <div className="relative max-w-4xl mx-auto text-center" style={{ zIndex: 10 }}>
+            <span
+              className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] rounded-full px-3.5 py-1.5 mb-8 anim-fadeUp"
+              style={{
+                background: "rgba(255,255,255,0.06)",
+                border: "1px solid rgba(255,255,255,0.12)",
+                color: "rgba(255,255,255,0.7)",
+                backdropFilter: "blur(8px)",
+              }}
+            >
+              <span
+                className="w-1.5 h-1.5 rounded-full anim-pulseDot"
+                style={{ background: TEAL, color: TEAL }}
+              />
+              {waitlistCount.toLocaleString()} currently unwell
+            </span>
             <h1
-              className="font-display text-ink"
+              className="font-display text-ink anim-fadeUp delay-100"
               style={{
                 fontSize: "clamp(48px, 9vw, 96px)",
                 lineHeight: 1.02,
@@ -379,7 +396,7 @@ export default async function Page({
             </h1>
 
             <p
-              className="mt-7 mx-auto font-sans text-base sm:text-lg max-w-xl leading-relaxed"
+              className="mt-7 mx-auto font-sans text-base sm:text-lg max-w-xl leading-relaxed anim-fadeUp delay-300"
               style={{ color: "rgba(255,255,255,0.72)" }}
             >
               Hyperfix is the journal built for your current obsession — the song on loop,
@@ -387,16 +404,16 @@ export default async function Page({
               entire personality. Log it. Count it. Mourn it.
             </p>
 
-            <div className="mt-10 flex justify-center">
+            <div className="mt-10 flex justify-center anim-fadeUp delay-500">
               <a
                 href="/join"
-                className="inline-flex items-center gap-3 font-sans text-base font-semibold px-7 py-4 transition-all hover:opacity-95 active:scale-[0.98]"
+                className="inline-flex items-center gap-3 font-sans text-base font-semibold px-7 py-4 transition-all duration-200 hover:opacity-95 hover:-translate-y-px hover:scale-[1.02] active:scale-[0.98]"
                 style={{
                   background: "#FFFFFF",
                   color: "#0A0A0A",
                   borderRadius: 999,
                   boxShadow:
-                    "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4)",
+                    "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 60px rgba(94,234,212,0.25)",
                 }}
               >
                 Get Started
@@ -406,7 +423,7 @@ export default async function Page({
               </a>
             </div>
 
-            <p className="mt-7 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+            <p className="mt-7 font-sans text-sm anim-fadeUp delay-700" style={{ color: "rgba(255,255,255,0.5)" }}>
               free forever · no credit card · {waitlistCount.toLocaleString()} currently unwell
             </p>
           </div>
@@ -416,53 +433,62 @@ export default async function Page({
         <section className="relative px-6 sm:px-10 py-24 sm:py-32">
           <GrainOverlay opacity={0.08} />
           <div className="relative max-w-5xl mx-auto">
-            <EyebrowPill>Benefits</EyebrowPill>
-            <h2
-              className="mt-7 font-display text-ink max-w-2xl"
-              style={{
-                fontSize: "clamp(36px, 5.5vw, 60px)",
-                lineHeight: 1.05,
-                letterSpacing: "-0.02em",
-                fontWeight: 600,
-              }}
-            >
-              Everything You Need
-              <br />
-              to Stay Unwell.
-            </h2>
-            <p className="mt-5 max-w-xl font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
-              Hyperfix gives your obsession the structure it deserves — without the
-              spreadsheets, the Notion template, or the friend who keeps asking if
-              you&apos;re okay.
-            </p>
+            <RevealSection>
+              <EyebrowPill>Benefits</EyebrowPill>
+            </RevealSection>
+            <RevealSection delay={100}>
+              <h2
+                className="mt-7 font-display text-ink max-w-2xl"
+                style={{
+                  fontSize: "clamp(36px, 5.5vw, 60px)",
+                  lineHeight: 1.05,
+                  letterSpacing: "-0.02em",
+                  fontWeight: 600,
+                }}
+              >
+                Everything You Need
+                <br />
+                to Stay Unwell.
+              </h2>
+            </RevealSection>
+            <RevealSection delay={200}>
+              <p className="mt-5 max-w-xl font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                Hyperfix gives your obsession the structure it deserves — without the
+                spreadsheets, the Notion template, or the friend who keeps asking if
+                you&apos;re okay.
+              </p>
+            </RevealSection>
 
             <div className="mt-14 grid gap-4 sm:gap-5">
-              {benefits.map((b) => (
-                <div
-                  key={b.title}
-                  className="relative overflow-hidden rounded-3xl p-7 sm:p-10"
-                  style={{
-                    background: CARD_BG,
-                    border: `1px solid ${CARD_BORDER}`,
-                    minHeight: 340,
-                  }}
-                >
-                  <GrainOverlay opacity={0.22} />
-                  <div className="relative">
-                    <IconTile>{b.icon}</IconTile>
-                    <div className="mt-32 sm:mt-48">
-                      <h3
-                        className="font-display text-ink"
-                        style={{ fontSize: "clamp(24px, 3vw, 30px)", letterSpacing: "-0.01em", fontWeight: 600 }}
-                      >
-                        {b.title}
-                      </h3>
-                      <p className="mt-3 font-sans text-base leading-relaxed max-w-xl" style={{ color: "rgba(255,255,255,0.6)" }}>
-                        {b.body}
-                      </p>
+              {benefits.map((b, i) => (
+                <RevealSection key={b.title} delay={300 + i * 120}>
+                  <div
+                    className="motion-card relative overflow-hidden rounded-3xl p-7 sm:p-10"
+                    style={{
+                      background: CARD_BG,
+                      border: `1px solid ${CARD_BORDER}`,
+                      minHeight: 340,
+                    }}
+                  >
+                    <GrainOverlay opacity={0.22} />
+                    <div className="relative">
+                      <div className="anim-floatY" style={{ display: "inline-block", animationDelay: `${i * 0.4}s` }}>
+                        <IconTile>{b.icon}</IconTile>
+                      </div>
+                      <div className="mt-32 sm:mt-48">
+                        <h3
+                          className="font-display text-ink"
+                          style={{ fontSize: "clamp(24px, 3vw, 30px)", letterSpacing: "-0.01em", fontWeight: 600 }}
+                        >
+                          {b.title}
+                        </h3>
+                        <p className="mt-3 font-sans text-base leading-relaxed max-w-xl" style={{ color: "rgba(255,255,255,0.6)" }}>
+                          {b.body}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </RevealSection>
               ))}
             </div>
           </div>
@@ -488,45 +514,49 @@ export default async function Page({
 
             <div className="mt-14 grid gap-4 sm:gap-5">
               {steps.map((s, i) => (
-                <div
-                  key={s.step}
-                  className="relative overflow-hidden rounded-3xl p-7 sm:p-10"
-                  style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, minHeight: 360 }}
-                >
-                  <GrainOverlay opacity={0.22} />
-                  <div className="relative">
-                    <EyebrowPill>{s.step}</EyebrowPill>
-                    {/* Pixel-grid illustration */}
-                    <div className="mt-8 mb-10 grid" style={{ gridTemplateColumns: "repeat(14, 1fr)", gap: 4, maxWidth: 360 }}>
-                      {Array.from({ length: 14 * 8 }).map((_, idx) => {
-                        const row = Math.floor(idx / 14);
-                        const col = idx % 14;
-                        // Build a rough ascending staircase pattern unique per step
-                        const threshold = i === 0 ? col - row * 1.2 + 4 : i === 1 ? Math.abs(col - 7) + row * 1.1 - 2 : (13 - col) - row * 1.2 + 4;
-                        const lit = threshold > 0 && threshold < 6;
-                        const alpha = lit ? 0.55 + (threshold / 14) : 0.06;
-                        return (
-                          <div
-                            key={idx}
-                            style={{
-                              aspectRatio: "1 / 1",
-                              borderRadius: 4,
-                              background: lit ? TEAL : "rgba(255,255,255,0.04)",
-                              opacity: lit ? alpha : 1,
-                              boxShadow: lit ? `0 0 8px rgba(94,234,212,${alpha * 0.7})` : "none",
-                            }}
-                          />
-                        );
-                      })}
+                <RevealSection key={s.step} delay={i * 140}>
+                  <div
+                    className="motion-card relative overflow-hidden rounded-3xl p-7 sm:p-10"
+                    style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, minHeight: 360 }}
+                  >
+                    <GrainOverlay opacity={0.22} />
+                    <div className="relative">
+                      <EyebrowPill>{s.step}</EyebrowPill>
+                      {/* Pixel-grid illustration — cells pop in sequence */}
+                      <div className="mt-8 mb-10 grid" style={{ gridTemplateColumns: "repeat(14, 1fr)", gap: 4, maxWidth: 360 }}>
+                        {Array.from({ length: 14 * 8 }).map((_, idx) => {
+                          const row = Math.floor(idx / 14);
+                          const col = idx % 14;
+                          const threshold = i === 0 ? col - row * 1.2 + 4 : i === 1 ? Math.abs(col - 7) + row * 1.1 - 2 : (13 - col) - row * 1.2 + 4;
+                          const lit = threshold > 0 && threshold < 6;
+                          const alpha = lit ? 0.55 + (threshold / 14) : 0.06;
+                          // Stagger by Manhattan distance from a corner so they cascade
+                          const cellDelay = lit ? 0.2 + (row + col) * 0.04 : 0;
+                          return (
+                            <div
+                              key={idx}
+                              className={lit ? "anim-cellPop" : undefined}
+                              style={{
+                                aspectRatio: "1 / 1",
+                                borderRadius: 4,
+                                background: lit ? TEAL : "rgba(255,255,255,0.04)",
+                                opacity: lit ? alpha : 1,
+                                boxShadow: lit ? `0 0 8px rgba(94,234,212,${alpha * 0.7})` : "none",
+                                animationDelay: lit ? `${cellDelay}s` : undefined,
+                              }}
+                            />
+                          );
+                        })}
+                      </div>
+                      <h3 className="font-display text-ink" style={{ fontSize: "clamp(24px, 3vw, 30px)", letterSpacing: "-0.01em", fontWeight: 600 }}>
+                        {s.title}
+                      </h3>
+                      <p className="mt-3 font-sans text-base leading-relaxed max-w-xl" style={{ color: "rgba(255,255,255,0.6)" }}>
+                        {s.body}
+                      </p>
                     </div>
-                    <h3 className="font-display text-ink" style={{ fontSize: "clamp(24px, 3vw, 30px)", letterSpacing: "-0.01em", fontWeight: 600 }}>
-                      {s.title}
-                    </h3>
-                    <p className="mt-3 font-sans text-base leading-relaxed max-w-xl" style={{ color: "rgba(255,255,255,0.6)" }}>
-                      {s.body}
-                    </p>
                   </div>
-                </div>
+                </RevealSection>
               ))}
             </div>
           </div>
@@ -551,32 +581,35 @@ export default async function Page({
             </p>
 
             <div className="mt-14 grid sm:grid-cols-2 gap-4 sm:gap-5">
-              {features.map((f) => (
-                <div
-                  key={f.title}
-                  className="relative overflow-hidden rounded-3xl p-7 sm:p-9"
-                  style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, minHeight: 280 }}
-                >
-                  <GrainOverlay opacity={0.22} />
-                  <div className="relative flex flex-col h-full">
-                    <IconTile>
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="3" y="3" width="7" height="7" rx="1" />
-                        <rect x="14" y="3" width="7" height="7" rx="1" />
-                        <rect x="3" y="14" width="7" height="7" rx="1" />
-                        <rect x="14" y="14" width="7" height="7" rx="1" />
-                      </svg>
-                    </IconTile>
-                    <div className="mt-auto pt-20">
-                      <h3 className="font-display text-ink" style={{ fontSize: "clamp(22px, 2.6vw, 26px)", letterSpacing: "-0.01em", fontWeight: 600 }}>
-                        {f.title}
-                      </h3>
-                      <p className="mt-3 font-sans text-[15px] leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
-                        {f.body}
-                      </p>
+              {features.map((f, i) => (
+                <RevealSection key={f.title} delay={i * 90}>
+                  <div
+                    className="motion-card relative overflow-hidden rounded-3xl p-7 sm:p-9 h-full"
+                    style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, minHeight: 280 }}
+                  >
+                    <GrainOverlay opacity={0.22} />
+                    <div className="relative flex flex-col h-full">
+                      <div className="anim-floatY" style={{ display: "inline-block", animationDelay: `${i * 0.35}s` }}>
+                        <IconTile>
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="3" y="3" width="7" height="7" rx="1" />
+                            <rect x="14" y="3" width="7" height="7" rx="1" />
+                            <rect x="3" y="14" width="7" height="7" rx="1" />
+                            <rect x="14" y="14" width="7" height="7" rx="1" />
+                          </svg>
+                        </IconTile>
+                      </div>
+                      <div className="mt-auto pt-20">
+                        <h3 className="font-display text-ink" style={{ fontSize: "clamp(22px, 2.6vw, 26px)", letterSpacing: "-0.01em", fontWeight: 600 }}>
+                          {f.title}
+                        </h3>
+                        <p className="mt-3 font-sans text-[15px] leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                          {f.body}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </RevealSection>
               ))}
             </div>
           </div>
@@ -601,14 +634,14 @@ export default async function Page({
             </p>
 
             <div className="mt-14 grid sm:grid-cols-2 gap-4 sm:gap-5">
-              {reviews.map((r) => (
-                <div
-                  key={r.name}
-                  className="relative overflow-hidden rounded-3xl p-7 sm:p-9"
-                  style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
-                >
-                  <GrainOverlay opacity={0.22} />
-                  <div className="relative">
+              {reviews.map((r, i) => (
+                <RevealSection key={r.name} delay={i * 100}>
+                  <div
+                    className="motion-card relative overflow-hidden rounded-3xl p-7 sm:p-9 h-full"
+                    style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
+                  >
+                    <GrainOverlay opacity={0.22} />
+                    <div className="relative">
                     <div className="flex items-center gap-3">
                       <div
                         className="shrink-0 flex items-center justify-center rounded-full"
@@ -657,6 +690,7 @@ export default async function Page({
                     </div>
                   </div>
                 </div>
+                </RevealSection>
               ))}
             </div>
           </div>
@@ -684,8 +718,9 @@ export default async function Page({
 
             <div className="mt-14 grid sm:grid-cols-2 gap-4 sm:gap-5">
               {/* Free plan */}
+              <RevealSection delay={0}>
               <div
-                className="relative overflow-hidden rounded-3xl p-7 sm:p-9"
+                className="motion-card relative overflow-hidden rounded-3xl p-7 sm:p-9 h-full"
                 style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
               >
                 <GrainOverlay opacity={0.22} />
@@ -731,10 +766,12 @@ export default async function Page({
                   </a>
                 </div>
               </div>
+              </RevealSection>
 
               {/* Pro plan — solid teal */}
+              <RevealSection delay={140}>
               <div
-                className="relative overflow-hidden rounded-3xl p-7 sm:p-9"
+                className="motion-card relative overflow-hidden rounded-3xl p-7 sm:p-9 h-full anim-glowPulse"
                 style={{
                   background: TEAL,
                   border: `1px solid ${TEAL_DEEP}`,
@@ -792,6 +829,7 @@ export default async function Page({
                   </a>
                 </div>
               </div>
+              </RevealSection>
             </div>
           </div>
         </section>
@@ -818,9 +856,9 @@ export default async function Page({
 
             <div className="mt-14 flex flex-col gap-3">
               {faqs.map((faq, i) => (
+                <RevealSection key={i} delay={i * 60}>
                 <details
-                  key={i}
-                  className="group [&_summary::-webkit-details-marker]:hidden relative overflow-hidden rounded-2xl"
+                  className="group [&_summary::-webkit-details-marker]:hidden motion-card relative overflow-hidden rounded-2xl"
                   style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
                 >
                   <summary className="flex items-center justify-between gap-6 cursor-pointer list-none px-6 py-5">
@@ -845,6 +883,7 @@ export default async function Page({
                     {faq.a}
                   </p>
                 </details>
+                </RevealSection>
               ))}
             </div>
           </div>
@@ -854,11 +893,18 @@ export default async function Page({
         <section className="relative px-6 sm:px-10 pt-12 pb-24 sm:pb-32" style={{ borderTop: `1px solid ${CARD_BORDER}` }}>
           <div
             className="relative overflow-hidden rounded-3xl mx-auto max-w-5xl px-6 sm:px-10 py-24 sm:py-36 text-center"
-            style={{
-              background:
-                "radial-gradient(ellipse 90% 100% at 50% 100%, #5EEAD4 0%, #2DD4BF 20%, #0E4F47 45%, #08231F 70%, #0A0A0B 100%)",
-            }}
+            style={{ background: "#0A0A0B" }}
           >
+            {/* Breathing radial bloom */}
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none anim-bloom"
+              style={{
+                background:
+                  "radial-gradient(ellipse 90% 100% at 50% 100%, #5EEAD4 0%, #2DD4BF 20%, #0E4F47 45%, #08231F 70%, #0A0A0B 100%)",
+                transformOrigin: "50% 100%",
+              }}
+            />
             <div
               aria-hidden
               className="absolute inset-0 pointer-events-none"
@@ -870,36 +916,42 @@ export default async function Page({
               }}
             />
             <div className="relative">
-              <h2
-                className="font-display text-ink mx-auto max-w-3xl"
-                style={{ fontSize: "clamp(42px, 7vw, 80px)", lineHeight: 1.03, letterSpacing: "-0.02em", fontWeight: 600 }}
-              >
-                Start Counting
-                <br />
-                the Days.
-              </h2>
-              <p className="mt-7 mx-auto max-w-xl font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.78)" }}>
-                Join {publicFixCount.toLocaleString()}+ logged fixations. Set up your
-                first hyperfix in minutes — no credit card, no commitment, no judgment.
-              </p>
-              <div className="mt-10 flex justify-center">
-                <a
-                  href="/join"
-                  className="inline-flex items-center gap-3 font-sans text-base font-semibold px-7 py-4 transition-all hover:opacity-95 active:scale-[0.98]"
-                  style={{
-                    background: "#FFFFFF",
-                    color: "#0A0A0A",
-                    borderRadius: 999,
-                    boxShadow:
-                      "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4)",
-                  }}
+              <RevealSection>
+                <h2
+                  className="font-display text-ink mx-auto max-w-3xl"
+                  style={{ fontSize: "clamp(42px, 7vw, 80px)", lineHeight: 1.03, letterSpacing: "-0.02em", fontWeight: 600 }}
                 >
-                  Get Started
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14M13 5l7 7-7 7" />
-                  </svg>
-                </a>
-              </div>
+                  Start Counting
+                  <br />
+                  the Days.
+                </h2>
+              </RevealSection>
+              <RevealSection delay={150}>
+                <p className="mt-7 mx-auto max-w-xl font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.78)" }}>
+                  Join {publicFixCount.toLocaleString()}+ logged fixations. Set up your
+                  first hyperfix in minutes — no credit card, no commitment, no judgment.
+                </p>
+              </RevealSection>
+              <RevealSection delay={300}>
+                <div className="mt-10 flex justify-center">
+                  <a
+                    href="/join"
+                    className="inline-flex items-center gap-3 font-sans text-base font-semibold px-7 py-4 transition-all duration-200 hover:opacity-95 hover:-translate-y-px hover:scale-[1.02] active:scale-[0.98]"
+                    style={{
+                      background: "#FFFFFF",
+                      color: "#0A0A0A",
+                      borderRadius: 999,
+                      boxShadow:
+                        "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 60px rgba(94,234,212,0.30)",
+                    }}
+                  >
+                    Get Started
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14M13 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
+              </RevealSection>
             </div>
           </div>
         </section>

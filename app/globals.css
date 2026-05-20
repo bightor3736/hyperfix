@@ -273,6 +273,19 @@ details > summary::-webkit-details-marker {
   0%   { background-position: -120% 0; }
   100% { background-position: 220% 0; }
 }
+@keyframes bloomBreathe {
+  0%, 100% { opacity: 0.92; transform: scale(1); }
+  50%      { opacity: 1;    transform: scale(1.04); }
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px currentColor; }
+  50%      { opacity: 0.55; box-shadow: 0 0 14px currentColor; }
+}
+@keyframes cellPop {
+  from { opacity: 0; transform: scale(0.4); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
 @keyframes countTick {
   0%   { transform: translateY(0); opacity: 1; }
   40%  { transform: translateY(-6px); opacity: 0.6; }
@@ -281,6 +294,9 @@ details > summary::-webkit-details-marker {
 }
 
 .anim-fadeUp     { animation: fadeUp 0.8s cubic-bezier(0.2,0.6,0.2,1) both; }
+.anim-bloom      { animation: bloomBreathe 9s ease-in-out infinite; }
+.anim-pulseDot   { animation: pulseDot 2.2s ease-in-out infinite; }
+.anim-cellPop    { animation: cellPop 0.5s cubic-bezier(0.2,0.8,0.2,1) both; }
 .anim-fadeIn     { animation: fadeIn 0.8s ease both; }
 .anim-scaleIn    { animation: scaleIn 0.7s cubic-bezier(0.2,0.6,0.2,1) both; }
 .anim-slideLeft  { animation: slideInLeft 0.7s cubic-bezier(0.2,0.6,0.2,1) both; }
