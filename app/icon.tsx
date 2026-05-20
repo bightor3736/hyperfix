@@ -18,18 +18,16 @@ export default function Icon() {
         }}
       >
         <svg width="32" height="32" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M32 10 L50 20 L50 44 L32 54 L14 44 L14 20 Z"
-            fill="none"
-            stroke="rgba(255,255,255,0.85)"
-            strokeWidth="2"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M32 22 L42 28 L42 40 L32 46 L22 40 L22 28 Z"
-            fill="#5EEAD4"
-          />
-          <circle cx="32" cy="34" r="2.5" fill="#0A1F1C" />
+          <path d="M58,32 L50,14 L32,32 Z" fill="#3CCFBA" />
+          <path d="M32,58 L14,50 L32,32 Z" fill="#3CCFBA" />
+          <path d="M6,32 L14,14 L32,32 Z" fill="#3CCFBA" />
+          <path d="M32,6 L50,14 L32,32 Z" fill="#5EEAD4" />
+          <path d="M58,32 L50,50 L32,32 Z" fill="#0D9488" />
+          <path d="M50,50 L32,58 L32,32 Z" fill="#0A7A70" />
+          <path d="M14,50 L6,32 L32,32 Z" fill="#0D9488" />
+          <path d="M14,14 L32,6 L32,32 Z" fill="#0A7A70" />
+          <path d="M58,32 L50,50 L32,58 L14,50 L6,32 L14,14 L32,6 L50,14 Z" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+          <path d="M43,32 L39,39 L32,43 L25,39 L21,32 L25,25 L32,21 L39,25 Z" fill="rgba(255,255,255,0.22)" />
         </svg>
       </div>
     ),
