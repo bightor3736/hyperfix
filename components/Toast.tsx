@@ -27,7 +27,7 @@ export function useToast() {
 function ToastIcon({ type }: { type: ToastType }) {
   if (type === "success") {
     return (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3E635" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A855F7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="20 6 9 17 4 12" />
       </svg>
     );
@@ -50,7 +50,7 @@ function ToastIcon({ type }: { type: ToastType }) {
 }
 
 function ToastBorderColor(type: ToastType) {
-  if (type === "success") return "rgba(163,230,53,0.4)";
+  if (type === "success") return "rgba(168,85,247,0.4)";
   if (type === "error") return "rgba(248,113,113,0.4)";
   return "rgba(244,244,244,0.15)";
 }

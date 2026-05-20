@@ -108,9 +108,9 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
           className="font-mono uppercase tracking-widest rounded-full px-2.5 py-1"
           style={{
             fontSize: 9,
-            background: "rgba(163,230,53,0.08)",
-            border: "1px solid rgba(163,230,53,0.2)",
-            color: "#A3E635",
+            background: "rgba(168,85,247,0.08)",
+            border: "1px solid rgba(168,85,247,0.2)",
+            color: "#A855F7",
           }}
         >
           {fix.category}
@@ -120,7 +120,7 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
 
       {/* Title */}
       <h2
-        className="font-display font-medium mb-2 group-hover:text-[#A3E635] transition-colors"
+        className="font-display font-medium mb-2 group-hover:text-[#A855F7] transition-colors"
         style={{
           fontSize: 15,
           lineHeight: 1.35,
@@ -135,7 +135,7 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
       </h2>
 
       {/* Day count */}
-      <p className="font-mono text-sm mb-2" style={{ color: "#A3E635" }}>
+      <p className="font-mono text-sm mb-2" style={{ color: "#A855F7" }}>
         {days} {days === 1 ? "day" : "days"}
       </p>
 
@@ -166,10 +166,10 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
           <div
             className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center font-mono font-bold overflow-hidden"
             style={{
-              background: "rgba(163,230,53,0.15)",
-              border: "1px solid rgba(163,230,53,0.2)",
+              background: "rgba(168,85,247,0.15)",
+              border: "1px solid rgba(168,85,247,0.2)",
               fontSize: 9,
-              color: "#A3E635",
+              color: "#A855F7",
             }}
           >
             {avatarUrl ? (
@@ -215,10 +215,10 @@ function ActivityCard({ item }: { item: ActivityItem }) {
       <div
         className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-mono font-bold overflow-hidden"
         style={{
-          background: "rgba(163,230,53,0.15)",
-          border: "1px solid rgba(163,230,53,0.2)",
+          background: "rgba(168,85,247,0.15)",
+          border: "1px solid rgba(168,85,247,0.2)",
           fontSize: 10,
-          color: "#A3E635",
+          color: "#A855F7",
         }}
       >
         {item.avatarUrl ? (
@@ -234,7 +234,7 @@ function ActivityCard({ item }: { item: ActivityItem }) {
             {item.username ? (
               <Link
                 href={`/u/${item.username}`}
-                className="font-medium hover:text-[#A3E635] transition-colors"
+                className="font-medium hover:text-[#A855F7] transition-colors"
               >
                 @{item.username}
               </Link>
@@ -246,7 +246,7 @@ function ActivityCard({ item }: { item: ActivityItem }) {
             </span>{" "}
             <Link
               href={`/fix/${item.fixId}`}
-              className="font-display font-medium hover:text-[#A3E635] transition-colors"
+              className="font-display font-medium hover:text-[#A855F7] transition-colors"
             >
               {item.fixTitle}
             </Link>
@@ -266,9 +266,9 @@ function ActivityCard({ item }: { item: ActivityItem }) {
             className="font-mono uppercase tracking-widest rounded-full px-2 py-0.5"
             style={{
               fontSize: 9,
-              background: item.type === "ended" ? "rgba(244,244,244,0.05)" : "rgba(163,230,53,0.08)",
-              border: item.type === "ended" ? "1px solid rgba(244,244,244,0.1)" : "1px solid rgba(163,230,53,0.2)",
-              color: item.type === "ended" ? "rgba(244,244,244,0.4)" : "#A3E635",
+              background: item.type === "ended" ? "rgba(244,244,244,0.05)" : "rgba(168,85,247,0.08)",
+              border: item.type === "ended" ? "1px solid rgba(244,244,244,0.1)" : "1px solid rgba(168,85,247,0.2)",
+              color: item.type === "ended" ? "rgba(244,244,244,0.4)" : "#A855F7",
             }}
           >
             {emoji} {item.fixCategory}
@@ -358,7 +358,7 @@ export function ExploreTabSwitcher({
           className="px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
           style={
             tab === "everyone"
-              ? { background: "#A3E635", color: "#0A0A0A", border: "1px solid transparent" }
+              ? { background: "#A855F7", color: "#0A0A0A", border: "1px solid transparent" }
               : {
                   background: "rgba(244,244,244,0.04)",
                   border: "1px solid rgba(244,244,244,0.1)",
@@ -373,7 +373,7 @@ export function ExploreTabSwitcher({
           className="px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
           style={
             tab === "trending"
-              ? { background: "#A3E635", color: "#0A0A0A", border: "1px solid transparent" }
+              ? { background: "#A855F7", color: "#0A0A0A", border: "1px solid transparent" }
               : {
                   background: "rgba(244,244,244,0.04)",
                   border: "1px solid rgba(244,244,244,0.1)",
@@ -389,7 +389,7 @@ export function ExploreTabSwitcher({
             className="px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
             style={
               tab === "following"
-                ? { background: "#A3E635", color: "#0A0A0A", border: "1px solid transparent" }
+                ? { background: "#A855F7", color: "#0A0A0A", border: "1px solid transparent" }
                 : {
                     background: "rgba(244,244,244,0.04)",
                     border: "1px solid rgba(244,244,244,0.1)",
@@ -406,7 +406,7 @@ export function ExploreTabSwitcher({
             className="px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
             style={
               tab === "activity"
-                ? { background: "#A3E635", color: "#0A0A0A", border: "1px solid transparent" }
+                ? { background: "#A855F7", color: "#0A0A0A", border: "1px solid transparent" }
                 : {
                     background: "rgba(244,244,244,0.04)",
                     border: "1px solid rgba(244,244,244,0.1)",
@@ -455,7 +455,7 @@ export function ExploreTabSwitcher({
                   className="shrink-0 flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
                   style={
                     isSelected
-                      ? { background: "#A3E635", color: "#0A0A0A", border: "1px solid transparent" }
+                      ? { background: "#A855F7", color: "#0A0A0A", border: "1px solid transparent" }
                       : {
                           background: "#111113",
                           border: "1px solid rgba(244,244,244,0.1)",
@@ -534,7 +534,7 @@ export function ExploreTabSwitcher({
                 <Link
                   href="/auth/signup"
                   className="font-mono text-sm px-6 py-3 rounded-full font-bold transition-opacity hover:opacity-90"
-                  style={{ background: "#A3E635", color: "#0A0A0A" }}
+                  style={{ background: "#A855F7", color: "#0A0A0A" }}
                 >
                   Start tracking →
                 </Link>

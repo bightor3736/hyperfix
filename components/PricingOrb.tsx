@@ -48,7 +48,7 @@ export function PricingOrb() {
         cx - r * 0.2, cy - r * 0.2, 0,
         cx, cy, r
       );
-      grad.addColorStop(0,   `rgba(163,230,53,${0.55 * pulse})`);
+      grad.addColorStop(0,   `rgba(168,85,247,${0.55 * pulse})`);
       grad.addColorStop(0.25, `rgba(130,205,30,${0.38 * pulse})`);
       grad.addColorStop(0.55, `rgba(80,150,10,${0.16 * pulse})`);
       grad.addColorStop(1,    "transparent");

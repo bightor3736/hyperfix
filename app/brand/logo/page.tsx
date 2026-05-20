@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 // ─────────────────────────────────────────────────────────────
 // Tokens
-const LIME = "#A3E635";
+const LIME = "#A855F7";
 const LIME_DEEP = "#7CB205";
 const LIME_DARK = "#4D7C0F";
 const INK = "#0A0A0A";
@@ -319,7 +319,7 @@ function PaletteSection() {
     {
       name: "Acid",
       role: "Accent",
-      hex: "#A3E635",
+      hex: "#A855F7",
       rgb: "163, 230, 53",
       cmyk: "29, 0, 77, 10",
       pantone: "382 C",

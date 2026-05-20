@@ -32,7 +32,7 @@ const FAINT = "#525861";
 
 // Accent palette per card
 const ACCENTS = {
-  lime:   { base: "#A3E635", bright: "#C8FF3D", deep: "#65A30D", ink: "#0A0A0A" },
+  lime:   { base: "#A855F7", bright: "#C8FF3D", deep: "#65A30D", ink: "#0A0A0A" },
   yellow: { base: "#FACC15", bright: "#FDE047", deep: "#A16207", ink: "#0A0A0A" },
   orange: { base: "#FB923C", bright: "#FDBA74", deep: "#C2410C", ink: "#0A0A0A" },
   pink:   { base: "#F472B6", bright: "#F9A8D4", deep: "#BE185D", ink: "#0A0A0A" },

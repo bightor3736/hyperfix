@@ -3,9 +3,9 @@ export default function VerifyPage() {
     <div className="text-center">
       <div
         className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6"
-        style={{ background: "rgba(163,230,53,0.12)", border: "1px solid rgba(163,230,53,0.25)" }}
+        style={{ background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.25)" }}
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A3E635" strokeWidth="2">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A855F7" strokeWidth="2">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
           <polyline points="22,6 12,13 2,6" />
         </svg>
@@ -26,7 +26,7 @@ export default function VerifyPage() {
       <a
         href="/auth/login"
         className="inline-flex items-center font-sans text-sm font-semibold px-6 py-3 rounded-xl transition-all hover:opacity-90"
-        style={{ background: "#A3E635", color: "#0A0A0A" }}
+        style={{ background: "#A855F7", color: "#0A0A0A" }}
       >
         Back to log in
       </a>

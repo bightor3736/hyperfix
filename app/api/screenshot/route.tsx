@@ -6,7 +6,7 @@ const W = 1440;
 const H = 900;
 const INK = "#0A0A0A";
 const CARD = "#111113";
-const LIME = "#A3E635";
+const LIME = "#A855F7";
 const PAPER = "#F4F4F4";
 const DIM = "rgba(244,244,244,0.35)";
 const SOFT = "rgba(244,244,244,0.55)";
@@ -114,9 +114,9 @@ function Card({ fix }: { fix: typeof FIXES[0] }) {
             letterSpacing: "0.1em",
             padding: "4px 10px",
             borderRadius: 999,
-            background: "rgba(163,230,53,0.08)",
-            border: "1px solid rgba(163,230,53,0.2)",
-            color: "rgba(163,230,53,0.6)",
+            background: "rgba(168,85,247,0.08)",
+            border: "1px solid rgba(168,85,247,0.2)",
+            color: "rgba(168,85,247,0.6)",
             display: "flex",
           }}
         >
@@ -183,10 +183,10 @@ function Card({ fix }: { fix: typeof FIXES[0] }) {
           style={{
             fontSize: 12,
             fontStyle: "italic",
-            color: "rgba(163,230,53,0.7)",
+            color: "rgba(168,85,247,0.7)",
             lineHeight: 1.5,
             paddingLeft: 10,
-            borderLeft: "2px solid rgba(163,230,53,0.25)",
+            borderLeft: "2px solid rgba(168,85,247,0.25)",
             display: "flex",
             marginTop: "auto",
           }}
@@ -236,7 +236,7 @@ export async function GET() {
             right: -200,
             width: 600,
             height: 600,
-            background: "radial-gradient(circle, rgba(163,230,53,0.07) 0%, transparent 65%)",
+            background: "radial-gradient(circle, rgba(168,85,247,0.07) 0%, transparent 65%)",
             borderRadius: "50%",
             display: "flex",
           }}

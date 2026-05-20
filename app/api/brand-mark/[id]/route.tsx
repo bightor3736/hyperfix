@@ -7,7 +7,7 @@ export const runtime = "edge";
    Sculptural 3D feel via SVG radial gradients (no real 3D, no filters). */
 const SIZE = { width: 1024, height: 1024 };
 
-const ACCENT = "#A3E635";
+const ACCENT = "#A855F7";
 const ACCENT_DEEP = "#7CB205";
 const ACCENT_BRIGHT = "#D4FB7A";
 const DARK = "#0B0B0B";

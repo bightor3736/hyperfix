@@ -37,7 +37,7 @@ function getDayCount(startedAt: string): number {
 function intensityColor(intensity: number): string {
   if (intensity >= 8) return "#E63946";
   if (intensity >= 6) return "#FB923C";
-  return "#A3E635";
+  return "#A855F7";
 }
 
 function FixGridCard({
@@ -56,13 +56,13 @@ function FixGridCard({
 
   return (
     <div
-      className="rounded-2xl p-4 transition-all duration-200 hover:border-[rgba(163,230,53,0.2)] flex flex-col"
+      className="rounded-2xl p-4 transition-all duration-200 hover:border-[rgba(168,85,247,0.2)] flex flex-col"
       style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
     >
       <Link href={`/dashboard/fix/${fix.id}`} className="flex-1 block group">
         {/* Title */}
         <h3
-          className="font-display font-bold text-[15px] leading-tight truncate mb-2 group-hover:text-[#A3E635] transition-colors"
+          className="font-display font-bold text-[15px] leading-tight truncate mb-2 group-hover:text-[#A855F7] transition-colors"
           style={{ color: "#F4F4F4", letterSpacing: "-0.01em" }}
         >
           {fix.title}
@@ -88,7 +88,7 @@ function FixGridCard({
           <div className="flex items-baseline gap-1">
             <span
               className="font-mono font-black leading-none tabular-nums"
-              style={{ color: "#A3E635", fontSize: 40, letterSpacing: "-0.04em" }}
+              style={{ color: "#A855F7", fontSize: 40, letterSpacing: "-0.04em" }}
             >
               {days}
             </span>
@@ -116,13 +116,13 @@ function FixGridCard({
       {/* Quick check-in */}
       <div className="mt-3 pt-3" style={{ borderTop: "1px solid rgba(244,244,244,0.06)" }}>
         {checkedInToday ? (
-          <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(163,230,53,0.5)" }}>
+          <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(168,85,247,0.5)" }}>
             ✓ checked in today
           </span>
         ) : (
           <button
             onClick={(e) => { e.preventDefault(); onCheckIn(fix.id); }}
-            className="font-mono text-[10px] uppercase tracking-widest transition-colors hover:text-[#A3E635]"
+            className="font-mono text-[10px] uppercase tracking-widest transition-colors hover:text-[#A855F7]"
             style={{ color: "rgba(244,244,244,0.3)" }}
           >
             + check in today
@@ -140,7 +140,7 @@ function PillButton({ label, active, onClick }: { label: string; active: boolean
       className="shrink-0 px-3 py-1.5 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all duration-150 whitespace-nowrap"
       style={
         active
-          ? { background: "#A3E635", color: "#0A0A0A", border: "1px solid transparent" }
+          ? { background: "#A855F7", color: "#0A0A0A", border: "1px solid transparent" }
           : { background: "rgba(244,244,244,0.04)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.45)" }
       }
     >
@@ -196,7 +196,7 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search your fixes…"
-          className="w-full sm:w-[280px] rounded-xl pl-9 pr-4 py-2.5 font-sans text-sm outline-none transition-all focus:ring-2 focus:ring-[#A3E635]/25 placeholder:text-[rgba(244,244,244,0.3)]"
+          className="w-full sm:w-[280px] rounded-xl pl-9 pr-4 py-2.5 font-sans text-sm outline-none transition-all focus:ring-2 focus:ring-[#A855F7]/25 placeholder:text-[rgba(244,244,244,0.3)]"
           style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.1)", color: "#F4F4F4" }}
         />
       </div>

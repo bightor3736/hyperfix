@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const LIME = "#A3E635";
+const LIME = "#A855F7";
 const LIME_DEEP = "#7CB205";
 const INK = "#0A0A0A";
 const PAPER = "#F4F4F4";

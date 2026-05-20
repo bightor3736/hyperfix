@@ -30,7 +30,7 @@ export default async function OG() {
         >
           <span
             style={{
-              background: "#A3E635",
+              background: "#A855F7",
               color: "#0A0A0A",
               fontFamily: "monospace",
               fontSize: 18,
@@ -72,7 +72,7 @@ export default async function OG() {
               letterSpacing: "-0.05em",
               fontWeight: 700,
               fontStyle: "italic",
-              color: "#A3E635",
+              color: "#A855F7",
             }}
           >
             unwell about?
@@ -107,7 +107,7 @@ export default async function OG() {
               fontFamily: "sans-serif",
               fontSize: 200,
               lineHeight: 0.85,
-              color: "#A3E635",
+              color: "#A855F7",
               letterSpacing: "-0.05em",
               fontWeight: 700,
             }}

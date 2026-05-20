@@ -10,7 +10,7 @@ const PAPER_DEEP = "#111113";
 const INK = "#F4F4F4";
 const INK_SOFT = "#9A9A9A";
 const MUTED = "#525252";
-const ACCENT = "#A3E635";
+const ACCENT = "#A855F7";
 
 const TOTAL = 8;
 

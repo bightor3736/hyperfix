@@ -11,7 +11,7 @@ const PAPER_DEEP = "#111113";
 const INK = "#F4F4F4";
 const INK_SOFT = "#9A9A9A";
 const MUTED = "#525252";
-const ACCENT = "#A3E635";
+const ACCENT = "#A855F7";
 
 /* ─── 01: The Obsession Loop ───
    Concentric rings getting denser toward the center.
@@ -190,7 +190,7 @@ function TheCard() {
         height: 720,
         background: PAPER_DEEP,
         border: `1px solid rgba(244,244,244,0.06)`,
-        borderTop: `3px solid rgba(163,230,53,0.3)`,
+        borderTop: `3px solid rgba(168,85,247,0.3)`,
         transform: "rotate(6deg) translate(28px, 20px)",
         display: "flex",
       }} />
@@ -354,7 +354,7 @@ function TheArchive() {
             left: c.left,
             background: "#0C0C0C",
             border: `1px solid rgba(244,244,244,${c.opacity * 0.15})`,
-            borderTop: `3px solid rgba(163,230,53,${c.opacity * 0.4})`,
+            borderTop: `3px solid rgba(168,85,247,${c.opacity * 0.4})`,
             transform: `rotate(${c.rotate})`,
             opacity: c.opacity,
             display: "flex",

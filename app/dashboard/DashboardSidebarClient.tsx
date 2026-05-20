@@ -143,9 +143,9 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
               href={item.href}
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-sans text-sm font-medium transition-all duration-150"
               style={{
-                color: isActive ? "#A3E635" : "rgba(244,244,244,0.5)",
-                background: isActive ? "rgba(163,230,53,0.08)" : "transparent",
-                border: isActive ? "1px solid rgba(163,230,53,0.15)" : "1px solid transparent",
+                color: isActive ? "#A855F7" : "rgba(244,244,244,0.5)",
+                background: isActive ? "rgba(168,85,247,0.08)" : "transparent",
+                border: isActive ? "1px solid rgba(168,85,247,0.15)" : "1px solid transparent",
               }}
             >
               {item.icon}
@@ -163,9 +163,9 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
             <div
               className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
               style={{
-                background: avatarUrl ? "transparent" : "rgba(163,230,53,0.15)",
-                border: "1px solid rgba(163,230,53,0.2)",
-                color: "#A3E635",
+                background: avatarUrl ? "transparent" : "rgba(168,85,247,0.15)",
+                border: "1px solid rgba(168,85,247,0.2)",
+                color: "#A855F7",
                 overflow: "hidden",
               }}
             >
@@ -185,9 +185,9 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
                   <span
                     className="font-mono text-[9px] shrink-0 rounded px-1.5 py-0.5"
                     style={{
-                      background: "rgba(163,230,53,0.2)",
-                      color: "#A3E635",
-                      border: "1px solid rgba(163,230,53,0.3)",
+                      background: "rgba(168,85,247,0.2)",
+                      color: "#A855F7",
+                      border: "1px solid rgba(168,85,247,0.3)",
                     }}
                   >
                     PRO

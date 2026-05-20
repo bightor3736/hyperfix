@@ -73,9 +73,9 @@ export default async function BlogPostPage({ params }: Props) {
             <span
               className="font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1"
               style={{
-                background: "rgba(163,230,53,0.1)",
-                color: "#A3E635",
-                border: "1px solid rgba(163,230,53,0.2)",
+                background: "rgba(168,85,247,0.1)",
+                color: "#A855F7",
+                border: "1px solid rgba(168,85,247,0.2)",
               }}
             >
               {post.category}
@@ -154,7 +154,7 @@ export default async function BlogPostPage({ params }: Props) {
             <a
               href="/auth/signup"
               className="shrink-0 px-6 py-3 rounded-full font-sans text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.98]"
-              style={{ background: "#A3E635", color: "#0A0A0A" }}
+              style={{ background: "#A855F7", color: "#0A0A0A" }}
             >
               Join free
             </a>

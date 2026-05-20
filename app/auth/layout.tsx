@@ -50,7 +50,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             >
               What are you
               <br />
-              <em className="italic" style={{ color: "#A3E635" }}>unwell</em> about?
+              <em className="italic" style={{ color: "#A855F7" }}>unwell</em> about?
             </p>
             <p
               className="mt-4 font-mono text-[10px] uppercase tracking-widest"

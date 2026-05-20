@@ -51,7 +51,7 @@ function Initials({ name }: { name: string }) {
   return (
     <div
       className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-display font-medium"
-      style={{ background: "rgba(163,230,53,0.15)", color: "#A3E635", border: "2px solid rgba(163,230,53,0.3)" }}
+      style={{ background: "rgba(168,85,247,0.15)", color: "#A855F7", border: "2px solid rgba(168,85,247,0.3)" }}
     >
       {letters.toUpperCase()}
     </div>
@@ -67,7 +67,7 @@ function IntensityBar({ intensity }: { intensity: number }) {
             key={i}
             className="w-1.5 h-3 rounded-sm"
             style={{
-              background: i < intensity ? "#A3E635" : "rgba(244,244,244,0.08)",
+              background: i < intensity ? "#A855F7" : "rgba(244,244,244,0.08)",
             }}
           />
         ))}
@@ -248,16 +248,16 @@ export default async function PublicProfilePage({
             </p>
             <Link
               href={`/fix/${pinnedFix.id}`}
-              className="group flex items-center gap-4 rounded-2xl p-5 transition-all hover:border-[rgba(163,230,53,0.3)]"
-              style={{ background: "#111113", border: "1px solid rgba(163,230,53,0.2)" }}
+              className="group flex items-center gap-4 rounded-2xl p-5 transition-all hover:border-[rgba(168,85,247,0.3)]"
+              style={{ background: "#111113", border: "1px solid rgba(168,85,247,0.2)" }}
             >
               <div className="flex-1 min-w-0">
-                <h3 className="font-display font-medium text-lg leading-snug group-hover:text-[#A3E635] transition-colors mb-1">
+                <h3 className="font-display font-medium text-lg leading-snug group-hover:text-[#A855F7] transition-colors mb-1">
                   {pinnedFix.title}
                 </h3>
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="font-mono text-[10px] uppercase tracking-widest rounded-full px-2.5 py-1"
-                    style={{ background: "rgba(163,230,53,0.1)", border: "1px solid rgba(163,230,53,0.25)", color: "#A3E635" }}>
+                    style={{ background: "rgba(168,85,247,0.1)", border: "1px solid rgba(168,85,247,0.25)", color: "#A855F7" }}>
                     {pinnedFix.category}
                   </span>
                   <span className="font-mono text-xs" style={{ color: "#9A9A9A" }}>
@@ -265,9 +265,9 @@ export default async function PublicProfilePage({
                   </span>
                 </div>
               </div>
-              <div className="shrink-0 text-2xl font-display font-black tabular-nums" style={{ color: "#A3E635" }}>
+              <div className="shrink-0 text-2xl font-display font-black tabular-nums" style={{ color: "#A855F7" }}>
                 {dayCount(pinnedFix.started_at, pinnedFix.ended_at)}
-                <span className="text-xs font-mono font-normal ml-1" style={{ color: "rgba(163,230,53,0.5)" }}>d</span>
+                <span className="text-xs font-mono font-normal ml-1" style={{ color: "rgba(168,85,247,0.5)" }}>d</span>
               </div>
             </Link>
           </div>
@@ -321,15 +321,15 @@ export default async function PublicProfilePage({
                     }}
                   >
                     <div className="flex items-start justify-between gap-3 mb-3">
-                      <h3 className="font-display font-medium text-base leading-snug group-hover:text-[#A3E635] transition-colors">
+                      <h3 className="font-display font-medium text-base leading-snug group-hover:text-[#A855F7] transition-colors">
                         {fix.title}
                       </h3>
                       <span
                         className="shrink-0 text-[10px] font-mono uppercase tracking-widest rounded-full px-2.5 py-1"
                         style={{
-                          background: "rgba(163,230,53,0.1)",
-                          border: "1px solid rgba(163,230,53,0.25)",
-                          color: "#A3E635",
+                          background: "rgba(168,85,247,0.1)",
+                          border: "1px solid rgba(168,85,247,0.25)",
+                          color: "#A855F7",
                         }}
                       >
                         {fix.category}

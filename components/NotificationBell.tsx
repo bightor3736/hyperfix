@@ -151,7 +151,7 @@ export function NotificationBell() {
               <button
                 onClick={markAllRead}
                 className="font-mono text-[10px] uppercase tracking-widest transition-opacity hover:opacity-80"
-                style={{ color: "#A3E635" }}
+                style={{ color: "#A855F7" }}
               >
                 Mark all read
               </button>
@@ -178,7 +178,7 @@ export function NotificationBell() {
                 if (!result) return null;
                 const { text, href } = result;
                 const sharedStyle = {
-                  background: n.read ? "transparent" : "rgba(163,230,53,0.04)",
+                  background: n.read ? "transparent" : "rgba(168,85,247,0.04)",
                   borderBottom: "1px solid rgba(244,244,244,0.04)",
                 };
                 const inner = (

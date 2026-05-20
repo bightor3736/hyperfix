@@ -77,7 +77,7 @@ function TombstoneCard({ fix }: { fix: GraveyardFix }) {
           <span
             className="font-display font-black leading-none"
             style={{
-              color: "#A3E635",
+              color: "#A855F7",
               fontSize: 40,
               letterSpacing: "-0.04em",
               fontVariantNumeric: "tabular-nums",
@@ -87,7 +87,7 @@ function TombstoneCard({ fix }: { fix: GraveyardFix }) {
           </span>
           <span
             className="font-display font-semibold pb-0.5"
-            style={{ color: "#A3E635", fontSize: 16 }}
+            style={{ color: "#A855F7", fontSize: 16 }}
           >
             days
           </span>
@@ -102,8 +102,8 @@ function TombstoneCard({ fix }: { fix: GraveyardFix }) {
         <blockquote
           className="font-display italic text-[13px] leading-relaxed pl-3"
           style={{
-            borderLeft: "2px solid rgba(163,230,53,0.3)",
-            color: "rgba(163,230,53,0.75)",
+            borderLeft: "2px solid rgba(168,85,247,0.3)",
+            color: "rgba(168,85,247,0.75)",
             margin: 0,
           }}
         >

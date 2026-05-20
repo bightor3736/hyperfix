@@ -22,7 +22,7 @@ function StepPill({ n }: { n: string }) {
     <span
       className="font-mono text-[10px] font-bold shrink-0"
       style={{
-        background: "#A3E635",
+        background: "#A855F7",
         color: "#0A0A0A",
         borderRadius: 999,
         padding: "3px 10px",

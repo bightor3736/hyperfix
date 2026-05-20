@@ -69,15 +69,15 @@ function Avatar({
         width: 28,
         height: 28,
         borderRadius: "50%",
-        background: "rgba(163,230,53,0.15)",
-        border: "1px solid rgba(163,230,53,0.25)",
+        background: "rgba(168,85,247,0.15)",
+        border: "1px solid rgba(168,85,247,0.25)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         flexShrink: 0,
         fontSize: 10,
         fontFamily: "var(--font-mono, monospace)",
-        color: "#A3E635",
+        color: "#A855F7",
         letterSpacing: "0.05em",
       }}
     >
@@ -169,7 +169,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
                       <Link
                         href={`/u/${username}`}
                         className="font-mono text-xs hover:underline"
-                        style={{ color: "#A3E635" }}
+                        style={{ color: "#A855F7" }}
                       >
                         @{username}
                       </Link>
@@ -257,7 +257,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
               disabled={!input.trim() || submitting}
               className="font-mono text-[11px] uppercase tracking-widest"
               style={{
-                background: input.trim() && !submitting ? "#A3E635" : "rgba(163,230,53,0.3)",
+                background: input.trim() && !submitting ? "#A855F7" : "rgba(168,85,247,0.3)",
                 color: "#080808",
                 border: "none",
                 borderRadius: "9999px",
@@ -274,7 +274,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
         <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.4)", marginTop: 12 }}>
           <Link
             href="/auth/login"
-            style={{ color: "#A3E635", textDecoration: "underline" }}
+            style={{ color: "#A855F7", textDecoration: "underline" }}
           >
             Log in
           </Link>{" "}

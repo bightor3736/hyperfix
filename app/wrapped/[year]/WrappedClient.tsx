@@ -88,7 +88,7 @@ export function WrappedClient({
         className="absolute inset-x-0 top-0 h-[500px] pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 70% 45% at 50% -5%, rgba(163,230,53,0.14) 0%, transparent 70%)",
+            "radial-gradient(ellipse 70% 45% at 50% -5%, rgba(168,85,247,0.14) 0%, transparent 70%)",
         }}
       />
 
@@ -134,7 +134,7 @@ export function WrappedClient({
                 className="font-display leading-none tracking-tight"
                 style={{
                   fontSize: "clamp(2rem, 7vw, 3.5rem)",
-                  color: "#A3E635",
+                  color: "#A855F7",
                 }}
               >
                 {card.value}
@@ -171,13 +171,13 @@ export function WrappedClient({
         <div
           className="rounded-2xl p-8 sm:p-10 flex flex-col gap-3"
           style={{
-            background: "rgba(163,230,53,0.05)",
-            border: "1px solid rgba(163,230,53,0.15)",
+            background: "rgba(168,85,247,0.05)",
+            border: "1px solid rgba(168,85,247,0.15)",
           }}
         >
           <span
             className="font-mono text-[10px] uppercase tracking-widest"
-            style={{ color: "rgba(163,230,53,0.6)" }}
+            style={{ color: "rgba(168,85,247,0.6)" }}
           >
             hyperfix says
           </span>
@@ -194,7 +194,7 @@ export function WrappedClient({
           <button
             onClick={handleShare}
             className="flex items-center gap-2 px-6 py-3 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98]"
-            style={{ background: "#A3E635", color: "#0A0A0A" }}
+            style={{ background: "#A855F7", color: "#0A0A0A" }}
           >
             {copied ? "Copied!" : "Share my Wrapped →"}
           </button>
@@ -203,9 +203,9 @@ export function WrappedClient({
             disabled={downloading}
             className="flex items-center gap-2 px-6 py-3 rounded-xl font-sans text-sm font-semibold transition-all hover:opacity-80 disabled:opacity-50"
             style={{
-              background: "rgba(163,230,53,0.08)",
-              border: "1px solid rgba(163,230,53,0.25)",
-              color: "#A3E635",
+              background: "rgba(168,85,247,0.08)",
+              border: "1px solid rgba(168,85,247,0.25)",
+              color: "#A855F7",
             }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -258,9 +258,9 @@ function FixHighlightCard({
         <span
           className="font-mono text-[10px] uppercase tracking-widest px-3 py-1 rounded-full"
           style={{
-            background: "rgba(163,230,53,0.1)",
-            border: "1px solid rgba(163,230,53,0.2)",
-            color: "#A3E635",
+            background: "rgba(168,85,247,0.1)",
+            border: "1px solid rgba(168,85,247,0.2)",
+            color: "#A855F7",
           }}
         >
           {category}

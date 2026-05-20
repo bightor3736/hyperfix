@@ -70,14 +70,14 @@ export default function NewListPage() {
           {/* Name */}
           <div className="flex flex-col gap-2">
             <label className="font-sans text-[13px] font-medium" style={{ color: "rgba(244,244,244,0.65)" }}>
-              Name <span style={{ color: "#A3E635" }}>*</span>
+              Name <span style={{ color: "#A855F7" }}>*</span>
             </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="My top fixations of 2025"
-              className="w-full rounded-xl px-4 py-4 font-sans text-base outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A3E635]/40"
+              className="w-full rounded-xl px-4 py-4 font-sans text-base outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A855F7]/40"
               style={{
                 background: "#111113",
                 border: "1px solid rgba(244,244,244,0.1)",
@@ -99,7 +99,7 @@ export default function NewListPage() {
               onChange={(e) => setDescription(e.target.value)}
               placeholder="What's the vibe of this list?"
               rows={3}
-              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A3E635]/40 resize-none"
+              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A855F7]/40 resize-none"
               style={{
                 background: "#111113",
                 border: "1px solid rgba(244,244,244,0.1)",
@@ -120,8 +120,8 @@ export default function NewListPage() {
               <div
                 className="w-10 h-6 rounded-full transition-all duration-200"
                 style={{
-                  background: isPublic ? "#A3E635" : "rgba(244,244,244,0.1)",
-                  border: isPublic ? "1px solid rgba(163,230,53,0.5)" : "1px solid rgba(244,244,244,0.1)",
+                  background: isPublic ? "#A855F7" : "rgba(244,244,244,0.1)",
+                  border: isPublic ? "1px solid rgba(168,85,247,0.5)" : "1px solid rgba(244,244,244,0.1)",
                 }}
               >
                 <div
@@ -162,7 +162,7 @@ export default function NewListPage() {
             type="submit"
             disabled={pending}
             className="w-full py-4 rounded-2xl font-sans text-base font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-            style={{ background: "#A3E635", color: "#0A0A0A" }}
+            style={{ background: "#A855F7", color: "#0A0A0A" }}
           >
             {pending ? "Creating…" : "Create list →"}
           </button>

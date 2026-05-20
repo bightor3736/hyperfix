@@ -101,7 +101,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
   const intensityColor =
     intensity >= 9 ? "#E63946" :
     intensity >= 7 ? "#FB923C" :
-    "#A3E635";
+    "#A855F7";
 
   return (
     <div className="flex flex-col gap-8">
@@ -110,15 +110,15 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
         <div
           className="relative rounded-xl p-4"
           style={{
-            background: "rgba(163,230,53,0.08)",
-            border: "1px solid rgba(163,230,53,0.2)",
+            background: "rgba(168,85,247,0.08)",
+            border: "1px solid rgba(168,85,247,0.2)",
           }}
         >
           <button
             type="button"
             onClick={() => setWelcomeDismissed(true)}
             className="absolute top-3 right-3 p-1 rounded-lg transition-colors hover:opacity-70"
-            style={{ color: "rgba(163,230,53,0.6)" }}
+            style={{ color: "rgba(168,85,247,0.6)" }}
             aria-label="Dismiss welcome banner"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -126,7 +126,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
-          <p className="font-sans text-sm pr-6" style={{ color: "rgba(163,230,53,0.9)" }}>
+          <p className="font-sans text-sm pr-6" style={{ color: "rgba(168,85,247,0.9)" }}>
             Welcome to Hyperfix 👋 Log your first fix below — what are you unwell about right now?
           </p>
         </div>
@@ -172,7 +172,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
             onClick={() => { setCategory(t.cat); setTitle(""); }}
             className="px-3 py-1.5 rounded-full font-sans text-sm transition-all hover:opacity-90"
             style={category === t.cat
-              ? { background: "#A3E635", color: "#0A0A0A", fontWeight: 600 }
+              ? { background: "#A855F7", color: "#0A0A0A", fontWeight: 600 }
               : { background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.6)" }
             }
           >
@@ -187,14 +187,14 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
       {/* Title */}
       <div className="flex flex-col gap-2">
         <label className="font-sans text-[13px] font-medium" style={{ color: "rgba(244,244,244,0.65)" }}>
-          Title <span style={{ color: "#A3E635" }}>*</span>
+          Title <span style={{ color: "#A855F7" }}>*</span>
         </label>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="What are you unwell about?"
-          className="w-full rounded-xl px-4 py-4 font-sans text-lg outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A3E635]/40"
+          className="w-full rounded-xl px-4 py-4 font-sans text-lg outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A855F7]/40"
           style={{
             background: "#111113",
             border: "1px solid rgba(244,244,244,0.1)",
@@ -221,9 +221,9 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
                 onClick={() => setCategory(cat)}
                 className="px-3 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150 hover:scale-105 active:scale-[0.97]"
                 style={{
-                  background: isSelected ? "rgba(163,230,53,0.15)" : "rgba(244,244,244,0.05)",
-                  border: isSelected ? "1px solid rgba(163,230,53,0.4)" : "1px solid rgba(244,244,244,0.1)",
-                  color: isSelected ? "#A3E635" : "rgba(244,244,244,0.5)",
+                  background: isSelected ? "rgba(168,85,247,0.15)" : "rgba(244,244,244,0.05)",
+                  border: isSelected ? "1px solid rgba(168,85,247,0.4)" : "1px solid rgba(244,244,244,0.1)",
+                  color: isSelected ? "#A855F7" : "rgba(244,244,244,0.5)",
                 }}
               >
                 {cat}
@@ -269,7 +269,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
               className="h-full rounded-full transition-all duration-150"
               style={{
                 width: `${(intensity / 10) * 100}%`,
-                background: `linear-gradient(to right, #A3E635, ${intensityColor})`,
+                background: `linear-gradient(to right, #A855F7, ${intensityColor})`,
               }}
             />
           </div>
@@ -312,7 +312,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
           onChange={(e) => setNote(e.target.value)}
           placeholder="One sentence about why you're in it"
           rows={3}
-          className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A3E635]/40 resize-none"
+          className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A855F7]/40 resize-none"
           style={{
             background: "#111113",
             border: "1px solid rgba(244,244,244,0.1)",
@@ -344,8 +344,8 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
           <div
             className="w-10 h-6 rounded-full transition-all duration-200"
             style={{
-              background: isPublic ? "#A3E635" : "rgba(244,244,244,0.1)",
-              border: isPublic ? "1px solid rgba(163,230,53,0.5)" : "1px solid rgba(244,244,244,0.1)",
+              background: isPublic ? "#A855F7" : "rgba(244,244,244,0.1)",
+              border: isPublic ? "1px solid rgba(168,85,247,0.5)" : "1px solid rgba(244,244,244,0.1)",
             }}
           >
             <div
@@ -386,7 +386,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
         type="submit"
         disabled={pending}
         className="w-full py-4 rounded-2xl font-sans text-base font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-        style={{ background: "#A3E635", color: "#0A0A0A" }}
+        style={{ background: "#A855F7", color: "#0A0A0A" }}
       >
         {pending ? "Saving…" : "Start tracking →"}
       </button>

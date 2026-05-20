@@ -68,7 +68,7 @@ export default async function TagPage({ params }: Props) {
           <h1
             className="font-display font-black leading-tight mb-2"
             style={{
-              color: "#A3E635",
+              color: "#A855F7",
               fontSize: "clamp(40px, 8vw, 72px)",
               letterSpacing: "-0.04em",
             }}

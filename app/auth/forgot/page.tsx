@@ -41,8 +41,8 @@ export default function ForgotPasswordPage() {
         <div
           className="rounded-xl px-4 py-3 mb-6 font-sans text-sm"
           style={{
-            background: "rgba(163,230,53,0.08)",
-            border: "1px solid rgba(163,230,53,0.25)",
+            background: "rgba(168,85,247,0.08)",
+            border: "1px solid rgba(168,85,247,0.25)",
             color: "#a3e635",
           }}
         >
@@ -87,7 +87,7 @@ export default function ForgotPasswordPage() {
           type="submit"
           disabled={pending}
           className="w-full rounded-xl py-3.5 font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-          style={{ background: "#A3E635", color: "#0A0A0A" }}
+          style={{ background: "#A855F7", color: "#0A0A0A" }}
         >
           {pending ? "Sending…" : "Send reset link"}
         </button>

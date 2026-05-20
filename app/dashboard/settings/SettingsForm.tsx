@@ -207,7 +207,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
 
   const usernameHint = () => {
     if (usernameStatus === "checking") return <span style={{ color: "rgba(244,244,244,0.4)" }}>Checking…</span>;
-    if (usernameStatus === "available") return <span style={{ color: "#A3E635" }}>✓ Available</span>;
+    if (usernameStatus === "available") return <span style={{ color: "#A855F7" }}>✓ Available</span>;
     if (usernameStatus === "taken") return <span style={{ color: "#fda4af" }}>✗ Taken</span>;
     if (usernameStatus === "invalid") return <span style={{ color: "#fda4af" }}>3–20 chars, letters/numbers/underscore only</span>;
     return null;
@@ -235,9 +235,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               <div
                 className="w-20 h-20 rounded-full flex items-center justify-center font-display font-bold text-xl select-none"
                 style={{
-                  background: "rgba(163,230,53,0.12)",
-                  border: "2px solid rgba(163,230,53,0.3)",
-                  color: "#A3E635",
+                  background: "rgba(168,85,247,0.12)",
+                  border: "2px solid rgba(168,85,247,0.3)",
+                  color: "#A855F7",
                   letterSpacing: "-0.02em",
                 }}
               >
@@ -273,14 +273,14 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                   <span className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.4)" }}>
                     Uploading…
                   </span>
-                  <span className="font-mono text-[10px]" style={{ color: "#A3E635" }}>
+                  <span className="font-mono text-[10px]" style={{ color: "#A855F7" }}>
                     {uploadProgress}%
                   </span>
                 </div>
                 <div className="h-1 rounded-full overflow-hidden" style={{ background: "rgba(244,244,244,0.08)" }}>
                   <div
                     className="h-full rounded-full transition-all duration-200"
-                    style={{ width: `${uploadProgress}%`, background: "#A3E635" }}
+                    style={{ width: `${uploadProgress}%`, background: "#A855F7" }}
                   />
                 </div>
               </div>
@@ -302,7 +302,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
               placeholder="Your name"
-              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A3E635]/40"
+              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A855F7]/40"
               style={inputStyle}
             />
           </FieldGroup>
@@ -313,7 +313,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               value={username}
               onChange={handleUsernameChange}
               placeholder="your_handle"
-              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A3E635]/40"
+              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A855F7]/40"
               style={inputStyle}
             />
           </FieldGroup>
@@ -332,7 +332,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               placeholder="A sentence about yourself"
               rows={3}
               maxLength={160}
-              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A3E635]/40 resize-none"
+              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A855F7]/40 resize-none"
               style={inputStyle}
             />
           </FieldGroup>
@@ -364,8 +364,8 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             <div
               className="w-11 h-6 rounded-full transition-all duration-200"
               style={{
-                background: isPublic ? "#A3E635" : "rgba(244,244,244,0.1)",
-                border: isPublic ? "1px solid rgba(163,230,53,0.5)" : "1px solid rgba(244,244,244,0.1)",
+                background: isPublic ? "#A855F7" : "rgba(244,244,244,0.1)",
+                border: isPublic ? "1px solid rgba(168,85,247,0.5)" : "1px solid rgba(244,244,244,0.1)",
               }}
             >
               <div
@@ -447,9 +447,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             <span
               className="font-mono text-[9px] self-start sm:self-auto rounded px-2 py-1"
               style={{
-                background: "rgba(163,230,53,0.2)",
-                color: "#A3E635",
-                border: "1px solid rgba(163,230,53,0.3)",
+                background: "rgba(168,85,247,0.2)",
+                color: "#A855F7",
+                border: "1px solid rgba(168,85,247,0.3)",
               }}
             >
               PRO
@@ -458,7 +458,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             <a
               href="/pricing"
               className="self-start sm:self-auto px-4 py-2 rounded-full font-sans text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
-              style={{ background: "#A3E635", color: "#0A0A0A" }}
+              style={{ background: "#A855F7", color: "#0A0A0A" }}
             >
               Upgrade to Pro →
             </a>
@@ -479,7 +479,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                 <ReferralCopyButton referralCode={profile.referral_code} />
               </div>
               <div className="flex items-center gap-2">
-                <span className="font-mono text-sm font-bold" style={{ color: "#A3E635" }}>
+                <span className="font-mono text-sm font-bold" style={{ color: "#A855F7" }}>
                   {profile.referral_count ?? 0}
                 </span>
                 <span className="font-sans text-[13px]" style={{ color: "rgba(244,244,244,0.45)" }}>
@@ -518,7 +518,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
         onClick={handleSave}
         disabled={pending}
         className="w-full py-4 rounded-2xl font-sans text-base font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-        style={{ background: "#A3E635", color: "#0A0A0A" }}
+        style={{ background: "#A855F7", color: "#0A0A0A" }}
       >
         {pending ? "Saving…" : "Save changes"}
       </button>
@@ -593,9 +593,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
         <div
           className="fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 rounded-2xl font-sans text-sm font-bold z-50 pointer-events-none"
           style={{
-            background: "rgba(163,230,53,0.15)",
-            border: "1px solid rgba(163,230,53,0.4)",
-            color: "#A3E635",
+            background: "rgba(168,85,247,0.15)",
+            border: "1px solid rgba(168,85,247,0.4)",
+            color: "#A855F7",
             boxShadow: "0 4px 24px rgba(0,0,0,0.5)",
           }}
         >
@@ -699,9 +699,9 @@ function ReferralCopyButton({ referralCode }: { referralCode: string }) {
           onClick={handleCopy}
           className="shrink-0 px-3 py-2 rounded-xl font-sans text-xs font-medium transition-all hover:opacity-80"
           style={{
-            background: copied ? "rgba(163,230,53,0.15)" : "rgba(244,244,244,0.07)",
-            border: copied ? "1px solid rgba(163,230,53,0.3)" : "1px solid rgba(244,244,244,0.12)",
-            color: copied ? "#A3E635" : "rgba(244,244,244,0.7)",
+            background: copied ? "rgba(168,85,247,0.15)" : "rgba(244,244,244,0.07)",
+            border: copied ? "1px solid rgba(168,85,247,0.3)" : "1px solid rgba(244,244,244,0.12)",
+            color: copied ? "#A855F7" : "rgba(244,244,244,0.7)",
           }}
         >
           {copied ? "Copied ✓" : "Copy"}

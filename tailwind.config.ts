@@ -10,8 +10,8 @@ const config: Config = {
         ink: "#F4F4F4",
         inkSoft: "#9A9A9A",
         muted: "#525252",
-        accent: "#A3E635",
-        accentDeep: "#7CB205",
+        accent: "#A855F7",
+        accentDeep: "#7C3AED",
       },
       fontFamily: {
         display: ["var(--font-fraunces)", "Georgia", "serif"],

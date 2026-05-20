@@ -240,7 +240,7 @@ export default async function FixDetailPage({
               className="font-display italic text-[17px] leading-relaxed"
               style={{
                 color: "rgba(244,244,244,0.75)",
-                borderLeft: "2px solid rgba(163,230,53,0.35)",
+                borderLeft: "2px solid rgba(168,85,247,0.35)",
                 paddingLeft: 16,
               }}
             >

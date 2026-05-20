@@ -138,7 +138,7 @@ export default async function DashboardPage() {
               style={{ color: "#F4F4F4", fontSize: "clamp(24px, 4vw, 36px)", letterSpacing: "-0.02em" }}
             >
               Good {greeting},{" "}
-              <span style={{ color: "#A3E635" }}>{firstName}</span>
+              <span style={{ color: "#A855F7" }}>{firstName}</span>
               <span className="font-sans font-normal" style={{ fontSize: "0.5em", color: "rgba(244,244,244,0.3)", marginLeft: 4 }}>✦</span>
             </h1>
             <p className="font-sans text-sm mt-1" style={{ color: "rgba(244,244,244,0.4)" }}>
@@ -151,7 +151,7 @@ export default async function DashboardPage() {
           <Link
             href="/dashboard/new"
             className="hidden lg:flex items-center gap-2 px-4 py-2.5 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97] shrink-0"
-            style={{ background: "#A3E635", color: "#0A0A0A" }}
+            style={{ background: "#A855F7", color: "#0A0A0A" }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <line x1="12" y1="5" x2="12" y2="19" />
@@ -214,10 +214,10 @@ export default async function DashboardPage() {
           right: "1rem",
           width: 52,
           height: 52,
-          background: "#A3E635",
+          background: "#A855F7",
           color: "#0A0A0A",
           zIndex: 40,
-          boxShadow: "0 4px 24px rgba(163,230,53,0.35)",
+          boxShadow: "0 4px 24px rgba(168,85,247,0.35)",
         }}
         aria-label="New fix"
       >
@@ -235,17 +235,17 @@ function StatCard({ label, value, accent = false }: { label: string; value: stri
     <div
       className="rounded-2xl p-4 text-center"
       style={{
-        background: accent ? "rgba(163,230,53,0.06)" : "#111113",
-        border: accent ? "1px solid rgba(163,230,53,0.2)" : "1px solid rgba(244,244,244,0.07)",
+        background: accent ? "rgba(168,85,247,0.06)" : "#111113",
+        border: accent ? "1px solid rgba(168,85,247,0.2)" : "1px solid rgba(244,244,244,0.07)",
       }}
     >
       <p
         className="font-display font-black leading-none mb-1"
-        style={{ color: accent ? "#A3E635" : "#F4F4F4", fontSize: 28, letterSpacing: "-0.03em" }}
+        style={{ color: accent ? "#A855F7" : "#F4F4F4", fontSize: 28, letterSpacing: "-0.03em" }}
       >
         {value}
       </p>
-      <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: accent ? "rgba(163,230,53,0.6)" : "rgba(244,244,244,0.35)" }}>
+      <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: accent ? "rgba(168,85,247,0.6)" : "rgba(244,244,244,0.35)" }}>
         {label}
       </p>
     </div>
@@ -270,7 +270,7 @@ function EmptyState() {
       <Link
         href="/dashboard/new"
         className="flex items-center gap-2 px-6 py-3 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
-        style={{ background: "#A3E635", color: "#0A0A0A" }}
+        style={{ background: "#A855F7", color: "#0A0A0A" }}
       >
         + Log a fix
       </Link>
@@ -289,7 +289,7 @@ function EmptyState() {
           >
             <span
               className="font-mono text-[10px] uppercase tracking-widest mb-3 block"
-              style={{ color: "#A3E635" }}
+              style={{ color: "#A855F7" }}
             >
               {step}
             </span>

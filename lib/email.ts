@@ -25,7 +25,7 @@ export async function sendWelcomeEmail({
   <tr><td align="center">
     <table width="500" cellpadding="0" cellspacing="0" style="max-width:500px;width:100%;">
       <tr><td style="padding-bottom:32px;">
-        <span style="font-size:20px;font-weight:800;letter-spacing:-0.03em;color:#A3E635;">hyperfix</span>
+        <span style="font-size:20px;font-weight:800;letter-spacing:-0.03em;color:#A855F7;">hyperfix</span>
       </td></tr>
       <tr><td style="padding-bottom:20px;">
         <h1 style="margin:0;font-size:40px;font-weight:700;line-height:1;color:#F4F4F4;letter-spacing:-0.04em;">
@@ -50,7 +50,7 @@ export async function sendWelcomeEmail({
       </td></tr>
       <tr><td style="padding:28px 0 40px;">
         <a href="https://hyperfix.app/dashboard/new?welcome=1"
-          style="display:inline-block;background:#A3E635;color:#0A0A0A;font-size:14px;font-weight:700;text-decoration:none;padding:14px 28px;border-radius:12px;">
+          style="display:inline-block;background:#A855F7;color:#0A0A0A;font-size:14px;font-weight:700;text-decoration:none;padding:14px 28px;border-radius:12px;">
           log your first fix &rarr;
         </a>
       </td></tr>
@@ -94,7 +94,7 @@ export async function sendFollowNotification({
   <tr><td align="center">
     <table width="500" cellpadding="0" cellspacing="0" style="max-width:500px;width:100%;">
       <tr><td style="padding-bottom:32px;">
-        <span style="font-size:20px;font-weight:800;letter-spacing:-0.03em;color:#A3E635;">hyperfix</span>
+        <span style="font-size:20px;font-weight:800;letter-spacing:-0.03em;color:#A855F7;">hyperfix</span>
       </td></tr>
       <tr><td style="padding-bottom:20px;">
         <h1 style="margin:0;font-size:36px;font-weight:700;line-height:1;color:#F4F4F4;letter-spacing:-0.03em;">
@@ -109,7 +109,7 @@ export async function sendFollowNotification({
       </td></tr>
       <tr><td style="padding-bottom:40px;">
         <a href="https://hyperfix.app/u/${followerUsername}"
-          style="display:inline-block;background:#A3E635;color:#0A0A0A;font-size:14px;font-weight:700;text-decoration:none;padding:12px 24px;border-radius:12px;">
+          style="display:inline-block;background:#A855F7;color:#0A0A0A;font-size:14px;font-weight:700;text-decoration:none;padding:12px 24px;border-radius:12px;">
           view their profile &rarr;
         </a>
       </td></tr>
@@ -159,7 +159,7 @@ export async function sendReactionNotification({
   <tr><td align="center">
     <table width="500" cellpadding="0" cellspacing="0" style="max-width:500px;width:100%;">
       <tr><td style="padding-bottom:32px;">
-        <span style="font-size:20px;font-weight:800;letter-spacing:-0.03em;color:#A3E635;">hyperfix</span>
+        <span style="font-size:20px;font-weight:800;letter-spacing:-0.03em;color:#A855F7;">hyperfix</span>
       </td></tr>
       <tr><td style="padding-bottom:20px;">
         <h1 style="margin:0;font-size:48px;font-weight:700;line-height:1;color:#F4F4F4;letter-spacing:-0.03em;">
@@ -174,7 +174,7 @@ export async function sendReactionNotification({
       </td></tr>
       <tr><td style="padding-bottom:40px;">
         <a href="https://hyperfix.app/fix/${fixId}"
-          style="display:inline-block;background:#A3E635;color:#0A0A0A;font-size:14px;font-weight:700;text-decoration:none;padding:12px 24px;border-radius:12px;">
+          style="display:inline-block;background:#A855F7;color:#0A0A0A;font-size:14px;font-weight:700;text-decoration:none;padding:12px 24px;border-radius:12px;">
           see your fix &rarr;
         </a>
       </td></tr>

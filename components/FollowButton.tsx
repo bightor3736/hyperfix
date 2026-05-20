@@ -65,8 +65,8 @@ export function FollowButton({
                 color: "#f87171",
               }
             : {
-                background: "#A3E635",
-                border: "1px solid #A3E635",
+                background: "#A855F7",
+                border: "1px solid #A855F7",
                 color: "#0A0A0A",
               }
         }
@@ -82,14 +82,14 @@ export function FollowButton({
       className="px-4 py-1.5 rounded-full font-sans text-sm font-semibold transition-all duration-150 inline-block"
       style={{
         background: "transparent",
-        border: "1px solid rgba(163,230,53,0.4)",
-        color: "#A3E635",
+        border: "1px solid rgba(168,85,247,0.4)",
+        color: "#A855F7",
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLAnchorElement).style.borderColor = "#A3E635";
+        (e.currentTarget as HTMLAnchorElement).style.borderColor = "#A855F7";
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(163,230,53,0.4)";
+        (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(168,85,247,0.4)";
       }}
     >
       Follow
@@ -153,8 +153,8 @@ export function FollowButtonLoggedIn({
                 color: "#f87171",
               }
             : {
-                background: "#A3E635",
-                border: "1px solid #A3E635",
+                background: "#A855F7",
+                border: "1px solid #A855F7",
                 color: "#0A0A0A",
               }
         }
@@ -171,14 +171,14 @@ export function FollowButtonLoggedIn({
       className="px-4 py-1.5 rounded-full font-sans text-sm font-semibold transition-all duration-150 disabled:opacity-60"
       style={{
         background: "transparent",
-        border: "1px solid rgba(163,230,53,0.4)",
-        color: "#A3E635",
+        border: "1px solid rgba(168,85,247,0.4)",
+        color: "#A855F7",
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.borderColor = "#A3E635";
+        (e.currentTarget as HTMLButtonElement).style.borderColor = "#A855F7";
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(163,230,53,0.4)";
+        (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(168,85,247,0.4)";
       }}
     >
       Follow

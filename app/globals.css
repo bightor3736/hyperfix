@@ -211,7 +211,7 @@ details > summary::-webkit-details-marker {
   appearance: none;
   width: 16px;
   height: 16px;
-  background: #A3E635;
+  background: #A855F7;
   border-radius: 999px;
   cursor: pointer;
   transition: transform 0.15s ease;
@@ -227,7 +227,7 @@ details > summary::-webkit-details-marker {
 .hyperfix-range::-moz-range-thumb {
   width: 16px;
   height: 16px;
-  background: #A3E635;
+  background: #A855F7;
   border: none;
   border-radius: 999px;
   cursor: pointer;

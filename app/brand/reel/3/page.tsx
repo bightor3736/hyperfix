@@ -7,7 +7,7 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"], weight: ["500", "700", "900"], display: "swap" });
 
-const LIME = "#A3E635";
+const LIME = "#A855F7";
 const LIME_BRIGHT = "#C8FF3D";
 const LIME_DEEP = "#7CB205";
 const INK = "#0A0A0A";

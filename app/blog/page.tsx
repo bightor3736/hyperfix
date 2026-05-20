@@ -133,7 +133,7 @@ export default function BlogIndexPage() {
                   <a
                     key={post.slug}
                     href={`/blog/${post.slug}`}
-                    className="group block rounded-2xl p-6 transition-all duration-150 hover:border-[rgba(163,230,53,0.3)]"
+                    className="group block rounded-2xl p-6 transition-all duration-150 hover:border-[rgba(168,85,247,0.3)]"
                     style={{
                       background: "#111113",
                       border: "1px solid rgba(244,244,244,0.07)",
@@ -142,9 +142,9 @@ export default function BlogIndexPage() {
                     <span
                       className="inline-block font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 mb-4"
                       style={{
-                        background: "rgba(163,230,53,0.1)",
-                        color: "#A3E635",
-                        border: "1px solid rgba(163,230,53,0.15)",
+                        background: "rgba(168,85,247,0.1)",
+                        color: "#A855F7",
+                        border: "1px solid rgba(168,85,247,0.15)",
                       }}
                     >
                       {post.category}

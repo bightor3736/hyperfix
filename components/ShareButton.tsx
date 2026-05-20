@@ -60,8 +60,8 @@ export function ShareButton({ fixId, isPublic }: Props) {
           color: "rgba(244,244,244,0.7)",
         }}
         onMouseEnter={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.borderColor = "#A3E635";
-          (e.currentTarget as HTMLButtonElement).style.color = "#A3E635";
+          (e.currentTarget as HTMLButtonElement).style.borderColor = "#A855F7";
+          (e.currentTarget as HTMLButtonElement).style.color = "#A855F7";
         }}
         onMouseLeave={(e) => {
           (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(244,244,244,0.12)";
@@ -116,7 +116,7 @@ export function ShareButton({ fixId, isPublic }: Props) {
           <button
             onClick={handleCopyLink}
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-mono text-xs transition-colors text-left"
-            style={{ color: copied ? "#A3E635" : "rgba(244,244,244,0.7)" }}
+            style={{ color: copied ? "#A855F7" : "rgba(244,244,244,0.7)" }}
             onMouseEnter={(e) => !copied && ((e.currentTarget as HTMLButtonElement).style.background = "rgba(244,244,244,0.05)")}
             onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
           >

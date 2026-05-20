@@ -34,11 +34,11 @@ export function SearchInput({ defaultValue }: { defaultValue: string }) {
         color: "#F4F4F4",
         padding: "12px 0",
         letterSpacing: "-0.02em",
-        caretColor: "#A3E635",
+        caretColor: "#A855F7",
         transition: "border-color 0.15s",
       }}
       onFocus={(e) => {
-        (e.target as HTMLInputElement).style.borderBottomColor = "#A3E635";
+        (e.target as HTMLInputElement).style.borderBottomColor = "#A855F7";
       }}
       onBlur={(e) => {
         (e.target as HTMLInputElement).style.borderBottomColor = "rgba(244,244,244,0.12)";

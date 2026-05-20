@@ -263,7 +263,7 @@ export default async function Page({
                 <a
                   href="/join"
                   className="inline-flex items-center font-mono text-[12px] uppercase tracking-widest px-7 py-4 font-bold transition-all hover:opacity-90 active:scale-[0.98]"
-                  style={{ background: "#A3E635", color: "#0A0A0A", borderRadius: 999 }}
+                  style={{ background: "#A855F7", color: "#0A0A0A", borderRadius: 999 }}
                 >
                   Start tracking free →
                 </a>
@@ -377,7 +377,7 @@ export default async function Page({
                     <span
                       className="font-mono text-[11px] font-bold shrink-0 mt-0.5"
                       style={{
-                        background: "#A3E635",
+                        background: "#A855F7",
                         color: "#0A0A0A",
                         borderRadius: 999,
                         padding: "4px 11px",
@@ -587,7 +587,7 @@ export default async function Page({
                   <span
                     className="font-mono text-[10px] font-bold shrink-0 tabular"
                     style={{
-                      background: "#A3E635",
+                      background: "#A855F7",
                       color: "#0A0A0A",
                       borderRadius: 999,
                       padding: "3px 10px",
@@ -659,7 +659,7 @@ export default async function Page({
                     style={{
                       background: "#1C1C1E",
                       border: "1px solid rgba(244,244,244,0.07)",
-                      borderLeft: "3px solid rgba(163,230,53,0.4)",
+                      borderLeft: "3px solid rgba(168,85,247,0.4)",
                     }}
                   >
                     <p className="font-mono text-[9px] uppercase tracking-widest text-[rgba(244,244,244,0.25)] mb-4">
@@ -708,7 +708,7 @@ export default async function Page({
                       <span
                         className="font-mono text-[10px] font-bold shrink-0 tabular"
                         style={{
-                          background: "#A3E635",
+                          background: "#A855F7",
                           color: "#0A0A0A",
                           borderRadius: 999,
                           padding: "3px 10px",
@@ -805,7 +805,7 @@ export default async function Page({
               <a
                 href="/join"
                 className="font-mono text-[12px] uppercase tracking-widest px-8 py-4 font-bold transition-all hover:opacity-90 active:scale-[0.98]"
-                style={{ background: "#A3E635", color: "#0A0A0A", borderRadius: 999 }}
+                style={{ background: "#A855F7", color: "#0A0A0A", borderRadius: 999 }}
               >
                 Start tracking free →
               </a>

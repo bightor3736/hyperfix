@@ -45,7 +45,7 @@ export default function Error({
           <button
             onClick={reset}
             className="rounded-xl px-6 py-3 font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98]"
-            style={{ background: "#A3E635", color: "#0A0A0A" }}
+            style={{ background: "#A855F7", color: "#0A0A0A" }}
           >
             Try again
           </button>

@@ -10,7 +10,7 @@ const PAPER_DEEP = "#111113";
 const INK = "#F4F4F4";
 const INK_SOFT = "#9A9A9A";
 const MUTED = "#525252";
-const ACCENT = "#A3E635";
+const ACCENT = "#A855F7";
 
 const signs = [
   { n: "01", h: "You looked it up once.", sub: "now you know everything. seventeen tabs, the subreddit, the 2019 thread. you have opinions you didn't ask for." },

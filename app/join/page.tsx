@@ -46,9 +46,9 @@ function JoinPageInner() {
         <div
           className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest rounded-full px-4 py-2 mb-8"
           style={{
-            background: "rgba(163,230,53,0.1)",
-            border: "1px solid rgba(163,230,53,0.2)",
-            color: "#A3E635",
+            background: "rgba(168,85,247,0.1)",
+            border: "1px solid rgba(168,85,247,0.2)",
+            color: "#A855F7",
           }}
         >
           <span>✦</span>
@@ -86,7 +86,7 @@ function JoinPageInner() {
           ].map((feat) => (
             <div key={feat} className="flex items-start gap-3">
               <svg className="shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 18 18" fill="none">
-                <circle cx="9" cy="9" r="9" fill="rgba(163,230,53,0.15)" />
+                <circle cx="9" cy="9" r="9" fill="rgba(168,85,247,0.15)" />
                 <path d="M5.5 9l2.5 2.5 4.5-5" stroke="#a3e635" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <span className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.65)" }}>
@@ -99,7 +99,7 @@ function JoinPageInner() {
         <a
           href="/auth/signup"
           className="inline-flex items-center justify-center w-full py-4 rounded-2xl font-sans text-base font-bold transition-all hover:opacity-90 active:scale-[0.98]"
-          style={{ background: "#A3E635", color: "#0A0A0A" }}
+          style={{ background: "#A855F7", color: "#0A0A0A" }}
         >
           Join free →
         </a>

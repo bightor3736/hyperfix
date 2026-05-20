@@ -7,7 +7,7 @@ export const runtime = "edge";
    negative-space cuts. Inspired by the Bitcore B style. */
 const SIZE = { width: 1024, height: 1024 };
 
-const ACCENT = "#A3E635";
+const ACCENT = "#A855F7";
 const DARK = "#0B0B0B";
 
 function Frame({ children }: { children: React.ReactNode }) {

@@ -8,7 +8,7 @@ const SIZE = { width: 1200, height: 630 };
 const BG = "#080808";
 const INK = "#F4F4F4";
 const MUTED = "#525252";
-const ACCENT = "#A3E635";
+const ACCENT = "#A855F7";
 const SOFT = "#9A9A9A";
 
 export async function GET(req: NextRequest) {

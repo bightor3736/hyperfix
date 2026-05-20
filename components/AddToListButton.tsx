@@ -145,13 +145,13 @@ export function AddToListButton({ fixId }: { fixId: string }) {
                   disabled={pending === list.id}
                   className="w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors hover:bg-white/5"
                 >
-                  <span className="font-sans text-sm truncate" style={{ color: list.hasThisFix ? "#A3E635" : "rgba(244,244,244,0.8)" }}>
+                  <span className="font-sans text-sm truncate" style={{ color: list.hasThisFix ? "#A855F7" : "rgba(244,244,244,0.8)" }}>
                     {list.name}
                   </span>
                   <span
                     className="shrink-0 w-4 h-4 rounded flex items-center justify-center ml-2"
                     style={{
-                      background: list.hasThisFix ? "#A3E635" : "rgba(244,244,244,0.08)",
+                      background: list.hasThisFix ? "#A855F7" : "rgba(244,244,244,0.08)",
                       border: list.hasThisFix ? "none" : "1px solid rgba(244,244,244,0.15)",
                     }}
                   >
@@ -182,7 +182,7 @@ export function AddToListButton({ fixId }: { fixId: string }) {
                   onClick={handleCreateList}
                   disabled={!newListName.trim() || pending === "new"}
                   className="font-mono text-[10px] px-2 py-1 rounded transition-opacity hover:opacity-90 disabled:opacity-40"
-                  style={{ background: "#A3E635", color: "#0A0A0A" }}
+                  style={{ background: "#A855F7", color: "#0A0A0A" }}
                 >
                   Create
                 </button>
