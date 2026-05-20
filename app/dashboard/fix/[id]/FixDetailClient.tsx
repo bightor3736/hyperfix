@@ -8,6 +8,7 @@ import { updateFixTags } from "@/app/actions/tags";
 import { AddToListButton } from "@/components/AddToListButton";
 import { useToast } from "@/components/Toast";
 import { TagsInput } from "@/components/TagsInput";
+import { CloseSquare, Star } from "react-iconly";
 
 function getMilestone(days: number): { icon: string; heading: string; sub: string } | null {
   if (days === 365) return { icon: "🏆", heading: "One whole year.", sub: "You have been unwell for 365 days. Legendary." };
@@ -270,9 +271,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
             style={{ color: "rgba(244,244,244,0.3)" }}
             aria-label="Dismiss"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-              <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
+            <CloseSquare set="light" size={15} primaryColor="currentColor" />
           </button>
         </div>
       )}
@@ -334,9 +333,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 style={{ background: "rgba(244,244,244,0.08)", color: "rgba(244,244,244,0.45)" }}
                 aria-label="Cancel"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
+                <CloseSquare set="light" size={15} primaryColor="currentColor" />
               </button>
 
               {/* Intensity orb — the hero */}
@@ -787,9 +784,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                   color: "#5EEAD4",
                 }}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
+                <Star set="bold" size={15} primaryColor="currentColor" />
                 {generatingEulogy ? "Generating…" : "Write it for me with AI"}
               </button>
             ) : (
@@ -803,9 +798,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                   textDecoration: "none",
                 }}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
+                <Star set="light" size={15} primaryColor="currentColor" />
                 AI eulogy — Pro only · upgrade →
               </a>
             )}

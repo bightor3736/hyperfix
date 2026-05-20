@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { TagsInput } from "@/components/TagsInput";
+import { CloseSquare, Star } from "react-iconly";
 
 const CATEGORIES = [
   "song", "fanfic", "show", "film", "ship", "game",
@@ -121,10 +122,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
             style={{ color: "rgba(94,234,212,0.6)" }}
             aria-label="Dismiss welcome banner"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
+            <CloseSquare set="light" size={15} primaryColor="currentColor" />
           </button>
           <p className="font-sans text-sm pr-6" style={{ color: "rgba(94,234,212,0.9)" }}>
             Welcome to Hyperfix 👋 Log your first fix below — what are you obsessed with right now?
@@ -146,9 +144,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
             className="w-12 h-12 rounded-2xl flex items-center justify-center"
             style={{ background: "rgba(94,234,212,0.12)", border: "1px solid rgba(94,234,212,0.2)" }}
           >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5EEAD4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-            </svg>
+            <Star set="bold" size={22} primaryColor="#5EEAD4" />
           </div>
           <div>
             <h3 className="font-display font-bold text-xl mb-1" style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}>

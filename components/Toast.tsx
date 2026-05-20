@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { TickSquare, CloseSquare, InfoCircle } from "react-iconly";
 
 type ToastType = "success" | "error" | "info";
 
@@ -25,28 +26,9 @@ export function useToast() {
 }
 
 function ToastIcon({ type }: { type: ToastType }) {
-  if (type === "success") {
-    return (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5EEAD4" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="20 6 9 17 4 12" />
-      </svg>
-    );
-  }
-  if (type === "error") {
-    return (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f87171" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18" />
-        <line x1="6" y1="6" x2="18" y2="18" />
-      </svg>
-    );
-  }
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(244,244,244,0.7)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <line x1="12" y1="8" x2="12" y2="12" />
-      <line x1="12" y1="16" x2="12.01" y2="16" />
-    </svg>
-  );
+  if (type === "success") return <TickSquare set="bold" size={16} primaryColor="#5EEAD4" />;
+  if (type === "error") return <CloseSquare set="bold" size={16} primaryColor="#f87171" />;
+  return <InfoCircle set="light" size={16} primaryColor="rgba(244,244,244,0.7)" />;
 }
 
 function ToastBorderColor(type: ToastType) {

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { addFixToList, removeFixFromList, createList } from "@/app/actions/lists";
+import { Plus, TickSquare } from "react-iconly";
 
 type FixList = {
   id: string;
@@ -105,10 +106,7 @@ export function AddToListButton({ fixId }: { fixId: string }) {
           color: "rgba(244,244,244,0.5)",
         }}
       >
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-          <line x1="12" y1="5" x2="12" y2="19" />
-          <line x1="5" y1="12" x2="19" y2="12" />
-        </svg>
+        <Plus set="light" size={13} primaryColor="currentColor" />
         Add to list
       </button>
 
@@ -156,9 +154,7 @@ export function AddToListButton({ fixId }: { fixId: string }) {
                     }}
                   >
                     {list.hasThisFix && (
-                      <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="#0A0A0A" strokeWidth="2.5" strokeLinecap="round">
-                        <polyline points="2 6 5 9 10 3" />
-                      </svg>
+                      <TickSquare set="bold" size={10} primaryColor="#0A0A0A" />
                     )}
                   </span>
                 </button>
@@ -193,10 +189,7 @@ export function AddToListButton({ fixId }: { fixId: string }) {
                 className="w-full flex items-center gap-2 px-3 py-2.5 font-mono text-[11px] transition-colors hover:bg-[rgba(244,244,244,0.05)]"
                 style={{ color: "rgba(244,244,244,0.4)" }}
               >
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <line x1="12" y1="5" x2="12" y2="19" />
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
+                <Plus set="light" size={13} primaryColor="currentColor" />
                 New list
               </button>
             )}

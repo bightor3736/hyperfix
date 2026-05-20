@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { NewFixForm } from "./NewFixForm";
+import { ArrowLeft } from "@/components/icons";
 
 export const metadata = { title: "New Fix · Hyperfix" };
 
@@ -41,9 +42,7 @@ export default async function NewFixPage() {
           className="motion-link inline-flex items-center gap-2 font-sans text-sm mb-8 transition-colors anim-fadeUp"
           style={{ color: "rgba(255,255,255,0.55)" }}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
+          <ArrowLeft set="light" size={18} primaryColor="currentColor" />
           My fixes
         </Link>
 

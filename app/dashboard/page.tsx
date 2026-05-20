@@ -6,6 +6,7 @@ import { SkeletonGrid } from "@/components/FixCardSkeleton";
 import { OnboardingModal } from "@/components/OnboardingModal";
 import { StreakHeatmap } from "@/components/StreakHeatmap";
 import { WeekRings } from "@/components/WeekRings";
+import { Plus } from "@/components/icons";
 
 type Fix = {
   id: string;
@@ -232,10 +233,7 @@ export default async function DashboardPage() {
                 boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4)",
               }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                <line x1="12" y1="5" x2="12" y2="19" />
-                <line x1="5" y1="12" x2="19" y2="12" />
-              </svg>
+              <Plus set="light" size={16} primaryColor="currentColor" />
               New fix
             </Link>
           </div>
@@ -410,10 +408,7 @@ export default async function DashboardPage() {
         }}
         aria-label="New fix"
       >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-          <line x1="12" y1="5" x2="12" y2="19" />
-          <line x1="5" y1="12" x2="19" y2="12" />
-        </svg>
+        <Plus set="bold" size={24} primaryColor="currentColor" />
       </Link>
     </div>
   );

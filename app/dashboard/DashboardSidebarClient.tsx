@@ -6,6 +6,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { LogoLockup } from "@/components/Logo";
 import { NotificationBell } from "@/components/NotificationBell";
+import { Home, Discovery, Search, Category, Star, Setting, Plus, Logout } from "react-iconly";
 
 type Props = {
   displayName: string;
@@ -32,53 +33,27 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
     {
       href: "/dashboard",
       label: "Dashboard",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-          <polyline points="9 22 9 12 15 12 15 22" />
-        </svg>
-      ),
+      icon: (active: boolean) => <Home set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
     },
     {
       href: "/explore",
       label: "Explore",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="11" cy="11" r="8" />
-          <line x1="21" y1="21" x2="16.65" y2="16.65" />
-        </svg>
-      ),
+      icon: (active: boolean) => <Discovery set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
     },
     {
       href: "/search",
       label: "Search",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="11" cy="11" r="8" />
-          <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          <line x1="8" y1="11" x2="14" y2="11" />
-          <line x1="11" y1="8" x2="11" y2="14" />
-        </svg>
-      ),
+      icon: (active: boolean) => <Search set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
     },
     {
       href: "/dashboard/lists",
       label: "Lists",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="8" y1="6" x2="21" y2="6" />
-          <line x1="8" y1="12" x2="21" y2="12" />
-          <line x1="8" y1="18" x2="21" y2="18" />
-          <line x1="3" y1="6" x2="3.01" y2="6" />
-          <line x1="3" y1="12" x2="3.01" y2="12" />
-          <line x1="3" y1="18" x2="3.01" y2="18" />
-        </svg>
-      ),
+      icon: (active: boolean) => <Category set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
     },
     {
       href: "/dashboard/graveyard",
       label: "Graveyard",
-      icon: (
+      icon: (_active: boolean) => (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="6" y="2" width="12" height="14" rx="6" />
           <path d="M6 16 L4 22 L20 22 L18 16" />
@@ -89,21 +64,12 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
     {
       href: `/wrapped/${new Date().getFullYear()}`,
       label: `Wrapped '${String(new Date().getFullYear()).slice(2)}`,
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-        </svg>
-      ),
+      icon: (active: boolean) => <Star set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
     },
     {
       href: "/dashboard/settings",
       label: "Settings",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-          <circle cx="12" cy="12" r="3" />
-        </svg>
-      ),
+      icon: (active: boolean) => <Setting set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
     },
   ];
 
@@ -129,9 +95,7 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
           className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
           style={{ background: "#5EEAD4", color: "#F4F4F4" }}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-            <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
-          </svg>
+          <Plus set="light" size={16} primaryColor="currentColor" />
           New fix
         </Link>
       </div>
@@ -162,7 +126,7 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
                 border: isActive ? "1px solid rgba(94,234,212,0.15)" : "1px solid transparent",
               }}
             >
-              {item.icon}
+              {item.icon(isActive)}
               {item.label}
             </Link>
           );
@@ -229,11 +193,7 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
             border: "1px solid rgba(244,244,244,0.06)",
           }}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-            <polyline points="16 17 21 12 16 7" />
-            <line x1="21" y1="12" x2="9" y2="12" />
-          </svg>
+          <Logout set="light" size={16} primaryColor="currentColor" />
           {pending ? "Signing out…" : "Sign out"}
         </button>
       </div>

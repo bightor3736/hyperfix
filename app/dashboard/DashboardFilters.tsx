@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
 import { checkInFix, bulkCheckInFixes } from "@/app/actions/fixes";
 import { CountUp } from "@/components/CountUp";
+import { Search, TickSquare } from "react-iconly";
 
 type Fix = {
   id: string;
@@ -235,9 +236,7 @@ function FixGridCard({
               transition: "color 0.3s ease",
             }}
           >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M20 6 9 17l-5-5" />
-            </svg>
+            <TickSquare set="light" size={13} primaryColor="currentColor" />
             {justCheckedIn ? "logged" : "checked in today"}
           </span>
         ) : (
@@ -372,10 +371,7 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
             className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"
             style={{ color: "rgba(255,255,255,0.4)" }}
           >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
+            <Search set="light" size={16} primaryColor="currentColor" />
           </div>
           <input
             type="text"

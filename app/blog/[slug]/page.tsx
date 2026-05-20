@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { getPostBySlug, posts } from "@/lib/blog";
+import { ArrowLeft } from "@/components/icons";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -77,9 +78,7 @@ export default async function BlogPostPage({ params }: Props) {
             className="inline-flex items-center gap-2 font-sans text-sm mb-6 transition-colors anim-fadeUp"
             style={{ color: "rgba(255,255,255,0.5)" }}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
+            <ArrowLeft set="light" size={16} primaryColor="currentColor" />
             Blog
           </a>
 

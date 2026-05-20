@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createList } from "@/app/actions/lists";
+import { ArrowLeft } from "react-iconly";
 
 export default function NewListPage() {
   const router = useRouter();
@@ -44,9 +45,7 @@ export default function NewListPage() {
             className="inline-flex items-center gap-2 font-sans text-sm transition-colors hover:opacity-80"
             style={{ color: "rgba(244,244,244,0.4)" }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
+            <ArrowLeft set="light" size={18} primaryColor="currentColor" />
             Your lists
           </Link>
         </div>

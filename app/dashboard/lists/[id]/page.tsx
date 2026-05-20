@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { deleteList, removeFixFromList } from "@/app/actions/lists";
+import { ArrowLeft, Edit, Delete, CloseSquare } from "@/components/icons";
 
 type FixInList = {
   id: string;
@@ -111,9 +112,7 @@ export default async function ListDetailPage({
             className="inline-flex items-center gap-2 font-sans text-sm transition-colors hover:opacity-80"
             style={{ color: "rgba(244,244,244,0.4)" }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
+            <ArrowLeft set="light" size={18} primaryColor="currentColor" />
             Your lists
           </Link>
         </div>
@@ -192,10 +191,7 @@ export default async function ListDetailPage({
                   color: "rgba(244,244,244,0.6)",
                 }}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                </svg>
+                <Edit set="light" size={15} primaryColor="currentColor" />
                 Edit
               </Link>
 
@@ -214,12 +210,7 @@ export default async function ListDetailPage({
                     color: "#fda4af",
                   }}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="3 6 5 6 21 6" />
-                    <path d="M19 6l-1 14H6L5 6" />
-                    <path d="M10 11v6M14 11v6" />
-                    <path d="M9 6V4h6v2" />
-                  </svg>
+                  <Delete set="light" size={15} primaryColor="currentColor" />
                   Delete
                 </button>
               </form>
@@ -327,10 +318,7 @@ export default async function ListDetailPage({
                         }}
                         aria-label={`Remove ${fix.title} from list`}
                       >
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                          <line x1="18" y1="6" x2="6" y2="18" />
-                          <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
+                        <CloseSquare set="light" size={13} primaryColor="currentColor" />
                       </button>
                     </form>
                   )}

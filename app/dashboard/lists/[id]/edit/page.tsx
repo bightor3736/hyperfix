@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { updateList } from "@/app/actions/lists";
 import Link from "next/link";
 import { use } from "react";
+import { ArrowLeft } from "react-iconly";
 
 export default function EditListPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -77,9 +78,7 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
             className="inline-flex items-center gap-2 font-sans text-sm transition-opacity hover:opacity-70"
             style={{ color: "rgba(244,244,244,0.4)" }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
+            <ArrowLeft set="light" size={18} primaryColor="currentColor" />
             Back to list
           </Link>
         </div>
