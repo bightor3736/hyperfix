@@ -4,31 +4,56 @@ import { OAuthButtons, OrDivider, LoginFormInner } from "@/components/AuthForm";
 
 export default function LoginPage() {
   return (
-    <div>
-      <h1
-        className="font-display font-bold text-[28px] leading-tight mb-1"
-        style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}
+    <div className="flex flex-col gap-1">
+      <span
+        className="self-start inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5 anim-fadeUp"
+        style={{
+          background: "rgba(94,234,212,0.10)",
+          color: "#5EEAD4",
+          border: "1px solid rgba(94,234,212,0.22)",
+        }}
       >
-        Welcome back
+        log in
+      </span>
+      <h1
+        className="font-display leading-tight mb-2 anim-fadeUp delay-100"
+        style={{
+          color: "#FFFFFF",
+          letterSpacing: "-0.02em",
+          fontSize: "clamp(28px, 4.5vw, 36px)",
+          fontWeight: 600,
+        }}
+      >
+        Welcome back.
       </h1>
-      <p className="font-sans text-sm mb-8" style={{ color: "rgba(244,244,244,0.4)" }}>
-        Enter your details to log back in.
+      <p
+        className="font-sans text-base mb-8 anim-fadeUp delay-200"
+        style={{ color: "rgba(255,255,255,0.55)" }}
+      >
+        Enter your details to pick up where you left off.
       </p>
 
-      <OAuthButtons mode="login" />
+      <div className="anim-fadeUp delay-300">
+        <OAuthButtons mode="login" />
+      </div>
 
-      <div className="mt-5 mb-5">
+      <div className="mt-5 mb-5 anim-fadeUp delay-400">
         <OrDivider />
       </div>
 
-      <LoginFormInner />
+      <div className="anim-fadeUp delay-500">
+        <LoginFormInner />
+      </div>
 
-      <p className="mt-6 text-center font-sans text-[13px]" style={{ color: "rgba(244,244,244,0.35)" }}>
+      <p
+        className="mt-6 text-center font-sans text-sm anim-fadeUp delay-700"
+        style={{ color: "rgba(255,255,255,0.45)" }}
+      >
         Don&apos;t have an account?{" "}
         <a
           href="/auth/signup"
-          className="font-semibold transition-colors hover:text-accent"
-          style={{ color: "#F4F4F4" }}
+          className="motion-link font-semibold transition-colors"
+          style={{ color: "#5EEAD4" }}
         >
           Sign up
         </a>

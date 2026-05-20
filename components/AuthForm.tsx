@@ -53,11 +53,12 @@ export function AuthInput({
           minLength={minLength}
           value={value}
           onChange={onChange ? (e) => onChange(e.target.value) : undefined}
-          className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.2)] focus:ring-2 focus:ring-[#5EEAD4]/40"
+          className="w-full rounded-2xl px-4 py-3.5 font-sans text-sm outline-none transition-all duration-200 placeholder:text-[rgba(244,244,244,0.22)] focus:ring-2 focus:ring-[#5EEAD4]/45 focus:border-[rgba(94,234,212,0.35)] focus:-translate-y-px"
           style={{
-            background: "#161616",
-            border: "1px solid rgba(244,244,244,0.1)",
+            background: "rgba(15,16,17,0.85)",
+            border: "1px solid rgba(255,255,255,0.08)",
             color: "#F4F4F4",
+            boxShadow: "0 1px 0 0 rgba(255,255,255,0.02) inset",
           }}
         />
         {isPassword && (
@@ -104,10 +105,10 @@ export function OAuthButtons({ mode }: { mode: "login" | "signup" }) {
         type="button"
         disabled={pending}
         onClick={() => handleOAuth("google")}
-        className="flex-1 flex items-center justify-center gap-2 rounded-xl py-3 font-sans text-sm font-medium transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50"
+        className="flex-1 flex items-center justify-center gap-2 rounded-2xl py-3.5 font-sans text-sm font-medium transition-all duration-200 hover:-translate-y-px hover:border-[rgba(94,234,212,0.28)] hover:shadow-[0_8px_28px_rgba(94,234,212,0.10)] active:scale-[0.98] disabled:opacity-50"
         style={{
-          background: "#161616",
-          border: "1px solid rgba(244,244,244,0.12)",
+          background: "rgba(15,16,17,0.85)",
+          border: "1px solid rgba(255,255,255,0.10)",
           color: "#F4F4F4",
         }}
       >
@@ -118,10 +119,10 @@ export function OAuthButtons({ mode }: { mode: "login" | "signup" }) {
         type="button"
         disabled={pending}
         onClick={() => handleOAuth("apple")}
-        className="flex-1 flex items-center justify-center gap-2 rounded-xl py-3 font-sans text-sm font-medium transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50"
+        className="flex-1 flex items-center justify-center gap-2 rounded-2xl py-3.5 font-sans text-sm font-medium transition-all duration-200 hover:-translate-y-px hover:border-[rgba(94,234,212,0.28)] hover:shadow-[0_8px_28px_rgba(94,234,212,0.10)] active:scale-[0.98] disabled:opacity-50"
         style={{
-          background: "#161616",
-          border: "1px solid rgba(244,244,244,0.12)",
+          background: "rgba(15,16,17,0.85)",
+          border: "1px solid rgba(255,255,255,0.10)",
           color: "#F4F4F4",
         }}
       >
@@ -156,10 +157,14 @@ export function SubmitButton({ label, pending }: { label: string; pending?: bool
     <button
       type="submit"
       disabled={pending}
-      className="w-full rounded-xl py-3.5 font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-      style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+      className="w-full rounded-full py-3.5 font-sans text-sm font-semibold transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] disabled:opacity-60 relative overflow-hidden"
+      style={{
+        background: "#FFFFFF",
+        color: "#0A0A0A",
+        boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 8px 28px rgba(94,234,212,0.30)",
+      }}
     >
-      {pending ? "Please wait…" : label}
+      <span className="relative z-10">{pending ? "Please wait…" : label}</span>
     </button>
   );
 }

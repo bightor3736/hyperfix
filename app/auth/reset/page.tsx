@@ -17,9 +17,7 @@ export default function ResetPasswordPage() {
   useEffect(() => {
     const supabase = createClient();
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        setReady(true);
-      }
+      if (session) setReady(true);
     });
   }, []);
 
@@ -43,23 +41,31 @@ export default function ResetPasswordPage() {
         setError(error.message);
       } else {
         setSuccess(true);
-        setTimeout(() => {
-          router.push("/dashboard");
-        }, 2000);
+        setTimeout(() => router.push("/dashboard"), 2000);
       }
     });
   }
 
   if (!ready) {
     return (
-      <div>
-        <h1
-          className="font-display font-bold text-[28px] leading-tight mb-1"
-          style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}
+      <div className="flex flex-col">
+        <span
+          className="self-start inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5 anim-fadeUp"
+          style={{
+            background: "rgba(94,234,212,0.10)",
+            color: "#5EEAD4",
+            border: "1px solid rgba(94,234,212,0.22)",
+          }}
         >
-          Reset password
+          verifying
+        </span>
+        <h1
+          className="font-display leading-tight mb-2 anim-fadeUp delay-100"
+          style={{ color: "#FFFFFF", letterSpacing: "-0.02em", fontSize: "clamp(28px, 4.5vw, 36px)", fontWeight: 600 }}
+        >
+          Reset password.
         </h1>
-        <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.4)" }}>
+        <p className="font-sans text-base anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.55)" }}>
           Verifying your reset link…
         </p>
       </div>
@@ -68,14 +74,24 @@ export default function ResetPasswordPage() {
 
   if (success) {
     return (
-      <div>
-        <h1
-          className="font-display font-bold text-[28px] leading-tight mb-2"
-          style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}
+      <div className="flex flex-col">
+        <span
+          className="self-start inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5 anim-fadeUp"
+          style={{
+            background: "rgba(94,234,212,0.10)",
+            color: "#5EEAD4",
+            border: "1px solid rgba(94,234,212,0.22)",
+          }}
         >
-          Password updated ✓
+          password updated
+        </span>
+        <h1
+          className="font-display leading-tight mb-2 anim-fadeUp delay-100"
+          style={{ color: "#FFFFFF", letterSpacing: "-0.02em", fontSize: "clamp(28px, 4.5vw, 36px)", fontWeight: 600 }}
+        >
+          You&apos;re back in.
         </h1>
-        <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.4)" }}>
+        <p className="font-sans text-base anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.55)" }}>
           Redirecting you to your dashboard…
         </p>
       </div>
@@ -83,18 +99,28 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div>
-      <h1
-        className="font-display font-bold text-[28px] leading-tight mb-1"
-        style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}
+    <div className="flex flex-col">
+      <span
+        className="self-start inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5 anim-fadeUp"
+        style={{
+          background: "rgba(94,234,212,0.10)",
+          color: "#5EEAD4",
+          border: "1px solid rgba(94,234,212,0.22)",
+        }}
       >
-        Set new password
+        new password
+      </span>
+      <h1
+        className="font-display leading-tight mb-2 anim-fadeUp delay-100"
+        style={{ color: "#FFFFFF", letterSpacing: "-0.02em", fontSize: "clamp(28px, 4.5vw, 36px)", fontWeight: 600 }}
+      >
+        Set a new password.
       </h1>
-      <p className="font-sans text-sm mb-8" style={{ color: "rgba(244,244,244,0.4)" }}>
+      <p className="font-sans text-base mb-8 anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.55)" }}>
         Choose a strong password for your account.
       </p>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 anim-fadeUp delay-300">
         <AuthInput
           label="New password"
           id="password"
@@ -120,8 +146,12 @@ export default function ResetPasswordPage() {
         <button
           type="submit"
           disabled={pending}
-          className="w-full rounded-xl py-3.5 font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-          style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+          className="w-full rounded-full py-3.5 font-sans text-sm font-semibold transition-all hover:opacity-95 active:scale-[0.98] disabled:opacity-60"
+          style={{
+            background: "#FFFFFF",
+            color: "#0A0A0A",
+            boxShadow: "0 1px 0 0 rgba(255,255,255,0.4) inset, 0 8px 28px rgba(94,234,212,0.22)",
+          }}
         >
           {pending ? "Updating…" : "Update password"}
         </button>
