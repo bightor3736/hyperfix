@@ -260,7 +260,7 @@ function slide4() {
   );
 }
 
-// Slide 5 — CTA: "log it before it ends"
+// Slide 5 — CTA
 function slide5() {
   return (
     <div
@@ -273,41 +273,64 @@ function slide5() {
         padding: "140px 96px 100px",
       }}
     >
+      {/* Top label */}
       <div style={{
-        display: "flex", alignItems: "center", justifyContent: "center",
-        width: 130, height: 130,
+        display: "flex", alignItems: "center",
         background: "rgba(94,234,212,0.08)",
-        border: "1px solid rgba(94,234,212,0.18)",
-        borderRadius: 999,
+        border: "1px solid rgba(94,234,212,0.2)",
+        color: "#5EEAD4", fontSize: 26, fontWeight: 500,
+        borderRadius: 999, padding: "12px 32px",
+        fontFamily: "monospace", letterSpacing: "0.06em",
+        textTransform: "uppercase", alignSelf: "flex-start",
       }}>
-        {GEM(80)}
+        free forever
       </div>
 
+      {/* Gem */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{
+          display: "flex", alignItems: "center", justifyContent: "center",
+          width: 280, height: 280,
+          background: "radial-gradient(ellipse 100% 100% at 50% 50%, rgba(94,234,212,0.16) 0%, rgba(45,212,191,0.04) 55%, transparent 75%)",
+          border: "1px solid rgba(94,234,212,0.14)",
+          borderRadius: 999,
+        }}>
+          {GEM(180)}
+        </div>
+      </div>
+
+      {/* CTA copy */}
       <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
         <span style={{ fontSize: 148, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.85 }}>
-          log it
+          tap the
         </span>
         <span style={{ fontSize: 148, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.85 }}>
-          before it
+          link.
         </span>
         <span style={{ fontSize: 148, fontWeight: 800, letterSpacing: "-0.05em", color: "#5EEAD4", lineHeight: 0.85 }}>
-          ends.
+          start your
         </span>
-        <span style={{ fontSize: 148, fontWeight: 800, letterSpacing: "-0.05em", color: "rgba(255,255,255,0.18)", lineHeight: 0.85 }}>
-          mourn it
-        </span>
-        <span style={{ fontSize: 148, fontWeight: 800, letterSpacing: "-0.05em", color: "rgba(255,255,255,0.18)", lineHeight: 0.85 }}>
-          after.
+        <span style={{ fontSize: 148, fontWeight: 800, letterSpacing: "-0.05em", color: "#5EEAD4", lineHeight: 0.85 }}>
+          first fix.
         </span>
       </div>
 
+      {/* URL block + dots */}
       <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <span style={{ fontSize: 54, fontWeight: 700, color: "#5EEAD4", letterSpacing: "-0.02em" }}>
+        <div style={{
+          display: "flex", flexDirection: "column", gap: 0,
+          background: "rgba(94,234,212,0.06)",
+          border: "1px solid rgba(94,234,212,0.15)",
+          borderRadius: 24, padding: "28px 40px",
+        }}>
+          <span style={{ fontSize: 22, color: "rgba(255,255,255,0.3)", fontFamily: "monospace", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 8 }}>
+            link in bio
+          </span>
+          <span style={{ fontSize: 58, fontWeight: 700, color: "#5EEAD4", letterSpacing: "-0.02em" }}>
             hyperfix.app
           </span>
-          <span style={{ fontSize: 28, color: "rgba(255,255,255,0.3)" }}>
-            free forever. no credit card. just obsessions.
+          <span style={{ fontSize: 26, color: "rgba(255,255,255,0.25)", marginTop: 8 }}>
+            no credit card. no catch. just obsessions.
           </span>
         </div>
         <Dots current={4} total={5} />
