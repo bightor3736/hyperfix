@@ -219,12 +219,15 @@ export default function PricingPage() {
                 </div>
                 <div className="flex items-end gap-1.5 mb-1 relative">
                   <span className="font-display font-bold text-accent" style={{ fontSize: "3.2rem", lineHeight: 1.05 }}>
-                    £TBA
+                    Early
                   </span>
-                  <span className="font-sans text-sm pb-2" style={{ color: "rgba(244,244,244,0.38)" }}>/mo</span>
+                  <span className="font-sans text-sm pb-2" style={{ color: "rgba(244,244,244,0.38)" }}>price</span>
                 </div>
-                <p className="font-sans text-sm mb-7 pb-7 relative" style={{ color: "rgba(163,230,53,0.5)", borderBottom: "1px solid rgba(163,230,53,0.1)" }}>
-                  Locked in at launch price — forever.
+                <p className="font-sans text-sm mb-2 relative" style={{ color: "rgba(163,230,53,0.5)" }}>
+                  Price announced at launch — waitlist gets it first.
+                </p>
+                <p className="font-sans text-xs mb-7 pb-7 relative" style={{ color: "rgba(244,244,244,0.3)", borderBottom: "1px solid rgba(163,230,53,0.1)" }}>
+                  Join now to lock in your permanent early-access discount.
                 </p>
 
                 <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "rgba(244,244,244,0.28)" }}>

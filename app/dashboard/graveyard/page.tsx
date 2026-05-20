@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { FixStatusPill } from "@/components/FixStatusPill";
 import Link from "next/link";
+import { GraveyardExportButton } from "@/components/GraveyardExportButton";
 
 type GraveyardFix = {
   id: string;
@@ -220,12 +221,15 @@ export default async function GraveyardPage() {
             The things that used to run your life.
           </p>
 
-          <p
-            className="font-mono text-[10px] uppercase tracking-widest mt-3"
-            style={{ color: "rgba(244,244,244,0.25)" }}
-          >
-            RIP · {total} {total === 1 ? "fix" : "fixes"}
-          </p>
+          <div className="flex items-center justify-between mt-3">
+            <p
+              className="font-mono text-[10px] uppercase tracking-widest"
+              style={{ color: "rgba(244,244,244,0.25)" }}
+            >
+              RIP · {total} {total === 1 ? "fix" : "fixes"}
+            </p>
+            {total > 0 && <GraveyardExportButton />}
+          </div>
         </div>
 
         {/* Grid or empty state */}

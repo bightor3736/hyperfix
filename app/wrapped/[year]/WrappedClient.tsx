@@ -37,12 +37,45 @@ export function WrappedClient({
   quote,
 }: Props) {
   const [copied, setCopied] = useState(false);
+  const [downloading, setDownloading] = useState(false);
 
   function handleShare() {
     navigator.clipboard.writeText(window.location.href).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
+  }
+
+  async function handleDownloadImage() {
+    setDownloading(true);
+    try {
+      const totalFixes = statCards.find((s) => s.label === "total fixes")?.value ?? "0";
+      const totalDays = statCards.find((s) => s.label === "days fixated")?.value ?? "0";
+      const topCategory = statCards.find((s) => s.label === "top category")?.value ?? "other";
+      const avgIntensity = statCards.find((s) => s.label === "avg intensity")?.value ?? "0";
+
+      const params = new URLSearchParams({
+        year: String(year),
+        totalFixes,
+        totalDays,
+        topCategory,
+        avgIntensity,
+        longestTitle: longestFix.title,
+        longestDays: String(longestFix.days),
+        quote,
+      });
+
+      const res = await fetch(`/api/wrapped/image?${params}`);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `hyperfix-wrapped-${year}.png`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } finally {
+      setDownloading(false);
+    }
   }
 
   return (
@@ -156,14 +189,31 @@ export function WrappedClient({
           </p>
         </div>
 
-        {/* Share button */}
-        <div className="flex justify-center">
+        {/* Share / download buttons */}
+        <div className="flex flex-wrap justify-center gap-3">
           <button
             onClick={handleShare}
             className="flex items-center gap-2 px-6 py-3 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98]"
             style={{ background: "#A3E635", color: "#0A0A0A" }}
           >
             {copied ? "Copied!" : "Share my Wrapped →"}
+          </button>
+          <button
+            onClick={handleDownloadImage}
+            disabled={downloading}
+            className="flex items-center gap-2 px-6 py-3 rounded-xl font-sans text-sm font-semibold transition-all hover:opacity-80 disabled:opacity-50"
+            style={{
+              background: "rgba(163,230,53,0.08)",
+              border: "1px solid rgba(163,230,53,0.25)",
+              color: "#A3E635",
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            {downloading ? "Generating…" : "Download image"}
           </button>
         </div>
       </div>
