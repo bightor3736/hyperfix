@@ -306,15 +306,22 @@ export function ExploreTabSwitcher({
 }: Props) {
   const [tab, setTab] = useState<"everyone" | "trending" | "following" | "activity">("everyone");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [extraFixes, setExtraFixes] = useState<Fix[]>([]);
+  const [extraReactions, setExtraReactions] = useState<Record<string, ReactionCounts>>({});
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(everyoneFixes.length >= 48);
 
   const isLoggedIn = followingFixes !== null;
+
+  const allEveryoneFixes = [...everyoneFixes, ...extraFixes];
+  const allEveryoneReactions = { ...everyoneReactions, ...extraReactions };
 
   const rawFixes =
     tab === "following" && followingFixes
       ? followingFixes
       : tab === "trending"
       ? trendingFixes
-      : everyoneFixes;
+      : allEveryoneFixes;
   const fixes = selectedCategory
     ? rawFixes.filter((f) => f.category === selectedCategory)
     : rawFixes;
@@ -323,7 +330,23 @@ export function ExploreTabSwitcher({
       ? followingReactions
       : tab === "trending"
       ? trendingReactionMap
-      : everyoneReactions;
+      : allEveryoneReactions;
+
+  async function loadMore() {
+    setLoadingMore(true);
+    try {
+      const last = allEveryoneFixes.at(-1);
+      const params = new URLSearchParams({ cursor: last?.created_at ?? "" });
+      if (selectedCategory) params.set("category", selectedCategory);
+      const res = await fetch(`/api/explore/fixes?${params}`);
+      const data = await res.json();
+      setExtraFixes((prev) => [...prev, ...(data.fixes ?? [])]);
+      setExtraReactions((prev) => ({ ...prev, ...(data.reactions ?? {}) }));
+      setHasMore(data.hasMore ?? false);
+    } finally {
+      setLoadingMore(false);
+    }
+  }
 
   return (
     <div>
@@ -459,7 +482,7 @@ export function ExploreTabSwitcher({
 
       {/* Feed */}
       {tab !== "activity" && (
-        fixes.length === 0 ? (
+        fixes.length === 0 && !loadingMore ? (
           <div className="flex flex-col items-center justify-center py-32 text-center">
             {selectedCategory && tab !== "trending" ? (
               <>
@@ -518,11 +541,29 @@ export function ExploreTabSwitcher({
             )}
           </div>
         ) : (
-          <div className="masonry-grid" style={{ columnGap: "16px" }}>
-            {fixes.map((fix) => (
-              <FixCard key={fix.id} fix={fix} reactions={reactions[fix.id] ?? {}} />
-            ))}
-          </div>
+          <>
+            <div className="masonry-grid" style={{ columnGap: "16px" }}>
+              {fixes.map((fix) => (
+                <FixCard key={fix.id} fix={fix} reactions={reactions[fix.id] ?? {}} />
+              ))}
+            </div>
+            {tab === "everyone" && hasMore && (
+              <div className="flex justify-center mt-10">
+                <button
+                  onClick={loadMore}
+                  disabled={loadingMore}
+                  className="px-8 py-3 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all hover:opacity-80 disabled:opacity-50"
+                  style={{
+                    background: "rgba(244,244,244,0.06)",
+                    border: "1px solid rgba(244,244,244,0.12)",
+                    color: "rgba(244,244,244,0.6)",
+                  }}
+                >
+                  {loadingMore ? "Loading…" : "Load more"}
+                </button>
+              </div>
+            )}
+          </>
         )
       )}
     </div>

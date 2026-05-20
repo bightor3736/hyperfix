@@ -1,10 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
+import { FixStatusPill as _FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
 import { notFound, redirect } from "next/navigation";
 import { FixDetailClient } from "./FixDetailClient";
 import { ShareButton } from "@/components/ShareButton";
 import { Sparkline } from "@/components/Sparkline";
+import { FixReactions } from "@/components/FixReactions";
 
 type Fix = {
   id: string;
@@ -103,6 +104,20 @@ export default async function FixDetailPage({
     .eq("id", user.id)
     .single();
   const isPinned = profileData?.pinned_fix_id === id;
+
+  // Reactions (only relevant for public fixes)
+  const initialReactions: Record<string, number> = {};
+  const userReactions: string[] = [];
+  if (typedFix.is_public) {
+    const { data: allReactions } = await supabase
+      .from("fix_reactions")
+      .select("emoji, user_id")
+      .eq("fix_id", id);
+    for (const r of allReactions ?? []) {
+      initialReactions[r.emoji] = (initialReactions[r.emoji] ?? 0) + 1;
+      if (r.user_id === user.id) userReactions.push(r.emoji);
+    }
+  }
 
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "#0A0A0A" }}>
@@ -231,6 +246,23 @@ export default async function FixDetailPage({
             >
               {typedFix.note}
             </p>
+          </div>
+        )}
+
+        {/* Reactions (public fixes only) */}
+        {typedFix.is_public && (
+          <div
+            className="rounded-2xl p-5 mb-4"
+            style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
+          >
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(244,244,244,0.3)" }}>
+              Reactions
+            </p>
+            <FixReactions
+              fixId={id}
+              initialReactions={initialReactions}
+              userReactions={userReactions}
+            />
           </div>
         )}
 
