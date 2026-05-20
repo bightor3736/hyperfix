@@ -146,8 +146,8 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
           </p>
           <a
             href="/pricing"
-            className="font-sans text-sm font-semibold shrink-0 transition-opacity hover:opacity-80"
-            style={{ color: "#FB923C" }}
+            className="shrink-0 px-4 py-2 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97] whitespace-nowrap"
+            style={{ background: "#FB923C", color: "#0A0A0A" }}
           >
             Upgrade →
           </a>
@@ -235,14 +235,14 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
 
       {/* Intensity slider */}
       <div className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2 flex-wrap">
           <label className="font-sans text-[13px] font-medium" style={{ color: "rgba(244,244,244,0.65)" }}>
             Intensity
           </label>
           <div className="flex items-center gap-2">
             <span
               className="font-display font-black leading-none"
-              style={{ color: intensityColor, fontSize: 28, letterSpacing: "-0.04em" }}
+              style={{ color: intensityColor, fontSize: 24, letterSpacing: "-0.04em" }}
             >
               {intensity}
             </span>

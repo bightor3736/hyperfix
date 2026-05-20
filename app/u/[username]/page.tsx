@@ -193,7 +193,7 @@ export default async function PublicProfilePage({
         </div>
       </nav>
 
-      <main id="main-content" className="max-w-4xl mx-auto px-6 py-12">
+      <main id="main-content" className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Profile header */}
         <div className="flex items-start gap-6 mb-10">
           {typedProfile.avatar_url ? (
@@ -285,11 +285,11 @@ export default async function PublicProfilePage({
           ].map((stat) => (
             <div
               key={stat.label}
-              className="px-6 py-5 text-center"
+              className="px-3 py-4 sm:px-6 sm:py-5 text-center"
               style={{ background: "#111113" }}
             >
-              <div className="text-2xl font-display font-medium mb-1">{stat.value}</div>
-              <div className="text-xs font-mono uppercase tracking-widest" style={{ color: "#9A9A9A" }}>
+              <div className="text-xl sm:text-2xl font-display font-medium mb-1 truncate">{stat.value}</div>
+              <div className="text-[9px] sm:text-xs font-mono uppercase tracking-widest" style={{ color: "#9A9A9A" }}>
                 {stat.label}
               </div>
             </div>

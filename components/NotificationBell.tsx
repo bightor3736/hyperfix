@@ -76,7 +76,7 @@ export function NotificationBell() {
     return () => clearInterval(interval);
   }, []);
 
-  function getNotificationText(n: Notification): { text: string; href: string } {
+  function getNotificationText(n: Notification): { text: string; href: string | null } {
     const actor = n.actor;
     const name = actor?.display_name ?? actor?.username ?? "Someone";
 
@@ -84,18 +84,18 @@ export function NotificationBell() {
       const fixTitle = n.fix?.title ?? "your fix";
       return {
         text: `${name} reacted ${n.emoji ?? ""} to "${fixTitle}"`,
-        href: n.fix_id ? `/fix/${n.fix_id}` : "#",
+        href: n.fix_id ? `/fix/${n.fix_id}` : null,
       };
     }
 
     if (n.type === "follow") {
       return {
         text: `${name} started following you`,
-        href: actor?.username ? `/u/${actor.username}` : "#",
+        href: actor?.username ? `/u/${actor.username}` : null,
       };
     }
 
-    return { text: "New notification", href: "#" };
+    return null as unknown as { text: string; href: string | null };
   }
 
   return (
@@ -174,18 +174,15 @@ export function NotificationBell() {
               </div>
             ) : (
               notifications.map((n) => {
-                const { text, href } = getNotificationText(n);
-                return (
-                  <a
-                    key={n.id}
-                    href={href}
-                    onClick={() => setOpen(false)}
-                    className="block px-4 py-3 transition-colors hover:bg-[rgba(244,244,244,0.04)]"
-                    style={{
-                      background: n.read ? "transparent" : "rgba(163,230,53,0.04)",
-                      borderBottom: "1px solid rgba(244,244,244,0.04)",
-                    }}
-                  >
+                const result = getNotificationText(n);
+                if (!result) return null;
+                const { text, href } = result;
+                const sharedStyle = {
+                  background: n.read ? "transparent" : "rgba(163,230,53,0.04)",
+                  borderBottom: "1px solid rgba(244,244,244,0.04)",
+                };
+                const inner = (
+                  <>
                     <p className="font-sans text-sm leading-snug" style={{ color: n.read ? "rgba(244,244,244,0.5)" : "#F4F4F4" }}>
                       {text}
                     </p>
@@ -197,7 +194,26 @@ export function NotificationBell() {
                         minute: "2-digit",
                       })}
                     </p>
+                  </>
+                );
+                return href ? (
+                  <a
+                    key={n.id}
+                    href={href}
+                    onClick={() => setOpen(false)}
+                    className="block px-4 py-3 transition-colors hover:bg-[rgba(244,244,244,0.04)]"
+                    style={sharedStyle}
+                  >
+                    {inner}
                   </a>
+                ) : (
+                  <div
+                    key={n.id}
+                    className="px-4 py-3"
+                    style={sharedStyle}
+                  >
+                    {inner}
+                  </div>
                 );
               })
             )}

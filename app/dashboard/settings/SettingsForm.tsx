@@ -430,7 +430,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
       <section>
         <SectionHeading>Plan</SectionHeading>
         <div
-          className="p-4 rounded-2xl flex items-center justify-between gap-4"
+          className="p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3"
           style={cardStyle}
         >
           <div>
@@ -445,7 +445,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           </div>
           {profile?.is_pro ? (
             <span
-              className="font-mono text-[9px] shrink-0 rounded px-2 py-1"
+              className="font-mono text-[9px] self-start sm:self-auto rounded px-2 py-1"
               style={{
                 background: "rgba(163,230,53,0.2)",
                 color: "#A3E635",
@@ -457,7 +457,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           ) : (
             <a
               href="/pricing"
-              className="shrink-0 px-4 py-2 rounded-full font-sans text-sm font-semibold transition-all hover:opacity-90"
+              className="self-start sm:self-auto px-4 py-2 rounded-full font-sans text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
               style={{ background: "#A3E635", color: "#0A0A0A" }}
             >
               Upgrade to Pro →
@@ -487,7 +487,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                 </span>
               </div>
               <p className="font-mono text-[11px]" style={{ color: "rgba(244,244,244,0.25)" }}>
-                Refer 3 friends → get Pro free (coming soon)
+                Refer 3 friends → earn Pro access at launch
               </p>
             </>
           ) : (

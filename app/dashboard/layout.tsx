@@ -106,7 +106,7 @@ function MobileNavLink({
       style={{ color: "rgba(244,244,244,0.45)" }}
     >
       {children}
-      <span className="font-mono text-[9px] uppercase tracking-widest">{label}</span>
+      <span className="font-mono text-[10px] uppercase tracking-widest">{label}</span>
     </Link>
   );
 }

@@ -226,9 +226,9 @@ export default async function PublicFixPage({
         </div>
       </nav>
 
-      <main id="main-content" className="max-w-3xl mx-auto px-6 py-12">
+      <main id="main-content" className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Category + status row */}
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center gap-3 mb-6 flex-wrap">
           <span
             className="text-[10px] font-mono uppercase tracking-widest rounded-full px-3 py-1.5"
             style={{
@@ -252,14 +252,17 @@ export default async function PublicFixPage({
         </div>
 
         {/* Title */}
-        <h1 className="text-4xl font-display font-medium leading-tight mb-4">
+        <h1
+          className="font-display font-medium leading-tight mb-4"
+          style={{ fontSize: "clamp(26px, 6vw, 40px)" }}
+        >
           {typedFix.title}
         </h1>
 
         {/* Days + intensity */}
         <div className="flex flex-wrap items-center gap-6 mb-8">
           <div>
-            <span className="text-5xl font-display font-medium" style={{ color: "#A3E635" }}>
+            <span className="font-display font-medium" style={{ color: "#A3E635", fontSize: "clamp(36px, 10vw, 56px)" }}>
               {days}
             </span>
             <span className="text-lg font-mono ml-2" style={{ color: "#9A9A9A" }}>
