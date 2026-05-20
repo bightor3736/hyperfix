@@ -9,6 +9,14 @@ import { AddToListButton } from "@/components/AddToListButton";
 import { useToast } from "@/components/Toast";
 import { TagsInput } from "@/components/TagsInput";
 
+function getMilestone(days: number): { icon: string; heading: string; sub: string } | null {
+  if (days === 365) return { icon: "🏆", heading: "One whole year.", sub: "You have been unwell for 365 days. Legendary." };
+  if (days === 100) return { icon: "💀", heading: "100 days deep.", sub: "That's dedication. Or a cry for help. Either way, we respect it." };
+  if (days === 30) return { icon: "⚡", heading: "One month in.", sub: "This fix has officially lasted longer than most diets." };
+  if (days === 7) return { icon: "🔥", heading: "One week.", sub: "Seven days strong. It's not a phase." };
+  return null;
+}
+
 const ALL_STATUSES: FixStatus[] = [
   "Day 1", "Obsessing", "On loop", "Fading", "Post-fix", "Ended", "Dormant", "Send help",
 ];
@@ -80,6 +88,10 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
 
   // AI eulogy generation state
   const [generatingEulogy, setGeneratingEulogy] = useState(false);
+
+  // Milestone banner
+  const [milestoneDismissed, setMilestoneDismissed] = useState(false);
+  const milestone = !ended ? getMilestone(days) : null;
 
   function handleStatusChange(newStatus: FixStatus) {
     setShowStatusDropdown(false);
@@ -227,19 +239,51 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
   return (
     <div className="flex flex-col gap-4">
 
+      {/* Milestone banner */}
+      {milestone && !milestoneDismissed && (
+        <div
+          className="rounded-2xl px-5 py-4 flex items-start gap-4 relative"
+          style={{
+            background: "rgba(168,85,247,0.08)",
+            border: "1px solid rgba(168,85,247,0.3)",
+            boxShadow: "0 0 32px rgba(168,85,247,0.12)",
+          }}
+        >
+          <span style={{ fontSize: 28, lineHeight: 1 }}>{milestone.icon}</span>
+          <div className="flex-1 min-w-0">
+            <p className="font-display font-bold text-base" style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}>
+              {milestone.heading}
+            </p>
+            <p className="font-sans text-sm mt-0.5" style={{ color: "rgba(244,244,244,0.5)" }}>
+              {milestone.sub}
+            </p>
+          </div>
+          <button
+            onClick={() => setMilestoneDismissed(true)}
+            className="shrink-0 p-1 rounded-lg transition-opacity hover:opacity-60"
+            style={{ color: "rgba(244,244,244,0.3)" }}
+            aria-label="Dismiss"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+      )}
+
       {/* Daily check-in */}
       {!ended && !checkedInToday && (
         <div>
           <button
             onClick={() => setShowCheckIn((v) => !v)}
-            className="px-4 py-2 rounded-full font-sans text-sm font-semibold transition-all hover:opacity-80 active:scale-[0.97]"
+            className="w-full sm:w-auto px-6 py-3 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
             style={{
-              background: "transparent",
-              border: "1px solid rgba(168,85,247,0.5)",
-              color: "#A855F7",
+              background: showCheckIn ? "rgba(168,85,247,0.12)" : "#A855F7",
+              border: showCheckIn ? "1px solid rgba(168,85,247,0.4)" : "1px solid transparent",
+              color: showCheckIn ? "#A855F7" : "#F4F4F4",
             }}
           >
-            Check in today +
+            {showCheckIn ? "Cancel check-in" : "✦ Check in today"}
           </button>
 
           {showCheckIn && (
@@ -336,9 +380,18 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
       )}
 
       {!ended && checkedInToday && (
-        <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "rgba(168,85,247,0.5)" }}>
-          ✓ Checked in today
-        </p>
+        <div
+          className="rounded-2xl px-4 py-3 flex items-center gap-3"
+          style={{
+            background: "rgba(168,85,247,0.06)",
+            border: "1px solid rgba(168,85,247,0.2)",
+          }}
+        >
+          <span style={{ fontSize: 16 }}>✓</span>
+          <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "rgba(168,85,247,0.7)" }}>
+            Checked in today
+          </p>
+        </div>
       )}
 
       {/* Status pill (clickable) */}
@@ -390,8 +443,13 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
       <div
         className="rounded-2xl p-5"
         style={{
-          background: "#111113",
-          border: "1px solid rgba(244,244,244,0.07)",
+          background: intensity >= 9 ? "rgba(230,57,70,0.04)" : "#111113",
+          border: intensity >= 9
+            ? "1px solid rgba(230,57,70,0.25)"
+            : intensity >= 7
+            ? "1px solid rgba(251,146,60,0.15)"
+            : "1px solid rgba(244,244,244,0.07)",
+          boxShadow: intensity >= 9 ? "0 0 24px rgba(230,57,70,0.1)" : "none",
         }}
       >
         <div className="flex items-center justify-between mb-3">

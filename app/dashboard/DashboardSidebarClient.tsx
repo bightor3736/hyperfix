@@ -122,6 +122,20 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
         </Link>
       </div>
 
+      {/* New fix CTA */}
+      <div className="px-3 pb-3">
+        <Link
+          href="/dashboard/new"
+          className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
+          style={{ background: "#A855F7", color: "#F4F4F4" }}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+            <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+          New fix
+        </Link>
+      </div>
+
       {/* Divider */}
       <div className="mx-4 mb-4" style={{ height: 1, background: "rgba(244,244,244,0.06)" }} />
 

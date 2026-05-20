@@ -183,41 +183,50 @@ export default async function FixDetailPage({
 
         {/* Day counter */}
         <div
-          className="rounded-2xl p-6 mb-4"
+          className="rounded-2xl p-6 mb-4 relative overflow-hidden"
           style={{
             background: "#111113",
             border: "1px solid rgba(244,244,244,0.07)",
           }}
         >
-          <div className="flex items-baseline gap-2 mb-1">
-            <span
-              className="font-display font-black leading-none"
-              style={{
-                color: "#F4F4F4",
-                fontSize: "clamp(72px, 14vw, 120px)",
-                letterSpacing: "-0.05em",
-                fontVariantNumeric: "tabular-nums",
-              }}
-            >
-              {days}
-            </span>
-            <span
-              className="font-sans font-medium"
-              style={{ color: "rgba(244,244,244,0.35)", fontSize: "clamp(20px,4vw,32px)" }}
-            >
-              day{days !== 1 ? "s" : ""}
-            </span>
-          </div>
-          <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.35)" }}>
-            Since {formatDate(typedFix.started_at)}
-            {typedFix.ended_at && (
-              <> · Ended {formatDate(typedFix.ended_at)}</>
-            )}
-          </p>
+          {/* Ambient glow behind the number */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(ellipse 55% 60% at 10% 50%, rgba(168,85,247,0.13), transparent 70%)",
+            }}
+          />
+          <div className="relative">
+            <div className="flex items-baseline gap-2 mb-1">
+              <span
+                className="font-display font-black leading-none"
+                style={{
+                  color: "#F4F4F4",
+                  fontSize: "clamp(72px, 14vw, 120px)",
+                  letterSpacing: "-0.05em",
+                  fontVariantNumeric: "tabular-nums",
+                }}
+              >
+                {days}
+              </span>
+              <span
+                className="font-sans font-medium"
+                style={{ color: "rgba(244,244,244,0.35)", fontSize: "clamp(20px,4vw,32px)" }}
+              >
+                day{days !== 1 ? "s" : ""}
+              </span>
+            </div>
+            <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.35)" }}>
+              Since {formatDate(typedFix.started_at)}
+              {typedFix.ended_at && (
+                <> · Ended {formatDate(typedFix.ended_at)}</>
+              )}
+            </p>
 
-          {/* Sparkline */}
-          <div className="mt-4">
-            <Sparkline entries={entriesForSparkline} />
+            {/* Sparkline */}
+            <div className="mt-4">
+              <Sparkline entries={entriesForSparkline} />
+            </div>
           </div>
         </div>
 

@@ -24,6 +24,26 @@ function getInitials(displayName: string | null, username: string | null): strin
   return name.slice(0, 2).toUpperCase();
 }
 
+function intensityRGB(intensity: number): string {
+  if (intensity >= 8) return "230,57,70";
+  if (intensity >= 6) return "251,146,60";
+  return "168,85,247";
+}
+
+function intensityColor(intensity: number): string {
+  if (intensity >= 8) return "#E63946";
+  if (intensity >= 6) return "#FB923C";
+  return "#A855F7";
+}
+
+function getMilestone(days: number): { icon: string; label: string } | null {
+  if (days >= 365) return { icon: "🏆", label: "1 year" };
+  if (days >= 100) return { icon: "💀", label: "100 days" };
+  if (days >= 30) return { icon: "⚡", label: "30 days" };
+  if (days >= 7) return { icon: "🔥", label: "7 days" };
+  return null;
+}
+
 type Fix = {
   id: string;
   title: string;
@@ -84,6 +104,8 @@ function MiniReactions({ counts }: { counts: ReactionCounts }) {
 }
 
 function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
+  const [hovered, setHovered] = useState(false);
+
   const profile = fix.profiles;
   const username = profile?.username ?? null;
   const displayName = profile?.display_name ?? null;
@@ -91,103 +113,147 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
   const days = dayCount(fix.started_at, fix.ended_at);
   const status = isValidStatus(fix.status) ? fix.status : "Day 1";
   const initials = getInitials(displayName, username);
+  const rgb = intensityRGB(fix.intensity);
+  const color = intensityColor(fix.intensity);
+  const milestone = getMilestone(days);
+  const pct = (fix.intensity / 10) * 100;
+
+  const ambientAlpha = fix.intensity >= 8 ? 0.12 : fix.intensity >= 6 ? 0.06 : 0.03;
+  const hoverAlpha = fix.intensity >= 8 ? 0.24 : fix.intensity >= 6 ? 0.15 : 0.09;
 
   return (
-    <Link
-      href={`/fix/${fix.id}`}
-      className="block rounded-2xl p-4 mb-4 transition-all duration-200 hover:border-[rgba(244,244,244,0.15)] hover:-translate-y-0.5 group"
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="rounded-2xl p-4 mb-4 group"
       style={{
-        background: "#111113",
-        border: "1px solid rgba(244,244,244,0.07)",
+        background: hovered ? "#141416" : "#111113",
+        border: `1px solid ${hovered ? `rgba(${rgb},0.28)` : "rgba(244,244,244,0.07)"}`,
+        boxShadow: hovered
+          ? `0 8px 28px rgba(${rgb},${hoverAlpha})`
+          : `0 0 18px rgba(${rgb},${ambientAlpha})`,
         breakInside: "avoid",
+        transition: "all 0.22s ease",
       }}
     >
-      {/* Category + status */}
-      <div className="flex items-center gap-2 flex-wrap mb-3">
-        <span
-          className="font-mono uppercase tracking-widest rounded-full px-2.5 py-1"
+      <Link href={`/fix/${fix.id}`} className="block">
+        {/* Category + status + milestone */}
+        <div className="flex items-center gap-2 flex-wrap mb-3">
+          <span
+            className="font-mono uppercase tracking-widest rounded-full px-2.5 py-1"
+            style={{
+              fontSize: 9,
+              background: `rgba(${rgb},0.1)`,
+              border: `1px solid rgba(${rgb},0.22)`,
+              color,
+            }}
+          >
+            {fix.category}
+          </span>
+          <FixStatusPill status={status} size="sm" />
+          {milestone && (
+            <span
+              className="font-mono rounded-full px-1.5 py-0.5 uppercase tracking-widest"
+              style={{
+                fontSize: 9,
+                background: `rgba(${rgb},0.1)`,
+                border: `1px solid rgba(${rgb},0.22)`,
+                color,
+              }}
+            >
+              {milestone.icon} {milestone.label}
+            </span>
+          )}
+        </div>
+
+        {/* Title */}
+        <h2
+          className="font-display font-medium mb-2 group-hover:text-[#A855F7] transition-colors"
           style={{
-            fontSize: 9,
-            background: "rgba(168,85,247,0.08)",
-            border: "1px solid rgba(168,85,247,0.2)",
-            color: "#A855F7",
-          }}
-        >
-          {fix.category}
-        </span>
-        <FixStatusPill status={status} size="sm" />
-      </div>
-
-      {/* Title */}
-      <h2
-        className="font-display font-medium mb-2 group-hover:text-[#A855F7] transition-colors"
-        style={{
-          fontSize: 15,
-          lineHeight: 1.35,
-          color: "#F4F4F4",
-          display: "-webkit-box",
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: "vertical",
-          overflow: "hidden",
-        }}
-      >
-        {fix.title}
-      </h2>
-
-      {/* Day count */}
-      <p className="font-mono text-sm mb-2" style={{ color: "#A855F7" }}>
-        {days} {days === 1 ? "day" : "days"}
-      </p>
-
-      {/* Note */}
-      {fix.note && (
-        <p
-          className="italic mb-3"
-          style={{
-            fontSize: 13,
-            color: "rgba(244,244,244,0.4)",
+            fontSize: 15,
+            lineHeight: 1.35,
+            color: "#F4F4F4",
             display: "-webkit-box",
             WebkitLineClamp: 2,
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
-            lineHeight: 1.5,
           }}
         >
-          {fix.note}
-        </p>
-      )}
+          {fix.title}
+        </h2>
 
-      {/* Footer */}
-      <div
-        className="flex items-center justify-between gap-3 mt-3 pt-3"
-        style={{ borderTop: "1px solid rgba(244,244,244,0.06)" }}
-      >
-        <div className="flex items-center gap-2 min-w-0">
+        {/* Day count + intensity number */}
+        <div className="flex items-center justify-between mb-2">
+          <p className="font-mono text-sm font-bold" style={{ color }}>
+            {days} {days === 1 ? "day" : "days"}
+          </p>
+          <span className="font-mono text-[11px]" style={{ color: "rgba(244,244,244,0.35)" }}>
+            {fix.intensity}/10
+          </span>
+        </div>
+
+        {/* Intensity bar */}
+        <div className="h-1 rounded-full overflow-hidden mb-3" style={{ background: "rgba(244,244,244,0.07)" }}>
           <div
-            className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center font-mono font-bold overflow-hidden"
+            className="h-full rounded-full"
             style={{
-              background: "rgba(168,85,247,0.15)",
-              border: "1px solid rgba(168,85,247,0.2)",
-              fontSize: 9,
-              color: "#A855F7",
+              width: `${pct}%`,
+              background: `linear-gradient(to right, rgba(${rgb},0.5), ${color})`,
+              boxShadow: `0 0 6px rgba(${rgb},0.6)`,
+            }}
+          />
+        </div>
+
+        {/* Note */}
+        {fix.note && (
+          <p
+            className="italic mb-3"
+            style={{
+              fontSize: 13,
+              color: "rgba(244,244,244,0.38)",
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              lineHeight: 1.5,
             }}
           >
-            {avatarUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={avatarUrl} alt={username ?? "user"} className="w-full h-full object-cover" />
-            ) : (
-              initials
+            {fix.note}
+          </p>
+        )}
+
+        {/* Footer */}
+        <div
+          className="flex items-center justify-between gap-3 mt-3 pt-3"
+          style={{ borderTop: "1px solid rgba(244,244,244,0.06)" }}
+        >
+          <div className="flex items-center gap-2 min-w-0">
+            <div
+              className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center font-mono font-bold overflow-hidden"
+              style={{
+                background: "rgba(168,85,247,0.12)",
+                border: "1px solid rgba(168,85,247,0.2)",
+                fontSize: 9,
+                color: "#A855F7",
+              }}
+            >
+              {avatarUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={avatarUrl} alt={username ?? "user"} className="w-full h-full object-cover" />
+              ) : (
+                initials
+              )}
+            </div>
+            {username && (
+              <span className="font-mono truncate" style={{ fontSize: 10, color: "rgba(244,244,244,0.38)" }}>
+                @{username}
+              </span>
             )}
           </div>
-          {username && (
-            <span className="font-mono truncate" style={{ fontSize: 10, color: "rgba(244,244,244,0.4)" }}>
-              @{username}
-            </span>
-          )}
+          <MiniReactions counts={reactions} />
         </div>
-        <MiniReactions counts={reactions} />
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
 
@@ -215,7 +281,7 @@ function ActivityCard({ item }: { item: ActivityItem }) {
       <div
         className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-mono font-bold overflow-hidden"
         style={{
-          background: "rgba(168,85,247,0.15)",
+          background: "rgba(168,85,247,0.12)",
           border: "1px solid rgba(168,85,247,0.2)",
           fontSize: 10,
           color: "#A855F7",
@@ -232,10 +298,7 @@ function ActivityCard({ item }: { item: ActivityItem }) {
         <div className="flex items-start justify-between gap-3">
           <p className="text-sm leading-snug" style={{ color: "#F4F4F4" }}>
             {item.username ? (
-              <Link
-                href={`/u/${item.username}`}
-                className="font-medium hover:text-[#A855F7] transition-colors"
-              >
+              <Link href={`/u/${item.username}`} className="font-medium hover:text-[#A855F7] transition-colors">
                 @{item.username}
               </Link>
             ) : (
@@ -244,20 +307,14 @@ function ActivityCard({ item }: { item: ActivityItem }) {
             <span style={{ color: "rgba(244,244,244,0.45)" }}>
               {item.type === "started" ? "started tracking" : "finished their fixation on"}
             </span>{" "}
-            <Link
-              href={`/fix/${item.fixId}`}
-              className="font-display font-medium hover:text-[#A855F7] transition-colors"
-            >
+            <Link href={`/fix/${item.fixId}`} className="font-display font-medium hover:text-[#A855F7] transition-colors">
               {item.fixTitle}
             </Link>
             {item.type === "ended" && item.daysCount > 0 && (
               <span style={{ color: "rgba(244,244,244,0.35)" }}> after {item.daysCount} days</span>
             )}
           </p>
-          <span
-            className="shrink-0 font-mono tabular-nums"
-            style={{ fontSize: 10, color: "rgba(244,244,244,0.3)" }}
-          >
+          <span className="shrink-0 font-mono tabular-nums" style={{ fontSize: 10, color: "rgba(244,244,244,0.3)" }}>
             {timeAgo}
           </span>
         </div>
@@ -274,9 +331,7 @@ function ActivityCard({ item }: { item: ActivityItem }) {
             {emoji} {item.fixCategory}
           </span>
           {item.type === "ended" && (
-            <span className="font-mono" style={{ fontSize: 9, color: "rgba(244,244,244,0.25)" }}>
-              ◼ ended
-            </span>
+            <span className="font-mono" style={{ fontSize: 9, color: "rgba(244,244,244,0.25)" }}>◼ ended</span>
           )}
         </div>
       </div>
@@ -287,13 +342,29 @@ function ActivityCard({ item }: { item: ActivityItem }) {
 type Props = {
   everyoneFixes: Fix[];
   everyoneReactions: Record<string, ReactionCounts>;
-  followingFixes: Fix[] | null; // null = not logged in
+  followingFixes: Fix[] | null;
   followingReactions: Record<string, ReactionCounts>;
   trendingCategories: { category: string; count: number }[];
-  activityItems: ActivityItem[] | null; // null = not logged in
+  activityItems: ActivityItem[] | null;
   trendingFixes: Fix[];
   trendingReactionMap: Record<string, ReactionCounts>;
 };
+
+function TabButton({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
+      style={
+        active
+          ? { background: "#A855F7", color: "#F4F4F4", border: "1px solid transparent" }
+          : { background: "rgba(244,244,244,0.04)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.5)" }
+      }
+    >
+      {label}
+    </button>
+  );
+}
 
 export function ExploreTabSwitcher({
   everyoneFixes,
@@ -323,15 +394,9 @@ export function ExploreTabSwitcher({
       : tab === "trending"
       ? trendingFixes
       : allEveryoneFixes;
-  const fixes = selectedCategory
-    ? rawFixes.filter((f) => f.category === selectedCategory)
-    : rawFixes;
+  const fixes = selectedCategory ? rawFixes.filter((f) => f.category === selectedCategory) : rawFixes;
   const reactions =
-    tab === "following"
-      ? followingReactions
-      : tab === "trending"
-      ? trendingReactionMap
-      : allEveryoneReactions;
+    tab === "following" ? followingReactions : tab === "trending" ? trendingReactionMap : allEveryoneReactions;
 
   async function loadMore() {
     setLoadingMore(true);
@@ -352,71 +417,11 @@ export function ExploreTabSwitcher({
   return (
     <div>
       {/* Tab switcher */}
-      <div className="flex gap-2 mb-8">
-        <button
-          onClick={() => setTab("everyone")}
-          className="px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
-          style={
-            tab === "everyone"
-              ? { background: "#A855F7", color: "#0A0A0A", border: "1px solid transparent" }
-              : {
-                  background: "rgba(244,244,244,0.04)",
-                  border: "1px solid rgba(244,244,244,0.1)",
-                  color: "rgba(244,244,244,0.5)",
-                }
-          }
-        >
-          Everyone
-        </button>
-        <button
-          onClick={() => setTab("trending")}
-          className="px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
-          style={
-            tab === "trending"
-              ? { background: "#A855F7", color: "#0A0A0A", border: "1px solid transparent" }
-              : {
-                  background: "rgba(244,244,244,0.04)",
-                  border: "1px solid rgba(244,244,244,0.1)",
-                  color: "rgba(244,244,244,0.5)",
-                }
-          }
-        >
-          Trending
-        </button>
-        {isLoggedIn && (
-          <button
-            onClick={() => setTab("following")}
-            className="px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
-            style={
-              tab === "following"
-                ? { background: "#A855F7", color: "#0A0A0A", border: "1px solid transparent" }
-                : {
-                    background: "rgba(244,244,244,0.04)",
-                    border: "1px solid rgba(244,244,244,0.1)",
-                    color: "rgba(244,244,244,0.5)",
-                  }
-            }
-          >
-            Following
-          </button>
-        )}
-        {isLoggedIn && (
-          <button
-            onClick={() => setTab("activity")}
-            className="px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
-            style={
-              tab === "activity"
-                ? { background: "#A855F7", color: "#0A0A0A", border: "1px solid transparent" }
-                : {
-                    background: "rgba(244,244,244,0.04)",
-                    border: "1px solid rgba(244,244,244,0.1)",
-                    color: "rgba(244,244,244,0.5)",
-                  }
-            }
-          >
-            Activity
-          </button>
-        )}
+      <div className="flex gap-2 mb-8 overflow-x-auto scrollbar-hide pb-1">
+        <TabButton label="Everyone" active={tab === "everyone"} onClick={() => setTab("everyone")} />
+        <TabButton label="Trending" active={tab === "trending"} onClick={() => setTab("trending")} />
+        {isLoggedIn && <TabButton label="Following" active={tab === "following"} onClick={() => setTab("following")} />}
+        {isLoggedIn && <TabButton label="Activity" active={tab === "activity"} onClick={() => setTab("activity")} />}
       </div>
 
       {/* Activity feed */}
@@ -424,19 +429,11 @@ export function ExploreTabSwitcher({
         <div className="max-w-2xl">
           {!activityItems || activityItems.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-32 text-center">
-              <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>
-                Nothing yet.
-              </p>
-              <p className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>
-                Follow people to see their activity here.
-              </p>
+              <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nothing yet.</p>
+              <p className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>Follow people to see their activity here.</p>
             </div>
           ) : (
-            <div>
-              {activityItems.map((item, i) => (
-                <ActivityCard key={`${item.type}-${item.fixId}-${i}`} item={item} />
-              ))}
-            </div>
+            <div>{activityItems.map((item, i) => <ActivityCard key={`${item.type}-${item.fixId}-${i}`} item={item} />)}</div>
           )}
         </div>
       )}
@@ -455,23 +452,13 @@ export function ExploreTabSwitcher({
                   className="shrink-0 flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
                   style={
                     isSelected
-                      ? { background: "#A855F7", color: "#0A0A0A", border: "1px solid transparent" }
-                      : {
-                          background: "#111113",
-                          border: "1px solid rgba(244,244,244,0.1)",
-                          color: "rgba(244,244,244,0.5)",
-                        }
+                      ? { background: "#A855F7", color: "#F4F4F4", border: "1px solid transparent" }
+                      : { background: "#111113", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.5)" }
                   }
                 >
                   <span>{emoji}</span>
                   <span>{category}</span>
-                  <span
-                    className="font-mono tabular-nums"
-                    style={{
-                      color: isSelected ? "rgba(10,10,10,0.6)" : "rgba(244,244,244,0.3)",
-                      fontSize: 10,
-                    }}
-                  >
+                  <span className="font-mono tabular-nums" style={{ color: isSelected ? "rgba(244,244,244,0.5)" : "rgba(244,244,244,0.3)", fontSize: 10 }}>
                     · {count}
                   </span>
                 </button>
@@ -487,55 +474,29 @@ export function ExploreTabSwitcher({
           <div className="flex flex-col items-center justify-center py-32 text-center">
             {selectedCategory && tab !== "trending" ? (
               <>
-                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>
-                  Nothing here yet.
-                </p>
-                <p className="font-mono text-sm mb-6" style={{ color: "rgba(244,244,244,0.3)" }}>
-                  No public fixes in this category.
-                </p>
-                <button
-                  onClick={() => setSelectedCategory(null)}
-                  className="font-mono text-sm px-4 py-2 rounded-full transition-all duration-150"
-                  style={{
-                    background: "rgba(244,244,244,0.06)",
-                    border: "1px solid rgba(244,244,244,0.1)",
-                    color: "rgba(244,244,244,0.5)",
-                  }}
-                >
+                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nothing here yet.</p>
+                <p className="font-mono text-sm mb-6" style={{ color: "rgba(244,244,244,0.3)" }}>No public fixes in this category.</p>
+                <button onClick={() => setSelectedCategory(null)} className="font-mono text-sm px-4 py-2 rounded-full transition-all duration-150"
+                  style={{ background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.5)" }}>
                   Clear filter
                 </button>
               </>
             ) : tab === "trending" ? (
               <>
-                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>
-                  Nothing trending yet.
-                </p>
-                <p className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>
-                  Be the first to react to fixes.
-                </p>
+                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nothing trending yet.</p>
+                <p className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>Be the first to react to fixes.</p>
               </>
             ) : tab === "following" ? (
               <>
-                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>
-                  Nobody yet.
-                </p>
-                <p className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>
-                  Follow people to see their fixes here.
-                </p>
+                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nobody yet.</p>
+                <p className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>Follow people to see their fixes here.</p>
               </>
             ) : (
               <>
-                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>
-                  Nothing public yet.
-                </p>
-                <p className="font-mono text-sm mb-8" style={{ color: "rgba(244,244,244,0.3)" }}>
-                  Be the first.
-                </p>
-                <Link
-                  href="/auth/signup"
-                  className="font-mono text-sm px-6 py-3 rounded-full font-bold transition-opacity hover:opacity-90"
-                  style={{ background: "#A855F7", color: "#0A0A0A" }}
-                >
+                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nothing public yet.</p>
+                <p className="font-mono text-sm mb-8" style={{ color: "rgba(244,244,244,0.3)" }}>Be the first.</p>
+                <Link href="/auth/signup" className="font-mono text-sm px-6 py-3 rounded-full font-bold transition-opacity hover:opacity-90"
+                  style={{ background: "#A855F7", color: "#F4F4F4" }}>
                   Start tracking →
                 </Link>
               </>
@@ -544,9 +505,7 @@ export function ExploreTabSwitcher({
         ) : (
           <>
             <div className="masonry-grid" style={{ columnGap: "16px" }}>
-              {fixes.map((fix) => (
-                <FixCard key={fix.id} fix={fix} reactions={reactions[fix.id] ?? {}} />
-              ))}
+              {fixes.map((fix) => <FixCard key={fix.id} fix={fix} reactions={reactions[fix.id] ?? {}} />)}
             </div>
             {tab === "everyone" && hasMore && (
               <div className="flex justify-center mt-10">
@@ -554,11 +513,7 @@ export function ExploreTabSwitcher({
                   onClick={loadMore}
                   disabled={loadingMore}
                   className="px-8 py-3 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all hover:opacity-80 disabled:opacity-50"
-                  style={{
-                    background: "rgba(244,244,244,0.06)",
-                    border: "1px solid rgba(244,244,244,0.12)",
-                    color: "rgba(244,244,244,0.6)",
-                  }}
+                  style={{ background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.12)", color: "rgba(244,244,244,0.6)" }}
                 >
                   {loadingMore ? "Loading…" : "Load more"}
                 </button>
