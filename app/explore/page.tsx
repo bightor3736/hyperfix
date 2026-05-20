@@ -18,6 +18,7 @@ type Fix = {
   note: string | null;
   started_at: string;
   ended_at: string | null;
+  created_at: string;
   is_public: boolean;
   profiles: {
     username: string | null;
