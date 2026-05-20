@@ -32,123 +32,91 @@ const GEM = (size: number) => (
 const Dots = ({ current, total }: { current: number; total: number }) => (
   <div style={{ display: "flex", gap: 10 }}>
     {Array.from({ length: total }).map((_, i) => (
-      <div
-        key={i}
-        style={{
-          width: i === current ? 32 : 10,
-          height: 10,
-          borderRadius: 999,
-          background: i === current ? "#5EEAD4" : "rgba(255,255,255,0.18)",
-        }}
-      />
+      <div key={i} style={{
+        width: i === current ? 32 : 10,
+        height: 10, borderRadius: 999,
+        background: i === current ? "#5EEAD4" : "rgba(255,255,255,0.18)",
+      }} />
     ))}
   </div>
 );
 
-// Slide 1 — hook: normal people vs me
+// Slide 1 — "it started with one listen"
 function slide1() {
   return (
-    <div
-      style={{
-        width: W, height: H,
-        display: "flex", flexDirection: "column",
-        justifyContent: "space-between",
-        background: "#070708",
-        fontFamily: "sans-serif", color: "#F4F4F4",
-        padding: "140px 96px 100px",
-      }}
-    >
-      {/* Gem icon */}
+    <div style={{
+      width: W, height: H, display: "flex", flexDirection: "column",
+      justifyContent: "space-between", background: "#070708",
+      fontFamily: "sans-serif", color: "#F4F4F4", padding: "140px 96px 100px",
+    }}>
       <div style={{
-        display: "flex", alignItems: "center", justifyContent: "center",
-        width: 110, height: 110,
-        background: "rgba(94,234,212,0.08)",
-        border: "1px solid rgba(94,234,212,0.18)",
-        borderRadius: 999,
+        display: "flex", alignItems: "center",
+        background: "rgba(94,234,212,0.08)", border: "1px solid rgba(94,234,212,0.2)",
+        color: "#5EEAD4", fontSize: 26, fontWeight: 500, borderRadius: 999,
+        padding: "12px 32px", fontFamily: "monospace", letterSpacing: "0.06em",
+        textTransform: "uppercase", alignSelf: "flex-start",
       }}>
-        {GEM(66)}
+        hyperfix
       </div>
 
-      {/* Hero copy */}
       <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-        <span style={{ fontSize: 52, color: "rgba(255,255,255,0.35)", fontFamily: "monospace", letterSpacing: "-0.01em", marginBottom: 20 }}>
-          normal people:
+        <span style={{ fontSize: 160, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.85 }}>
+          it started
         </span>
-        <span style={{ fontSize: 120, fontWeight: 800, letterSpacing: "-0.045em", color: "rgba(255,255,255,0.4)", lineHeight: 0.88, marginBottom: 48 }}>
-          &quot;i like{"\n"}this song.&quot;
+        <span style={{ fontSize: 160, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.85 }}>
+          with one
         </span>
-        <span style={{ fontSize: 52, color: "#5EEAD4", fontFamily: "monospace", letterSpacing: "-0.01em", marginBottom: 20 }}>
-          me:
-        </span>
-        <span style={{ fontSize: 120, fontWeight: 800, letterSpacing: "-0.045em", color: "#FFFFFF", lineHeight: 0.88 }}>
-          i&apos;ve heard it{"\n"}
-        </span>
-        <span style={{ fontSize: 120, fontWeight: 800, letterSpacing: "-0.045em", color: "#5EEAD4", lineHeight: 0.88 }}>
-          847 times{"\n"}
-        </span>
-        <span style={{ fontSize: 120, fontWeight: 800, letterSpacing: "-0.045em", color: "#FFFFFF", lineHeight: 0.88 }}>
-          this week.
+        <span style={{ fontSize: 160, fontWeight: 800, letterSpacing: "-0.05em", color: "#5EEAD4", lineHeight: 0.85 }}>
+          listen.
         </span>
       </div>
 
-      {/* Footer */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
-        <span style={{ fontSize: 30, color: "rgba(255,255,255,0.3)" }}>
-          there&apos;s an app for that. introducing <span style={{ color: "#5EEAD4", fontWeight: 700 }}>hyperfix.</span>
-        </span>
+      <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          <div style={{ width: 48, height: 3, background: "rgba(94,234,212,0.4)", borderRadius: 999 }} />
+          <span style={{ fontSize: 32, color: "rgba(255,255,255,0.35)" }}>
+            the app for hyperfixations
+          </span>
+        </div>
         <Dots current={0} total={5} />
       </div>
     </div>
   );
 }
 
-// Slide 2 — "my brain found a new thing"
+// Slide 2 — roman empire hook
 function slide2() {
   return (
-    <div
-      style={{
-        width: W, height: H,
-        display: "flex", flexDirection: "column",
-        justifyContent: "space-between",
-        background: "#070708",
-        fontFamily: "sans-serif", color: "#F4F4F4",
-        padding: "140px 96px 100px",
-      }}
-    >
-      <div style={{
-        display: "flex", alignItems: "center",
-        background: "rgba(94,234,212,0.08)",
-        border: "1px solid rgba(94,234,212,0.2)",
-        color: "#5EEAD4", fontSize: 26, fontWeight: 500,
-        borderRadius: 999, padding: "12px 32px",
-        fontFamily: "monospace", letterSpacing: "0.06em",
-        textTransform: "uppercase", alignSelf: "flex-start",
-      }}>
-        day 1
-      </div>
+    <div style={{
+      width: W, height: H, display: "flex", flexDirection: "column",
+      justifyContent: "space-between", background: "#070708",
+      fontFamily: "sans-serif", color: "#F4F4F4", padding: "140px 96px 100px",
+    }}>
+      <span style={{ fontSize: 32, color: "rgba(255,255,255,0.3)", fontFamily: "monospace", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+        how often do you think about it?
+      </span>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-        <span style={{ fontSize: 136, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.87 }}>
-          my brain
+        <span style={{ fontSize: 130, fontWeight: 800, letterSpacing: "-0.048em", color: "rgba(255,255,255,0.3)", lineHeight: 0.87 }}>
+          my roman
         </span>
-        <span style={{ fontSize: 136, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.87 }}>
-          found a new
+        <span style={{ fontSize: 130, fontWeight: 800, letterSpacing: "-0.048em", color: "rgba(255,255,255,0.3)", lineHeight: 0.87 }}>
+          empire
         </span>
-        <span style={{ fontSize: 136, fontWeight: 800, letterSpacing: "-0.05em", color: "#5EEAD4", lineHeight: 0.87 }}>
-          thing to be
+        <span style={{ fontSize: 130, fontWeight: 800, letterSpacing: "-0.048em", color: "rgba(255,255,255,0.3)", lineHeight: 0.87 }}>
+          changes
         </span>
-        <span style={{ fontSize: 136, fontWeight: 800, letterSpacing: "-0.05em", color: "#5EEAD4", lineHeight: 0.87 }}>
-          normal about.
+        <span style={{ fontSize: 130, fontWeight: 800, letterSpacing: "-0.048em", color: "#FFFFFF", lineHeight: 0.87 }}>
+          every
         </span>
-        <div style={{ marginTop: 40, width: "100%", height: 2, background: "rgba(255,255,255,0.08)", borderRadius: 999 }} />
-        <span style={{ fontSize: 56, fontWeight: 700, letterSpacing: "-0.03em", color: "rgba(255,255,255,0.35)", lineHeight: 1, marginTop: 32 }}>
-          it&apos;s not being normal about it.
+        <span style={{ fontSize: 130, fontWeight: 800, letterSpacing: "-0.048em", color: "#5EEAD4", lineHeight: 0.87 }}>
+          3 weeks.
         </span>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
         <span style={{ fontSize: 34, color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>
-          track every obsession before it consumes you.{"\n"}(it will consume you.)
+          and i need to document all of them.
         </span>
         <Dots current={1} total={5} />
       </div>
@@ -156,45 +124,38 @@ function slide2() {
   );
 }
 
-// Slide 3 — Running Up That Hill · Kate Bush
+// Slide 3 — Cruel Summer · Taylor Swift
 function slide3() {
   return (
-    <div
-      style={{
-        width: W, height: H,
-        display: "flex", flexDirection: "column",
-        justifyContent: "space-between",
-        background: "#070708",
-        fontFamily: "sans-serif", color: "#F4F4F4",
-        padding: "140px 96px 100px",
-      }}
-    >
+    <div style={{
+      width: W, height: H, display: "flex", flexDirection: "column",
+      justifyContent: "space-between", background: "#070708",
+      fontFamily: "sans-serif", color: "#F4F4F4", padding: "140px 96px 100px",
+    }}>
       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
         <div style={{
           display: "flex", alignItems: "center",
-          background: "rgba(94,234,212,0.10)",
-          border: "1px solid rgba(94,234,212,0.25)",
+          background: "rgba(94,234,212,0.10)", border: "1px solid rgba(94,234,212,0.25)",
           color: "#5EEAD4", fontSize: 24, borderRadius: 999,
           padding: "12px 32px", fontFamily: "monospace",
-          letterSpacing: "0.1em", textTransform: "uppercase",
-          alignSelf: "flex-start",
+          letterSpacing: "0.1em", textTransform: "uppercase", alignSelf: "flex-start",
         }}>
           song
         </div>
-        <span style={{ fontSize: 88, fontWeight: 700, letterSpacing: "-0.035em", color: "#FFFFFF", lineHeight: 1.0 }}>
-          Running Up{"\n"}That Hill
+        <span style={{ fontSize: 96, fontWeight: 700, letterSpacing: "-0.035em", color: "#FFFFFF", lineHeight: 0.95 }}>
+          Cruel Summer
         </span>
-        <span style={{ fontSize: 44, fontWeight: 500, color: "rgba(255,255,255,0.4)", letterSpacing: "-0.01em" }}>
-          Kate Bush
+        <span style={{ fontSize: 48, fontWeight: 500, color: "rgba(255,255,255,0.4)", letterSpacing: "-0.01em" }}>
+          Taylor Swift
         </span>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-        <span style={{ fontSize: 220, fontWeight: 800, letterSpacing: "-0.06em", color: "#5EEAD4", lineHeight: 0.85 }}>
-          61
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <span style={{ fontSize: 200, fontWeight: 800, letterSpacing: "-0.06em", color: "#5EEAD4", lineHeight: 0.85 }}>
+          47
         </span>
-        <span style={{ fontSize: 56, fontWeight: 600, letterSpacing: "-0.02em", color: "rgba(255,255,255,0.4)", lineHeight: 1 }}>
-          days on repeat
+        <span style={{ fontSize: 60, fontWeight: 600, letterSpacing: "-0.02em", color: "rgba(255,255,255,0.4)", lineHeight: 1 }}>
+          days obsessed
         </span>
       </div>
 
@@ -202,14 +163,12 @@ function slide3() {
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
           <div style={{ display: "flex", gap: 8 }}>
             {Array.from({ length: 10 }).map((_, i) => (
-              <div key={i} style={{ flex: 1, height: 12, borderRadius: 6, background: i < 9 ? "#E63946" : "rgba(255,255,255,0.10)" }} />
+              <div key={i} style={{ flex: 1, height: 12, borderRadius: 6, background: i < 10 ? "#E63946" : "rgba(255,255,255,0.10)" }} />
             ))}
           </div>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span style={{ fontSize: 22, color: "rgba(255,255,255,0.3)", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-              intensity
-            </span>
-            <span style={{ fontSize: 30, fontWeight: 700, color: "#E63946" }}>9 / 10</span>
+            <span style={{ fontSize: 22, color: "rgba(255,255,255,0.3)", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.1em" }}>intensity</span>
+            <span style={{ fontSize: 30, fontWeight: 700, color: "#E63946" }}>10 / 10</span>
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -221,38 +180,38 @@ function slide3() {
   );
 }
 
-// Slide 4 — "if your friends are tired of hearing about it"
+// Slide 4 — "you know you're hyperfixated when"
 function slide4() {
+  const signs = [
+    "you've listened to one song more than you've slept",
+    "you explained the whole lore to someone who didn't ask",
+    "you made a playlist, a tier list, and a google doc",
+    "you're already grieving it and it's not even over",
+  ];
   return (
-    <div
-      style={{
-        width: W, height: H,
-        display: "flex", flexDirection: "column",
-        justifyContent: "space-between",
-        background: "#070708",
-        fontFamily: "sans-serif", color: "#F4F4F4",
-        padding: "140px 96px 100px",
-      }}
-    >
+    <div style={{
+      width: W, height: H, display: "flex", flexDirection: "column",
+      justifyContent: "space-between", background: "#070708",
+      fontFamily: "sans-serif", color: "#F4F4F4", padding: "140px 96px 100px",
+    }}>
       <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        <span style={{ fontSize: 32, color: "#5EEAD4", fontFamily: "monospace", letterSpacing: "0.06em", textTransform: "uppercase" }}>
-          if you relate to this
+        <span style={{ fontSize: 30, color: "#5EEAD4", fontFamily: "monospace", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+          you know you&apos;re hyperfixated when
         </span>
-        <span style={{ fontSize: 106, fontWeight: 800, letterSpacing: "-0.04em", color: "#FFFFFF", lineHeight: 0.88 }}>
-          your friends{"\n"}are tired{"\n"}of hearing{"\n"}about it.
+        <span style={{ fontSize: 108, fontWeight: 800, letterSpacing: "-0.04em", color: "#FFFFFF", lineHeight: 0.88 }}>
+          all of{"\n"}these{"\n"}are true.
         </span>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-        <span style={{ fontSize: 52, fontWeight: 700, letterSpacing: "-0.025em", color: "rgba(255,255,255,0.35)", lineHeight: 1.2 }}>
-          hyperfix doesn&apos;t judge.{"\n"}
-        </span>
-        <span style={{ fontSize: 52, fontWeight: 700, letterSpacing: "-0.025em", color: "#FFFFFF", lineHeight: 1.2 }}>
-          it just counts the days{"\n"}
-        </span>
-        <span style={{ fontSize: 52, fontWeight: 700, letterSpacing: "-0.025em", color: "#5EEAD4", lineHeight: 1.2 }}>
-          and lets you feel something.
-        </span>
+      <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+        {signs.map((s, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 28 }}>
+            <span style={{ fontSize: 26, color: "#5EEAD4", fontFamily: "monospace", fontWeight: 700, marginTop: 6, flexShrink: 0 }}>
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span style={{ fontSize: 36, color: "rgba(255,255,255,0.7)", lineHeight: 1.35 }}>{s}</span>
+          </div>
+        ))}
       </div>
 
       <Dots current={3} total={5} />
@@ -263,43 +222,32 @@ function slide4() {
 // Slide 5 — CTA
 function slide5() {
   return (
-    <div
-      style={{
-        width: W, height: H,
-        display: "flex", flexDirection: "column",
-        justifyContent: "space-between",
-        background: "#070708",
-        fontFamily: "sans-serif", color: "#F4F4F4",
-        padding: "140px 96px 100px",
-      }}
-    >
-      {/* Top label */}
+    <div style={{
+      width: W, height: H, display: "flex", flexDirection: "column",
+      justifyContent: "space-between", background: "#070708",
+      fontFamily: "sans-serif", color: "#F4F4F4", padding: "140px 96px 100px",
+    }}>
       <div style={{
         display: "flex", alignItems: "center",
-        background: "rgba(94,234,212,0.08)",
-        border: "1px solid rgba(94,234,212,0.2)",
-        color: "#5EEAD4", fontSize: 26, fontWeight: 500,
-        borderRadius: 999, padding: "12px 32px",
-        fontFamily: "monospace", letterSpacing: "0.06em",
+        background: "rgba(94,234,212,0.08)", border: "1px solid rgba(94,234,212,0.2)",
+        color: "#5EEAD4", fontSize: 26, fontWeight: 500, borderRadius: 999,
+        padding: "12px 32px", fontFamily: "monospace", letterSpacing: "0.06em",
         textTransform: "uppercase", alignSelf: "flex-start",
       }}>
         free forever
       </div>
 
-      {/* Gem */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{
           display: "flex", alignItems: "center", justifyContent: "center",
           width: 280, height: 280,
           background: "radial-gradient(ellipse 100% 100% at 50% 50%, rgba(94,234,212,0.16) 0%, rgba(45,212,191,0.04) 55%, transparent 75%)",
-          border: "1px solid rgba(94,234,212,0.14)",
-          borderRadius: 999,
+          border: "1px solid rgba(94,234,212,0.14)", borderRadius: 999,
         }}>
           {GEM(180)}
         </div>
       </div>
 
-      {/* CTA copy */}
       <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
         <span style={{ fontSize: 148, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.85 }}>
           tap the
@@ -315,12 +263,10 @@ function slide5() {
         </span>
       </div>
 
-      {/* URL block + dots */}
       <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
         <div style={{
           display: "flex", flexDirection: "column", gap: 0,
-          background: "rgba(94,234,212,0.06)",
-          border: "1px solid rgba(94,234,212,0.15)",
+          background: "rgba(94,234,212,0.06)", border: "1px solid rgba(94,234,212,0.15)",
           borderRadius: 24, padding: "28px 40px",
         }}>
           <span style={{ fontSize: 22, color: "rgba(255,255,255,0.3)", fontFamily: "monospace", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 8 }}>
@@ -350,6 +296,5 @@ export async function GET(
   const { id } = await params;
   const renderFn = slides[id];
   if (!renderFn) return new Response("Not found", { status: 404 });
-
   return new ImageResponse(renderFn(), { width: W, height: H });
 }
