@@ -143,7 +143,7 @@ export function AddToListButton({ fixId }: { fixId: string }) {
                   key={list.id}
                   onClick={() => toggleList(list)}
                   disabled={pending === list.id}
-                  className="w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors hover:bg-white/5"
+                  className="w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors hover:bg-[rgba(244,244,244,0.05)]"
                 >
                   <span className="font-sans text-sm truncate" style={{ color: list.hasThisFix ? "#5EEAD4" : "rgba(244,244,244,0.8)" }}>
                     {list.name}
@@ -190,7 +190,7 @@ export function AddToListButton({ fixId }: { fixId: string }) {
             ) : (
               <button
                 onClick={() => setCreating(true)}
-                className="w-full flex items-center gap-2 px-3 py-2.5 font-mono text-[11px] transition-colors hover:bg-white/5"
+                className="w-full flex items-center gap-2 px-3 py-2.5 font-mono text-[11px] transition-colors hover:bg-[rgba(244,244,244,0.05)]"
                 style={{ color: "rgba(244,244,244,0.4)" }}
               >
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">

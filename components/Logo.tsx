@@ -104,27 +104,6 @@ export function LogoWordmark({
   );
 }
 
-export function LogoDark({
-  className = "",
-  size = "md",
-}: {
-  className?: string;
-  size?: "sm" | "md" | "lg";
-}) {
-  const cls =
-    size === "sm"
-      ? "text-xl tracking-tight font-semibold"
-      : size === "lg"
-        ? "text-5xl tracking-tight font-semibold"
-        : "text-2xl tracking-tight font-semibold";
-
-  return (
-    <span className={`font-display leading-none ${cls} text-paper ${className}`}>
-      hyperfix
-    </span>
-  );
-}
-
 export { LogoWordmark as LogoFull };
 
 export function LogoLockup({
