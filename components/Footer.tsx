@@ -136,9 +136,37 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-6 border-t border-[rgba(244,244,244,0.07)] font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.25)] flex justify-between flex-wrap gap-2">
-          <span>© 2026 hyperfix</span>
-          <span>we do not train ai on your obsessions</span>
+        <div className="pt-6 border-t border-[rgba(244,244,244,0.07)] flex items-center justify-between flex-wrap gap-4">
+          <div className="flex items-center gap-4">
+            <a
+              href="https://tiktok.com/@hyperfix.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Hyperfix on TikTok"
+              className="text-[rgba(244,244,244,0.3)] hover:text-accent transition-colors"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.28 6.28 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.78a4.85 4.85 0 0 1-1.01-.09z"/>
+              </svg>
+            </a>
+            <a
+              href="https://instagram.com/hyperfix.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Hyperfix on Instagram"
+              className="text-[rgba(244,244,244,0.3)] hover:text-accent transition-colors"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+          </div>
+          <div className="flex items-center gap-4 font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.25)] flex-wrap">
+            <span>© 2026 hyperfix</span>
+            <span>we do not train ai on your obsessions</span>
+          </div>
         </div>
       </div>
     </footer>

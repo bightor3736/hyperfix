@@ -656,6 +656,7 @@ function ReferralCopyButton({ referralCode }: { referralCode: string }) {
   const [copied, setCopied] = useState(false);
   const origin = typeof window !== "undefined" ? window.location.origin : "https://hyperfix.app";
   const link = `${origin}/join?ref=${referralCode}`;
+  const shareText = `track your hyperfixations on hyperfix — count the days, build your graveyard 🪦`;
 
   async function handleCopy() {
     try {
@@ -667,30 +668,75 @@ function ReferralCopyButton({ referralCode }: { referralCode: string }) {
     }
   }
 
+  function shareOnTwitter() {
+    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(link)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  function shareNative() {
+    if (navigator.share) {
+      navigator.share({ title: "Hyperfix", text: shareText, url: link }).catch(() => {});
+    }
+  }
+
+  const hasNativeShare = typeof navigator !== "undefined" && !!navigator.share;
+
   return (
-    <div className="flex items-center gap-2">
-      <div
-        className="flex-1 rounded-xl px-3 py-2 font-mono text-xs truncate"
-        style={{
-          background: "rgba(244,244,244,0.04)",
-          border: "1px solid rgba(244,244,244,0.1)",
-          color: "rgba(244,244,244,0.5)",
-        }}
-      >
-        {link}
+    <div className="flex flex-col gap-2">
+      <div className="flex items-center gap-2">
+        <div
+          className="flex-1 rounded-xl px-3 py-2 font-mono text-xs truncate"
+          style={{
+            background: "rgba(244,244,244,0.04)",
+            border: "1px solid rgba(244,244,244,0.1)",
+            color: "rgba(244,244,244,0.5)",
+          }}
+        >
+          {link}
+        </div>
+        <button
+          type="button"
+          onClick={handleCopy}
+          className="shrink-0 px-3 py-2 rounded-xl font-sans text-xs font-medium transition-all hover:opacity-80"
+          style={{
+            background: copied ? "rgba(163,230,53,0.15)" : "rgba(244,244,244,0.07)",
+            border: copied ? "1px solid rgba(163,230,53,0.3)" : "1px solid rgba(244,244,244,0.12)",
+            color: copied ? "#A3E635" : "rgba(244,244,244,0.7)",
+          }}
+        >
+          {copied ? "Copied ✓" : "Copy"}
+        </button>
       </div>
-      <button
-        type="button"
-        onClick={handleCopy}
-        className="shrink-0 px-3 py-2 rounded-xl font-sans text-xs font-medium transition-all hover:opacity-80"
-        style={{
-          background: copied ? "rgba(163,230,53,0.15)" : "rgba(244,244,244,0.07)",
-          border: copied ? "1px solid rgba(163,230,53,0.3)" : "1px solid rgba(244,244,244,0.12)",
-          color: copied ? "#A3E635" : "rgba(244,244,244,0.7)",
-        }}
-      >
-        {copied ? "Copied ✓" : "Copy"}
-      </button>
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          onClick={shareOnTwitter}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-[11px] uppercase tracking-widest transition-all hover:opacity-80"
+          style={{
+            background: "rgba(244,244,244,0.06)",
+            border: "1px solid rgba(244,244,244,0.1)",
+            color: "rgba(244,244,244,0.5)",
+          }}
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.736-8.849L1.254 2.25H8.08l4.261 5.632 5.903-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Share
+        </button>
+        {hasNativeShare && (
+          <button
+            type="button"
+            onClick={shareNative}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-[11px] uppercase tracking-widest transition-all hover:opacity-80"
+            style={{
+              background: "rgba(244,244,244,0.06)",
+              border: "1px solid rgba(244,244,244,0.1)",
+              color: "rgba(244,244,244,0.5)",
+            }}
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            More
+          </button>
+        )}
+      </div>
     </div>
   );
 }
