@@ -366,21 +366,6 @@ export default async function Page({
           />
 
           <div className="relative max-w-4xl mx-auto text-center" style={{ zIndex: 10 }}>
-            <span
-              className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] rounded-full px-3.5 py-1.5 mb-8 anim-fadeUp"
-              style={{
-                background: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.12)",
-                color: "rgba(255,255,255,0.7)",
-                backdropFilter: "blur(8px)",
-              }}
-            >
-              <span
-                className="w-1.5 h-1.5 rounded-full anim-pulseDot"
-                style={{ background: TEAL, color: TEAL }}
-              />
-              {waitlistCount.toLocaleString()} currently unwell
-            </span>
             <h1
               className="font-display text-ink anim-fadeUp delay-100"
               style={{
@@ -424,7 +409,7 @@ export default async function Page({
             </div>
 
             <p className="mt-7 font-sans text-sm anim-fadeUp delay-700" style={{ color: "rgba(255,255,255,0.5)" }}>
-              free forever · no credit card · {waitlistCount.toLocaleString()} currently unwell
+              free forever · no credit card needed
             </p>
           </div>
         </section>
