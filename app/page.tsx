@@ -3,12 +3,10 @@ import HyperfixCard from "@/components/HyperfixCard";
 import { TiltCard } from "@/components/TiltCard";
 import { RevealSection } from "@/components/RevealSection";
 import FixCalculator from "@/components/FixCalculator";
-import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
 import { Mascot } from "@/components/Mascot";
-import { Sparkles } from "@/components/Sparkles";
-import { SparkIcon } from "@/components/Logo";
+import { LogoLockup, SparkIcon } from "@/components/Logo";
 
 async function getWaitlistCount(): Promise<number> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -84,19 +82,6 @@ export const metadata: Metadata = {
 };
 
 // --- DATA -------------------------------------------------------------------
-
-const tickerItems = [
-  "@maya · day 47 · the marauders",
-  "@luca · day 12 · Sabrina Carpenter — Tears (loop count 219)",
-  "@theo · day 3 · that one TikTok about the medieval marketplace",
-  "@iris · day 89 · larissa weems x wednesday addams",
-  "@kai · day 156 · Genshin Impact lore (has never played the game)",
-  "@nour · day 22 · Hamilton (again, the third era)",
-  "@sole · day 8 · the bridgerton kitchen scene",
-  "@finn · day 412 · one specific Homestuck panel",
-  "@vera · day 31 · Heated Rivalry by Rachel Reid",
-  "@ren · day 5 · a 4-hour YouTube essay about Roman concrete",
-];
 
 const cards = [
   {
@@ -227,114 +212,176 @@ export default async function Page({
 
       <main id="main-content" className="relative z-10 text-ink">
 
-        {/* TICKER ------------------------------------------------------- */}
+        {/* ANNOUNCEMENT BAR -------------------------------------------- */}
         <div
-          className="overflow-hidden ticker-wrap"
-          style={{ background: "#111113", borderBottom: "1px solid rgba(244,244,244,0.07)" }}
+          style={{
+            background: "#0D0B10",
+            borderBottom: "1px solid rgba(244,244,244,0.07)",
+          }}
         >
-          <div className="flex whitespace-nowrap py-2.5 marquee">
-            {[...tickerItems, ...tickerItems].map((item, i) => (
-              <span
-                key={i}
-                className="font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] px-6 shrink-0"
-              >
-                {item}
-                <span className="ml-6 text-accent">●</span>
-              </span>
-            ))}
+          <div className="flex items-center justify-center py-2.5 px-4">
+            <a
+              href="/join"
+              className="font-mono text-[11px] uppercase tracking-widest transition-opacity hover:opacity-80"
+              style={{ color: "rgba(244,244,244,0.5)" }}
+            >
+              hyperfix is free to use · check-in every day · track what has taken over your brain →
+            </a>
           </div>
         </div>
 
-        <Nav />
+        {/* NAV ---------------------------------------------------------- */}
+        <nav
+          className="sticky top-0 z-50 flex items-center justify-between px-6 sm:px-10 py-4"
+          style={{
+            background: "rgba(10,5,16,0.85)",
+            backdropFilter: "blur(16px)",
+            borderBottom: "1px solid rgba(244,244,244,0.06)",
+          }}
+        >
+          <a href="/" className="shrink-0">
+            <LogoLockup size="sm" />
+          </a>
 
-        {/* HERO --------------------------------------------------------- */}
-        <section className="relative overflow-hidden" style={{ minHeight: "92vh", display: "flex", flexDirection: "column" }}>
-
-          {/* ── Planet glow background ── */}
-          {/* Top: near-black, fades into the purple planet at center-bottom */}
-          <div className="absolute inset-0 pointer-events-none" style={{
-            background: "linear-gradient(180deg, #080808 0%, #0D0810 40%, #150B24 65%, #1E0B35 80%, #280C42 100%)",
-          }} />
-          {/* The purple "planet" — bright elliptical orb glowing up from below */}
-          <div className="absolute pointer-events-none" style={{
-            bottom: "-18%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "140%",
-            height: "65%",
-            borderRadius: "50%",
-            background: "radial-gradient(ellipse at 50% 80%, rgba(139,92,246,0.95) 0%, rgba(109,40,217,0.7) 25%, rgba(76,29,149,0.4) 50%, transparent 72%)",
-            filter: "blur(1px)",
-          }} />
-          {/* Soft outer corona */}
-          <div className="absolute pointer-events-none" style={{
-            bottom: "-28%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "180%",
-            height: "70%",
-            borderRadius: "50%",
-            background: "radial-gradient(ellipse at 50% 85%, rgba(139,92,246,0.25) 0%, transparent 60%)",
-            filter: "blur(40px)",
-          }} />
-          {/* Top vignette — keeps nav readable */}
-          <div className="absolute inset-x-0 top-0 pointer-events-none" style={{
-            height: 200,
-            background: "linear-gradient(180deg, #080808 0%, transparent 100%)",
-          }} />
-
-          {/* Content */}
-          <div className="relative z-10 flex flex-col items-center justify-center flex-1 px-6 sm:px-10 pt-16 pb-24 sm:pt-24 sm:pb-32 text-center">
-
-            {/* Announcement pill */}
+          <div className="hidden sm:flex items-center gap-8">
+            <a
+              href="/explore"
+              className="font-sans text-sm transition-opacity hover:opacity-80"
+              style={{ color: "rgba(244,244,244,0.6)" }}
+            >
+              Explore
+            </a>
             <a
               href="/blog"
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2 mb-10 transition-all hover:opacity-80"
+              className="font-sans text-sm transition-opacity hover:opacity-80"
+              style={{ color: "rgba(244,244,244,0.6)" }}
+            >
+              Blog
+            </a>
+          </div>
+
+          <a
+            href="/join"
+            className="font-sans text-sm font-semibold px-5 py-2 transition-all hover:opacity-90 active:scale-[0.98]"
+            style={{
+              background: "#F4F4F4",
+              color: "#0A0A0A",
+              borderRadius: 999,
+            }}
+          >
+            Get started
+          </a>
+        </nav>
+
+        {/* HERO --------------------------------------------------------- */}
+        <section
+          className="relative overflow-hidden"
+          style={{
+            minHeight: "92vh",
+            display: "flex",
+            flexDirection: "column",
+            background: "radial-gradient(ellipse 120% 100% at 50% -10%, #7C3AED 0%, #5B21B6 35%, #3B0764 60%, #1A0533 80%, #0A0510 100%)",
+          }}
+        >
+          {/* Planet surface — dark curved shape at bottom */}
+          <div
+            className="absolute pointer-events-none"
+            style={{
+              bottom: "-30%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "130%",
+              height: "55%",
+              borderRadius: "50%",
+              background: "#050208",
+              zIndex: 1,
+            }}
+          />
+
+          {/* Subtle noise/grain overlay for depth */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,0,0,0.6) 0%, transparent 70%)",
+              zIndex: 2,
+            }}
+          />
+
+          {/* Content */}
+          <div
+            className="relative flex flex-col items-center justify-center flex-1 px-6 sm:px-10 pt-16 pb-40 sm:pt-24 sm:pb-48 text-center"
+            style={{ zIndex: 10 }}
+          >
+            {/* Floating mascots — left side */}
+            <div
+              className="absolute pointer-events-none hidden sm:block"
               style={{
-                background: "rgba(139,92,246,0.15)",
-                border: "1px solid rgba(139,92,246,0.35)",
-                color: "rgba(244,244,244,0.7)",
+                top: "28%",
+                left: "calc(50% - 380px)",
+                animation: "floatBob 4.5s ease-in-out infinite",
+                animationDelay: "0.3s",
+                transform: "rotate(-12deg)",
+                zIndex: 0,
               }}
             >
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#A855F7", display: "inline-block", boxShadow: "0 0 6px #A855F7" }} />
-              hyperfixation tracker · free to use · read more →
-            </a>
-
-            {/* Floating satellite mascots */}
-            <div className="absolute pointer-events-none hidden sm:block" style={{ top: "22%", left: "8%", animation: "floatBob 4s ease-in-out infinite", animationDelay: "0.5s" }}>
-              <Mascot expression="anxious" size={76} color="#E63946" />
-            </div>
-            <div className="absolute pointer-events-none hidden sm:block" style={{ top: "18%", right: "7%", animation: "floatBob 3.5s ease-in-out infinite", animationDelay: "1.2s" }}>
-              <Mascot expression="obsessed" size={64} color="#FB923C" />
-            </div>
-            <div className="absolute pointer-events-none hidden lg:block" style={{ top: "48%", left: "4%", animation: "floatBob 5s ease-in-out infinite", animationDelay: "0.2s" }}>
-              <Mascot expression="send-help" size={52} color="#C084FC" />
-            </div>
-            <div className="absolute pointer-events-none hidden lg:block" style={{ top: "44%", right: "3%", animation: "floatBob 4.2s ease-in-out infinite", animationDelay: "1.8s" }}>
-              <Mascot expression="calm" size={52} color="#34D399" />
+              <Mascot expression="send-help" size={120} color="#C084FC" />
             </div>
 
-            {/* Headline — sits above the planet glow */}
-            <h1
-              className="font-display font-black leading-none text-ink max-w-4xl"
+            {/* Floating mascots — right side */}
+            <div
+              className="absolute pointer-events-none hidden sm:block"
               style={{
-                fontSize: "clamp(48px, 12vw, 108px)",
-                letterSpacing: "-0.04em",
-                textShadow: "0 2px 40px rgba(0,0,0,0.5)",
+                top: "32%",
+                right: "calc(50% - 400px)",
+                animation: "floatBob 3.8s ease-in-out infinite",
+                animationDelay: "1.1s",
+                transform: "rotate(10deg)",
+                zIndex: 0,
+              }}
+            >
+              <Mascot expression="obsessed" size={110} color="#A855F7" />
+            </div>
+
+            {/* Extra mascots for larger screens */}
+            <div
+              className="absolute pointer-events-none hidden lg:block"
+              style={{
+                top: "55%",
+                left: "calc(50% - 520px)",
+                animation: "floatBob 5.2s ease-in-out infinite",
+                animationDelay: "1.7s",
+                transform: "rotate(-6deg)",
+                zIndex: 0,
+              }}
+            >
+              <Mascot expression="anxious" size={80} color="#E879F9" />
+            </div>
+
+            {/* Headline */}
+            <h1
+              className="font-display font-black leading-none text-ink relative"
+              style={{
+                fontSize: "clamp(56px, 11vw, 104px)",
+                letterSpacing: "-0.03em",
+                zIndex: 10,
+                textShadow: "0 2px 60px rgba(0,0,0,0.4)",
               }}
             >
               What are you
               <br />
-              <span style={{ color: "#C084FC", fontStyle: "italic" }}>unwell</span> about?
+              <span style={{ color: "#E9D5FF", fontStyle: "italic" }}>unwell</span> about?
             </h1>
 
-            <p className="mt-6 font-sans text-base sm:text-lg max-w-md mx-auto leading-relaxed" style={{ color: "rgba(244,244,244,0.6)", textShadow: "0 1px 12px rgba(0,0,0,0.8)" }}>
-              a journal for your current obsession.
-              log it. count the days. mourn it when it ends.
+            <p
+              className="mt-6 font-sans text-base sm:text-lg max-w-md mx-auto leading-relaxed"
+              style={{ color: "rgba(255,255,255,0.6)", zIndex: 10, position: "relative" }}
+            >
+              a journal for your current obsession — the song on loop, the fic you can&apos;t quit,
+              the character who has rearranged your brain.
             </p>
 
             {/* CTA */}
-            <div className="flex flex-wrap justify-center gap-3 mt-10">
+            <div className="flex flex-col items-center gap-3 mt-10" style={{ zIndex: 10, position: "relative" }}>
               <a
                 href="/join"
                 className="inline-flex items-center font-sans text-sm font-bold px-8 py-4 transition-all hover:opacity-90 active:scale-[0.98]"
@@ -342,28 +389,25 @@ export default async function Page({
                   background: "#F4F4F4",
                   color: "#0A0A0A",
                   borderRadius: 999,
-                  boxShadow: "0 0 32px rgba(139,92,246,0.3), 0 4px 16px rgba(0,0,0,0.4)",
+                  boxShadow: "0 4px 24px rgba(0,0,0,0.35), 0 0 40px rgba(167,139,250,0.25)",
                 }}
               >
                 Get started free
               </a>
               <a
                 href="/auth/login"
-                className="inline-flex items-center font-sans text-sm font-medium px-8 py-4 transition-all hover:opacity-80"
-                style={{
-                  background: "rgba(244,244,244,0.08)",
-                  color: "rgba(244,244,244,0.8)",
-                  borderRadius: 999,
-                  border: "1px solid rgba(244,244,244,0.15)",
-                  backdropFilter: "blur(8px)",
-                }}
+                className="font-sans text-sm transition-opacity hover:opacity-80"
+                style={{ color: "rgba(255,255,255,0.5)" }}
               >
-                Sign in
+                Sign in →
               </a>
             </div>
 
             {/* Stat pills */}
-            <div className="flex flex-wrap justify-center gap-2 mt-8">
+            <div
+              className="flex flex-wrap justify-center gap-2 mt-8"
+              style={{ zIndex: 10, position: "relative" }}
+            >
               {[
                 { value: countRes.count.toLocaleString(), label: "currently unwell" },
                 { value: publicFixCount.toLocaleString(), label: "fixations logged" },
@@ -373,41 +417,249 @@ export default async function Page({
                   key={label}
                   className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest rounded-full px-3.5 py-1.5"
                   style={{
-                    background: "rgba(0,0,0,0.35)",
-                    border: "1px solid rgba(244,244,244,0.1)",
-                    color: "rgba(244,244,244,0.55)",
+                    background: "rgba(0,0,0,0.25)",
+                    border: "1px solid rgba(255,255,255,0.15)",
+                    color: "rgba(255,255,255,0.6)",
                     backdropFilter: "blur(8px)",
                   }}
                 >
-                  <span className="font-bold" style={{ color: "#C084FC" }}>{value}</span>
+                  <span className="font-bold" style={{ color: "#E9D5FF" }}>{value}</span>
                   {label}
                 </span>
               ))}
             </div>
           </div>
-
-          {/* Bottom fade to black — seamless transition to next section */}
-          <div className="absolute inset-x-0 bottom-0 pointer-events-none" style={{
-            height: 160,
-            background: "linear-gradient(0deg, #080808 0%, transparent 100%)",
-          }} />
         </section>
 
-        {/* Social proof bar */}
-        <div className="px-6 sm:px-10 py-8" style={{ background: "#080808", borderBottom: "1px solid rgba(244,244,244,0.06)" }}>
-          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center gap-6 justify-between">
-            <p className="font-mono text-[10px] uppercase tracking-widest shrink-0" style={{ color: "rgba(244,244,244,0.25)" }}>
-              tracked by people who are not normal about things
+        {/* SOCIAL PROOF BAR -------------------------------------------- */}
+        <div
+          className="px-6 sm:px-10 py-8"
+          style={{ background: "#080808", borderBottom: "1px solid rgba(244,244,244,0.06)" }}
+        >
+          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center gap-6 justify-between">
+            <p
+              className="font-mono text-[10px] uppercase tracking-widest shrink-0 text-center sm:text-left"
+              style={{ color: "rgba(244,244,244,0.3)" }}
+            >
+              tracked by people who are deeply, catastrophically unwell about:
             </p>
             <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
               {["fanfic", "k-pop", "anime", "video essays", "ships", "shows", "games", "books"].map((cat) => (
-                <span key={cat} className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.2)" }}>
+                <span
+                  key={cat}
+                  className="font-mono text-[11px] uppercase tracking-widest"
+                  style={{ color: "rgba(244,244,244,0.2)" }}
+                >
                   {cat}
                 </span>
               ))}
             </div>
           </div>
         </div>
+
+        {/* EVERYTHING YOU NEED ------------------------------------------ */}
+        <section className="px-6 sm:px-10 py-20 sm:py-32" style={{ background: "#080808" }}>
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-14">
+              <h2
+                className="font-display font-black leading-none text-ink"
+                style={{ fontSize: "clamp(40px, 6vw, 56px)", letterSpacing: "-0.03em" }}
+              >
+                Everything you need
+              </h2>
+              <p className="mt-4 font-sans text-base text-[rgba(244,244,244,0.5)] max-w-md mx-auto">
+                Three features. One loop. Repeat until the obsession fades.
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-3 gap-4">
+              {[
+                {
+                  icon: (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  ),
+                  title: "Log it",
+                  body: "Name the fixation, pick a category, set intensity 1–10. The day counter starts.",
+                },
+                {
+                  icon: (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+                    </svg>
+                  ),
+                  title: "Check in daily",
+                  body: "Track intensity as it evolves. Leave notes. Build a streak. Stay in the obsession.",
+                },
+                {
+                  icon: (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                  ),
+                  title: "Mourn it",
+                  body: "When it fades, write a eulogy. It joins your graveyard — proof you were that person.",
+                },
+              ].map((feat) => (
+                <div
+                  key={feat.title}
+                  className="rounded-2xl p-6 flex flex-col gap-4"
+                  style={{
+                    background: "#111113",
+                    border: "1px solid rgba(244,244,244,0.07)",
+                  }}
+                >
+                  <div
+                    className="w-10 h-10 flex items-center justify-center rounded-xl shrink-0"
+                    style={{
+                      background: "rgba(168,85,247,0.15)",
+                      border: "1px solid rgba(168,85,247,0.2)",
+                      color: "#C084FC",
+                    }}
+                  >
+                    {feat.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-display text-xl font-black leading-tight tracking-tight text-ink mb-2">
+                      {feat.title}
+                    </h3>
+                    <p className="font-sans text-sm text-[rgba(244,244,244,0.5)] leading-relaxed">
+                      {feat.body}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* BUILT FOR THE UNWELL ----------------------------------------- */}
+        <section
+          className="px-6 sm:px-10 py-20 sm:py-32"
+          style={{ background: "#0A0A0A", borderTop: "1px solid rgba(244,244,244,0.07)" }}
+        >
+          <div className="max-w-5xl mx-auto">
+            <div className="mb-12 max-w-xl">
+              <h2
+                className="font-display font-black leading-none text-ink"
+                style={{ fontSize: "clamp(40px, 6vw, 56px)", letterSpacing: "-0.03em" }}
+              >
+                Built for the unwell
+              </h2>
+              <p className="mt-4 font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
+                Every screen is designed around the obsession. Not the archive. Not the todo list.
+                The fix that is currently eating your brain.
+              </p>
+            </div>
+
+            {/* Dashboard mockup */}
+            <div
+              className="rounded-2xl overflow-hidden"
+              style={{
+                background: "#111113",
+                border: "1px solid rgba(244,244,244,0.1)",
+                boxShadow: "0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(244,244,244,0.04)",
+              }}
+            >
+              {/* Mockup chrome bar */}
+              <div
+                className="flex items-center gap-2 px-4 py-3"
+                style={{ borderBottom: "1px solid rgba(244,244,244,0.07)", background: "#0D0B10" }}
+              >
+                <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#FF5F57" }} />
+                <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#FEBC2E" }} />
+                <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#28C840" }} />
+                <div
+                  className="ml-3 flex-1 max-w-[200px] rounded-md px-3 py-1 font-mono text-[10px]"
+                  style={{ background: "rgba(244,244,244,0.05)", color: "rgba(244,244,244,0.3)" }}
+                >
+                  hyperfix.app/dashboard
+                </div>
+              </div>
+
+              {/* Dashboard content */}
+              <div className="p-5 sm:p-8">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.35)] mb-1">
+                      your current fix
+                    </p>
+                    <h3 className="font-display text-2xl font-black tracking-tight text-ink">
+                      The Marauders Era
+                    </h3>
+                  </div>
+                  <div
+                    className="flex flex-col items-end gap-1"
+                  >
+                    <span
+                      className="font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1"
+                      style={{ background: "rgba(168,85,247,0.15)", color: "#C084FC", border: "1px solid rgba(168,85,247,0.3)" }}
+                    >
+                      obsessing
+                    </span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-3 mb-6">
+                  {[
+                    { label: "Day", value: "47" },
+                    { label: "Intensity", value: "9/10" },
+                    { label: "Check-ins", value: "39" },
+                  ].map((stat) => (
+                    <div
+                      key={stat.label}
+                      className="rounded-xl p-3 text-center"
+                      style={{ background: "rgba(244,244,244,0.04)", border: "1px solid rgba(244,244,244,0.06)" }}
+                    >
+                      <p
+                        className="font-display font-black text-2xl text-ink leading-none mb-1"
+                        style={{ color: stat.label === "Intensity" ? "#C084FC" : undefined }}
+                      >
+                        {stat.value}
+                      </p>
+                      <p className="font-mono text-[9px] uppercase tracking-widest text-[rgba(244,244,244,0.35)]">
+                        {stat.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Intensity bar */}
+                <div className="mb-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.35)]">Intensity over time</span>
+                    <span className="font-mono text-[10px] text-[rgba(244,244,244,0.35)]">↑ 9</span>
+                  </div>
+                  <div
+                    className="w-full rounded-full overflow-hidden"
+                    style={{ height: 6, background: "rgba(244,244,244,0.07)" }}
+                  >
+                    <div
+                      className="h-full rounded-full"
+                      style={{
+                        width: "90%",
+                        background: "linear-gradient(90deg, #7C3AED, #C084FC)",
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div
+                  className="rounded-xl p-4"
+                  style={{ background: "rgba(168,85,247,0.07)", border: "1px solid rgba(168,85,247,0.15)" }}
+                >
+                  <p className="font-sans text-sm italic text-[rgba(244,244,244,0.6)] leading-relaxed">
+                    &ldquo;i should be studying. instead i have read chapter 17 four times this week.&rdquo;
+                  </p>
+                  <p className="mt-2 font-mono text-[9px] uppercase tracking-widest text-[rgba(244,244,244,0.3)]">
+                    @lupin-loving-loser · today
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* THE PROBLEM -------------------------------------------------- */}
         <section className="px-6 sm:px-10 py-20 sm:py-32" style={{ background: "#0A0A0A" }}>
@@ -515,7 +767,10 @@ export default async function Page({
         </section>
 
         {/* FIX LIFECYCLE ------------------------------------------------ */}
-        <section className="px-6 sm:px-10 py-20 sm:py-32" style={{ background: "#0A0A0A", borderTop: "1px solid rgba(244,244,244,0.07)" }}>
+        <section
+          className="px-6 sm:px-10 py-20 sm:py-32"
+          style={{ background: "#0A0A0A", borderTop: "1px solid rgba(244,244,244,0.07)" }}
+        >
           <div className="max-w-5xl mx-auto">
             <RevealSection>
               <span
@@ -659,7 +914,10 @@ export default async function Page({
         </section>
 
         {/* FIX CALCULATOR ----------------------------------------------- */}
-        <section className="px-6 sm:px-10 py-20 sm:py-32" style={{ background: "#0A0A0A", borderTop: "1px solid rgba(244,244,244,0.07)" }}>
+        <section
+          className="px-6 sm:px-10 py-20 sm:py-32"
+          style={{ background: "#0A0A0A", borderTop: "1px solid rgba(244,244,244,0.07)" }}
+        >
           <div className="max-w-6xl mx-auto">
             <RevealSection>
               <span
@@ -718,7 +976,7 @@ export default async function Page({
           </div>
         </section>
 
-        {/* SOCIAL PROOF ------------------------------------------------- */}
+        {/* SOCIAL PROOF TESTIMONIALS ------------------------------------ */}
         <section className="px-6 sm:px-10 py-20 sm:py-28" style={{ background: "#0A0A0A" }}>
           <div className="max-w-6xl mx-auto">
             <span
@@ -851,7 +1109,10 @@ export default async function Page({
         </section>
 
         {/* DIG DEEPER --------------------------------------------------- */}
-        <section className="px-6 sm:px-10 py-16 sm:py-20" style={{ background: "#0A0A0A", borderTop: "1px solid rgba(244,244,244,0.07)" }}>
+        <section
+          className="px-6 sm:px-10 py-16 sm:py-20"
+          style={{ background: "#0A0A0A", borderTop: "1px solid rgba(244,244,244,0.07)" }}
+        >
           <div className="max-w-6xl mx-auto">
             <span
               className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 mb-8"
@@ -893,34 +1154,29 @@ export default async function Page({
         </section>
 
         {/* FINAL CTA ---------------------------------------------------- */}
-        <section className="px-6 sm:px-10 py-24 sm:py-40" style={{ background: "#111113", borderTop: "1px solid rgba(244,244,244,0.07)" }}>
+        <section
+          className="px-6 sm:px-10 py-24 sm:py-40"
+          style={{ background: "#111113", borderTop: "1px solid rgba(244,244,244,0.07)" }}
+        >
           <div className="max-w-5xl mx-auto text-center">
-            <span
-              className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 mb-8"
-              style={{ background: "rgba(244,244,244,0.06)", color: "rgba(244,244,244,0.4)" }}
+            <h2 className="font-display font-black leading-none text-ink"
+              style={{ fontSize: "clamp(48px, 8vw, 88px)", letterSpacing: "-0.03em" }}
             >
-              the closing argument
-            </span>
-            <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl leading-[0.92] tracking-crush text-ink">
-              Your obsession
+              Start counting
               <br />
-              <span className="italic">currently lives</span>
-              <br />
-              <span className="text-accent">in fourteen places.</span>
+              <span className="italic">the days.</span>
             </h2>
-            <p className="mt-10 font-sans text-lg sm:text-xl text-[rgba(244,244,244,0.55)] max-w-2xl mx-auto leading-snug">
-              Group chats. A note titled <em>thoughts</em>. A spreadsheet you
-              made at 2 a.m. Your Twitter likes. The corner of your brain that
-              should be doing taxes. Put it somewhere it belongs.
+            <p className="mt-8 font-sans text-lg sm:text-xl text-[rgba(244,244,244,0.55)] max-w-lg mx-auto leading-snug">
+              Free forever. No credit card. Just log what has taken over your brain.
             </p>
 
             <div className="mt-12 flex flex-wrap justify-center gap-3">
               <a
                 href="/join"
-                className="font-mono text-[12px] uppercase tracking-widest px-8 py-4 font-bold transition-all hover:opacity-90 active:scale-[0.98]"
+                className="font-sans text-sm font-bold px-8 py-4 transition-all hover:opacity-90 active:scale-[0.98] inline-flex items-center gap-2"
                 style={{ background: "#A855F7", color: "#0A0A0A", borderRadius: 999 }}
               >
-                Start tracking free →
+                Get started free →
               </a>
               <a
                 href="/auth/login"
