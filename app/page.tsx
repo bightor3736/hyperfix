@@ -7,6 +7,53 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
 
+async function getWaitlistCount(): Promise<number> {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !serviceKey) return 1247;
+  try {
+    const res = await fetch(`${supabaseUrl}/rest/v1/waitlist?select=id`, {
+      headers: {
+        apikey: serviceKey,
+        Authorization: `Bearer ${serviceKey}`,
+        Prefer: "count=exact",
+        "Range-Unit": "items",
+        Range: "0-0",
+      },
+      next: { revalidate: 60 },
+    });
+    const raw = res.headers.get("content-range") ?? "";
+    return parseInt(raw.split("/")[1] ?? "0", 10) || 1247;
+  } catch {
+    return 1247;
+  }
+}
+
+async function getAvgDays(): Promise<number> {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !serviceKey) return 47;
+  try {
+    const res = await fetch(
+      `${supabaseUrl}/rest/v1/fixes?select=started_at,ended_at&ended_at=not.is.null&is_public=eq.true&limit=500`,
+      {
+        headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` },
+        next: { revalidate: 3600 },
+      }
+    );
+    const fixes: { started_at: string; ended_at: string }[] = await res.json();
+    if (!Array.isArray(fixes) || fixes.length === 0) return 47;
+    const totalDays = fixes.reduce((sum, f) => {
+      return sum + Math.max(1, Math.ceil(
+        (new Date(f.ended_at).getTime() - new Date(f.started_at).getTime()) / 86_400_000
+      ));
+    }, 0);
+    return Math.round(totalDays / fixes.length) || 47;
+  } catch {
+    return 47;
+  }
+}
+
 export const metadata: Metadata = {
   title: "Hyperfix — what are you unwell about?",
 };
@@ -138,10 +185,12 @@ export default async function Page({
     return <OAuthCallback code={params.code} />;
   }
 
-  const [countRes, statsRes] = await Promise.all([
-    fetch('/api/waitlist-count', { next: { revalidate: 60 } }).then(r => r.json()).catch(() => ({ count: 1247 })),
-    fetch('/api/stats', { next: { revalidate: 3600 } }).then(r => r.json()).catch(() => ({ avgDays: 47 })),
+  const [waitlistCount, avgDays] = await Promise.all([
+    getWaitlistCount(),
+    getAvgDays(),
   ]);
+  const countRes = { count: waitlistCount };
+  const statsRes = { avgDays };
 
   return (
     <>
