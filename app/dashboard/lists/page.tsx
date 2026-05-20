@@ -60,7 +60,7 @@ export default async function ListsPage() {
           <Link
             href="/dashboard/lists/new"
             className="hidden lg:flex items-center gap-2 px-4 py-2.5 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97] shrink-0"
-            style={{ background: "#A855F7", color: "#0A0A0A" }}
+            style={{ background: "#5EEAD4", color: "#0A0A0A" }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <line x1="12" y1="5" x2="12" y2="19" />
@@ -93,7 +93,7 @@ export default async function ListsPage() {
                 <Link
                   key={list.id}
                   href={`/dashboard/lists/${list.id}`}
-                  className="group rounded-2xl p-5 flex flex-col gap-3 transition-all hover:border-[rgba(168,85,247,0.2)]"
+                  className="group rounded-2xl p-5 flex flex-col gap-3 transition-all hover:border-[rgba(94,234,212,0.2)]"
                   style={{
                     background: "#111113",
                     border: "1px solid rgba(244,244,244,0.07)",
@@ -107,9 +107,9 @@ export default async function ListsPage() {
                       style={
                         list.is_public
                           ? {
-                              background: "rgba(168,85,247,0.08)",
-                              border: "1px solid rgba(168,85,247,0.2)",
-                              color: "rgba(168,85,247,0.7)",
+                              background: "rgba(94,234,212,0.08)",
+                              border: "1px solid rgba(94,234,212,0.2)",
+                              color: "rgba(94,234,212,0.7)",
                             }
                           : {
                               background: "rgba(244,244,244,0.05)",
@@ -134,7 +134,7 @@ export default async function ListsPage() {
 
                   {/* Name */}
                   <h2
-                    className="font-display font-semibold leading-snug group-hover:text-[#A855F7] transition-colors"
+                    className="font-display font-semibold leading-snug group-hover:text-[#5EEAD4] transition-colors"
                     style={{
                       color: "#F4F4F4",
                       fontSize: 17,
@@ -186,9 +186,9 @@ export default async function ListsPage() {
               href="/dashboard/lists/new"
               className="flex items-center gap-2 px-5 py-2.5 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
               style={{
-                background: "rgba(168,85,247,0.12)",
-                border: "1px solid rgba(168,85,247,0.3)",
-                color: "#A855F7",
+                background: "rgba(94,234,212,0.12)",
+                border: "1px solid rgba(94,234,212,0.3)",
+                color: "#5EEAD4",
               }}
             >
               + New list
@@ -206,10 +206,10 @@ export default async function ListsPage() {
           right: "1rem",
           width: 52,
           height: 52,
-          background: "#A855F7",
+          background: "#5EEAD4",
           color: "#0A0A0A",
           zIndex: 40,
-          boxShadow: "0 4px 24px rgba(168,85,247,0.35)",
+          boxShadow: "0 4px 24px rgba(94,234,212,0.35)",
         }}
         aria-label="New list"
       >

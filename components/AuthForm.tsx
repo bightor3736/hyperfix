@@ -40,7 +40,7 @@ export function AuthInput({
         style={{ color: "rgba(244,244,244,0.65)" }}
       >
         {label}
-        {required && <span style={{ color: "#A855F7", marginLeft: 2 }}>*</span>}
+        {required && <span style={{ color: "#5EEAD4", marginLeft: 2 }}>*</span>}
       </label>
       <div className="relative">
         <input
@@ -53,7 +53,7 @@ export function AuthInput({
           minLength={minLength}
           value={value}
           onChange={onChange ? (e) => onChange(e.target.value) : undefined}
-          className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.2)] focus:ring-2 focus:ring-[#A855F7]/40"
+          className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.2)] focus:ring-2 focus:ring-[#5EEAD4]/40"
           style={{
             background: "#161616",
             border: "1px solid rgba(244,244,244,0.1)",
@@ -157,7 +157,7 @@ export function SubmitButton({ label, pending }: { label: string; pending?: bool
       type="submit"
       disabled={pending}
       className="w-full rounded-xl py-3.5 font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-      style={{ background: "#A855F7", color: "#0A0A0A" }}
+      style={{ background: "#5EEAD4", color: "#0A0A0A" }}
     >
       {pending ? "Please wait…" : label}
     </button>
@@ -188,8 +188,8 @@ export function FormSuccess({ message }: { message: string | null }) {
     <p
       className="text-sm font-sans rounded-xl px-4 py-3"
       style={{
-        background: "rgba(168,85,247,0.08)",
-        border: "1px solid rgba(168,85,247,0.25)",
+        background: "rgba(94,234,212,0.08)",
+        border: "1px solid rgba(94,234,212,0.25)",
         color: "#a3e635",
       }}
     >

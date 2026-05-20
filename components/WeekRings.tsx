@@ -53,7 +53,7 @@ export function WeekRings({ checkedDates }: { checkedDates: string[] }) {
                   alignItems: "center",
                   justifyContent: "center",
                   background: checkedIn
-                    ? "#A855F7"
+                    ? "#5EEAD4"
                     : "transparent",
                   border: checkedIn
                     ? "none"
@@ -61,11 +61,11 @@ export function WeekRings({ checkedDates }: { checkedDates: string[] }) {
                       ? "1.5px dashed rgba(244,244,244,0.1)"
                       : isPast
                         ? "2px solid rgba(244,244,244,0.15)"
-                        : "2px solid rgba(168,85,247,0.5)",
+                        : "2px solid rgba(94,234,212,0.5)",
                   boxShadow: checkedIn
-                    ? "0 0 18px rgba(168,85,247,0.5), inset 0 1px 0 rgba(255,255,255,0.15)"
+                    ? "0 0 18px rgba(94,234,212,0.5), inset 0 1px 0 rgba(255,255,255,0.15)"
                     : isToday
-                      ? "0 0 12px rgba(168,85,247,0.2)"
+                      ? "0 0 12px rgba(94,234,212,0.2)"
                       : "none",
                   transition: "all 0.2s ease",
                 }}
@@ -73,14 +73,14 @@ export function WeekRings({ checkedDates }: { checkedDates: string[] }) {
                 {checkedIn ? (
                   <SparkIcon size={18} color="white" />
                 ) : isToday ? (
-                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#A855F7" }} />
+                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#5EEAD4" }} />
                 ) : null}
               </div>
               <span
                 className="font-mono text-[10px] uppercase tracking-widest"
                 style={{
                   color: isToday
-                    ? "#A855F7"
+                    ? "#5EEAD4"
                     : checkedIn
                       ? "rgba(244,244,244,0.6)"
                       : "rgba(244,244,244,0.2)",

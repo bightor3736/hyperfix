@@ -4,7 +4,6 @@ import { useState, useMemo, useTransition } from "react";
 import Link from "next/link";
 import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
 import { checkInFix, bulkCheckInFixes } from "@/app/actions/fixes";
-import { Mascot, type MascotExpression } from "@/components/Mascot";
 
 type Fix = {
   id: string;
@@ -39,7 +38,7 @@ function getDayCount(startedAt: string): number {
 function intensityColor(intensity: number): string {
   if (intensity >= 8) return "#E63946";
   if (intensity >= 6) return "#FB923C";
-  return "#A855F7";
+  return "#5EEAD4";
 }
 
 function intensityRGB(intensity: number): string {
@@ -84,13 +83,6 @@ function FixGridCard({
     onCheckIn(fixId);
   }
 
-  // Mini mascot expression based on intensity
-  const miniMascotExpression: MascotExpression =
-    fix.intensity >= 9 ? "send-help" :
-    fix.intensity >= 7 ? "anxious" :
-    fix.intensity >= 5 ? "obsessed" :
-    "calm";
-
   return (
     <div
       className="rounded-2xl p-4 flex flex-col relative"
@@ -105,15 +97,33 @@ function FixGridCard({
         transition: "all 0.25s ease",
       }}
     >
-      {/* Mini mascot badge — top-right corner */}
-      <div style={{ position: "absolute", top: -16, right: -12, zIndex: 10 }}>
-        <Mascot expression={miniMascotExpression} size={44} color={color} />
+      {/* Intensity badge — top-right corner */}
+      <div
+        style={{
+          position: "absolute",
+          top: -10,
+          right: -10,
+          zIndex: 10,
+          width: 36,
+          height: 36,
+          borderRadius: 999,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: `rgba(${rgb},0.18)`,
+          border: `1px solid rgba(${rgb},0.45)`,
+          color,
+          boxShadow: `0 0 18px rgba(${rgb},0.45)`,
+        }}
+        className="font-display text-sm font-semibold"
+      >
+        {fix.intensity}
       </div>
       <Link href={`/dashboard/fix/${fix.id}`} className="flex-1 block group">
         {/* Title + milestone badge */}
         <div className="flex items-start justify-between gap-2 mb-2">
           <h3
-            className="font-display font-bold text-[15px] leading-tight group-hover:text-[#A855F7] transition-colors flex-1 min-w-0"
+            className="font-display font-bold text-[15px] leading-tight group-hover:text-[#5EEAD4] transition-colors flex-1 min-w-0"
             style={{
               color: "#F4F4F4",
               letterSpacing: "-0.01em",
@@ -160,7 +170,7 @@ function FixGridCard({
             <span
               className="font-mono font-black leading-none tabular-nums"
               style={{
-                color: justCheckedIn ? color : "#A855F7",
+                color: justCheckedIn ? color : "#5EEAD4",
                 fontSize: 40,
                 letterSpacing: "-0.04em",
                 transition: "color 0.3s ease",
@@ -196,7 +206,7 @@ function FixGridCard({
           <span
             className="font-mono text-[10px] uppercase tracking-widest"
             style={{
-              color: justCheckedIn ? color : "rgba(168,85,247,0.5)",
+              color: justCheckedIn ? color : "rgba(94,234,212,0.5)",
               transition: "color 0.3s ease",
             }}
           >
@@ -205,7 +215,7 @@ function FixGridCard({
         ) : (
           <button
             onClick={(e) => { e.preventDefault(); handleCheckIn(fix.id); }}
-            className="font-mono text-[10px] uppercase tracking-widest transition-all hover:text-[#A855F7] active:scale-95"
+            className="font-mono text-[10px] uppercase tracking-widest transition-all hover:text-[#5EEAD4] active:scale-95"
             style={{ color: "rgba(244,244,244,0.3)" }}
           >
             + check in today
@@ -223,7 +233,7 @@ function PillButton({ label, active, onClick }: { label: string; active: boolean
       className="shrink-0 px-3 py-1.5 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all duration-150 whitespace-nowrap"
       style={
         active
-          ? { background: "#A855F7", color: "#F4F4F4", border: "1px solid transparent" }
+          ? { background: "#5EEAD4", color: "#F4F4F4", border: "1px solid transparent" }
           : { background: "rgba(244,244,244,0.04)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.45)" }
       }
     >
@@ -325,7 +335,7 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search your fixes…"
-            className="w-full rounded-xl pl-9 pr-4 py-2.5 font-sans text-sm outline-none transition-all focus:ring-2 focus:ring-[#A855F7]/25 placeholder:text-[rgba(244,244,244,0.3)]"
+            className="w-full rounded-xl pl-9 pr-4 py-2.5 font-sans text-sm outline-none transition-all focus:ring-2 focus:ring-[#5EEAD4]/25 placeholder:text-[rgba(244,244,244,0.3)]"
             style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.1)", color: "#F4F4F4" }}
           />
         </div>
@@ -340,9 +350,9 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
             disabled={bulkPending}
             className="shrink-0 px-4 py-2 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all hover:opacity-80 active:scale-95 disabled:opacity-50 whitespace-nowrap"
             style={{
-              background: "rgba(168,85,247,0.08)",
-              border: "1px solid rgba(168,85,247,0.35)",
-              color: "#A855F7",
+              background: "rgba(94,234,212,0.08)",
+              border: "1px solid rgba(94,234,212,0.35)",
+              color: "#5EEAD4",
             }}
           >
             {bulkPending ? "Checking in…" : `Check in all (${uncheckedCount})`}

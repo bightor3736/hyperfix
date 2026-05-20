@@ -52,7 +52,7 @@ function TombstoneCard({ fix }: { fix: GraveyardFix }) {
       style={{
         background: "#111113",
         border: "1px solid rgba(244,244,244,0.07)",
-        boxShadow: "0 0 20px rgba(168,85,247,0.03)",
+        boxShadow: "0 0 20px rgba(94,234,212,0.03)",
       }}
     >
       {/* Top row: category + status + time ago */}
@@ -78,7 +78,7 @@ function TombstoneCard({ fix }: { fix: GraveyardFix }) {
       {/* Title */}
       <Link href={`/dashboard/fix/${fix.id}`}>
         <h3
-          className="font-display font-semibold leading-snug hover:text-[#A855F7] transition-colors"
+          className="font-display font-semibold leading-snug hover:text-[#5EEAD4] transition-colors"
           style={{
             color: "rgba(244,244,244,0.85)",
             fontSize: 17,
@@ -99,7 +99,7 @@ function TombstoneCard({ fix }: { fix: GraveyardFix }) {
           <span
             className="font-display font-black leading-none"
             style={{
-              color: "rgba(168,85,247,0.6)",
+              color: "rgba(94,234,212,0.6)",
               fontSize: 36,
               letterSpacing: "-0.04em",
               fontVariantNumeric: "tabular-nums",
@@ -109,7 +109,7 @@ function TombstoneCard({ fix }: { fix: GraveyardFix }) {
           </span>
           <span
             className="font-display font-semibold pb-0.5"
-            style={{ color: "rgba(168,85,247,0.45)", fontSize: 14 }}
+            style={{ color: "rgba(94,234,212,0.45)", fontSize: 14 }}
           >
             days of your life
           </span>
@@ -124,7 +124,7 @@ function TombstoneCard({ fix }: { fix: GraveyardFix }) {
         <blockquote
           className="font-display italic text-[13px] leading-relaxed pl-3 mt-1"
           style={{
-            borderLeft: "2px solid rgba(168,85,247,0.25)",
+            borderLeft: "2px solid rgba(94,234,212,0.25)",
             color: "rgba(244,244,244,0.5)",
             margin: 0,
           }}
@@ -242,7 +242,7 @@ export default async function GraveyardPage() {
                 RIP · {total} {total === 1 ? "fix" : "fixes"}
               </span>
               {totalDays > 0 && (
-                <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(168,85,247,0.4)" }}>
+                <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(94,234,212,0.4)" }}>
                   · {totalDays.toLocaleString()} days lived
                 </span>
               )}

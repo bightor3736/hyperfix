@@ -38,7 +38,7 @@ export default function WaitlistForm({
         >
           <span
             className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 mb-5"
-            style={{ background: "#A855F7", color: "#0A0A0A", fontWeight: 800 }}
+            style={{ background: "#5EEAD4", color: "#0A0A0A", fontWeight: 800 }}
           >
             waitlist confirmed
           </span>
@@ -84,7 +84,7 @@ export default function WaitlistForm({
           disabled={pending}
           className="shrink-0 px-6 py-3.5 font-mono text-[11px] uppercase tracking-widest font-bold transition-all disabled:opacity-50 active:scale-[0.98] hover:opacity-90"
           style={{
-            background: "#A855F7",
+            background: "#5EEAD4",
             color: "#0A0A0A",
             borderRadius: 999,
           }}

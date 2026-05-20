@@ -121,7 +121,7 @@ export default function ResetPasswordPage() {
           type="submit"
           disabled={pending}
           className="w-full rounded-xl py-3.5 font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-          style={{ background: "#A855F7", color: "#0A0A0A" }}
+          style={{ background: "#5EEAD4", color: "#0A0A0A" }}
         >
           {pending ? "Updating…" : "Update password"}
         </button>

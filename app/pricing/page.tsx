@@ -68,7 +68,7 @@ const faqs = [
 function Check() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="shrink-0 mt-px" aria-hidden="true">
-      <circle cx="9" cy="9" r="9" fill="rgba(168,85,247,0.15)" />
+      <circle cx="9" cy="9" r="9" fill="rgba(94,234,212,0.15)" />
       <path d="M5.5 9l2.5 2.5 4.5-5" stroke="#a3e635" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -108,7 +108,7 @@ export default function PricingPage() {
                 style={{
                   fontSize: "clamp(9rem, 26vw, 22rem)",
                   color: "transparent",
-                  WebkitTextStroke: "1.5px rgba(168,85,247,0.13)",
+                  WebkitTextStroke: "1.5px rgba(94,234,212,0.13)",
                   lineHeight: 0.85,
                 }}
               >
@@ -120,7 +120,7 @@ export default function PricingPage() {
             <div className="absolute top-20 right-8 sm:right-12 pointer-events-none" aria-hidden="true">
               <span
                 className="font-display font-bold italic"
-                style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)", color: "rgba(168,85,247,0.7)" }}
+                style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)", color: "rgba(94,234,212,0.7)" }}
               >
                 Hyperfix
               </span>
@@ -197,14 +197,14 @@ export default function PricingPage() {
                   background: "rgba(6,12,6,0.82)",
                   backdropFilter: "blur(28px)",
                   WebkitBackdropFilter: "blur(28px)",
-                  border: "1px solid rgba(168,85,247,0.3)",
-                  boxShadow: "inset 0 1px 0 rgba(168,85,247,0.08), 0 0 40px rgba(168,85,247,0.05)",
+                  border: "1px solid rgba(94,234,212,0.3)",
+                  boxShadow: "inset 0 1px 0 rgba(94,234,212,0.08), 0 0 40px rgba(94,234,212,0.05)",
                 }}
               >
                 {/* inner corner glow */}
                 <div
                   className="absolute -top-24 -right-24 w-64 h-64 rounded-full pointer-events-none"
-                  style={{ background: "radial-gradient(circle, rgba(168,85,247,0.2) 0%, transparent 70%)" }}
+                  style={{ background: "radial-gradient(circle, rgba(94,234,212,0.2) 0%, transparent 70%)" }}
                   aria-hidden="true"
                 />
 
@@ -212,7 +212,7 @@ export default function PricingPage() {
                   <p className="font-sans text-lg font-semibold text-white">Pro</p>
                   <span
                     className="font-mono text-[9px] uppercase tracking-widest rounded-full px-2.5 py-1 mt-0.5"
-                    style={{ background: "rgba(168,85,247,0.15)", color: "#a3e635" }}
+                    style={{ background: "rgba(94,234,212,0.15)", color: "#a3e635" }}
                   >
                     Waitlist
                   </span>
@@ -223,10 +223,10 @@ export default function PricingPage() {
                   </span>
                   <span className="font-sans text-sm pb-2" style={{ color: "rgba(244,244,244,0.38)" }}>price</span>
                 </div>
-                <p className="font-sans text-sm mb-2 relative" style={{ color: "rgba(168,85,247,0.5)" }}>
+                <p className="font-sans text-sm mb-2 relative" style={{ color: "rgba(94,234,212,0.5)" }}>
                   Price announced at launch — waitlist gets it first.
                 </p>
-                <p className="font-sans text-xs mb-7 pb-7 relative" style={{ color: "rgba(244,244,244,0.3)", borderBottom: "1px solid rgba(168,85,247,0.1)" }}>
+                <p className="font-sans text-xs mb-7 pb-7 relative" style={{ color: "rgba(244,244,244,0.3)", borderBottom: "1px solid rgba(94,234,212,0.1)" }}>
                   Join now to lock in your permanent early-access discount.
                 </p>
 

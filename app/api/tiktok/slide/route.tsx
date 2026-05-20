@@ -104,7 +104,7 @@ function ZineSlide({ slide, n, total }: { slide: Slide; n: number; total: number
       <div style={{
         position: "absolute", bottom: -180, left: -140,
         width: 420, height: 420, borderRadius: "50%",
-        border: `2px solid ${isCta ? "rgba(0,0,0,0.08)" : "rgba(168,85,247,0.35)"}`,
+        border: `2px solid ${isCta ? "rgba(0,0,0,0.08)" : "rgba(94,234,212,0.35)"}`,
         display: "flex",
       }} />
       {/* Lime filled dot */}
@@ -115,8 +115,8 @@ function ZineSlide({ slide, n, total }: { slide: Slide; n: number; total: number
         display: "flex",
       }} />
       {/* Small dot cluster */}
-      <div style={{ position: "absolute", bottom: 320, right: 90, width: 14, height: 14, borderRadius: "50%", background: isCta ? "rgba(0,0,0,0.15)" : "rgba(168,85,247,0.6)", display: "flex" }} />
-      <div style={{ position: "absolute", bottom: 355, right: 115, width: 8, height: 8, borderRadius: "50%", background: isCta ? "rgba(0,0,0,0.1)" : "rgba(168,85,247,0.35)", display: "flex" }} />
+      <div style={{ position: "absolute", bottom: 320, right: 90, width: 14, height: 14, borderRadius: "50%", background: isCta ? "rgba(0,0,0,0.15)" : "rgba(94,234,212,0.6)", display: "flex" }} />
+      <div style={{ position: "absolute", bottom: 355, right: 115, width: 8, height: 8, borderRadius: "50%", background: isCta ? "rgba(0,0,0,0.1)" : "rgba(94,234,212,0.35)", display: "flex" }} />
 
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 0 }}>
@@ -183,42 +183,42 @@ function OrbitSlide({ slide, n, total }: { slide: Slide; n: number; total: numbe
       <div style={{
         position: "absolute", top: -200, right: -180,
         width: 720, height: 720, borderRadius: "50%",
-        border: `1.5px solid ${isCta ? "rgba(0,0,0,0.12)" : "rgba(168,85,247,0.18)"}`,
+        border: `1.5px solid ${isCta ? "rgba(0,0,0,0.12)" : "rgba(94,234,212,0.18)"}`,
         display: "flex",
       }} />
       {/* Ring 2 — medium, offset lower right */}
       <div style={{
         position: "absolute", top: 180, right: -220,
         width: 480, height: 480, borderRadius: "50%",
-        border: `1px solid ${isCta ? "rgba(0,0,0,0.08)" : "rgba(168,85,247,0.1)"}`,
+        border: `1px solid ${isCta ? "rgba(0,0,0,0.08)" : "rgba(94,234,212,0.1)"}`,
         display: "flex",
       }} />
       {/* Ring 3 — large, bottom left */}
       <div style={{
         position: "absolute", bottom: -300, left: -250,
         width: 800, height: 800, borderRadius: "50%",
-        border: `1.5px solid ${isCta ? "rgba(0,0,0,0.1)" : "rgba(168,85,247,0.12)"}`,
+        border: `1.5px solid ${isCta ? "rgba(0,0,0,0.1)" : "rgba(94,234,212,0.12)"}`,
         display: "flex",
       }} />
       {/* Small ring — floating centre-left */}
       <div style={{
         position: "absolute", top: "42%", left: 60,
         width: 120, height: 120, borderRadius: "50%",
-        border: `1.5px solid ${isCta ? "rgba(0,0,0,0.15)" : "rgba(168,85,247,0.25)"}`,
+        border: `1.5px solid ${isCta ? "rgba(0,0,0,0.15)" : "rgba(94,234,212,0.25)"}`,
         display: "flex",
       }} />
       {/* Filled dot */}
       <div style={{ position: "absolute", top: "44%", left: 103, width: 34, height: 34, borderRadius: "50%", background: isCta ? "rgba(0,0,0,0.2)" : "#a3e635", display: "flex" }} />
       {/* Mini dots */}
-      <div style={{ position: "absolute", top: 240, left: 90, width: 10, height: 10, borderRadius: "50%", background: isCta ? "rgba(0,0,0,0.15)" : "rgba(168,85,247,0.5)", display: "flex" }} />
-      <div style={{ position: "absolute", bottom: 280, right: 110, width: 7, height: 7, borderRadius: "50%", background: isCta ? "rgba(0,0,0,0.12)" : "rgba(168,85,247,0.4)", display: "flex" }} />
+      <div style={{ position: "absolute", top: 240, left: 90, width: 10, height: 10, borderRadius: "50%", background: isCta ? "rgba(0,0,0,0.15)" : "rgba(94,234,212,0.5)", display: "flex" }} />
+      <div style={{ position: "absolute", bottom: 280, right: 110, width: 7, height: 7, borderRadius: "50%", background: isCta ? "rgba(0,0,0,0.12)" : "rgba(94,234,212,0.4)", display: "flex" }} />
 
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <span style={{ color: isCta ? "#010201" : "#a3e635", fontSize: 32, fontWeight: 900, letterSpacing: "-0.02em" }}>hyperfix</span>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           {Array.from({ length: total }).map((_, i) => (
-            <div key={i} style={{ width: i + 1 === n ? 28 : 8, height: 8, borderRadius: 4, background: i + 1 === n ? (isCta ? "#010201" : "#a3e635") : (isCta ? "rgba(0,0,0,0.2)" : "rgba(168,85,247,0.2)"), display: "flex" }} />
+            <div key={i} style={{ width: i + 1 === n ? 28 : 8, height: 8, borderRadius: 4, background: i + 1 === n ? (isCta ? "#010201" : "#a3e635") : (isCta ? "rgba(0,0,0,0.2)" : "rgba(94,234,212,0.2)"), display: "flex" }} />
           ))}
         </div>
       </div>
@@ -226,7 +226,7 @@ function OrbitSlide({ slide, n, total }: { slide: Slide; n: number; total: numbe
       {/* Content */}
       <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "center", gap: 40 }}>
         {slide.eyebrow && (
-          <span style={{ color: isCta ? "rgba(0,0,0,0.5)" : "rgba(168,85,247,0.7)", fontSize: 26, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.12em", lineHeight: 1.5 }}>
+          <span style={{ color: isCta ? "rgba(0,0,0,0.5)" : "rgba(94,234,212,0.7)", fontSize: 26, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.12em", lineHeight: 1.5 }}>
             {slide.eyebrow}
           </span>
         )}
@@ -264,8 +264,8 @@ function ColorPopSlide({ slide, n, total }: { slide: Slide; n: number; total: nu
   // Per-slide palettes: [bg, text, accent, blockColor]
   const palettes = [
     { bg: "#a3e635", text: "#010201", accent: "#010201",  block: "rgba(0,0,0,0.08)"  }, // lime
-    { bg: "#010201", text: "#F4F4F4", accent: "#a3e635",  block: "rgba(168,85,247,0.07)" }, // dark
-    { bg: "#0D0D1A", text: "#F4F4F4", accent: "#a3e635",  block: "rgba(168,85,247,0.06)" }, // deep dark
+    { bg: "#010201", text: "#F4F4F4", accent: "#a3e635",  block: "rgba(94,234,212,0.07)" }, // dark
+    { bg: "#0D0D1A", text: "#F4F4F4", accent: "#a3e635",  block: "rgba(94,234,212,0.06)" }, // deep dark
     { bg: "#a3e635", text: "#010201", accent: "#010201",  block: "rgba(0,0,0,0.1)"  }, // lime CTA
   ];
 
@@ -412,7 +412,7 @@ function IllustratedSlide({
           position: "absolute",
           top: 120, left: "50%", marginLeft: -260,
           width: 520, height: 520, borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(168,85,247,0.09) 0%, transparent 68%)",
+          background: "radial-gradient(circle, rgba(94,234,212,0.09) 0%, transparent 68%)",
           display: "flex",
         }} />
       )}
@@ -444,7 +444,7 @@ function IllustratedSlide({
           <div style={{
             position: "absolute",
             width: 400, height: 400, borderRadius: "50%",
-            border: "1.5px solid rgba(168,85,247,0.18)",
+            border: "1.5px solid rgba(94,234,212,0.18)",
             display: "flex",
           }} />
         )}
@@ -453,7 +453,7 @@ function IllustratedSlide({
           <div style={{
             position: "absolute",
             width: 290, height: 290, borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(168,85,247,0.13) 0%, transparent 75%)",
+            background: "radial-gradient(circle, rgba(94,234,212,0.13) 0%, transparent 75%)",
             display: "flex",
           }} />
         )}
@@ -461,11 +461,11 @@ function IllustratedSlide({
         {/* Sparkle dots scattered around the emoji */}
         {!isCta && (
           <>
-            <div style={{ position: "absolute", top: 18,  right: 108, width: 16, height: 16, borderRadius: "50%", background: "rgba(168,85,247,0.7)", display: "flex" }} />
-            <div style={{ position: "absolute", top: 80,  left:  72, width: 10, height: 10, borderRadius: "50%", background: "rgba(168,85,247,0.45)", display: "flex" }} />
-            <div style={{ position: "absolute", bottom: 40, right: 76, width: 12, height: 12, borderRadius: "50%", background: "rgba(168,85,247,0.5)", display: "flex" }} />
-            <div style={{ position: "absolute", bottom: 20, left:  96, width:  7, height:  7, borderRadius: "50%", background: "rgba(168,85,247,0.3)", display: "flex" }} />
-            <div style={{ position: "absolute", top: 30,  left: 130, width:  6, height:  6, borderRadius: "50%", background: "rgba(168,85,247,0.25)", display: "flex" }} />
+            <div style={{ position: "absolute", top: 18,  right: 108, width: 16, height: 16, borderRadius: "50%", background: "rgba(94,234,212,0.7)", display: "flex" }} />
+            <div style={{ position: "absolute", top: 80,  left:  72, width: 10, height: 10, borderRadius: "50%", background: "rgba(94,234,212,0.45)", display: "flex" }} />
+            <div style={{ position: "absolute", bottom: 40, right: 76, width: 12, height: 12, borderRadius: "50%", background: "rgba(94,234,212,0.5)", display: "flex" }} />
+            <div style={{ position: "absolute", bottom: 20, left:  96, width:  7, height:  7, borderRadius: "50%", background: "rgba(94,234,212,0.3)", display: "flex" }} />
+            <div style={{ position: "absolute", top: 30,  left: 130, width:  6, height:  6, borderRadius: "50%", background: "rgba(94,234,212,0.25)", display: "flex" }} />
           </>
         )}
 
@@ -476,7 +476,7 @@ function IllustratedSlide({
       {/* ── Divider ── */}
       <div style={{
         height: 2, borderRadius: 1,
-        background: isCta ? "rgba(0,0,0,0.15)" : "rgba(168,85,247,0.22)",
+        background: isCta ? "rgba(0,0,0,0.15)" : "rgba(94,234,212,0.22)",
         display: "flex", marginTop: 44, marginBottom: 44,
       }} />
 
@@ -484,7 +484,7 @@ function IllustratedSlide({
       <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: 28 }}>
         {slide.eyebrow && (
           <span style={{
-            color: isCta ? muted : "rgba(168,85,247,0.65)",
+            color: isCta ? muted : "rgba(94,234,212,0.65)",
             fontSize: 24, fontFamily: "monospace",
             textTransform: "uppercase", letterSpacing: "0.1em", lineHeight: 1.4,
           }}>
@@ -567,7 +567,7 @@ function PhotoSlide({
     return (
       <div style={{
         width: "100%", height: "100%",
-        background: "#A855F7",
+        background: "#5EEAD4",
         display: "flex", flexDirection: "column",
         padding: "90px 80px",
         fontFamily: "serif",
@@ -641,14 +641,14 @@ function PhotoSlide({
       }}>
         {/* Header */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <span style={{ color: "#A855F7", fontSize: 30, fontWeight: 900, letterSpacing: "-0.02em" }}>
+          <span style={{ color: "#5EEAD4", fontSize: 30, fontWeight: 900, letterSpacing: "-0.02em" }}>
             hyperfix
           </span>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             {Array.from({ length: total }).map((_, i) => (
               <div key={i} style={{
                 width: i + 1 === n ? 32 : 8, height: 8, borderRadius: 4,
-                background: i + 1 === n ? "#A855F7" : "rgba(168,85,247,0.3)",
+                background: i + 1 === n ? "#5EEAD4" : "rgba(94,234,212,0.3)",
                 display: "flex",
               }} />
             ))}
@@ -659,7 +659,7 @@ function PhotoSlide({
         <div style={{ display: "flex", flexDirection: "column", marginTop: "auto", gap: 28 }}>
           {slide.eyebrow && (
             <span style={{
-              color: "rgba(168,85,247,0.85)",
+              color: "rgba(94,234,212,0.85)",
               fontSize: 24, fontFamily: "monospace",
               textTransform: "uppercase", letterSpacing: "0.12em", lineHeight: 1.4,
             }}>
@@ -668,7 +668,7 @@ function PhotoSlide({
           )}
 
           {/* Lime rule */}
-          <div style={{ width: 52, height: 4, background: "#A855F7", borderRadius: 2, display: "flex" }} />
+          <div style={{ width: 52, height: 4, background: "#5EEAD4", borderRadius: 2, display: "flex" }} />
 
           <span style={{
             color: "#F4F4F4",
@@ -694,7 +694,7 @@ function PhotoSlide({
             <span style={{ color: "rgba(244,244,244,0.25)", fontSize: 22, fontFamily: "monospace" }}>
               {n < total ? "swipe →" : ""}
             </span>
-            <span style={{ color: "rgba(168,85,247,0.45)", fontSize: 22, fontFamily: "monospace" }}>
+            <span style={{ color: "rgba(94,234,212,0.45)", fontSize: 22, fontFamily: "monospace" }}>
               hyperfix.app
             </span>
           </div>

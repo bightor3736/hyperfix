@@ -22,7 +22,7 @@ interface MascotProps {
 export function Mascot({
   expression = "neutral",
   size = 120,
-  color = "#A855F7",
+  color = "#5EEAD4",
   className = "",
   style,
 }: MascotProps) {

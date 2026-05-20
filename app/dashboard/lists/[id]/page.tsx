@@ -48,16 +48,16 @@ function formatDate(iso: string): string {
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
-  song: "#A855F7",
+  song: "#5EEAD4",
   fanfic: "#F472B6",
   show: "#60A5FA",
   film: "#818CF8",
   ship: "#FB7185",
   game: "#34D399",
   "video essay": "#FBBF24",
-  podcast: "#C084FC",
+  podcast: "#A7F3D0",
   book: "#F97316",
-  character: "#E879F9",
+  character: "#5EEAD4",
   other: "rgba(244,244,244,0.4)",
 };
 
@@ -128,9 +128,9 @@ export default async function ListDetailPage({
                 style={
                   list.is_public
                     ? {
-                        background: "rgba(168,85,247,0.08)",
-                        border: "1px solid rgba(168,85,247,0.2)",
-                        color: "rgba(168,85,247,0.7)",
+                        background: "rgba(94,234,212,0.08)",
+                        border: "1px solid rgba(94,234,212,0.2)",
+                        color: "rgba(94,234,212,0.7)",
                       }
                     : {
                         background: "rgba(244,244,244,0.05)",
@@ -279,7 +279,7 @@ export default async function ListDetailPage({
 
                     <Link
                       href={`/dashboard/fix/${fix.id}`}
-                      className="font-display font-semibold leading-snug hover:text-[#A855F7] transition-colors block"
+                      className="font-display font-semibold leading-snug hover:text-[#5EEAD4] transition-colors block"
                       style={{
                         color: isEnded ? "rgba(244,244,244,0.55)" : "#F4F4F4",
                         fontSize: 16,
@@ -302,7 +302,7 @@ export default async function ListDetailPage({
                       className="font-mono text-[10px] mt-2"
                       style={{ color: "rgba(244,244,244,0.25)" }}
                     >
-                      <span style={{ color: isEnded ? "rgba(244,244,244,0.25)" : "rgba(168,85,247,0.6)" }}>
+                      <span style={{ color: isEnded ? "rgba(244,244,244,0.25)" : "rgba(94,234,212,0.6)" }}>
                         {days}d
                       </span>
                       {" · "}added {formatDate(item.added_at)}
@@ -356,9 +356,9 @@ export default async function ListDetailPage({
                 href="/dashboard"
                 className="flex items-center gap-2 px-5 py-2.5 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
                 style={{
-                  background: "rgba(168,85,247,0.12)",
-                  border: "1px solid rgba(168,85,247,0.3)",
-                  color: "#A855F7",
+                  background: "rgba(94,234,212,0.12)",
+                  border: "1px solid rgba(94,234,212,0.3)",
+                  color: "#5EEAD4",
                 }}
               >
                 Browse fixes →

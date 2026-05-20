@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 const LIME = "#0A0A0A";
-const FG = "#A855F7";
+const FG = "#5EEAD4";
 const FG_2 = "#7CB205";
 
 export default function Avatar() {

@@ -5,7 +5,7 @@ export const runtime = "edge";
 
 const W = 1080;
 const H = 1920;
-const LIME = "#A855F7";
+const LIME = "#5EEAD4";
 const INK = "#0A0A0A";
 const PAPER = "#F4F4F4";
 const DIM = "rgba(244,244,244,0.35)";
@@ -105,7 +105,7 @@ const povSlides: PovSlide[] = [
 function CoverSlide({ total }: { total: number }) {
   return (
     <div style={{ width: W, height: H, background: INK, display: "flex", flexDirection: "column", padding: "120px 96px", position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", top: -300, right: -300, width: 1000, height: 1000, background: "radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 65%)", borderRadius: "50%", display: "flex" }} />
+      <div style={{ position: "absolute", top: -300, right: -300, width: 1000, height: 1000, background: "radial-gradient(circle, rgba(94,234,212,0.15) 0%, transparent 65%)", borderRadius: "50%", display: "flex" }} />
       <span style={{ fontSize: 32, fontWeight: 900, color: LIME, letterSpacing: "-0.03em", display: "flex", marginBottom: "auto" }}>hyperfix</span>
       <div style={{ display: "flex", flexDirection: "column", marginBottom: 80 }}>
         <span style={{ fontSize: 140, fontWeight: 900, color: PAPER, letterSpacing: "-0.05em", lineHeight: 0.88, display: "flex" }}>signs</span>
@@ -123,7 +123,7 @@ function CoverSlide({ total }: { total: number }) {
 function SignSlide({ slide, index, total }: { slide: Extract<SignsSlide, { type: "sign" }>; index: number; total: number }) {
   return (
     <div style={{ width: W, height: H, background: INK, display: "flex", flexDirection: "column", padding: "120px 96px", position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", bottom: -200, left: -200, width: 800, height: 800, background: "radial-gradient(circle, rgba(168,85,247,0.1) 0%, transparent 65%)", borderRadius: "50%", display: "flex" }} />
+      <div style={{ position: "absolute", bottom: -200, left: -200, width: 800, height: 800, background: "radial-gradient(circle, rgba(94,234,212,0.1) 0%, transparent 65%)", borderRadius: "50%", display: "flex" }} />
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "auto" }}>
         <span style={{ fontSize: 32, fontWeight: 900, color: LIME, letterSpacing: "-0.03em", display: "flex" }}>hyperfix</span>
         <span style={{ fontSize: 26, color: DIM, letterSpacing: "0.04em", display: "flex" }}>{index + 1} of {total}</span>
@@ -147,7 +147,7 @@ function SignSlide({ slide, index, total }: { slide: Extract<SignsSlide, { type:
 function OutroSlide() {
   return (
     <div style={{ width: W, height: H, background: INK, display: "flex", flexDirection: "column", padding: "120px 96px", position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", top: "50%", left: "50%", width: 1200, height: 1200, background: "radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 60%)", borderRadius: "50%", display: "flex" }} />
+      <div style={{ position: "absolute", top: "50%", left: "50%", width: 1200, height: 1200, background: "radial-gradient(circle, rgba(94,234,212,0.12) 0%, transparent 60%)", borderRadius: "50%", display: "flex" }} />
       <span style={{ fontSize: 32, fontWeight: 900, color: LIME, letterSpacing: "-0.03em", display: "flex", marginBottom: "auto" }}>hyperfix</span>
       <div style={{ display: "flex", flexDirection: "column", marginBottom: 64 }}>
         <span style={{ fontSize: 110, fontWeight: 900, color: PAPER, letterSpacing: "-0.05em", lineHeight: 0.9, display: "flex" }}>track it.</span>
@@ -169,8 +169,8 @@ function OutroSlide() {
 function PovCoverSlide({ total }: { total: number }) {
   return (
     <div style={{ width: W, height: H, background: INK, display: "flex", flexDirection: "column", padding: "120px 96px", position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", top: -200, right: -200, width: 900, height: 900, background: "radial-gradient(circle, rgba(168,85,247,0.18) 0%, transparent 65%)", borderRadius: "50%", display: "flex" }} />
-      <div style={{ position: "absolute", bottom: -300, left: -200, width: 700, height: 700, background: "radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 65%)", borderRadius: "50%", display: "flex" }} />
+      <div style={{ position: "absolute", top: -200, right: -200, width: 900, height: 900, background: "radial-gradient(circle, rgba(94,234,212,0.18) 0%, transparent 65%)", borderRadius: "50%", display: "flex" }} />
+      <div style={{ position: "absolute", bottom: -300, left: -200, width: 700, height: 700, background: "radial-gradient(circle, rgba(94,234,212,0.08) 0%, transparent 65%)", borderRadius: "50%", display: "flex" }} />
       <span style={{ fontSize: 32, fontWeight: 900, color: LIME, letterSpacing: "-0.03em", display: "flex", marginBottom: "auto" }}>hyperfix</span>
       <div style={{ display: "flex", flexDirection: "column", marginBottom: 72 }}>
         <span style={{ fontSize: 96, fontWeight: 900, fontStyle: "italic", color: LIME, letterSpacing: "-0.04em", lineHeight: 1, display: "flex" }}>POV:</span>
@@ -189,7 +189,7 @@ function PovCoverSlide({ total }: { total: number }) {
 function PovDaySlide({ slide, index, total }: { slide: Extract<PovSlide, { type: "pov-day" }>; index: number; total: number }) {
   return (
     <div style={{ width: W, height: H, background: INK, display: "flex", flexDirection: "column", padding: "120px 96px", position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", bottom: -180, right: -180, width: 700, height: 700, background: "radial-gradient(circle, rgba(168,85,247,0.1) 0%, transparent 65%)", borderRadius: "50%", display: "flex" }} />
+      <div style={{ position: "absolute", bottom: -180, right: -180, width: 700, height: 700, background: "radial-gradient(circle, rgba(94,234,212,0.1) 0%, transparent 65%)", borderRadius: "50%", display: "flex" }} />
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "auto" }}>
         <span style={{ fontSize: 32, fontWeight: 900, color: LIME, letterSpacing: "-0.03em", display: "flex" }}>hyperfix</span>
         <span style={{ fontSize: 26, color: DIM, letterSpacing: "0.04em", display: "flex" }}>{index + 1} of {total}</span>
@@ -213,7 +213,7 @@ function PovDaySlide({ slide, index, total }: { slide: Extract<PovSlide, { type:
 function PovOutroSlide() {
   return (
     <div style={{ width: W, height: H, background: INK, display: "flex", flexDirection: "column", padding: "120px 96px", position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", top: "40%", left: "50%", width: 1100, height: 1100, background: "radial-gradient(circle, rgba(168,85,247,0.13) 0%, transparent 60%)", borderRadius: "50%", display: "flex" }} />
+      <div style={{ position: "absolute", top: "40%", left: "50%", width: 1100, height: 1100, background: "radial-gradient(circle, rgba(94,234,212,0.13) 0%, transparent 60%)", borderRadius: "50%", display: "flex" }} />
       <span style={{ fontSize: 32, fontWeight: 900, color: LIME, letterSpacing: "-0.03em", display: "flex", marginBottom: "auto" }}>hyperfix</span>
       <div style={{ display: "flex", flexDirection: "column", marginBottom: 48 }}>
         <span style={{ fontSize: 68, fontWeight: 900, color: SOFT, letterSpacing: "-0.03em", lineHeight: 1.1, display: "flex", flexWrap: "wrap", marginBottom: 40 }}>
@@ -238,7 +238,7 @@ function PovOutroSlide() {
 const gradSlides = [
   {
     bg: "#070B14",
-    glow1: { color: "rgba(168,85,247,0.22)", x: "80%", y: "-10%" },
+    glow1: { color: "rgba(94,234,212,0.22)", x: "80%", y: "-10%" },
     glow2: { color: "rgba(59,130,246,0.12)", x: "-10%", y: "80%" },
     accent: LIME,
     label: "POV:",
@@ -268,9 +268,9 @@ const gradSlides = [
   },
   {
     bg: "#0B0714",
-    glow1: { color: "rgba(168,85,247,0.22)", x: "80%", y: "0%" },
+    glow1: { color: "rgba(94,234,212,0.22)", x: "80%", y: "0%" },
     glow2: { color: "rgba(126,34,206,0.1)", x: "10%", y: "85%" },
-    accent: "#C084FC",
+    accent: "#A7F3D0",
     label: "day 7.",
     headline: ["your", "schedule", "just moved."],
     body: "sleep got shorter. the thing got longer. it wasn't a decision.",
@@ -308,7 +308,7 @@ const gradSlides = [
   },
   {
     bg: "#050F05",
-    glow1: { color: "rgba(168,85,247,0.2)", x: "50%", y: "40%" },
+    glow1: { color: "rgba(94,234,212,0.2)", x: "50%", y: "40%" },
     glow2: { color: "rgba(101,163,13,0.1)", x: "10%", y: "10%" },
     accent: LIME,
     label: null,

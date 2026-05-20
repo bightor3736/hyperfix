@@ -19,7 +19,7 @@ export function OAuthCallback({ code }: { code: string }) {
         alignItems: "center",
         justifyContent: "center",
         background: "#080808",
-        color: "#A855F7",
+        color: "#5EEAD4",
         fontFamily: "monospace",
         fontSize: 13,
         letterSpacing: "0.08em",

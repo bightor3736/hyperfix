@@ -37,18 +37,18 @@ export function OnboardingModal({ totalFixes }: { totalFixes: number }) {
         className="w-full max-w-md rounded-3xl p-7 flex flex-col gap-5 relative"
         style={{
           background: "#111113",
-          border: "1px solid rgba(168,85,247,0.2)",
-          boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 24px 60px rgba(0,0,0,0.7)",
+          border: "1px solid rgba(94,234,212,0.2)",
+          boxShadow: "0 0 60px rgba(94,234,212,0.15), 0 24px 60px rgba(0,0,0,0.7)",
         }}
       >
         {/* Ambient glow */}
         <div
           className="absolute inset-x-0 top-0 h-32 rounded-t-3xl pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(168,85,247,0.12), transparent)" }}
+          style={{ background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(94,234,212,0.12), transparent)" }}
         />
 
         <div className="relative text-center">
-          <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "#A855F7" }}>
+          <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "#5EEAD4" }}>
             welcome to hyperfix
           </p>
           <h2
@@ -68,7 +68,7 @@ export function OnboardingModal({ totalFixes }: { totalFixes: number }) {
             href="/dashboard/new"
             onClick={dismiss}
             className="w-full py-3.5 rounded-2xl font-sans text-sm font-bold text-center transition-all hover:opacity-90 active:scale-[0.98]"
-            style={{ background: "#A855F7", color: "#0A0A0A" }}
+            style={{ background: "#5EEAD4", color: "#0A0A0A" }}
           >
             Log my first fix →
           </Link>

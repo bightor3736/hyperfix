@@ -55,7 +55,7 @@ function IntensityBar({ intensity }: { intensity: number }) {
             key={i}
             className="w-2 h-4 rounded-sm"
             style={{
-              background: i < intensity ? "#A855F7" : "rgba(244,244,244,0.08)",
+              background: i < intensity ? "#5EEAD4" : "rgba(244,244,244,0.08)",
             }}
           />
         ))}
@@ -232,9 +232,9 @@ export default async function PublicFixPage({
           <span
             className="text-[10px] font-mono uppercase tracking-widest rounded-full px-3 py-1.5"
             style={{
-              background: "rgba(168,85,247,0.1)",
-              border: "1px solid rgba(168,85,247,0.25)",
-              color: "#A855F7",
+              background: "rgba(94,234,212,0.1)",
+              border: "1px solid rgba(94,234,212,0.25)",
+              color: "#5EEAD4",
             }}
           >
             {typedFix.category}
@@ -262,7 +262,7 @@ export default async function PublicFixPage({
         {/* Days + intensity */}
         <div className="flex flex-wrap items-center gap-6 mb-8">
           <div>
-            <span className="font-display font-medium" style={{ color: "#A855F7", fontSize: "clamp(36px, 10vw, 56px)" }}>
+            <span className="font-display font-medium" style={{ color: "#5EEAD4", fontSize: "clamp(36px, 10vw, 56px)" }}>
               {days}
             </span>
             <span className="text-lg font-mono ml-2" style={{ color: "#9A9A9A" }}>
@@ -293,14 +293,14 @@ export default async function PublicFixPage({
               <div
                 className="rounded-xl px-5 py-4 flex items-center gap-3"
                 style={{
-                  background: "rgba(168,85,247,0.08)",
-                  border: "1px solid rgba(168,85,247,0.25)",
+                  background: "rgba(94,234,212,0.08)",
+                  border: "1px solid rgba(94,234,212,0.25)",
                 }}
               >
                 <span style={{ fontSize: 22 }}>🔥</span>
                 <p
                   className="font-display font-medium"
-                  style={{ color: "#A855F7", fontSize: 17, lineHeight: 1.3 }}
+                  style={{ color: "#5EEAD4", fontSize: 17, lineHeight: 1.3 }}
                 >
                   {titleCount} other {titleCount === 1 ? "person is" : "people are"} also unwell about this
                 </p>
@@ -338,12 +338,12 @@ export default async function PublicFixPage({
             className="rounded-xl p-6 mb-6"
             style={{
               background: "#111113",
-              border: "1px solid rgba(168,85,247,0.15)",
+              border: "1px solid rgba(94,234,212,0.15)",
             }}
           >
             <p
               className="text-xs font-mono uppercase tracking-widest mb-3"
-              style={{ color: "#A855F7" }}
+              style={{ color: "#5EEAD4" }}
             >
               eulogy
             </p>
@@ -380,7 +380,7 @@ export default async function PublicFixPage({
             <div>
               <p className="text-sm font-medium mb-0.5">
                 Follow{" "}
-                <span style={{ color: "#A855F7" }}>@{typedProfile.username}</span> on Hyperfix
+                <span style={{ color: "#5EEAD4" }}>@{typedProfile.username}</span> on Hyperfix
               </p>
               <p className="text-xs" style={{ color: "#9A9A9A" }}>
                 Track your own hyperfixations
@@ -389,7 +389,7 @@ export default async function PublicFixPage({
             <Link
               href={`/u/${typedProfile.username}`}
               className="shrink-0 px-4 py-2 rounded-lg text-sm font-mono font-medium transition-opacity hover:opacity-90"
-              style={{ background: "#A855F7", color: "#080808" }}
+              style={{ background: "#5EEAD4", color: "#080808" }}
             >
               View profile →
             </Link>

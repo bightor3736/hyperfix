@@ -41,7 +41,7 @@ export function Sparkles({ count = 6, className = "" }: SparklesProps) {
             left: cfg.left,
             fontSize: cfg.fontSize,
             opacity: cfg.opacity,
-            color: "#A855F7",
+            color: "#5EEAD4",
             userSelect: "none",
             lineHeight: 1,
           }}

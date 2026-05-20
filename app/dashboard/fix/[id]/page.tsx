@@ -222,7 +222,7 @@ export default async function FixDetailPage({
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: "radial-gradient(ellipse 55% 60% at 10% 50%, rgba(168,85,247,0.13), transparent 70%)",
+              background: "radial-gradient(ellipse 55% 60% at 10% 50%, rgba(94,234,212,0.13), transparent 70%)",
             }}
           />
           <div className="relative">
@@ -278,7 +278,7 @@ export default async function FixDetailPage({
               className="font-display italic text-[17px] leading-relaxed"
               style={{
                 color: "rgba(244,244,244,0.75)",
-                borderLeft: "2px solid rgba(168,85,247,0.35)",
+                borderLeft: "2px solid rgba(94,234,212,0.35)",
                 paddingLeft: 16,
               }}
             >
@@ -309,12 +309,12 @@ export default async function FixDetailPage({
           <div
             className="rounded-2xl px-5 py-4 mb-4 flex items-center gap-3"
             style={{
-              background: "rgba(168,85,247,0.06)",
-              border: "1px solid rgba(168,85,247,0.2)",
+              background: "rgba(94,234,212,0.06)",
+              border: "1px solid rgba(94,234,212,0.2)",
             }}
           >
             <span style={{ fontSize: 20 }}>🔥</span>
-            <p className="font-display font-medium text-sm" style={{ color: "#A855F7" }}>
+            <p className="font-display font-medium text-sm" style={{ color: "#5EEAD4" }}>
               {othersCount} other {othersCount === 1 ? "person is" : "people are"} also tracking &ldquo;{typedFix.title}&rdquo;
             </p>
           </div>
@@ -379,7 +379,7 @@ export default async function FixDetailPage({
             </p>
             <div className="flex flex-col gap-2">
               {entries.map((e) => {
-                const intColor = e.intensity >= 8 ? "#E63946" : e.intensity >= 6 ? "#FB923C" : "#A855F7";
+                const intColor = e.intensity >= 8 ? "#E63946" : e.intensity >= 6 ? "#FB923C" : "#5EEAD4";
                 return (
                   <div key={e.id ?? e.date} className="flex items-start gap-3">
                     <span

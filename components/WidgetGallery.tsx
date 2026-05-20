@@ -2,7 +2,7 @@
 
 // Six dark widgets styled like iOS system apps — each displaying hyperfixation data.
 
-const LIME = "#A855F7";
+const LIME = "#5EEAD4";
 const ORANGE = "#FB923C";
 const PINK = "#F472B6";
 const GOLD = "#EAB308";

@@ -127,7 +127,7 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
         <Link
           href="/dashboard/new"
           className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
-          style={{ background: "#A855F7", color: "#F4F4F4" }}
+          style={{ background: "#5EEAD4", color: "#F4F4F4" }}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
             <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
@@ -157,9 +157,9 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
               href={item.href}
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-sans text-sm font-medium transition-all duration-150"
               style={{
-                color: isActive ? "#A855F7" : "rgba(244,244,244,0.5)",
-                background: isActive ? "rgba(168,85,247,0.08)" : "transparent",
-                border: isActive ? "1px solid rgba(168,85,247,0.15)" : "1px solid transparent",
+                color: isActive ? "#5EEAD4" : "rgba(244,244,244,0.5)",
+                background: isActive ? "rgba(94,234,212,0.08)" : "transparent",
+                border: isActive ? "1px solid rgba(94,234,212,0.15)" : "1px solid transparent",
               }}
             >
               {item.icon}
@@ -177,9 +177,9 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
             <div
               className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
               style={{
-                background: avatarUrl ? "transparent" : "rgba(168,85,247,0.15)",
-                border: "1px solid rgba(168,85,247,0.2)",
-                color: "#A855F7",
+                background: avatarUrl ? "transparent" : "rgba(94,234,212,0.15)",
+                border: "1px solid rgba(94,234,212,0.2)",
+                color: "#5EEAD4",
                 overflow: "hidden",
               }}
             >
@@ -199,9 +199,9 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
                   <span
                     className="font-mono text-[9px] shrink-0 rounded px-1.5 py-0.5"
                     style={{
-                      background: "rgba(168,85,247,0.2)",
-                      color: "#A855F7",
-                      border: "1px solid rgba(168,85,247,0.3)",
+                      background: "rgba(94,234,212,0.2)",
+                      color: "#5EEAD4",
+                      border: "1px solid rgba(94,234,212,0.3)",
                     }}
                   >
                     PRO

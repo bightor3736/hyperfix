@@ -32,7 +32,7 @@ export default function NotFound() {
             style={{
               fontSize: "clamp(120px, 25vw, 220px)",
               color: "transparent",
-              WebkitTextStroke: "1px rgba(168,85,247,0.3)",
+              WebkitTextStroke: "1px rgba(94,234,212,0.3)",
               letterSpacing: "-0.05em",
             }}
           >
@@ -64,7 +64,7 @@ export default function NotFound() {
             <Link
               href="/"
               className="inline-block rounded-xl px-6 py-3 font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98]"
-              style={{ background: "#A855F7", color: "#0A0A0A" }}
+              style={{ background: "#5EEAD4", color: "#0A0A0A" }}
             >
               Go home →
             </Link>

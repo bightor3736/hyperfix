@@ -149,14 +149,14 @@ export function StreakHeatmap({ dates }: { dates: string[] }) {
                       height: CELL_SIZE,
                       borderRadius: 4,
                       background: checkedIn
-                        ? "#A855F7"
+                        ? "#5EEAD4"
                         : inRange
                           ? "rgba(244,244,244,0.07)"
                           : "rgba(244,244,244,0.02)",
                       boxShadow: checkedIn
-                        ? "0 0 8px rgba(168,85,247,0.5)"
+                        ? "0 0 8px rgba(94,234,212,0.5)"
                         : isToday
-                          ? "0 0 0 1.5px rgba(168,85,247,0.5)"
+                          ? "0 0 0 1.5px rgba(94,234,212,0.5)"
                           : "none",
                       transition: "background 0.15s ease",
                       flexShrink: 0,
@@ -184,7 +184,7 @@ export function StreakHeatmap({ dates }: { dates: string[] }) {
             style={{
               background: "#1C1C1E",
               border: "1px solid rgba(244,244,244,0.12)",
-              color: tooltip.checkedIn ? "#A855F7" : "rgba(244,244,244,0.45)",
+              color: tooltip.checkedIn ? "#5EEAD4" : "rgba(244,244,244,0.45)",
               boxShadow: "0 4px 16px rgba(0,0,0,0.5)",
             }}
           >

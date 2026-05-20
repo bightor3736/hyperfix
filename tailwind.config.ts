@@ -12,10 +12,13 @@ const config: Config = {
         ink: "#F4F4F4",
         inkSoft: "#9A9A9A",
         muted: "#525252",
-        // Brand — violet spark
-        accent: "#A855F7",
-        accentDeep: "#7C3AED",
-        accentLight: "#C084FC",
+        // Brand — mint
+        accent: "#5EEAD4",
+        accentDeep: "#2DD4BF",
+        accentLight: "#A7F3D0",
+        mint: "#5EEAD4",
+        mintDeep: "#2DD4BF",
+        mintInk: "#0A1F1C",
         // Intensity spectrum
         hot: "#E63946",       // 9-10 — send help
         warm: "#FB923C",      // 7-8  — deeply unwell

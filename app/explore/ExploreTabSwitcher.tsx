@@ -33,7 +33,7 @@ function intensityRGB(intensity: number): string {
 function intensityColor(intensity: number): string {
   if (intensity >= 8) return "#E63946";
   if (intensity >= 6) return "#FB923C";
-  return "#A855F7";
+  return "#5EEAD4";
 }
 
 function getMilestone(days: number): { icon: string; label: string } | null {
@@ -168,7 +168,7 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
 
         {/* Title */}
         <h2
-          className="font-display font-medium mb-2 group-hover:text-[#A855F7] transition-colors"
+          className="font-display font-medium mb-2 group-hover:text-[#5EEAD4] transition-colors"
           style={{
             fontSize: 15,
             lineHeight: 1.35,
@@ -231,10 +231,10 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
             <div
               className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center font-mono font-bold overflow-hidden"
               style={{
-                background: "rgba(168,85,247,0.12)",
-                border: "1px solid rgba(168,85,247,0.2)",
+                background: "rgba(94,234,212,0.12)",
+                border: "1px solid rgba(94,234,212,0.2)",
                 fontSize: 9,
-                color: "#A855F7",
+                color: "#5EEAD4",
               }}
             >
               {avatarUrl ? (
@@ -305,10 +305,10 @@ function ActivityCard({ item }: { item: ActivityItem }) {
       <div
         className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-mono font-bold overflow-hidden"
         style={{
-          background: "rgba(168,85,247,0.12)",
-          border: "1px solid rgba(168,85,247,0.2)",
+          background: "rgba(94,234,212,0.12)",
+          border: "1px solid rgba(94,234,212,0.2)",
           fontSize: 10,
-          color: "#A855F7",
+          color: "#5EEAD4",
         }}
       >
         {item.avatarUrl ? (
@@ -322,7 +322,7 @@ function ActivityCard({ item }: { item: ActivityItem }) {
         <div className="flex items-start justify-between gap-3">
           <p className="text-sm leading-snug" style={{ color: "#F4F4F4" }}>
             {item.username ? (
-              <Link href={`/u/${item.username}`} className="font-medium hover:text-[#A855F7] transition-colors">
+              <Link href={`/u/${item.username}`} className="font-medium hover:text-[#5EEAD4] transition-colors">
                 @{item.username}
               </Link>
             ) : (
@@ -331,7 +331,7 @@ function ActivityCard({ item }: { item: ActivityItem }) {
             <span style={{ color: "rgba(244,244,244,0.45)" }}>
               {item.type === "started" ? "started tracking" : "finished their fixation on"}
             </span>{" "}
-            <Link href={`/fix/${item.fixId}`} className="font-display font-medium hover:text-[#A855F7] transition-colors">
+            <Link href={`/fix/${item.fixId}`} className="font-display font-medium hover:text-[#5EEAD4] transition-colors">
               {item.fixTitle}
             </Link>
             {item.type === "ended" && item.daysCount > 0 && (
@@ -347,9 +347,9 @@ function ActivityCard({ item }: { item: ActivityItem }) {
             className="font-mono uppercase tracking-widest rounded-full px-2 py-0.5"
             style={{
               fontSize: 9,
-              background: item.type === "ended" ? "rgba(244,244,244,0.05)" : "rgba(168,85,247,0.08)",
-              border: item.type === "ended" ? "1px solid rgba(244,244,244,0.1)" : "1px solid rgba(168,85,247,0.2)",
-              color: item.type === "ended" ? "rgba(244,244,244,0.4)" : "#A855F7",
+              background: item.type === "ended" ? "rgba(244,244,244,0.05)" : "rgba(94,234,212,0.08)",
+              border: item.type === "ended" ? "1px solid rgba(244,244,244,0.1)" : "1px solid rgba(94,234,212,0.2)",
+              color: item.type === "ended" ? "rgba(244,244,244,0.4)" : "#5EEAD4",
             }}
           >
             {emoji} {item.fixCategory}
@@ -381,7 +381,7 @@ function TabButton({ label, active, onClick }: { label: string; active: boolean;
       className="px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
       style={
         active
-          ? { background: "#A855F7", color: "#F4F4F4", border: "1px solid transparent" }
+          ? { background: "#5EEAD4", color: "#F4F4F4", border: "1px solid transparent" }
           : { background: "rgba(244,244,244,0.04)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.5)" }
       }
     >
@@ -476,7 +476,7 @@ export function ExploreTabSwitcher({
                   className="shrink-0 flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
                   style={
                     isSelected
-                      ? { background: "#A855F7", color: "#F4F4F4", border: "1px solid transparent" }
+                      ? { background: "#5EEAD4", color: "#F4F4F4", border: "1px solid transparent" }
                       : { background: "#111113", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.5)" }
                   }
                 >
@@ -520,7 +520,7 @@ export function ExploreTabSwitcher({
                 <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nothing public yet.</p>
                 <p className="font-mono text-sm mb-8" style={{ color: "rgba(244,244,244,0.3)" }}>Be the first.</p>
                 <Link href="/auth/signup" className="font-mono text-sm px-6 py-3 rounded-full font-bold transition-opacity hover:opacity-90"
-                  style={{ background: "#A855F7", color: "#F4F4F4" }}>
+                  style={{ background: "#5EEAD4", color: "#F4F4F4" }}>
                   Start tracking →
                 </Link>
               </>

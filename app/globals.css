@@ -211,10 +211,11 @@ details > summary::-webkit-details-marker {
   appearance: none;
   width: 16px;
   height: 16px;
-  background: #A855F7;
+  background: #5EEAD4;
   border-radius: 999px;
   cursor: pointer;
   transition: transform 0.15s ease;
+  box-shadow: 0 0 12px rgba(94,234,212,0.6);
 }
 .hyperfix-range::-webkit-slider-thumb:hover {
   transform: scale(1.2);
@@ -227,10 +228,119 @@ details > summary::-webkit-details-marker {
 .hyperfix-range::-moz-range-thumb {
   width: 16px;
   height: 16px;
-  background: #A855F7;
+  background: #5EEAD4;
   border: none;
   border-radius: 999px;
   cursor: pointer;
+  box-shadow: 0 0 12px rgba(94,234,212,0.6);
+}
+
+/* ── Global motion system ─────────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 24px rgba(94,234,212,0.18); }
+  50%      { box-shadow: 0 0 40px rgba(94,234,212,0.40); }
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-6px); }
+}
+@keyframes driftX {
+  0%, 100% { transform: translateX(0px); }
+  50%      { transform: translateX(8px); }
+}
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes shimmerLine {
+  0%   { background-position: -120% 0; }
+  100% { background-position: 220% 0; }
+}
+@keyframes countTick {
+  0%   { transform: translateY(0); opacity: 1; }
+  40%  { transform: translateY(-6px); opacity: 0.6; }
+  60%  { transform: translateY(6px); opacity: 0.6; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.anim-fadeUp     { animation: fadeUp 0.8s cubic-bezier(0.2,0.6,0.2,1) both; }
+.anim-fadeIn     { animation: fadeIn 0.8s ease both; }
+.anim-scaleIn    { animation: scaleIn 0.7s cubic-bezier(0.2,0.6,0.2,1) both; }
+.anim-slideLeft  { animation: slideInLeft 0.7s cubic-bezier(0.2,0.6,0.2,1) both; }
+.anim-glowPulse  { animation: glowPulse 3.5s ease-in-out infinite; }
+.anim-floatY     { animation: floatY 4s ease-in-out infinite; }
+.anim-driftX     { animation: driftX 6s ease-in-out infinite; }
+.anim-spinSlow   { animation: spinSlow 24s linear infinite; }
+
+.delay-100 { animation-delay: 0.10s; }
+.delay-200 { animation-delay: 0.20s; }
+.delay-300 { animation-delay: 0.30s; }
+.delay-400 { animation-delay: 0.40s; }
+.delay-500 { animation-delay: 0.50s; }
+.delay-700 { animation-delay: 0.70s; }
+
+/* Smooth hover lift on cards everywhere */
+.motion-card {
+  transition: transform 0.4s cubic-bezier(0.2,0.6,0.2,1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease;
+  will-change: transform;
+}
+.motion-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(94,234,212,0.28);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.55), 0 0 24px rgba(94,234,212,0.12);
+}
+
+/* Animated underline on text links */
+.motion-link {
+  position: relative;
+  transition: color 0.25s ease;
+}
+.motion-link::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.2,0.6,0.2,1);
+}
+.motion-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Reusable shimmer sweep — for live counters / accents */
+.shimmer-sweep {
+  background: linear-gradient(110deg, transparent 30%, rgba(94,234,212,0.18) 50%, transparent 70%);
+  background-size: 220% 100%;
+  animation: shimmerLine 3.5s ease-in-out infinite;
+}
+
+/* Respect reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .anim-fadeUp, .anim-fadeIn, .anim-scaleIn, .anim-slideLeft,
+  .anim-glowPulse, .anim-floatY, .anim-driftX, .anim-spinSlow,
+  .shimmer-sweep, .motion-card { animation: none !important; transition: none !important; }
 }
 
 /* Toast slide-up + fade */

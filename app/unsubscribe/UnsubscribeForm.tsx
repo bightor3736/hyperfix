@@ -35,9 +35,9 @@ export function UnsubscribeForm({ email: prefillEmail }: { email?: string }) {
     return (
       <div
         className="rounded-2xl px-6 py-5 text-left"
-        style={{ background: "rgba(168,85,247,0.07)", border: "1px solid rgba(168,85,247,0.2)" }}
+        style={{ background: "rgba(94,234,212,0.07)", border: "1px solid rgba(94,234,212,0.2)" }}
       >
-        <p className="font-mono text-[11px] uppercase tracking-widest mb-1" style={{ color: "#A855F7" }}>done</p>
+        <p className="font-mono text-[11px] uppercase tracking-widest mb-1" style={{ color: "#5EEAD4" }}>done</p>
         <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.6)" }}>
           You&apos;ve been unsubscribed ✓. If you signed up with an account, you can manage notification preferences in settings.
         </p>

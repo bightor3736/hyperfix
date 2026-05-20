@@ -71,10 +71,10 @@ function ProfileCard({ profile }: { profile: Profile }) {
       <div
         className="shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-mono font-bold overflow-hidden"
         style={{
-          background: "rgba(168,85,247,0.15)",
-          border: "1px solid rgba(168,85,247,0.2)",
+          background: "rgba(94,234,212,0.15)",
+          border: "1px solid rgba(94,234,212,0.2)",
           fontSize: 13,
-          color: "#A855F7",
+          color: "#5EEAD4",
         }}
       >
         {profile.avatar_url ? (
@@ -135,16 +135,16 @@ function FixCard({ fix }: { fix: FixResult }) {
           className="font-mono uppercase tracking-widest rounded-full px-2.5 py-1"
           style={{
             fontSize: 9,
-            background: "rgba(168,85,247,0.08)",
-            border: "1px solid rgba(168,85,247,0.2)",
-            color: "#A855F7",
+            background: "rgba(94,234,212,0.08)",
+            border: "1px solid rgba(94,234,212,0.2)",
+            color: "#5EEAD4",
           }}
         >
           {emoji} {fix.category}
         </span>
       </div>
       <h3
-        className="font-display font-medium mb-2 group-hover:text-[#A855F7] transition-colors"
+        className="font-display font-medium mb-2 group-hover:text-[#5EEAD4] transition-colors"
         style={{
           fontSize: 15,
           lineHeight: 1.35,
@@ -157,7 +157,7 @@ function FixCard({ fix }: { fix: FixResult }) {
       >
         {fix.title}
       </h3>
-      <p className="font-mono text-sm mb-3" style={{ color: "#A855F7" }}>
+      <p className="font-mono text-sm mb-3" style={{ color: "#5EEAD4" }}>
         {days} {days === 1 ? "day" : "days"}
       </p>
       <div
@@ -167,10 +167,10 @@ function FixCard({ fix }: { fix: FixResult }) {
         <div
           className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center font-mono font-bold overflow-hidden"
           style={{
-            background: "rgba(168,85,247,0.15)",
-            border: "1px solid rgba(168,85,247,0.2)",
+            background: "rgba(94,234,212,0.15)",
+            border: "1px solid rgba(94,234,212,0.2)",
             fontSize: 8,
-            color: "#A855F7",
+            color: "#5EEAD4",
           }}
         >
           {avatarUrl ? (

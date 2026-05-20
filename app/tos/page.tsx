@@ -89,7 +89,7 @@ export default function TosPage() {
               <div key={s.h}>
                 <h2
                   className="font-display font-semibold mb-3"
-                  style={{ color: "#A855F7", fontSize: 17, letterSpacing: "-0.02em" }}
+                  style={{ color: "#5EEAD4", fontSize: 17, letterSpacing: "-0.02em" }}
                 >
                   {s.h}
                 </h2>

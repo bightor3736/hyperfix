@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
             width: 600,
             height: 600,
             borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(168,85,247,0.18) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(94,234,212,0.18) 0%, transparent 70%)",
           }}
         />
         {/* Bottom-left faint glow */}
@@ -49,13 +49,13 @@ export async function GET(req: NextRequest) {
             width: 400,
             height: 400,
             borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(94,234,212,0.08) 0%, transparent 70%)",
           }}
         />
 
         {/* Wordmark */}
         <div style={{ display: "flex", alignItems: "center", marginBottom: 32 }}>
-          <span style={{ color: "#A855F7", fontWeight: 800, fontSize: 28, letterSpacing: "-0.02em" }}>hyper</span>
+          <span style={{ color: "#5EEAD4", fontWeight: 800, fontSize: 28, letterSpacing: "-0.02em" }}>hyper</span>
           <span style={{ color: "#F4F4F4", fontWeight: 800, fontSize: 28, letterSpacing: "-0.02em" }}>fix</span>
           <span style={{ color: "rgba(244,244,244,0.3)", fontWeight: 400, fontSize: 16, marginLeft: 12, letterSpacing: "0.12em", textTransform: "uppercase" }}>
             wrapped {year}
@@ -103,7 +103,7 @@ export async function GET(req: NextRequest) {
               >
                 {longestTitle || "—"}
               </span>
-              <span style={{ color: "#A855F7", fontSize: 14, fontWeight: 600 }}>
+              <span style={{ color: "#5EEAD4", fontSize: 14, fontWeight: 600 }}>
                 {longestDays} days
               </span>
             </div>
@@ -111,8 +111,8 @@ export async function GET(req: NextRequest) {
             {/* Quote */}
             <div
               style={{
-                background: "rgba(168,85,247,0.05)",
-                border: "1px solid rgba(168,85,247,0.15)",
+                background: "rgba(94,234,212,0.05)",
+                border: "1px solid rgba(94,234,212,0.15)",
                 borderRadius: 16,
                 padding: "20px 22px",
                 display: "flex",
@@ -121,7 +121,7 @@ export async function GET(req: NextRequest) {
                 flex: 1,
               }}
             >
-              <span style={{ color: "rgba(168,85,247,0.6)", fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+              <span style={{ color: "rgba(94,234,212,0.6)", fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase" }}>
                 hyperfix says
               </span>
               <span style={{ color: "#F4F4F4", fontSize: 14, lineHeight: 1.5, fontStyle: "italic" }}>
@@ -160,7 +160,7 @@ function StatBox({ value, label, small = false }: { value: string; label: string
         gap: 6,
       }}
     >
-      <span style={{ color: "#A855F7", fontSize: small ? 26 : 40, fontWeight: 800, lineHeight: 1, letterSpacing: "-0.02em" }}>
+      <span style={{ color: "#5EEAD4", fontSize: small ? 26 : 40, fontWeight: 800, lineHeight: 1, letterSpacing: "-0.02em" }}>
         {value}
       </span>
       <span style={{ color: "rgba(244,244,244,0.4)", fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase" }}>

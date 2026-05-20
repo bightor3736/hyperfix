@@ -38,12 +38,12 @@ function Sparkline({ intensity }: { intensity: number }) {
     <svg width="100%" height={h} viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none">
       <defs>
         <linearGradient id="spark-fill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#A855F7" stopOpacity="0.2" />
-          <stop offset="100%" stopColor="#A855F7" stopOpacity="0" />
+          <stop offset="0%" stopColor="#5EEAD4" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="#5EEAD4" stopOpacity="0" />
         </linearGradient>
       </defs>
       <path d={`${d} L${w},${h} L0,${h} Z`} fill="url(#spark-fill)" />
-      <path d={d} fill="none" stroke="#A855F7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d={d} fill="none" stroke="#5EEAD4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -85,7 +85,7 @@ export default function HyperfixCard({
           </div>
         </div>
         <span style={{
-          background: "#A855F7",
+          background: "#5EEAD4",
           color: "#0A0A0A",
           borderRadius: 999,
           padding: "3px 10px",
@@ -114,7 +114,7 @@ export default function HyperfixCard({
         <div style={{ paddingBottom: 10, display: "flex", flexDirection: "column", gap: 2 }}>
           <span style={{ color: "rgba(244,244,244,0.35)", fontSize: 13, fontWeight: 600 }}>days</span>
           <span style={{
-            background: intensity >= 8 ? "#E63946" : intensity >= 6 ? "#FB923C" : "#A855F7",
+            background: intensity >= 8 ? "#E63946" : intensity >= 6 ? "#FB923C" : "#5EEAD4",
             color: "#0A0A0A",
             borderRadius: 999,
             padding: "2px 8px",
@@ -133,12 +133,12 @@ export default function HyperfixCard({
           <span style={{ color: "rgba(244,244,244,0.35)", fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase" }}>
             Intensity
           </span>
-          <span style={{ color: "#A855F7", fontSize: 10, fontWeight: 700 }}>
+          <span style={{ color: "#5EEAD4", fontSize: 10, fontWeight: 700 }}>
             {intensity}/10
           </span>
         </div>
         <div style={{
-          background: "#A855F7",
+          background: "#5EEAD4",
           borderRadius: 999,
           height: 32,
           position: "relative",
@@ -178,7 +178,7 @@ export default function HyperfixCard({
       {/* ── NOTE ── */}
       <div style={{
         marginTop: 10,
-        borderLeft: "2px solid rgba(168,85,247,0.4)",
+        borderLeft: "2px solid rgba(94,234,212,0.4)",
         paddingLeft: 10,
         color: "rgba(244,244,244,0.55)",
         fontSize: 13,
@@ -204,7 +204,7 @@ export default function HyperfixCard({
         <div style={{ textAlign: "right" }}>
           <div style={{ color: "rgba(244,244,244,0.5)", fontSize: 11, letterSpacing: "0.08em" }}>{user}</div>
           <div style={{
-            color: "#A855F7",
+            color: "#5EEAD4",
             fontSize: 11,
             fontWeight: 700,
             marginTop: 2,

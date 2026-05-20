@@ -8,7 +8,6 @@ import { updateFixTags } from "@/app/actions/tags";
 import { AddToListButton } from "@/components/AddToListButton";
 import { useToast } from "@/components/Toast";
 import { TagsInput } from "@/components/TagsInput";
-import { Mascot, type MascotExpression } from "@/components/Mascot";
 
 function getMilestone(days: number): { icon: string; heading: string; sub: string } | null {
   if (days === 365) return { icon: "🏆", heading: "One whole year.", sub: "You have been unwell for 365 days. Legendary." };
@@ -236,18 +235,12 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
   const intensityColor =
     intensity >= 9 ? "#E63946" :
     intensity >= 7 ? "#FB923C" :
-    "#A855F7";
+    "#5EEAD4";
 
   const checkInColor =
     checkInIntensity >= 9 ? "#E63946" :
     checkInIntensity >= 7 ? "#FB923C" :
-    "#A855F7";
-
-  const checkInMascotExpression: MascotExpression =
-    checkInIntensity >= 9 ? "send-help" :
-    checkInIntensity >= 7 ? "anxious" :
-    checkInIntensity >= 5 ? "obsessed" :
-    "calm";
+    "#5EEAD4";
 
   return (
     <div className="flex flex-col gap-4">
@@ -257,9 +250,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
         <div
           className="rounded-2xl px-5 py-4 flex items-start gap-4 relative"
           style={{
-            background: "rgba(168,85,247,0.08)",
-            border: "1px solid rgba(168,85,247,0.3)",
-            boxShadow: "0 0 32px rgba(168,85,247,0.12)",
+            background: "rgba(94,234,212,0.08)",
+            border: "1px solid rgba(94,234,212,0.3)",
+            boxShadow: "0 0 32px rgba(94,234,212,0.12)",
           }}
         >
           <span style={{ fontSize: 28, lineHeight: 1 }}>{milestone.icon}</span>
@@ -290,7 +283,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
           <button
             onClick={() => setShowCheckIn(true)}
             className="w-full sm:w-auto px-6 py-3 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
-            style={{ background: "#A855F7", color: "#0A0A0A" }}
+            style={{ background: "#5EEAD4", color: "#0A0A0A" }}
           >
             ✦ Check in today
           </button>
@@ -346,12 +339,31 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 </svg>
               </button>
 
-              {/* Giant mascot — the hero */}
-              <Mascot
-                expression={checkInMascotExpression}
-                size={200}
-                color={checkInColor}
-              />
+              {/* Intensity orb — the hero */}
+              <div
+                className="relative flex items-center justify-center"
+                style={{
+                  width: 180,
+                  height: 180,
+                  borderRadius: 999,
+                  background: `radial-gradient(circle at 35% 30%, ${checkInColor}, ${checkInColor}33 65%, transparent 80%)`,
+                  boxShadow: `0 0 80px ${checkInColor}55, inset 0 0 60px ${checkInColor}33`,
+                  animation: "floatY 4s ease-in-out infinite",
+                }}
+              >
+                <span
+                  className="font-display"
+                  style={{
+                    fontSize: 80,
+                    fontWeight: 600,
+                    color: "#0A0A0A",
+                    letterSpacing: "-0.04em",
+                    textShadow: "0 2px 12px rgba(255,255,255,0.4)",
+                  }}
+                >
+                  {checkInIntensity}
+                </span>
+              </div>
             </div>
 
             {/* Content below character */}
@@ -375,7 +387,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               <div>
                 <div className="grid grid-cols-5 gap-2">
                   {[1,2,3,4,5,6,7,8,9,10].map((n) => {
-                    const chipColor = n >= 9 ? "#E63946" : n >= 7 ? "#FB923C" : "#A855F7";
+                    const chipColor = n >= 9 ? "#E63946" : n >= 7 ? "#FB923C" : "#5EEAD4";
                     const selected = n === checkInIntensity;
                     return (
                       <button
@@ -434,12 +446,12 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
         <div
           className="rounded-2xl px-4 py-3 flex items-center gap-3"
           style={{
-            background: "rgba(168,85,247,0.06)",
-            border: "1px solid rgba(168,85,247,0.2)",
+            background: "rgba(94,234,212,0.06)",
+            border: "1px solid rgba(94,234,212,0.2)",
           }}
         >
           <span style={{ fontSize: 16 }}>✓</span>
-          <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "rgba(168,85,247,0.7)" }}>
+          <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "rgba(94,234,212,0.7)" }}>
             Checked in today
           </p>
         </div>
@@ -479,7 +491,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                   onClick={() => handleStatusChange(s)}
                   className="flex items-center px-3 py-2 rounded-xl transition-colors text-left"
                   style={{
-                    background: s === status ? "rgba(168,85,247,0.08)" : "transparent",
+                    background: s === status ? "rgba(94,234,212,0.08)" : "transparent",
                   }}
                 >
                   <FixStatusPill status={s} size="sm" />
@@ -525,9 +537,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               onClick={() => setShowIntensitySlider((v) => !v)}
               className="px-3 py-1.5 rounded-full font-sans text-xs font-medium transition-all hover:opacity-80"
               style={{
-                background: "rgba(168,85,247,0.08)",
-                border: "1px solid rgba(168,85,247,0.2)",
-                color: "#A855F7",
+                background: "rgba(94,234,212,0.08)",
+                border: "1px solid rgba(94,234,212,0.2)",
+                color: "#5EEAD4",
               }}
             >
               {showIntensitySlider ? "Cancel" : "Update intensity"}
@@ -542,7 +554,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${(intensity / 10) * 100}%`,
-                background: `linear-gradient(to right, #A855F7, ${intensityColor})`,
+                background: `linear-gradient(to right, #5EEAD4, ${intensityColor})`,
               }}
             />
           </div>
@@ -557,7 +569,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                   className="h-full rounded-full transition-all duration-100"
                   style={{
                     width: `${(intensity / 10) * 100}%`,
-                    background: `linear-gradient(to right, #A855F7, ${intensityColor})`,
+                    background: `linear-gradient(to right, #5EEAD4, ${intensityColor})`,
                   }}
                 />
               </div>
@@ -583,7 +595,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               onClick={handleIntensitySave}
               disabled={pending}
               className="self-end px-4 py-2 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 disabled:opacity-60"
-              style={{ background: "#A855F7", color: "#0A0A0A" }}
+              style={{ background: "#5EEAD4", color: "#0A0A0A" }}
             >
               {pending ? "Saving…" : "Save"}
             </button>
@@ -612,7 +624,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
           <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.4)" }}>Tags</p>
           {!ended && (
             <button onClick={() => setEditingTags(v => !v)} className="font-mono text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full transition-all"
-              style={{ background: "rgba(168,85,247,0.08)", border: "1px solid rgba(168,85,247,0.2)", color: "#A855F7" }}>
+              style={{ background: "rgba(94,234,212,0.08)", border: "1px solid rgba(94,234,212,0.2)", color: "#5EEAD4" }}>
               {editingTags ? "Cancel" : "Edit"}
             </button>
           )}
@@ -621,13 +633,13 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
           <div className="flex flex-col gap-3">
             <TagsInput value={tags} onChange={setTags} />
             <button onClick={() => handleTagsSave(tags)} className="self-end px-4 py-2 rounded-full font-sans text-sm font-bold"
-              style={{ background: "#A855F7", color: "#0A0A0A" }}>Save tags</button>
+              style={{ background: "#5EEAD4", color: "#0A0A0A" }}>Save tags</button>
           </div>
         ) : tags.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {tags.map(tag => (
               <span key={tag} className="font-mono text-[11px] uppercase tracking-widest rounded-full px-2.5 py-1"
-                style={{ background: "rgba(168,85,247,0.08)", border: "1px solid rgba(168,85,247,0.2)", color: "#A855F7" }}>
+                style={{ background: "rgba(94,234,212,0.08)", border: "1px solid rgba(94,234,212,0.2)", color: "#5EEAD4" }}>
                 #{tag}
               </span>
             ))}
@@ -655,7 +667,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
           }}
           className="px-4 py-2 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80"
           style={isPinned
-            ? { background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.3)", color: "#A855F7" }
+            ? { background: "rgba(94,234,212,0.12)", border: "1px solid rgba(94,234,212,0.3)", color: "#5EEAD4" }
             : { background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.12)", color: "rgba(244,244,244,0.6)" }
           }
         >
@@ -696,7 +708,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               type="text"
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
-              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none focus:ring-2 focus:ring-[#A855F7]/40 mb-3"
+              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none focus:ring-2 focus:ring-[#5EEAD4]/40 mb-3"
               style={{ background: "#161618", border: "1px solid rgba(244,244,244,0.1)", color: "#F4F4F4" }}
               placeholder="Title"
             />
@@ -708,7 +720,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                   onClick={() => setEditCategory(cat)}
                   className="px-3 py-1 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all"
                   style={editCategory === cat
-                    ? { background: "#A855F7", color: "#0A0A0A" }
+                    ? { background: "#5EEAD4", color: "#0A0A0A" }
                     : { background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.5)" }
                   }
                 >
@@ -718,7 +730,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
             </div>
             <div className="flex gap-3">
               <button onClick={() => setShowEditModal(false)} className="flex-1 py-2.5 rounded-xl font-sans text-sm font-medium" style={{ background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.6)" }}>Cancel</button>
-              <button onClick={handleEditSave} disabled={pending || !editTitle.trim()} className="flex-1 py-2.5 rounded-xl font-sans text-sm font-bold disabled:opacity-60" style={{ background: "#A855F7", color: "#0A0A0A" }}>
+              <button onClick={handleEditSave} disabled={pending || !editTitle.trim()} className="flex-1 py-2.5 rounded-xl font-sans text-sm font-bold disabled:opacity-60" style={{ background: "#5EEAD4", color: "#0A0A0A" }}>
                 {pending ? "Saving…" : "Save"}
               </button>
             </div>
@@ -748,7 +760,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 onChange={(e) => setEulogyText(e.target.value)}
                 placeholder="It was good while it lasted…"
                 rows={4}
-                className="w-full rounded-xl px-4 py-3 font-display italic text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A855F7]/40 resize-none"
+                className="w-full rounded-xl px-4 py-3 font-display italic text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40 resize-none"
                 style={{
                   background: "#161618",
                   border: "1px solid rgba(244,244,244,0.1)",
@@ -757,7 +769,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               />
               {generatingEulogy && (
                 <div className="absolute bottom-3 right-3 flex items-center gap-1.5">
-                  <span className="font-mono text-[9px] uppercase tracking-widest animate-pulse" style={{ color: "#A855F7" }}>
+                  <span className="font-mono text-[9px] uppercase tracking-widest animate-pulse" style={{ color: "#5EEAD4" }}>
                     writing…
                   </span>
                 </div>
@@ -770,9 +782,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 disabled={generatingEulogy || pending}
                 className="w-full mb-3 py-2 rounded-xl font-sans text-sm font-medium transition-all hover:opacity-80 disabled:opacity-50 flex items-center justify-center gap-2"
                 style={{
-                  background: "rgba(168,85,247,0.08)",
-                  border: "1px solid rgba(168,85,247,0.2)",
-                  color: "#A855F7",
+                  background: "rgba(94,234,212,0.08)",
+                  border: "1px solid rgba(94,234,212,0.2)",
+                  color: "#5EEAD4",
                 }}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -785,9 +797,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 href="/dashboard/settings"
                 className="w-full mb-3 py-2 rounded-xl font-sans text-sm font-medium transition-all hover:opacity-80 flex items-center justify-center gap-2"
                 style={{
-                  background: "rgba(168,85,247,0.05)",
-                  border: "1px dashed rgba(168,85,247,0.25)",
-                  color: "rgba(168,85,247,0.6)",
+                  background: "rgba(94,234,212,0.05)",
+                  border: "1px dashed rgba(94,234,212,0.25)",
+                  color: "rgba(94,234,212,0.6)",
                   textDecoration: "none",
                 }}
               >
@@ -838,9 +850,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               style={
                 isPublic
                   ? {
-                      background: "rgba(168,85,247,0.12)",
-                      border: "1px solid rgba(168,85,247,0.35)",
-                      color: "#A855F7",
+                      background: "rgba(94,234,212,0.12)",
+                      border: "1px solid rgba(94,234,212,0.35)",
+                      color: "#5EEAD4",
                     }
                   : {
                       background: "rgba(244,244,244,0.06)",
@@ -864,8 +876,8 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               <div
                 className="w-10 h-6 rounded-full transition-all duration-200"
                 style={{
-                  background: isPublic ? "#A855F7" : "rgba(244,244,244,0.1)",
-                  border: isPublic ? "1px solid rgba(168,85,247,0.5)" : "1px solid rgba(244,244,244,0.1)",
+                  background: isPublic ? "#5EEAD4" : "rgba(244,244,244,0.1)",
+                  border: isPublic ? "1px solid rgba(94,234,212,0.5)" : "1px solid rgba(244,244,244,0.1)",
                 }}
               >
                 <div

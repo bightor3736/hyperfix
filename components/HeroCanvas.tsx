@@ -107,7 +107,7 @@ export function HeroCanvas() {
       ctx!.save();
       ctx!.filter = "blur(5px)";
       ctx!.globalAlpha = 0.55 * pulse;
-      ctx!.strokeStyle = "rgba(168,85,247,1)";
+      ctx!.strokeStyle = "rgba(94,234,212,1)";
       ctx!.lineWidth = 0.9;
       ctx!.lineCap = "round";
       path(-28);

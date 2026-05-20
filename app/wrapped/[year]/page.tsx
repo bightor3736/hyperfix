@@ -146,10 +146,10 @@ export default async function WrappedYearPage({ params, searchParams }: Props) {
           className="absolute inset-x-0 top-0 h-[400px] pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 60% 40% at 50% -10%, rgba(168,85,247,0.12) 0%, transparent 70%)",
+              "radial-gradient(ellipse 60% 40% at 50% -10%, rgba(94,234,212,0.12) 0%, transparent 70%)",
           }}
         />
-        <span className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "#A855F7" }}>
+        <span className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "#5EEAD4" }}>
           hyperfix wrapped {year}
         </span>
         <h1
@@ -164,7 +164,7 @@ export default async function WrappedYearPage({ params, searchParams }: Props) {
         <a
           href="/auth/login"
           className="px-6 py-3 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90"
-          style={{ background: "#A855F7", color: "#0A0A0A" }}
+          style={{ background: "#5EEAD4", color: "#0A0A0A" }}
         >
           Log in →
         </a>
@@ -192,10 +192,10 @@ export default async function WrappedYearPage({ params, searchParams }: Props) {
           className="absolute inset-x-0 top-0 h-[400px] pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 60% 40% at 50% -10%, rgba(168,85,247,0.08) 0%, transparent 70%)",
+              "radial-gradient(ellipse 60% 40% at 50% -10%, rgba(94,234,212,0.08) 0%, transparent 70%)",
           }}
         />
-        <span className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "#A855F7" }}>
+        <span className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "#5EEAD4" }}>
           hyperfix wrapped {year}
         </span>
         <h1
@@ -213,7 +213,7 @@ export default async function WrappedYearPage({ params, searchParams }: Props) {
           <a
             href="/dashboard"
             className="px-6 py-3 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90"
-            style={{ background: "#A855F7", color: "#0A0A0A" }}
+            style={{ background: "#5EEAD4", color: "#0A0A0A" }}
           >
             Go to dashboard →
           </a>

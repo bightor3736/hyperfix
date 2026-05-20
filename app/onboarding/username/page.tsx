@@ -114,7 +114,7 @@ export default function OnboardingUsernamePage() {
 
   const feedbackColor =
     validation === "available"
-      ? "#A855F7"
+      ? "#5EEAD4"
       : validation === "taken"
       ? "#f87171"
       : validation === "invalid"
@@ -167,7 +167,7 @@ export default function OnboardingUsernamePage() {
                   background: "#111113",
                   border: `1px solid ${
                     validation === "available"
-                      ? "rgba(168,85,247,0.4)"
+                      ? "rgba(94,234,212,0.4)"
                       : validation === "taken" || validation === "invalid"
                       ? "rgba(248,113,113,0.3)"
                       : "rgba(244,244,244,0.1)"
@@ -225,12 +225,12 @@ export default function OnboardingUsernamePage() {
               style={{
                 background:
                   validation === "available" && !submitting
-                    ? "#A855F7"
-                    : "rgba(168,85,247,0.25)",
+                    ? "#5EEAD4"
+                    : "rgba(94,234,212,0.25)",
                 color:
                   validation === "available" && !submitting
                     ? "#080808"
-                    : "rgba(168,85,247,0.4)",
+                    : "rgba(94,234,212,0.4)",
                 cursor:
                   validation === "available" && !submitting
                     ? "pointer"

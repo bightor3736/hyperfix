@@ -90,9 +90,9 @@ export function FixReactions({ fixId, initialReactions, userReactions = [] }: Pr
             style={
               isActive
                 ? {
-                    background: "rgba(168,85,247,0.12)",
-                    border: "1px solid rgba(168,85,247,0.3)",
-                    color: "#A855F7",
+                    background: "rgba(94,234,212,0.12)",
+                    border: "1px solid rgba(94,234,212,0.3)",
+                    color: "#5EEAD4",
                   }
                 : {
                     background: "rgba(244,244,244,0.06)",
