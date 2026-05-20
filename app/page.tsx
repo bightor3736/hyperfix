@@ -248,112 +248,166 @@ export default async function Page({
         <Nav />
 
         {/* HERO --------------------------------------------------------- */}
-        <section className="px-6 sm:px-10 pt-12 sm:pt-24 pb-16 sm:pb-28 overflow-hidden relative">
-          {/* Big ambient glow behind hero */}
-          <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 70% 60% at 50% 30%, rgba(168,85,247,0.12), transparent 70%)" }} />
+        <section className="relative overflow-hidden" style={{ minHeight: "92vh", display: "flex", flexDirection: "column" }}>
 
-          <div className="max-w-4xl mx-auto relative">
+          {/* ── Planet glow background ── */}
+          {/* Top: near-black, fades into the purple planet at center-bottom */}
+          <div className="absolute inset-0 pointer-events-none" style={{
+            background: "linear-gradient(180deg, #080808 0%, #0D0810 40%, #150B24 65%, #1E0B35 80%, #280C42 100%)",
+          }} />
+          {/* The purple "planet" — bright elliptical orb glowing up from below */}
+          <div className="absolute pointer-events-none" style={{
+            bottom: "-18%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "140%",
+            height: "65%",
+            borderRadius: "50%",
+            background: "radial-gradient(ellipse at 50% 80%, rgba(139,92,246,0.95) 0%, rgba(109,40,217,0.7) 25%, rgba(76,29,149,0.4) 50%, transparent 72%)",
+            filter: "blur(1px)",
+          }} />
+          {/* Soft outer corona */}
+          <div className="absolute pointer-events-none" style={{
+            bottom: "-28%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "180%",
+            height: "70%",
+            borderRadius: "50%",
+            background: "radial-gradient(ellipse at 50% 85%, rgba(139,92,246,0.25) 0%, transparent 60%)",
+            filter: "blur(40px)",
+          }} />
+          {/* Top vignette — keeps nav readable */}
+          <div className="absolute inset-x-0 top-0 pointer-events-none" style={{
+            height: 200,
+            background: "linear-gradient(180deg, #080808 0%, transparent 100%)",
+          }} />
 
-            {/* Character stage — centered, dominant, FIRST */}
-            <div className="relative flex justify-center items-end mb-6" style={{ minHeight: 320 }}>
-              {/* Ambient glow sphere behind main character */}
-              <div className="absolute pointer-events-none" style={{
-                width: 380, height: 380,
-                background: "radial-gradient(circle, rgba(168,85,247,0.3) 0%, transparent 65%)",
-                filter: "blur(24px)",
-                top: "50%", left: "50%", transform: "translate(-50%, -50%)",
-              }} />
+          {/* Content */}
+          <div className="relative z-10 flex flex-col items-center justify-center flex-1 px-6 sm:px-10 pt-16 pb-24 sm:pt-24 sm:pb-32 text-center">
 
-              {/* Floating satellite mascots */}
-              <div className="absolute pointer-events-none" style={{ top: 10, left: "6%", animation: "floatBob 4s ease-in-out infinite", animationDelay: "0.5s" }}>
-                <Mascot expression="anxious" size={72} color="#E63946" />
-              </div>
-              <div className="absolute pointer-events-none hidden sm:block" style={{ top: 30, right: "8%", animation: "floatBob 3.5s ease-in-out infinite", animationDelay: "1.2s" }}>
-                <Mascot expression="obsessed" size={60} color="#FB923C" />
-              </div>
-              <div className="absolute pointer-events-none hidden sm:block" style={{ bottom: 20, left: "3%", animation: "floatBob 5s ease-in-out infinite", animationDelay: "0.2s" }}>
-                <Mascot expression="send-help" size={52} color="#C084FC" />
-              </div>
-              <div className="absolute pointer-events-none hidden lg:block" style={{ bottom: 30, right: "2%", animation: "floatBob 4.2s ease-in-out infinite", animationDelay: "1.8s" }}>
-                <Mascot expression="calm" size={48} color="#34D399" />
-              </div>
+            {/* Announcement pill */}
+            <a
+              href="/blog"
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2 mb-10 transition-all hover:opacity-80"
+              style={{
+                background: "rgba(139,92,246,0.15)",
+                border: "1px solid rgba(139,92,246,0.35)",
+                color: "rgba(244,244,244,0.7)",
+              }}
+            >
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#A855F7", display: "inline-block", boxShadow: "0 0 6px #A855F7" }} />
+              hyperfixation tracker · free to use · read more →
+            </a>
 
-              {/* Main character — the hero */}
-              <Mascot expression="excited" size={280} color="#A855F7" className="relative z-10" />
+            {/* Floating satellite mascots */}
+            <div className="absolute pointer-events-none hidden sm:block" style={{ top: "22%", left: "8%", animation: "floatBob 4s ease-in-out infinite", animationDelay: "0.5s" }}>
+              <Mascot expression="anxious" size={76} color="#E63946" />
+            </div>
+            <div className="absolute pointer-events-none hidden sm:block" style={{ top: "18%", right: "7%", animation: "floatBob 3.5s ease-in-out infinite", animationDelay: "1.2s" }}>
+              <Mascot expression="obsessed" size={64} color="#FB923C" />
+            </div>
+            <div className="absolute pointer-events-none hidden lg:block" style={{ top: "48%", left: "4%", animation: "floatBob 5s ease-in-out infinite", animationDelay: "0.2s" }}>
+              <Mascot expression="send-help" size={52} color="#C084FC" />
+            </div>
+            <div className="absolute pointer-events-none hidden lg:block" style={{ top: "44%", right: "3%", animation: "floatBob 4.2s ease-in-out infinite", animationDelay: "1.8s" }}>
+              <Mascot expression="calm" size={52} color="#34D399" />
             </div>
 
-            {/* Headline BELOW character */}
-            <div className="text-center">
-              <h1
-                className="font-display font-black leading-none text-ink text-balance"
-                style={{ fontSize: "clamp(44px, 11vw, 96px)", letterSpacing: "-0.04em" }}
+            {/* Headline — sits above the planet glow */}
+            <h1
+              className="font-display font-black leading-none text-ink max-w-4xl"
+              style={{
+                fontSize: "clamp(48px, 12vw, 108px)",
+                letterSpacing: "-0.04em",
+                textShadow: "0 2px 40px rgba(0,0,0,0.5)",
+              }}
+            >
+              What are you
+              <br />
+              <span style={{ color: "#C084FC", fontStyle: "italic" }}>unwell</span> about?
+            </h1>
+
+            <p className="mt-6 font-sans text-base sm:text-lg max-w-md mx-auto leading-relaxed" style={{ color: "rgba(244,244,244,0.6)", textShadow: "0 1px 12px rgba(0,0,0,0.8)" }}>
+              a journal for your current obsession.
+              log it. count the days. mourn it when it ends.
+            </p>
+
+            {/* CTA */}
+            <div className="flex flex-wrap justify-center gap-3 mt-10">
+              <a
+                href="/join"
+                className="inline-flex items-center font-sans text-sm font-bold px-8 py-4 transition-all hover:opacity-90 active:scale-[0.98]"
+                style={{
+                  background: "#F4F4F4",
+                  color: "#0A0A0A",
+                  borderRadius: 999,
+                  boxShadow: "0 0 32px rgba(139,92,246,0.3), 0 4px 16px rgba(0,0,0,0.4)",
+                }}
               >
-                WHAT ARE YOU
-                <br />
-                <span className="italic" style={{ color: "#A855F7" }}>UNWELL</span>
-                <br />
-                ABOUT?
-              </h1>
+                Get started free
+              </a>
+              <a
+                href="/auth/login"
+                className="inline-flex items-center font-sans text-sm font-medium px-8 py-4 transition-all hover:opacity-80"
+                style={{
+                  background: "rgba(244,244,244,0.08)",
+                  color: "rgba(244,244,244,0.8)",
+                  borderRadius: 999,
+                  border: "1px solid rgba(244,244,244,0.15)",
+                  backdropFilter: "blur(8px)",
+                }}
+              >
+                Sign in
+              </a>
+            </div>
 
-              <p className="mt-6 font-sans text-base sm:text-lg text-inkSoft max-w-lg mx-auto leading-relaxed">
-                a journal for whatever has taken over your brain.
-                log it. count the days. mourn it when it ends.
-                <span style={{ color: "rgba(244,244,244,0.3)" }}> you&rsquo;re so normal about this.</span>
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap justify-center gap-3 mt-8">
-                <a
-                  href="/join"
-                  className="inline-flex items-center font-mono text-[12px] uppercase tracking-widest px-7 py-4 font-bold transition-all hover:opacity-90 active:scale-[0.98]"
-                  style={{ background: "#A855F7", color: "#0A0A0A", borderRadius: 999 }}
+            {/* Stat pills */}
+            <div className="flex flex-wrap justify-center gap-2 mt-8">
+              {[
+                { value: countRes.count.toLocaleString(), label: "currently unwell" },
+                { value: publicFixCount.toLocaleString(), label: "fixations logged" },
+                { value: `${statsRes.avgDays}d`, label: "avg obsession" },
+              ].map(({ value, label }) => (
+                <span
+                  key={label}
+                  className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest rounded-full px-3.5 py-1.5"
+                  style={{
+                    background: "rgba(0,0,0,0.35)",
+                    border: "1px solid rgba(244,244,244,0.1)",
+                    color: "rgba(244,244,244,0.55)",
+                    backdropFilter: "blur(8px)",
+                  }}
                 >
-                  Start tracking free →
-                </a>
-                <a
-                  href="/auth/login"
-                  className="inline-flex items-center font-mono text-[12px] uppercase tracking-widest px-7 py-4 font-medium transition-all hover:opacity-80"
-                  style={{ background: "rgba(244,244,244,0.06)", color: "rgba(244,244,244,0.7)", borderRadius: 999, border: "1px solid rgba(244,244,244,0.1)" }}
-                >
-                  Sign in
-                </a>
-              </div>
-
-              {/* Stat pills */}
-              <div className="flex flex-wrap justify-center gap-3 mt-6">
-                <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2" style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)", color: "rgba(244,244,244,0.7)" }}>
-                  <SparkIcon size={10} color="#A855F7" />
-                  <span className="text-accent font-bold tabular">{countRes.count.toLocaleString()}</span> currently unwell
+                  <span className="font-bold" style={{ color: "#C084FC" }}>{value}</span>
+                  {label}
                 </span>
-                <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2" style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)", color: "rgba(244,244,244,0.7)" }}>
-                  <SparkIcon size={10} color="#A855F7" />
-                  <span className="text-accent font-bold tabular">{publicFixCount.toLocaleString()}</span> fixations logged
-                </span>
-                <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2" style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)", color: "rgba(244,244,244,0.7)" }}>
-                  <SparkIcon size={10} color="#A855F7" />
-                  <span className="text-accent font-bold tabular">{statsRes.avgDays}</span> avg days unwell
-                </span>
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* Hero fix card — below the fold */}
-          <div className="max-w-sm mx-auto mt-16 reveal" style={{ animationDelay: "0.15s" }}>
-            <div className="relative">
-              <div className="absolute inset-0 translate-x-5 translate-y-4 rotate-[5deg] pointer-events-none opacity-20 scale-[0.96] -z-10">
-                <HyperfixCard {...cards[1]} tilt="" />
-              </div>
-              <div className="relative z-10">
-                <TiltCard tiltLimit={10} scale={1.03} effect="gravitate">
-                  <HyperfixCard {...cards[0]} tilt="" />
-                </TiltCard>
-              </div>
-              <p className="mt-6 font-display italic text-muted text-sm text-center max-w-xs mx-auto">
-                ↑ a typical entry. yours will be worse.
-              </p>
-            </div>
-          </div>
+          {/* Bottom fade to black — seamless transition to next section */}
+          <div className="absolute inset-x-0 bottom-0 pointer-events-none" style={{
+            height: 160,
+            background: "linear-gradient(0deg, #080808 0%, transparent 100%)",
+          }} />
         </section>
+
+        {/* Social proof bar */}
+        <div className="px-6 sm:px-10 py-8" style={{ background: "#080808", borderBottom: "1px solid rgba(244,244,244,0.06)" }}>
+          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center gap-6 justify-between">
+            <p className="font-mono text-[10px] uppercase tracking-widest shrink-0" style={{ color: "rgba(244,244,244,0.25)" }}>
+              tracked by people who are not normal about things
+            </p>
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
+              {["fanfic", "k-pop", "anime", "video essays", "ships", "shows", "games", "books"].map((cat) => (
+                <span key={cat} className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.2)" }}>
+                  {cat}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
 
         {/* THE PROBLEM -------------------------------------------------- */}
         <section className="px-6 sm:px-10 py-20 sm:py-32" style={{ background: "#0A0A0A" }}>
