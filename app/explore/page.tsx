@@ -1,8 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { LogoDark } from "@/components/Logo";
+import { LogoLockup } from "@/components/Logo";
 import type { Metadata } from "next";
 import { ExploreTabSwitcher } from "./ExploreTabSwitcher";
+
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 export const metadata: Metadata = {
   title: "Explore · Hyperfix",
@@ -211,50 +214,88 @@ export default async function ExplorePage() {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: "#0A0A0A", color: "#F4F4F4" }}>
+    <div className="min-h-screen relative" style={{ background: "#070708", color: "#F4F4F4" }}>
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none mix-blend-overlay"
+        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }}
+      />
+
       {/* Nav */}
-      <nav className="border-b" style={{ borderColor: "rgba(244,244,244,0.07)" }}>
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" aria-label="Hyperfix home">
-            <LogoDark size="sm" />
-          </Link>
-          {user ? (
-            <Link
-              href="/dashboard"
-              className="font-mono text-[11px] uppercase tracking-widest transition-colors"
-              style={{ color: "rgba(244,244,244,0.5)" }}
-            >
-              My fixes →
-            </Link>
-          ) : (
-            <Link
-              href="/auth/login"
-              className="font-mono text-[11px] uppercase tracking-widest transition-colors"
-              style={{ color: "rgba(244,244,244,0.5)" }}
-            >
-              Log in →
-            </Link>
-          )}
-        </div>
+      <nav
+        className="sticky top-0 z-40 px-6 sm:px-10 py-5 flex items-center justify-between"
+        style={{
+          background: "rgba(7,7,8,0.78)",
+          backdropFilter: "blur(20px)",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
+        <Link href="/" aria-label="Hyperfix home" className="transition-transform hover:scale-[1.02]">
+          <LogoLockup size="sm" />
+        </Link>
+        <Link
+          href={user ? "/dashboard" : "/auth/login"}
+          className="font-sans text-sm font-semibold px-5 py-2.5 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
+          style={{
+            background: "#FFFFFF",
+            color: "#0A0A0A",
+            borderRadius: 999,
+            boxShadow: "0 4px 16px rgba(94,234,212,0.18)",
+          }}
+        >
+          {user ? "My fixes" : "Log in"}
+        </Link>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-6 py-12">
-        {/* Header */}
-        <div className="mb-10">
-          <h1
-            className="font-display font-medium mb-3"
-            style={{
-              fontSize: "clamp(40px, 7vw, 72px)",
-              letterSpacing: "-0.03em",
-              lineHeight: 1,
-              color: "#F4F4F4",
-            }}
-          >
-            Explore
-          </h1>
-          <p className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.4)" }}>
-            What everyone&apos;s unwell about right now.
-          </p>
+      <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12">
+        {/* Hero header card */}
+        <div
+          className="relative overflow-hidden rounded-3xl mb-8 p-6 sm:p-10 anim-fadeUp"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
+            border: "1px solid rgba(255,255,255,0.06)",
+          }}
+        >
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none mix-blend-overlay"
+            style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }}
+          />
+          <div className="relative">
+            <span
+              className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5"
+              style={{
+                background: "rgba(94,234,212,0.12)",
+                color: "#5EEAD4",
+                border: "1px solid rgba(94,234,212,0.25)",
+              }}
+            >
+              explore
+            </span>
+            <h1
+              className="font-display"
+              style={{
+                color: "#FFFFFF",
+                fontSize: "clamp(36px, 6vw, 60px)",
+                lineHeight: 1.02,
+                letterSpacing: "-0.02em",
+                fontWeight: 600,
+              }}
+            >
+              What everyone&apos;s
+              <br />
+              unwell about right now.
+            </h1>
+            <p className="mt-4 font-sans text-base sm:text-lg" style={{ color: "rgba(255,255,255,0.72)" }}>
+              Browse the obsessions running other people&apos;s lives.
+            </p>
+          </div>
         </div>
 
         <ExploreTabSwitcher

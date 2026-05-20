@@ -1,9 +1,12 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { LogoDark } from "@/components/Logo";
+import { LogoLockup } from "@/components/Logo";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { FollowButton, FollowButtonLoggedIn } from "@/components/FollowButton";
+
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 interface Fix {
   id: string;
@@ -184,19 +187,59 @@ export default async function PublicProfilePage({
   }
 
   return (
-    <div className="min-h-screen" style={{ background: "#080808", color: "#F4F4F4" }}>
-      {/* Nav */}
-      <nav className="border-b" style={{ borderColor: "rgba(244,244,244,0.07)" }}>
-        <div className="max-w-4xl mx-auto px-6 py-4">
-          <Link href="/" aria-label="Hyperfix home">
-            <LogoDark size="sm" />
-          </Link>
-        </div>
+    <div className="min-h-screen relative" style={{ background: "#070708", color: "#F4F4F4" }}>
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none mix-blend-overlay"
+        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }}
+      />
+
+      <nav
+        className="sticky top-0 z-40 px-6 sm:px-10 py-5 flex items-center justify-between"
+        style={{
+          background: "rgba(7,7,8,0.78)",
+          backdropFilter: "blur(20px)",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
+        <Link href="/" aria-label="Hyperfix home" className="transition-transform hover:scale-[1.02]">
+          <LogoLockup size="sm" />
+        </Link>
+        <Link
+          href={currentUser ? "/dashboard" : "/auth/login"}
+          className="font-sans text-sm font-semibold px-5 py-2.5 transition-all duration-200 hover:opacity-95 hover:-translate-y-px"
+          style={{
+            background: "#FFFFFF",
+            color: "#0A0A0A",
+            borderRadius: 999,
+            boxShadow: "0 4px 16px rgba(94,234,212,0.18)",
+          }}
+        >
+          {currentUser ? "My fixes" : "Log in"}
+        </Link>
       </nav>
 
-      <main id="main-content" className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        {/* Profile header */}
-        <div className="flex items-start gap-6 mb-10">
+      <main id="main-content" className="relative max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        {/* Profile hero card */}
+        <div
+          className="relative overflow-hidden rounded-3xl mb-8 p-6 sm:p-10 anim-fadeUp"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
+            border: "1px solid rgba(255,255,255,0.06)",
+          }}
+        >
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none mix-blend-overlay"
+            style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }}
+          />
+        <div className="relative flex flex-col sm:flex-row items-start gap-6">
           <div className="relative shrink-0">
             {typedProfile.is_pro && (
               <div
@@ -260,11 +303,12 @@ export default async function PublicProfilePage({
               {followerCount ?? 0} followers · {followingCount ?? 0} following
             </p>
             {typedProfile.bio && (
-              <p className="text-sm leading-relaxed" style={{ color: "rgba(244,244,244,0.7)" }}>
+              <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>
                 {typedProfile.bio}
               </p>
             )}
           </div>
+        </div>
         </div>
 
         {/* Pinned fix */}

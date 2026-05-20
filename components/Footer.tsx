@@ -1,5 +1,8 @@
 import { LogoLockup } from "@/components/Logo";
 
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
+
 const trackerLinks = [
   { href: "/hyperfixation-tracker", label: "hyperfixation tracker" },
   { href: "/fanfic-tracker", label: "fanfic tracker" },
@@ -33,120 +36,134 @@ const blogLinks = [
   { href: "/blog/hyperfixation-vs-obsession", label: "hyperfixation vs obsession" },
 ];
 
+function ColumnHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <span
+      className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5"
+      style={{
+        background: "rgba(94,234,212,0.10)",
+        color: "#5EEAD4",
+        border: "1px solid rgba(94,234,212,0.22)",
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+function FooterLink({ href, label }: { href: string; label: string }) {
+  return (
+    <li>
+      <a
+        href={href}
+        className="motion-link font-sans text-sm transition-colors"
+        style={{ color: "rgba(255,255,255,0.55)" }}
+      >
+        {label}
+      </a>
+    </li>
+  );
+}
+
 export default function Footer() {
   return (
-    <footer className="px-6 sm:px-10 pt-10 pb-8 bg-[#0A0A0A]">
+    <footer className="px-6 sm:px-10 pt-10 pb-8" style={{ background: "#070708" }}>
       <div
-        className="max-w-6xl mx-auto rounded-[24px] border border-[rgba(244,244,244,0.07)] bg-[#111113] p-8 sm:p-10 mb-6"
+        className="relative overflow-hidden max-w-6xl mx-auto rounded-3xl p-8 sm:p-12 mb-6"
+        style={{
+          background: "#0F1011",
+          border: "1px solid rgba(255,255,255,0.06)",
+        }}
       >
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none mix-blend-overlay"
+          style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.18 }}
+        />
+        {/* Subtle teal radial corner */}
+        <div
+          aria-hidden
+          className="absolute pointer-events-none"
+          style={{
+            top: "-30%",
+            right: "-20%",
+            width: "60%",
+            height: "120%",
+            background: "radial-gradient(circle, rgba(94,234,212,0.10) 0%, transparent 65%)",
+          }}
+        />
+
+        <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
           <div>
-            <a href="/" className="inline-block mb-3">
-              <LogoLockup />
+            <a href="/" className="inline-block mb-4 transition-transform hover:scale-[1.02]">
+              <LogoLockup size="sm" />
             </a>
-            <p className="font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] max-w-xs">
-              a tracker for the things that are running your life
+            <p className="font-sans text-sm leading-relaxed max-w-xs" style={{ color: "rgba(255,255,255,0.55)" }}>
+              A journal for the things that are quietly running your life.
             </p>
             <div className="mt-6">
               <a
-                href="/#waitlist"
-                className="font-mono text-[11px] uppercase tracking-widest px-5 py-2.5 rounded-full bg-accent text-[#0A0A0A] font-bold hover:bg-accent/90 transition-colors inline-block"
+                href="/auth/signup"
+                className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-5 py-3 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
+                style={{
+                  background: "#FFFFFF",
+                  color: "#0A0A0A",
+                  borderRadius: 999,
+                  boxShadow: "0 4px 16px rgba(94,234,212,0.20)",
+                }}
               >
-                join waitlist →
+                Get started →
               </a>
             </div>
           </div>
 
           <div>
-            <p className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] bg-[rgba(244,244,244,0.06)] rounded-full px-3 py-1 mb-5">
-              Trackers
-            </p>
-            <ul className="space-y-2">
+            <ColumnHeading>Trackers</ColumnHeading>
+            <ul className="space-y-2.5">
               {trackerLinks.map((l) => (
-                <li key={l.href}>
-                  <a
-                    href={l.href}
-                    className="font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.5)] hover:text-accent transition-colors"
-                  >
-                    {l.label}
-                  </a>
-                </li>
+                <FooterLink key={l.href} {...l} />
               ))}
             </ul>
           </div>
 
           <div>
-            <p className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] bg-[rgba(244,244,244,0.06)] rounded-full px-3 py-1 mb-5">
-              Compare
-            </p>
-            <ul className="space-y-2">
+            <ColumnHeading>Compare</ColumnHeading>
+            <ul className="space-y-2.5">
               {vsLinks.map((l) => (
-                <li key={l.href}>
-                  <a
-                    href={l.href}
-                    className="font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.5)] hover:text-accent transition-colors"
-                  >
-                    {l.label}
-                  </a>
-                </li>
+                <FooterLink key={l.href} {...l} />
               ))}
             </ul>
           </div>
 
           <div>
-            <p className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] bg-[rgba(244,244,244,0.06)] rounded-full px-3 py-1 mb-5">
-              Blog
-            </p>
-            <ul className="space-y-2">
+            <ColumnHeading>Read</ColumnHeading>
+            <ul className="space-y-2.5">
               {blogLinks.map((l) => (
-                <li key={l.href}>
-                  <a
-                    href={l.href}
-                    className="font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.5)] hover:text-accent transition-colors"
-                  >
-                    {l.label}
-                  </a>
-                </li>
+                <FooterLink key={l.href} {...l} />
               ))}
+              <FooterLink href="/pricing" label="pricing" />
+              <FooterLink href="/manifesto" label="manifesto" />
+              <FooterLink href="/privacy" label="privacy" />
+              <FooterLink href="/tos" label="terms" />
             </ul>
-            <a
-              href="/pricing"
-              className="font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.5)] hover:text-accent transition-colors block mt-6"
-            >
-              pricing
-            </a>
-            <a
-              href="/manifesto"
-              className="font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.5)] hover:text-accent transition-colors block mt-2"
-            >
-              manifesto
-            </a>
-            <a
-              href="/privacy"
-              className="font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.5)] hover:text-accent transition-colors block mt-2"
-            >
-              privacy
-            </a>
-            <a
-              href="/tos"
-              className="font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.5)] hover:text-accent transition-colors block mt-2"
-            >
-              terms
-            </a>
           </div>
         </div>
 
-        <div className="pt-6 border-t border-[rgba(244,244,244,0.07)] flex items-center justify-between flex-wrap gap-4">
+        <div
+          className="relative pt-6 flex items-center justify-between flex-wrap gap-4"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        >
           <div className="flex items-center gap-4">
             <a
               href="https://tiktok.com/@hyperfix.app"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Hyperfix on TikTok"
-              className="text-[rgba(244,244,244,0.3)] hover:text-accent transition-colors"
+              className="transition-colors hover:text-[#5EEAD4]"
+              style={{ color: "rgba(255,255,255,0.4)" }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.28 6.28 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.78a4.85 4.85 0 0 1-1.01-.09z"/>
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.28 6.28 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.78a4.85 4.85 0 0 1-1.01-.09z" />
               </svg>
             </a>
             <a
@@ -154,17 +171,19 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Hyperfix on Instagram"
-              className="text-[rgba(244,244,244,0.3)] hover:text-accent transition-colors"
+              className="transition-colors hover:text-[#5EEAD4]"
+              style={{ color: "rgba(255,255,255,0.4)" }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <circle cx="12" cy="12" r="4"/>
-                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
               </svg>
             </a>
           </div>
-          <div className="flex items-center gap-4 font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.25)] flex-wrap">
+          <div className="flex items-center gap-4 font-sans text-xs flex-wrap" style={{ color: "rgba(255,255,255,0.35)" }}>
             <span>© 2026 hyperfix</span>
+            <span>·</span>
             <span>we do not train ai on your obsessions</span>
           </div>
         </div>
