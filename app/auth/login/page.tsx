@@ -27,7 +27,7 @@ export default function LoginPage() {
         Welcome back.
       </h1>
       <p
-        className="font-sans text-base mb-8 anim-fadeUp delay-200"
+        className="font-sans text-base mb-6 anim-fadeUp delay-200"
         style={{ color: "rgba(255,255,255,0.55)" }}
       >
         Enter your details to pick up where you left off.
@@ -37,7 +37,7 @@ export default function LoginPage() {
         <OAuthButtons mode="login" />
       </div>
 
-      <div className="mt-5 mb-5 anim-fadeUp delay-400">
+      <div className="mt-4 mb-4 anim-fadeUp delay-400">
         <OrDivider />
       </div>
 
