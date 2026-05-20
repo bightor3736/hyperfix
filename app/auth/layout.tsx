@@ -1,4 +1,4 @@
-import { LogoLockup, LogoWordmark } from "@/components/Logo";
+import { LogoLockup, LogoMark } from "@/components/Logo";
 
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
@@ -39,8 +39,15 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             </a>
           </div>
 
+          {/* Large gem — centrepiece */}
+          <div className="relative z-10 flex-1 flex items-center justify-center">
+            <div className="anim-floatY" style={{ filter: "drop-shadow(0 0 48px rgba(94,234,212,0.35))" }}>
+              <LogoMark size={140} glow />
+            </div>
+          </div>
+
           {/* Tagline — bottom */}
-          <div className="relative z-10 mt-auto px-8 pb-10">
+          <div className="relative z-10 px-8 pb-10">
             <span
               className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-6 anim-fadeUp delay-200"
               style={{
@@ -79,8 +86,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         />
         <div className="relative w-full max-w-[380px] anim-fadeUp delay-200">
           <div className="mb-10 lg:hidden">
-            <a href="/" className="inline-block">
-              <LogoWordmark size="md" />
+            <a href="/" className="inline-block transition-transform hover:scale-[1.02]">
+              <LogoLockup size="sm" />
             </a>
           </div>
           {children}

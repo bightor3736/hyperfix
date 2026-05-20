@@ -1,6 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { LogoWordmark } from "@/components/Logo";
 import { DashboardSidebarClient } from "./DashboardSidebarClient";
 import { ToastProvider } from "@/components/ToastProvider";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";

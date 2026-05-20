@@ -4,7 +4,7 @@ import { useTransition } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import { LogoWordmark } from "@/components/Logo";
+import { LogoLockup } from "@/components/Logo";
 import { NotificationBell } from "@/components/NotificationBell";
 
 type Props = {
@@ -116,9 +116,9 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
       }}
     >
       {/* Logo */}
-      <div className="px-6 pt-6 pb-4">
-        <Link href="/dashboard">
-          <LogoWordmark size="md" />
+      <div className="px-5 pt-5 pb-4">
+        <Link href="/dashboard" className="inline-block transition-transform hover:scale-[1.02]">
+          <LogoLockup size="sm" />
         </Link>
       </div>
 
