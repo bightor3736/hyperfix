@@ -25,6 +25,7 @@ interface Profile {
   is_public: boolean;
   pinned_fix_id: string | null;
   banner_url: string | null;
+  is_pro: boolean | null;
 }
 
 function dayCount(startedAt: string, endedAt: string | null): number {
@@ -124,7 +125,7 @@ export default async function PublicProfilePage({
 
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select("id, username, display_name, avatar_url, bio, is_public, pinned_fix_id, banner_url")
+    .select("id, username, display_name, avatar_url, bio, is_public, pinned_fix_id, banner_url, is_pro")
     .eq("username", username)
     .single();
 
@@ -210,6 +211,19 @@ export default async function PublicProfilePage({
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 flex-wrap mb-0.5">
               <h1 className="text-2xl font-display font-medium">{displayName}</h1>
+              {typedProfile.is_pro && (
+                <span
+                  className="font-mono text-[9px] rounded px-1.5 py-0.5 shrink-0"
+                  style={{
+                    background: "rgba(168,85,247,0.18)",
+                    color: "#A855F7",
+                    border: "1px solid rgba(168,85,247,0.35)",
+                    boxShadow: "0 0 10px rgba(168,85,247,0.2)",
+                  }}
+                >
+                  PRO
+                </span>
+              )}
               {!isSelf && (
                 currentUser
                   ? <FollowButtonLoggedIn

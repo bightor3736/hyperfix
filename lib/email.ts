@@ -128,6 +128,139 @@ export async function sendFollowNotification({
   }).catch(console.error);
 }
 
+export async function sendStreakReminderEmail({
+  toEmail,
+  toName,
+  streakDays,
+}: {
+  toEmail: string;
+  toName: string;
+  streakDays: number;
+}) {
+  const resend = getResend();
+  if (!resend) return;
+
+  const streakIcon = streakDays >= 30 ? "⚡" : "🔥";
+  await resend.emails.send({
+    from: "hyperfix <hello@hyperfix.app>",
+    to: toEmail,
+    subject: `${streakIcon} don't break your ${streakDays}-day streak`,
+    html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/></head>
+<body style="margin:0;padding:0;background:#080808;font-family:system-ui,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#080808;padding:40px 16px;">
+  <tr><td align="center">
+    <table width="500" cellpadding="0" cellspacing="0" style="max-width:500px;width:100%;">
+      <tr><td style="padding-bottom:32px;">
+        <span style="font-size:20px;font-weight:800;letter-spacing:-0.03em;color:#A855F7;">hyperfix</span>
+      </td></tr>
+      <tr><td style="padding-bottom:8px;">
+        <span style="font-size:48px;line-height:1;">${streakIcon}</span>
+      </td></tr>
+      <tr><td style="padding-bottom:20px;">
+        <h1 style="margin:0;font-size:36px;font-weight:700;line-height:1;color:#F4F4F4;letter-spacing:-0.03em;">
+          ${streakDays} days.
+        </h1>
+      </td></tr>
+      <tr><td style="padding-bottom:28px;">
+        <p style="margin:0;font-size:16px;line-height:1.65;color:rgba(244,244,244,0.6);">
+          hey ${toName} — you&rsquo;ve been checking in for ${streakDays} days straight. don&rsquo;t let it end today.
+        </p>
+      </td></tr>
+      <tr><td style="padding:0 0 40px;">
+        <a href="https://hyperfix.app/dashboard"
+          style="display:inline-block;background:#A855F7;color:#0A0A0A;font-size:14px;font-weight:700;text-decoration:none;padding:14px 28px;border-radius:12px;">
+          check in now &rarr;
+        </a>
+      </td></tr>
+      <tr><td style="border-top:1px solid rgba(244,244,244,0.08);padding-top:20px;">
+        <p style="margin:0;font-size:11px;color:rgba(244,244,244,0.25);letter-spacing:0.04em;text-transform:uppercase;">
+          hyperfix &middot; what are you unwell about?
+        </p>
+        <p style="margin:8px 0 0;font-size:11px;">
+          <a href="https://hyperfix.app/unsubscribe" style="color:rgba(244,244,244,0.25);text-decoration:underline;">unsubscribe</a>
+        </p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>`,
+  }).catch(console.error);
+}
+
+export async function sendMilestoneEmail({
+  toEmail,
+  toName,
+  fixTitle,
+  fixId,
+  milestone,
+}: {
+  toEmail: string;
+  toName: string;
+  fixTitle: string;
+  fixId: string;
+  milestone: 7 | 30 | 100 | 365;
+}) {
+  const resend = getResend();
+  if (!resend) return;
+
+  const milestoneData = {
+    7: { icon: "🔥", heading: "one week.", sub: "seven days into it and it's not letting go." },
+    30: { icon: "⚡", heading: "one month.", sub: "this fix has officially outlasted most diets." },
+    100: { icon: "💀", heading: "100 days.", sub: "that's dedication. or a cry for help. either way, respect." },
+    365: { icon: "🏆", heading: "one year.", sub: "you spent a full year unwell about this. legendary." },
+  }[milestone];
+
+  await resend.emails.send({
+    from: "hyperfix <hello@hyperfix.app>",
+    to: toEmail,
+    subject: `${milestoneData.icon} ${milestone}-day milestone: ${fixTitle}`,
+    html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/></head>
+<body style="margin:0;padding:0;background:#080808;font-family:system-ui,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#080808;padding:40px 16px;">
+  <tr><td align="center">
+    <table width="500" cellpadding="0" cellspacing="0" style="max-width:500px;width:100%;">
+      <tr><td style="padding-bottom:32px;">
+        <span style="font-size:20px;font-weight:800;letter-spacing:-0.03em;color:#A855F7;">hyperfix</span>
+      </td></tr>
+      <tr><td style="padding-bottom:8px;">
+        <span style="font-size:56px;line-height:1;">${milestoneData.icon}</span>
+      </td></tr>
+      <tr><td style="padding-bottom:20px;">
+        <h1 style="margin:0;font-size:40px;font-weight:700;line-height:1;color:#F4F4F4;letter-spacing:-0.04em;">
+          ${milestoneData.heading}
+        </h1>
+      </td></tr>
+      <tr><td style="padding-bottom:12px;">
+        <p style="margin:0;font-size:18px;font-style:italic;color:rgba(244,244,244,0.5);">
+          &ldquo;${fixTitle}&rdquo;
+        </p>
+      </td></tr>
+      <tr><td style="padding-bottom:28px;">
+        <p style="margin:0;font-size:16px;line-height:1.65;color:rgba(244,244,244,0.6);">
+          ${toName}, ${milestoneData.sub}
+        </p>
+      </td></tr>
+      <tr><td style="padding:0 0 40px;">
+        <a href="https://hyperfix.app/dashboard/fix/${fixId}"
+          style="display:inline-block;background:#A855F7;color:#0A0A0A;font-size:14px;font-weight:700;text-decoration:none;padding:14px 28px;border-radius:12px;">
+          see your fix &rarr;
+        </a>
+      </td></tr>
+      <tr><td style="border-top:1px solid rgba(244,244,244,0.08);padding-top:20px;">
+        <p style="margin:0;font-size:11px;color:rgba(244,244,244,0.25);letter-spacing:0.04em;text-transform:uppercase;">
+          hyperfix &middot; what are you unwell about?
+        </p>
+        <p style="margin:8px 0 0;font-size:11px;">
+          <a href="https://hyperfix.app/unsubscribe" style="color:rgba(244,244,244,0.25);text-decoration:underline;">unsubscribe</a>
+        </p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>`,
+  }).catch(console.error);
+}
+
 export async function sendReactionNotification({
   toEmail,
   toName,

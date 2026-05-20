@@ -132,25 +132,65 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
         </div>
       )}
 
-      {/* Pro limit banner */}
+      {/* Pro limit modal-style block */}
       {!isPro && activeFixCount >= 3 && (
         <div
-          className="rounded-xl px-4 py-3 flex items-center justify-between gap-4"
+          className="rounded-2xl p-6 flex flex-col items-center text-center gap-5"
           style={{
-            background: "rgba(251,146,60,0.08)",
-            border: "1px solid rgba(251,146,60,0.25)",
+            background: "linear-gradient(135deg, rgba(168,85,247,0.07) 0%, rgba(124,58,237,0.04) 100%)",
+            border: "1px solid rgba(168,85,247,0.25)",
+            boxShadow: "0 0 40px rgba(168,85,247,0.08)",
           }}
         >
-          <p className="font-sans text-sm" style={{ color: "rgba(251,146,60,0.9)" }}>
-            You&apos;ve hit the free limit (3 active fixes). End one or upgrade to Pro for unlimited.
-          </p>
-          <a
-            href="/pricing"
-            className="shrink-0 px-4 py-2 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97] whitespace-nowrap"
-            style={{ background: "#FB923C", color: "#0A0A0A" }}
+          <div
+            className="w-12 h-12 rounded-2xl flex items-center justify-center"
+            style={{ background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.2)" }}
           >
-            Upgrade →
-          </a>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A855F7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+            </svg>
+          </div>
+          <div>
+            <h3 className="font-display font-bold text-xl mb-1" style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}>
+              3-fix limit reached
+            </h3>
+            <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.5)" }}>
+              Free accounts can track 3 active fixes. You&apos;re fully unwell. Upgrade to log more.
+            </p>
+          </div>
+          <ul className="w-full text-left flex flex-col gap-2">
+            {[
+              "Unlimited active fixes",
+              "AI-written eulogies",
+              "Pro badge on your profile",
+              "Priority support",
+            ].map((feature) => (
+              <li key={feature} className="flex items-center gap-2.5 font-sans text-sm" style={{ color: "rgba(244,244,244,0.65)" }}>
+                <span style={{ color: "#A855F7", fontSize: 16 }}>✦</span>
+                {feature}
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-col sm:flex-row gap-3 w-full">
+            <a
+              href="/dashboard/settings"
+              className="flex-1 py-3 rounded-xl font-sans text-sm font-bold text-center transition-all hover:opacity-90 active:scale-[0.97]"
+              style={{ background: "#A855F7", color: "#0A0A0A" }}
+            >
+              Upgrade to Pro →
+            </a>
+            <a
+              href="/dashboard"
+              className="flex-1 py-3 rounded-xl font-sans text-sm font-medium text-center transition-all hover:opacity-80"
+              style={{
+                background: "rgba(244,244,244,0.06)",
+                border: "1px solid rgba(244,244,244,0.1)",
+                color: "rgba(244,244,244,0.6)",
+              }}
+            >
+              End a fix first
+            </a>
+          </div>
         </div>
       )}
 

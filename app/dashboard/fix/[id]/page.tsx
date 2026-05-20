@@ -97,13 +97,14 @@ export default async function FixDetailPage({
   const entries = (entriesData ?? []) as { date: string; intensity: number; note: string | null }[];
   const entriesForSparkline = [...entries].reverse();
 
-  // Check if this fix is pinned on the user's profile
+  // Check if this fix is pinned on the user's profile + Pro status
   const { data: profileData } = await supabase
     .from("profiles")
-    .select("pinned_fix_id")
+    .select("pinned_fix_id, is_pro")
     .eq("id", user.id)
     .single();
   const isPinned = profileData?.pinned_fix_id === id;
+  const isPro = profileData?.is_pro ?? false;
 
   // Reactions (only relevant for public fixes)
   const initialReactions: Record<string, number> = {};
@@ -135,7 +136,7 @@ export default async function FixDetailPage({
             </svg>
             My fixes
           </Link>
-          <ShareButton fixId={id} isPublic={typedFix.is_public} />
+          <ShareButton fixId={id} isPublic={typedFix.is_public} fixTitle={typedFix.title} days={days} intensity={typedFix.intensity} />
         </div>
 
         {/* Title + meta */}
@@ -178,6 +179,7 @@ export default async function FixDetailPage({
             isPublic={typedFix.is_public}
             tagsInitial={typedFix.tags ?? []}
             isPinned={isPinned}
+            isPro={isPro}
           />
         </div>
 

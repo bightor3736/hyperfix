@@ -12,6 +12,16 @@ export async function POST(req: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("is_pro")
+    .eq("id", user.id)
+    .single();
+
+  if (!profile?.is_pro) {
+    return new Response("Pro feature", { status: 403 });
+  }
+
   const { fixId } = await req.json();
   if (!fixId) return new Response("Missing fixId", { status: 400 });
 

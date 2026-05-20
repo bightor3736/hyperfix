@@ -47,9 +47,10 @@ type Props = {
   isPublic?: boolean;
   tagsInitial?: string[];
   isPinned?: boolean;
+  isPro?: boolean;
 };
 
-export function FixDetailClient({ fixId, title: initialTitle, category: initialCategory, status: initialStatus, intensity: initialIntensity, days, ended: initialEnded, eulogyInitial, hasCheckedInToday: initialCheckedIn = false, isPublic: initialIsPublic = false, tagsInitial = [], isPinned: initialIsPinned = false }: Props) {
+export function FixDetailClient({ fixId, title: initialTitle, category: initialCategory, status: initialStatus, intensity: initialIntensity, days, ended: initialEnded, eulogyInitial, hasCheckedInToday: initialCheckedIn = false, isPublic: initialIsPublic = false, tagsInitial = [], isPinned: initialIsPinned = false, isPro = false }: Props) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const { toast } = useToast();
@@ -712,22 +713,40 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 </div>
               )}
             </div>
-            <button
-              type="button"
-              onClick={handleGenerateEulogy}
-              disabled={generatingEulogy || pending}
-              className="w-full mb-3 py-2 rounded-xl font-sans text-sm font-medium transition-all hover:opacity-80 disabled:opacity-50 flex items-center justify-center gap-2"
-              style={{
-                background: "rgba(168,85,247,0.08)",
-                border: "1px solid rgba(168,85,247,0.2)",
-                color: "#A855F7",
-              }}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
-              {generatingEulogy ? "Generating…" : "Write it for me with AI"}
-            </button>
+            {isPro ? (
+              <button
+                type="button"
+                onClick={handleGenerateEulogy}
+                disabled={generatingEulogy || pending}
+                className="w-full mb-3 py-2 rounded-xl font-sans text-sm font-medium transition-all hover:opacity-80 disabled:opacity-50 flex items-center justify-center gap-2"
+                style={{
+                  background: "rgba(168,85,247,0.08)",
+                  border: "1px solid rgba(168,85,247,0.2)",
+                  color: "#A855F7",
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                {generatingEulogy ? "Generating…" : "Write it for me with AI"}
+              </button>
+            ) : (
+              <a
+                href="/dashboard/settings"
+                className="w-full mb-3 py-2 rounded-xl font-sans text-sm font-medium transition-all hover:opacity-80 flex items-center justify-center gap-2"
+                style={{
+                  background: "rgba(168,85,247,0.05)",
+                  border: "1px dashed rgba(168,85,247,0.25)",
+                  color: "rgba(168,85,247,0.6)",
+                  textDecoration: "none",
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                AI eulogy — Pro only · upgrade →
+              </a>
+            )}
             <div className="flex gap-3">
               <button
                 onClick={() => setShowEndModal(false)}
