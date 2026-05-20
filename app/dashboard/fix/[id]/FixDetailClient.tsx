@@ -78,6 +78,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
   const [checkInIntensity, setCheckInIntensity] = useState(5);
   const [checkInNote, setCheckInNote] = useState("");
 
+  // AI eulogy generation state
+  const [generatingEulogy, setGeneratingEulogy] = useState(false);
+
   function handleStatusChange(newStatus: FixStatus) {
     setShowStatusDropdown(false);
     if (newStatus === status) return;
@@ -155,6 +158,32 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
         setError(err instanceof Error ? err.message : "Failed to update privacy");
       }
     });
+  }
+
+  async function handleGenerateEulogy() {
+    setGeneratingEulogy(true);
+    setEulogyText("");
+    try {
+      const res = await fetch("/api/eulogy/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fixId }),
+      });
+      if (!res.ok || !res.body) throw new Error("Failed to generate");
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let text = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        text += decoder.decode(value, { stream: true });
+        setEulogyText(text);
+      }
+    } catch {
+      setError("Could not generate eulogy — try writing your own.");
+    } finally {
+      setGeneratingEulogy(false);
+    }
   }
 
   function handleCheckIn() {
@@ -604,18 +633,43 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
             <p className="font-sans text-sm mb-4" style={{ color: "rgba(244,244,244,0.4)" }}>
               Optional — say goodbye to this fix.
             </p>
-            <textarea
-              value={eulogyText}
-              onChange={(e) => setEulogyText(e.target.value)}
-              placeholder="It was good while it lasted…"
-              rows={4}
-              className="w-full rounded-xl px-4 py-3 font-display italic text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A3E635]/40 resize-none mb-2"
+            <div className="relative mb-2">
+              <textarea
+                value={eulogyText}
+                onChange={(e) => setEulogyText(e.target.value)}
+                placeholder="It was good while it lasted…"
+                rows={4}
+                className="w-full rounded-xl px-4 py-3 font-display italic text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A3E635]/40 resize-none"
+                style={{
+                  background: "#161618",
+                  border: "1px solid rgba(244,244,244,0.1)",
+                  color: "#F4F4F4",
+                }}
+              />
+              {generatingEulogy && (
+                <div className="absolute bottom-3 right-3 flex items-center gap-1.5">
+                  <span className="font-mono text-[9px] uppercase tracking-widest animate-pulse" style={{ color: "#A3E635" }}>
+                    writing…
+                  </span>
+                </div>
+              )}
+            </div>
+            <button
+              type="button"
+              onClick={handleGenerateEulogy}
+              disabled={generatingEulogy || pending}
+              className="w-full mb-3 py-2 rounded-xl font-sans text-sm font-medium transition-all hover:opacity-80 disabled:opacity-50 flex items-center justify-center gap-2"
               style={{
-                background: "#161618",
-                border: "1px solid rgba(244,244,244,0.1)",
-                color: "#F4F4F4",
+                background: "rgba(163,230,53,0.08)",
+                border: "1px solid rgba(163,230,53,0.2)",
+                color: "#A3E635",
               }}
-            />
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {generatingEulogy ? "Generating…" : "Write it for me with AI"}
+            </button>
             <div className="flex gap-3">
               <button
                 onClick={() => setShowEndModal(false)}

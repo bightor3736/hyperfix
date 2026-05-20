@@ -86,14 +86,15 @@ export default async function FixDetailPage({
     .maybeSingle();
   const hasCheckedInToday = !!todayEntry;
 
-  // Fetch real entry history for sparkline
+  // Fetch entry history for sparkline + notes
   const { data: entriesData } = await supabase
     .from("fix_entries")
-    .select("date, intensity")
+    .select("date, intensity, note")
     .eq("fix_id", id)
-    .order("date", { ascending: true })
+    .order("date", { ascending: false })
     .limit(14);
-  const entries = (entriesData ?? []) as { date: string; intensity: number }[];
+  const entries = (entriesData ?? []) as { date: string; intensity: number; note: string | null }[];
+  const entriesForSparkline = [...entries].reverse();
 
   // Check if this fix is pinned on the user's profile
   const { data: profileData } = await supabase
@@ -201,7 +202,7 @@ export default async function FixDetailPage({
 
           {/* Sparkline */}
           <div className="mt-4">
-            <Sparkline entries={entries} />
+            <Sparkline entries={entriesForSparkline} />
           </div>
         </div>
 
@@ -230,6 +231,44 @@ export default async function FixDetailPage({
             >
               {typedFix.note}
             </p>
+          </div>
+        )}
+
+        {/* Check-in notes */}
+        {entries.some((e) => e.note) && (
+          <div
+            className="rounded-2xl p-5 mb-4"
+            style={{
+              background: "#111113",
+              border: "1px solid rgba(244,244,244,0.07)",
+            }}
+          >
+            <p
+              className="font-sans text-[13px] uppercase tracking-widest mb-4"
+              style={{ color: "rgba(244,244,244,0.3)" }}
+            >
+              Check-in notes
+            </p>
+            <div className="flex flex-col gap-3">
+              {entries
+                .filter((e) => e.note)
+                .map((e) => (
+                  <div key={e.date} className="flex gap-3 items-start">
+                    <span
+                      className="font-mono text-[10px] uppercase tracking-widest mt-0.5 shrink-0"
+                      style={{ color: "rgba(244,244,244,0.25)" }}
+                    >
+                      {new Date(e.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                    </span>
+                    <p
+                      className="font-display italic text-sm leading-relaxed"
+                      style={{ color: "rgba(244,244,244,0.6)" }}
+                    >
+                      {e.note}
+                    </p>
+                  </div>
+                ))}
+            </div>
           </div>
         )}
 
