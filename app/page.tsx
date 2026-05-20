@@ -247,64 +247,60 @@ export default async function Page({
         <Nav />
 
         {/* HERO --------------------------------------------------------- */}
-        <section className="px-6 sm:px-10 pt-12 sm:pt-20 pb-20 sm:pb-32 overflow-hidden relative">
-          <Sparkles count={5} />
-          <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 lg:gap-16 items-end relative">
-            <div className="lg:col-span-7 reveal">
-              <span
-                className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 mb-8"
-                style={{ background: "rgba(244,244,244,0.06)", color: "rgba(244,244,244,0.4)" }}
+        <section className="px-6 sm:px-10 pt-12 sm:pt-24 pb-16 sm:pb-28 overflow-hidden relative">
+          {/* Big ambient glow behind hero */}
+          <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 70% 60% at 50% 30%, rgba(168,85,247,0.12), transparent 70%)" }} />
+
+          <div className="max-w-4xl mx-auto relative">
+
+            {/* Character stage — centered, dominant, FIRST */}
+            <div className="relative flex justify-center items-end mb-6" style={{ minHeight: 320 }}>
+              {/* Ambient glow sphere behind main character */}
+              <div className="absolute pointer-events-none" style={{
+                width: 380, height: 380,
+                background: "radial-gradient(circle, rgba(168,85,247,0.3) 0%, transparent 65%)",
+                filter: "blur(24px)",
+                top: "50%", left: "50%", transform: "translate(-50%, -50%)",
+              }} />
+
+              {/* Floating satellite mascots */}
+              <div className="absolute pointer-events-none" style={{ top: 10, left: "6%", animation: "floatBob 4s ease-in-out infinite", animationDelay: "0.5s" }}>
+                <Mascot expression="anxious" size={72} color="#E63946" />
+              </div>
+              <div className="absolute pointer-events-none hidden sm:block" style={{ top: 30, right: "8%", animation: "floatBob 3.5s ease-in-out infinite", animationDelay: "1.2s" }}>
+                <Mascot expression="obsessed" size={60} color="#FB923C" />
+              </div>
+              <div className="absolute pointer-events-none hidden sm:block" style={{ bottom: 20, left: "3%", animation: "floatBob 5s ease-in-out infinite", animationDelay: "0.2s" }}>
+                <Mascot expression="send-help" size={52} color="#C084FC" />
+              </div>
+              <div className="absolute pointer-events-none hidden lg:block" style={{ bottom: 30, right: "2%", animation: "floatBob 4.2s ease-in-out infinite", animationDelay: "1.8s" }}>
+                <Mascot expression="calm" size={48} color="#34D399" />
+              </div>
+
+              {/* Main character — the hero */}
+              <Mascot expression="excited" size={280} color="#A855F7" className="relative z-10" />
+            </div>
+
+            {/* Headline BELOW character */}
+            <div className="text-center">
+              <h1
+                className="font-display font-black leading-none text-ink text-balance"
+                style={{ fontSize: "clamp(44px, 11vw, 96px)", letterSpacing: "-0.04em" }}
               >
-                a hyperfixation tracker · web · 2026
-              </span>
-              <div className="flex items-start gap-6">
-                <div className="flex-1 min-w-0">
-                  <h1 className="display font-display font-black text-[3.5rem] sm:text-[5rem] lg:text-[6.5rem] leading-[0.92] tracking-crush text-ink text-balance">
-                    What are you
-                    <br />
-                    <span className="italic text-accent">unwell</span>
-                    <br />
-                    about? <span style={{ opacity: 0.35, fontSize: "0.65em" }}>✦</span>
-                  </h1>
-                </div>
-                <div className="hidden lg:block shrink-0 self-center">
-                  <Mascot expression="excited" size={160} color="#A855F7" />
-                </div>
-              </div>
-              {/* Mobile mascot below headline */}
-              <div className="flex lg:hidden justify-center mt-4">
-                <Mascot expression="excited" size={100} color="#A855F7" />
-              </div>
-              <p className="mt-8 font-sans text-lg sm:text-xl text-inkSoft max-w-xl leading-snug">
-                Hyperfix is a journal for your current obsession — the song on
-                loop, the fic you&apos;ve re-read six times, the character who has
-                rearranged your brain. Log it. Count the days. Mourn it when it
-                ends.
+                WHAT ARE YOU
+                <br />
+                <span className="italic" style={{ color: "#A855F7" }}>UNWELL</span>
+                <br />
+                ABOUT?
+              </h1>
+
+              <p className="mt-6 font-sans text-base sm:text-lg text-inkSoft max-w-xl mx-auto leading-relaxed">
+                Log the song on loop, the fic you can&apos;t quit, the character
+                who has rearranged your brain. Count the days. Mourn it when it ends.
               </p>
 
-              {/* Stat pills */}
-              <div className="flex flex-wrap gap-3 mt-8">
-                <span
-                  className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2"
-                  style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)", color: "rgba(244,244,244,0.7)" }}
-                >
-                  <span className="text-accent font-bold tabular">{countRes.count.toLocaleString()}</span> members
-                </span>
-                <span
-                  className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2"
-                  style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)", color: "rgba(244,244,244,0.7)" }}
-                >
-                  <span className="text-accent font-bold tabular">{publicFixCount.toLocaleString()}</span> fixes logged
-                </span>
-                <span
-                  className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2"
-                  style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)", color: "rgba(244,244,244,0.7)" }}
-                >
-                  <span className="text-accent font-bold tabular">{statsRes.avgDays}</span> avg days per fix
-                </span>
-              </div>
-
-              <div className="flex flex-wrap gap-3 mt-8">
+              {/* CTAs */}
+              <div className="flex flex-wrap justify-center gap-3 mt-8">
                 <a
                   href="/join"
                   className="inline-flex items-center font-mono text-[12px] uppercase tracking-widest px-7 py-4 font-bold transition-all hover:opacity-90 active:scale-[0.98]"
@@ -320,23 +316,36 @@ export default async function Page({
                   Sign in
                 </a>
               </div>
-            </div>
 
-            {/* HERO CARD */}
-            <div className="lg:col-span-5 reveal" style={{ animationDelay: "0.15s" }}>
-              <div className="relative">
-                <div className="absolute inset-0 translate-x-5 translate-y-4 rotate-[5deg] pointer-events-none opacity-20 scale-[0.96] -z-10">
-                  <HyperfixCard {...cards[1]} tilt="" />
-                </div>
-                <div className="relative z-10">
-                  <TiltCard tiltLimit={10} scale={1.03} effect="gravitate">
-                    <HyperfixCard {...cards[0]} tilt="" />
-                  </TiltCard>
-                </div>
-                <p className="mt-6 font-display italic text-muted text-sm text-center max-w-xs mx-auto">
-                  ↑ a typical entry. yours will be worse.
-                </p>
+              {/* Stat pills */}
+              <div className="flex flex-wrap justify-center gap-3 mt-6">
+                <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2" style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)", color: "rgba(244,244,244,0.7)" }}>
+                  <span className="text-accent font-bold tabular">{countRes.count.toLocaleString()}</span> members
+                </span>
+                <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2" style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)", color: "rgba(244,244,244,0.7)" }}>
+                  <span className="text-accent font-bold tabular">{publicFixCount.toLocaleString()}</span> fixes logged
+                </span>
+                <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2" style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)", color: "rgba(244,244,244,0.7)" }}>
+                  <span className="text-accent font-bold tabular">{statsRes.avgDays}</span> avg days per fix
+                </span>
               </div>
+            </div>
+          </div>
+
+          {/* Hero fix card — below the fold */}
+          <div className="max-w-sm mx-auto mt-16 reveal" style={{ animationDelay: "0.15s" }}>
+            <div className="relative">
+              <div className="absolute inset-0 translate-x-5 translate-y-4 rotate-[5deg] pointer-events-none opacity-20 scale-[0.96] -z-10">
+                <HyperfixCard {...cards[1]} tilt="" />
+              </div>
+              <div className="relative z-10">
+                <TiltCard tiltLimit={10} scale={1.03} effect="gravitate">
+                  <HyperfixCard {...cards[0]} tilt="" />
+                </TiltCard>
+              </div>
+              <p className="mt-6 font-display italic text-muted text-sm text-center max-w-xs mx-auto">
+                ↑ a typical entry. yours will be worse.
+              </p>
             </div>
           </div>
         </section>

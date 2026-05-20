@@ -313,14 +313,22 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               animation: "checkInSlideUp 0.3s cubic-bezier(0.2,0.8,0.2,1) both",
             }}
           >
-            {/* Character stage — top section with ambient glow */}
+            {/* Character stage — vivid colored top section */}
             <div
               className="relative flex flex-col items-center justify-end pt-8 pb-4"
               style={{
-                background: `radial-gradient(ellipse 90% 110% at 50% -10%, ${checkInColor}28, transparent 65%)`,
-                minHeight: 220,
+                background: checkInIntensity >= 9
+                  ? "linear-gradient(180deg, #2D0A0D 0%, #1A0507 100%)"
+                  : checkInIntensity >= 7
+                    ? "linear-gradient(180deg, #2D1500 0%, #1A0C00 100%)"
+                    : "linear-gradient(180deg, #180D2E 0%, #0E0818 100%)",
+                minHeight: 240,
               }}
             >
+              {/* Color glow spot behind mascot */}
+              <div className="absolute inset-0 pointer-events-none" style={{
+                background: `radial-gradient(ellipse 80% 80% at 50% 60%, ${checkInColor}40, transparent 65%)`,
+              }} />
               {/* Close */}
               <button
                 onClick={() => setShowCheckIn(false)}
