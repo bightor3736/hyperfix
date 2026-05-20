@@ -65,7 +65,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             >
               What are you
               <br />
-              unwell about?
+              obsessed with?
             </p>
             <p
               className="mt-4 font-sans text-base anim-fadeUp delay-500"

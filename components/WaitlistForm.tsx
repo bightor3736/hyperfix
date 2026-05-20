@@ -89,7 +89,7 @@ export default function WaitlistForm({
             borderRadius: 999,
           }}
         >
-          {pending ? "adding you…" : "I'm unwell, let me in →"}
+          {pending ? "adding you…" : "I'm obsessed, let me in →"}
         </button>
       </form>
 
@@ -105,7 +105,7 @@ export default function WaitlistForm({
           <span className="tabular">
             {count !== null ? count.toLocaleString() : "1,247"}
           </span>{" "}
-          people are currently unwell about something
+          people are currently obsessed with something
         </p>
       )}
     </div>

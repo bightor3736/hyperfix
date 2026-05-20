@@ -9,7 +9,7 @@ const NOISE_URL =
 
 export const metadata: Metadata = {
   title: "Explore · Hyperfix",
-  description: "What everyone's unwell about right now.",
+  description: "What everyone's obsessed with right now.",
 };
 
 type Fix = {
@@ -290,7 +290,7 @@ export default async function ExplorePage() {
             >
               What everyone&apos;s
               <br />
-              unwell about right now.
+              obsessed with right now.
             </h1>
             <p className="mt-4 font-sans text-base sm:text-lg" style={{ color: "rgba(255,255,255,0.72)" }}>
               Browse the obsessions running other people&apos;s lives.

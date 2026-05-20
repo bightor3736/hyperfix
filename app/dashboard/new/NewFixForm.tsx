@@ -127,7 +127,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
             </svg>
           </button>
           <p className="font-sans text-sm pr-6" style={{ color: "rgba(94,234,212,0.9)" }}>
-            Welcome to Hyperfix 👋 Log your first fix below — what are you unwell about right now?
+            Welcome to Hyperfix 👋 Log your first fix below — what are you obsessed with right now?
           </p>
         </div>
       )}
@@ -233,7 +233,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="What are you unwell about?"
+          placeholder="What are you obsessed with?"
           className="w-full rounded-xl px-4 py-4 font-sans text-lg outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40"
           style={{
             background: "#111113",

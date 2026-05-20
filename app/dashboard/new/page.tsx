@@ -69,7 +69,7 @@ export default async function NewFixPage() {
         >
           What are you
           <br />
-          unwell about?
+          obsessed with?
         </h1>
         <p
           className="font-sans text-base mb-10 anim-fadeUp delay-300"

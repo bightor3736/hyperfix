@@ -48,7 +48,7 @@ async function getPublicFixCount(): Promise<number> {
 }
 
 export const metadata: Metadata = {
-  title: "Hyperfix — what are you unwell about?",
+  title: "Hyperfix — what are you obsessed with?",
 };
 
 // ---- DESIGN TOKENS ---------------------------------------------------------
@@ -377,7 +377,7 @@ export default async function Page({
             >
               What Are You
               <br />
-              Unwell About?
+              Obsessed With?
             </h1>
 
             <p

@@ -98,7 +98,7 @@ export function OnboardingModal({ totalFixes }: { totalFixes: number }) {
           >
             What are you
             <br />
-            unwell about?
+            obsessed with?
           </h2>
           <p className="mt-4 font-sans text-base leading-relaxed anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.72)" }}>
             Log your first fix — a song on loop, a fic you can&apos;t quit, a show

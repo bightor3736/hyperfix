@@ -265,7 +265,7 @@ export default async function SearchPage({
             <div className="relative">
               <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>search</span>
               <h1 className="font-display anim-fadeUp delay-100 mb-6" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 4.5vw, 40px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}>
-                What are you unwell about?
+                What are you obsessed with?
               </h1>
               <div className="anim-fadeUp delay-200">
                 <SearchInput defaultValue={query} />
