@@ -163,7 +163,7 @@ export default async function DashboardPage() {
 
         {/* Stats row */}
         {(totalActive > 0 || fetchError || currentStreak > 0) && (
-          <div className="grid grid-cols-4 gap-3 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
             <StatCard label="Active fixes" value={totalActive.toString()} />
             <StatCard
               label="Longest fix"
@@ -172,11 +172,13 @@ export default async function DashboardPage() {
             <StatCard
               label="Peak intensity"
               value={highestIntensity > 0 ? `${highestIntensity}/10` : "—"}
+              hot={highestIntensity >= 8}
             />
             <StatCard
               label="Check-in streak"
               value={currentStreak > 0 ? `${currentStreak}d` : "—"}
               accent={currentStreak >= 7}
+              streakNum={currentStreak}
             />
           </div>
         )}
@@ -230,22 +232,64 @@ export default async function DashboardPage() {
   );
 }
 
-function StatCard({ label, value, accent = false }: { label: string; value: string; accent?: boolean }) {
+function StatCard({
+  label,
+  value,
+  accent = false,
+  hot = false,
+  streakNum = 0,
+}: {
+  label: string;
+  value: string;
+  accent?: boolean;
+  hot?: boolean;
+  streakNum?: number;
+}) {
+  const isFireStreak = accent && streakNum >= 7;
+  const streakIcon = streakNum >= 30 ? "⚡" : streakNum >= 7 ? "🔥" : null;
+
   return (
     <div
       className="rounded-2xl p-4 text-center"
       style={{
-        background: accent ? "rgba(168,85,247,0.06)" : "#111113",
-        border: accent ? "1px solid rgba(168,85,247,0.2)" : "1px solid rgba(244,244,244,0.07)",
+        background: isFireStreak
+          ? "rgba(168,85,247,0.07)"
+          : hot
+            ? "rgba(230,57,70,0.06)"
+            : "#111113",
+        border: isFireStreak
+          ? "1px solid rgba(168,85,247,0.22)"
+          : hot
+            ? "1px solid rgba(230,57,70,0.18)"
+            : "1px solid rgba(244,244,244,0.07)",
+        boxShadow: isFireStreak
+          ? "0 0 20px rgba(168,85,247,0.12)"
+          : hot
+            ? "0 0 16px rgba(230,57,70,0.08)"
+            : "none",
       }}
     >
       <p
         className="font-display font-black leading-none mb-1"
-        style={{ color: accent ? "#A855F7" : "#F4F4F4", fontSize: 28, letterSpacing: "-0.03em" }}
+        style={{
+          color: isFireStreak ? "#A855F7" : hot ? "#E63946" : "#F4F4F4",
+          fontSize: 28,
+          letterSpacing: "-0.03em",
+        }}
       >
         {value}
+        {streakIcon && <span className="ml-1 text-base">{streakIcon}</span>}
       </p>
-      <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: accent ? "rgba(168,85,247,0.6)" : "rgba(244,244,244,0.35)" }}>
+      <p
+        className="font-mono text-[10px] uppercase tracking-widest"
+        style={{
+          color: isFireStreak
+            ? "rgba(168,85,247,0.55)"
+            : hot
+              ? "rgba(230,57,70,0.5)"
+              : "rgba(244,244,244,0.35)",
+        }}
+      >
         {label}
       </p>
     </div>
