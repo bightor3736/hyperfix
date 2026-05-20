@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
 import { Mascot } from "@/components/Mascot";
 import { Sparkles } from "@/components/Sparkles";
+import { SparkIcon } from "@/components/Logo";
 
 async function getWaitlistCount(): Promise<number> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -294,9 +295,10 @@ export default async function Page({
                 ABOUT?
               </h1>
 
-              <p className="mt-6 font-sans text-base sm:text-lg text-inkSoft max-w-xl mx-auto leading-relaxed">
-                Log the song on loop, the fic you can&apos;t quit, the character
-                who has rearranged your brain. Count the days. Mourn it when it ends.
+              <p className="mt-6 font-sans text-base sm:text-lg text-inkSoft max-w-lg mx-auto leading-relaxed">
+                a journal for whatever has taken over your brain.
+                log it. count the days. mourn it when it ends.
+                <span style={{ color: "rgba(244,244,244,0.3)" }}> you&rsquo;re so normal about this.</span>
               </p>
 
               {/* CTAs */}
@@ -320,13 +322,16 @@ export default async function Page({
               {/* Stat pills */}
               <div className="flex flex-wrap justify-center gap-3 mt-6">
                 <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2" style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)", color: "rgba(244,244,244,0.7)" }}>
-                  <span className="text-accent font-bold tabular">{countRes.count.toLocaleString()}</span> members
+                  <SparkIcon size={10} color="#A855F7" />
+                  <span className="text-accent font-bold tabular">{countRes.count.toLocaleString()}</span> currently unwell
                 </span>
                 <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2" style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)", color: "rgba(244,244,244,0.7)" }}>
-                  <span className="text-accent font-bold tabular">{publicFixCount.toLocaleString()}</span> fixes logged
+                  <SparkIcon size={10} color="#A855F7" />
+                  <span className="text-accent font-bold tabular">{publicFixCount.toLocaleString()}</span> fixations logged
                 </span>
                 <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2" style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)", color: "rgba(244,244,244,0.7)" }}>
-                  <span className="text-accent font-bold tabular">{statsRes.avgDays}</span> avg days per fix
+                  <SparkIcon size={10} color="#A855F7" />
+                  <span className="text-accent font-bold tabular">{statsRes.avgDays}</span> avg days unwell
                 </span>
               </div>
             </div>

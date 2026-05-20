@@ -22,9 +22,20 @@ type Fix = {
 
 function getGreeting(): string {
   const hour = new Date().getHours();
+  if (hour < 6)  return "it's late";
   if (hour < 12) return "morning";
   if (hour < 18) return "afternoon";
-  return "evening";
+  if (hour < 22) return "evening";
+  return "it's late";
+}
+
+function getSubtext(totalActive: number, currentStreak: number, highestIntensity: number): string {
+  if (totalActive === 0) return "nothing logged yet. what has taken over your brain?";
+  if (highestIntensity >= 9) return `${totalActive} active fix${totalActive !== 1 ? "es" : ""}. you are not well. we love that for you.`;
+  if (currentStreak >= 14) return `${currentStreak}-day streak. this is getting serious.`;
+  if (currentStreak >= 7) return `${currentStreak} days in a row. you're so normal about this.`;
+  if (totalActive >= 5) return `${totalActive} active fixations. it's giving chaos.`;
+  return `${totalActive} active fix${totalActive !== 1 ? "es" : ""}. the brain is doing its thing.`;
 }
 
 function getDayCount(startedAt: string): number {
@@ -131,6 +142,7 @@ export default async function DashboardPage() {
 
   const greeting = getGreeting();
   const firstName = displayName.split(" ")[0];
+  const subtext = getSubtext(totalActive, currentStreak, highestIntensity);
 
   // Mascot expression based on state
   const mascotExpression: MascotExpression =
@@ -186,9 +198,7 @@ export default async function DashboardPage() {
               <span style={{ color: "rgba(244,244,244,0.2)", fontSize: "0.45em", marginLeft: 6 }}>✦</span>
             </h1>
             <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.4)" }}>
-              {totalActive === 0
-                ? "Nothing logged yet. What are you unwell about?"
-                : `You have ${totalActive} active fix${totalActive !== 1 ? "es" : ""}.`}
+              {subtext}
             </p>
           </div>
 
@@ -356,13 +366,15 @@ function EmptyState() {
     <div className="flex flex-col items-center justify-center py-16 px-6 text-center gap-10">
       <div>
         <p
-          className="font-display italic mb-3"
-          style={{ color: "rgba(244,244,244,0.5)", fontSize: 28, letterSpacing: "-0.02em" }}
+          className="font-display font-black mb-3"
+          style={{ color: "#F4F4F4", fontSize: "clamp(28px, 6vw, 40px)", letterSpacing: "-0.03em", lineHeight: 1.1 }}
         >
-          What are you unwell about?
+          what has taken over
+          <br />
+          <span style={{ color: "#A855F7", fontStyle: "italic" }}>your brain?</span>
         </p>
-        <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.25)" }}>
-          Log your first fix to start counting the days.
+        <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>
+          log it. count the days. mourn it when it ends.
         </p>
       </div>
 

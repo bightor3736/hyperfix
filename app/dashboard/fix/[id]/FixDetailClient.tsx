@@ -23,11 +23,16 @@ const ALL_STATUSES: FixStatus[] = [
 ];
 
 const INTENSITY_LABELS: Record<number, string> = {
-  1: "mild interest", 2: "mild interest",
-  3: "it's something", 4: "it's something",
-  5: "definitely a thing", 6: "definitely a thing",
-  7: "deeply unwell", 8: "deeply unwell",
-  9: "send help", 10: "send help",
+  1:  "barely a thing",
+  2:  "it's in the back of my head",
+  3:  "thinking about it a normal amount",
+  4:  "okay it has its claws in me",
+  5:  "i think about it every day",
+  6:  "i have reorganised my whole personality",
+  7:  "deeply, catastrophically unwell",
+  8:  "i cannot be perceived right now",
+  9:  "send help. no wait don't. let me stay.",
+  10: "this is a medical emergency",
 };
 
 const CATEGORIES = [
@@ -357,7 +362,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                   className="font-display font-black leading-none uppercase"
                   style={{ color: "#F4F4F4", fontSize: "clamp(26px, 7vw, 36px)", letterSpacing: "-0.02em" }}
                 >
-                  how&rsquo;s this fix
+                  how bad is it
                   <br />
                   <span style={{ color: checkInColor }}>today?</span>
                 </h2>

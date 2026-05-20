@@ -1,10 +1,61 @@
 /**
- * Hyperfix logo system — pure typographic wordmark.
- * No icon container. The word is the mark.
+ * Hyperfix brand system
  *
- * LogoWordmark — "hyperfix" in Fraunces, hyper=ink, fix=accent italic
- * LogoDark     — same but hyper=paper for dark backgrounds
+ * LogoMark  — custom ✦ spark symbol. Four-pointed star, vertical axis longer.
+ *             Reads cleanly at 16px favicon through hero sizes.
+ *
+ * LogoWordmark — "hyper" (ink, bold) + "fix" (accent, italic)
+ * LogoLockup   — mark + wordmark, horizontally aligned
  */
+
+export function LogoMark({
+  size = 32,
+  className = "",
+  glow = false,
+}: {
+  size?: number;
+  className?: string;
+  glow?: boolean;
+}) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 64 64"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Tile background */}
+      <rect width="64" height="64" rx="15" fill="#0D0B10" />
+
+      {/* Optional outer glow ring */}
+      {glow && (
+        <rect
+          width="64" height="64" rx="15"
+          fill="none"
+          stroke="#A855F7"
+          strokeWidth="1.5"
+          strokeOpacity="0.35"
+        />
+      )}
+
+      {/* ✦ Spark mark — 4-pointed star, taller than wide */}
+      {/* Top/bottom points at radius 24, left/right at radius 16, inner at radius 8 */}
+      <path
+        d="M 32 6 L 39 24 L 54 32 L 39 40 L 32 58 L 25 40 L 10 32 L 25 24 Z"
+        fill="#A855F7"
+      />
+
+      {/* Inner highlight — small bright center diamond */}
+      <path
+        d="M 32 23 L 36 32 L 32 41 L 28 32 Z"
+        fill="rgba(255,255,255,0.18)"
+      />
+    </svg>
+  );
+}
 
 export function LogoWordmark({
   className = "",
@@ -15,10 +66,10 @@ export function LogoWordmark({
 }) {
   const cls =
     size === "sm"
-      ? "text-xl tracking-crush font-medium"
+      ? "text-xl tracking-crush font-black"
       : size === "lg"
-      ? "text-5xl tracking-crush font-medium"
-      : "text-2xl tracking-crush font-medium";
+        ? "text-5xl tracking-crush font-black"
+        : "text-2xl tracking-crush font-black";
 
   return (
     <span className={`font-display leading-none ${cls} ${className}`}>
@@ -37,10 +88,10 @@ export function LogoDark({
 }) {
   const cls =
     size === "sm"
-      ? "text-xl tracking-crush font-medium"
+      ? "text-xl tracking-crush font-black"
       : size === "lg"
-      ? "text-5xl tracking-crush font-medium"
-      : "text-2xl tracking-crush font-medium";
+        ? "text-5xl tracking-crush font-black"
+        : "text-2xl tracking-crush font-black";
 
   return (
     <span className={`font-display leading-none ${cls} ${className}`}>
@@ -52,12 +103,34 @@ export function LogoDark({
 
 export { LogoWordmark as LogoFull };
 
-/**
- * LogoMark — geometric hyperfix monomark.
- * Two stacked angular lime blades with a deeper-green overlap band,
- * set on a rounded near-black tile. Reads cleanly down to favicon size.
- */
-export function LogoMark({ size = 32, className = "" }: { size?: number; className?: string }) {
+export function LogoLockup({
+  className = "",
+  size = "md",
+  glow = false,
+}: {
+  className?: string;
+  size?: "sm" | "md" | "lg";
+  glow?: boolean;
+}) {
+  const markPx = size === "sm" ? 24 : size === "lg" ? 44 : 30;
+  return (
+    <span className={`inline-flex items-center gap-2.5 ${className}`}>
+      <LogoMark size={markPx} glow={glow} />
+      <LogoWordmark size={size} />
+    </span>
+  );
+}
+
+/** Standalone ✦ spark icon — no tile, just the path. For decorative use. */
+export function SparkIcon({
+  size = 20,
+  color = "#A855F7",
+  className = "",
+}: {
+  size?: number;
+  color?: string;
+  className?: string;
+}) {
   return (
     <svg
       width={size}
@@ -68,29 +141,10 @@ export function LogoMark({ size = 32, className = "" }: { size?: number; classNa
       className={className}
       aria-hidden="true"
     >
-      <rect width="64" height="64" rx="14" fill="#0A0A0A" />
-      <path d="M14 12 L44 12 L50 26 L20 26 Z" fill="#A855F7" />
-      <path d="M20 30 L50 30 L44 52 L14 52 Z" fill="#A855F7" />
-      <path d="M20 26 L50 26 L50 30 L20 30 Z" fill="#7CB205" />
+      <path
+        d="M 32 6 L 39 24 L 54 32 L 39 40 L 32 58 L 25 40 L 10 32 L 25 24 Z"
+        fill={color}
+      />
     </svg>
-  );
-}
-
-/**
- * LogoLockup — mark + wordmark, horizontally aligned.
- */
-export function LogoLockup({
-  className = "",
-  size = "md",
-}: {
-  className?: string;
-  size?: "sm" | "md" | "lg";
-}) {
-  const markPx = size === "sm" ? 24 : size === "lg" ? 44 : 30;
-  return (
-    <span className={`inline-flex items-center gap-2 ${className}`}>
-      <LogoMark size={markPx} />
-      <LogoWordmark size={size} />
-    </span>
   );
 }
