@@ -4,6 +4,7 @@ import { useState, useMemo, useTransition } from "react";
 import Link from "next/link";
 import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
 import { checkInFix, bulkCheckInFixes } from "@/app/actions/fixes";
+import { CountUp } from "@/components/CountUp";
 
 type Fix = {
   id: string;
@@ -194,7 +195,7 @@ function FixGridCard({
               transition: "color 0.3s ease, text-shadow 0.3s ease",
             }}
           >
-            {days}
+            <CountUp to={days} duration={900} />
           </span>
           <span className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
             day{days !== 1 ? "s" : ""}

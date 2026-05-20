@@ -375,7 +375,7 @@ details > summary::-webkit-details-marker {
   to   { background-position: 200% 0; }
 }
 .skeleton-shimmer {
-  background: linear-gradient(90deg, #161616 25%, #1e1e20 50%, #161616 75%);
+  background: linear-gradient(90deg, #0f1011 25%, #152120 50%, #0f1011 75%);
   background-size: 200% 100%;
   animation: shimmer 1.6s ease-in-out infinite;
 }
