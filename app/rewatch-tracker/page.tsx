@@ -4,6 +4,7 @@ import { TiltCard } from "@/components/TiltCard";
 import WaitlistForm from "@/components/WaitlistForm";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { RevealSection } from "@/components/RevealSection";
 
 export const metadata: Metadata = {
   title: "Rewatch Tracker — for the show you've watched too many times to admit",
@@ -19,6 +20,12 @@ export const metadata: Metadata = {
     images: [{ url: "/api/og?title=Rewatch+Tracker&sub=for+the+show+you%27ve+seen+too+many+times+%C2%B7+hyperfix.app&accent=Rewatch", width: 1200, height: 630 }],
   },
 };
+
+const TEAL = "#5EEAD4";
+const CARD_BG = "#0F1011";
+const CARD_BORDER = "rgba(255,255,255,0.06)";
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 const faqs = [
   {
@@ -91,215 +98,156 @@ const sampleCards = [
   },
 ];
 
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>{children}</span>;
+}
+function SectionHeadline({ children }: { children: React.ReactNode }) {
+  return <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.02em", fontWeight: 600 }}>{children}</h2>;
+}
+function Card({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-10" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+      <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
+      <div className="relative">{children}</div>
+    </div>
+  );
+}
+
 export default function RewatchTrackerPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
+      <Nav />
+      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
+        <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
 
-        <Nav />
-
-        <section className="px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-32">
-          <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
-              rewatch tracker · hyperfix.app · 2026
-            </span>
-            <h1 className="font-display font-medium text-[3rem] sm:text-[4.5rem] lg:text-[6rem] leading-[0.92] tracking-crush text-ink text-balance">
-              Rewatch
-              <br />
-              <span className="italic text-accent">Tracker</span>
-            </h1>
-            <p className="mt-8 font-sans text-lg sm:text-xl text-[rgba(244,244,244,0.5)] max-w-2xl leading-snug">
-              Letterboxd logs that you watched it. It doesn&apos;t log that you&apos;ve watched it seven times. It doesn&apos;t track that you&apos;re currently on your third full rewatch of a series this year. It doesn&apos;t know that rewatching isn&apos;t something you chose — it&apos;s something your brain is doing because it needs the thing and you&apos;re not done with it yet.
-            </p>
-            <p className="mt-4 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-2xl leading-snug">
-              Hyperfix tracks the rewatch as a first-class event. Not a footnote on the original entry — its own fixation, its own counter, its own eulogy when it ends. Because a third rewatch of Pride &amp; Prejudice in a single winter is not the same as the first watch. It&apos;s a specific era. It deserves a specific record.
-            </p>
-            <WaitlistForm id="waitlist" variant="light" />
+        <main id="main-content" className="relative max-w-5xl mx-auto flex flex-col gap-6">
+          <div className="relative overflow-hidden rounded-3xl p-6 sm:p-10 anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)", border: `1px solid ${CARD_BORDER}` }}>
+            <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
+            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
+            <div className="relative">
+              <Eyebrow>rewatch tracker</Eyebrow>
+              <h1 className="font-display anim-fadeUp delay-100" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 6vw, 60px)", lineHeight: 1.02, letterSpacing: "-0.02em", fontWeight: 600 }}>
+                For the show you&apos;ve
+                <br />
+                watched too many times.
+              </h1>
+              <p className="mt-6 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.72)" }}>
+                Letterboxd logs that you watched it. It doesn&apos;t log that you&apos;ve watched it seven times. It doesn&apos;t track that you&apos;re currently on your third full rewatch of a series this year. It doesn&apos;t know that rewatching isn&apos;t something you chose — it&apos;s something your brain is doing because it needs the thing and you&apos;re not done with it yet.
+              </p>
+              <p className="mt-4 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.6)" }}>
+                Hyperfix tracks the rewatch as a first-class event. Not a footnote on the original entry — its own fixation, its own counter, its own eulogy when it ends. Because a third rewatch of Pride &amp; Prejudice in a single winter is not the same as the first watch. It&apos;s a specific era. It deserves a specific record.
+              </p>
+              <div className="mt-7 anim-fadeUp delay-300"><WaitlistForm id="waitlist" variant="light" /></div>
+            </div>
           </div>
-        </section>
 
-        <section className="px-6 sm:px-10 py-20 sm:py-32 bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)]">
-          <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
-              the rewatch isn&apos;t a repeat
-            </span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.98] tracking-tightest mb-10 text-balance">
-              Every rewatch is
-              <br />
-              <span className="italic text-accent">a different fixation.</span>
-            </h2>
-            <div className="grid md:grid-cols-2 gap-10 max-w-4xl">
-              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(244,244,244,0.5)]">
-                <p>
+          <RevealSection>
+            <Card>
+              <Eyebrow>the rewatch isn&apos;t a repeat</Eyebrow>
+              <SectionHeadline>Every rewatch is a different fixation.</SectionHeadline>
+              <div className="grid md:grid-cols-2 gap-8 mt-8">
+                <p className="font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
                   The thing about rewatches is that you&apos;re different every time. The first watch of Normal People is not the same experience as the rewatch you do at 27 after a specific thing happens in your life. The show hasn&apos;t changed. You have. The fixation that kicks in is yours, not the show&apos;s, and it belongs to this specific rewatch at this specific moment.
                 </p>
-              </div>
-              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(244,244,244,0.5)]">
-                <p>
+                <p className="font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
                   Letterboxd lets you log a rewatch. It does not give it a day counter. It does not ask you what&apos;s happening. A comfort rewatch that runs for three weeks — going back to the same episodes, the same scenes — is a hyperfixation as much as any new obsession. Hyperfix treats it like one.
                 </p>
               </div>
-            </div>
-          </div>
-        </section>
+            </Card>
+          </RevealSection>
 
-        <section className="px-6 sm:px-10 py-20 sm:py-32">
-          <div className="max-w-6xl mx-auto">
-            <div className="mb-16">
-              <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-6">how it works</span>
-              <h2 className="font-display text-4xl sm:text-6xl leading-[0.98] tracking-tightest max-w-2xl text-balance">
-                A tracker that knows
-                <br />
-                <span className="italic">what it&apos;s tracking.</span>
-              </h2>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-16 max-w-4xl">
-              <div className="space-y-12">
-                {[
-                  {
-                    n: "01",
-                    h: "Log the rewatch.",
-                    p: "Title, the rewatch number if you know it, the start date. Note whether it's a full series rerun or a specific episode loop. The counter starts now.",
-                  },
-                  {
-                    n: "02",
-                    h: "Track the return.",
-                    p: "Comfort rewatches have their own intensity arc. Sometimes you're doing one episode a night and it's peaceful. Sometimes you've watched the same two episodes six times in a week and it's peak intensity. The meter captures both.",
-                  },
-                  {
-                    n: "03",
-                    h: "Name what this one was for.",
-                    p: "The best feature of the rewatch eulogy is the closing note: why this rewatch, why now, what you were looking for. In two years you'll be able to read it and understand exactly where you were in your life when you needed to watch Pride & Prejudice for the seventh time.",
-                  },
-                ].map((s) => (
-                  <div key={s.n} className="border-t border-[rgba(244,244,244,0.07)] pt-6">
-                    <span className="font-mono text-[11px] uppercase tracking-widest text-accent mb-3 block">
-                      step {s.n}
-                    </span>
-                    <h3 className="font-display text-2xl tracking-tight mb-3">
-                      {s.h}
-                    </h3>
-                    <p className="font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
-                      {s.p}
-                    </p>
-                  </div>
-                ))}
+          <RevealSection>
+            <Card>
+              <Eyebrow>how it works</Eyebrow>
+              <SectionHeadline>A tracker that knows what it&apos;s tracking.</SectionHeadline>
+              <div className="grid md:grid-cols-2 gap-12 mt-10">
+                <div className="space-y-8">
+                  {[
+                    { n: "01", h: "Log the rewatch.", p: "Title, the rewatch number if you know it, the start date. Note whether it's a full series rerun or a specific episode loop. The counter starts now." },
+                    { n: "02", h: "Track the return.", p: "Comfort rewatches have their own intensity arc. Sometimes you're doing one episode a night and it's peaceful. Sometimes you've watched the same two episodes six times in a week and it's peak intensity. The meter captures both." },
+                    { n: "03", h: "Name what this one was for.", p: "The best feature of the rewatch eulogy is the closing note: why this rewatch, why now, what you were looking for. In two years you'll be able to read it and understand exactly where you were in your life when you needed to watch Pride & Prejudice for the seventh time." },
+                  ].map((s) => (
+                    <div key={s.n}>
+                      <span className="font-sans text-xs mb-2 block" style={{ color: TEAL }}>step {s.n}</span>
+                      <h3 className="font-display mb-2" style={{ color: "#FFFFFF", fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em" }}>{s.h}</h3>
+                      <p className="font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{s.p}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col gap-8 items-center justify-center">
+                  {sampleCards.map((card, i) => (
+                    <TiltCard key={i} tiltLimit={10} scale={1.03} effect="gravitate">
+                      <HyperfixCard {...card} tilt="" />
+                    </TiltCard>
+                  ))}
+                </div>
               </div>
+            </Card>
+          </RevealSection>
 
-              <div className="flex flex-col gap-8 items-center justify-center">
-                {sampleCards.map((card, i) => (
-                  <TiltCard key={i} tiltLimit={10} scale={1.03} effect="gravitate">
-
-                    <HyperfixCard {...card} tilt="" />
-
-                  </TiltCard>))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="px-6 sm:px-10 py-20 sm:py-32">
-          <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">the difference</span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.98] tracking-tightest mb-16 max-w-3xl text-balance">
-              Not Letterboxd.
-              <br />
-              <span className="italic text-accent">Not pretending it&apos;s not happening.</span>
-            </h2>
-
-            <div className="grid md:grid-cols-2 gap-12">
-              <div className="border-t border-[rgba(244,244,244,0.07)] pt-8">
-                <h3 className="font-display text-2xl tracking-tight mb-5">
-                  Hyperfix vs. Letterboxd
-                </h3>
-                <div className="space-y-4 font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
-                  <p>
+          <RevealSection>
+            <Card>
+              <Eyebrow>the difference</Eyebrow>
+              <SectionHeadline>Not Letterboxd. Not pretending it&apos;s not happening.</SectionHeadline>
+              <div className="grid md:grid-cols-2 gap-10 mt-10">
+                <div>
+                  <h3 className="font-display mb-4" style={{ color: "#FFFFFF", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>Hyperfix vs. Letterboxd</h3>
+                  <p className="font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
                     Letterboxd logs the film or episode. Hyperfix logs the obsession. A seventh rewatch on Letterboxd is a diary entry with a star rating. A seventh rewatch on Hyperfix is a hyperfixation with a day counter, an intensity meter, and a eulogy. They&apos;re different products for different moments — you might want both, but for the rewatch spiral, Hyperfix is the right tool.
                   </p>
                 </div>
-              </div>
-
-              <div className="border-t border-[rgba(244,244,244,0.07)] pt-8">
-                <h3 className="font-display text-2xl tracking-tight mb-5">
-                  Hyperfix vs. pretending it&apos;s not happening
-                </h3>
-                <div className="space-y-4 font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
-                  <p>
+                <div>
+                  <h3 className="font-display mb-4" style={{ color: "#FFFFFF", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>Hyperfix vs. pretending it&apos;s not happening</h3>
+                  <p className="font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
                     Many people don&apos;t track comfort rewatches because they feel like something to be embarrassed about. They&apos;re not. A rewatch is a form of self-care, nostalgia, emotional regulation, or all three. The counter doesn&apos;t judge. It just counts. And when the run ends, the eulogy exists as proof that this specific era happened, this specific version of you needed this specific show, and that&apos;s worth remembering.
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
+            </Card>
+          </RevealSection>
 
-        <section className="px-6 sm:px-10 py-20 sm:py-32">
-          <div className="max-w-4xl mx-auto">
-            <div className="mb-16">
-              <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-6">
-                frequently · asked · questions
-              </span>
-              <h2 className="font-display text-4xl sm:text-6xl leading-[0.98] tracking-tightest text-balance">
-                Everything you wanted
-                <br />
-                <span className="italic text-accent">to ask.</span>
-              </h2>
-            </div>
-            <div className="divide-y divide-[rgba(244,244,244,0.07)] border-y border-[rgba(244,244,244,0.07)]">
-              {faqs.map((faq, i) => (
-                <details
-                  key={i}
-                  className="group py-6 [&_summary::-webkit-details-marker]:hidden"
-                >
-                  <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
-                    <h3 className="font-display text-xl sm:text-2xl tracking-tight leading-snug text-ink">
-                      <span className="font-mono text-xs text-accent mr-3 tabular">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      {faq.q}
-                    </h3>
-                    <span aria-hidden="true" className="font-mono text-2xl text-[rgba(244,244,244,0.4)] group-open:rotate-45 transition-transform shrink-0">
-                      +
-                    </span>
-                  </summary>
-                  <p className="mt-4 ml-10 font-sans text-base sm:text-lg text-[rgba(244,244,244,0.5)] leading-relaxed max-w-2xl">
-                    {faq.a}
-                  </p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
+          <RevealSection>
+            <Card>
+              <Eyebrow>frequently asked</Eyebrow>
+              <SectionHeadline>Everything you wanted to ask.</SectionHeadline>
+              <div className="mt-8">
+                {faqs.map((faq, i) => (
+                  <details key={i} className="group py-5 [&_summary::-webkit-details-marker]:hidden" style={{ borderTop: i === 0 ? `1px solid rgba(255,255,255,0.06)` : undefined, borderBottom: `1px solid rgba(255,255,255,0.06)` }}>
+                    <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
+                      <h3 className="font-display" style={{ color: "#FFFFFF", fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.3 }}>
+                        <span className="mr-3 tabular-nums" style={{ color: TEAL, fontSize: 13 }}>{String(i + 1).padStart(2, "0")}</span>
+                        {faq.q}
+                      </h3>
+                      <span aria-hidden="true" className="text-xl group-open:rotate-45 transition-transform shrink-0" style={{ color: TEAL }}>+</span>
+                    </summary>
+                    <p className="mt-4 ml-9 font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>{faq.a}</p>
+                  </details>
+                ))}
+              </div>
+            </Card>
+          </RevealSection>
 
-        <section className="px-6 sm:px-10 py-24 sm:py-40 bg-[#111113]">
-          <div className="max-w-4xl mx-auto text-center">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
-              join the waitlist
-            </span>
-            <h2 className="font-display text-5xl sm:text-7xl leading-[0.92] tracking-crush text-balance">
-              The seventh rewatch started.
-              <br />
-              <span className="italic text-accent">Log it. You know why you&apos;re here.</span>
-            </h2>
-            <p className="mt-8 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-xl mx-auto leading-snug">
-              The waitlist gets first access in waves. Early users get a permanent Pro discount and the most embarrassing usernames before they&apos;re gone.
-            </p>
-            <WaitlistForm variant="dark" />
-          </div>
-        </section>
-
-        <Footer />
-      </main>
+          <RevealSection>
+            <div className="relative overflow-hidden rounded-3xl p-8 sm:p-14 text-center" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #2DD4BF 0%, #0E4F47 26%, #08231F 50%, #0F1011 80%)", border: `1px solid ${CARD_BORDER}` }}>
+              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "220px 220px", opacity: 0.5 }} />
+              <div className="relative">
+                <Eyebrow>join the waitlist</Eyebrow>
+                <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(30px, 5vw, 48px)", letterSpacing: "-0.02em", fontWeight: 600, lineHeight: 1.05 }}>
+                  The seventh rewatch started. Log it. You know why you&apos;re here.
+                </h2>
+                <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.72)" }}>
+                  The waitlist gets first access in waves. Early users get a permanent Pro discount and the most embarrassing usernames before they&apos;re gone.
+                </p>
+                <div className="mt-6"><WaitlistForm variant="dark" /></div>
+              </div>
+            </div>
+          </RevealSection>
+        </main>
+      </div>
+      <Footer />
     </>
   );
 }
