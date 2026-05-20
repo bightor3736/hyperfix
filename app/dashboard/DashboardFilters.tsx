@@ -3,7 +3,7 @@
 import { useState, useMemo, useTransition } from "react";
 import Link from "next/link";
 import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
-import { checkInFix } from "@/app/actions/fixes";
+import { checkInFix, bulkCheckInFixes } from "@/app/actions/fixes";
 
 type Fix = {
   id: string;
@@ -233,7 +233,30 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
   const [categoryFilter, setCategoryFilter] = useState<string>("All");
   const [sortOrder, setSortOrder] = useState<SortOrder>("newest");
   const [localCheckedIn, setLocalCheckedIn] = useState<Set<string>>(new Set(checkedInIds));
+  const [bulkPending, setBulkPending] = useState(false);
   const [_pending, startTransition] = useTransition();
+
+  const uncheckedCount = fixes.filter((f) => !localCheckedIn.has(f.id)).length;
+
+  async function handleBulkCheckIn() {
+    if (bulkPending) return;
+    const uncheckedIds = fixes.filter((f) => !localCheckedIn.has(f.id)).map((f) => f.id);
+    if (uncheckedIds.length === 0) return;
+    setBulkPending(true);
+    setLocalCheckedIn((prev) => new Set([...prev, ...uncheckedIds]));
+    try {
+      await bulkCheckInFixes(uncheckedIds);
+    } catch {
+      // Revert on failure
+      setLocalCheckedIn((prev) => {
+        const next = new Set(prev);
+        uncheckedIds.forEach((id) => next.delete(id));
+        return next;
+      });
+    } finally {
+      setBulkPending(false);
+    }
+  }
 
   function handleQuickCheckIn(fixId: string) {
     setLocalCheckedIn((prev) => new Set([...prev, fixId]));
@@ -299,6 +322,20 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
             <PillButton key={opt.key} label={opt.label} active={sortOrder === opt.key} onClick={() => setSortOrder(opt.key)} />
           ))}
         </div>
+        {uncheckedCount > 0 && (
+          <button
+            onClick={handleBulkCheckIn}
+            disabled={bulkPending}
+            className="shrink-0 px-4 py-2 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all hover:opacity-80 active:scale-95 disabled:opacity-50 whitespace-nowrap"
+            style={{
+              background: "rgba(168,85,247,0.08)",
+              border: "1px solid rgba(168,85,247,0.35)",
+              color: "#A855F7",
+            }}
+          >
+            {bulkPending ? "Checking in…" : `Check in all (${uncheckedCount})`}
+          </button>
+        )}
       </div>
 
       {/* Status filter pills */}

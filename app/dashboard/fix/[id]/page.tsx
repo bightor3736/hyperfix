@@ -87,14 +87,14 @@ export default async function FixDetailPage({
     .maybeSingle();
   const hasCheckedInToday = !!todayEntry;
 
-  // Fetch entry history for sparkline + notes
+  // Fetch entry history for sparkline + timeline
   const { data: entriesData } = await supabase
     .from("fix_entries")
-    .select("date, intensity, note")
+    .select("id, date, intensity, note")
     .eq("fix_id", id)
     .order("date", { ascending: false })
-    .limit(14);
-  const entries = (entriesData ?? []) as { date: string; intensity: number; note: string | null }[];
+    .limit(30);
+  const entries = (entriesData ?? []) as { id: string; date: string; intensity: number; note: string | null }[];
   const entriesForSparkline = [...entries].reverse();
 
   // Check if this fix is pinned on the user's profile + Pro status
@@ -362,8 +362,8 @@ export default async function FixDetailPage({
           </div>
         )}
 
-        {/* Check-in notes */}
-        {entries.some((e) => e.note) && (
+        {/* Check-in history */}
+        {entries.length > 0 && (
           <div
             className="rounded-2xl p-5 mb-4"
             style={{
@@ -375,27 +375,36 @@ export default async function FixDetailPage({
               className="font-sans text-[13px] uppercase tracking-widest mb-4"
               style={{ color: "rgba(244,244,244,0.3)" }}
             >
-              Check-in notes
+              Check-in history
             </p>
-            <div className="flex flex-col gap-3">
-              {entries
-                .filter((e) => e.note)
-                .map((e) => (
-                  <div key={e.date} className="flex gap-3 items-start">
+            <div className="flex flex-col gap-2">
+              {entries.map((e) => {
+                const intColor = e.intensity >= 8 ? "#E63946" : e.intensity >= 6 ? "#FB923C" : "#A855F7";
+                return (
+                  <div key={e.id ?? e.date} className="flex items-start gap-3">
                     <span
-                      className="font-mono text-[10px] uppercase tracking-widest mt-0.5 shrink-0"
+                      className="font-mono text-[9px] uppercase tracking-widest mt-0.5 shrink-0 w-14 text-right"
                       style={{ color: "rgba(244,244,244,0.25)" }}
                     >
-                      {new Date(e.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                      {new Date(e.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                     </span>
-                    <p
-                      className="font-display italic text-sm leading-relaxed"
-                      style={{ color: "rgba(244,244,244,0.6)" }}
+                    <span
+                      className="font-mono text-[11px] font-semibold shrink-0 w-8 text-center"
+                      style={{ color: intColor }}
                     >
-                      {e.note}
-                    </p>
+                      {e.intensity}
+                    </span>
+                    {e.note && (
+                      <p
+                        className="font-display italic text-[13px] leading-snug flex-1"
+                        style={{ color: "rgba(244,244,244,0.55)" }}
+                      >
+                        {e.note}
+                      </p>
+                    )}
                   </div>
-                ))}
+                );
+              })}
             </div>
           </div>
         )}

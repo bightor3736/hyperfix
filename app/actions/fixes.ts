@@ -230,6 +230,29 @@ export async function deleteFix(id: string) {
   redirect("/dashboard");
 }
 
+export async function bulkCheckInFixes(fixIds: string[]): Promise<void> {
+  "use server";
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error("Not authenticated");
+
+  const today = new Date().toISOString().split("T")[0];
+
+  for (const fixId of fixIds) {
+    // Verify ownership
+    const { data: fix } = await supabase.from("fixes").select("id").eq("id", fixId).eq("user_id", user.id).single();
+    if (!fix) continue;
+
+    // Check not already checked in
+    const { data: existing } = await supabase.from("fix_entries").select("id").eq("fix_id", fixId).eq("date", today).maybeSingle();
+    if (existing) continue;
+
+    await supabase.from("fix_entries").insert({ fix_id: fixId, user_id: user.id, date: today, intensity: 5 });
+  }
+
+  revalidatePath("/dashboard");
+}
+
 export async function pinFix(fixId: string | null): Promise<void> {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

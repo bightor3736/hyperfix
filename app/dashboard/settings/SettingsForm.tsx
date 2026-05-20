@@ -14,6 +14,7 @@ type Profile = {
   is_pro?: boolean | null;
   referral_code?: string | null;
   referral_count?: number | null;
+  notification_prefs?: Record<string, boolean> | null;
 } | null;
 
 type Props = {
@@ -32,6 +33,12 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
   const [bio, setBio] = useState(profile?.bio ?? "");
   const [isPublic, setIsPublic] = useState(profile?.is_public ?? false);
   const [avatarUrl, setAvatarUrl] = useState(profile?.avatar_url ?? "");
+
+  // Notification prefs
+  const notifPrefs = profile?.notification_prefs ?? {};
+  const [notifStreak, setNotifStreak] = useState<boolean>(notifPrefs.streak_reminders !== false);
+  const [notifMilestones, setNotifMilestones] = useState<boolean>(notifPrefs.milestones !== false);
+  const [notifDigest, setNotifDigest] = useState<boolean>(notifPrefs.weekly_digest !== false);
 
   // UI state
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
@@ -147,6 +154,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           username: username.trim() || null,
           bio: bio.trim() || null,
           is_public: isPublic,
+          notification_prefs: { streak_reminders: notifStreak, milestones: notifMilestones, weekly_digest: notifDigest },
         };
 
         const { error } = await supabase
@@ -378,6 +386,31 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             </div>
           </div>
         </label>
+      </section>
+
+      {/* ── Notifications section ── */}
+      <section>
+        <SectionHeading>Notifications</SectionHeading>
+        <div className="flex flex-col gap-3">
+          <NotifToggle
+            label="Streak reminders"
+            description="remind me if I haven't checked in and have a streak going"
+            checked={notifStreak}
+            onChange={setNotifStreak}
+          />
+          <NotifToggle
+            label="Milestone emails"
+            description="celebrate when a fix hits 7, 30, 100, or 365 days"
+            checked={notifMilestones}
+            onChange={setNotifMilestones}
+          />
+          <NotifToggle
+            label="Weekly digest"
+            description="Sunday summary of my active fixes"
+            checked={notifDigest}
+            onChange={setNotifDigest}
+          />
+        </div>
       </section>
 
       {/* ── Account section ── */}
@@ -649,6 +682,45 @@ function FieldGroup({
       </div>
       {children}
     </div>
+  );
+}
+
+function NotifToggle({
+  label,
+  description,
+  checked,
+  onChange,
+}: {
+  label: string;
+  description: string;
+  checked: boolean;
+  onChange: (v: boolean) => void;
+}) {
+  return (
+    <label className="flex items-center justify-between gap-4 cursor-pointer p-4 rounded-2xl" style={cardStyle}>
+      <div>
+        <p className="font-sans text-sm font-medium" style={{ color: "#F4F4F4" }}>{label}</p>
+        <p className="font-sans text-[12px] mt-0.5" style={{ color: "rgba(244,244,244,0.35)" }}>{description}</p>
+      </div>
+      <div className="relative shrink-0">
+        <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="sr-only" />
+        <div
+          className="w-11 h-6 rounded-full transition-all duration-200"
+          style={{
+            background: checked ? "#A855F7" : "rgba(244,244,244,0.1)",
+            border: checked ? "1px solid rgba(168,85,247,0.5)" : "1px solid rgba(244,244,244,0.1)",
+          }}
+        >
+          <div
+            className="w-4 h-4 rounded-full mt-[3px] transition-all duration-200"
+            style={{
+              background: checked ? "#0A0A0A" : "rgba(244,244,244,0.4)",
+              transform: checked ? "translateX(23px)" : "translateX(3px)",
+            }}
+          />
+        </div>
+      </div>
+    </label>
   );
 }
 

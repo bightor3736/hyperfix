@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 const SITE = "https://hyperfix.app";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: SITE,
       lastModified: new Date("2026-05-17"),
@@ -185,4 +185,65 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
   ];
+
+  // Dynamic routes from Supabase
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  let profileRoutes: MetadataRoute.Sitemap = [];
+  let fixRoutes: MetadataRoute.Sitemap = [];
+
+  if (supabaseUrl && serviceKey) {
+    try {
+      // Fetch public usernames
+      const profilesRes = await fetch(
+        `${supabaseUrl}/rest/v1/profiles?select=username&is_public=eq.true&username=not.is.null&limit=500`,
+        {
+          headers: {
+            apikey: serviceKey,
+            Authorization: `Bearer ${serviceKey}`,
+          },
+          next: { revalidate: 3600 },
+        }
+      );
+      if (profilesRes.ok) {
+        const profiles = (await profilesRes.json()) as { username: string }[];
+        profileRoutes = profiles
+          .filter((p) => p.username)
+          .map((p) => ({
+            url: `${SITE}/u/${p.username}`,
+            changeFrequency: "weekly" as const,
+            priority: 0.6,
+          }));
+      }
+    } catch {
+      // Non-fatal
+    }
+
+    try {
+      // Fetch recent public fix IDs
+      const fixesRes = await fetch(
+        `${supabaseUrl}/rest/v1/fixes?select=id&is_public=eq.true&order=created_at.desc&limit=500`,
+        {
+          headers: {
+            apikey: serviceKey,
+            Authorization: `Bearer ${serviceKey}`,
+          },
+          next: { revalidate: 3600 },
+        }
+      );
+      if (fixesRes.ok) {
+        const fixes = (await fixesRes.json()) as { id: string }[];
+        fixRoutes = fixes.map((f) => ({
+          url: `${SITE}/fix/${f.id}`,
+          changeFrequency: "weekly" as const,
+          priority: 0.5,
+        }));
+      }
+    } catch {
+      // Non-fatal
+    }
+  }
+
+  return [...staticRoutes, ...profileRoutes, ...fixRoutes];
 }

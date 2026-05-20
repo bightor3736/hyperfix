@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { createClient } from "@/lib/supabase/server";
+import { UnsubscribeForm } from "./UnsubscribeForm";
 
 export const metadata: Metadata = {
   title: "Unsubscribe · Hyperfix",
@@ -8,12 +10,11 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default async function UnsubscribePage({
-  searchParams,
-}: {
-  searchParams: Promise<{ done?: string; error?: string }>;
-}) {
-  const { done, error } = await searchParams;
+export default async function UnsubscribePage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  const userEmail = user?.email ?? undefined;
 
   return (
     <>
@@ -34,28 +35,29 @@ export default async function UnsubscribePage({
             unsubscribe
           </h1>
 
-          {done === "1" ? (
-            <div
-              className="rounded-2xl px-6 py-5 mb-8 text-left"
-              style={{ background: "rgba(168,85,247,0.07)", border: "1px solid rgba(168,85,247,0.2)" }}
-            >
-              <p className="font-mono text-[11px] uppercase tracking-widest mb-1" style={{ color: "#A855F7" }}>done</p>
-              <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.6)" }}>
-                You've been removed from our email list. If you signed up with an account, you can manage notification preferences in settings.
+          {user ? (
+            <>
+              <p className="font-sans text-base leading-relaxed mb-4" style={{ color: "rgba(244,244,244,0.5)" }}>
+                Unsubscribe <strong style={{ color: "rgba(244,244,244,0.8)" }}>{userEmail}</strong> from all Hyperfix emails.
               </p>
-            </div>
+              <p className="font-sans text-sm mb-8" style={{ color: "rgba(244,244,244,0.35)" }}>
+                You can also manage individual notification settings in{" "}
+                <a
+                  href="/dashboard/settings"
+                  className="underline transition-colors hover:text-[rgba(244,244,244,0.7)]"
+                  style={{ color: "rgba(244,244,244,0.45)" }}
+                >
+                  Settings
+                </a>
+                .
+              </p>
+              <UnsubscribeForm email={userEmail} />
+            </>
           ) : (
             <>
-              {error === "invalid" && (
-                <p className="font-mono text-[11px] uppercase tracking-widest mb-6" style={{ color: "#ef4444" }}>
-                  that doesn't look like a valid email — try again.
-                </p>
-              )}
-
               <p className="font-sans text-base leading-relaxed mb-10" style={{ color: "rgba(244,244,244,0.5)" }}>
-                Enter your email below and we'll remove you from all marketing and notification emails within 48 hours.
+                Enter your email below and we&apos;ll remove you from all marketing and notification emails.
               </p>
-
               <p className="font-sans text-sm mb-10" style={{ color: "rgba(244,244,244,0.35)" }}>
                 If you have an account, you can also manage notification settings in{" "}
                 <a
@@ -67,7 +69,6 @@ export default async function UnsubscribePage({
                 </a>
                 .
               </p>
-
               <UnsubscribeForm />
             </>
           )}
@@ -75,41 +76,5 @@ export default async function UnsubscribePage({
       </main>
       <Footer />
     </>
-  );
-}
-
-function UnsubscribeForm() {
-  return (
-    <form
-      action="/api/unsubscribe"
-      method="POST"
-      className="flex flex-col gap-3 max-w-sm mx-auto"
-    >
-      <input
-        type="email"
-        name="email"
-        required
-        placeholder="your@email.com"
-        className="w-full px-4 py-3.5 font-mono text-sm focus:outline-none focus:ring-1 transition-colors"
-        style={{
-          background: "#1C1C1E",
-          border: "1px solid rgba(244,244,244,0.1)",
-          borderRadius: 12,
-          color: "rgba(244,244,244,0.9)",
-        }}
-      />
-      <button
-        type="submit"
-        className="w-full px-6 py-3.5 font-mono text-[11px] uppercase tracking-widest font-bold transition-all hover:opacity-90 active:scale-[0.98]"
-        style={{
-          background: "rgba(244,244,244,0.08)",
-          border: "1px solid rgba(244,244,244,0.15)",
-          borderRadius: 999,
-          color: "rgba(244,244,244,0.7)",
-        }}
-      >
-        remove me from all emails
-      </button>
-    </form>
   );
 }

@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { DashboardFilters } from "./DashboardFilters";
 import { SkeletonGrid } from "@/components/FixCardSkeleton";
 import { OnboardingModal } from "@/components/OnboardingModal";
+import { StreakHeatmap } from "@/components/StreakHeatmap";
 
 type Fix = {
   id: string;
@@ -87,6 +88,7 @@ export default async function DashboardPage() {
 
   // Compute streak from check-in entries
   let currentStreak = 0;
+  let heatmapDates: string[] = [];
   if (user) {
     const { data: entryDates } = await supabase
       .from("fix_entries")
@@ -97,6 +99,7 @@ export default async function DashboardPage() {
 
     if (entryDates && entryDates.length > 0) {
       const uniqueDates = [...new Set(entryDates.map((e: { date: string }) => e.date))].sort().reverse();
+      heatmapDates = uniqueDates as string[];
       const today = new Date().toISOString().split("T")[0];
       const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
 
@@ -182,6 +185,14 @@ export default async function DashboardPage() {
               accent={currentStreak >= 7}
               streakNum={currentStreak}
             />
+          </div>
+        )}
+
+        {/* Check-in history heatmap */}
+        {(currentStreak > 0 || heatmapDates.length > 0) && (
+          <div className="rounded-2xl p-5 mb-8" style={{background:"#111113", border:"1px solid rgba(244,244,244,0.07)"}}>
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{color:"rgba(244,244,244,0.3)"}}>Check-in history</p>
+            <StreakHeatmap dates={heatmapDates} />
           </div>
         )}
 
