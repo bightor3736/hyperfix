@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { RevealSection } from "@/components/RevealSection";
 
 export const metadata: Metadata = {
   title: "Terms of Service — Hyperfix",
@@ -8,6 +9,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://hyperfix.app/tos" },
   robots: { index: true, follow: false },
 };
+
+const TEAL = "#5EEAD4";
+const CARD_BG = "#0F1011";
+const CARD_BORDER = "rgba(255,255,255,0.06)";
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 const EFFECTIVE = "May 2026";
 
@@ -58,72 +65,53 @@ export default function TosPage() {
   return (
     <>
       <Nav />
-      <main
-        id="main-content"
-        className="min-h-screen px-6 sm:px-10 py-20 sm:py-32"
-        style={{ background: "#0A0A0A" }}
-      >
-        <div className="max-w-2xl mx-auto">
-          <span
-            className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 mb-8"
-            style={{ background: "rgba(244,244,244,0.06)", color: "rgba(244,244,244,0.35)" }}
-          >
-            legal
-          </span>
+      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
+        <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
 
-          <h1
-            className="font-display font-bold mb-3"
-            style={{ color: "#F4F4F4", fontSize: "clamp(32px, 5vw, 52px)", letterSpacing: "-0.04em", lineHeight: 0.95 }}
-          >
-            Terms of Service
-          </h1>
-          <p
-            className="font-mono text-[11px] uppercase tracking-widest mb-16"
-            style={{ color: "rgba(244,244,244,0.3)" }}
-          >
-            Effective {EFFECTIVE}
-          </p>
+        <main id="main-content" className="relative max-w-3xl mx-auto flex flex-col gap-6">
+          {/* Hero card */}
+          <div className="relative overflow-hidden rounded-3xl p-6 sm:p-10 anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)", border: `1px solid ${CARD_BORDER}` }}>
+            <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
+            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
+            <div className="relative">
+              <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>legal</span>
+              <h1 className="font-display anim-fadeUp delay-100" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 6vw, 56px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}>
+                Terms of Service
+              </h1>
+              <p className="mt-4 font-sans text-sm anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.6)" }}>
+                Effective {EFFECTIVE}
+              </p>
+            </div>
+          </div>
 
-          <div className="flex flex-col gap-12">
-            {sections.map((s) => (
-              <div key={s.h}>
-                <h2
-                  className="font-display font-semibold mb-3"
-                  style={{ color: "#5EEAD4", fontSize: 17, letterSpacing: "-0.02em" }}
-                >
-                  {s.h}
-                </h2>
-                <p
-                  className="font-sans leading-relaxed"
-                  style={{ color: "rgba(244,244,244,0.65)", fontSize: 15, lineHeight: 1.7 }}
-                >
-                  {s.body}
-                </p>
+          <RevealSection>
+            <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-10" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
+              <div className="relative flex flex-col gap-10">
+                {sections.map((s) => (
+                  <div key={s.h}>
+                    <h2 className="font-display mb-3" style={{ color: TEAL, fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em" }}>
+                      {s.h}
+                    </h2>
+                    <p className="font-sans leading-relaxed" style={{ color: "rgba(255,255,255,0.72)", fontSize: 15, lineHeight: 1.7 }}>
+                      {s.body}
+                    </p>
+                  </div>
+                ))}
+
+                <div className="mt-4 pt-8 flex flex-col sm:flex-row gap-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                  <a href="/privacy" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: TEAL }}>
+                    Privacy Policy →
+                  </a>
+                  <a href="/" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.5)" }}>
+                    ← Back to Hyperfix
+                  </a>
+                </div>
               </div>
-            ))}
-          </div>
-
-          <div
-            className="mt-16 pt-10 flex flex-col sm:flex-row gap-4"
-            style={{ borderTop: "1px solid rgba(244,244,244,0.07)" }}
-          >
-            <a
-              href="/privacy"
-              className="font-mono text-[11px] uppercase tracking-widest transition-opacity hover:opacity-80"
-              style={{ color: "rgba(244,244,244,0.4)" }}
-            >
-              Privacy Policy →
-            </a>
-            <a
-              href="/"
-              className="font-mono text-[11px] uppercase tracking-widest transition-opacity hover:opacity-80"
-              style={{ color: "rgba(244,244,244,0.4)" }}
-            >
-              ← Back to Hyperfix
-            </a>
-          </div>
-        </div>
-      </main>
+            </div>
+          </RevealSection>
+        </main>
+      </div>
       <Footer />
     </>
   );
