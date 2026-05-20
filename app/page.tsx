@@ -6,6 +6,8 @@ import FixCalculator from "@/components/FixCalculator";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
+import { Mascot } from "@/components/Mascot";
+import { Sparkles } from "@/components/Sparkles";
 
 async function getWaitlistCount(): Promise<number> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -246,6 +248,7 @@ export default async function Page({
 
         {/* HERO --------------------------------------------------------- */}
         <section className="px-6 sm:px-10 pt-12 sm:pt-20 pb-20 sm:pb-32 overflow-hidden relative">
+          <Sparkles count={5} />
           <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 lg:gap-16 items-end relative">
             <div className="lg:col-span-7 reveal">
               <span
@@ -254,11 +257,24 @@ export default async function Page({
               >
                 a hyperfixation tracker · web · 2026
               </span>
-              <h1 className="display font-display font-medium text-[3.5rem] sm:text-[5rem] lg:text-[6.5rem] leading-[0.92] tracking-crush text-ink text-balance">
-                What are you
-                <br />
-                <span className="italic text-accent">unwell</span> about?
-              </h1>
+              <div className="flex items-start gap-6">
+                <div className="flex-1 min-w-0">
+                  <h1 className="display font-display font-black text-[3.5rem] sm:text-[5rem] lg:text-[6.5rem] leading-[0.92] tracking-crush text-ink text-balance">
+                    What are you
+                    <br />
+                    <span className="italic text-accent">unwell</span>
+                    <br />
+                    about? <span style={{ opacity: 0.35, fontSize: "0.65em" }}>✦</span>
+                  </h1>
+                </div>
+                <div className="hidden lg:block shrink-0 self-center">
+                  <Mascot expression="excited" size={160} color="#A855F7" />
+                </div>
+              </div>
+              {/* Mobile mascot below headline */}
+              <div className="flex lg:hidden justify-center mt-4">
+                <Mascot expression="excited" size={100} color="#A855F7" />
+              </div>
               <p className="mt-8 font-sans text-lg sm:text-xl text-inkSoft max-w-xl leading-snug">
                 Hyperfix is a journal for your current obsession — the song on
                 loop, the fic you&apos;ve re-read six times, the character who has

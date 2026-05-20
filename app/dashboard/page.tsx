@@ -5,6 +5,8 @@ import { DashboardFilters } from "./DashboardFilters";
 import { SkeletonGrid } from "@/components/FixCardSkeleton";
 import { OnboardingModal } from "@/components/OnboardingModal";
 import { StreakHeatmap } from "@/components/StreakHeatmap";
+import { Mascot, type MascotExpression } from "@/components/Mascot";
+import { Sparkles } from "@/components/Sparkles";
 
 type Fix = {
   id: string;
@@ -130,27 +132,40 @@ export default async function DashboardPage() {
   const greeting = getGreeting();
   const firstName = displayName.split(" ")[0];
 
+  // Mascot expression based on state
+  const mascotExpression: MascotExpression =
+    totalActive === 0 ? "sad" :
+    currentStreak >= 7 ? "excited" :
+    highestIntensity >= 9 ? "send-help" :
+    highestIntensity >= 7 ? "anxious" :
+    totalActive > 0 ? "neutral" :
+    "calm";
+
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-12" style={{ background: "#0A0A0A" }}>
       <OnboardingModal totalFixes={totalActive} />
       <div className="max-w-5xl mx-auto">
 
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1
-              className="font-display font-bold leading-tight"
-              style={{ color: "#F4F4F4", fontSize: "clamp(24px, 4vw, 36px)", letterSpacing: "-0.02em" }}
-            >
-              Good {greeting},{" "}
-              <span style={{ color: "#A855F7" }}>{firstName}</span>
-              <span className="font-sans font-normal" style={{ fontSize: "0.5em", color: "rgba(244,244,244,0.3)", marginLeft: 4 }}>✦</span>
-            </h1>
-            <p className="font-sans text-sm mt-1" style={{ color: "rgba(244,244,244,0.4)" }}>
-              {totalActive === 0
-                ? "Nothing logged yet. What are you unwell about?"
-                : `You have ${totalActive} active fix${totalActive !== 1 ? "es" : ""}.`}
-            </p>
+        <div className="relative flex items-center justify-between mb-8">
+          <Sparkles count={4} />
+          <div className="flex items-center gap-4">
+            <div>
+              <h1
+                className="font-display font-bold leading-tight"
+                style={{ color: "#F4F4F4", fontSize: "clamp(24px, 4vw, 36px)", letterSpacing: "-0.02em" }}
+              >
+                Good {greeting},{" "}
+                <span style={{ color: "#A855F7" }}>{firstName}</span>
+                <span className="font-sans font-normal" style={{ fontSize: "0.5em", color: "rgba(244,244,244,0.3)", marginLeft: 4 }}>✦</span>
+              </h1>
+              <p className="font-sans text-sm mt-1" style={{ color: "rgba(244,244,244,0.4)" }}>
+                {totalActive === 0
+                  ? "Nothing logged yet. What are you unwell about?"
+                  : `You have ${totalActive} active fix${totalActive !== 1 ? "es" : ""}.`}
+              </p>
+            </div>
+            <Mascot expression={mascotExpression} size={80} color="#A855F7" className="shrink-0 hidden sm:block" />
           </div>
 
           <Link
