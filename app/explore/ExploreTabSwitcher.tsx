@@ -34,6 +34,7 @@ type Fix = {
   started_at: string;
   ended_at: string | null;
   is_public: boolean;
+  created_at: string;
   profiles: {
     username: string | null;
     display_name: string | null;
