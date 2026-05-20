@@ -73,9 +73,9 @@ export function StreakHeatmap({ dates }: { dates: string[] }) {
     ];
   }
 
-  const CELL_SIZE = 12;
-  const CELL_GAP = 3;
-  const DAY_LABEL_WIDTH = 14;
+  const CELL_SIZE = 16;
+  const CELL_GAP = 4;
+  const DAY_LABEL_WIDTH = 16;
   const totalWidth = DAY_LABEL_WIDTH + WEEKS * (CELL_SIZE + CELL_GAP) - CELL_GAP;
 
   return (
@@ -147,14 +147,17 @@ export function StreakHeatmap({ dates }: { dates: string[] }) {
                     style={{
                       width: CELL_SIZE,
                       height: CELL_SIZE,
-                      borderRadius: 3,
+                      borderRadius: 4,
                       background: checkedIn
                         ? "#A855F7"
                         : inRange
-                          ? "rgba(244,244,244,0.06)"
+                          ? "rgba(244,244,244,0.07)"
                           : "rgba(244,244,244,0.02)",
-                      cursor: inRange ? "default" : "default",
-                      boxShadow: checkedIn ? "0 0 6px rgba(168,85,247,0.4)" : isToday ? "0 0 0 1px rgba(244,244,244,0.15)" : "none",
+                      boxShadow: checkedIn
+                        ? "0 0 8px rgba(168,85,247,0.5)"
+                        : isToday
+                          ? "0 0 0 1.5px rgba(168,85,247,0.5)"
+                          : "none",
                       transition: "background 0.15s ease",
                       flexShrink: 0,
                     }}

@@ -5,6 +5,7 @@ import { DashboardFilters } from "./DashboardFilters";
 import { SkeletonGrid } from "@/components/FixCardSkeleton";
 import { OnboardingModal } from "@/components/OnboardingModal";
 import { StreakHeatmap } from "@/components/StreakHeatmap";
+import { WeekRings } from "@/components/WeekRings";
 import { Mascot, type MascotExpression } from "@/components/Mascot";
 import { Sparkles } from "@/components/Sparkles";
 
@@ -218,32 +219,113 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        {/* Stats row */}
+        {/* Stats + streak panel */}
         {(totalActive > 0 || fetchError || currentStreak > 0) && (
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-            <StatCard label="Active fixes" value={totalActive.toString()} />
-            <StatCard
-              label="Longest fix"
-              value={longestFix > 0 ? `${longestFix}d` : "—"}
-            />
-            <StatCard
-              label="Peak intensity"
-              value={highestIntensity > 0 ? `${highestIntensity}/10` : "—"}
-              hot={highestIntensity >= 8}
-            />
-            <StatCard
-              label="Check-in streak"
-              value={currentStreak > 0 ? `${currentStreak}d` : "—"}
-              accent={currentStreak >= 7}
-              streakNum={currentStreak}
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+
+            {/* Streak card — hero number */}
+            <div
+              className="rounded-2xl p-6 relative overflow-hidden"
+              style={{
+                background: currentStreak >= 7 ? "rgba(168,85,247,0.07)" : "#111113",
+                border: currentStreak >= 7 ? "1px solid rgba(168,85,247,0.2)" : "1px solid rgba(244,244,244,0.07)",
+              }}
+            >
+              {currentStreak >= 7 && (
+                <div className="absolute inset-0 pointer-events-none" style={{
+                  background: "radial-gradient(ellipse 60% 80% at 10% 50%, rgba(168,85,247,0.18), transparent 70%)",
+                }} />
+              )}
+              <p className="font-mono text-[10px] uppercase tracking-widest mb-3 relative" style={{ color: "rgba(244,244,244,0.35)" }}>
+                Check-in streak
+              </p>
+              <div className="flex items-baseline gap-2 relative mb-1">
+                <span
+                  className="font-display font-black leading-none"
+                  style={{
+                    fontSize: "clamp(56px, 12vw, 80px)",
+                    letterSpacing: "-0.05em",
+                    color: currentStreak >= 7 ? "#A855F7" : currentStreak > 0 ? "#F4F4F4" : "rgba(244,244,244,0.2)",
+                    textShadow: currentStreak >= 7 ? "0 0 40px rgba(168,85,247,0.4)" : "none",
+                  }}
+                >
+                  {currentStreak > 0 ? currentStreak : "0"}
+                </span>
+                <span className="font-mono text-sm uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.3)" }}>
+                  {currentStreak === 1 ? "day" : "days"}
+                </span>
+                {currentStreak >= 30 && <span style={{ fontSize: 24 }}>⚡</span>}
+                {currentStreak >= 7 && currentStreak < 30 && <span style={{ fontSize: 22 }}>🔥</span>}
+              </div>
+              <p className="font-mono text-[10px] relative" style={{ color: "rgba(244,244,244,0.25)" }}>
+                {currentStreak === 0 ? "check in to start your streak" : currentStreak >= 7 ? "you're on a run. don't break it." : "keep going"}
+              </p>
+            </div>
+
+            {/* This week rings */}
+            <div
+              className="rounded-2xl p-6"
+              style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
+            >
+              <WeekRings checkedDates={heatmapDates} />
+            </div>
+
+            {/* Active fixes + peak intensity — side by side */}
+            <div className="grid grid-cols-2 gap-3 sm:col-span-2">
+              <div
+                className="rounded-2xl p-5"
+                style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
+              >
+                <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(244,244,244,0.35)" }}>
+                  Active fixes
+                </p>
+                <div className="flex items-baseline gap-2">
+                  <span className="font-display font-black leading-none" style={{ fontSize: "clamp(40px, 8vw, 60px)", letterSpacing: "-0.05em", color: "#F4F4F4" }}>
+                    {totalActive}
+                  </span>
+                  {longestFix > 0 && (
+                    <span className="font-mono text-[11px]" style={{ color: "rgba(244,244,244,0.25)" }}>
+                      longest {longestFix}d
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div
+                className="rounded-2xl p-5 relative overflow-hidden"
+                style={{
+                  background: highestIntensity >= 8 ? "rgba(230,57,70,0.06)" : "#111113",
+                  border: highestIntensity >= 8 ? "1px solid rgba(230,57,70,0.18)" : "1px solid rgba(244,244,244,0.07)",
+                }}
+              >
+                <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(244,244,244,0.35)" }}>
+                  Peak intensity
+                </p>
+                <div className="flex items-baseline gap-1.5">
+                  <span
+                    className="font-display font-black leading-none"
+                    style={{
+                      fontSize: "clamp(40px, 8vw, 60px)",
+                      letterSpacing: "-0.05em",
+                      color: highestIntensity >= 8 ? "#E63946" : highestIntensity > 0 ? "#F4F4F4" : "rgba(244,244,244,0.2)",
+                      textShadow: highestIntensity >= 8 ? "0 0 32px rgba(230,57,70,0.35)" : "none",
+                    }}
+                  >
+                    {highestIntensity > 0 ? highestIntensity : "—"}
+                  </span>
+                  {highestIntensity > 0 && (
+                    <span className="font-mono text-[11px]" style={{ color: "rgba(244,244,244,0.25)" }}>/10</span>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
         {/* Check-in history heatmap */}
-        {(currentStreak > 0 || heatmapDates.length > 0) && (
-          <div className="rounded-2xl p-5 mb-8" style={{background:"#111113", border:"1px solid rgba(244,244,244,0.07)"}}>
-            <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{color:"rgba(244,244,244,0.3)"}}>Check-in history</p>
+        {heatmapDates.length > 0 && (
+          <div className="rounded-2xl p-5 mb-8" style={{ background:"#111113", border:"1px solid rgba(244,244,244,0.07)" }}>
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color:"rgba(244,244,244,0.3)" }}>Check-in history</p>
             <StreakHeatmap dates={heatmapDates} />
           </div>
         )}
@@ -297,69 +379,6 @@ export default async function DashboardPage() {
   );
 }
 
-function StatCard({
-  label,
-  value,
-  accent = false,
-  hot = false,
-  streakNum = 0,
-}: {
-  label: string;
-  value: string;
-  accent?: boolean;
-  hot?: boolean;
-  streakNum?: number;
-}) {
-  const isFireStreak = accent && streakNum >= 7;
-  const streakIcon = streakNum >= 30 ? "⚡" : streakNum >= 7 ? "🔥" : null;
-
-  return (
-    <div
-      className="rounded-2xl p-4 text-center"
-      style={{
-        background: isFireStreak
-          ? "rgba(168,85,247,0.07)"
-          : hot
-            ? "rgba(230,57,70,0.06)"
-            : "#111113",
-        border: isFireStreak
-          ? "1px solid rgba(168,85,247,0.22)"
-          : hot
-            ? "1px solid rgba(230,57,70,0.18)"
-            : "1px solid rgba(244,244,244,0.07)",
-        boxShadow: isFireStreak
-          ? "0 0 20px rgba(168,85,247,0.12)"
-          : hot
-            ? "0 0 16px rgba(230,57,70,0.08)"
-            : "none",
-      }}
-    >
-      <p
-        className="font-display font-black leading-none mb-1"
-        style={{
-          color: isFireStreak ? "#A855F7" : hot ? "#E63946" : "#F4F4F4",
-          fontSize: 28,
-          letterSpacing: "-0.03em",
-        }}
-      >
-        {value}
-        {streakIcon && <span className="ml-1 text-base">{streakIcon}</span>}
-      </p>
-      <p
-        className="font-mono text-[10px] uppercase tracking-widest"
-        style={{
-          color: isFireStreak
-            ? "rgba(168,85,247,0.55)"
-            : hot
-              ? "rgba(230,57,70,0.5)"
-              : "rgba(244,244,244,0.35)",
-        }}
-      >
-        {label}
-      </p>
-    </div>
-  );
-}
 
 function EmptyState() {
   return (
