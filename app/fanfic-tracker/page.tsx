@@ -3,6 +3,7 @@ import HyperfixCard from "@/components/HyperfixCard";
 import WaitlistForm from "@/components/WaitlistForm";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { RevealSection } from "@/components/RevealSection";
 
 export const metadata: Metadata = {
   title: "Fanfic Tracker — log the fic that's consuming your life",
@@ -18,6 +19,12 @@ export const metadata: Metadata = {
     images: [{ url: "/api/og?title=Fanfic+Tracker&sub=the+fic+you%27ve+re-read+six+times+%C2%B7+hyperfix.app&accent=Tracker", width: 1200, height: 630 }],
   },
 };
+
+const TEAL = "#5EEAD4";
+const CARD_BG = "#0F1011";
+const CARD_BORDER = "rgba(255,255,255,0.06)";
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -77,218 +84,145 @@ const sampleCard = {
   color: "bg-paper",
 };
 
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>{children}</span>;
+}
+function SectionHeadline({ children }: { children: React.ReactNode }) {
+  return <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.02em", fontWeight: 600 }}>{children}</h2>;
+}
+function Card({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-10" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+      <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
+      <div className="relative">{children}</div>
+    </div>
+  );
+}
+
 export default function FanficTrackerPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
-        <Nav />
+      <Nav />
+      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
+        <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
 
-        {/* HERO */}
-        <section className="px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-32">
-          <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 lg:gap-16 items-end">
-            <div className="lg:col-span-7">
-              <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
-                fanfic tracker · hyperfix.app · 2026
-              </span>
-              <h1 className="font-display font-medium text-[3rem] sm:text-[4.5rem] lg:text-[6rem] leading-[0.92] tracking-crush text-ink">
-                Fanfic
-                <br />
-                <span className="italic text-accent">Tracker</span>
-              </h1>
-              <p className="mt-8 font-sans text-lg sm:text-xl text-[rgba(244,244,244,0.5)] max-w-xl leading-snug">
-                For the fic you've re-read three times. The WIP you refresh
-                every day. The 500k-word slowburn that consumed your entire
-                March. Log it. Count the days. Show your friends how unwell
-                you are.
-              </p>
-              <p className="mt-4 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-xl leading-snug">
-                Ao3, FanFiction.net, Wattpad, Google Docs — Hyperfix doesn't
-                care where the fic lives. Just that it's currently living
-                in your brain.
-              </p>
-              <WaitlistForm id="waitlist" variant="light" />
-            </div>
-            <div className="lg:col-span-5">
-              <div className="relative">
-                <div className="absolute -inset-6 sm:-inset-10 -rotate-2 -z-10" />
+        <main id="main-content" className="relative max-w-5xl mx-auto flex flex-col gap-6">
+          {/* HERO */}
+          <div className="relative overflow-hidden rounded-3xl p-6 sm:p-10 anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)", border: `1px solid ${CARD_BORDER}` }}>
+            <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
+            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
+            <div className="relative grid lg:grid-cols-12 gap-10 items-end">
+              <div className="lg:col-span-7">
+                <Eyebrow>fanfic tracker</Eyebrow>
+                <h1 className="font-display anim-fadeUp delay-100" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 6vw, 60px)", lineHeight: 1.02, letterSpacing: "-0.02em", fontWeight: 600 }}>
+                  Log the fic.
+                  <br />
+                  Count the re-reads.
+                </h1>
+                <p className="mt-6 font-sans text-base sm:text-lg max-w-xl anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.72)" }}>
+                  For the fic you&apos;ve re-read three times. The WIP you refresh every day. The 500k-word slowburn that consumed your entire March. Log it. Count the days. Show your friends how unwell you are.
+                </p>
+                <p className="mt-4 font-sans text-base sm:text-lg max-w-xl anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.6)" }}>
+                  Ao3, FanFiction.net, Wattpad, Google Docs — Hyperfix doesn&apos;t care where the fic lives. Just that it&apos;s currently living in your brain.
+                </p>
+                <div className="mt-7 anim-fadeUp delay-300"><WaitlistForm id="waitlist" variant="light" /></div>
+              </div>
+              <div className="lg:col-span-5 flex justify-center">
                 <HyperfixCard {...sampleCard} />
-                <p className="mt-6 font-display italic text-[rgba(244,244,244,0.4)] text-sm text-center max-w-xs mx-auto">
-                  ↑ 526k words. re-read #4. no regrets.
-                </p>
               </div>
             </div>
           </div>
-        </section>
 
-        {/* THE PROBLEM */}
-        <section className="px-6 sm:px-10 py-20 sm:py-32 bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)]">
-          <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
-              the situation
-            </span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.98] tracking-tightest mb-10">
-              You have fourteen tabs open.
-              <br />
-              <span className="italic text-accent">
-                One of them is the fic.
-              </span>
-            </h2>
-            <div className="grid md:grid-cols-2 gap-10 max-w-4xl">
-              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(244,244,244,0.5)]">
-                <p>
-                  You told yourself you'd just check the update. That was
-                  three hours ago. You're now on chapter 17 again — the same
-                  chapter you annotated in your Notes app at 1 a.m. last
-                  Tuesday.
-                </p>
-                <p>
-                  The fic has a hold on you that a reading list can't capture.
-                  A Goodreads shelf doesn't have a "re-read count" field.
-                  A spreadsheet doesn't have an intensity meter. Nothing
-                  currently exists for this specific experience.
-                </p>
-              </div>
-              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(244,244,244,0.5)]">
-                <p>
-                  Hyperfix does. Log the fic. Add the fandom tag. Set an
-                  intensity rating. Write the note you'd never say out loud.
-                  Watch the counter tick. Share the card when you want someone
-                  to understand what's happening to you.
-                </p>
-                <p>
-                  When you eventually finish — or when the WIP updates and
-                  the era ends — Hyperfix writes the eulogy. Day 61.
-                  Re-read 4. Intensity 10. The chapter that broke you.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* WHAT HYPERFIX TRACKS */}
-        <section className="px-6 sm:px-10 py-20 sm:py-32">
-          <div className="max-w-6xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">what gets tracked</span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-12 max-w-2xl">
-              Every field is the right field.
-            </h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  n: "01",
-                  h: "The day counter.",
-                  p: "Starts the moment you log. Runs automatically. At day 47 you'll understand why this is the product.",
-                },
-                {
-                  n: "02",
-                  h: "Re-read count.",
-                  p: "How many times you've been through it. Not a milestone — a confession. Some fics you've read more times than you've watched your favourite film.",
-                },
-                {
-                  n: "03",
-                  h: "Intensity meter.",
-                  p: "1 to 10. Updates as the fic progresses. You logged it at a 6. By chapter 22 it was a 10. The arc is part of the record.",
-                },
-                {
-                  n: "04",
-                  h: "The note.",
-                  p: "The thing you can't say out loud. The specific line. The chapter that broke you. Private by default, shareable if you're brave.",
-                },
-                {
-                  n: "05",
-                  h: "The shareable card.",
-                  p: "Drop it in the group chat. Send it to the one person who also read it. The card is designed for exactly this moment.",
-                },
-                {
-                  n: "06",
-                  h: "The eulogy.",
-                  p: "When the fic ends — or when the era does — Hyperfix writes it up. The full run. The numbers. The note. Saved forever.",
-                },
-              ].map((item) => (
-                <div key={item.n} className="border-t border-[rgba(244,244,244,0.07)] pt-6">
-                  <span className="font-mono text-[11px] uppercase tracking-widest text-accent mb-3 block">
-                    {item.n}
-                  </span>
-                  <h3 className="font-display text-xl tracking-tight mb-3">
-                    {item.h}
-                  </h3>
-                  <p className="font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
-                    {item.p}
+          <RevealSection>
+            <Card>
+              <Eyebrow>the situation</Eyebrow>
+              <SectionHeadline>You have fourteen tabs open. One of them is the fic.</SectionHeadline>
+              <div className="grid md:grid-cols-2 gap-8 mt-8">
+                <div className="space-y-5 font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                  <p>
+                    You told yourself you&apos;d just check the update. That was three hours ago. You&apos;re now on chapter 17 again — the same chapter you annotated in your Notes app at 1 a.m. last Tuesday.
+                  </p>
+                  <p>
+                    The fic has a hold on you that a reading list can&apos;t capture. A Goodreads shelf doesn&apos;t have a &quot;re-read count&quot; field. A spreadsheet doesn&apos;t have an intensity meter. Nothing currently exists for this specific experience.
                   </p>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section className="px-6 sm:px-10 py-20 sm:py-32">
-          <div className="max-w-4xl mx-auto">
-            <div className="mb-16">
-              <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-6">
-                frequently · asked · questions
-              </span>
-              <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest">
-                The fic questions.
-              </h2>
-            </div>
-            <div className="divide-y divide-[rgba(244,244,244,0.07)] border-y border-[rgba(244,244,244,0.07)]">
-              {faqs.map((faq, i) => (
-                <details
-                  key={i}
-                  className="group py-6 [&_summary::-webkit-details-marker]:hidden"
-                >
-                  <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
-                    <h3 className="font-display text-xl sm:text-2xl tracking-tight leading-snug text-ink">
-                      <span className="font-mono text-xs text-accent mr-3 tabular">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      {faq.q}
-                    </h3>
-                    <span aria-hidden="true" className="font-mono text-2xl text-[rgba(244,244,244,0.4)] group-open:rotate-45 transition-transform shrink-0">
-                      +
-                    </span>
-                  </summary>
-                  <p className="mt-4 ml-10 font-sans text-base sm:text-lg text-[rgba(244,244,244,0.5)] leading-relaxed max-w-2xl">
-                    {faq.a}
+                <div className="space-y-5 font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                  <p>
+                    Hyperfix does. Log the fic. Add the fandom tag. Set an intensity rating. Write the note you&apos;d never say out loud. Watch the counter tick. Share the card when you want someone to understand what&apos;s happening to you.
                   </p>
-                </details>
-              ))}
+                  <p>
+                    When you eventually finish — or when the WIP updates and the era ends — Hyperfix writes the eulogy. Day 61. Re-read 4. Intensity 10. The chapter that broke you.
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </RevealSection>
+
+          <RevealSection>
+            <Card>
+              <Eyebrow>what gets tracked</Eyebrow>
+              <SectionHeadline>Every field is the right field.</SectionHeadline>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+                {[
+                  { n: "01", h: "The day counter.", p: "Starts the moment you log. Runs automatically. At day 47 you'll understand why this is the product." },
+                  { n: "02", h: "Re-read count.", p: "How many times you've been through it. Not a milestone — a confession. Some fics you've read more times than you've watched your favourite film." },
+                  { n: "03", h: "Intensity meter.", p: "1 to 10. Updates as the fic progresses. You logged it at a 6. By chapter 22 it was a 10. The arc is part of the record." },
+                  { n: "04", h: "The note.", p: "The thing you can't say out loud. The specific line. The chapter that broke you. Private by default, shareable if you're brave." },
+                  { n: "05", h: "The shareable card.", p: "Drop it in the group chat. Send it to the one person who also read it. The card is designed for exactly this moment." },
+                  { n: "06", h: "The eulogy.", p: "When the fic ends — or when the era does — Hyperfix writes it up. The full run. The numbers. The note. Saved forever." },
+                ].map((item) => (
+                  <div key={item.n}>
+                    <span className="font-sans text-xs mb-2 block" style={{ color: TEAL }}>{item.n}</span>
+                    <h3 className="font-display mb-2" style={{ color: "#FFFFFF", fontSize: 19, fontWeight: 600, letterSpacing: "-0.01em" }}>{item.h}</h3>
+                    <p className="font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{item.p}</p>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </RevealSection>
+
+          <RevealSection>
+            <Card>
+              <Eyebrow>frequently asked</Eyebrow>
+              <SectionHeadline>The fic questions.</SectionHeadline>
+              <div className="mt-8">
+                {faqs.map((faq, i) => (
+                  <details key={i} className="group py-5 [&_summary::-webkit-details-marker]:hidden" style={{ borderTop: i === 0 ? `1px solid rgba(255,255,255,0.06)` : undefined, borderBottom: `1px solid rgba(255,255,255,0.06)` }}>
+                    <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
+                      <h3 className="font-display" style={{ color: "#FFFFFF", fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.3 }}>
+                        <span className="mr-3 tabular-nums" style={{ color: TEAL, fontSize: 13 }}>{String(i + 1).padStart(2, "0")}</span>
+                        {faq.q}
+                      </h3>
+                      <span aria-hidden="true" className="text-xl group-open:rotate-45 transition-transform shrink-0" style={{ color: TEAL }}>+</span>
+                    </summary>
+                    <p className="mt-4 ml-9 font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>{faq.a}</p>
+                  </details>
+                ))}
+              </div>
+            </Card>
+          </RevealSection>
+
+          <RevealSection>
+            <div className="relative overflow-hidden rounded-3xl p-8 sm:p-14 text-center" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #2DD4BF 0%, #0E4F47 26%, #08231F 50%, #0F1011 80%)", border: `1px solid ${CARD_BORDER}` }}>
+              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "220px 220px", opacity: 0.5 }} />
+              <div className="relative">
+                <Eyebrow>join the waitlist</Eyebrow>
+                <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(30px, 5vw, 48px)", letterSpacing: "-0.02em", fontWeight: 600, lineHeight: 1.05 }}>
+                  The fic deserves a proper record.
+                </h2>
+                <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.72)" }}>
+                  First access goes out in waves. Early users get a permanent Pro discount — and the most embarrassing usernames before they&apos;re taken.
+                </p>
+                <div className="mt-6"><WaitlistForm variant="dark" /></div>
+              </div>
             </div>
-          </div>
-        </section>
-
-        {/* FINAL CTA */}
-        <section className="px-6 sm:px-10 py-24 sm:py-36 bg-[#111113]">
-          <div className="max-w-4xl mx-auto text-center">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
-              join the waitlist
-            </span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.92] tracking-crush">
-              The fic deserves
-              <br />
-              <span className="italic text-accent">a proper record.</span>
-            </h2>
-            <p className="mt-8 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-xl mx-auto leading-snug">
-              First access goes out in waves. Early users get a permanent
-              Pro discount — and the most embarrassing usernames before
-              they're taken.
-            </p>
-            <WaitlistForm variant="dark" />
-          </div>
-        </section>
-
-        <Footer />
-      </main>
+          </RevealSection>
+        </main>
+      </div>
+      <Footer />
     </>
   );
 }
