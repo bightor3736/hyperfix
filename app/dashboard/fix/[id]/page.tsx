@@ -6,6 +6,13 @@ import { FixDetailClient } from "./FixDetailClient";
 import { ShareButton } from "@/components/ShareButton";
 import { Sparkline } from "@/components/Sparkline";
 import { FixReactions } from "@/components/FixReactions";
+import { LogoLockup } from "@/components/Logo";
+
+const TEAL = "#5EEAD4";
+const CARD_BG = "#0F1011";
+const CARD_BORDER = "rgba(255,255,255,0.06)";
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 type Fix = {
   id: string;
@@ -148,136 +155,165 @@ export default async function FixDetailPage({
   }
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "#0A0A0A" }}>
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen relative" style={{ background: "#070708", color: "#F4F4F4" }}>
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none mix-blend-overlay"
+        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }}
+      />
 
-        {/* Back button + share */}
-        <div className="flex items-center justify-between mb-8">
+      {/* Glass sticky nav */}
+      <nav
+        className="sticky top-0 z-40 px-6 sm:px-10 py-5 flex items-center justify-between"
+        style={{
+          background: "rgba(7,7,8,0.78)",
+          backdropFilter: "blur(20px)",
+          borderBottom: `1px solid ${CARD_BORDER}`,
+        }}
+      >
+        <Link href="/" aria-label="Hyperfix home" className="transition-transform hover:scale-[1.02]">
+          <LogoLockup size="sm" />
+        </Link>
+        <div className="flex items-center gap-4">
           <Link
             href="/dashboard"
-            className="inline-flex items-center gap-2 font-sans text-sm transition-colors hover:text-accent"
-            style={{ color: "rgba(244,244,244,0.4)" }}
+            className="font-sans text-sm transition-colors"
+            style={{ color: "rgba(255,255,255,0.55)" }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-            My fixes
+            ← my fixes
           </Link>
           <ShareButton fixId={id} isPublic={typedFix.is_public} fixTitle={typedFix.title} days={days} intensity={typedFix.intensity} />
         </div>
+      </nav>
 
-        {/* Title + meta */}
-        <div className="mb-6">
-          <div className="flex flex-wrap items-start gap-3 mb-4">
-            <span
-              className="font-mono text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full"
-              style={{
-                background: "rgba(244,244,244,0.06)",
-                border: "1px solid rgba(244,244,244,0.1)",
-                color: "rgba(244,244,244,0.45)",
-              }}
-            >
-              {typedFix.category}
-            </span>
-          </div>
+      <main className="relative max-w-2xl mx-auto px-4 sm:px-6 pt-8 pb-16">
 
-          <h1
-            className="font-display font-bold mb-4 leading-tight"
-            style={{
-              color: "#F4F4F4",
-              fontSize: "clamp(32px, 6vw, 56px)",
-              letterSpacing: "-0.03em",
-            }}
-          >
-            {typedFix.title}
-          </h1>
-
-          {/* Status pill — interactive */}
-          <FixDetailClient
-            fixId={id}
-            title={typedFix.title}
-            category={typedFix.category}
-            days={days}
-            status={status}
-            intensity={typedFix.intensity}
-            ended={typedFix.status === "Ended"}
-            eulogyInitial={typedFix.eulogy}
-            hasCheckedInToday={hasCheckedInToday}
-            isPublic={typedFix.is_public}
-            tagsInitial={typedFix.tags ?? []}
-            isPinned={isPinned}
-            isPro={isPro}
-          />
-        </div>
-
-        {/* Day counter */}
+        {/* Bloom hero card */}
         <div
-          className="rounded-2xl p-6 mb-4 relative overflow-hidden"
+          className="relative overflow-hidden rounded-3xl mb-5 p-6 sm:p-10 anim-fadeUp"
           style={{
-            background: "#111113",
-            border: "1px solid rgba(244,244,244,0.07)",
+            background:
+              "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
+            border: `1px solid ${CARD_BORDER}`,
           }}
         >
-          {/* Ambient glow behind the number */}
           <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none mix-blend-overlay"
+            style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }}
+          />
+          <div
+            aria-hidden
             className="absolute inset-0 pointer-events-none"
-            style={{
-              background: "radial-gradient(ellipse 55% 60% at 10% 50%, rgba(94,234,212,0.13), transparent 70%)",
-            }}
+            style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }}
           />
           <div className="relative">
-            <div className="flex items-baseline gap-2 mb-1">
+            {/* Category eyebrow */}
+            <div className="flex items-center gap-2 mb-5 flex-wrap">
               <span
-                className="font-display font-black leading-none"
+                className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1"
                 style={{
-                  color: "#F4F4F4",
-                  fontSize: "clamp(72px, 14vw, 120px)",
+                  background: "rgba(94,234,212,0.12)",
+                  color: TEAL,
+                  border: "1px solid rgba(94,234,212,0.25)",
+                }}
+              >
+                {typedFix.category}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h1
+              className="font-display leading-tight mb-5"
+              style={{
+                color: "#FFFFFF",
+                fontSize: "clamp(28px, 6vw, 48px)",
+                fontWeight: 600,
+                letterSpacing: "-0.025em",
+                lineHeight: 1.06,
+              }}
+            >
+              {typedFix.title}
+            </h1>
+
+            {/* FixDetailClient (status pill, check-in, tags, etc.) */}
+            <FixDetailClient
+              fixId={id}
+              title={typedFix.title}
+              category={typedFix.category}
+              days={days}
+              status={status}
+              intensity={typedFix.intensity}
+              ended={typedFix.status === "Ended"}
+              eulogyInitial={typedFix.eulogy}
+              hasCheckedInToday={hasCheckedInToday}
+              isPublic={typedFix.is_public}
+              tagsInitial={typedFix.tags ?? []}
+              isPinned={isPinned}
+              isPro={isPro}
+            />
+          </div>
+        </div>
+
+        {/* Day counter + sparkline card */}
+        <div
+          className="relative overflow-hidden rounded-3xl p-6 mb-4 anim-fadeUp motion-card"
+          style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, animationDelay: "60ms" }}
+        >
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none mix-blend-overlay"
+            style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: "radial-gradient(ellipse 55% 60% at 10% 50%, rgba(94,234,212,0.10), transparent 70%)" }}
+          />
+          <div className="relative">
+            <div className="flex items-baseline gap-3 mb-1">
+              <span
+                className="font-display leading-none tabular-nums"
+                style={{
+                  color: TEAL,
+                  fontSize: "clamp(72px, 14vw, 112px)",
+                  fontWeight: 600,
                   letterSpacing: "-0.05em",
-                  fontVariantNumeric: "tabular-nums",
                 }}
               >
                 {days}
               </span>
-              <span
-                className="font-sans font-medium"
-                style={{ color: "rgba(244,244,244,0.35)", fontSize: "clamp(20px,4vw,32px)" }}
-              >
+              <span className="font-sans" style={{ color: "rgba(255,255,255,0.4)", fontSize: "clamp(18px,4vw,28px)" }}>
                 day{days !== 1 ? "s" : ""}
               </span>
             </div>
-            <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.35)" }}>
+            <p className="font-sans text-sm mb-5" style={{ color: "rgba(255,255,255,0.35)" }}>
               Since {formatDate(typedFix.started_at)}
-              {typedFix.ended_at && (
-                <> · Ended {formatDate(typedFix.ended_at)}</>
-              )}
+              {typedFix.ended_at && <> · Ended {formatDate(typedFix.ended_at)}</>}
             </p>
-
-            {/* Sparkline */}
-            <div className="mt-4">
-              <Sparkline entries={entriesForSparkline} />
-            </div>
+            <Sparkline entries={entriesForSparkline} />
           </div>
         </div>
 
         {/* Note */}
         {typedFix.note && (
           <div
-            className="rounded-2xl p-5 mb-4"
-            style={{
-              background: "#111113",
-              border: "1px solid rgba(244,244,244,0.07)",
-            }}
+            className="relative overflow-hidden rounded-3xl p-6 mb-4 anim-fadeUp motion-card"
+            style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, animationDelay: "80ms" }}
           >
-            <p
-              className="font-sans text-[13px] uppercase tracking-widest mb-3"
-              style={{ color: "rgba(244,244,244,0.3)" }}
-            >
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none mix-blend-overlay"
+              style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
+            />
+            <p className="relative font-sans text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>
               Note
             </p>
             <p
-              className="font-display italic text-[17px] leading-relaxed"
+              className="relative font-display italic leading-relaxed"
               style={{
                 color: "rgba(244,244,244,0.75)",
+                fontSize: 17,
                 borderLeft: "2px solid rgba(94,234,212,0.35)",
                 paddingLeft: 16,
               }}
@@ -290,31 +326,44 @@ export default async function FixDetailPage({
         {/* Reactions (public fixes only) */}
         {typedFix.is_public && (
           <div
-            className="rounded-2xl p-5 mb-4"
-            style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
+            className="relative overflow-hidden rounded-3xl p-6 mb-4 anim-fadeUp"
+            style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, animationDelay: "100ms" }}
           >
-            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(244,244,244,0.3)" }}>
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none mix-blend-overlay"
+              style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
+            />
+            <p className="relative font-sans text-[10px] uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.35)" }}>
               Reactions
             </p>
-            <FixReactions
-              fixId={id}
-              initialReactions={initialReactions}
-              userReactions={userReactions}
-            />
+            <div className="relative">
+              <FixReactions
+                fixId={id}
+                initialReactions={initialReactions}
+                userReactions={userReactions}
+              />
+            </div>
           </div>
         )}
 
         {/* Others tracking this */}
         {(othersCount ?? 0) > 0 && (
           <div
-            className="rounded-2xl px-5 py-4 mb-4 flex items-center gap-3"
+            className="relative overflow-hidden rounded-3xl px-6 py-5 mb-4 flex items-center gap-3 anim-fadeUp"
             style={{
-              background: "rgba(94,234,212,0.06)",
-              border: "1px solid rgba(94,234,212,0.2)",
+              background: CARD_BG,
+              border: "1px solid rgba(94,234,212,0.18)",
+              animationDelay: "120ms",
             }}
           >
-            <span style={{ fontSize: 20 }}>🔥</span>
-            <p className="font-display font-medium text-sm" style={{ color: "#5EEAD4" }}>
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none mix-blend-overlay"
+              style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.18 }}
+            />
+            <span className="relative" style={{ fontSize: 20 }}>🔥</span>
+            <p className="relative font-display font-semibold text-sm" style={{ color: TEAL }}>
               {othersCount} other {othersCount === 1 ? "person is" : "people are"} also tracking &ldquo;{typedFix.title}&rdquo;
             </p>
           </div>
@@ -323,13 +372,18 @@ export default async function FixDetailPage({
         {/* Fix discovery */}
         {discoveryFixes.length > 0 && (
           <div
-            className="rounded-2xl p-5 mb-4"
-            style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
+            className="relative overflow-hidden rounded-3xl p-6 mb-4 anim-fadeUp"
+            style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, animationDelay: "140ms" }}
           >
-            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(244,244,244,0.3)" }}>
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none mix-blend-overlay"
+              style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
+            />
+            <p className="relative font-sans text-[10px] uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.35)" }}>
               Others also tracking {typedFix.category}
             </p>
-            <div className="flex flex-col gap-2">
+            <div className="relative flex flex-col gap-2">
               {discoveryFixes.map((f) => {
                 const fDays = Math.max(1, Math.ceil((new Date().getTime() - new Date(f.started_at).getTime()) / (1000 * 60 * 60 * 24)));
                 const prof = Array.isArray(f.profiles) ? f.profiles[0] : f.profiles;
@@ -337,8 +391,11 @@ export default async function FixDetailPage({
                   <Link
                     key={f.id}
                     href={`/fix/${f.id}`}
-                    className="flex items-center justify-between gap-3 rounded-xl px-3 py-2.5 transition-all hover:opacity-80"
-                    style={{ background: "rgba(244,244,244,0.04)", border: "1px solid rgba(244,244,244,0.06)" }}
+                    className="flex items-center justify-between gap-3 rounded-2xl px-4 py-3 transition-all hover:opacity-80"
+                    style={{
+                      background: "rgba(255,255,255,0.03)",
+                      border: `1px solid ${CARD_BORDER}`,
+                    }}
                   >
                     <span
                       className="font-display text-sm leading-snug"
@@ -352,7 +409,7 @@ export default async function FixDetailPage({
                     >
                       {f.title}
                     </span>
-                    <span className="font-mono text-[10px] shrink-0" style={{ color: "rgba(244,244,244,0.3)" }}>
+                    <span className="font-sans text-[10px] shrink-0" style={{ color: "rgba(255,255,255,0.3)" }}>
                       {prof?.username ? `@${prof.username} · ` : ""}{fDays}d
                     </span>
                   </Link>
@@ -365,31 +422,30 @@ export default async function FixDetailPage({
         {/* Check-in history */}
         {entries.length > 0 && (
           <div
-            className="rounded-2xl p-5 mb-4"
-            style={{
-              background: "#111113",
-              border: "1px solid rgba(244,244,244,0.07)",
-            }}
+            className="relative overflow-hidden rounded-3xl p-6 mb-4 anim-fadeUp"
+            style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, animationDelay: "160ms" }}
           >
-            <p
-              className="font-sans text-[13px] uppercase tracking-widest mb-4"
-              style={{ color: "rgba(244,244,244,0.3)" }}
-            >
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none mix-blend-overlay"
+              style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
+            />
+            <p className="relative font-sans text-[10px] uppercase tracking-widest mb-5" style={{ color: "rgba(255,255,255,0.35)" }}>
               Check-in history
             </p>
-            <div className="flex flex-col gap-2">
+            <div className="relative flex flex-col gap-3">
               {entries.map((e) => {
-                const intColor = e.intensity >= 8 ? "#E63946" : e.intensity >= 6 ? "#FB923C" : "#5EEAD4";
+                const intColor = e.intensity >= 8 ? "#E63946" : e.intensity >= 6 ? "#FB923C" : TEAL;
                 return (
-                  <div key={e.id ?? e.date} className="flex items-start gap-3">
+                  <div key={e.id ?? e.date} className="flex items-start gap-4">
                     <span
-                      className="font-mono text-[9px] uppercase tracking-widest mt-0.5 shrink-0 w-14 text-right"
-                      style={{ color: "rgba(244,244,244,0.25)" }}
+                      className="font-sans text-[10px] uppercase tracking-widest mt-0.5 shrink-0 w-14 text-right"
+                      style={{ color: "rgba(255,255,255,0.25)" }}
                     >
                       {new Date(e.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                     </span>
                     <span
-                      className="font-mono text-[11px] font-semibold shrink-0 w-8 text-center"
+                      className="font-mono text-[11px] font-semibold shrink-0 w-7 text-center"
                       style={{ color: intColor }}
                     >
                       {e.intensity}
@@ -397,7 +453,7 @@ export default async function FixDetailPage({
                     {e.note && (
                       <p
                         className="font-display italic text-[13px] leading-snug flex-1"
-                        style={{ color: "rgba(244,244,244,0.55)" }}
+                        style={{ color: "rgba(244,244,244,0.5)" }}
                       >
                         {e.note}
                       </p>
@@ -412,23 +468,27 @@ export default async function FixDetailPage({
         {/* Eulogy (if ended) */}
         {typedFix.eulogy && (
           <div
-            className="rounded-2xl p-5 mb-4"
+            className="relative overflow-hidden rounded-3xl p-6 mb-4 anim-fadeUp"
             style={{
-              background: "#111113",
-              border: "1px solid rgba(244,244,244,0.07)",
+              background: CARD_BG,
+              border: "1px solid rgba(94,234,212,0.15)",
+              animationDelay: "180ms",
             }}
           >
-            <p
-              className="font-sans text-[13px] uppercase tracking-widest mb-3"
-              style={{ color: "rgba(244,244,244,0.3)" }}
-            >
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none mix-blend-overlay"
+              style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
+            />
+            <p className="relative font-sans text-[10px] uppercase tracking-widest mb-3" style={{ color: TEAL }}>
               Farewell
             </p>
             <p
-              className="font-display italic text-[17px] leading-relaxed"
+              className="relative font-display italic leading-relaxed"
               style={{
-                color: "rgba(244,244,244,0.6)",
-                borderLeft: "2px solid rgba(244,244,244,0.15)",
+                color: "rgba(244,244,244,0.65)",
+                fontSize: 17,
+                borderLeft: `2px solid rgba(94,234,212,0.25)`,
                 paddingLeft: 16,
               }}
             >
@@ -436,7 +496,7 @@ export default async function FixDetailPage({
             </p>
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 }
