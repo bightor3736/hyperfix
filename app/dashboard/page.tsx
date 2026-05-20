@@ -146,39 +146,66 @@ export default async function DashboardPage() {
       <OnboardingModal totalFixes={totalActive} />
       <div className="max-w-5xl mx-auto">
 
-        {/* Header */}
-        <div className="relative flex items-center justify-between mb-8">
-          <Sparkles count={4} />
-          <div className="flex items-center gap-4">
-            <div>
-              <h1
-                className="font-display font-bold leading-tight"
-                style={{ color: "#F4F4F4", fontSize: "clamp(24px, 4vw, 36px)", letterSpacing: "-0.02em" }}
-              >
-                Good {greeting},{" "}
-                <span style={{ color: "#A855F7" }}>{firstName}</span>
-                <span className="font-sans font-normal" style={{ fontSize: "0.5em", color: "rgba(244,244,244,0.3)", marginLeft: 4 }}>✦</span>
-              </h1>
-              <p className="font-sans text-sm mt-1" style={{ color: "rgba(244,244,244,0.4)" }}>
-                {totalActive === 0
-                  ? "Nothing logged yet. What are you unwell about?"
-                  : `You have ${totalActive} active fix${totalActive !== 1 ? "es" : ""}.`}
-              </p>
-            </div>
-            <Mascot expression={mascotExpression} size={80} color="#A855F7" className="shrink-0 hidden sm:block" />
+        {/* Hero header panel */}
+        <div
+          className="relative rounded-3xl overflow-hidden mb-8 flex flex-col sm:flex-row items-center gap-0 sm:gap-6"
+          style={{
+            background: "#111113",
+            border: "1px solid rgba(244,244,244,0.07)",
+            minHeight: 180,
+          }}
+        >
+          {/* Ambient glow */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: "radial-gradient(ellipse 60% 80% at 0% 50%, rgba(168,85,247,0.18), transparent 65%)" }}
+          />
+          <Sparkles count={5} />
+
+          {/* Mascot — big, left side */}
+          <div className="relative z-10 flex items-center justify-center pt-6 sm:pt-0 sm:pl-6 shrink-0">
+            <div
+              className="absolute rounded-full pointer-events-none"
+              style={{
+                width: 200, height: 200,
+                background: "radial-gradient(circle, rgba(168,85,247,0.25) 0%, transparent 70%)",
+                filter: "blur(12px)",
+              }}
+            />
+            <Mascot expression={mascotExpression} size={160} color="#A855F7" className="relative z-10" />
           </div>
 
-          <Link
-            href="/dashboard/new"
-            className="hidden lg:flex items-center gap-2 px-4 py-2.5 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97] shrink-0"
-            style={{ background: "#A855F7", color: "#0A0A0A" }}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <line x1="12" y1="5" x2="12" y2="19" />
-              <line x1="5" y1="12" x2="19" y2="12" />
-            </svg>
-            New fix
-          </Link>
+          {/* Text */}
+          <div className="relative z-10 flex-1 px-6 pb-6 sm:py-6 text-center sm:text-left">
+            <h1
+              className="font-display font-black leading-none mb-2"
+              style={{ color: "#F4F4F4", fontSize: "clamp(28px, 5vw, 44px)", letterSpacing: "-0.03em" }}
+            >
+              Good {greeting},<br />
+              <span style={{ color: "#A855F7" }}>{firstName}</span>
+              <span style={{ color: "rgba(244,244,244,0.2)", fontSize: "0.45em", marginLeft: 6 }}>✦</span>
+            </h1>
+            <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.4)" }}>
+              {totalActive === 0
+                ? "Nothing logged yet. What are you unwell about?"
+                : `You have ${totalActive} active fix${totalActive !== 1 ? "es" : ""}.`}
+            </p>
+          </div>
+
+          {/* New fix button */}
+          <div className="relative z-10 pr-6 pb-6 sm:pb-0 shrink-0">
+            <Link
+              href="/dashboard/new"
+              className="hidden lg:flex items-center gap-2 px-4 py-2.5 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
+              style={{ background: "#A855F7", color: "#0A0A0A" }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+              New fix
+            </Link>
+          </div>
         </div>
 
         {/* Stats row */}

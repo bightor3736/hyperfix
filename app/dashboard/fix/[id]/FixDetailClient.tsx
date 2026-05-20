@@ -279,119 +279,141 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
         </div>
       )}
 
-      {/* Daily check-in */}
+      {/* Daily check-in trigger */}
       {!ended && !checkedInToday && (
         <div>
           <button
-            onClick={() => setShowCheckIn((v) => !v)}
+            onClick={() => setShowCheckIn(true)}
             className="w-full sm:w-auto px-6 py-3 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
+            style={{ background: "#A855F7", color: "#0A0A0A" }}
+          >
+            ✦ Check in today
+          </button>
+        </div>
+      )}
+
+      {/* Full-screen check-in modal (Suntera-style) */}
+      {showCheckIn && (
+        <div
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4"
+          style={{ background: "rgba(10,10,10,0.95)", backdropFilter: "blur(20px)" }}
+        >
+          <style>{`
+            @keyframes checkInSlideUp {
+              from { opacity: 0; transform: translateY(32px) scale(0.97); }
+              to   { opacity: 1; transform: translateY(0)    scale(1); }
+            }
+          `}</style>
+          <div
+            className="w-full max-w-sm rounded-3xl overflow-hidden relative flex flex-col"
             style={{
-              background: showCheckIn ? "rgba(168,85,247,0.12)" : "#A855F7",
-              border: showCheckIn ? "1px solid rgba(168,85,247,0.4)" : "1px solid transparent",
-              color: showCheckIn ? "#A855F7" : "#F4F4F4",
+              background: "#0D0D0F",
+              border: "1px solid rgba(244,244,244,0.08)",
+              boxShadow: `0 32px 80px rgba(0,0,0,0.8), 0 0 60px ${checkInColor}18`,
+              animation: "checkInSlideUp 0.3s cubic-bezier(0.2,0.8,0.2,1) both",
             }}
           >
-            {showCheckIn ? "Cancel check-in" : "✦ Check in today"}
-          </button>
-
-          {showCheckIn && (
+            {/* Character stage — top section with ambient glow */}
             <div
-              className="mt-3 rounded-2xl p-5 flex flex-col gap-4"
+              className="relative flex flex-col items-center justify-end pt-8 pb-4"
               style={{
-                background: "#111113",
-                border: "1px solid rgba(168,85,247,0.15)",
-                animation: "detailsReveal 0.25s cubic-bezier(0.2,0.6,0.2,1) both",
+                background: `radial-gradient(ellipse 90% 110% at 50% -10%, ${checkInColor}28, transparent 65%)`,
+                minHeight: 220,
               }}
             >
-              <div className="flex items-center gap-4">
-                <h3 className="font-display font-bold text-base flex-1" style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}>
-                  How&apos;s this fix today?
-                </h3>
-                {/* Mascot reacts to check-in intensity */}
-                <Mascot
-                  expression={checkInMascotExpression}
-                  size={100}
-                  color={checkInColor}
-                />
+              {/* Close */}
+              <button
+                onClick={() => setShowCheckIn(false)}
+                className="absolute top-4 right-4 p-2 rounded-full transition-opacity hover:opacity-60"
+                style={{ background: "rgba(244,244,244,0.08)", color: "rgba(244,244,244,0.45)" }}
+                aria-label="Cancel"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+
+              {/* Giant mascot — the hero */}
+              <Mascot
+                expression={checkInMascotExpression}
+                size={200}
+                color={checkInColor}
+              />
+            </div>
+
+            {/* Content below character */}
+            <div className="px-6 pt-4 pb-7 flex flex-col gap-5">
+              {/* Headline */}
+              <div className="text-center">
+                <h2
+                  className="font-display font-black leading-none uppercase"
+                  style={{ color: "#F4F4F4", fontSize: "clamp(26px, 7vw, 36px)", letterSpacing: "-0.02em" }}
+                >
+                  how&rsquo;s this fix
+                  <br />
+                  <span style={{ color: checkInColor }}>today?</span>
+                </h2>
+                <p className="font-mono text-[10px] mt-2 uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.3)" }}>
+                  {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+                </p>
               </div>
 
-              {/* Intensity slider */}
+              {/* Intensity chips — 1-10 grid */}
               <div>
-                <div className="flex justify-between mb-2">
-                  <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.4)" }}>
-                    Intensity
-                  </span>
-                  <span className="font-mono text-[10px]" style={{ color: checkInColor }}>
-                    {checkInIntensity}/10
-                  </span>
+                <div className="grid grid-cols-5 gap-2">
+                  {[1,2,3,4,5,6,7,8,9,10].map((n) => {
+                    const chipColor = n >= 9 ? "#E63946" : n >= 7 ? "#FB923C" : "#A855F7";
+                    const selected = n === checkInIntensity;
+                    return (
+                      <button
+                        key={n}
+                        onClick={() => setCheckInIntensity(n)}
+                        className="py-3 rounded-2xl font-display font-black text-sm transition-all active:scale-95"
+                        style={{
+                          background: selected ? chipColor : "rgba(244,244,244,0.06)",
+                          color: selected ? "#0A0A0A" : "rgba(244,244,244,0.45)",
+                          border: selected ? "none" : "1px solid rgba(244,244,244,0.07)",
+                          boxShadow: selected ? `0 0 20px ${chipColor}55` : "none",
+                        }}
+                      >
+                        {n}
+                      </button>
+                    );
+                  })}
                 </div>
-                <div className="relative py-3">
-                  <div className="h-3 rounded-full overflow-hidden" style={{ background: "rgba(244,244,244,0.08)" }}>
-                    <div
-                      className="h-full rounded-full transition-all duration-100"
-                      style={{
-                        width: `${(checkInIntensity / 10) * 100}%`,
-                        background: `linear-gradient(to right, #A855F7, ${checkInColor})`,
-                      }}
-                    />
-                  </div>
-                  <input
-                    type="range"
-                    min={1}
-                    max={10}
-                    value={checkInIntensity}
-                    onChange={(e) => setCheckInIntensity(parseInt(e.target.value, 10))}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                  />
-                  <div
-                    className="absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full shadow-lg pointer-events-none transition-all duration-100"
-                    style={{
-                      left: `calc(${((checkInIntensity - 1) / 9) * 100}% - 10px)`,
-                      background: "#F4F4F4",
-                      border: `2px solid ${checkInColor}`,
-                      boxShadow: `0 0 12px ${checkInColor}80`,
-                    }}
-                  />
-                </div>
+                <p
+                  className="font-sans text-xs text-center mt-2 transition-all duration-150"
+                  style={{ color: checkInColor }}
+                >
+                  {INTENSITY_LABELS[checkInIntensity]}
+                </p>
               </div>
 
-              {/* Note textarea */}
+              {/* Note */}
               <textarea
                 value={checkInNote}
                 onChange={(e) => setCheckInNote(e.target.value)}
                 placeholder="one thought about today…"
                 rows={2}
-                className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A855F7]/30 resize-none"
+                className="w-full rounded-2xl px-4 py-3 font-sans text-sm outline-none resize-none transition-colors"
                 style={{
-                  background: "#161618",
-                  border: "1px solid rgba(244,244,244,0.1)",
+                  background: "rgba(244,244,244,0.05)",
+                  border: "1px solid rgba(244,244,244,0.08)",
                   color: "#F4F4F4",
                 }}
               />
 
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setShowCheckIn(false)}
-                  className="px-4 py-2 rounded-xl font-sans text-sm font-medium transition-all hover:opacity-80"
-                  style={{
-                    background: "rgba(244,244,244,0.06)",
-                    border: "1px solid rgba(244,244,244,0.1)",
-                    color: "rgba(244,244,244,0.6)",
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleCheckIn}
-                  disabled={pending}
-                  className="px-5 py-2 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 disabled:opacity-60"
-                  style={{ background: "#A855F7", color: "#0A0A0A" }}
-                >
-                  {pending ? "Logging…" : "Log it →"}
-                </button>
-              </div>
+              {/* Submit */}
+              <button
+                onClick={handleCheckIn}
+                disabled={pending}
+                className="w-full py-4 rounded-2xl font-display font-black text-base uppercase tracking-wide transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
+                style={{ background: checkInColor, color: "#0A0A0A", letterSpacing: "-0.01em" }}
+              >
+                {pending ? "Logging…" : "Log it →"}
+              </button>
             </div>
-          )}
+          </div>
         </div>
       )}
 

@@ -106,8 +106,8 @@ function FixGridCard({
       }}
     >
       {/* Mini mascot badge — top-right corner */}
-      <div style={{ position: "absolute", top: -10, right: -10, zIndex: 10 }}>
-        <Mascot expression={miniMascotExpression} size={28} color={color} />
+      <div style={{ position: "absolute", top: -16, right: -12, zIndex: 10 }}>
+        <Mascot expression={miniMascotExpression} size={44} color={color} />
       </div>
       <Link href={`/dashboard/fix/${fix.id}`} className="flex-1 block group">
         {/* Title + milestone badge */}
