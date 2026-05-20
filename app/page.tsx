@@ -5,8 +5,7 @@ import { RevealSection } from "@/components/RevealSection";
 import FixCalculator from "@/components/FixCalculator";
 import Footer from "@/components/Footer";
 import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
-import { Mascot } from "@/components/Mascot";
-import { LogoLockup, SparkIcon } from "@/components/Logo";
+import { LogoLockup } from "@/components/Logo";
 
 async function getWaitlistCount(): Promise<number> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -277,155 +276,197 @@ export default async function Page({
         <section
           className="relative overflow-hidden"
           style={{
-            minHeight: "92vh",
+            minHeight: "94vh",
             display: "flex",
             flexDirection: "column",
-            background: "radial-gradient(ellipse 120% 100% at 50% -10%, #7C3AED 0%, #5B21B6 35%, #3B0764 60%, #1A0533 80%, #0A0510 100%)",
+            background: "#06030C",
           }}
         >
-          {/* Planet surface — dark curved shape at bottom */}
+          {/* Layered planet glow — top center */}
           <div
-            className="absolute pointer-events-none"
+            className="absolute inset-0 pointer-events-none"
             style={{
-              bottom: "-30%",
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "130%",
-              height: "55%",
-              borderRadius: "50%",
-              background: "#050208",
+              background:
+                "radial-gradient(ellipse 90% 70% at 50% -20%, #A855F7 0%, #7C3AED 18%, #4C1D95 38%, #1E0A3C 60%, #06030C 80%)",
               zIndex: 1,
             }}
           />
 
-          {/* Subtle noise/grain overlay for depth */}
+          {/* Inner halo bloom */}
+          <div
+            className="absolute pointer-events-none"
+            style={{
+              top: "-20%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "70%",
+              height: "70%",
+              background:
+                "radial-gradient(circle at center, rgba(192,132,252,0.55) 0%, rgba(168,85,247,0.25) 30%, transparent 60%)",
+              filter: "blur(40px)",
+              zIndex: 2,
+            }}
+          />
+
+          {/* Horizon line / planet curve */}
+          <div
+            className="absolute pointer-events-none"
+            style={{
+              bottom: "-40%",
+              left: "-10%",
+              right: "-10%",
+              height: "70%",
+              borderRadius: "50%",
+              background:
+                "radial-gradient(ellipse at center top, #1E0A3C 0%, #0A0410 45%, #06030C 70%)",
+              boxShadow: "0 -1px 0 0 rgba(192,132,252,0.18), 0 -40px 80px -20px rgba(168,85,247,0.25)",
+              zIndex: 3,
+            }}
+          />
+
+          {/* Soft vignette */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,0,0,0.6) 0%, transparent 70%)",
-              zIndex: 2,
+              background:
+                "radial-gradient(ellipse 100% 80% at 50% 100%, rgba(0,0,0,0.6) 0%, transparent 60%)",
+              zIndex: 4,
+            }}
+          />
+
+          {/* Fine star dots */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-40"
+            style={{
+              backgroundImage:
+                "radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,0.7), transparent), radial-gradient(1px 1px at 78% 24%, rgba(255,255,255,0.5), transparent), radial-gradient(1px 1px at 22% 62%, rgba(255,255,255,0.4), transparent), radial-gradient(1px 1px at 88% 70%, rgba(255,255,255,0.6), transparent), radial-gradient(1.5px 1.5px at 50% 8%, rgba(255,255,255,0.8), transparent), radial-gradient(1px 1px at 36% 36%, rgba(255,255,255,0.35), transparent), radial-gradient(1px 1px at 64% 80%, rgba(255,255,255,0.45), transparent)",
+              zIndex: 5,
             }}
           />
 
           {/* Content */}
           <div
-            className="relative flex flex-col items-center justify-center flex-1 px-6 sm:px-10 pt-16 pb-40 sm:pt-24 sm:pb-48 text-center"
+            className="relative flex flex-col items-center justify-center flex-1 px-6 sm:px-10 pt-20 pb-40 sm:pt-28 sm:pb-56 text-center"
             style={{ zIndex: 10 }}
           >
-            {/* Floating mascots — left side */}
+            {/* Eyebrow */}
             <div
-              className="absolute pointer-events-none hidden sm:block"
+              className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] rounded-full px-3.5 py-1.5 mb-8"
               style={{
-                top: "28%",
-                left: "calc(50% - 380px)",
-                animation: "floatBob 4.5s ease-in-out infinite",
-                animationDelay: "0.3s",
-                transform: "rotate(-12deg)",
-                zIndex: 0,
+                background: "rgba(255,255,255,0.06)",
+                border: "1px solid rgba(255,255,255,0.12)",
+                color: "rgba(255,255,255,0.65)",
+                backdropFilter: "blur(8px)",
               }}
             >
-              <Mascot expression="send-help" size={120} color="#C084FC" />
-            </div>
-
-            {/* Floating mascots — right side */}
-            <div
-              className="absolute pointer-events-none hidden sm:block"
-              style={{
-                top: "32%",
-                right: "calc(50% - 400px)",
-                animation: "floatBob 3.8s ease-in-out infinite",
-                animationDelay: "1.1s",
-                transform: "rotate(10deg)",
-                zIndex: 0,
-              }}
-            >
-              <Mascot expression="obsessed" size={110} color="#A855F7" />
-            </div>
-
-            {/* Extra mascots for larger screens */}
-            <div
-              className="absolute pointer-events-none hidden lg:block"
-              style={{
-                top: "55%",
-                left: "calc(50% - 520px)",
-                animation: "floatBob 5.2s ease-in-out infinite",
-                animationDelay: "1.7s",
-                transform: "rotate(-6deg)",
-                zIndex: 0,
-              }}
-            >
-              <Mascot expression="anxious" size={80} color="#E879F9" />
+              <span
+                className="w-1.5 h-1.5 rounded-full"
+                style={{ background: "#C084FC", boxShadow: "0 0 8px #C084FC" }}
+              />
+              {countRes.count.toLocaleString()} currently unwell
             </div>
 
             {/* Headline */}
             <h1
-              className="font-display font-black leading-none text-ink relative"
+              className="font-display font-black text-ink"
               style={{
-                fontSize: "clamp(56px, 11vw, 104px)",
-                letterSpacing: "-0.03em",
-                zIndex: 10,
-                textShadow: "0 2px 60px rgba(0,0,0,0.4)",
+                fontSize: "clamp(56px, 10.5vw, 116px)",
+                letterSpacing: "-0.04em",
+                lineHeight: 0.92,
+                textShadow: "0 4px 40px rgba(0,0,0,0.3)",
               }}
             >
               What are you
               <br />
-              <span style={{ color: "#E9D5FF", fontStyle: "italic" }}>unwell</span> about?
+              <span
+                style={{
+                  fontStyle: "italic",
+                  background: "linear-gradient(180deg, #FFFFFF 0%, #E9D5FF 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                unwell
+              </span>{" "}
+              about?
             </h1>
 
             <p
-              className="mt-6 font-sans text-base sm:text-lg max-w-md mx-auto leading-relaxed"
-              style={{ color: "rgba(255,255,255,0.6)", zIndex: 10, position: "relative" }}
+              className="mt-8 font-sans text-base sm:text-lg max-w-lg mx-auto leading-relaxed"
+              style={{ color: "rgba(255,255,255,0.62)" }}
             >
-              a journal for your current obsession — the song on loop, the fic you can&apos;t quit,
-              the character who has rearranged your brain.
+              A journal for your current obsession — the song on loop, the fic you
+              can&apos;t quit, the character who has rearranged your brain.
             </p>
 
             {/* CTA */}
-            <div className="flex flex-col items-center gap-3 mt-10" style={{ zIndex: 10, position: "relative" }}>
+            <div className="flex flex-wrap items-center justify-center gap-3 mt-12">
               <a
                 href="/join"
-                className="inline-flex items-center font-sans text-sm font-bold px-8 py-4 transition-all hover:opacity-90 active:scale-[0.98]"
+                className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-7 py-3.5 transition-all hover:opacity-95 active:scale-[0.98]"
                 style={{
-                  background: "#F4F4F4",
-                  color: "#0A0A0A",
+                  background: "#FFFFFF",
+                  color: "#0A0510",
                   borderRadius: 999,
-                  boxShadow: "0 4px 24px rgba(0,0,0,0.35), 0 0 40px rgba(167,139,250,0.25)",
+                  boxShadow:
+                    "0 1px 0 0 rgba(255,255,255,0.4) inset, 0 8px 32px rgba(168,85,247,0.45), 0 4px 12px rgba(0,0,0,0.3)",
                 }}
               >
-                Get started free
+                Get started — it&apos;s free
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
               </a>
               <a
                 href="/auth/login"
-                className="font-sans text-sm transition-opacity hover:opacity-80"
-                style={{ color: "rgba(255,255,255,0.5)" }}
+                className="font-sans text-sm font-medium px-6 py-3.5 transition-all hover:bg-white/[0.06]"
+                style={{
+                  color: "rgba(255,255,255,0.75)",
+                  borderRadius: 999,
+                  border: "1px solid rgba(255,255,255,0.12)",
+                }}
               >
-                Sign in →
+                Sign in
               </a>
             </div>
 
-            {/* Stat pills */}
+            {/* Trust microcopy */}
+            <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: "rgba(255,255,255,0.35)" }}>
+              free forever · no credit card · no app store
+            </p>
+          </div>
+
+          {/* Bottom stat strip — sits on planet surface */}
+          <div
+            className="relative w-full px-6 sm:px-10 pb-12 sm:pb-16"
+            style={{ zIndex: 10 }}
+          >
             <div
-              className="flex flex-wrap justify-center gap-2 mt-8"
-              style={{ zIndex: 10, position: "relative" }}
+              className="max-w-4xl mx-auto rounded-2xl px-6 py-5 grid grid-cols-3 gap-4"
+              style={{
+                background: "rgba(10,5,16,0.55)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                backdropFilter: "blur(20px)",
+                boxShadow: "0 24px 60px rgba(0,0,0,0.4)",
+              }}
             >
               {[
                 { value: countRes.count.toLocaleString(), label: "currently unwell" },
                 { value: publicFixCount.toLocaleString(), label: "fixations logged" },
                 { value: `${statsRes.avgDays}d`, label: "avg obsession" },
               ].map(({ value, label }) => (
-                <span
-                  key={label}
-                  className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest rounded-full px-3.5 py-1.5"
-                  style={{
-                    background: "rgba(0,0,0,0.25)",
-                    border: "1px solid rgba(255,255,255,0.15)",
-                    color: "rgba(255,255,255,0.6)",
-                    backdropFilter: "blur(8px)",
-                  }}
-                >
-                  <span className="font-bold" style={{ color: "#E9D5FF" }}>{value}</span>
-                  {label}
-                </span>
+                <div key={label} className="text-center">
+                  <p
+                    className="font-display font-black text-ink leading-none mb-1"
+                    style={{ fontSize: "clamp(24px, 4vw, 36px)", letterSpacing: "-0.02em" }}
+                  >
+                    {value}
+                  </p>
+                  <p className="font-mono text-[9px] uppercase tracking-[0.18em]" style={{ color: "rgba(255,255,255,0.45)" }}>
+                    {label}
+                  </p>
+                </div>
               ))}
             </div>
           </div>
