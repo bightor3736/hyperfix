@@ -29,6 +29,12 @@ const STATUS_FILTERS = ["All", "Day 1", "Obsessing", "On loop", "Fading", "Post-
 const CATEGORY_FILTERS = ["All", "song", "fanfic", "show", "film", "ship", "game", "book", "other"] as const;
 type SortOrder = "newest" | "longest" | "intense" | "unchecked";
 
+const TEAL = "#5EEAD4";
+const CARD_BG = "#0F1011";
+const CARD_BORDER = "rgba(255,255,255,0.06)";
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
+
 function getDayCount(startedAt: string): number {
   const start = new Date(startedAt);
   const now = new Date();
@@ -38,20 +44,20 @@ function getDayCount(startedAt: string): number {
 function intensityColor(intensity: number): string {
   if (intensity >= 8) return "#E63946";
   if (intensity >= 6) return "#FB923C";
-  return "#5EEAD4";
+  return TEAL;
 }
 
 function intensityRGB(intensity: number): string {
   if (intensity >= 8) return "230,57,70";
   if (intensity >= 6) return "251,146,60";
-  return "168,85,247";
+  return "94,234,212";
 }
 
 function getMilestone(days: number): { icon: string; label: string } | null {
-  if (days >= 365) return { icon: "🏆", label: "1 year" };
-  if (days >= 100) return { icon: "💀", label: "100 days" };
-  if (days >= 30) return { icon: "⚡", label: "30 days" };
-  if (days >= 7) return { icon: "🔥", label: "7 days" };
+  if (days >= 365) return { icon: "★", label: "1 year" };
+  if (days >= 100) return { icon: "✦", label: "100 days" };
+  if (days >= 30) return { icon: "✦", label: "30 days" };
+  if (days >= 7) return { icon: "✦", label: "7 days" };
   return null;
 }
 
@@ -59,12 +65,13 @@ function FixGridCard({
   fix,
   checkedInToday,
   onCheckIn,
+  index,
 }: {
   fix: Fix;
   checkedInToday: boolean;
   onCheckIn: (fixId: string) => void;
+  index: number;
 }) {
-  const [hovered, setHovered] = useState(false);
   const [justCheckedIn, setJustCheckedIn] = useState(false);
 
   const days = getDayCount(fix.started_at);
@@ -74,73 +81,81 @@ function FixGridCard({
   const rgb = intensityRGB(fix.intensity);
   const milestone = getMilestone(days);
 
-  const ambientAlpha = fix.intensity >= 8 ? 0.15 : fix.intensity >= 6 ? 0.08 : 0.04;
-  const hoverAlpha = fix.intensity >= 8 ? 0.28 : fix.intensity >= 6 ? 0.18 : 0.1;
-
   function handleCheckIn(fixId: string) {
     setJustCheckedIn(true);
     setTimeout(() => setJustCheckedIn(false), 1400);
     onCheckIn(fixId);
   }
 
+  const delay = `${Math.min(index, 6) * 60}ms`;
+
   return (
     <div
-      className="rounded-2xl p-4 flex flex-col relative"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      className="motion-card relative overflow-hidden rounded-3xl p-5 flex flex-col anim-fadeUp"
       style={{
-        background: justCheckedIn ? `rgba(${rgb},0.07)` : hovered ? "#141416" : "#111113",
-        border: `1px solid ${hovered ? `rgba(${rgb},0.3)` : "rgba(244,244,244,0.07)"}`,
-        boxShadow: hovered
-          ? `0 0 0 1px rgba(${rgb},0.12), 0 8px 32px rgba(${rgb},${hoverAlpha})`
-          : `0 0 20px rgba(${rgb},${ambientAlpha})`,
-        transition: "all 0.25s ease",
+        background: CARD_BG,
+        border: `1px solid ${CARD_BORDER}`,
+        animationDelay: delay,
+        boxShadow: `0 0 24px rgba(${rgb},0.05)`,
       }}
     >
-      {/* Intensity badge — top-right corner */}
       <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none mix-blend-overlay"
+        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
+      />
+      {/* Intensity bloom from bottom — subtle */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
         style={{
-          position: "absolute",
+          background: `radial-gradient(ellipse 80% 60% at 50% 110%, rgba(${rgb},0.18) 0%, transparent 60%)`,
+        }}
+      />
+      {/* Intensity badge — top right */}
+      <div
+        className="absolute z-10"
+        style={{
           top: -10,
           right: -10,
-          zIndex: 10,
-          width: 36,
-          height: 36,
+          width: 40,
+          height: 40,
           borderRadius: 999,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: `rgba(${rgb},0.18)`,
-          border: `1px solid rgba(${rgb},0.45)`,
+          background: `rgba(${rgb},0.20)`,
+          border: `1px solid rgba(${rgb},0.50)`,
           color,
-          boxShadow: `0 0 18px rgba(${rgb},0.45)`,
+          boxShadow: `0 0 22px rgba(${rgb},0.55)`,
+          backdropFilter: "blur(8px)",
         }}
-        className="font-display text-sm font-semibold"
       >
-        {fix.intensity}
+        <span className="font-display text-sm" style={{ fontWeight: 600 }}>
+          {fix.intensity}
+        </span>
       </div>
-      <Link href={`/dashboard/fix/${fix.id}`} className="flex-1 block group">
-        {/* Title + milestone badge */}
-        <div className="flex items-start justify-between gap-2 mb-2">
-          <h3
-            className="font-display font-bold text-[15px] leading-tight group-hover:text-[#5EEAD4] transition-colors flex-1 min-w-0"
+
+      <Link href={`/dashboard/fix/${fix.id}`} className="relative flex-1 block group">
+        {/* Category eyebrow + status */}
+        <div className="flex items-center gap-2 mb-4 flex-wrap">
+          <span
+            className="inline-flex items-center font-sans text-[11px] rounded-full px-2.5 py-0.5"
             style={{
-              color: "#F4F4F4",
-              letterSpacing: "-0.01em",
-              display: "-webkit-box",
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: "vertical",
-              overflow: "hidden",
+              background: "rgba(94,234,212,0.10)",
+              color: TEAL,
+              border: "1px solid rgba(94,234,212,0.22)",
             }}
           >
-            {fix.title}
-          </h3>
+            {fix.category}
+          </span>
+          <FixStatusPill status={status} size="sm" />
           {milestone && (
             <span
-              className="shrink-0 font-mono text-[9px] uppercase tracking-widest px-1.5 py-0.5 rounded-full whitespace-nowrap"
+              className="font-sans text-[11px] rounded-full px-2.5 py-0.5"
               style={{
                 background: `rgba(${rgb},0.12)`,
-                border: `1px solid rgba(${rgb},0.28)`,
+                border: `1px solid rgba(${rgb},0.32)`,
                 color,
               }}
             >
@@ -149,76 +164,94 @@ function FixGridCard({
           )}
         </div>
 
-        {/* Category + status pill */}
-        <div className="flex items-center gap-2 mb-3 flex-wrap">
+        {/* Title — serif */}
+        <h3
+          className="font-display text-ink mb-5 transition-colors group-hover:text-[#5EEAD4]"
+          style={{
+            fontSize: 19,
+            fontWeight: 600,
+            letterSpacing: "-0.01em",
+            lineHeight: 1.18,
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+          }}
+        >
+          {fix.title}
+        </h3>
+
+        {/* Hero day count */}
+        <div className="flex items-baseline gap-2 mb-4">
           <span
-            className="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full shrink-0"
+            className="font-display leading-none tabular-nums"
             style={{
-              background: "rgba(244,244,244,0.06)",
-              border: "1px solid rgba(244,244,244,0.1)",
-              color: "rgba(244,244,244,0.45)",
+              color: justCheckedIn ? color : "#FFFFFF",
+              fontSize: 56,
+              fontWeight: 600,
+              letterSpacing: "-0.04em",
+              textShadow: justCheckedIn ? `0 0 36px rgba(${rgb},0.55)` : "none",
+              transition: "color 0.3s ease, text-shadow 0.3s ease",
             }}
           >
-            {fix.category}
+            {days}
           </span>
-          <FixStatusPill status={status} size="sm" />
-        </div>
-
-        {/* Day number + intensity */}
-        <div className="flex items-end justify-between mb-3">
-          <div className="flex items-baseline gap-1">
-            <span
-              className="font-mono font-black leading-none tabular-nums"
-              style={{
-                color: justCheckedIn ? color : "#5EEAD4",
-                fontSize: 40,
-                letterSpacing: "-0.04em",
-                transition: "color 0.3s ease",
-              }}
-            >
-              {days}
-            </span>
-            <span className="font-sans text-xs pb-1" style={{ color: "rgba(244,244,244,0.3)" }}>
-              days
-            </span>
-          </div>
-          <span className="font-mono text-[11px] tabular-nums pb-1 font-semibold" style={{ color }}>
-            {fix.intensity}/10
+          <span className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
+            day{days !== 1 ? "s" : ""}
           </span>
         </div>
 
-        {/* Intensity bar with glow */}
-        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(244,244,244,0.07)" }}>
+        {/* Intensity bar */}
+        <div
+          className="h-1.5 rounded-full overflow-hidden mb-1"
+          style={{ background: "rgba(255,255,255,0.06)" }}
+        >
           <div
             className="h-full rounded-full"
             style={{
               width: `${pct}%`,
-              background: `linear-gradient(to right, rgba(${rgb},0.6), ${color})`,
-              boxShadow: `0 0 8px rgba(${rgb},0.7)`,
+              background: `linear-gradient(to right, rgba(${rgb},0.5), ${color})`,
+              boxShadow: `0 0 10px rgba(${rgb},0.7)`,
+              transition: "width 0.4s ease",
             }}
           />
         </div>
+        <p className="font-sans text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+          intensity {fix.intensity}/10
+        </p>
       </Link>
 
-      {/* Quick check-in */}
-      <div className="mt-3 pt-3" style={{ borderTop: "1px solid rgba(244,244,244,0.06)" }}>
+      {/* Check-in row */}
+      <div
+        className="relative mt-4 pt-4"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+      >
         {checkedInToday || justCheckedIn ? (
           <span
-            className="font-mono text-[10px] uppercase tracking-widest"
+            className="inline-flex items-center gap-1.5 font-sans text-xs"
             style={{
-              color: justCheckedIn ? color : "rgba(94,234,212,0.5)",
+              color: justCheckedIn ? color : "rgba(94,234,212,0.7)",
               transition: "color 0.3s ease",
             }}
           >
-            {justCheckedIn ? "✦ logged!" : "✓ checked in today"}
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+            {justCheckedIn ? "logged" : "checked in today"}
           </span>
         ) : (
           <button
-            onClick={(e) => { e.preventDefault(); handleCheckIn(fix.id); }}
-            className="font-mono text-[10px] uppercase tracking-widest transition-all hover:text-[#5EEAD4] active:scale-95"
-            style={{ color: "rgba(244,244,244,0.3)" }}
+            onClick={(e) => {
+              e.preventDefault();
+              handleCheckIn(fix.id);
+            }}
+            className="inline-flex items-center gap-1.5 font-sans text-xs transition-colors hover:text-[#5EEAD4] active:scale-95"
+            style={{ color: "rgba(255,255,255,0.45)" }}
           >
-            + check in today
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+            check in today
           </button>
         )}
       </div>
@@ -230,11 +263,21 @@ function PillButton({ label, active, onClick }: { label: string; active: boolean
   return (
     <button
       onClick={onClick}
-      className="shrink-0 px-3 py-1.5 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all duration-150 whitespace-nowrap"
+      className="shrink-0 px-3.5 py-1.5 rounded-full font-sans text-xs transition-all duration-200 whitespace-nowrap hover:-translate-y-px"
       style={
         active
-          ? { background: "#5EEAD4", color: "#F4F4F4", border: "1px solid transparent" }
-          : { background: "rgba(244,244,244,0.04)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.45)" }
+          ? {
+              background: TEAL,
+              color: "#0A1F1C",
+              border: "1px solid transparent",
+              boxShadow: "0 4px 16px rgba(94,234,212,0.30)",
+              fontWeight: 600,
+            }
+          : {
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              color: "rgba(255,255,255,0.55)",
+            }
       }
     >
       {label}
@@ -269,7 +312,6 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
     try {
       await bulkCheckInFixes(uncheckedIds);
     } catch {
-      // Revert on failure
       setLocalCheckedIn((prev) => {
         const next = new Set(prev);
         uncheckedIds.forEach((id) => next.delete(id));
@@ -324,10 +366,14 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
     <div>
       {/* Search + sort row */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4 items-start">
-        <div className="relative w-full sm:w-[240px] shrink-0">
-          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: "rgba(244,244,244,0.3)" }}>
+        <div className="relative w-full sm:w-[260px] shrink-0">
+          <div
+            className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"
+            style={{ color: "rgba(255,255,255,0.4)" }}
+          >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </div>
           <input
@@ -335,24 +381,34 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search your fixes…"
-            className="w-full rounded-xl pl-9 pr-4 py-2.5 font-sans text-sm outline-none transition-all focus:ring-2 focus:ring-[#5EEAD4]/25 placeholder:text-[rgba(244,244,244,0.3)]"
-            style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.1)", color: "#F4F4F4" }}
+            className="w-full rounded-full pl-10 pr-4 py-2.5 font-sans text-sm outline-none transition-all focus:ring-2 focus:ring-[#5EEAD4]/35 placeholder:text-[rgba(255,255,255,0.3)]"
+            style={{
+              background: CARD_BG,
+              border: `1px solid ${CARD_BORDER}`,
+              color: "#F4F4F4",
+            }}
           />
         </div>
         <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-0.5 w-full sm:w-auto">
           {SORT_OPTIONS.map((opt) => (
-            <PillButton key={opt.key} label={opt.label} active={sortOrder === opt.key} onClick={() => setSortOrder(opt.key)} />
+            <PillButton
+              key={opt.key}
+              label={opt.label}
+              active={sortOrder === opt.key}
+              onClick={() => setSortOrder(opt.key)}
+            />
           ))}
         </div>
         {uncheckedCount > 0 && (
           <button
             onClick={handleBulkCheckIn}
             disabled={bulkPending}
-            className="shrink-0 px-4 py-2 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all hover:opacity-80 active:scale-95 disabled:opacity-50 whitespace-nowrap"
+            className="shrink-0 px-4 py-2 rounded-full font-sans text-xs font-semibold transition-all hover:-translate-y-px active:scale-95 disabled:opacity-50 whitespace-nowrap"
             style={{
-              background: "rgba(94,234,212,0.08)",
-              border: "1px solid rgba(94,234,212,0.35)",
-              color: "#5EEAD4",
+              background: "rgba(94,234,212,0.12)",
+              border: "1px solid rgba(94,234,212,0.40)",
+              color: TEAL,
+              boxShadow: "0 0 20px rgba(94,234,212,0.18)",
             }}
           >
             {bulkPending ? "Checking in…" : `Check in all (${uncheckedCount})`}
@@ -377,18 +433,19 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
       {/* Grid */}
       {filtered.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filtered.map((fix) => (
+          {filtered.map((fix, i) => (
             <FixGridCard
               key={fix.id}
               fix={fix}
               checkedInToday={localCheckedIn.has(fix.id)}
               onCheckIn={handleQuickCheckIn}
+              index={i}
             />
           ))}
         </div>
       ) : (
-        <div className="py-16 text-center">
-          <p className="font-display italic" style={{ color: "rgba(244,244,244,0.25)", fontSize: 22 }}>
+        <div className="py-16 text-center anim-fadeUp">
+          <p className="font-display" style={{ color: "rgba(255,255,255,0.35)", fontSize: 22, fontWeight: 600 }}>
             No fixes match.
           </p>
         </div>
