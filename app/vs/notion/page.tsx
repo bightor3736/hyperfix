@@ -98,29 +98,29 @@ export default function VsNotionPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
+      <main id="main-content" className="relative z-10 text-white" style={{ background: "#070708", minHeight: "100vh" }}>
 
         <Nav />
 
         {/* HERO */}
-        <section className="px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-28">
+        <section className="px-4 sm:px-6 lg:px-8 pt-8 pb-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
               comparison · hyperfix vs notion
             </span>
-            <h1 className="font-display font-medium text-[2.8rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[0.92] tracking-crush text-ink text-balance">
+            <h1 className="font-display font-medium text-[2.8rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[0.92] tracking-tight text-white text-balance">
               Notion is a tool.
               <br />
-              <span className="italic text-accent">Hyperfix is a place.</span>
+              <span className="text-[#5EEAD4]">Hyperfix is a place.</span>
             </h1>
             <div className="mt-10 grid md:grid-cols-2 gap-8 max-w-4xl">
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 Notion is genuinely excellent software. If you want to build a
                 project management system, a second brain, or a reading list
                 that talks to your calendar, Notion is probably the right
                 answer.
               </p>
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 But if you're currently on day 47 of a Marauders fic and you
                 want to log it, count it, and eventually mourn it — Notion is
                 going to make you do a lot of work before it helps you with
@@ -131,14 +131,14 @@ export default function VsNotionPage() {
         </section>
 
         {/* WHAT NOTION DOES WELL */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28 bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
               honest assessment
             </span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-10 text-balance">
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10 text-balance">
               What Notion{" "}
-              <span className="italic text-accent">actually does well</span>
+              <span className="text-[#5EEAD4]">actually does well</span>
             </h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl">
               {[
@@ -155,11 +155,11 @@ export default function VsNotionPage() {
                   p: "Notion's public pages are clean and work well for sharing long-form content. If you want to write a 3,000-word analysis of a character arc and share it, Notion is fine for that.",
                 },
               ].map((item) => (
-                <div key={item.h} className="border-t border-[rgba(244,244,244,0.07)] pt-6">
+                <div key={item.h} className="border-t border-[rgba(255,255,255,0.06)] pt-6">
                   <h3 className="font-display text-xl tracking-tight mb-3">
                     {item.h}
                   </h3>
-                  <p className="font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
+                  <p className="font-sans text-base text-[rgba(255,255,255,0.65)] leading-relaxed">
                     {item.p}
                   </p>
                 </div>
@@ -169,14 +169,14 @@ export default function VsNotionPage() {
         </section>
 
         {/* WHAT NOTION DOESN'T DO */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">the gap</span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-10 max-w-3xl text-balance">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>the gap</span>
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10 max-w-3xl text-balance">
               What Notion doesn't do
             </h2>
             <div className="grid md:grid-cols-2 gap-10 max-w-4xl">
-              <div className="space-y-6 font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <div className="space-y-6 font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 <p>
                   Notion doesn't know what a hyperfixation is. It doesn't know
                   that the day counter is the emotional core of the whole thing,
@@ -193,7 +193,7 @@ export default function VsNotionPage() {
                   words and is complete.
                 </p>
               </div>
-              <div className="space-y-6 font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <div className="space-y-6 font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 <p>
                   And Notion has no social layer. There's no moment where your
                   fix becomes a card you can drop in a group chat. There's no
@@ -213,54 +213,54 @@ export default function VsNotionPage() {
         </section>
 
         {/* COMPARISON TABLE */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">side by side</span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-12 text-balance">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>side by side</span>
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-12 text-balance">
               The comparison
             </h2>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
-                  <tr className="border-b border-[rgba(244,244,244,0.15)]">
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">
+                  <tr className="border-b border-[rgba(255,255,255,0.12)]">
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
                       Feature
                     </th>
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
                       Notion
                     </th>
-                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">
+                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
                       Hyperfix
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[rgba(244,244,244,0.07)]">
+                <tbody className="divide-y divide-[rgba(255,255,255,0.06)]">
                   {comparisonRows.map((row) => (
                     <tr key={row.feature} className="group">
-                      <td className="py-4 pr-8 font-display text-base tracking-tight text-ink align-top">
+                      <td className="py-4 pr-8 font-display text-base tracking-tight text-white align-top">
                         {row.feature}
                       </td>
                       <td
                         className={`py-4 pr-8 font-sans text-sm leading-snug align-top ${
                           row.edge === "notion"
-                            ? "text-ink font-medium"
-                            : "text-[rgba(244,244,244,0.4)]"
+                            ? "text-white font-medium"
+                            : "text-[rgba(255,255,255,0.55)]"
                         }`}
                       >
                         {row.edge === "notion" && (
-                          <span className="text-ink mr-1">✓</span>
+                          <span className="text-white mr-1">✓</span>
                         )}
                         {row.notion}
                       </td>
                       <td
                         className={`py-4 font-sans text-sm leading-snug align-top ${
                           row.edge === "hyperfix"
-                            ? "text-accent font-medium"
-                            : "text-[rgba(244,244,244,0.4)]"
+                            ? "text-[#5EEAD4] font-medium"
+                            : "text-[rgba(255,255,255,0.55)]"
                         }`}
                       >
                         {row.edge === "hyperfix" && (
-                          <span className="text-accent mr-1">✓</span>
+                          <span className="text-[#5EEAD4] mr-1">✓</span>
                         )}
                         {row.hyperfix}
                       </td>
@@ -269,7 +269,7 @@ export default function VsNotionPage() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-8 font-display italic text-[rgba(244,244,244,0.4)] text-base max-w-xl">
+            <p className="mt-8 font-display text-[rgba(255,255,255,0.55)] text-base max-w-xl">
               Notion wins on flexibility and power. Hyperfix wins on knowing
               what you actually need. These are different products for different
               jobs — the honest answer is you might want both.
@@ -278,22 +278,22 @@ export default function VsNotionPage() {
         </section>
 
         {/* THE ANGLE */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28 bg-[#111113]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-4xl mx-auto">
-            <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tightest text-balance">
+            <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight text-balance">
               A database stores your
               <br />
               obsession.{" "}
-              <span className="italic text-accent">Hyperfix holds it.</span>
+              <span className="text-[#5EEAD4]">Hyperfix holds it.</span>
             </h2>
             <div className="mt-10 grid md:grid-cols-2 gap-8 max-w-3xl">
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 The Notion template you built at 2 a.m. is still in your
                 workspace. You updated it twice. The "days active" formula
                 broke when you changed the start date format. You haven't
                 opened it in three weeks.
               </p>
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 Hyperfix doesn't ask you to maintain it. It just counts.
                 When the fix ends, it remembers. The graveyard builds itself —
                 day 47, intensity 9, the fic that made you text someone at
@@ -304,15 +304,15 @@ export default function VsNotionPage() {
         </section>
 
         {/* FINAL CTA */}
-        <section className="px-6 sm:px-10 py-24 sm:py-36">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-4xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">join the waitlist</span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tightest max-w-2xl text-balance">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>join the waitlist</span>
+            <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tight max-w-2xl text-balance">
               Stop maintaining the database.
               <br />
-              <span className="italic text-accent">Start counting the days.</span>
+              <span className="text-[#5EEAD4]">Start counting the days.</span>
             </h2>
-            <p className="mt-6 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-xl leading-snug">
+            <p className="mt-6 font-sans text-lg text-[rgba(255,255,255,0.65)] max-w-xl leading-snug">
               Hyperfix is in waitlist. First access goes out in waves — early
               users get a permanent Pro discount and the best usernames.
             </p>

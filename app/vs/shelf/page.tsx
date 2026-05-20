@@ -98,33 +98,33 @@ export default function VsShelfPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
+      <main id="main-content" className="relative z-10 text-white" style={{ background: "#070708", minHeight: "100vh" }}>
         <Nav />
 
         {/* HERO */}
-        <section className="px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-28">
+        <section className="px-4 sm:px-6 lg:px-8 pt-8 pb-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
               comparison · hyperfix vs shelf
             </span>
-            <h1 className="font-display font-medium text-[2.8rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[0.92] tracking-crush text-ink text-balance">
+            <h1 className="font-display font-medium text-[2.8rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[0.92] tracking-tight text-white text-balance">
               Shelf tracks your reading.
               <br />
-              <span className="italic text-accent">
+              <span className="text-[#5EEAD4]">
                 Hyperfix tracks what
                 <br />
                 your reading is doing to you.
               </span>
             </h1>
             <div className="mt-10 grid md:grid-cols-2 gap-8 max-w-4xl">
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 Shelf is a genuinely good reading tracker — clean design,
                 social features, beautiful stats. If you want to know how
                 many books you read last year, which genres you gravitate
                 toward, and what your friends are reading, Shelf handles
                 all of that well.
               </p>
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 But there's a gap between "I'm currently reading this" and
                 "this book has taken over my life and I've been thinking
                 about chapter eighteen for eleven days." Shelf logs the
@@ -135,20 +135,20 @@ export default function VsShelfPage() {
         </section>
 
         {/* THE READING LOG VS THE OBSESSION */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28 bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
               the distinction
             </span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-10 text-balance">
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10 text-balance">
               Reading logs track completion.
               <br />
-              <span className="italic text-accent">
+              <span className="text-[#5EEAD4]">
                 Hyperfix tracks possession.
               </span>
             </h2>
             <div className="grid md:grid-cols-2 gap-10 max-w-4xl">
-              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(244,244,244,0.5)]">
+              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(255,255,255,0.65)]">
                 <p>
                   A reading log is fundamentally a record of things you've
                   finished. The moment you close the book, it moves from
@@ -164,7 +164,7 @@ export default function VsShelfPage() {
                   just stared at the wall.
                 </p>
               </div>
-              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(244,244,244,0.5)]">
+              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(255,255,255,0.65)]">
                 <p>
                   Shelf marks it as finished. Hyperfix asks: are you though?
                   The post-book obsession — the haunting, the searching for
@@ -182,12 +182,12 @@ export default function VsShelfPage() {
         </section>
 
         {/* WHAT SHELF DOES WELL */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">honest assessment</span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-10 text-balance">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>honest assessment</span>
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10 text-balance">
               What Shelf{" "}
-              <span className="italic text-accent">genuinely gets right</span>
+              <span className="text-[#5EEAD4]">genuinely gets right</span>
             </h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl">
               {[
@@ -204,11 +204,11 @@ export default function VsShelfPage() {
                   p: "Shelf has friends, reviews, and reading groups. The community is smaller and more intentional than Goodreads. If you want to read alongside people rather than just log next to them, Shelf's social model works well.",
                 },
               ].map((item) => (
-                <div key={item.h} className="border-t border-[rgba(244,244,244,0.07)] pt-6">
+                <div key={item.h} className="border-t border-[rgba(255,255,255,0.06)] pt-6">
                   <h3 className="font-display text-xl tracking-tight mb-3">
                     {item.h}
                   </h3>
-                  <p className="font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
+                  <p className="font-sans text-base text-[rgba(255,255,255,0.65)] leading-relaxed">
                     {item.p}
                   </p>
                 </div>
@@ -218,33 +218,33 @@ export default function VsShelfPage() {
         </section>
 
         {/* COMPARISON TABLE */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">side by side</span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-12 text-balance">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>side by side</span>
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-12 text-balance">
               The comparison
             </h2>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
-                  <tr className="border-b border-[rgba(244,244,244,0.15)]">
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">Feature</th>
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">Shelf</th>
-                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">Hyperfix</th>
+                  <tr className="border-b border-[rgba(255,255,255,0.12)]">
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">Feature</th>
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">Shelf</th>
+                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">Hyperfix</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[rgba(244,244,244,0.07)]">
+                <tbody className="divide-y divide-[rgba(255,255,255,0.06)]">
                   {comparisonRows.map((row) => (
                     <tr key={row.feature}>
-                      <td className="py-4 pr-8 font-display text-base tracking-tight text-ink align-top">
+                      <td className="py-4 pr-8 font-display text-base tracking-tight text-white align-top">
                         {row.feature}
                       </td>
-                      <td className={`py-4 pr-8 font-sans text-sm leading-snug align-top ${row.edge === "shelf" || row.edge === "both" ? "text-ink font-medium" : "text-[rgba(244,244,244,0.4)]"}`}>
+                      <td className={`py-4 pr-8 font-sans text-sm leading-snug align-top ${row.edge === "shelf" || row.edge === "both" ? "text-white font-medium" : "text-[rgba(255,255,255,0.55)]"}`}>
                         {(row.edge === "shelf" || row.edge === "both") && <span className="mr-1">✓</span>}
                         {row.shelf}
                       </td>
-                      <td className={`py-4 font-sans text-sm leading-snug align-top ${row.edge === "hyperfix" || row.edge === "both" ? "text-accent font-medium" : "text-[rgba(244,244,244,0.4)]"}`}>
-                        {(row.edge === "hyperfix" || row.edge === "both") && <span className="text-accent mr-1">✓</span>}
+                      <td className={`py-4 font-sans text-sm leading-snug align-top ${row.edge === "hyperfix" || row.edge === "both" ? "text-[#5EEAD4] font-medium" : "text-[rgba(255,255,255,0.55)]"}`}>
+                        {(row.edge === "hyperfix" || row.edge === "both") && <span className="text-[#5EEAD4] mr-1">✓</span>}
                         {row.hyperfix}
                       </td>
                     </tr>
@@ -252,7 +252,7 @@ export default function VsShelfPage() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-8 font-display italic text-[rgba(244,244,244,0.4)] text-base max-w-xl">
+            <p className="mt-8 font-display text-[rgba(255,255,255,0.55)] text-base max-w-xl">
               Use Shelf to track your reading life. Use Hyperfix for the
               moment reading stops being a hobby and starts being a
               condition.
@@ -261,19 +261,19 @@ export default function VsShelfPage() {
         </section>
 
         {/* FINAL CTA */}
-        <section className="px-6 sm:px-10 py-24 sm:py-36 bg-[#111113]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-4xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
               join the waitlist
             </span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tightest max-w-2xl text-balance">
+            <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tight max-w-2xl text-balance">
               Log the books on Shelf.
               <br />
-              <span className="italic text-accent">
+              <span className="text-[#5EEAD4]">
                 Log what they do to you here.
               </span>
             </h2>
-            <p className="mt-6 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-xl leading-snug">
+            <p className="mt-6 font-sans text-lg text-[rgba(255,255,255,0.65)] max-w-xl leading-snug">
               Waitlist is open. Early users get a permanent Pro discount
               and the best usernames before they're taken.
             </p>

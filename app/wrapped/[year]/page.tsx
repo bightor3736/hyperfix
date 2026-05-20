@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { WrappedClient } from "./WrappedClient";
 
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
+
 type Props = {
   params: Promise<{ year: string }>;
   searchParams: Promise<{ u?: string }>;
@@ -136,38 +139,40 @@ export default async function WrappedYearPage({ params, searchParams }: Props) {
   }
 
   if (!userId) {
-    // Not logged in, no username
     return (
-      <div
-        className="min-h-screen flex flex-col items-center justify-center gap-6 px-6"
-        style={{ background: "#080808" }}
-      >
-        <div
-          className="absolute inset-x-0 top-0 h-[400px] pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 60% 40% at 50% -10%, rgba(94,234,212,0.12) 0%, transparent 70%)",
-          }}
-        />
-        <span className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "#5EEAD4" }}>
-          hyperfix wrapped {year}
-        </span>
-        <h1
-          className="font-display text-4xl sm:text-5xl text-center leading-tight"
-          style={{ color: "#F4F4F4" }}
-        >
-          Your year in obsessions.
-        </h1>
-        <p className="font-sans text-base text-center max-w-sm" style={{ color: "rgba(244,244,244,0.5)" }}>
-          Log in to see your Wrapped for {year}.
-        </p>
-        <a
-          href="/auth/login"
-          className="px-6 py-3 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90"
-          style={{ background: "#5EEAD4", color: "#0A0A0A" }}
-        >
-          Log in →
-        </a>
+      <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative" style={{ background: "#070708" }}>
+        <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
+        <div className="relative max-w-2xl w-full">
+          <div className="relative overflow-hidden rounded-3xl p-8 sm:p-14 text-center anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)", border: "1px solid rgba(255,255,255,0.06)" }}>
+            <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
+            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
+            <div className="relative">
+              <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
+                hyperfix wrapped {year}
+              </span>
+              <h1 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 6vw, 56px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}>
+                Your year in obsessions.
+              </h1>
+              <p className="mt-5 font-sans text-base sm:text-lg max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.72)" }}>
+                Log in to see your Wrapped for {year}.
+              </p>
+              <div className="mt-7">
+                <a
+                  href="/auth/login"
+                  className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
+                  style={{
+                    background: "#FFFFFF",
+                    color: "#0A0A0A",
+                    borderRadius: 999,
+                    boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 40px rgba(94,234,212,0.25)",
+                  }}
+                >
+                  Log in →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -184,40 +189,43 @@ export default async function WrappedYearPage({ params, searchParams }: Props) {
 
   if (!stats) {
     return (
-      <div
-        className="min-h-screen flex flex-col items-center justify-center gap-6 px-6"
-        style={{ background: "#080808" }}
-      >
-        <div
-          className="absolute inset-x-0 top-0 h-[400px] pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 60% 40% at 50% -10%, rgba(94,234,212,0.08) 0%, transparent 70%)",
-          }}
-        />
-        <span className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "#5EEAD4" }}>
-          hyperfix wrapped {year}
-        </span>
-        <h1
-          className="font-display text-4xl sm:text-5xl text-center leading-tight"
-          style={{ color: "#F4F4F4" }}
-        >
-          Nothing logged for {year}.
-        </h1>
-        <p className="font-sans text-base text-center max-w-sm" style={{ color: "rgba(244,244,244,0.5)" }}>
-          {isPublicProfile
-            ? `${viewerName} hasn't logged any fixes for ${year} yet.`
-            : `You haven't logged any fixes for ${year} yet. Start logging and come back.`}
-        </p>
-        {!isPublicProfile && (
-          <a
-            href="/dashboard"
-            className="px-6 py-3 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90"
-            style={{ background: "#5EEAD4", color: "#0A0A0A" }}
-          >
-            Go to dashboard →
-          </a>
-        )}
+      <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative" style={{ background: "#070708" }}>
+        <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
+        <div className="relative max-w-2xl w-full">
+          <div className="relative overflow-hidden rounded-3xl p-8 sm:p-14 text-center anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)", border: "1px solid rgba(255,255,255,0.06)" }}>
+            <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
+            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
+            <div className="relative">
+              <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
+                hyperfix wrapped {year}
+              </span>
+              <h1 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 6vw, 56px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}>
+                Nothing logged for {year}.
+              </h1>
+              <p className="mt-5 font-sans text-base sm:text-lg max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.72)" }}>
+                {isPublicProfile
+                  ? `${viewerName} hasn't logged any fixes for ${year} yet.`
+                  : `You haven't logged any fixes for ${year} yet. Start logging and come back.`}
+              </p>
+              {!isPublicProfile && (
+                <div className="mt-7">
+                  <a
+                    href="/dashboard"
+                    className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
+                    style={{
+                      background: "#FFFFFF",
+                      color: "#0A0A0A",
+                      borderRadius: 999,
+                      boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 40px rgba(94,234,212,0.25)",
+                    }}
+                  >
+                    Go to dashboard →
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

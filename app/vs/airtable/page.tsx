@@ -110,13 +110,13 @@ export default function AirtableComparisonPage() {
       />
       <Nav />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
-        <section className="px-6 py-24 md:px-12 lg:px-24">
+      <main id="main-content" className="relative z-10 text-white" style={{ background: "#070708", minHeight: "100vh" }}>
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="mx-auto max-w-5xl">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">comparison · hyperfix vs airtable</span>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>comparison · hyperfix vs airtable</span>
             <h1 className="font-display mb-12 text-5xl font-bold leading-tight md:text-6xl lg:text-7xl">
               Airtable is a database.{" "}
-              <em className="text-accent not-italic">Hyperfix is a tracker.</em>
+              <em className="text-[#5EEAD4] not-italic">Hyperfix is a tracker.</em>
             </h1>
             <div className="grid gap-8 md:grid-cols-2">
               <p className="font-sans text-lg leading-relaxed">
@@ -135,20 +135,20 @@ export default function AirtableComparisonPage() {
           </div>
         </section>
 
-        <section className="px-6 py-24 md:px-12 lg:px-24 bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="mx-auto max-w-5xl">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">the distinction</span>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>the distinction</span>
             <h2 className="font-display mb-12 text-4xl font-bold leading-tight md:text-5xl">
               A database holds the record.{" "}
-              <em className="text-accent not-italic">Hyperfix runs it.</em>
+              <em className="text-[#5EEAD4] not-italic">Hyperfix runs it.</em>
             </h2>
             <div className="grid gap-8 md:grid-cols-2">
-              <p className="font-sans text-lg leading-relaxed text-[rgba(244,244,244,0.5)]">
+              <p className="font-sans text-lg leading-relaxed text-[rgba(255,255,255,0.65)]">
                 Airtable's model is: you design the schema, you fill in the data, you maintain the
                 automations. It's extraordinarily flexible because it does nothing by default. Every
                 useful behaviour is something you configured. That's power. It's also work.
               </p>
-              <p className="font-sans text-lg leading-relaxed text-[rgba(244,244,244,0.5)]">
+              <p className="font-sans text-lg leading-relaxed text-[rgba(255,255,255,0.65)]">
                 Hyperfix's model is: log the thing, everything else runs. The day counter starts
                 automatically. The intensity bar is already there. The eulogy generates when you
                 close the fix. Nothing requires you to have built it first. The schema is opinionated
@@ -158,7 +158,7 @@ export default function AirtableComparisonPage() {
           </div>
         </section>
 
-        <section className="px-6 py-24 md:px-12 lg:px-24">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="mx-auto max-w-5xl">
             <h2 className="font-display mb-12 text-3xl font-bold md:text-4xl">
               What Airtable Does Well
@@ -166,7 +166,7 @@ export default function AirtableComparisonPage() {
             <div className="grid gap-6 md:grid-cols-3">
               <div className="rounded-2xl p-8">
                 <h3 className="font-display mb-4 text-xl font-bold">Relational data</h3>
-                <p className="font-sans text-base leading-relaxed text-[rgba(244,244,244,0.5)]">
+                <p className="font-sans text-base leading-relaxed text-[rgba(255,255,255,0.65)]">
                   Airtable's linked records are genuinely powerful. If you want to connect your
                   hyperfixations to characters, fandoms, creators, or any other entities you track —
                   and run views across those relations — Airtable does this in a way Hyperfix never
@@ -175,7 +175,7 @@ export default function AirtableComparisonPage() {
               </div>
               <div className="rounded-2xl p-8">
                 <h3 className="font-display mb-4 text-xl font-bold">Automations</h3>
-                <p className="font-sans text-base leading-relaxed text-[rgba(244,244,244,0.5)]">
+                <p className="font-sans text-base leading-relaxed text-[rgba(255,255,255,0.65)]">
                   Airtable's automation layer is robust. If you want to trigger notifications, update
                   fields based on conditions, or connect to other tools in your stack, it handles
                   that well. The infrastructure is real.
@@ -183,7 +183,7 @@ export default function AirtableComparisonPage() {
               </div>
               <div className="rounded-2xl p-8">
                 <h3 className="font-display mb-4 text-xl font-bold">Custom views</h3>
-                <p className="font-sans text-base leading-relaxed text-[rgba(244,244,244,0.5)]">
+                <p className="font-sans text-base leading-relaxed text-[rgba(255,255,255,0.65)]">
                   Gallery, grid, kanban, calendar. If you want to visualise your obsession history in
                   multiple ways — timeline view, grouped by type, sorted by intensity — Airtable
                   gives you the tools to build that.
@@ -193,22 +193,22 @@ export default function AirtableComparisonPage() {
           </div>
         </section>
 
-        <section className="px-6 py-24 md:px-12 lg:px-24">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="mx-auto max-w-5xl">
             <h2 className="font-display mb-12 text-3xl font-bold md:text-4xl">
               Feature comparison
             </h2>
-            <div className="overflow-x-auto rounded-2xl border border-[rgba(244,244,244,0.07)]">
+            <div className="overflow-x-auto rounded-2xl border border-[rgba(255,255,255,0.06)]">
               <table className="w-full">
                 <thead>
                   <tr className="bg-[#1C1C1E]">
-                    <th className="font-sans px-6 py-4 text-left text-sm font-semibold text-[rgba(244,244,244,0.5)]">
+                    <th className="font-sans px-6 py-4 text-left text-sm font-semibold text-[rgba(255,255,255,0.65)]">
                       Feature
                     </th>
-                    <th className="font-sans px-6 py-4 text-left text-sm font-semibold text-[rgba(244,244,244,0.5)]">
+                    <th className="font-sans px-6 py-4 text-left text-sm font-semibold text-[rgba(255,255,255,0.65)]">
                       Airtable
                     </th>
-                    <th className="font-sans px-6 py-4 text-left text-sm font-semibold text-[rgba(244,244,244,0.5)]">
+                    <th className="font-sans px-6 py-4 text-left text-sm font-semibold text-[rgba(255,255,255,0.65)]">
                       Hyperfix
                     </th>
                   </tr>
@@ -222,14 +222,14 @@ export default function AirtableComparisonPage() {
                       <td className="font-sans px-6 py-4 text-sm font-medium">{row.feature}</td>
                       <td
                         className={`font-sans px-6 py-4 text-sm ${
-                          row.edge === "airtable" ? "font-semibold text-accent" : "text-[rgba(244,244,244,0.5)]"
+                          row.edge === "airtable" ? "font-semibold text-[#5EEAD4]" : "text-[rgba(255,255,255,0.65)]"
                         }`}
                       >
                         {row.airtable}
                       </td>
                       <td
                         className={`font-sans px-6 py-4 text-sm ${
-                          row.edge === "hyperfix" ? "font-semibold text-accent" : "text-[rgba(244,244,244,0.5)]"
+                          row.edge === "hyperfix" ? "font-semibold text-[#5EEAD4]" : "text-[rgba(255,255,255,0.65)]"
                         }`}
                       >
                         {row.hyperfix}
@@ -239,21 +239,21 @@ export default function AirtableComparisonPage() {
                 </tbody>
               </table>
             </div>
-            <p className="font-mono mt-6 text-sm text-[rgba(244,244,244,0.4)]">
+            <p className="font-mono mt-6 text-sm text-[rgba(255,255,255,0.55)]">
               Airtable wins on power and flexibility. Hyperfix wins on knowing what you're actually
               here for.
             </p>
           </div>
         </section>
 
-        <section className="px-6 py-24 md:px-12 lg:px-24 bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="mx-auto max-w-5xl">
             <h2 className="font-display mb-8 text-4xl font-bold leading-tight md:text-5xl">
               The base you built has seventeen fields.
               <br />
-              <em className="text-accent not-italic">You use three of them.</em>
+              <em className="text-[#5EEAD4] not-italic">You use three of them.</em>
             </h2>
-            <p className="font-sans max-w-2xl text-lg leading-relaxed text-[rgba(244,244,244,0.5)]">
+            <p className="font-sans max-w-2xl text-lg leading-relaxed text-[rgba(255,255,255,0.65)]">
               The Airtable base is still in your workspace. The automations are configured. The
               gallery view looks good. You've updated it fourteen times. Two of those times were in
               the first week. The day counter formula broke when you linked the fandom table and
@@ -263,14 +263,14 @@ export default function AirtableComparisonPage() {
           </div>
         </section>
 
-        <section className="px-6 py-24 md:px-12 lg:px-24">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="mx-auto max-w-5xl text-center">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">join the waitlist</span>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>join the waitlist</span>
             <h2 className="font-display mb-6 text-4xl font-bold leading-tight md:text-5xl">
               Close the base.{" "}
-              <em className="text-accent not-italic">Start the counter.</em>
+              <em className="text-[#5EEAD4] not-italic">Start the counter.</em>
             </h2>
-            <p className="font-sans mx-auto mb-12 max-w-xl text-lg leading-relaxed text-[rgba(244,244,244,0.5)]">
+            <p className="font-sans mx-auto mb-12 max-w-xl text-lg leading-relaxed text-[rgba(255,255,255,0.65)]">
               Waitlist is open. First access goes out in waves — early users get a permanent Pro
               discount and the best usernames before they're taken.
             </p>

@@ -28,6 +28,12 @@ type Props = {
   quote: string;
 };
 
+const TEAL = "#5EEAD4";
+const CARD_BG = "#0F1011";
+const CARD_BORDER = "rgba(255,255,255,0.06)";
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
+
 export function WrappedClient({
   year,
   viewerName,
@@ -86,70 +92,40 @@ export function WrappedClient({
   }
 
   return (
-    <div
-      className="min-h-screen relative overflow-hidden"
-      style={{ background: "#080808", color: "#F4F4F4" }}
-    >
-      {/* Lime radial glow from top center */}
-      <div
-        className="absolute inset-x-0 top-0 h-[500px] pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 45% at 50% -5%, rgba(94,234,212,0.14) 0%, transparent 70%)",
-        }}
-      />
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
+      <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
 
-      <div className="relative z-10 max-w-3xl mx-auto px-6 py-16 sm:py-24 flex flex-col gap-16">
-        {/* Header */}
-        <div className="flex flex-col gap-4">
-          <span
-            className="font-mono text-[10px] uppercase tracking-widest"
-            style={{ color: "rgba(244,244,244,0.4)" }}
-          >
-            hyperfix
-          </span>
-          <h1
-            className="font-display font-medium leading-none tracking-tight"
-            style={{
-              fontSize: "clamp(5rem, 22vw, 10rem)",
-              WebkitTextStroke: "1px rgba(244,244,244,0.3)",
-              color: "transparent",
-            }}
-          >
-            {year}
-          </h1>
-          <p
-            className="font-sans text-xl sm:text-2xl -mt-2"
-            style={{ color: "rgba(244,244,244,0.6)" }}
-          >
-            {viewerName === "you" ? "Your" : `${viewerName}'s`} year in obsessions.
-          </p>
+      <main className="relative max-w-3xl mx-auto flex flex-col gap-6">
+        {/* HERO with big year */}
+        <div className="relative overflow-hidden rounded-3xl p-6 sm:p-12 anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)", border: `1px solid ${CARD_BORDER}` }}>
+          <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
+          <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
+          <div className="relative">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>
+              hyperfix wrapped
+            </span>
+            <h1 className="font-display leading-none" style={{ fontSize: "clamp(80px, 22vw, 180px)", letterSpacing: "-0.04em", color: "transparent", WebkitTextStroke: "1px rgba(255,255,255,0.35)", fontWeight: 600 }}>
+              {year}
+            </h1>
+            <p className="mt-2 font-display anim-fadeUp delay-200" style={{ color: "#FFFFFF", fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 600, letterSpacing: "-0.02em" }}>
+              {viewerName === "you" ? "Your" : `${viewerName}'s`} year in obsessions.
+            </p>
+          </div>
         </div>
 
         {/* Stat cards 2×2 */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4">
-          {statCards.map((card) => (
+          {statCards.map((card, i) => (
             <div
               key={card.label}
-              className="rounded-2xl p-6 sm:p-8 flex flex-col gap-2"
-              style={{
-                background: "#111113",
-                border: "1px solid rgba(244,244,244,0.07)",
-              }}
+              className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-8 flex flex-col gap-2 anim-fadeUp"
+              style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, animationDelay: `${i * 60}ms` }}
             >
-              <span
-                className="font-display leading-none tracking-tight"
-                style={{
-                  fontSize: "clamp(2rem, 7vw, 3.5rem)",
-                  color: "#5EEAD4",
-                }}
-              >
+              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
+              <span className="relative font-display leading-none tabular-nums" style={{ fontSize: "clamp(2rem, 7vw, 3.5rem)", color: TEAL, fontWeight: 600, letterSpacing: "-0.03em" }}>
                 {card.value}
               </span>
-              <span
-                className="font-mono text-[10px] uppercase tracking-widest"
-                style={{ color: "rgba(244,244,244,0.4)" }}
-              >
+              <span className="relative font-sans text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
                 {card.label}
               </span>
             </div>
@@ -175,43 +151,40 @@ export function WrappedClient({
         />
 
         {/* Quote */}
-        <div
-          className="rounded-2xl p-8 sm:p-10 flex flex-col gap-3"
-          style={{
-            background: "rgba(94,234,212,0.05)",
-            border: "1px solid rgba(94,234,212,0.15)",
-          }}
-        >
-          <span
-            className="font-mono text-[10px] uppercase tracking-widest"
-            style={{ color: "rgba(94,234,212,0.6)" }}
-          >
-            hyperfix says
-          </span>
-          <p
-            className="font-display text-xl sm:text-2xl leading-snug"
-            style={{ color: "#F4F4F4" }}
-          >
-            &ldquo;{quote}&rdquo;
-          </p>
+        <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-10 flex flex-col gap-3" style={{ background: "rgba(94,234,212,0.06)", border: "1px solid rgba(94,234,212,0.18)" }}>
+          <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.18 }} />
+          <div className="relative">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-3" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>
+              hyperfix says
+            </span>
+            <p className="font-display text-xl sm:text-2xl leading-snug" style={{ color: "#FFFFFF", fontWeight: 600, letterSpacing: "-0.01em" }}>
+              &ldquo;{quote}&rdquo;
+            </p>
+          </div>
         </div>
 
         {/* Share / download buttons */}
         <div className="flex flex-wrap justify-center gap-3">
           <button
             onClick={handleShare}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98]"
-            style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+            className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
+            style={{
+              background: "#FFFFFF",
+              color: "#0A0A0A",
+              borderRadius: 999,
+              boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 40px rgba(94,234,212,0.25)",
+            }}
           >
             {copied ? "Copied!" : "Share my Wrapped →"}
           </button>
           <button
             onClick={handleTweet}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl font-sans text-sm font-semibold transition-all hover:opacity-80"
+            className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all duration-200 hover:opacity-90"
             style={{
               background: "rgba(94,234,212,0.08)",
               border: "1px solid rgba(94,234,212,0.25)",
-              color: "#5EEAD4",
+              color: TEAL,
+              borderRadius: 999,
             }}
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
@@ -222,11 +195,12 @@ export function WrappedClient({
           <button
             onClick={handleDownloadImage}
             disabled={downloading}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl font-sans text-sm font-semibold transition-all hover:opacity-80 disabled:opacity-50"
+            className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all duration-200 hover:opacity-90 disabled:opacity-50"
             style={{
-              background: "rgba(244,244,244,0.05)",
-              border: "1px solid rgba(244,244,244,0.1)",
-              color: "rgba(244,244,244,0.6)",
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid rgba(255,255,255,0.10)",
+              color: "rgba(255,255,255,0.7)",
+              borderRadius: 999,
             }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -237,7 +211,7 @@ export function WrappedClient({
             {downloading ? "Generating…" : "Download image"}
           </button>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
@@ -256,49 +230,27 @@ function FixHighlightCard({
   dateRange: string;
 }) {
   return (
-    <div
-      className="rounded-2xl p-6 sm:p-8 flex flex-col gap-4"
-      style={{
-        background: "#111113",
-        border: "1px solid rgba(244,244,244,0.07)",
-      }}
-    >
-      <span
-        className="font-mono text-[10px] uppercase tracking-widest"
-        style={{ color: "rgba(244,244,244,0.35)" }}
-      >
-        {badge}
-      </span>
-      <h2
-        className="font-display leading-tight"
-        style={{ fontSize: "clamp(1.4rem, 5vw, 2.2rem)", color: "#F4F4F4" }}
-      >
-        {title}
-      </h2>
-      <div className="flex items-center gap-3 flex-wrap">
-        <span
-          className="font-mono text-[10px] uppercase tracking-widest px-3 py-1 rounded-full"
-          style={{
-            background: "rgba(94,234,212,0.1)",
-            border: "1px solid rgba(94,234,212,0.2)",
-            color: "#5EEAD4",
-          }}
-        >
-          {category}
+    <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-8 flex flex-col gap-4" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+      <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
+      <div className="relative">
+        <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-4" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>
+          {badge}
         </span>
-        <span
-          className="font-mono text-[11px]"
-          style={{ color: "rgba(244,244,244,0.5)" }}
-        >
-          {meta}
+        <h2 className="font-display leading-tight mb-4" style={{ fontSize: "clamp(22px, 4.5vw, 32px)", color: "#FFFFFF", fontWeight: 600, letterSpacing: "-0.01em" }}>
+          {title}
+        </h2>
+        <div className="flex items-center gap-3 flex-wrap mb-2">
+          <span className="font-sans text-xs px-3 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.55)" }}>
+            {category}
+          </span>
+          <span className="font-sans text-sm tabular-nums" style={{ color: TEAL }}>
+            {meta}
+          </span>
+        </div>
+        <span className="font-sans text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+          {dateRange}
         </span>
       </div>
-      <span
-        className="font-mono text-[10px] uppercase tracking-widest"
-        style={{ color: "rgba(244,244,244,0.3)" }}
-      >
-        {dateRange}
-      </span>
     </div>
   );
 }
