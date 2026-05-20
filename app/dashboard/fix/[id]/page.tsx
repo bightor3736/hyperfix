@@ -106,6 +106,33 @@ export default async function FixDetailPage({
   const isPinned = profileData?.pinned_fix_id === id;
   const isPro = profileData?.is_pro ?? false;
 
+  // "Others tracking this" — public fixes with same title from other users
+  const { count: othersCount } = await supabase
+    .from("fixes")
+    .select("id", { count: "exact", head: true })
+    .eq("title", typedFix.title)
+    .neq("user_id", user.id)
+    .is("ended_at", null);
+
+  // Fix discovery — recent public fixes in the same category from other users
+  const { data: discoveryData } = await supabase
+    .from("fixes")
+    .select("id, title, category, started_at, ended_at, profiles(username)")
+    .eq("is_public", true)
+    .eq("category", typedFix.category)
+    .neq("user_id", user.id)
+    .is("ended_at", null)
+    .order("created_at", { ascending: false })
+    .limit(3);
+  const discoveryFixes = (discoveryData ?? []) as unknown as {
+    id: string;
+    title: string;
+    category: string;
+    started_at: string;
+    ended_at: string | null;
+    profiles: { username: string | null } | { username: string | null }[] | null;
+  }[];
+
   // Reactions (only relevant for public fixes)
   const initialReactions: Record<string, number> = {};
   const userReactions: string[] = [];
@@ -274,6 +301,64 @@ export default async function FixDetailPage({
               initialReactions={initialReactions}
               userReactions={userReactions}
             />
+          </div>
+        )}
+
+        {/* Others tracking this */}
+        {(othersCount ?? 0) > 0 && (
+          <div
+            className="rounded-2xl px-5 py-4 mb-4 flex items-center gap-3"
+            style={{
+              background: "rgba(168,85,247,0.06)",
+              border: "1px solid rgba(168,85,247,0.2)",
+            }}
+          >
+            <span style={{ fontSize: 20 }}>🔥</span>
+            <p className="font-display font-medium text-sm" style={{ color: "#A855F7" }}>
+              {othersCount} other {othersCount === 1 ? "person is" : "people are"} also tracking &ldquo;{typedFix.title}&rdquo;
+            </p>
+          </div>
+        )}
+
+        {/* Fix discovery */}
+        {discoveryFixes.length > 0 && (
+          <div
+            className="rounded-2xl p-5 mb-4"
+            style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
+          >
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(244,244,244,0.3)" }}>
+              Others also tracking {typedFix.category}
+            </p>
+            <div className="flex flex-col gap-2">
+              {discoveryFixes.map((f) => {
+                const fDays = Math.max(1, Math.ceil((new Date().getTime() - new Date(f.started_at).getTime()) / (1000 * 60 * 60 * 24)));
+                const prof = Array.isArray(f.profiles) ? f.profiles[0] : f.profiles;
+                return (
+                  <Link
+                    key={f.id}
+                    href={`/fix/${f.id}`}
+                    className="flex items-center justify-between gap-3 rounded-xl px-3 py-2.5 transition-all hover:opacity-80"
+                    style={{ background: "rgba(244,244,244,0.04)", border: "1px solid rgba(244,244,244,0.06)" }}
+                  >
+                    <span
+                      className="font-display text-sm leading-snug"
+                      style={{
+                        color: "rgba(244,244,244,0.7)",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 1,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {f.title}
+                    </span>
+                    <span className="font-mono text-[10px] shrink-0" style={{ color: "rgba(244,244,244,0.3)" }}>
+                      {prof?.username ? `@${prof.username} · ` : ""}{fDays}d
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         )}
 

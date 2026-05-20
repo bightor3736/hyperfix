@@ -197,17 +197,30 @@ export default async function PublicProfilePage({
       <main id="main-content" className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Profile header */}
         <div className="flex items-start gap-6 mb-10">
-          {typedProfile.avatar_url ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={typedProfile.avatar_url}
-              alt={displayName}
-              className="w-20 h-20 rounded-full object-cover"
-              style={{ border: "2px solid rgba(244,244,244,0.1)" }}
-            />
-          ) : (
-            <Initials name={displayName} />
-          )}
+          <div className="relative shrink-0">
+            {typedProfile.is_pro && (
+              <div
+                className="absolute -inset-2 rounded-full pointer-events-none"
+                style={{
+                  background: "radial-gradient(circle, rgba(168,85,247,0.4) 0%, transparent 70%)",
+                  filter: "blur(6px)",
+                }}
+              />
+            )}
+            {typedProfile.avatar_url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={typedProfile.avatar_url}
+                alt={displayName}
+                className="relative w-20 h-20 rounded-full object-cover"
+                style={{ border: typedProfile.is_pro ? "2px solid rgba(168,85,247,0.5)" : "2px solid rgba(244,244,244,0.1)" }}
+              />
+            ) : (
+              <div className="relative">
+                <Initials name={displayName} />
+              </div>
+            )}
+          </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 flex-wrap mb-0.5">
               <h1 className="text-2xl font-display font-medium">{displayName}</h1>

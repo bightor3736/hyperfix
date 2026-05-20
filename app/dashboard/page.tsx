@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { DashboardFilters } from "./DashboardFilters";
 import { SkeletonGrid } from "@/components/FixCardSkeleton";
+import { OnboardingModal } from "@/components/OnboardingModal";
 
 type Fix = {
   id: string;
@@ -128,6 +129,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-12" style={{ background: "#0A0A0A" }}>
+      <OnboardingModal totalFixes={totalActive} />
       <div className="max-w-5xl mx-auto">
 
         {/* Header */}

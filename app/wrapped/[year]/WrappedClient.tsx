@@ -46,6 +46,13 @@ export function WrappedClient({
     });
   }
 
+  function handleTweet() {
+    const totalFixes = statCards.find((s) => s.label === "total fixes")?.value ?? "0";
+    const totalDays = statCards.find((s) => s.label === "days fixated")?.value ?? "0";
+    const text = `my hyperfix wrapped ${year}: ${totalFixes} fixations, ${totalDays} days of being unwell. i'm so normal 😭 ${window.location.href}`;
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
+  }
+
   async function handleDownloadImage() {
     setDownloading(true);
     try {
@@ -199,13 +206,27 @@ export function WrappedClient({
             {copied ? "Copied!" : "Share my Wrapped →"}
           </button>
           <button
-            onClick={handleDownloadImage}
-            disabled={downloading}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl font-sans text-sm font-semibold transition-all hover:opacity-80 disabled:opacity-50"
+            onClick={handleTweet}
+            className="flex items-center gap-2 px-6 py-3 rounded-xl font-sans text-sm font-semibold transition-all hover:opacity-80"
             style={{
               background: "rgba(168,85,247,0.08)",
               border: "1px solid rgba(168,85,247,0.25)",
               color: "#A855F7",
+            }}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            Post to X
+          </button>
+          <button
+            onClick={handleDownloadImage}
+            disabled={downloading}
+            className="flex items-center gap-2 px-6 py-3 rounded-xl font-sans text-sm font-semibold transition-all hover:opacity-80 disabled:opacity-50"
+            style={{
+              background: "rgba(244,244,244,0.05)",
+              border: "1px solid rgba(244,244,244,0.1)",
+              color: "rgba(244,244,244,0.6)",
             }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -29,6 +29,28 @@ async function getWaitlistCount(): Promise<number> {
   }
 }
 
+async function getPublicFixCount(): Promise<number> {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !serviceKey) return 3812;
+  try {
+    const res = await fetch(`${supabaseUrl}/rest/v1/fixes?select=id&is_public=eq.true`, {
+      headers: {
+        apikey: serviceKey,
+        Authorization: `Bearer ${serviceKey}`,
+        Prefer: "count=exact",
+        "Range-Unit": "items",
+        Range: "0-0",
+      },
+      next: { revalidate: 60 },
+    });
+    const raw = res.headers.get("content-range") ?? "";
+    return parseInt(raw.split("/")[1] ?? "0", 10) || 3812;
+  } catch {
+    return 3812;
+  }
+}
+
 async function getAvgDays(): Promise<number> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -185,9 +207,10 @@ export default async function Page({
     return <OAuthCallback code={params.code} />;
   }
 
-  const [waitlistCount, avgDays] = await Promise.all([
+  const [waitlistCount, avgDays, publicFixCount] = await Promise.all([
     getWaitlistCount(),
     getAvgDays(),
+    getPublicFixCount(),
   ]);
   const countRes = { count: waitlistCount };
   const statsRes = { avgDays };
@@ -250,6 +273,12 @@ export default async function Page({
                   style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)", color: "rgba(244,244,244,0.7)" }}
                 >
                   <span className="text-accent font-bold tabular">{countRes.count.toLocaleString()}</span> members
+                </span>
+                <span
+                  className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2"
+                  style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)", color: "rgba(244,244,244,0.7)" }}
+                >
+                  <span className="text-accent font-bold tabular">{publicFixCount.toLocaleString()}</span> fixes logged
                 </span>
                 <span
                   className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-2"

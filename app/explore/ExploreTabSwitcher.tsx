@@ -253,6 +253,30 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
           <MiniReactions counts={reactions} />
         </div>
       </Link>
+
+      {/* Twitter share — outside Link to avoid nested a */}
+      {hovered && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            const url = `${window.location.origin}/fix/${fix.id}`;
+            const text = `day ${days} of ${fix.title}. intensity: ${fix.intensity}/10. i'm so normal 😭 ${url}`;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
+          }}
+          className="mt-2 w-full flex items-center justify-center gap-1.5 py-1.5 rounded-xl font-mono transition-all hover:opacity-80"
+          style={{
+            fontSize: 10,
+            background: "rgba(244,244,244,0.04)",
+            border: "1px solid rgba(244,244,244,0.08)",
+            color: "rgba(244,244,244,0.35)",
+          }}
+        >
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          post this
+        </button>
+      )}
     </div>
   );
 }

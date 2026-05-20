@@ -128,6 +128,69 @@ export async function sendFollowNotification({
   }).catch(console.error);
 }
 
+export async function sendProWelcomeEmail({
+  toEmail,
+  toName,
+}: {
+  toEmail: string;
+  toName: string;
+}) {
+  const resend = getResend();
+  if (!resend) return;
+
+  await resend.emails.send({
+    from: "hyperfix <hello@hyperfix.app>",
+    to: toEmail,
+    subject: "✦ you're Pro now. fully unwell, officially.",
+    html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/></head>
+<body style="margin:0;padding:0;background:#080808;font-family:system-ui,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#080808;padding:40px 16px;">
+  <tr><td align="center">
+    <table width="500" cellpadding="0" cellspacing="0" style="max-width:500px;width:100%;">
+      <tr><td style="padding-bottom:32px;">
+        <span style="font-size:20px;font-weight:800;letter-spacing:-0.03em;color:#A855F7;">hyperfix</span>
+        <span style="margin-left:8px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:rgba(168,85,247,0.2);color:#A855F7;border:1px solid rgba(168,85,247,0.35);border-radius:4px;padding:2px 7px;">PRO</span>
+      </td></tr>
+      <tr><td style="padding-bottom:20px;">
+        <h1 style="margin:0;font-size:40px;font-weight:700;line-height:1;color:#F4F4F4;letter-spacing:-0.04em;">
+          you&rsquo;re Pro, ${toName}.
+        </h1>
+      </td></tr>
+      <tr><td style="padding-bottom:28px;">
+        <p style="margin:0;font-size:16px;line-height:1.65;color:rgba(244,244,244,0.6);">
+          unlimited fixes, AI eulogies, a Pro badge on your profile, and the full graveyard you deserve. fully unwell, officially.
+        </p>
+      </td></tr>
+      <tr><td style="padding-bottom:16px;">
+        <p style="margin:0;font-size:14px;line-height:1.65;color:rgba(244,244,244,0.4);">what&rsquo;s unlocked:</p>
+        <ul style="margin:8px 0 0;padding-left:20px;font-size:14px;line-height:2;color:rgba(244,244,244,0.5);">
+          <li>✦ unlimited active fixes — no more 3-fix cap</li>
+          <li>✦ AI-written eulogies when a fix ends</li>
+          <li>✦ Pro badge on your public profile</li>
+          <li>✦ priority support</li>
+        </ul>
+      </td></tr>
+      <tr><td style="padding:28px 0 40px;">
+        <a href="https://hyperfix.app/dashboard"
+          style="display:inline-block;background:#A855F7;color:#0A0A0A;font-size:14px;font-weight:700;text-decoration:none;padding:14px 28px;border-radius:12px;">
+          go be unwell &rarr;
+        </a>
+      </td></tr>
+      <tr><td style="border-top:1px solid rgba(244,244,244,0.08);padding-top:20px;">
+        <p style="margin:0;font-size:11px;color:rgba(244,244,244,0.25);letter-spacing:0.04em;text-transform:uppercase;">
+          hyperfix &middot; what are you unwell about?
+        </p>
+        <p style="margin:8px 0 0;font-size:11px;">
+          <a href="https://hyperfix.app/unsubscribe" style="color:rgba(244,244,244,0.25);text-decoration:underline;">unsubscribe</a>
+        </p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>`,
+  }).catch(console.error);
+}
+
 export async function sendStreakReminderEmail({
   toEmail,
   toName,

@@ -246,6 +246,11 @@ export default async function GraveyardPage() {
                   · {totalDays.toLocaleString()} days lived
                 </span>
               )}
+              {graveyardFixes.filter(f => f.eulogy).length > 0 && (
+                <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.2)" }}>
+                  · {graveyardFixes.filter(f => f.eulogy).length} {graveyardFixes.filter(f => f.eulogy).length === 1 ? "eulogy" : "eulogies"} written
+                </span>
+              )}
             </div>
             {total > 0 && <GraveyardExportButton />}
           </div>
