@@ -29,273 +29,244 @@ const GEM = (size: number) => (
   </svg>
 );
 
-const CatTag = ({ label }: { label: string }) => (
-  <div
-    style={{
-      display: "flex",
-      alignItems: "center",
-      background: "rgba(255,255,255,0.06)",
-      border: "1px solid rgba(255,255,255,0.1)",
-      color: "rgba(244,244,244,0.85)",
-      fontSize: 36,
-      fontWeight: 500,
-      borderRadius: 18,
-      padding: "18px 44px",
-      fontFamily: "monospace",
-    }}
-  >
-    {label}
-  </div>
-);
-
-const Watermark = () => (
-  <div
-    style={{
-      position: "absolute",
-      bottom: 80,
-      left: "50%",
-      transform: "translateX(-50%)",
-      display: "flex",
-      alignItems: "center",
-      gap: 14,
-    }}
-  >
-    {GEM(36)}
-    <span style={{ color: "rgba(255,255,255,0.35)", fontSize: 28, fontWeight: 500, fontFamily: "sans-serif" }}>
-      hyperfix.app
-    </span>
-  </div>
-);
-
 const Dots = ({ current, total }: { current: number; total: number }) => (
-  <div
-    style={{
-      position: "absolute",
-      bottom: 160,
-      left: "50%",
-      transform: "translateX(-50%)",
-      display: "flex",
-      gap: 10,
-    }}
-  >
+  <div style={{ display: "flex", gap: 10 }}>
     {Array.from({ length: total }).map((_, i) => (
       <div
         key={i}
         style={{
-          width: i === current ? 36 : 10,
+          width: i === current ? 32 : 10,
           height: 10,
           borderRadius: 999,
-          background: i === current ? "#5EEAD4" : "rgba(255,255,255,0.2)",
+          background: i === current ? "#5EEAD4" : "rgba(255,255,255,0.18)",
         }}
       />
     ))}
   </div>
 );
 
-// Slide 1 — Cover
+// Slide 1 — Cover: gem hero, centered
 function slide1() {
   return (
     <div
       style={{
-        width: W, height: H, display: "flex", flexDirection: "column",
-        alignItems: "center", justifyContent: "center", position: "relative",
-        background: "radial-gradient(ellipse 110% 60% at 50% 100%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 32%, #08231F 52%, #070708 72%)",
-        fontFamily: "sans-serif", color: "#F4F4F4", overflow: "hidden",
+        width: W, height: H,
+        display: "flex", flexDirection: "column",
+        alignItems: "center", justifyContent: "space-between",
+        background: "#070708",
+        fontFamily: "sans-serif", color: "#F4F4F4",
+        padding: "120px 80px 100px",
       }}
     >
-      {/* Top fade */}
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 500, background: "linear-gradient(to bottom, rgba(7,7,8,0.9) 0%, transparent 100%)" }} />
-
-      {/* Top label */}
+      {/* Top pill */}
       <div style={{
-        position: "absolute", top: 120, left: 0, right: 0,
-        display: "flex", justifyContent: "center",
+        display: "flex", alignItems: "center",
+        background: "rgba(94,234,212,0.10)",
+        border: "1px solid rgba(94,234,212,0.25)",
+        color: "#5EEAD4", fontSize: 26, fontWeight: 500,
+        borderRadius: 999, padding: "14px 36px",
+        fontFamily: "monospace", letterSpacing: "0.1em", textTransform: "uppercase",
       }}>
-        <div style={{
-          display: "flex", alignItems: "center",
-          background: "rgba(94,234,212,0.12)", border: "1px solid rgba(94,234,212,0.28)",
-          color: "#5EEAD4", fontSize: 24, fontWeight: 500, borderRadius: 999,
-          padding: "12px 32px", fontFamily: "monospace", letterSpacing: "0.08em",
-          textTransform: "uppercase",
+        track your obsessions
+      </div>
+
+      {/* Gem — full radial treatment */}
+      <div style={{
+        display: "flex", flexDirection: "column", alignItems: "center",
+        gap: 0,
+        background: "radial-gradient(ellipse 90% 70% at 50% 50%, rgba(94,234,212,0.18) 0%, rgba(45,212,191,0.06) 45%, transparent 70%)",
+        borderRadius: 999, padding: 60,
+      }}>
+        {GEM(480)}
+      </div>
+
+      {/* Wordmark + tagline */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+        <span style={{
+          fontSize: 130, fontWeight: 700, letterSpacing: "-0.04em",
+          color: "#FFFFFF", lineHeight: 1,
         }}>
-          track your obsessions
+          hyperfix
+        </span>
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div style={{ width: 40, height: 2, background: "rgba(94,234,212,0.4)", borderRadius: 999 }} />
+          <span style={{
+            fontSize: 24, color: "rgba(255,255,255,0.45)",
+            fontFamily: "monospace", letterSpacing: "0.14em", textTransform: "uppercase",
+          }}>
+            hyperfixation tracker
+          </span>
+          <div style={{ width: 40, height: 2, background: "rgba(94,234,212,0.4)", borderRadius: 999 }} />
         </div>
       </div>
 
-      {/* Center content */}
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0 }}>
-        {GEM(360)}
-        <span style={{ fontSize: 128, fontWeight: 700, letterSpacing: "-0.04em", color: "#FFFFFF", lineHeight: 1, marginTop: 56 }}>
-          hyperfix
-        </span>
-        <span style={{ fontSize: 30, color: "rgba(255,255,255,0.5)", marginTop: 24, letterSpacing: "0.14em", textTransform: "uppercase", fontFamily: "monospace" }}>
-          the app for hyperfixations
-        </span>
-      </div>
-
+      {/* Bottom dots */}
       <Dots current={0} total={5} />
-      <Watermark />
     </div>
   );
 }
 
-// Slide 2 — Hook
+// Slide 2 — Hook: giant question
 function slide2() {
   return (
     <div
       style={{
-        width: W, height: H, display: "flex", flexDirection: "column",
-        justifyContent: "center", position: "relative",
-        background: "#070708", fontFamily: "sans-serif", color: "#F4F4F4",
-        padding: "0 96px",
+        width: W, height: H,
+        display: "flex", flexDirection: "column",
+        justifyContent: "space-between",
+        background: "#070708",
+        fontFamily: "sans-serif", color: "#F4F4F4",
+        padding: "140px 96px 100px",
       }}
     >
-      {/* Subtle glow */}
-      <div style={{
-        position: "absolute", top: "40%", left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: 900, height: 900,
-        background: "radial-gradient(circle, rgba(94,234,212,0.07) 0%, transparent 65%)",
-      }} />
+      {/* Teal accent line */}
+      <div style={{ width: 72, height: 6, background: "#5EEAD4", borderRadius: 999 }} />
 
-      <div style={{ width: 64, height: 6, background: "#5EEAD4", borderRadius: 999, marginBottom: 64 }} />
-
-      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        <span style={{ fontSize: 148, fontWeight: 700, letterSpacing: "-0.045em", color: "#FFFFFF", lineHeight: 0.88 }}>
-          what are
+      {/* Question */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+        <span style={{ fontSize: 168, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.85 }}>
+          what
         </span>
-        <span style={{ fontSize: 148, fontWeight: 700, letterSpacing: "-0.045em", color: "#5EEAD4", lineHeight: 0.88 }}>
-          you obsessed
+        <span style={{ fontSize: 168, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.85 }}>
+          are you
         </span>
-        <span style={{ fontSize: 148, fontWeight: 700, letterSpacing: "-0.045em", color: "#FFFFFF", lineHeight: 0.88 }}>
+        <span style={{ fontSize: 168, fontWeight: 800, letterSpacing: "-0.05em", color: "#5EEAD4", lineHeight: 0.85 }}>
+          obsessed
+        </span>
+        <span style={{ fontSize: 168, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.85 }}>
           with?
         </span>
       </div>
 
-      <span style={{ fontSize: 38, color: "rgba(255,255,255,0.5)", marginTop: 80, lineHeight: 1.6 }}>
-        a song on loop. a show you can&apos;t quit.{"\n"}a fic that has you.{"\n"}
-        <span style={{ color: "#5EEAD4" }}>whatever it is.</span>
-      </span>
-
-      <Dots current={1} total={5} />
-      <Watermark />
+      {/* Supporting + dots */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+        <span style={{ fontSize: 36, color: "rgba(255,255,255,0.45)", lineHeight: 1.55 }}>
+          a song on repeat. a show you binge at 2am.{"\n"}a fic that lives in your head rent-free.
+        </span>
+        <Dots current={1} total={5} />
+      </div>
     </div>
   );
 }
 
-// Slide 3 — Fix card demo
+// Slide 3 — Fix card: big number hero
 function slide3() {
   return (
     <div
       style={{
-        width: W, height: H, display: "flex", flexDirection: "column",
-        justifyContent: "center", position: "relative",
-        background: "#070708", fontFamily: "sans-serif", color: "#F4F4F4",
-        padding: "0 80px",
+        width: W, height: H,
+        display: "flex", flexDirection: "column",
+        justifyContent: "space-between",
+        background: "#070708",
+        fontFamily: "sans-serif", color: "#F4F4F4",
+        padding: "140px 96px 100px",
       }}
     >
-      {/* Glow */}
-      <div style={{
-        position: "absolute", top: 960, left: 540,
-        width: 900, height: 900, marginLeft: -450, marginTop: -450,
-        background: "radial-gradient(circle, rgba(94,234,212,0.08) 0%, transparent 65%)",
-      }} />
-
-      {/* Headline */}
-      <div style={{ width: 64, height: 6, background: "#5EEAD4", borderRadius: 999, marginBottom: 36 }} />
-      <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 56 }}>
-        <span style={{ fontSize: 76, fontWeight: 700, letterSpacing: "-0.035em", color: "#FFFFFF", lineHeight: 1 }}>
-          log it.
-        </span>
-        <span style={{ fontSize: 76, fontWeight: 700, letterSpacing: "-0.035em", color: "#5EEAD4", lineHeight: 1 }}>
-          watch the days
-        </span>
-        <span style={{ fontSize: 76, fontWeight: 700, letterSpacing: "-0.035em", color: "#FFFFFF", lineHeight: 1 }}>
-          pile up.
+      {/* Category + title */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+        <div style={{
+          display: "flex", alignItems: "center",
+          background: "rgba(94,234,212,0.10)",
+          border: "1px solid rgba(94,234,212,0.25)",
+          color: "#5EEAD4", fontSize: 24, borderRadius: 999,
+          padding: "12px 32px", fontFamily: "monospace",
+          letterSpacing: "0.1em", textTransform: "uppercase",
+          alignSelf: "flex-start",
+        }}>
+          song
+        </div>
+        <span style={{ fontSize: 72, fontWeight: 700, letterSpacing: "-0.03em", color: "#FFFFFF", lineHeight: 1.05 }}>
+          Brat{"\n"}Charli XCX
         </span>
       </div>
 
-      {/* Fix card */}
-      <div
-        style={{
-          width: "100%",
-          background: "#0F1011",
-          border: "1px solid rgba(255,255,255,0.09)",
-          borderRadius: 40, padding: "56px 64px",
-          display: "flex", flexDirection: "column", gap: 0,
-        }}
-      >
-        <div style={{ display: "flex", marginBottom: 28 }}>
-          <div style={{
-            background: "rgba(94,234,212,0.10)", border: "1px solid rgba(94,234,212,0.25)",
-            color: "#5EEAD4", fontSize: 22, borderRadius: 999, padding: "10px 26px",
-            fontFamily: "monospace", letterSpacing: "0.08em", textTransform: "uppercase",
-            display: "flex", alignItems: "center",
-          }}>
-            song
-          </div>
-        </div>
-
-        <span style={{ fontSize: 52, fontWeight: 600, color: "#FFFFFF", letterSpacing: "-0.025em", lineHeight: 1.1 }}>
-          Brat · Charli XCX
+      {/* Big day counter */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+        <span style={{ fontSize: 260, fontWeight: 800, letterSpacing: "-0.06em", color: "#5EEAD4", lineHeight: 0.85 }}>
+          47
         </span>
+        <span style={{ fontSize: 72, fontWeight: 700, letterSpacing: "-0.02em", color: "rgba(255,255,255,0.5)", lineHeight: 1 }}>
+          days obsessed
+        </span>
+      </div>
 
-        <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginTop: 32 }}>
-          <span style={{ fontSize: 120, fontWeight: 700, color: "#5EEAD4", letterSpacing: "-0.05em", lineHeight: 1 }}>
-            47
+      {/* Intensity + dots */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <span style={{ fontSize: 22, color: "rgba(255,255,255,0.35)", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+            intensity
           </span>
-          <span style={{ fontSize: 36, color: "rgba(255,255,255,0.45)" }}>days</span>
-        </div>
-
-        <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 20 }}>
-          <span style={{ fontSize: 20, color: "rgba(255,255,255,0.4)", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-            Intensity
-          </span>
-          <div style={{ display: "flex", gap: 5 }}>
+          <div style={{ display: "flex", gap: 8 }}>
             {Array.from({ length: 10 }).map((_, i) => (
-              <div key={i} style={{ width: 26, height: 10, borderRadius: 4, background: i < 9 ? "#E63946" : "rgba(255,255,255,0.12)" }} />
+              <div key={i} style={{ width: 80, height: 12, borderRadius: 6, background: i < 9 ? "#E63946" : "rgba(255,255,255,0.10)" }} />
             ))}
           </div>
-          <span style={{ fontSize: 24, color: "#E63946", fontWeight: 700 }}>9/10</span>
+          <span style={{ fontSize: 36, fontWeight: 700, color: "#E63946" }}>9 / 10</span>
         </div>
+        <Dots current={2} total={5} />
       </div>
-
-      <Dots current={2} total={5} />
-      <Watermark />
     </div>
   );
 }
 
 // Slide 4 — Categories
 function slide4() {
-  const cats = ["song", "fanfic", "show", "film", "ship", "game", "book", "other"];
+  const cats = [
+    { label: "song", color: "rgba(94,234,212,0.12)", border: "rgba(94,234,212,0.28)", text: "#5EEAD4" },
+    { label: "show", color: "rgba(167,139,250,0.12)", border: "rgba(167,139,250,0.28)", text: "#A78BFA" },
+    { label: "film", color: "rgba(251,191,36,0.10)", border: "rgba(251,191,36,0.25)", text: "#FBB724" },
+    { label: "game", color: "rgba(52,211,153,0.12)", border: "rgba(52,211,153,0.28)", text: "#34D399" },
+    { label: "book", color: "rgba(251,113,133,0.10)", border: "rgba(251,113,133,0.25)", text: "#FB7185" },
+    { label: "fanfic", color: "rgba(249,168,212,0.10)", border: "rgba(249,168,212,0.25)", text: "#F9A8D4" },
+    { label: "ship", color: "rgba(253,186,116,0.10)", border: "rgba(253,186,116,0.25)", text: "#FDBA74" },
+    { label: "other", color: "rgba(255,255,255,0.06)", border: "rgba(255,255,255,0.12)", text: "rgba(255,255,255,0.6)" },
+  ];
   return (
     <div
       style={{
-        width: W, height: H, display: "flex", flexDirection: "column",
-        justifyContent: "center", position: "relative",
-        background: "#070708", fontFamily: "sans-serif", color: "#F4F4F4",
-        padding: "0 88px",
+        width: W, height: H,
+        display: "flex", flexDirection: "column",
+        justifyContent: "space-between",
+        background: "#070708",
+        fontFamily: "sans-serif", color: "#F4F4F4",
+        padding: "140px 96px 100px",
       }}
     >
-      <span style={{ fontSize: 24, color: "rgba(255,255,255,0.35)", fontFamily: "monospace", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 32 }}>
-        name it.
-      </span>
-      <span style={{ fontSize: 100, fontWeight: 700, letterSpacing: "-0.04em", color: "#FFFFFF", lineHeight: 0.9, marginBottom: 72 }}>
-        whatever{"\n"}you&apos;re into.{"\n"}
-        <span style={{ color: "#5EEAD4" }}>we track it.</span>
-      </span>
-
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 18, marginBottom: 64 }}>
-        {cats.map((c) => <CatTag key={c} label={c} />)}
+      {/* Headline */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <span style={{ fontSize: 28, color: "rgba(255,255,255,0.35)", fontFamily: "monospace", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+          name it.
+        </span>
+        <span style={{ fontSize: 108, fontWeight: 800, letterSpacing: "-0.04em", color: "#FFFFFF", lineHeight: 0.88 }}>
+          whatever{"\n"}you&apos;re into.
+        </span>
       </div>
 
-      <span style={{ fontSize: 30, color: "rgba(255,255,255,0.35)", lineHeight: 1.7 }}>
-        pick a category. set the intensity.{"\n"}start the counter.
-      </span>
+      {/* Tags */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
+        {cats.map((c) => (
+          <div
+            key={c.label}
+            style={{
+              display: "flex", alignItems: "center",
+              background: c.color, border: `1px solid ${c.border}`,
+              color: c.text, fontSize: 36, fontWeight: 600,
+              borderRadius: 20, padding: "20px 44px",
+              fontFamily: "monospace",
+            }}
+          >
+            {c.label}
+          </div>
+        ))}
+      </div>
 
-      <Dots current={3} total={5} />
-      <Watermark />
+      {/* Bottom */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+        <span style={{ fontSize: 32, color: "rgba(255,255,255,0.35)" }}>
+          pick a category. set intensity. start the clock.
+        </span>
+        <Dots current={3} total={5} />
+      </div>
     </div>
   );
 }
@@ -305,36 +276,45 @@ function slide5() {
   return (
     <div
       style={{
-        width: W, height: H, display: "flex", flexDirection: "column",
-        alignItems: "center", justifyContent: "center", position: "relative",
-        background: "radial-gradient(ellipse 100% 55% at 50% 100%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 32%, #08231F 52%, #070708 72%)",
-        fontFamily: "sans-serif", color: "#F4F4F4", overflow: "hidden",
+        width: W, height: H,
+        display: "flex", flexDirection: "column",
+        alignItems: "center", justifyContent: "space-between",
+        background: "#070708",
+        fontFamily: "sans-serif", color: "#F4F4F4",
+        padding: "120px 96px 100px",
       }}
     >
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 560, background: "linear-gradient(to bottom, rgba(7,7,8,0.92) 0%, transparent 100%)" }} />
-
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "0 96px" }}>
-        {GEM(240)}
-
-        <span style={{ fontSize: 120, fontWeight: 700, letterSpacing: "-0.04em", color: "#FFFFFF", lineHeight: 0.9, marginTop: 64, textAlign: "center" }}>
-          mourn it
-        </span>
-        <span style={{ fontSize: 120, fontWeight: 700, letterSpacing: "-0.04em", color: "#5EEAD4", lineHeight: 0.9, textAlign: "center" }}>
-          when it ends.
-        </span>
-
-        <span style={{ fontSize: 34, color: "rgba(255,255,255,0.5)", marginTop: 60, textAlign: "center", lineHeight: 1.5 }}>
-          start your first fix at
-        </span>
-        <span style={{ fontSize: 56, fontWeight: 700, color: "#5EEAD4", marginTop: 16 }}>
-          hyperfix.app
-        </span>
-        <span style={{ fontSize: 24, color: "rgba(255,255,255,0.3)", marginTop: 24, fontFamily: "monospace", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-          free forever · no credit card
-        </span>
+      {/* Top gem + teal glow panel */}
+      <div style={{
+        display: "flex", alignItems: "center", justifyContent: "center",
+        background: "radial-gradient(ellipse 100% 100% at 50% 50%, rgba(94,234,212,0.16) 0%, rgba(45,212,191,0.05) 50%, transparent 75%)",
+        borderRadius: 999, padding: 40,
+      }}>
+        {GEM(320)}
       </div>
 
-      <Dots current={4} total={5} />
+      {/* Main copy */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0 }}>
+        <span style={{ fontSize: 130, fontWeight: 800, letterSpacing: "-0.045em", color: "#FFFFFF", lineHeight: 0.88, textAlign: "center" }}>
+          mourn it
+        </span>
+        <span style={{ fontSize: 130, fontWeight: 800, letterSpacing: "-0.045em", color: "#5EEAD4", lineHeight: 0.88, textAlign: "center" }}>
+          when it ends.
+        </span>
+        <div style={{ width: 80, height: 3, background: "rgba(94,234,212,0.35)", borderRadius: 999, marginTop: 48 }} />
+      </div>
+
+      {/* URL + badge + dots */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 32 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+          <span style={{ fontSize: 30, color: "rgba(255,255,255,0.4)" }}>start for free at</span>
+          <span style={{ fontSize: 58, fontWeight: 700, color: "#5EEAD4", letterSpacing: "-0.02em" }}>hyperfix.app</span>
+          <span style={{ fontSize: 22, color: "rgba(255,255,255,0.25)", fontFamily: "monospace", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 4 }}>
+            free forever · no credit card
+          </span>
+        </div>
+        <Dots current={4} total={5} />
+      </div>
     </div>
   );
 }
