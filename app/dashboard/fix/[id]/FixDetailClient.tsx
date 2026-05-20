@@ -8,6 +8,7 @@ import { updateFixTags } from "@/app/actions/tags";
 import { AddToListButton } from "@/components/AddToListButton";
 import { useToast } from "@/components/Toast";
 import { TagsInput } from "@/components/TagsInput";
+import { Mascot, type MascotExpression } from "@/components/Mascot";
 
 function getMilestone(days: number): { icon: string; heading: string; sub: string } | null {
   if (days === 365) return { icon: "🏆", heading: "One whole year.", sub: "You have been unwell for 365 days. Legendary." };
@@ -237,6 +238,12 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
     checkInIntensity >= 7 ? "#FB923C" :
     "#A855F7";
 
+  const checkInMascotExpression: MascotExpression =
+    checkInIntensity >= 9 ? "send-help" :
+    checkInIntensity >= 7 ? "anxious" :
+    checkInIntensity >= 5 ? "obsessed" :
+    "calm";
+
   return (
     <div className="flex flex-col gap-4">
 
@@ -296,9 +303,17 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 animation: "detailsReveal 0.25s cubic-bezier(0.2,0.6,0.2,1) both",
               }}
             >
-              <h3 className="font-display font-bold text-base" style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}>
-                How&apos;s this fix today?
-              </h3>
+              <div className="flex items-center gap-4">
+                <h3 className="font-display font-bold text-base flex-1" style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}>
+                  How&apos;s this fix today?
+                </h3>
+                {/* Mascot reacts to check-in intensity */}
+                <Mascot
+                  expression={checkInMascotExpression}
+                  size={100}
+                  color={checkInColor}
+                />
+              </div>
 
               {/* Intensity slider */}
               <div>

@@ -84,9 +84,16 @@ function FixGridCard({
     onCheckIn(fixId);
   }
 
+  // Mini mascot expression based on intensity
+  const miniMascotExpression: MascotExpression =
+    fix.intensity >= 9 ? "send-help" :
+    fix.intensity >= 7 ? "anxious" :
+    fix.intensity >= 5 ? "obsessed" :
+    "calm";
+
   return (
     <div
-      className="rounded-2xl p-4 flex flex-col"
+      className="rounded-2xl p-4 flex flex-col relative"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -98,6 +105,10 @@ function FixGridCard({
         transition: "all 0.25s ease",
       }}
     >
+      {/* Mini mascot badge — top-right corner */}
+      <div style={{ position: "absolute", top: -10, right: -10, zIndex: 10 }}>
+        <Mascot expression={miniMascotExpression} size={28} color={color} />
+      </div>
       <Link href={`/dashboard/fix/${fix.id}`} className="flex-1 block group">
         {/* Title + milestone badge */}
         <div className="flex items-start justify-between gap-2 mb-2">
