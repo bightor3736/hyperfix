@@ -6,6 +6,7 @@ import { SkeletonGrid } from "@/components/FixCardSkeleton";
 import { OnboardingModal } from "@/components/OnboardingModal";
 import { StreakHeatmap } from "@/components/StreakHeatmap";
 import { WeekRings } from "@/components/WeekRings";
+import { ReferralCard } from "@/components/ReferralCard";
 import { Plus } from "@/components/icons";
 
 type Fix = {
@@ -98,6 +99,18 @@ export default async function DashboardPage() {
     if (profile) {
       displayName = profile.display_name || profile.username || displayName;
     }
+  }
+
+  let referralCode: string | null = null;
+  let referralCount = 0;
+  if (user) {
+    const { data: referralData } = await supabase
+      .from("profiles")
+      .select("referral_code, referral_count")
+      .eq("id", user.id)
+      .single();
+    referralCode = referralData?.referral_code ?? null;
+    referralCount = referralData?.referral_count ?? 0;
   }
 
   let fixes: Fix[] = [];
@@ -389,6 +402,12 @@ export default async function DashboardPage() {
           </div>
         ) : (
           <EmptyState />
+        )}
+
+        {referralCode && (
+          <div className="mt-6">
+            <ReferralCard referralCode={referralCode} referralCount={referralCount} />
+          </div>
         )}
       </div>
 
