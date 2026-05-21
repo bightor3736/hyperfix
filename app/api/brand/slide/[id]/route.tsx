@@ -1,3 +1,4 @@
+import React from "react";
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
 
@@ -278,7 +279,7 @@ function slide5() {
   );
 }
 
-const slides: Record<string, () => JSX.Element> = {
+const slides: Record<string, () => React.ReactElement> = {
   "1": slide1, "2": slide2, "3": slide3, "4": slide4, "5": slide5,
 };
 
