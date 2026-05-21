@@ -273,7 +273,6 @@ export function SignupFormInner() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
-  const supabase = createClient();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -286,42 +285,34 @@ export function SignupFormInner() {
     }
 
     startTransition(async () => {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: { full_name: name },
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
-        },
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, name }),
       });
+      const data = await res.json().catch(() => ({}));
 
-      if (error) {
-        setError(error.message);
-      } else {
-        // Fire-and-forget welcome email
-        fetch("/api/auth/welcome", {
+      if (!res.ok) {
+        setError(data.error || "Something went wrong. Please try again.");
+        return;
+      }
+
+      // Fire-and-forget referral attribution
+      const refCode = typeof localStorage !== "undefined"
+        ? localStorage.getItem("hyperfix_ref")
+        : null;
+      if (refCode) {
+        fetch("/api/referral", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, name }),
-        }).catch(() => {});
-
-        // Fire-and-forget referral attribution
-        const refCode = typeof localStorage !== "undefined"
-          ? localStorage.getItem("hyperfix_ref")
-          : null;
-        if (refCode) {
-          fetch("/api/referral", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ code: refCode }),
-          })
-            .then(() => localStorage.removeItem("hyperfix_ref"))
-            .catch(() => {});
-        }
-
-        setSuccess("Check your email to confirm your account, then log in.");
-        router.push("/auth/verify");
+          body: JSON.stringify({ code: refCode }),
+        })
+          .then(() => localStorage.removeItem("hyperfix_ref"))
+          .catch(() => {});
       }
+
+      setSuccess("Check your email to confirm your account, then log in.");
+      router.push("/auth/verify");
     });
   }
 
