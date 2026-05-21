@@ -41,7 +41,7 @@ const Dots = ({ current, total }: { current: number; total: number }) => (
   </div>
 );
 
-// Slide 1 — "nobody talks about the grief"
+// Slide 1 — the hook
 function slide1() {
   return (
     <div style={{
@@ -49,73 +49,91 @@ function slide1() {
       justifyContent: "space-between", background: "#070708",
       fontFamily: "sans-serif", color: "#F4F4F4", padding: "140px 96px 100px",
     }}>
-      <div style={{
-        display: "flex", alignItems: "center",
-        background: "rgba(94,234,212,0.08)", border: "1px solid rgba(94,234,212,0.2)",
-        color: "#5EEAD4", fontSize: 26, fontWeight: 500, borderRadius: 999,
-        padding: "12px 32px", fontFamily: "monospace", letterSpacing: "0.06em",
-        textTransform: "uppercase", alignSelf: "flex-start",
-      }}>
-        hyperfix
-      </div>
-
-      <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-        <span style={{ fontSize: 148, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.85 }}>
-          nobody
+      {/* normal people */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+        <span style={{ fontSize: 38, color: "rgba(255,255,255,0.28)", fontFamily: "monospace", letterSpacing: "0.04em" }}>
+          normal people:
         </span>
-        <span style={{ fontSize: 148, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.85 }}>
-          talks about
-        </span>
-        <span style={{ fontSize: 148, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.85 }}>
-          the grief
-        </span>
-        <span style={{ fontSize: 148, fontWeight: 800, letterSpacing: "-0.05em", color: "#5EEAD4", lineHeight: 0.85 }}>
-          when it ends.
+        <span style={{ fontSize: 88, fontWeight: 800, letterSpacing: "-0.04em", color: "rgba(255,255,255,0.22)", lineHeight: 0.9 }}>
+          &ldquo;i like this.&rdquo;
         </span>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
-        <span style={{ fontSize: 34, color: "rgba(255,255,255,0.35)", lineHeight: 1.5 }}>
-          we built an app for people who get it.
+      {/* divider */}
+      <div style={{ width: "100%", height: 1, background: "rgba(255,255,255,0.07)" }} />
+
+      {/* me */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <span style={{ fontSize: 38, color: "#5EEAD4", fontFamily: "monospace", letterSpacing: "0.04em" }}>
+          me:
         </span>
-        <Dots current={0} total={5} />
+        <span style={{ fontSize: 96, fontWeight: 800, letterSpacing: "-0.045em", color: "#FFFFFF", lineHeight: 0.88 }}>
+          i have consumed
+        </span>
+        <span style={{ fontSize: 96, fontWeight: 800, letterSpacing: "-0.045em", color: "#FFFFFF", lineHeight: 0.88 }}>
+          every piece
+        </span>
+        <span style={{ fontSize: 96, fontWeight: 800, letterSpacing: "-0.045em", color: "#FFFFFF", lineHeight: 0.88 }}>
+          of media
+        </span>
+        <span style={{ fontSize: 96, fontWeight: 800, letterSpacing: "-0.045em", color: "#FFFFFF", lineHeight: 0.88 }}>
+          related to this
+        </span>
+        <span style={{ fontSize: 96, fontWeight: 800, letterSpacing: "-0.045em", color: "#FFFFFF", lineHeight: 0.88 }}>
+          and i&apos;m already
+        </span>
+        <span style={{ fontSize: 96, fontWeight: 800, letterSpacing: "-0.045em", color: "#5EEAD4", lineHeight: 0.88 }}>
+          grieving it.
+        </span>
       </div>
+
+      <Dots current={0} total={5} />
     </div>
   );
 }
 
-// Slide 2 — "log it while you still care"
+// Slide 2 — the spiral: day by day
 function slide2() {
+  const days = [
+    { day: "day 1", text: "this is interesting.", dim: true },
+    { day: "day 3", text: "i know everything about this.", dim: true },
+    { day: "day 7", text: "my entire personality now.", dim: false },
+    { day: "day 14", text: "i can't explain why i'm crying.", dim: false },
+  ];
   return (
     <div style={{
       width: W, height: H, display: "flex", flexDirection: "column",
       justifyContent: "space-between", background: "#070708",
       fontFamily: "sans-serif", color: "#F4F4F4", padding: "140px 96px 100px",
     }}>
-      <div style={{ width: 72, height: 6, background: "#5EEAD4", borderRadius: 999 }} />
-
-      <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-        <span style={{ fontSize: 148, fontWeight: 800, letterSpacing: "-0.05em", color: "#5EEAD4", lineHeight: 0.85 }}>
-          log it
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <span style={{ fontSize: 28, color: "#5EEAD4", fontFamily: "monospace", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+          how it always goes
         </span>
-        <span style={{ fontSize: 148, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.85 }}>
-          while you
-        </span>
-        <span style={{ fontSize: 148, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.85 }}>
-          still care
-        </span>
-        <span style={{ fontSize: 148, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.85 }}>
-          about it.
-        </span>
-        <div style={{ marginTop: 48, width: "100%", height: 2, background: "rgba(255,255,255,0.07)", borderRadius: 999 }} />
-        <span style={{ fontSize: 60, fontWeight: 700, letterSpacing: "-0.03em", color: "rgba(255,255,255,0.28)", lineHeight: 1.1, marginTop: 36 }}>
-          you will miss this.
+        <span style={{ fontSize: 104, fontWeight: 800, letterSpacing: "-0.04em", color: "#FFFFFF", lineHeight: 0.9 }}>
+          the spiral.
         </span>
       </div>
 
+      <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+        {days.map((d, i) => (
+          <div key={i} style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <span style={{ fontSize: 24, color: "#5EEAD4", fontFamily: "monospace", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+              {d.day}
+            </span>
+            <span style={{
+              fontSize: 52, fontWeight: 700, letterSpacing: "-0.025em", lineHeight: 1.1,
+              color: d.dim ? "rgba(255,255,255,0.35)" : "#FFFFFF",
+            }}>
+              {d.text}
+            </span>
+          </div>
+        ))}
+      </div>
+
       <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
-        <span style={{ fontSize: 34, color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>
-          every obsession deserves a record.{"\n"}every ending deserves to be mourned.
+        <span style={{ fontSize: 34, color: "rgba(255,255,255,0.35)", lineHeight: 1.5 }}>
+          hyperfix documents every stage.
         </span>
         <Dots current={1} total={5} />
       </div>
@@ -123,7 +141,7 @@ function slide2() {
   );
 }
 
-// Slide 3 — All Too Well · Taylor Swift (peak grief song)
+// Slide 3 — Liability · Lorde
 function slide3() {
   return (
     <div style={{
@@ -141,20 +159,20 @@ function slide3() {
         }}>
           song
         </div>
-        <span style={{ fontSize: 88, fontWeight: 700, letterSpacing: "-0.035em", color: "#FFFFFF", lineHeight: 0.95 }}>
-          All Too Well{"\n"}(10 Min Ver.)
+        <span style={{ fontSize: 104, fontWeight: 700, letterSpacing: "-0.035em", color: "#FFFFFF", lineHeight: 0.95 }}>
+          Liability
         </span>
-        <span style={{ fontSize: 44, fontWeight: 500, color: "rgba(255,255,255,0.4)", letterSpacing: "-0.01em" }}>
-          Taylor Swift
+        <span style={{ fontSize: 48, fontWeight: 500, color: "rgba(255,255,255,0.4)", letterSpacing: "-0.01em" }}>
+          Lorde
         </span>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         <span style={{ fontSize: 200, fontWeight: 800, letterSpacing: "-0.06em", color: "#5EEAD4", lineHeight: 0.85 }}>
-          89
+          52
         </span>
         <span style={{ fontSize: 56, fontWeight: 600, letterSpacing: "-0.02em", color: "rgba(255,255,255,0.4)", lineHeight: 1 }}>
-          days. still not over it.
+          days. still in it.
         </span>
       </div>
 
@@ -162,12 +180,12 @@ function slide3() {
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
           <div style={{ display: "flex", gap: 8 }}>
             {Array.from({ length: 10 }).map((_, i) => (
-              <div key={i} style={{ flex: 1, height: 12, borderRadius: 6, background: i < 10 ? "#E63946" : "rgba(255,255,255,0.10)" }} />
+              <div key={i} style={{ flex: 1, height: 12, borderRadius: 6, background: i < 9 ? "#E63946" : "rgba(255,255,255,0.10)" }} />
             ))}
           </div>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <span style={{ fontSize: 22, color: "rgba(255,255,255,0.3)", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.1em" }}>intensity</span>
-            <span style={{ fontSize: 30, fontWeight: 700, color: "#E63946" }}>10 / 10</span>
+            <span style={{ fontSize: 30, fontWeight: 700, color: "#E63946" }}>9 / 10</span>
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -179,45 +197,40 @@ function slide3() {
   );
 }
 
-// Slide 4 — stages of a hyperfixation
+// Slide 4 — "you will miss this"
 function slide4() {
-  const stages = [
-    { n: "01", label: "discovery", desc: "you find the thing" },
-    { n: "02", label: "consumption", desc: "the thing is your whole life now" },
-    { n: "03", label: "evangelism", desc: "everyone must know about the thing" },
-    { n: "04", label: "grief", desc: "it slowly stops being the thing" },
-    { n: "05", label: "legacy", desc: "the thing made you who you are" },
-  ];
   return (
     <div style={{
       width: W, height: H, display: "flex", flexDirection: "column",
       justifyContent: "space-between", background: "#070708",
       fontFamily: "sans-serif", color: "#F4F4F4", padding: "140px 96px 100px",
     }}>
-      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        <span style={{ fontSize: 28, color: "#5EEAD4", fontFamily: "monospace", letterSpacing: "0.06em", textTransform: "uppercase" }}>
-          the 5 stages of a hyperfixation
-        </span>
-        <span style={{ fontSize: 96, fontWeight: 800, letterSpacing: "-0.04em", color: "#FFFFFF", lineHeight: 0.9 }}>
-          which one{"\n"}are you in?
-        </span>
-      </div>
+      <div style={{ width: 72, height: 6, background: "#5EEAD4", borderRadius: 999 }} />
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-        {stages.map((s) => (
-          <div key={s.n} style={{ display: "flex", alignItems: "center", gap: 28 }}>
-            <span style={{ fontSize: 22, color: "#5EEAD4", fontFamily: "monospace", fontWeight: 700, flexShrink: 0 }}>{s.n}</span>
-            <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.06)" }} />
-            <span style={{ fontSize: 34, fontWeight: 700, color: "#FFFFFF", letterSpacing: "-0.02em", flexShrink: 0 }}>{s.label}</span>
-            <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.06)" }} />
-            <span style={{ fontSize: 26, color: "rgba(255,255,255,0.35)", flexShrink: 0 }}>{s.desc}</span>
-          </div>
-        ))}
+      <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+        <span style={{ fontSize: 136, fontWeight: 800, letterSpacing: "-0.05em", color: "rgba(255,255,255,0.22)", lineHeight: 0.87 }}>
+          one day
+        </span>
+        <span style={{ fontSize: 136, fontWeight: 800, letterSpacing: "-0.05em", color: "rgba(255,255,255,0.22)", lineHeight: 0.87 }}>
+          you&apos;ll open
+        </span>
+        <span style={{ fontSize: 136, fontWeight: 800, letterSpacing: "-0.05em", color: "rgba(255,255,255,0.22)", lineHeight: 0.87 }}>
+          this app
+        </span>
+        <span style={{ fontSize: 136, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.87 }}>
+          and see
+        </span>
+        <span style={{ fontSize: 136, fontWeight: 800, letterSpacing: "-0.05em", color: "#FFFFFF", lineHeight: 0.87 }}>
+          who you
+        </span>
+        <span style={{ fontSize: 136, fontWeight: 800, letterSpacing: "-0.05em", color: "#5EEAD4", lineHeight: 0.87 }}>
+          used to be.
+        </span>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
-        <span style={{ fontSize: 32, color: "rgba(255,255,255,0.35)", lineHeight: 1.5 }}>
-          hyperfix tracks every stage.
+        <span style={{ fontSize: 36, color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>
+          every hyperfixation shaped you.{"\n"}hyperfix keeps the record.
         </span>
         <Dots current={3} total={5} />
       </div>
@@ -225,7 +238,7 @@ function slide4() {
   );
 }
 
-// Slide 5 — CTA: mourn it properly
+// Slide 5 — CTA
 function slide5() {
   return (
     <div style={{
