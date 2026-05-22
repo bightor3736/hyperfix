@@ -50,6 +50,12 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
 
+  // Password change
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [passwordSuccess, setPasswordSuccess] = useState(false);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const usernameTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -174,6 +180,34 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
       } catch (err) {
         setSaveError(err instanceof Error ? err.message : "Failed to save.");
       }
+    });
+  }
+
+  // Change password
+  function handleChangePassword() {
+    setPasswordError(null);
+    setPasswordSuccess(false);
+
+    if (newPassword.length < 8) {
+      setPasswordError("Password must be at least 8 characters.");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setPasswordError("Passwords don't match.");
+      return;
+    }
+
+    startTransition(async () => {
+      const supabase = createClient();
+      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      if (error) {
+        setPasswordError(error.message);
+        return;
+      }
+      setNewPassword("");
+      setConfirmPassword("");
+      setPasswordSuccess(true);
+      setTimeout(() => setPasswordSuccess(false), 3000);
     });
   }
 
@@ -428,6 +462,58 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               {userEmail}
             </div>
           </FieldGroup>
+
+          {/* Change password */}
+          <div className="flex flex-col gap-3 p-4 rounded-2xl" style={cardStyle}>
+            <p className="font-sans text-sm font-medium" style={{ color: "#F4F4F4" }}>
+              Change password
+            </p>
+            <FieldGroup label="New password">
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Min. 8 characters"
+                autoComplete="new-password"
+                className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40"
+                style={inputStyle}
+              />
+            </FieldGroup>
+            <FieldGroup label="Confirm new password">
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Repeat new password"
+                autoComplete="new-password"
+                className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40"
+                style={inputStyle}
+              />
+            </FieldGroup>
+            {passwordError && (
+              <p className="font-sans text-[12px]" style={{ color: "#fda4af" }}>
+                {passwordError}
+              </p>
+            )}
+            {passwordSuccess && (
+              <p className="font-sans text-[12px]" style={{ color: "#5EEAD4" }}>
+                ✓ Password updated
+              </p>
+            )}
+            <button
+              type="button"
+              onClick={handleChangePassword}
+              disabled={pending || !newPassword || !confirmPassword}
+              className="self-start px-5 py-2.5 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80 disabled:opacity-40"
+              style={{
+                background: "rgba(244,244,244,0.07)",
+                border: "1px solid rgba(244,244,244,0.12)",
+                color: "rgba(244,244,244,0.7)",
+              }}
+            >
+              {pending ? "Updating…" : "Update password"}
+            </button>
+          </div>
 
           {/* Sign out */}
           <button

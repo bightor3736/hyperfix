@@ -91,6 +91,8 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
   const [input, setInput] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [hoveredDelete, setHoveredDelete] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(10);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -99,6 +101,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
     const content = input.trim();
     setSubmitting(true);
     setInput("");
+    setActionError(null);
 
     // Optimistic add
     const tempId = `temp-${Date.now()}`;
@@ -117,6 +120,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
       // Revert on error
       setComments((prev) => prev.filter((c) => c.id !== tempId));
       setInput(content);
+      setActionError(result.error || "Couldn't post comment. Try again.");
     } else {
       // Replace optimistic with real data
       setComments((prev) =>
@@ -128,13 +132,23 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
   }
 
   async function handleDelete(commentId: string) {
+    setActionError(null);
+    const index = comments.findIndex((c) => c.id === commentId);
+    const removed = comments[index];
+    if (!removed) return;
+
     // Optimistic remove
     setComments((prev) => prev.filter((c) => c.id !== commentId));
 
     const result = await deleteComment(commentId);
     if (result && "error" in result) {
-      // Revert — re-fetch isn't easy here, but at least surface isn't broken
-      // The page will revalidate on next load
+      // Restore at original position
+      setComments((prev) => {
+        const next = [...prev];
+        next.splice(Math.min(index, next.length), 0, removed);
+        return next;
+      });
+      setActionError(result.error || "Couldn't delete comment. Try again.");
     }
   }
 
@@ -150,7 +164,17 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
         </p>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 20 }}>
-          {comments.map((comment) => {
+          {comments.length > visibleCount && (
+            <button
+              onClick={() => setVisibleCount((c) => c + 20)}
+              className="font-mono text-[11px] uppercase tracking-widest self-start transition-opacity hover:opacity-80"
+              style={{ color: "#5EEAD4", background: "none", border: "none", cursor: "pointer", padding: 0 }}
+            >
+              Show {comments.length - visibleCount} earlier{" "}
+              {comments.length - visibleCount === 1 ? "comment" : "comments"}
+            </button>
+          )}
+          {comments.slice(-visibleCount).map((comment) => {
             const username = comment.profiles?.username ?? null;
             const avatarUrl = comment.profiles?.avatar_url ?? null;
             const isOwn = currentUserId && comment.user_id === currentUserId;
@@ -215,6 +239,16 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
             );
           })}
         </div>
+      )}
+
+      {actionError && (
+        <p
+          className="font-sans text-xs mb-3"
+          style={{ color: "#fda4af" }}
+          role="alert"
+        >
+          {actionError}
+        </p>
       )}
 
       {/* Input area */}

@@ -28,6 +28,7 @@ export function NotificationBell() {
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loaded, setLoaded] = useState(false);
+  const [loadError, setLoadError] = useState(false);
   const [, startTransition] = useTransition();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -36,12 +37,16 @@ export function NotificationBell() {
   async function loadNotifications() {
     try {
       const res = await fetch("/api/notifications");
-      if (!res.ok) return;
+      if (!res.ok) {
+        setLoadError(true);
+        return;
+      }
       const data = (await res.json()) as { notifications: Notification[] };
       setNotifications(data.notifications);
+      setLoadError(false);
       setLoaded(true);
     } catch {
-      // ignore
+      setLoadError(true);
     }
   }
 
@@ -165,7 +170,20 @@ export function NotificationBell() {
 
           {/* List */}
           <div className="max-h-80 overflow-y-auto">
-            {!loaded ? (
+            {!loaded && loadError ? (
+              <div className="px-4 py-6 text-center">
+                <p className="font-sans text-sm mb-2" style={{ color: "rgba(244,244,244,0.4)" }}>
+                  Couldn&apos;t load notifications.
+                </p>
+                <button
+                  onClick={loadNotifications}
+                  className="font-mono text-[10px] uppercase tracking-widest transition-opacity hover:opacity-80"
+                  style={{ color: "#5EEAD4" }}
+                >
+                  Retry
+                </button>
+              </div>
+            ) : !loaded ? (
               <div className="px-4 py-6 text-center">
                 <span className="font-mono text-xs" style={{ color: "rgba(244,244,244,0.3)" }}>
                   Loading…
