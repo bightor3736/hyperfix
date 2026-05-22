@@ -84,6 +84,55 @@ export async function addComment(
   };
 }
 
+export async function updateComment(
+  commentId: string,
+  content: string
+): Promise<{ ok: true } | { error: string }> {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { error: "Not authenticated" };
+  }
+
+  const trimmed = content.trim();
+  if (trimmed.length < 1 || trimmed.length > 500) {
+    return { error: "Comment must be between 1 and 500 characters" };
+  }
+
+  const { data: comment, error: fetchError } = await supabase
+    .from("fix_comments")
+    .select("id, fix_id, user_id")
+    .eq("id", commentId)
+    .single();
+
+  if (fetchError || !comment) {
+    return { error: "Comment not found" };
+  }
+
+  const typedComment = comment as { id: string; fix_id: string; user_id: string };
+
+  if (typedComment.user_id !== user.id) {
+    return { error: "Not authorized" };
+  }
+
+  const { error: updateError } = await supabase
+    .from("fix_comments")
+    .update({ content: trimmed })
+    .eq("id", commentId)
+    .eq("user_id", user.id);
+
+  if (updateError) {
+    return { error: updateError.message };
+  }
+
+  revalidatePath(`/fix/${typedComment.fix_id}`);
+  return { ok: true };
+}
+
 export async function deleteComment(
   commentId: string
 ): Promise<void | { error: string }> {

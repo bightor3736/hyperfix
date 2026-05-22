@@ -295,6 +295,27 @@ export default async function ExplorePage() {
             <p className="mt-4 font-sans text-base sm:text-lg" style={{ color: "rgba(255,255,255,0.72)" }}>
               Browse the obsessions running other people&apos;s lives.
             </p>
+            <form action="/search" method="GET" className="mt-6 flex gap-2 max-w-md">
+              <input
+                type="text"
+                name="q"
+                placeholder="Search fixes, tags, people…"
+                aria-label="Search"
+                className="font-sans text-sm flex-1 rounded-full px-4 py-2.5 outline-none"
+                style={{
+                  background: "rgba(7,7,8,0.6)",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  color: "#F4F4F4",
+                }}
+              />
+              <button
+                type="submit"
+                className="font-sans text-sm font-semibold px-5 py-2.5 rounded-full transition-all hover:opacity-90 active:scale-[0.98]"
+                style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+              >
+                Search
+              </button>
+            </form>
           </div>
         </div>
 

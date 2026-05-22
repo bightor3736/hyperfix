@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Home, Discovery, Plus, Category, Setting } from "react-iconly";
 
 export function MobileNavBar() {
+  const pathname = usePathname();
+
   return (
     <nav
       className="lg:hidden fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around px-2 py-2"
@@ -15,19 +18,19 @@ export function MobileNavBar() {
         paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
-      <MobileNavLink href="/dashboard" label="Home">
+      <MobileNavLink href="/dashboard" label="Home" pathname={pathname} exact>
         <Home set="light" size={22} primaryColor="currentColor" />
       </MobileNavLink>
-      <MobileNavLink href="/explore" label="Explore">
+      <MobileNavLink href="/explore" label="Explore" pathname={pathname}>
         <Discovery set="light" size={22} primaryColor="currentColor" />
       </MobileNavLink>
-      <MobileNavLink href="/dashboard/new" label="New fix">
+      <MobileNavLink href="/dashboard/new" label="New fix" pathname={pathname}>
         <Plus set="light" size={22} primaryColor="currentColor" />
       </MobileNavLink>
-      <MobileNavLink href="/dashboard/lists" label="Lists">
+      <MobileNavLink href="/dashboard/lists" label="Lists" pathname={pathname}>
         <Category set="light" size={22} primaryColor="currentColor" />
       </MobileNavLink>
-      <MobileNavLink href="/dashboard/settings" label="Settings">
+      <MobileNavLink href="/dashboard/settings" label="Settings" pathname={pathname}>
         <Setting set="light" size={22} primaryColor="currentColor" />
       </MobileNavLink>
     </nav>
@@ -37,17 +40,23 @@ export function MobileNavBar() {
 function MobileNavLink({
   href,
   label,
+  pathname,
+  exact,
   children,
 }: {
   href: string;
   label: string;
+  pathname: string;
+  exact?: boolean;
   children: React.ReactNode;
 }) {
+  const isActive = exact ? pathname === href : pathname === href || pathname.startsWith(href + "/");
   return (
     <Link
       href={href}
+      aria-current={isActive ? "page" : undefined}
       className="flex flex-col items-center gap-1 px-4 py-1 rounded-xl transition-colors"
-      style={{ color: "rgba(244,244,244,0.45)" }}
+      style={{ color: isActive ? "#5EEAD4" : "rgba(244,244,244,0.45)" }}
     >
       {children}
       <span className="font-mono text-[10px] uppercase tracking-widest">{label}</span>
