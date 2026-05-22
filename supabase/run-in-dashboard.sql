@@ -376,24 +376,24 @@ alter table public.profiles add column if not exists notification_prefs jsonb no
 
 
 -- =====================
--- Storage buckets (avatars + banners)
+-- Storage buckets (avatars + banners + studio)
 -- =====================
 insert into storage.buckets (id, name, public)
-values ('avatars', 'avatars', true), ('banners', 'banners', true)
+values ('avatars', 'avatars', true), ('banners', 'banners', true), ('studio', 'studio', true)
 on conflict (id) do nothing;
 
--- Anyone can view avatar / banner images
+-- Anyone can view avatar / banner / studio images
 drop policy if exists "Public read profile images" on storage.objects;
 create policy "Public read profile images"
   on storage.objects for select
-  using (bucket_id in ('avatars', 'banners'));
+  using (bucket_id in ('avatars', 'banners', 'studio'));
 
 -- Users can upload into their own folder (path = <user_id>/<file>)
 drop policy if exists "Users can upload own profile images" on storage.objects;
 create policy "Users can upload own profile images"
   on storage.objects for insert to authenticated
   with check (
-    bucket_id in ('avatars', 'banners')
+    bucket_id in ('avatars', 'banners', 'studio')
     and (storage.foldername(name))[1] = auth.uid()::text
   );
 
@@ -401,7 +401,7 @@ drop policy if exists "Users can update own profile images" on storage.objects;
 create policy "Users can update own profile images"
   on storage.objects for update to authenticated
   using (
-    bucket_id in ('avatars', 'banners')
+    bucket_id in ('avatars', 'banners', 'studio')
     and (storage.foldername(name))[1] = auth.uid()::text
   );
 
@@ -409,7 +409,7 @@ drop policy if exists "Users can delete own profile images" on storage.objects;
 create policy "Users can delete own profile images"
   on storage.objects for delete to authenticated
   using (
-    bucket_id in ('avatars', 'banners')
+    bucket_id in ('avatars', 'banners', 'studio')
     and (storage.foldername(name))[1] = auth.uid()::text
   );
 

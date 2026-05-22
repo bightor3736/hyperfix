@@ -17,6 +17,7 @@ type GraveyardFix = {
   category: string;
   started_at: string;
   ended_at: string;
+  eulogy: string | null;
 };
 
 function formatDate(dateStr: string): string {
@@ -107,6 +108,15 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
           {formatDate(fix.started_at)} — {formatDate(fix.ended_at)}
         </p>
       </div>
+
+      {fix.eulogy && (
+        <blockquote
+          className="relative font-display text-[14px] leading-relaxed pl-4 m-0"
+          style={{ borderLeft: `2px solid ${TEAL}`, color: "rgba(255,255,255,0.7)", fontStyle: "italic" }}
+        >
+          &ldquo;{fix.eulogy}&rdquo;
+        </blockquote>
+      )}
     </Link>
   );
 }
@@ -174,7 +184,7 @@ export default async function PublicGraveyardPage({
 
   const { data: fixes } = await supabase
     .from("fixes")
-    .select("id, title, category, started_at, ended_at")
+    .select("id, title, category, started_at, ended_at, eulogy")
     .eq("user_id", profile.id)
     .eq("is_public", true)
     .not("ended_at", "is", null)
@@ -186,6 +196,7 @@ export default async function PublicGraveyardPage({
     category: f.category ?? "other",
     started_at: f.started_at,
     ended_at: f.ended_at as string,
+    eulogy: f.eulogy ?? null,
   }));
 
   return (

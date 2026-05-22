@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/client";
 import {
   addStudioBlock,
   updateStudioBlock,
@@ -62,6 +63,46 @@ function BlockComposer({
   const [url, setUrl] = useState(initial.url ?? "");
   const [title, setTitle] = useState(initial.title ?? "");
   const [caption, setCaption] = useState(initial.caption ?? "");
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      setUploadError("Image must be under 5MB.");
+      return;
+    }
+    setUploading(true);
+    setUploadError(null);
+    try {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) {
+        setUploadError("You must be signed in to upload.");
+        return;
+      }
+      const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
+      const path = `${user.id}/${crypto.randomUUID()}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("studio")
+        .upload(path, file, { cacheControl: "3600", upsert: false });
+      if (upErr) {
+        setUploadError(upErr.message);
+        return;
+      }
+      const { data } = supabase.storage.from("studio").getPublicUrl(path);
+      setUrl(data.publicUrl);
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : "Upload failed.");
+    } finally {
+      setUploading(false);
+    }
+  }
 
   function submit() {
     if (type === "note") onSave({ text });
@@ -112,11 +153,44 @@ function BlockComposer({
       {type === "image" && (
         <>
           <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading}
+            className="font-mono text-[11px] uppercase tracking-widest rounded-xl px-4 py-3 transition-opacity hover:opacity-90 disabled:opacity-50"
+            style={{
+              background: "rgba(94,234,212,0.08)",
+              border: "1px dashed rgba(94,234,212,0.35)",
+              color: TEAL,
+            }}
+          >
+            {uploading ? "Uploading…" : url ? "Replace image" : "Upload an image"}
+          </button>
+          {url && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={url}
+              alt="preview"
+              className="rounded-xl w-full object-cover"
+              style={{ maxHeight: 240, border: "1px solid rgba(244,244,244,0.08)" }}
+            />
+          )}
+          {uploadError && (
+            <p className="font-sans text-xs" style={{ color: "#fda4af" }}>
+              {uploadError}
+            </p>
+          )}
+          <input
             type="url"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="https://image-url.com/pic.jpg"
-            autoFocus
+            placeholder="…or paste an image URL"
             style={inputStyle}
           />
           <input
@@ -132,7 +206,7 @@ function BlockComposer({
       <div className="flex gap-2">
         <button
           onClick={submit}
-          disabled={busy}
+          disabled={busy || uploading}
           className="font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-1.5 transition-opacity hover:opacity-90 disabled:opacity-50"
           style={{ background: TEAL, color: "#08110F" }}
         >
