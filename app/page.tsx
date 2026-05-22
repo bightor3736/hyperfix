@@ -172,6 +172,43 @@ const reviews = [
   },
 ];
 
+const studioFeatures = [
+  {
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="16" y1="13" x2="8" y2="13" />
+        <line x1="16" y1="17" x2="8" y2="17" />
+        <polyline points="10 9 9 9 8 9" />
+      </svg>
+    ),
+    title: "Notes",
+    body: "Drop everything you're thinking about the fix. Theories, quotes, timestamps, spirals. All of it goes here — messy is fine.",
+  },
+  {
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+      </svg>
+    ),
+    title: "Links",
+    body: "Save every video essay, every Reddit thread, every fan wiki. The research that fed the obsession, in one place.",
+  },
+  {
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+        <circle cx="8.5" cy="8.5" r="1.5" />
+        <polyline points="21 15 16 10 5 21" />
+      </svg>
+    ),
+    title: "Images",
+    body: "The screenshots, the fanart, the reference images. Add a caption. Build a visual diary of exactly what took over your brain.",
+  },
+];
+
 const faqs = [
   {
     q: "What exactly is Hyperfix?",
@@ -308,6 +345,9 @@ export default async function Page({
             </a>
             <a href="/blog" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.65)" }}>
               Blog
+            </a>
+            <a href="/studio" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.65)" }}>
+              Studio
             </a>
             <a href="#pricing" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.65)" }}>
               Pricing
@@ -678,6 +718,179 @@ export default async function Page({
                 </RevealSection>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* STUDIO --------------------------------------------------------- */}
+        <section id="studio" className="relative px-6 sm:px-10 py-24 sm:py-32" style={{ borderTop: `1px solid ${CARD_BORDER}` }}>
+          <GrainOverlay opacity={0.08} />
+          {/* Soft teal bloom behind the section */}
+          <div
+            aria-hidden
+            className="absolute pointer-events-none"
+            style={{
+              inset: 0,
+              background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(94,234,212,0.06) 0%, transparent 70%)",
+              zIndex: 0,
+            }}
+          />
+          <div className="relative max-w-5xl mx-auto">
+            <RevealSection>
+              <EyebrowPill>Hyperfix Studio</EyebrowPill>
+            </RevealSection>
+            <RevealSection delay={100}>
+              <h2
+                className="mt-7 font-display text-ink max-w-2xl"
+                style={{ fontSize: "clamp(36px, 5.5vw, 60px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}
+              >
+                Your Fix Has
+                <br />
+                a Workspace Now.
+              </h2>
+            </RevealSection>
+            <RevealSection delay={200}>
+              <p className="mt-5 max-w-xl font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                Studio is a private scratchpad attached to any fixation. Drop notes,
+                save links, pin images — all the things that live in twelve browser
+                tabs and three Discord threads, finally in one place.
+              </p>
+            </RevealSection>
+
+            {/* Block-type cards */}
+            <div className="mt-14 grid sm:grid-cols-3 gap-4 sm:gap-5">
+              {studioFeatures.map((sf, i) => (
+                <RevealSection key={sf.title} delay={280 + i * 100}>
+                  <div
+                    className="motion-card relative overflow-hidden rounded-3xl p-7 h-full"
+                    style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, minHeight: 260 }}
+                  >
+                    <GrainOverlay opacity={0.22} />
+                    <div className="relative flex flex-col h-full gap-5">
+                      <div className="anim-floatY" style={{ display: "inline-block", animationDelay: `${i * 0.4}s` }}>
+                        <IconTile>{sf.icon}</IconTile>
+                      </div>
+                      <div className="mt-auto">
+                        <h3
+                          className="font-display text-ink"
+                          style={{ fontSize: "clamp(20px, 2.4vw, 24px)", letterSpacing: "-0.01em", fontWeight: 600 }}
+                        >
+                          {sf.title}
+                        </h3>
+                        <p className="mt-2 font-sans text-[15px] leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                          {sf.body}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </RevealSection>
+              ))}
+            </div>
+
+            {/* Studio mock workspace */}
+            <RevealSection delay={500}>
+              <div
+                className="mt-10 relative overflow-hidden rounded-3xl p-6 sm:p-10"
+                style={{
+                  background: CARD_BG,
+                  border: `1px solid ${TEAL_DARK_BORDER}`,
+                  boxShadow: "0 0 80px rgba(94,234,212,0.08)",
+                }}
+              >
+                <GrainOverlay opacity={0.18} />
+                <div className="relative">
+                  {/* Studio header */}
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-xs tracking-widest uppercase" style={{ color: TEAL }}>HYPERFIX · Studio</span>
+                      <span className="h-px flex-1 w-6" style={{ background: TEAL_DARK_BORDER }} />
+                    </div>
+                    <span className="font-sans text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>Day 47</span>
+                  </div>
+                  {/* Mock blocks */}
+                  <div className="space-y-3">
+                    {/* Note block */}
+                    <div
+                      className="rounded-2xl p-4"
+                      style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${CARD_BORDER}` }}
+                    >
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="font-mono text-xs uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>Note</span>
+                      </div>
+                      <p className="font-sans text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                        ok the way the themes of isolation mirror the opening sequence is NOT a coincidence and here&apos;s my 900-word proof thread that nobody asked for but everyone needs
+                      </p>
+                    </div>
+                    {/* Link block */}
+                    <div
+                      className="rounded-2xl p-4 flex items-center gap-4"
+                      style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${CARD_BORDER}` }}
+                    >
+                      <div
+                        className="shrink-0 flex items-center justify-center rounded-xl"
+                        style={{ width: 40, height: 40, background: TEAL_DARK_BG, border: `1px solid ${TEAL_DARK_BORDER}`, color: TEAL }}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                        </svg>
+                      </div>
+                      <div className="min-w-0">
+                        <p className="font-sans text-sm font-medium" style={{ color: "rgba(255,255,255,0.85)" }}>Every Foreshadowing Moment (Video Essay)</p>
+                        <p className="font-mono text-xs mt-0.5 truncate" style={{ color: "rgba(255,255,255,0.35)" }}>youtube.com/watch?v=…</p>
+                      </div>
+                    </div>
+                    {/* Image block */}
+                    <div
+                      className="rounded-2xl p-4"
+                      style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${CARD_BORDER}` }}
+                    >
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="font-mono text-xs uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>Image</span>
+                      </div>
+                      <div
+                        className="rounded-xl flex items-center justify-center"
+                        style={{
+                          height: 72,
+                          background: `linear-gradient(135deg, ${TEAL_DARK_BG} 0%, rgba(94,234,212,0.03) 100%)`,
+                          border: `1px dashed ${TEAL_DARK_BORDER}`,
+                          color: TEAL,
+                        }}
+                      >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                          <circle cx="8.5" cy="8.5" r="1.5" />
+                          <polyline points="21 15 16 10 5 21" />
+                        </svg>
+                      </div>
+                      <p className="mt-2 font-sans text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>the scene that broke me, captioned</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </RevealSection>
+
+            <RevealSection delay={600}>
+              <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <a
+                  href="/studio"
+                  className="inline-flex items-center gap-3 font-sans text-base font-semibold px-7 py-4 transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+                  style={{
+                    background: TEAL,
+                    color: "#0A1F1C",
+                    borderRadius: 999,
+                    boxShadow: "0 0 40px rgba(94,234,212,0.25)",
+                  }}
+                >
+                  Learn About Studio
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M13 5l7 7-7 7" />
+                  </svg>
+                </a>
+                <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
+                  Available on every fix · no extra setup
+                </p>
+              </div>
+            </RevealSection>
           </div>
         </section>
 
