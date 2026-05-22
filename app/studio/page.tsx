@@ -492,28 +492,31 @@ export default function StudioMarketingPage() {
                     style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
                   >
                     <GrainOverlay opacity={0.2} />
-                    <div className="relative grid sm:grid-cols-2 gap-0">
+                    <div className="relative grid sm:grid-cols-2">
                       {/* Text side */}
                       <div className="p-7 sm:p-10 flex flex-col justify-center">
-                        <div className="anim-floatY" style={{ display: "inline-block", animationDelay: `${i * 0.4}s` }}>
+                        <div className="flex items-center gap-3">
                           <IconTile>{bt.icon}</IconTile>
-                        </div>
-                        <div className="mt-8">
-                          <h3
-                            className="font-display text-ink"
-                            style={{ fontSize: "clamp(22px, 2.8vw, 30px)", letterSpacing: "-0.01em", fontWeight: 600 }}
+                          <span
+                            className="font-mono text-xs uppercase tracking-widest"
+                            style={{ color: "rgba(255,255,255,0.35)" }}
                           >
-                            {bt.headline}
-                          </h3>
-                          <p className="mt-4 font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
-                            {bt.body}
-                          </p>
+                            {bt.label}
+                          </span>
                         </div>
+                        <h3
+                          className="mt-7 font-display text-ink"
+                          style={{ fontSize: "clamp(22px, 2.8vw, 30px)", letterSpacing: "-0.01em", fontWeight: 600 }}
+                        >
+                          {bt.headline}
+                        </h3>
+                        <p className="mt-3 font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                          {bt.body}
+                        </p>
                       </div>
                       {/* Preview side */}
-                      <div
-                        className="p-7 sm:p-10 flex items-center"
-                        style={{ borderLeft: `1px solid ${CARD_BORDER}` }}
+                      <div className="px-7 pb-7 sm:p-10 sm:flex sm:items-center sm:border-l sm:border-t-0 border-t"
+                        style={{ borderColor: CARD_BORDER }}
                       >
                         <div className="w-full">{bt.preview}</div>
                       </div>
