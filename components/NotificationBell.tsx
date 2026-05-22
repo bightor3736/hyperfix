@@ -77,7 +77,7 @@ export function NotificationBell() {
     return () => clearInterval(interval);
   }, []);
 
-  function getNotificationText(n: Notification): { text: string; href: string | null } {
+  function getNotificationText(n: Notification): { text: string; href: string | null } | null {
     const actor = n.actor;
     const name = actor?.display_name ?? actor?.username ?? "Someone";
 
@@ -96,7 +96,15 @@ export function NotificationBell() {
       };
     }
 
-    return null as unknown as { text: string; href: string | null };
+    if (n.type === "comment") {
+      const fixTitle = n.fix?.title ?? "your fix";
+      return {
+        text: `${name} commented on "${fixTitle}"`,
+        href: n.fix_id ? `/fix/${n.fix_id}` : null,
+      };
+    }
+
+    return null;
   }
 
   return (

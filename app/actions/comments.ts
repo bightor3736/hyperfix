@@ -50,6 +50,21 @@ export async function addComment(
 
   revalidatePath(`/fix/${fixId}`);
 
+  // Notify fix owner (skip if commenting on own fix)
+  const { data: fix } = await supabase
+    .from("fixes")
+    .select("user_id")
+    .eq("id", fixId)
+    .single();
+  if (fix && fix.user_id !== user.id) {
+    await supabase.from("notifications").insert({
+      user_id: fix.user_id,
+      type: "comment",
+      actor_id: user.id,
+      fix_id: fixId,
+    });
+  }
+
   const raw = data as unknown as {
     id: string;
     user_id: string;
