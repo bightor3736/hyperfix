@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useMemo, useTransition } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { TagsInput } from "@/components/TagsInput";
@@ -37,11 +37,33 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
   const showWelcome = searchParams.get("welcome") === "1";
   const [pending, startTransition] = useTransition();
 
+  // Pre-fill from a shared link (Web Share Target API → /dashboard/new?title=…&text=…&url=…)
+  const shared = useMemo(() => {
+    const rawTitle = searchParams.get("title") ?? "";
+    const rawText = searchParams.get("text") ?? "";
+    let url = searchParams.get("url") ?? "";
+    let textNoUrl = rawText;
+    if (!url) {
+      const match = rawText.match(/https?:\/\/\S+/);
+      if (match) {
+        url = match[0];
+        textNoUrl = rawText.replace(match[0], "").trim();
+      }
+    }
+    const fixTitle = (rawTitle || textNoUrl).trim().slice(0, 200);
+    return {
+      isShared: !!(fixTitle || url),
+      title: fixTitle,
+      note: url ? `Shared: ${url}` : "",
+    };
+  }, [searchParams]);
+
   const [welcomeDismissed, setWelcomeDismissed] = useState(false);
-  const [title, setTitle] = useState("");
+  const [sharedDismissed, setSharedDismissed] = useState(false);
+  const [title, setTitle] = useState(shared.title);
   const [category, setCategory] = useState<Category | null>(null);
   const [intensity, setIntensity] = useState(5);
-  const [note, setNote] = useState("");
+  const [note, setNote] = useState(shared.note);
   const [isPublic, setIsPublic] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -126,6 +148,30 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
           </button>
           <p className="font-sans text-sm pr-6" style={{ color: "rgba(94,234,212,0.9)" }}>
             Welcome to Hyperfix 👋 Log your first fix below — what are you obsessed with right now?
+          </p>
+        </div>
+      )}
+
+      {/* Shared-link banner */}
+      {shared.isShared && !sharedDismissed && (
+        <div
+          className="relative rounded-xl p-4"
+          style={{
+            background: "rgba(94,234,212,0.08)",
+            border: "1px solid rgba(94,234,212,0.2)",
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => setSharedDismissed(true)}
+            className="absolute top-3 right-3 p-1 rounded-lg transition-colors hover:opacity-70"
+            style={{ color: "rgba(94,234,212,0.6)" }}
+            aria-label="Dismiss shared banner"
+          >
+            <CloseSquare set="light" size={15} primaryColor="currentColor" />
+          </button>
+          <p className="font-sans text-sm pr-6" style={{ color: "rgba(94,234,212,0.9)" }}>
+            Imported from a share 📥 We pre-filled what we could — tweak it and start tracking.
           </p>
         </div>
       )}

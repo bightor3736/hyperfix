@@ -15,6 +15,15 @@ export default function manifest(): MetadataRoute.Manifest {
       { src: "/icon?size=512", sizes: "512x512", type: "image/png", purpose: "any" },
     ],
     categories: ["lifestyle", "social"],
+    share_target: {
+      action: "/dashboard/new",
+      method: "GET",
+      params: {
+        title: "title",
+        text: "text",
+        url: "url",
+      },
+    },
     shortcuts: [
       {
         name: "New fix",
