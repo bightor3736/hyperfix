@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { redirect, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { StudioClient } from "./StudioClient";
 import type { StudioBlock } from "@/app/actions/studio";
@@ -17,7 +17,7 @@ export async function generateMetadata({
     .eq("id", id)
     .single();
   return {
-    title: fix ? `${fix.title} · Hyperfix Studio` : "Hyperfix Studio",
+    title: fix ? `${fix.title} · Studio` : "Studio",
   };
 }
 
@@ -38,7 +38,7 @@ export default async function StudioPage({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/auth/login");
+  if (!user) notFound();
 
   const { data: fix } = await supabase
     .from("fixes")

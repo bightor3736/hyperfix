@@ -97,7 +97,7 @@ export async function addStudioBlock(
 
   if (error) return { error: error.message };
 
-  revalidatePath(`/studio/${fixId}`);
+  revalidatePath(`/dashboard/fix/${fixId}/studio`);
   return data as StudioBlock;
 }
 
@@ -132,7 +132,7 @@ export async function updateStudioBlock(
 
   if (error) return { error: error.message };
 
-  revalidatePath(`/studio/${block.fix_id}`);
+  revalidatePath(`/dashboard/fix/${block.fix_id}/studio`);
   return { ok: true };
 }
 
@@ -162,7 +162,7 @@ export async function deleteStudioBlock(
 
   if (error) return { error: error.message };
 
-  revalidatePath(`/studio/${block.fix_id}`);
+  revalidatePath(`/dashboard/fix/${block.fix_id}/studio`);
   return { ok: true };
 }
 
@@ -185,6 +185,6 @@ export async function reorderStudioBlocks(
     if (error) return { error: error.message };
   }
 
-  revalidatePath(`/studio/${fixId}`);
+  revalidatePath(`/dashboard/fix/${fixId}/studio`);
   return { ok: true };
 }

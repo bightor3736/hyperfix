@@ -183,7 +183,7 @@ export default async function FixDetailPage({
             ← my fixes
           </Link>
           <Link
-            href={`/studio/${id}`}
+            href={`/dashboard/fix/${id}/studio`}
             className="font-sans text-sm font-medium px-3 py-1.5 rounded-full transition-all hover:opacity-90"
             style={{
               background: "rgba(94,234,212,0.10)",
