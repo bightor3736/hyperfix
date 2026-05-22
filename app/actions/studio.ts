@@ -3,13 +3,14 @@
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 
-export type StudioBlockType = "note" | "link" | "image";
+export type StudioBlockType = "note" | "link" | "image" | "slideshow";
 
 export type StudioBlockContent = {
   text?: string;
   url?: string;
   title?: string;
   caption?: string;
+  images?: Array<{ url: string; caption?: string }>;
 };
 
 export type StudioBlock = {
@@ -48,6 +49,18 @@ function sanitizeContent(
     if (url.length > 2000) return { error: "URL is too long" };
     const caption = (content.caption ?? "").trim().slice(0, 200);
     return { url, caption };
+  }
+  if (type === "slideshow") {
+    const imgs = Array.isArray(content.images) ? content.images : [];
+    if (imgs.length === 0) return { error: "Add at least one image to the slideshow" };
+    if (imgs.length > 20) return { error: "Max 20 images per slideshow" };
+    const cleaned: Array<{ url: string; caption?: string }> = [];
+    for (const img of imgs) {
+      const url = (img.url ?? "").trim();
+      if (!/^https?:\/\/.+/i.test(url)) return { error: "All images must have a valid URL" };
+      cleaned.push({ url, caption: (img.caption ?? "").trim().slice(0, 200) || undefined });
+    }
+    return { images: cleaned };
   }
   return { error: "Unknown block type" };
 }
