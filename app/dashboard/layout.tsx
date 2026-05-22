@@ -15,11 +15,11 @@ export default async function DashboardLayout({
   } = await supabase.auth.getUser();
 
   // Try to get profile
-  let profile: { username: string | null; display_name: string | null; avatar_url: string | null; is_pro: boolean | null } | null = null;
+  let profile: { username: string | null; display_name: string | null; avatar_url: string | null; is_pro: boolean | null; referral_code: string | null } | null = null;
   if (user) {
     const { data } = await supabase
       .from("profiles")
-      .select("username, display_name, avatar_url, is_pro")
+      .select("username, display_name, avatar_url, is_pro, referral_code")
       .eq("id", user.id)
       .single();
     profile = data;
@@ -43,6 +43,7 @@ export default async function DashboardLayout({
         avatarUrl={avatarUrl}
         userEmail={user?.email || ""}
         isPro={profile?.is_pro ?? false}
+        username={profile?.username ?? null}
       />
 
       {/* Main content */}

@@ -4,6 +4,7 @@ import { LogoLockup } from "@/components/Logo";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { FollowButton, FollowButtonLoggedIn } from "@/components/FollowButton";
+import { ShareProfileButton } from "@/components/ShareProfileButton";
 
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
@@ -303,9 +304,17 @@ export default async function PublicProfilePage({
               {followerCount ?? 0} followers · {followingCount ?? 0} following
             </p>
             {typedProfile.bio && (
-              <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>
+              <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.75)" }}>
                 {typedProfile.bio}
               </p>
+            )}
+            {isSelf && (
+              <div className="mt-3">
+                <ShareProfileButton
+                  username={typedProfile.username ?? ""}
+                  displayName={displayName}
+                />
+              </div>
             )}
           </div>
         </div>

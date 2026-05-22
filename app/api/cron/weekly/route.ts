@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { sendWeeklyDigestEmail } from "@/lib/email";
 
 export const runtime = "nodejs";
@@ -14,7 +14,7 @@ export async function GET(req: Request) {
     return Response.json({ ok: true, skipped: "not Sunday" });
   }
 
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   let emailsSent = 0;
   const errors: string[] = [];
 

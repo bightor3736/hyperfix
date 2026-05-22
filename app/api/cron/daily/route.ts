@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { sendStreakReminderEmail, sendMilestoneEmail } from "@/lib/email";
 
 export const runtime = "nodejs";
@@ -9,7 +9,7 @@ export async function GET(req: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   const today = new Date().toISOString().split("T")[0];
   const yesterday = new Date(Date.now() - 86_400_000).toISOString().split("T")[0];
 

@@ -13,9 +13,10 @@ type Props = {
   avatarUrl: string | null;
   userEmail: string;
   isPro?: boolean;
+  username?: string | null;
 };
 
-export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPro }: Props) {
+export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPro, username }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const [pending, startTransition] = useTransition();
@@ -182,20 +183,39 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
           <NotificationBell />
         </div>
 
-        {/* Sign out */}
-        <button
-          onClick={handleSignOut}
-          disabled={pending}
-          className="w-full flex items-center gap-2 px-3 py-2 rounded-xl font-sans text-sm transition-all duration-150 hover:opacity-80 disabled:opacity-50"
-          style={{
-            color: "rgba(244,244,244,0.4)",
-            background: "rgba(244,244,244,0.04)",
-            border: "1px solid rgba(244,244,244,0.06)",
-          }}
-        >
-          <Logout set="light" size={16} primaryColor="currentColor" />
-          {pending ? "Signing out…" : "Sign out"}
-        </button>
+        {/* Profile + sign out row */}
+        <div className="flex gap-2">
+          {username && (
+            <Link
+              href={`/u/${username}`}
+              className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl font-sans text-xs font-medium transition-all duration-150 hover:opacity-80"
+              style={{
+                color: "rgba(244,244,244,0.5)",
+                background: "rgba(244,244,244,0.04)",
+                border: "1px solid rgba(244,244,244,0.06)",
+              }}
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+              </svg>
+              My profile
+            </Link>
+          )}
+          <button
+            onClick={handleSignOut}
+            disabled={pending}
+            className={`${username ? "" : "w-full "}flex items-center justify-center gap-2 px-3 py-2 rounded-xl font-sans text-xs transition-all duration-150 hover:opacity-80 disabled:opacity-50`}
+            style={{
+              color: "rgba(244,244,244,0.4)",
+              background: "rgba(244,244,244,0.04)",
+              border: "1px solid rgba(244,244,244,0.06)",
+            }}
+          >
+            <Logout set="light" size={14} primaryColor="currentColor" />
+            {pending ? "…" : "Sign out"}
+          </button>
+        </div>
       </div>
     </aside>
   );
