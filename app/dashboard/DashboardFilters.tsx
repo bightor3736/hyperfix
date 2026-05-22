@@ -242,7 +242,7 @@ function FixGridCard({
 
       {/* Check-in row */}
       <div
-        className="relative mt-4 pt-4"
+        className="relative mt-4 pt-4 flex items-center justify-between gap-2"
         style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
       >
         {checkedInToday || justCheckedIn ? (
@@ -271,6 +271,22 @@ function FixGridCard({
             check in today
           </button>
         )}
+
+        <Link
+          href={`/dashboard/fix/${fix.id}/studio`}
+          className="inline-flex items-center gap-1 font-sans text-xs rounded-full px-2.5 py-1 transition-all hover:opacity-90"
+          style={{
+            background: "rgba(94,234,212,0.08)",
+            border: "1px solid rgba(94,234,212,0.20)",
+            color: TEAL,
+          }}
+        >
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+          </svg>
+          Studio
+        </Link>
       </div>
     </div>
   );
