@@ -224,24 +224,52 @@ export default async function PublicProfilePage({
       <main id="main-content" className="relative max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Profile hero card */}
         <div
-          className="relative overflow-hidden rounded-3xl mb-8 p-6 sm:p-10 anim-fadeUp"
+          className="relative overflow-hidden rounded-3xl mb-8 anim-fadeUp"
           style={{
-            background:
-              "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
-            border: "1px solid rgba(255,255,255,0.06)",
+            ...(typedProfile.is_pro && typedProfile.banner_url
+              ? {
+                  backgroundImage: `url(${typedProfile.banner_url})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center top",
+                }
+              : {
+                  background:
+                    "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
+                }),
+            border: typedProfile.is_pro
+              ? "1px solid rgba(94,234,212,0.25)"
+              : "1px solid rgba(255,255,255,0.06)",
+            boxShadow: typedProfile.is_pro ? "0 0 0 1px rgba(94,234,212,0.08), 0 8px 40px rgba(94,234,212,0.08)" : undefined,
           }}
         >
+          {/* Banner dark scrim (always shown, stronger when banner image is present) */}
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: typedProfile.is_pro && typedProfile.banner_url
+                ? "linear-gradient(180deg, rgba(7,7,8,0.55) 0%, rgba(7,7,8,0.25) 40%, rgba(7,7,8,0.7) 100%)"
+                : "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)",
+            }}
+          />
           <div
             aria-hidden
             className="absolute inset-0 pointer-events-none mix-blend-overlay"
             style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }}
           />
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none"
-            style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }}
-          />
-        <div className="relative flex flex-col sm:flex-row items-start gap-6">
+          {/* Pro shimmer border accent */}
+          {typedProfile.is_pro && (
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none rounded-3xl"
+              style={{
+                background: "linear-gradient(135deg, rgba(94,234,212,0.08) 0%, transparent 50%, rgba(94,234,212,0.04) 100%)",
+              }}
+            />
+          )}
+          {/* Content padding wrapper */}
+          <div className="relative p-6 sm:p-10">
+          <div className="flex flex-col sm:flex-row items-start gap-6">
           <div className="relative shrink-0">
             {typedProfile.is_pro && (
               <div
@@ -330,7 +358,8 @@ export default async function PublicProfilePage({
               </div>
             )}
           </div>
-        </div>
+          </div>
+          </div>
         </div>
 
         {/* Pinned fix */}
