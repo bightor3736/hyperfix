@@ -69,8 +69,8 @@ function StudioTag({ inverted = false }: { inverted?: boolean }) {
 function CoverSlide() {
   return (
     <div style={{ width: "100%", height: "100%", background: BG, display: "flex", flexDirection: "column", padding: 100, fontFamily: "Georgia, serif", color: INK, position: "relative" }}>
-      {/* Teal radial glow at bottom */}
-      <div style={{ position: "absolute", bottom: 0, left: "50%", width: 900, height: 900, background: "radial-gradient(ellipse, rgba(94,234,212,0.18) 0%, transparent 70%)", transform: "translateX(-50%)", display: "flex" }} />
+      {/* Teal radial glow — no transform, just a bottom-anchored block */}
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 800, background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(94,234,212,0.18) 0%, transparent 70%)", display: "flex" }} />
 
       <div style={{ display: "flex" }}>
         <StudioTag />
@@ -78,7 +78,7 @@ function CoverSlide() {
 
       <div style={{ display: "flex", flexDirection: "column", marginTop: 120 }}>
         <div style={{ fontSize: 148, lineHeight: 0.93, letterSpacing: "-0.05em", fontWeight: 500, color: INK, maxWidth: 880 }}>
-          <span>somewhere</span>
+          somewhere
         </div>
         <div style={{ fontSize: 148, lineHeight: 0.93, letterSpacing: "-0.05em", fontWeight: 500, color: TEAL, fontStyle: "italic", maxWidth: 880, marginTop: 8 }}>
           to put all
@@ -90,7 +90,7 @@ function CoverSlide() {
 
       <div style={{ display: "flex", marginTop: 80 }}>
         <span style={{ fontFamily: "monospace", fontSize: 24, letterSpacing: "0.25em", textTransform: "uppercase", color: INK_SOFT }}>
-          swipe →
+          swipe right
         </span>
       </div>
 
@@ -134,11 +134,12 @@ function StudioIntroSlide() {
 
 // Slide 3 — What you can do
 function WhatYouCanDoSlide() {
+  // No emoji — Satori can't load emoji fonts at edge runtime
   const items = [
-    { icon: "✏️", label: "note blocks", desc: "brain dumps, theories, lore — no character limit on unhinged" },
-    { icon: "🔗", label: "link drops", desc: "save every rabbit hole. the subreddit, the fanwiki, the 2019 thread" },
-    { icon: "🖼️", label: "image boards", desc: "screenshots, moodboards, character refs, your 47 saved screenshots" },
-    { icon: "🎞️", label: "slideshows", desc: "up to 20 images in a carousel. for the ones who collect evidence" },
+    { mark: "N", label: "note blocks", desc: "brain dumps, theories, lore — no character limit on unhinged" },
+    { mark: "L", label: "link drops", desc: "save every rabbit hole. the subreddit, the fanwiki, the 2019 thread" },
+    { mark: "I", label: "image boards", desc: "screenshots, moodboards, character refs, your 47 saved screenshots" },
+    { mark: "S", label: "slideshows", desc: "up to 20 images in a carousel. for the ones who collect evidence" },
   ];
 
   return (
@@ -148,17 +149,17 @@ function WhatYouCanDoSlide() {
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", marginTop: 80 }}>
-        <div style={{ fontSize: 96, lineHeight: 0.96, letterSpacing: "-0.04em", fontWeight: 500, color: INK }}>
-          what you
-          <span style={{ color: TEAL, fontStyle: "italic" }}> can do</span>
+        <div style={{ display: "flex", flexWrap: "wrap", fontSize: 96, lineHeight: 0.96, letterSpacing: "-0.04em", fontWeight: 500, color: INK }}>
+          <span>what you</span>
+          <span style={{ color: TEAL, fontStyle: "italic" }}>&nbsp;can do</span>
         </div>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", marginTop: 72 }}>
         {items.map((item, i) => (
           <div key={i} style={{ display: "flex", alignItems: "flex-start", marginTop: i === 0 ? 0 : 48 }}>
-            <div style={{ width: 64, height: 64, borderRadius: 16, background: "rgba(94,234,212,0.1)", border: "1px solid rgba(94,234,212,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, flexShrink: 0 }}>
-              {item.icon}
+            <div style={{ width: 64, height: 64, borderRadius: 16, background: "rgba(94,234,212,0.1)", border: "1px solid rgba(94,234,212,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, flexShrink: 0, color: TEAL, fontFamily: "monospace", fontWeight: 700 }}>
+              {item.mark}
             </div>
             <div style={{ display: "flex", flexDirection: "column", marginLeft: 28 }}>
               <span style={{ fontFamily: "monospace", fontSize: 20, letterSpacing: "0.15em", textTransform: "uppercase", color: TEAL }}>
@@ -231,16 +232,16 @@ function GreatForSlide() {
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", marginTop: 80 }}>
-        <div style={{ fontSize: 96, lineHeight: 0.96, letterSpacing: "-0.04em", fontWeight: 500 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", fontSize: 96, lineHeight: 0.96, letterSpacing: "-0.04em", fontWeight: 500 }}>
           <span style={{ color: TEAL, fontStyle: "italic" }}>great</span>
-          <span style={{ color: INK }}> for:</span>
+          <span style={{ color: INK }}>&nbsp;for:</span>
         </div>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", marginTop: 72 }}>
         {uses.map((use, i) => (
           <div key={i} style={{ display: "flex", alignItems: "center", marginTop: i === 0 ? 0 : 36 }}>
-            <span style={{ color: TEAL, fontSize: 28, marginRight: 24, fontStyle: "normal" }}>✦</span>
+            <div style={{ width: 10, height: 10, borderRadius: 2, background: TEAL, marginRight: 28, flexShrink: 0, display: "flex" }} />
             <span style={{ fontSize: 36, color: INK_DIM, lineHeight: 1.2 }}>{use}</span>
           </div>
         ))}
@@ -257,7 +258,7 @@ function GreatForSlide() {
 function CtaSlide() {
   return (
     <div style={{ width: "100%", height: "100%", background: BG, display: "flex", flexDirection: "column", padding: 100, fontFamily: "Georgia, serif", color: INK, position: "relative" }}>
-      <div style={{ position: "absolute", bottom: 0, left: "50%", width: 1000, height: 1000, background: "radial-gradient(ellipse, rgba(94,234,212,0.22) 0%, transparent 65%)", transform: "translateX(-50%)", display: "flex" }} />
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 900, background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(94,234,212,0.22) 0%, transparent 65%)", display: "flex" }} />
 
       <div style={{ display: "flex" }}>
         <div style={{ display: "flex", border: `1.5px solid rgba(244,244,244,0.15)`, borderRadius: 100, paddingTop: 10, paddingBottom: 10, paddingLeft: 24, paddingRight: 24 }}>

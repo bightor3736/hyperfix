@@ -24,7 +24,6 @@ const TYPE_LABELS: Record<StudioBlockType, string> = {
   note: "Note",
   link: "Link",
   image: "Image",
-  slideshow: "Slideshow",
 };
 
 const inputStyle: React.CSSProperties = {
@@ -68,46 +67,6 @@ function BlockComposer({
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Slideshow state
-  type Slide = { url: string; caption: string; uploading: boolean; err: string | null };
-  const [slides, setSlides] = useState<Slide[]>(
-    initial.images
-      ? initial.images.map((img) => ({ url: img.url, caption: img.caption ?? "", uploading: false, err: null }))
-      : []
-  );
-  const slideFileRef = useRef<HTMLInputElement>(null);
-
-  async function handleSlideUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    e.target.value = "";
-    if (!file) return;
-    if (file.size > 5 * 1024 * 1024) {
-      setSlides((prev) => [...prev, { url: "", caption: "", uploading: false, err: "Image must be under 5MB." }]);
-      return;
-    }
-    const placeholderIdx = slides.length;
-    setSlides((prev) => [...prev, { url: "", caption: "", uploading: true, err: null }]);
-    try {
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        setSlides((prev) => prev.map((s, i) => i === placeholderIdx ? { ...s, uploading: false, err: "Not signed in." } : s));
-        return;
-      }
-      const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
-      const path = `${user.id}/${crypto.randomUUID()}.${ext}`;
-      const { error: upErr } = await supabase.storage.from("studio").upload(path, file, { cacheControl: "3600", upsert: false });
-      if (upErr) {
-        setSlides((prev) => prev.map((s, i) => i === placeholderIdx ? { ...s, uploading: false, err: upErr.message } : s));
-        return;
-      }
-      const { data } = supabase.storage.from("studio").getPublicUrl(path);
-      setSlides((prev) => prev.map((s, i) => i === placeholderIdx ? { ...s, url: data.publicUrl, uploading: false } : s));
-    } catch (err) {
-      setSlides((prev) => prev.map((s, i) => i === placeholderIdx ? { ...s, uploading: false, err: err instanceof Error ? err.message : "Upload failed" } : s));
-    }
-  }
-
   async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     e.target.value = "";
@@ -148,11 +107,8 @@ function BlockComposer({
   function submit() {
     if (type === "note") onSave({ text });
     else if (type === "link") onSave({ url, title });
-    else if (type === "image") onSave({ url, caption });
-    else onSave({ images: slides.filter((s) => s.url).map((s) => ({ url: s.url, caption: s.caption || undefined })) });
+    else onSave({ url, caption });
   }
-
-  const slidesUploading = slides.some((s) => s.uploading);
 
   return (
     <div
@@ -191,104 +147,6 @@ function BlockComposer({
             placeholder="Label (optional)"
             style={inputStyle}
           />
-        </>
-      )}
-
-      {type === "slideshow" && (
-        <>
-          <input
-            ref={slideFileRef}
-            type="file"
-            accept="image/*"
-            onChange={handleSlideUpload}
-            className="hidden"
-          />
-          {slides.length > 0 && (
-            <div className="flex flex-col gap-2">
-              {slides.map((slide, i) => (
-                <div
-                  key={i}
-                  className="flex items-start gap-2 rounded-xl p-2"
-                  style={{ background: "rgba(244,244,244,0.04)", border: "1px solid rgba(244,244,244,0.08)" }}
-                >
-                  <div
-                    className="w-16 h-12 rounded-lg shrink-0 flex items-center justify-center overflow-hidden"
-                    style={{ background: "rgba(244,244,244,0.06)" }}
-                  >
-                    {slide.uploading ? (
-                      <span className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.35)" }}>…</span>
-                    ) : slide.url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={slide.url} alt="" className="w-full h-full object-cover" />
-                    ) : (
-                      <span className="font-mono text-[10px]" style={{ color: "#fda4af" }}>!</span>
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0 flex flex-col gap-1">
-                    {slide.err ? (
-                      <p className="font-sans text-xs" style={{ color: "#fda4af" }}>{slide.err}</p>
-                    ) : (
-                      <input
-                        type="text"
-                        value={slide.caption}
-                        onChange={(e) => setSlides((prev) => prev.map((s, j) => j === i ? { ...s, caption: e.target.value.slice(0, 200) } : s))}
-                        placeholder={`Caption ${i + 1} (optional)`}
-                        style={{ ...inputStyle, fontSize: 12, padding: "5px 8px" }}
-                      />
-                    )}
-                    <div className="flex items-center gap-1">
-                      <button
-                        type="button"
-                        onClick={() => setSlides((prev) => { if (i === 0) return prev; const n = [...prev]; [n[i-1], n[i]] = [n[i], n[i-1]]; return n; })}
-                        disabled={i === 0}
-                        className="font-mono text-[10px] px-1.5 py-0.5 rounded disabled:opacity-25"
-                        style={{ background: "rgba(244,244,244,0.06)", color: "rgba(244,244,244,0.5)" }}
-                      >↑</button>
-                      <button
-                        type="button"
-                        onClick={() => setSlides((prev) => { if (i === prev.length - 1) return prev; const n = [...prev]; [n[i], n[i+1]] = [n[i+1], n[i]]; return n; })}
-                        disabled={i === slides.length - 1}
-                        className="font-mono text-[10px] px-1.5 py-0.5 rounded disabled:opacity-25"
-                        style={{ background: "rgba(244,244,244,0.06)", color: "rgba(244,244,244,0.5)" }}
-                      >↓</button>
-                      <button
-                        type="button"
-                        onClick={() => setSlides((prev) => prev.filter((_, j) => j !== i))}
-                        className="font-mono text-[10px] px-1.5 py-0.5 rounded"
-                        style={{ background: "rgba(230,57,70,0.12)", color: "#fda4af" }}
-                      >✕</button>
-                    </div>
-                  </div>
-                  <span
-                    className="font-mono text-[10px] shrink-0 mt-1"
-                    style={{ color: "rgba(244,244,244,0.2)" }}
-                  >
-                    {i + 1}
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
-          {slides.length < 20 && (
-            <button
-              type="button"
-              onClick={() => slideFileRef.current?.click()}
-              disabled={slidesUploading}
-              className="font-mono text-[11px] uppercase tracking-widest rounded-xl px-4 py-3 transition-opacity hover:opacity-90 disabled:opacity-50"
-              style={{
-                background: "rgba(94,234,212,0.08)",
-                border: "1px dashed rgba(94,234,212,0.35)",
-                color: TEAL,
-              }}
-            >
-              {slidesUploading ? "Uploading…" : slides.length === 0 ? "+ Add first image" : "+ Add another image"}
-            </button>
-          )}
-          {slides.length > 0 && (
-            <p className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.25)" }}>
-              {slides.filter((s) => s.url).length} / 20 images · drag to reorder
-            </p>
-          )}
         </>
       )}
 
@@ -348,7 +206,7 @@ function BlockComposer({
       <div className="flex gap-2">
         <button
           onClick={submit}
-          disabled={busy || uploading || slidesUploading}
+          disabled={busy || uploading}
           className="font-mono text-[11px] uppercase tracking-widest rounded-full px-4 py-1.5 transition-opacity hover:opacity-90 disabled:opacity-50"
           style={{ background: TEAL, color: "#08110F" }}
         >
@@ -519,111 +377,6 @@ function BlockView({
               {c.caption}
             </p>
           )}
-        </div>
-      )}
-
-      {block.type === "slideshow" && c.images && c.images.length > 0 && (
-        <SlideshowViewer images={c.images} />
-      )}
-    </div>
-  );
-}
-
-function SlideshowViewer({ images }: { images: Array<{ url: string; caption?: string }> }) {
-  const [idx, setIdx] = useState(0);
-  const current = images[Math.min(idx, images.length - 1)];
-  const prev = () => setIdx((i) => (i > 0 ? i - 1 : images.length - 1));
-  const next = () => setIdx((i) => (i < images.length - 1 ? i + 1 : 0));
-
-  return (
-    <div className="mt-2 select-none">
-      {/* Main image */}
-      <div className="relative rounded-xl overflow-hidden" style={{ background: "rgba(244,244,244,0.04)" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          key={idx}
-          src={current.url}
-          alt={current.caption || `slide ${idx + 1}`}
-          className="w-full object-contain rounded-xl"
-          style={{ maxHeight: 420, border: "1px solid rgba(244,244,244,0.08)" }}
-        />
-
-        {/* Prev / Next */}
-        {images.length > 1 && (
-          <>
-            <button
-              onClick={prev}
-              aria-label="Previous image"
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center transition-all hover:opacity-100 opacity-70"
-              style={{ background: "rgba(7,7,8,0.72)", border: "1px solid rgba(244,244,244,0.15)", color: "#F4F4F4", backdropFilter: "blur(8px)" }}
-            >
-              ‹
-            </button>
-            <button
-              onClick={next}
-              aria-label="Next image"
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center transition-all hover:opacity-100 opacity-70"
-              style={{ background: "rgba(7,7,8,0.72)", border: "1px solid rgba(244,244,244,0.15)", color: "#F4F4F4", backdropFilter: "blur(8px)" }}
-            >
-              ›
-            </button>
-
-            {/* Counter */}
-            <span
-              className="absolute bottom-2 right-2 font-mono text-[10px] px-2 py-0.5 rounded-full"
-              style={{ background: "rgba(7,7,8,0.72)", color: "rgba(244,244,244,0.6)", backdropFilter: "blur(8px)" }}
-            >
-              {idx + 1} / {images.length}
-            </span>
-          </>
-        )}
-      </div>
-
-      {/* Caption */}
-      {current.caption && (
-        <p className="font-sans text-xs mt-2" style={{ color: "rgba(244,244,244,0.4)" }}>
-          {current.caption}
-        </p>
-      )}
-
-      {/* Dot indicators */}
-      {images.length > 1 && (
-        <div className="flex items-center justify-center gap-1.5 mt-3">
-          {images.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setIdx(i)}
-              aria-label={`Go to image ${i + 1}`}
-              className="rounded-full transition-all"
-              style={{
-                width: i === idx ? 18 : 6,
-                height: 6,
-                background: i === idx ? TEAL : "rgba(244,244,244,0.2)",
-              }}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* Thumbnail strip for larger slideshows */}
-      {images.length > 3 && (
-        <div className="flex gap-1.5 mt-3 overflow-x-auto pb-1">
-          {images.map((img, i) => (
-            <button
-              key={i}
-              onClick={() => setIdx(i)}
-              className="shrink-0 rounded-lg overflow-hidden transition-all"
-              style={{
-                width: 48,
-                height: 36,
-                border: `1.5px solid ${i === idx ? TEAL : "transparent"}`,
-                opacity: i === idx ? 1 : 0.5,
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={img.url} alt="" className="w-full h-full object-cover" />
-            </button>
-          ))}
         </div>
       )}
     </div>
@@ -827,7 +580,7 @@ export function StudioClient({
 
         {/* Add toolbar */}
         <div className="flex flex-wrap gap-2 mb-5">
-          {(["note", "link", "image", "slideshow"] as const).map((t) => (
+          {(["note", "link", "image"] as const).map((t) => (
             <button
               key={t}
               onClick={() => {
