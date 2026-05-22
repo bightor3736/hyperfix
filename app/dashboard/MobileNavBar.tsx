@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Discovery, Plus, Category, Setting } from "react-iconly";
+import { Home, Discovery, Plus, Category, Chart, Setting } from "react-iconly";
 
 export function MobileNavBar() {
   const pathname = usePathname();
@@ -30,6 +30,9 @@ export function MobileNavBar() {
       <MobileNavLink href="/dashboard/lists" label="Lists" pathname={pathname}>
         <Category set="light" size={22} primaryColor="currentColor" />
       </MobileNavLink>
+      <MobileNavLink href="/dashboard/analytics" label="Analytics" pathname={pathname}>
+        <Chart set="light" size={22} primaryColor="currentColor" />
+      </MobileNavLink>
       <MobileNavLink href="/dashboard/settings" label="Settings" pathname={pathname}>
         <Setting set="light" size={22} primaryColor="currentColor" />
       </MobileNavLink>
@@ -55,7 +58,7 @@ function MobileNavLink({
     <Link
       href={href}
       aria-current={isActive ? "page" : undefined}
-      className="flex flex-col items-center gap-1 px-4 py-1 rounded-xl transition-colors"
+      className="flex flex-col items-center gap-1 px-2 py-1 rounded-xl transition-colors"
       style={{ color: isActive ? "#5EEAD4" : "rgba(244,244,244,0.45)" }}
     >
       {children}

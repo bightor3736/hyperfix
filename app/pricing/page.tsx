@@ -3,6 +3,7 @@ import WaitlistForm from "@/components/WaitlistForm";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { RevealSection } from "@/components/RevealSection";
+import { PRO_FEATURES } from "@/lib/pro-features";
 
 export const metadata: Metadata = {
   title: "Hyperfix Pricing — free to start, Pro for the obsessed",
@@ -36,17 +37,6 @@ const freeFeatures = [
   "Hyperfix Wrapped (annual)",
 ];
 
-const proFeatures = [
-  "Unlimited active fixes",
-  "Premium card templates",
-  "Custom profile URL",
-  "Friends-only privacy mode",
-  "Full eulogy generator",
-  "Fix history & export",
-  "Priority in Wrapped rankings",
-  "Early access to new features",
-  "Pro badge on profile",
-];
 
 const faqs = [
   { q: "When will Pro pricing be announced?", a: "Before launch. We'll email the waitlist before publishing the price anywhere — you'll have time to decide whether to lock in the early discount." },
@@ -224,10 +214,10 @@ export default function PricingPage() {
                       Everything in Free, plus:
                     </p>
                     <ul className="mt-6 mb-10 space-y-3 flex-1">
-                      {proFeatures.map((line) => (
-                        <li key={line} className="flex items-start gap-3 font-sans text-base" style={{ color: "#0A1F1C" }}>
-                          <Check color="#0A1F1C" />
-                          {line}
+                      {PRO_FEATURES.map((f) => (
+                        <li key={f.name} className="flex items-start gap-2.5 font-sans text-base" style={{ color: "#0A1F1C" }}>
+                          <span className="shrink-0 text-base leading-none mt-0.5" aria-hidden>{f.icon}</span>
+                          <span>{f.name}</span>
                         </li>
                       ))}
                     </ul>
