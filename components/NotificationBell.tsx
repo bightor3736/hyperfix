@@ -223,6 +223,16 @@ export function NotificationBell() {
               })
             )}
           </div>
+
+          {/* Footer */}
+          <a
+            href="/dashboard/notifications"
+            onClick={() => setOpen(false)}
+            className="block px-4 py-3 text-center font-mono text-[10px] uppercase tracking-widest transition-opacity hover:opacity-80"
+            style={{ borderTop: "1px solid rgba(244,244,244,0.07)", color: "#5EEAD4" }}
+          >
+            See all notifications
+          </a>
         </div>
       )}
     </div>

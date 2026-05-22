@@ -302,7 +302,19 @@ export default async function PublicProfilePage({
               @{typedProfile.username}
             </p>
             <p className="font-mono text-xs mt-1 mb-3" style={{ color: "rgba(244,244,244,0.3)" }}>
-              {followerCount ?? 0} followers · {followingCount ?? 0} following
+              <Link
+                href={`/u/${typedProfile.username}/followers`}
+                className="transition-colors hover:text-[#5EEAD4]"
+              >
+                <span style={{ color: "rgba(244,244,244,0.6)" }}>{followerCount ?? 0}</span> followers
+              </Link>
+              {" · "}
+              <Link
+                href={`/u/${typedProfile.username}/following`}
+                className="transition-colors hover:text-[#5EEAD4]"
+              >
+                <span style={{ color: "rgba(244,244,244,0.6)" }}>{followingCount ?? 0}</span> following
+              </Link>
             </p>
             {typedProfile.bio && (
               <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.75)" }}>
