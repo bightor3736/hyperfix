@@ -373,8 +373,9 @@ export default async function FixDetailPage({
 
         {/* Others tracking this */}
         {(othersCount ?? 0) > 0 && (
-          <div
-            className="relative overflow-hidden rounded-3xl px-6 py-5 mb-4 flex items-center gap-3 anim-fadeUp"
+          <Link
+            href={`/search?q=${encodeURIComponent(typedFix.title)}`}
+            className="group relative overflow-hidden rounded-3xl px-6 py-5 mb-4 flex items-center gap-3 anim-fadeUp transition-all hover:border-[rgba(94,234,212,0.4)]"
             style={{
               background: CARD_BG,
               border: "1px solid rgba(94,234,212,0.18)",
@@ -387,10 +388,13 @@ export default async function FixDetailPage({
               style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.18 }}
             />
             <span className="relative" style={{ fontSize: 20 }}>🔥</span>
-            <p className="relative font-display font-semibold text-sm" style={{ color: TEAL }}>
+            <p className="relative flex-1 font-display font-semibold text-sm" style={{ color: TEAL }}>
               {othersCount} other {othersCount === 1 ? "person is" : "people are"} also tracking &ldquo;{typedFix.title}&rdquo;
             </p>
-          </div>
+            <span className="relative font-sans text-sm shrink-0 transition-transform group-hover:translate-x-0.5" style={{ color: TEAL }}>
+              See them →
+            </span>
+          </Link>
         )}
 
         {/* Fix discovery */}
