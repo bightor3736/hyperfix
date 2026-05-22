@@ -157,6 +157,7 @@ export default async function PublicProfilePage({
 
   const totalDays = allFixes.reduce((acc, fix) => acc + dayCount(fix.started_at, fix.ended_at), 0);
   const mostObsessed = getMostObsessedCategory(allFixes);
+  const endedPublicCount = publicFixes.filter((f) => f.ended_at !== null).length;
 
   const displayName = typedProfile.display_name ?? typedProfile.username ?? "Anonymous";
 
@@ -376,19 +377,49 @@ export default async function PublicProfilePage({
           ))}
         </div>
 
+        {/* Graveyard link */}
+        {endedPublicCount > 0 && (
+          <Link
+            href={`/u/${typedProfile.username}/graveyard`}
+            className="group flex items-center justify-between gap-4 rounded-2xl p-5 mb-8 transition-all hover:border-[rgba(94,234,212,0.3)]"
+            style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
+          >
+            <div className="flex items-center gap-3">
+              <span style={{ fontSize: 22 }}>🪦</span>
+              <div>
+                <p className="font-display font-medium text-base leading-snug group-hover:text-[#5EEAD4] transition-colors">
+                  The graveyard
+                </p>
+                <p className="font-sans text-xs mt-0.5" style={{ color: "rgba(244,244,244,0.4)" }}>
+                  {endedPublicCount} ended {endedPublicCount === 1 ? "obsession" : "obsessions"} — mourned, archived, preserved
+                </p>
+              </div>
+            </div>
+            <span className="font-sans text-sm shrink-0" style={{ color: "#5EEAD4" }}>View →</span>
+          </Link>
+        )}
+
         {/* Public fixes */}
         <div>
           <h2 className="text-sm font-mono uppercase tracking-widest mb-5" style={{ color: "#9A9A9A" }}>
             Public fixes
           </h2>
 
-          {publicFixes.length === 0 ? (
-            <p className="italic text-sm" style={{ color: "rgba(244,244,244,0.35)" }}>
-              Nothing public yet.
-            </p>
+          {publicFixes.filter((f) => !f.ended_at).length === 0 ? (
+            <div
+              className="rounded-2xl p-8 text-center"
+              style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
+            >
+              <p className="font-display text-lg mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>
+                Nothing public yet.
+              </p>
+              <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>
+                {isSelf ? "Turn a fix public to show it here." : "This person keeps their obsessions private."}
+              </p>
+            </div>
           ) : (
             <div className="grid sm:grid-cols-2 gap-3">
-              {publicFixes.map((fix) => {
+              {publicFixes.filter((f) => !f.ended_at).map((fix) => {
                 const days = dayCount(fix.started_at, fix.ended_at);
                 return (
                   <Link

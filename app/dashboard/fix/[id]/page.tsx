@@ -174,7 +174,7 @@ export default async function FixDetailPage({
         <Link href="/" aria-label="Hyperfix home" className="transition-transform hover:scale-[1.02]">
           <LogoLockup size="sm" />
         </Link>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <Link
             href="/dashboard"
             className="font-sans text-sm transition-colors"
@@ -182,6 +182,19 @@ export default async function FixDetailPage({
           >
             ← my fixes
           </Link>
+          {typedFix.is_public && (
+            <Link
+              href={`/fix/${id}`}
+              className="font-sans text-sm font-medium px-3 py-1.5 rounded-full transition-all hover:opacity-90"
+              style={{
+                background: "rgba(94,234,212,0.10)",
+                border: "1px solid rgba(94,234,212,0.25)",
+                color: "#5EEAD4",
+              }}
+            >
+              View public →
+            </Link>
+          )}
           <ShareButton fixId={id} isPublic={typedFix.is_public} fixTitle={typedFix.title} days={days} intensity={typedFix.intensity} />
         </div>
       </nav>

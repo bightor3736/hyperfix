@@ -39,12 +39,14 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
   const delay = `${Math.min(index, 6) * 60}ms`;
 
   return (
-    <div
-      className="motion-card relative overflow-hidden rounded-3xl p-6 flex flex-col gap-4 anim-fadeUp"
+    <Link
+      href={`/fix/${fix.id}`}
+      className="motion-card group relative overflow-hidden rounded-3xl p-6 flex flex-col gap-4 anim-fadeUp"
       style={{
         background: CARD_BG,
         border: `1px solid ${CARD_BORDER}`,
         animationDelay: delay,
+        textDecoration: "none",
       }}
     >
       <div
@@ -73,7 +75,7 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
       </div>
 
       <h3
-        className="relative font-display leading-snug"
+        className="relative font-display leading-snug group-hover:text-[#5EEAD4] transition-colors"
         style={{
           color: "#FFFFFF",
           fontSize: 19,
@@ -105,7 +107,7 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
           {formatDate(fix.started_at)} — {formatDate(fix.ended_at)}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }
 

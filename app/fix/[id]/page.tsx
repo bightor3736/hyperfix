@@ -25,6 +25,7 @@ interface Fix {
   ended_at: string | null;
   is_public: boolean;
   user_id: string;
+  tags: string[] | null;
 }
 
 interface Profile {
@@ -140,7 +141,7 @@ export default async function PublicFixPage({
 
   const { data: fix, error } = await supabase
     .from("fixes")
-    .select("id, title, category, status, intensity, note, eulogy, started_at, ended_at, is_public, user_id")
+    .select("id, title, category, status, intensity, note, eulogy, started_at, ended_at, is_public, user_id, tags")
     .eq("id", id)
     .single();
 
@@ -422,6 +423,25 @@ export default async function PublicFixPage({
             >
               {typedFix.eulogy}
             </p>
+          </div>
+        )}
+
+        {/* Tags */}
+        {typedFix.tags && typedFix.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-5 anim-fadeUp" style={{ animationDelay: "175ms" }}>
+            {typedFix.tags.map((tag) => (
+              <span
+                key={tag}
+                className="font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1"
+                style={{
+                  background: "rgba(94,234,212,0.08)",
+                  border: "1px solid rgba(94,234,212,0.18)",
+                  color: "#5EEAD4",
+                }}
+              >
+                #{tag}
+              </span>
+            ))}
           </div>
         )}
 

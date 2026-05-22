@@ -17,6 +17,7 @@ type Fix = {
   started_at: string;
   ended_at: string | null;
   created_at: string;
+  is_public?: boolean;
 };
 
 const VALID_STATUSES: FixStatus[] = [
@@ -152,6 +153,22 @@ function FixGridCard({
             {fix.category}
           </span>
           <FixStatusPill status={status} size="sm" />
+          {fix.is_public && (
+            <span
+              className="inline-flex items-center gap-1 font-sans text-[10px] rounded-full px-2.5 py-0.5"
+              style={{
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.10)",
+                color: "rgba(255,255,255,0.35)",
+              }}
+              title="Public — visible to anyone"
+            >
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+              public
+            </span>
+          )}
           {milestone && (
             <span
               className="font-sans text-[11px] rounded-full px-2.5 py-0.5"

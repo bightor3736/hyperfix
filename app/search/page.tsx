@@ -214,7 +214,9 @@ export default async function SearchPage({
     const [
       { data: byUsername },
       { data: byDisplayName },
-      { data: fixData },
+      { data: byTitle },
+      { data: byTag },
+      { data: byCategory },
     ] = await Promise.all([
       supabase
         .from("profiles")
@@ -236,6 +238,22 @@ export default async function SearchPage({
         .is("ended_at", null)
         .order("created_at", { ascending: false })
         .limit(20),
+      supabase
+        .from("fixes")
+        .select("id, title, category, status, intensity, started_at, ended_at, profiles(username, display_name, avatar_url)")
+        .eq("is_public", true)
+        .contains("tags", [query.toLowerCase()])
+        .is("ended_at", null)
+        .order("created_at", { ascending: false })
+        .limit(10),
+      supabase
+        .from("fixes")
+        .select("id, title, category, status, intensity, started_at, ended_at, profiles(username, display_name, avatar_url)")
+        .eq("is_public", true)
+        .ilike("category", query)
+        .is("ended_at", null)
+        .order("created_at", { ascending: false })
+        .limit(10),
     ]);
 
     const seen = new Set<string>();
@@ -246,7 +264,14 @@ export default async function SearchPage({
       }
     }
 
-    fixes = (fixData ?? []) as unknown as FixResult[];
+    const seenFixes = new Set<string>();
+    for (const f of [...(byTitle ?? []), ...(byTag ?? []), ...(byCategory ?? [])]) {
+      const fix = f as unknown as FixResult;
+      if (!seenFixes.has(fix.id)) {
+        seenFixes.add(fix.id);
+        fixes.push(fix);
+      }
+    }
   }
 
   const hasResults = profiles.length > 0 || fixes.length > 0;

@@ -19,6 +19,7 @@ type Fix = {
   started_at: string;
   ended_at: string | null;
   created_at: string;
+  is_public: boolean;
 };
 
 const TEAL = "#5EEAD4";
@@ -119,7 +120,7 @@ export default async function DashboardPage() {
   if (user) {
     const { data, error } = await supabase
       .from("fixes")
-      .select("id, title, category, status, intensity, note, started_at, ended_at, created_at")
+      .select("id, title, category, status, intensity, note, started_at, ended_at, created_at, is_public")
       .eq("user_id", user.id)
       .not("status", "eq", "Ended")
       .order("created_at", { ascending: false });
