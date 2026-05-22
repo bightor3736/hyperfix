@@ -6,7 +6,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { LogoLockup } from "@/components/Logo";
 import { NotificationBell } from "@/components/NotificationBell";
-import { Home, Discovery, Search, Category, Star, Setting, Plus, Logout } from "react-iconly";
+import { Home, Discovery, Search, Category, Star, Setting, Plus, Logout, Chart } from "react-iconly";
 
 type Props = {
   displayName: string;
@@ -66,6 +66,11 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
       href: `/wrapped/${new Date().getFullYear()}`,
       label: `Wrapped '${String(new Date().getFullYear()).slice(2)}`,
       icon: (active: boolean) => <Star set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
+    },
+    {
+      href: "/dashboard/analytics",
+      label: "Analytics",
+      icon: (active: boolean) => <Chart set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
     },
     {
       href: "/dashboard/settings",

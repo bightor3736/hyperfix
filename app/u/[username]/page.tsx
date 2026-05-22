@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { FollowButton, FollowButtonLoggedIn } from "@/components/FollowButton";
 import { ShareProfileButton } from "@/components/ShareProfileButton";
+import { resolveAccent, hexToRgba } from "@/lib/accent";
 
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
@@ -28,8 +29,10 @@ interface Profile {
   bio: string | null;
   is_public: boolean;
   pinned_fix_id: string | null;
+  pinned_fix_ids: string[] | null;
   banner_url: string | null;
   is_pro: boolean | null;
+  accent_color: string | null;
 }
 
 function dayCount(startedAt: string, endedAt: string | null): number {
@@ -47,7 +50,7 @@ function getMostObsessedCategory(fixes: Fix[]): string | null {
   return Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
 }
 
-function Initials({ name }: { name: string }) {
+function Initials({ name, accent }: { name: string; accent: string }) {
   const parts = name.trim().split(/\s+/);
   const letters =
     parts.length >= 2
@@ -56,7 +59,7 @@ function Initials({ name }: { name: string }) {
   return (
     <div
       className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-display font-medium"
-      style={{ background: "rgba(94,234,212,0.15)", color: "#5EEAD4", border: "2px solid rgba(94,234,212,0.3)" }}
+      style={{ background: hexToRgba(accent, 0.15), color: accent, border: `2px solid ${hexToRgba(accent, 0.3)}` }}
     >
       {letters.toUpperCase()}
     </div>
@@ -93,15 +96,16 @@ export async function generateMetadata({
   const supabase = await createClient();
   const { data: profile } = await supabase
     .from("profiles")
-    .select("username, display_name, bio")
+    .select("username, display_name, bio, accent_color, is_pro")
     .eq("username", username)
     .single();
 
   if (!profile) return { title: "Not found · Hyperfix" };
 
-  const name = (profile as { username: string | null; display_name: string | null; bio: string | null }).display_name ?? profile.username ?? username;
-  const typedProfile = profile as { username: string | null; display_name: string | null; bio: string | null };
+  const typedProfile = profile as { username: string | null; display_name: string | null; bio: string | null; accent_color: string | null; is_pro: boolean | null };
+  const name = typedProfile.display_name ?? typedProfile.username ?? username;
   const description = typedProfile.bio ?? `See what ${name} is hyperfixated on.`;
+  const ogAccent = resolveAccent(typedProfile.is_pro, typedProfile.accent_color);
 
   return {
     title: `${name} · Hyperfix`,
@@ -110,7 +114,7 @@ export async function generateMetadata({
       title: `${name} on Hyperfix`,
       description,
       images: [{
-        url: `/api/og?title=${encodeURIComponent(name)}&sub=${encodeURIComponent(description)}&accent=${encodeURIComponent("@" + username)}`,
+        url: `/api/og?title=${encodeURIComponent(name)}&sub=${encodeURIComponent(description)}&accent=${encodeURIComponent("@" + username)}&color=${encodeURIComponent(ogAccent)}`,
         width: 1200,
         height: 630,
       }],
@@ -129,7 +133,7 @@ export default async function PublicProfilePage({
 
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select("id, username, display_name, avatar_url, bio, is_public, pinned_fix_id, banner_url, is_pro")
+    .select("id, username, display_name, avatar_url, bio, is_public, pinned_fix_id, pinned_fix_ids, banner_url, is_pro, accent_color")
     .eq("username", username)
     .single();
 
@@ -148,18 +152,23 @@ export default async function PublicProfilePage({
   const allFixes: Fix[] = (fixes ?? []) as Fix[];
   const publicFixes = allFixes.filter((f) => f.is_public);
 
-  // Pinned fix (may differ from allFixes if it's a private fix still shown as pinned hero)
-  let pinnedFix: Fix | null = null;
-  if (typedProfile.pinned_fix_id) {
-    const pinned = allFixes.find((f) => f.id === typedProfile.pinned_fix_id);
-    if (pinned?.is_public) pinnedFix = pinned;
-  }
+  // Pinned fixes — Pro users can pin multiple; fall back to legacy single pin
+  const pinIds =
+    typedProfile.pinned_fix_ids && typedProfile.pinned_fix_ids.length > 0
+      ? typedProfile.pinned_fix_ids
+      : typedProfile.pinned_fix_id
+        ? [typedProfile.pinned_fix_id]
+        : [];
+  const pinnedFixes: Fix[] = pinIds
+    .map((pid) => allFixes.find((f) => f.id === pid))
+    .filter((f): f is Fix => !!f && f.is_public);
 
   const totalDays = allFixes.reduce((acc, fix) => acc + dayCount(fix.started_at, fix.ended_at), 0);
   const mostObsessed = getMostObsessedCategory(allFixes);
   const endedPublicCount = publicFixes.filter((f) => f.ended_at !== null).length;
 
   const displayName = typedProfile.display_name ?? typedProfile.username ?? "Anonymous";
+  const accent = resolveAccent(typedProfile.is_pro, typedProfile.accent_color);
 
   // Follow state and counts
   const {
@@ -233,13 +242,12 @@ export default async function PublicProfilePage({
                   backgroundPosition: "center top",
                 }
               : {
-                  background:
-                    "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
+                  background: `radial-gradient(ellipse 80% 120% at 50% 130%, ${accent} 0%, ${hexToRgba(accent, 0.55)} 22%, ${hexToRgba(accent, 0.16)} 42%, ${hexToRgba(accent, 0.04)} 58%, #070708 78%)`,
                 }),
             border: typedProfile.is_pro
-              ? "1px solid rgba(94,234,212,0.25)"
+              ? `1px solid ${hexToRgba(accent, 0.25)}`
               : "1px solid rgba(255,255,255,0.06)",
-            boxShadow: typedProfile.is_pro ? "0 0 0 1px rgba(94,234,212,0.08), 0 8px 40px rgba(94,234,212,0.08)" : undefined,
+            boxShadow: typedProfile.is_pro ? `0 0 0 1px ${hexToRgba(accent, 0.08)}, 0 8px 40px ${hexToRgba(accent, 0.08)}` : undefined,
           }}
         >
           {/* Banner dark scrim (always shown, stronger when banner image is present) */}
@@ -263,7 +271,7 @@ export default async function PublicProfilePage({
               aria-hidden
               className="absolute inset-0 pointer-events-none rounded-3xl"
               style={{
-                background: "linear-gradient(135deg, rgba(94,234,212,0.08) 0%, transparent 50%, rgba(94,234,212,0.04) 100%)",
+                background: `linear-gradient(135deg, ${hexToRgba(accent, 0.08)} 0%, transparent 50%, ${hexToRgba(accent, 0.04)} 100%)`,
               }}
             />
           )}
@@ -275,7 +283,7 @@ export default async function PublicProfilePage({
               <div
                 className="absolute -inset-2 rounded-full pointer-events-none"
                 style={{
-                  background: "radial-gradient(circle, rgba(94,234,212,0.4) 0%, transparent 70%)",
+                  background: `radial-gradient(circle, ${hexToRgba(accent, 0.4)} 0%, transparent 70%)`,
                   filter: "blur(6px)",
                 }}
               />
@@ -286,11 +294,11 @@ export default async function PublicProfilePage({
                 src={typedProfile.avatar_url}
                 alt={displayName}
                 className="relative w-20 h-20 rounded-full object-cover"
-                style={{ border: typedProfile.is_pro ? "2px solid rgba(94,234,212,0.5)" : "2px solid rgba(244,244,244,0.1)" }}
+                style={{ border: typedProfile.is_pro ? `2px solid ${hexToRgba(accent, 0.5)}` : "2px solid rgba(244,244,244,0.1)" }}
               />
             ) : (
               <div className="relative">
-                <Initials name={displayName} />
+                <Initials name={displayName} accent={accent} />
               </div>
             )}
           </div>
@@ -301,10 +309,10 @@ export default async function PublicProfilePage({
                 <span
                   className="font-mono text-[9px] rounded px-1.5 py-0.5 shrink-0"
                   style={{
-                    background: "rgba(94,234,212,0.18)",
-                    color: "#5EEAD4",
-                    border: "1px solid rgba(94,234,212,0.35)",
-                    boxShadow: "0 0 10px rgba(94,234,212,0.2)",
+                    background: hexToRgba(accent, 0.18),
+                    color: accent,
+                    border: `1px solid ${hexToRgba(accent, 0.35)}`,
+                    boxShadow: `0 0 10px ${hexToRgba(accent, 0.2)}`,
                   }}
                 >
                   PRO
@@ -362,36 +370,44 @@ export default async function PublicProfilePage({
           </div>
         </div>
 
-        {/* Pinned fix */}
-        {pinnedFix && (
+        {/* Pinned fixes */}
+        {pinnedFixes.length > 0 && (
           <div className="mb-8">
             <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(244,244,244,0.35)" }}>
-              📌 currently obsessed with
+              📌 {pinnedFixes.length > 1 ? "currently obsessed with" : "currently obsessed with"}
             </p>
-            <Link
-              href={`/fix/${pinnedFix.id}`}
-              className="group flex items-center gap-4 rounded-2xl p-5 transition-all hover:border-[rgba(94,234,212,0.3)]"
-              style={{ background: "#111113", border: "1px solid rgba(94,234,212,0.2)" }}
-            >
-              <div className="flex-1 min-w-0">
-                <h3 className="font-display font-medium text-lg leading-snug group-hover:text-[#5EEAD4] transition-colors mb-1">
-                  {pinnedFix.title}
-                </h3>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-mono text-[10px] uppercase tracking-widest rounded-full px-2.5 py-1"
-                    style={{ background: "rgba(94,234,212,0.1)", border: "1px solid rgba(94,234,212,0.25)", color: "#5EEAD4" }}>
-                    {pinnedFix.category}
-                  </span>
-                  <span className="font-mono text-xs" style={{ color: "#9A9A9A" }}>
-                    Day {dayCount(pinnedFix.started_at, pinnedFix.ended_at)}
-                  </span>
-                </div>
-              </div>
-              <div className="shrink-0 text-2xl font-display font-black tabular-nums" style={{ color: "#5EEAD4" }}>
-                {dayCount(pinnedFix.started_at, pinnedFix.ended_at)}
-                <span className="text-xs font-mono font-normal ml-1" style={{ color: "rgba(94,234,212,0.5)" }}>d</span>
-              </div>
-            </Link>
+            <div className="flex flex-col gap-3">
+              {pinnedFixes.map((pf) => (
+                <Link
+                  key={pf.id}
+                  href={`/fix/${pf.id}`}
+                  className="group flex items-center gap-4 rounded-2xl p-5 transition-all"
+                  style={{ background: "#111113", border: `1px solid ${hexToRgba(accent, 0.2)}` }}
+                >
+                  <div className="flex-1 min-w-0">
+                    <h3
+                      className="font-display font-medium text-lg leading-snug transition-colors mb-1"
+                      style={{ color: "#F4F4F4" }}
+                    >
+                      {pf.title}
+                    </h3>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-mono text-[10px] uppercase tracking-widest rounded-full px-2.5 py-1"
+                        style={{ background: hexToRgba(accent, 0.1), border: `1px solid ${hexToRgba(accent, 0.25)}`, color: accent }}>
+                        {pf.category}
+                      </span>
+                      <span className="font-mono text-xs" style={{ color: "#9A9A9A" }}>
+                        Day {dayCount(pf.started_at, pf.ended_at)}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="shrink-0 text-2xl font-display font-black tabular-nums" style={{ color: accent }}>
+                    {dayCount(pf.started_at, pf.ended_at)}
+                    <span className="text-xs font-mono font-normal ml-1" style={{ color: hexToRgba(accent, 0.5) }}>d</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         )}
 

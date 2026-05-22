@@ -253,25 +253,47 @@ export async function bulkCheckInFixes(fixIds: string[]): Promise<void> {
   revalidatePath("/dashboard");
 }
 
+// Pro users can pin up to this many fixes; free users get one.
+const PRO_MAX_PINS = 3;
+
 export async function pinFix(fixId: string | null): Promise<void> {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error("Not authenticated");
 
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("username, is_pro, pinned_fix_ids, pinned_fix_id")
+    .eq("id", user.id)
+    .single();
+
+  const isPro = !!profile?.is_pro;
+  const current: string[] =
+    (profile?.pinned_fix_ids as string[] | null) ??
+    (profile?.pinned_fix_id ? [profile.pinned_fix_id as string] : []);
+
+  let next: string[];
+  if (fixId === null) {
+    // Clear all pins
+    next = [];
+  } else if (current.includes(fixId)) {
+    // Toggle off
+    next = current.filter((id) => id !== fixId);
+  } else if (isPro) {
+    // Pro: append, keep most recent PRO_MAX_PINS
+    next = [...current, fixId].slice(-PRO_MAX_PINS);
+  } else {
+    // Free: single pin replaces
+    next = [fixId];
+  }
+
   const { error } = await supabase
     .from("profiles")
-    .update({ pinned_fix_id: fixId })
+    .update({ pinned_fix_ids: next, pinned_fix_id: next[0] ?? null })
     .eq("id", user.id);
 
   if (error) throw new Error(`Failed to pin fix: ${error.message}`);
 
   revalidatePath("/dashboard");
-  if (user) {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("username")
-      .eq("id", user.id)
-      .single();
-    if (profile?.username) revalidatePath(`/u/${profile.username}`);
-  }
+  if (profile?.username) revalidatePath(`/u/${profile.username}`);
 }

@@ -22,6 +22,9 @@ export type StudioBlock = {
   created_at: string;
 };
 
+// Free accounts can add this many Studio blocks per fix; Pro is unlimited.
+const FREE_STUDIO_BLOCK_LIMIT = 8;
+
 function sanitizeContent(
   type: StudioBlockType,
   content: StudioBlockContent
@@ -71,6 +74,24 @@ export async function addStudioBlock(
     .single();
   if (!fix || fix.user_id !== user.id) {
     return { error: "Not authorized" };
+  }
+
+  // Free-tier block limit (Pro is unlimited)
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("is_pro")
+    .eq("id", user.id)
+    .single();
+  if (!profile?.is_pro) {
+    const { count } = await supabase
+      .from("fix_studio_blocks")
+      .select("id", { count: "exact", head: true })
+      .eq("fix_id", fixId);
+    if ((count ?? 0) >= FREE_STUDIO_BLOCK_LIMIT) {
+      return {
+        error: `Free accounts can add up to ${FREE_STUDIO_BLOCK_LIMIT} Studio blocks per fix. Upgrade to Pro for unlimited blocks.`,
+      };
+    }
   }
 
   // Next sort_order

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Send } from "react-iconly";
+import { ACCENT_PRESETS, DEFAULT_ACCENT } from "@/lib/accent";
 
 type Profile = {
   id: string;
@@ -12,6 +13,7 @@ type Profile = {
   bio: string | null;
   avatar_url: string | null;
   banner_url?: string | null;
+  accent_color?: string | null;
   is_public: boolean | null;
   is_pro?: boolean | null;
   referral_code?: string | null;
@@ -48,6 +50,8 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
   const [bannerUrl, setBannerUrl] = useState(profile?.banner_url ?? "");
   const [bannerUploadProgress, setBannerUploadProgress] = useState<number | null>(null);
   const [bannerUploadError, setBannerUploadError] = useState<string | null>(null);
+  const [accentColor, setAccentColor] = useState(profile?.accent_color ?? DEFAULT_ACCENT);
+  const [exporting, setExporting] = useState(false);
 
   // UI state
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
@@ -224,6 +228,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           username: username.trim() || null,
           bio: bio.trim() || null,
           is_public: isPublic,
+          ...(profile?.is_pro ? { accent_color: accentColor } : {}),
           notification_prefs: {
             streak_reminders: notifStreak,
             milestones: notifMilestones,
@@ -279,6 +284,34 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
       setPasswordSuccess(true);
       setTimeout(() => setPasswordSuccess(false), 3000);
     });
+  }
+
+  // Export data (Pro)
+  async function handleExport() {
+    setExporting(true);
+    try {
+      const res = await fetch("/api/account/export");
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({}));
+        setToast(json.error ?? "Export failed.");
+        setTimeout(() => setToast(null), 3000);
+        return;
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `hyperfix-export-${new Date().toISOString().split("T")[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      setToast("Export failed.");
+      setTimeout(() => setToast(null), 3000);
+    } finally {
+      setExporting(false);
+    }
   }
 
   // Sign out
@@ -494,6 +527,48 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           </div>
         )}
 
+        {/* Accent color (Pro only) */}
+        {profile?.is_pro && (
+          <div className="mb-8">
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ color: "rgba(244,244,244,0.25)" }}>
+              Pro · Profile accent
+            </p>
+            <div className="flex items-center gap-2.5 flex-wrap">
+              {ACCENT_PRESETS.map((preset) => {
+                const selected = accentColor.toLowerCase() === preset.hex.toLowerCase();
+                return (
+                  <button
+                    key={preset.hex}
+                    type="button"
+                    onClick={() => setAccentColor(preset.hex)}
+                    title={preset.name}
+                    aria-label={`Accent color ${preset.name}`}
+                    className="relative rounded-full transition-all"
+                    style={{
+                      width: 34,
+                      height: 34,
+                      background: preset.hex,
+                      boxShadow: selected ? `0 0 0 2px #111113, 0 0 0 4px ${preset.hex}` : "none",
+                    }}
+                  >
+                    {selected && (
+                      <span
+                        className="absolute inset-0 flex items-center justify-center font-bold text-sm"
+                        style={{ color: "#0A0A0A" }}
+                      >
+                        ✓
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+            <p className="font-mono text-[10px] mt-3" style={{ color: "rgba(244,244,244,0.2)" }}>
+              Tints your public profile hero, badge, and share card.
+            </p>
+          </div>
+        )}
+
         {/* Fields */}
         <div className="flex flex-col gap-5">
           <FieldGroup label="Display name">
@@ -695,6 +770,31 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               {pending ? "Updating…" : "Update password"}
             </button>
           </div>
+
+          {/* Export data (Pro) */}
+          {profile?.is_pro && (
+            <div className="flex flex-col gap-2 p-4 rounded-2xl" style={cardStyle}>
+              <p className="font-sans text-sm font-medium" style={{ color: "#F4F4F4" }}>
+                Export your data
+              </p>
+              <p className="font-sans text-[12px]" style={{ color: "rgba(244,244,244,0.35)" }}>
+                Download all your fixes, check-ins, Studio blocks, and comments as a JSON file.
+              </p>
+              <button
+                type="button"
+                onClick={handleExport}
+                disabled={exporting}
+                className="self-start mt-1 px-5 py-2.5 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80 disabled:opacity-50"
+                style={{
+                  background: "rgba(94,234,212,0.1)",
+                  border: "1px solid rgba(94,234,212,0.25)",
+                  color: "#5EEAD4",
+                }}
+              >
+                {exporting ? "Preparing…" : "Download export"}
+              </button>
+            </div>
+          )}
 
           {/* Sign out */}
           <button

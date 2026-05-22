@@ -8,7 +8,7 @@ const SIZE = { width: 1200, height: 630 };
 const BG = "#080808";
 const INK = "#F4F4F4";
 const MUTED = "#525252";
-const ACCENT = "#5EEAD4";
+const DEFAULT_ACCENT = "#5EEAD4";
 const SOFT = "#9A9A9A";
 
 export async function GET(req: NextRequest) {
@@ -16,6 +16,9 @@ export async function GET(req: NextRequest) {
   const title = searchParams.get("title") ?? "What are you unwell about?";
   const sub = searchParams.get("sub") ?? "a hyperfixation tracker for people who can't shut up about their current obsession";
   const accent = searchParams.get("accent") ?? title;
+
+  const colorParam = searchParams.get("color");
+  const ACCENT = colorParam && /^#[0-9a-fA-F]{6}$/.test(colorParam) ? colorParam : DEFAULT_ACCENT;
 
   const accentIndex = title.toLowerCase().indexOf(accent.toLowerCase());
   const before = accentIndex > 0 ? title.slice(0, accentIndex) : title;

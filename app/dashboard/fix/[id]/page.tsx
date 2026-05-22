@@ -107,10 +107,13 @@ export default async function FixDetailPage({
   // Check if this fix is pinned on the user's profile + Pro status
   const { data: profileData } = await supabase
     .from("profiles")
-    .select("pinned_fix_id, is_pro")
+    .select("pinned_fix_id, pinned_fix_ids, is_pro")
     .eq("id", user.id)
     .single();
-  const isPinned = profileData?.pinned_fix_id === id;
+  const pinnedIds: string[] =
+    (profileData?.pinned_fix_ids as string[] | null) ??
+    (profileData?.pinned_fix_id ? [profileData.pinned_fix_id as string] : []);
+  const isPinned = pinnedIds.includes(id);
   const isPro = profileData?.is_pro ?? false;
 
   // "Others tracking this" — public fixes with same title from other users
