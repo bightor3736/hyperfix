@@ -40,6 +40,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
   const [notifStreak, setNotifStreak] = useState<boolean>(notifPrefs.streak_reminders !== false);
   const [notifMilestones, setNotifMilestones] = useState<boolean>(notifPrefs.milestones !== false);
   const [notifDigest, setNotifDigest] = useState<boolean>(notifPrefs.weekly_digest !== false);
+  const [notifComments, setNotifComments] = useState<boolean>(notifPrefs.social_comments !== false);
+  const [notifReactions, setNotifReactions] = useState<boolean>(notifPrefs.social_reactions !== false);
+  const [notifFollows, setNotifFollows] = useState<boolean>(notifPrefs.social_follows !== false);
 
   // UI state
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
@@ -161,7 +164,14 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           username: username.trim() || null,
           bio: bio.trim() || null,
           is_public: isPublic,
-          notification_prefs: { streak_reminders: notifStreak, milestones: notifMilestones, weekly_digest: notifDigest },
+          notification_prefs: {
+            streak_reminders: notifStreak,
+            milestones: notifMilestones,
+            weekly_digest: notifDigest,
+            social_comments: notifComments,
+            social_reactions: notifReactions,
+            social_follows: notifFollows,
+          },
         };
 
         const { error } = await supabase
@@ -444,6 +454,30 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             description="Sunday summary of my active fixes"
             checked={notifDigest}
             onChange={setNotifDigest}
+          />
+        </div>
+
+        <p className="font-sans text-[11px] font-semibold uppercase tracking-widest mt-7 mb-3" style={{ color: "rgba(244,244,244,0.25)" }}>
+          Activity on my fixes
+        </p>
+        <div className="flex flex-col gap-3">
+          <NotifToggle
+            label="Comments"
+            description="notify me when someone comments on my fix"
+            checked={notifComments}
+            onChange={setNotifComments}
+          />
+          <NotifToggle
+            label="Reactions"
+            description="notify me when someone reacts to my fix"
+            checked={notifReactions}
+            onChange={setNotifReactions}
+          />
+          <NotifToggle
+            label="New followers"
+            description="notify me when someone follows me"
+            checked={notifFollows}
+            onChange={setNotifFollows}
           />
         </div>
       </section>

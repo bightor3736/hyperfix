@@ -57,12 +57,20 @@ export async function addComment(
     .eq("id", fixId)
     .single();
   if (fix && fix.user_id !== user.id) {
-    await supabase.from("notifications").insert({
-      user_id: fix.user_id,
-      type: "comment",
-      actor_id: user.id,
-      fix_id: fixId,
-    });
+    const { data: ownerPrefs } = await supabase
+      .from("profiles")
+      .select("notification_prefs")
+      .eq("id", fix.user_id)
+      .single();
+    const prefs = (ownerPrefs?.notification_prefs ?? {}) as Record<string, boolean>;
+    if (prefs.social_comments !== false) {
+      await supabase.from("notifications").insert({
+        user_id: fix.user_id,
+        type: "comment",
+        actor_id: user.id,
+        fix_id: fixId,
+      });
+    }
   }
 
   const raw = data as unknown as {

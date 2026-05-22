@@ -155,26 +155,65 @@ function BlockView({
   block,
   isFirst,
   isLast,
+  dragging,
+  dragOver,
   onEdit,
   onDelete,
   onMove,
+  onDragStart,
+  onDragEnter,
+  onDragEnd,
+  onDrop,
 }: {
   block: StudioBlock;
   isFirst: boolean;
   isLast: boolean;
+  dragging: boolean;
+  dragOver: boolean;
   onEdit: () => void;
   onDelete: () => void;
   onMove: (dir: -1 | 1) => void;
+  onDragStart: () => void;
+  onDragEnter: () => void;
+  onDragEnd: () => void;
+  onDrop: () => void;
 }) {
   const c = block.content;
+  const [armed, setArmed] = useState(false);
 
   return (
     <div
-      className="group relative rounded-2xl p-5"
-      style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
+      draggable={armed}
+      onDragStart={onDragStart}
+      onDragEnter={onDragEnter}
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={(e) => {
+        e.preventDefault();
+        onDrop();
+      }}
+      onDragEnd={() => {
+        setArmed(false);
+        onDragEnd();
+      }}
+      className="group relative rounded-2xl p-5 transition-[border-color,opacity]"
+      style={{
+        background: CARD_BG,
+        border: `1px solid ${dragOver ? "rgba(94,234,212,0.55)" : CARD_BORDER}`,
+        opacity: dragging ? 0.4 : 1,
+      }}
     >
       {/* Controls */}
-      <div className="absolute top-3 right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="absolute top-3 right-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+        <span
+          onPointerDown={() => setArmed(true)}
+          onPointerUp={() => setArmed(false)}
+          aria-label="Drag to reorder"
+          title="Drag to reorder"
+          className="font-mono text-xs rounded px-1.5 py-0.5 cursor-grab active:cursor-grabbing select-none"
+          style={{ background: "rgba(244,244,244,0.06)", color: "rgba(244,244,244,0.6)" }}
+        >
+          ⠿
+        </span>
         <button
           onClick={() => onMove(-1)}
           disabled={isFirst}
@@ -283,6 +322,8 @@ export function StudioClient({
   const [editingId, setEditingId] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [dragId, setDragId] = useState<string | null>(null);
+  const [dragOverId, setDragOverId] = useState<string | null>(null);
 
   async function handleAdd(type: StudioBlockType, content: StudioBlockContent) {
     setBusy(true);
@@ -335,6 +376,34 @@ export function StudioClient({
     const snapshot = blocks;
     const next = [...blocks];
     [next[index], next[target]] = [next[target], next[index]];
+    setBlocks(next);
+    setError(null);
+
+    const result = await reorderStudioBlocks(fixId, next.map((b) => b.id));
+    if ("error" in result) {
+      setBlocks(snapshot);
+      setError(result.error);
+    }
+  }
+
+  function handleDragEnd() {
+    setDragId(null);
+    setDragOverId(null);
+  }
+
+  async function handleDrop(targetId: string) {
+    const sourceId = dragId;
+    handleDragEnd();
+    if (!sourceId || sourceId === targetId) return;
+
+    const from = blocks.findIndex((b) => b.id === sourceId);
+    const to = blocks.findIndex((b) => b.id === targetId);
+    if (from < 0 || to < 0) return;
+
+    const snapshot = blocks;
+    const next = [...blocks];
+    const [moved] = next.splice(from, 1);
+    next.splice(to, 0, moved);
     setBlocks(next);
     setError(null);
 
@@ -510,6 +579,8 @@ export function StudioClient({
                   block={block}
                   isFirst={i === 0}
                   isLast={i === blocks.length - 1}
+                  dragging={dragId === block.id}
+                  dragOver={dragOverId === block.id && dragId !== block.id}
                   onEdit={() => {
                     setEditingId(block.id);
                     setAdding(null);
@@ -517,6 +588,10 @@ export function StudioClient({
                   }}
                   onDelete={() => handleDelete(block.id)}
                   onMove={(dir) => handleMove(block.id, dir)}
+                  onDragStart={() => setDragId(block.id)}
+                  onDragEnter={() => setDragOverId(block.id)}
+                  onDragEnd={handleDragEnd}
+                  onDrop={() => handleDrop(block.id)}
                 />
               )
             )}
