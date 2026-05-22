@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Send } from "react-iconly";
 import { ACCENT_PRESETS, DEFAULT_ACCENT } from "@/lib/accent";
+import { ProUpsellModal } from "@/components/ProUpsell";
 
 type Profile = {
   id: string;
@@ -52,6 +53,10 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
   const [bannerUploadError, setBannerUploadError] = useState<string | null>(null);
   const [accentColor, setAccentColor] = useState(profile?.accent_color ?? DEFAULT_ACCENT);
   const [exporting, setExporting] = useState(false);
+
+  const isPro = !!profile?.is_pro;
+  const [proModal, setProModal] = useState<string | null>(null);
+  const openPro = (feature: string) => setProModal(feature);
 
   // UI state
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
@@ -288,6 +293,10 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
 
   // Export data (Pro)
   async function handleExport() {
+    if (!isPro) {
+      openPro("Data export");
+      return;
+    }
     setExporting(true);
     try {
       const res = await fetch("/api/account/export");
@@ -440,12 +449,19 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           </div>
         </div>
 
-        {/* Banner (Pro only) */}
-        {profile?.is_pro && (
-          <div className="mb-8">
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ color: "rgba(244,244,244,0.25)" }}>
-              Pro · Profile banner
-            </p>
+        {/* Banner (Pro) */}
+        <div className="mb-8">
+            <button
+              type="button"
+              onClick={isPro ? undefined : () => openPro("Profile banner")}
+              className="flex items-center gap-1.5 mb-3"
+              style={{ cursor: isPro ? "default" : "pointer" }}
+            >
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.25)" }}>
+                Profile banner
+              </span>
+              <ProTag />
+            </button>
             <div
               className="relative rounded-2xl overflow-hidden mb-3 flex items-end"
               style={{
@@ -465,7 +481,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               <div className="absolute bottom-3 right-3 flex gap-2">
                 <button
                   type="button"
-                  onClick={() => bannerFileInputRef.current?.click()}
+                  onClick={() => (isPro ? bannerFileInputRef.current?.click() : openPro("Profile banner"))}
                   className="px-3 py-1.5 rounded-full font-sans text-xs font-medium transition-all hover:opacity-80"
                   style={{
                     background: "rgba(7,7,8,0.85)",
@@ -476,7 +492,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                 >
                   {bannerUrl ? "Change" : "Upload banner"}
                 </button>
-                {bannerUrl && (
+                {isPro && bannerUrl && (
                   <button
                     type="button"
                     onClick={async () => {
@@ -524,23 +540,29 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             <p className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.2)" }}>
               Recommended: 1500×500px · JPG or PNG · max 5MB
             </p>
-          </div>
-        )}
+        </div>
 
-        {/* Accent color (Pro only) */}
-        {profile?.is_pro && (
-          <div className="mb-8">
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ color: "rgba(244,244,244,0.25)" }}>
-              Pro · Profile accent
-            </p>
+        {/* Accent color (Pro) */}
+        <div className="mb-8">
+            <button
+              type="button"
+              onClick={isPro ? undefined : () => openPro("Custom accent color")}
+              className="flex items-center gap-1.5 mb-3"
+              style={{ cursor: isPro ? "default" : "pointer" }}
+            >
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.25)" }}>
+                Profile accent
+              </span>
+              <ProTag />
+            </button>
             <div className="flex items-center gap-2.5 flex-wrap">
               {ACCENT_PRESETS.map((preset) => {
-                const selected = accentColor.toLowerCase() === preset.hex.toLowerCase();
+                const selected = isPro && accentColor.toLowerCase() === preset.hex.toLowerCase();
                 return (
                   <button
                     key={preset.hex}
                     type="button"
-                    onClick={() => setAccentColor(preset.hex)}
+                    onClick={() => (isPro ? setAccentColor(preset.hex) : openPro("Custom accent color"))}
                     title={preset.name}
                     aria-label={`Accent color ${preset.name}`}
                     className="relative rounded-full transition-all"
@@ -566,8 +588,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             <p className="font-mono text-[10px] mt-3" style={{ color: "rgba(244,244,244,0.2)" }}>
               Tints your public profile hero, badge, and share card.
             </p>
-          </div>
-        )}
+        </div>
 
         {/* Fields */}
         <div className="flex flex-col gap-5">
@@ -772,29 +793,30 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           </div>
 
           {/* Export data (Pro) */}
-          {profile?.is_pro && (
-            <div className="flex flex-col gap-2 p-4 rounded-2xl" style={cardStyle}>
+          <div className="flex flex-col gap-2 p-4 rounded-2xl" style={cardStyle}>
+            <div className="flex items-center gap-1.5">
               <p className="font-sans text-sm font-medium" style={{ color: "#F4F4F4" }}>
                 Export your data
               </p>
-              <p className="font-sans text-[12px]" style={{ color: "rgba(244,244,244,0.35)" }}>
-                Download all your fixes, check-ins, Studio blocks, and comments as a JSON file.
-              </p>
-              <button
-                type="button"
-                onClick={handleExport}
-                disabled={exporting}
-                className="self-start mt-1 px-5 py-2.5 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80 disabled:opacity-50"
-                style={{
-                  background: "rgba(94,234,212,0.1)",
-                  border: "1px solid rgba(94,234,212,0.25)",
-                  color: "#5EEAD4",
-                }}
-              >
-                {exporting ? "Preparing…" : "Download export"}
-              </button>
+              <ProTag />
             </div>
-          )}
+            <p className="font-sans text-[12px]" style={{ color: "rgba(244,244,244,0.35)" }}>
+              Download all your fixes, check-ins, Studio blocks, and comments as a JSON file.
+            </p>
+            <button
+              type="button"
+              onClick={handleExport}
+              disabled={exporting}
+              className="self-start mt-1 px-5 py-2.5 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80 disabled:opacity-50"
+              style={{
+                background: "rgba(94,234,212,0.1)",
+                border: "1px solid rgba(94,234,212,0.25)",
+                color: "#5EEAD4",
+              }}
+            >
+              {exporting ? "Preparing…" : "Download export"}
+            </button>
+          </div>
 
           {/* Sign out */}
           <button
@@ -924,6 +946,13 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
         {pending ? "Saving…" : "Save changes"}
       </button>
 
+      {/* Pro upsell modal */}
+      <ProUpsellModal
+        open={!!proModal}
+        feature={proModal ?? undefined}
+        onClose={() => setProModal(null)}
+      />
+
       {/* ── Delete modal ── */}
       {showDeleteModal && (
         <div
@@ -1019,6 +1048,21 @@ const cardStyle: React.CSSProperties = {
   background: "#111113",
   border: "1px solid rgba(244,244,244,0.07)",
 };
+
+function ProTag() {
+  return (
+    <span
+      className="font-mono text-[8px] rounded px-1 py-0.5 leading-none"
+      style={{
+        background: "rgba(94,234,212,0.16)",
+        color: "#5EEAD4",
+        border: "1px solid rgba(94,234,212,0.3)",
+      }}
+    >
+      PRO
+    </span>
+  );
+}
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (

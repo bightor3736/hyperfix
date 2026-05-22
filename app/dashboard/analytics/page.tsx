@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
+import { ProUpsellWall } from "@/components/ProUpsell";
 
 export const metadata: Metadata = {
   title: "Analytics · Hyperfix",
@@ -61,35 +62,6 @@ function longestStreak(dates: string[]): number {
   return best;
 }
 
-function UpgradeWall() {
-  return (
-    <div className="max-w-2xl mx-auto px-6 py-20 text-center">
-      <div
-        className="rounded-3xl p-10"
-        style={{ background: "#111113", border: `1px solid ${TEAL}33` }}
-      >
-        <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: TEAL }}>
-          Pro feature
-        </p>
-        <h1 className="font-display text-2xl font-medium mb-3" style={{ color: "#F4F4F4" }}>
-          Private analytics
-        </h1>
-        <p className="font-sans text-sm mb-7 leading-relaxed" style={{ color: "rgba(244,244,244,0.5)" }}>
-          See your streak history, intensity trends, and category breakdown — a private
-          dashboard only you can see. Available on the Pro plan.
-        </p>
-        <Link
-          href="/pricing"
-          className="inline-block px-6 py-3 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90"
-          style={{ background: TEAL, color: "#0A0A0A" }}
-        >
-          Upgrade to Pro →
-        </Link>
-      </div>
-    </div>
-  );
-}
-
 function StatCard({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
   return (
     <div className="rounded-2xl p-5" style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}>
@@ -125,7 +97,10 @@ export default async function AnalyticsPage() {
   if (!profile?.is_pro) {
     return (
       <div className="min-h-screen" style={{ background: "#0A0A0A" }}>
-        <UpgradeWall />
+        <ProUpsellWall
+          heading="Private analytics"
+          blurb="See your streak history, intensity trends, and category breakdown — a dashboard only you can see. It's part of Pro, along with:"
+        />
       </div>
     );
   }
