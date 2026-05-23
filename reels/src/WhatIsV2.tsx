@@ -160,23 +160,15 @@ const ChatIllo: React.FC = () => (
   </svg>
 );
 
-// ─── transition flash overlay ──────────────────────────────────────────
-const Flash: React.FC<{ frame: number; color?: string }> = ({ frame, color = INK }) => {
-  const op = interpolate(frame, [0, 4, 10], [0.9, 0.4, 0], {
+// ─── gentle fade-in per scene ─────────────────────────────────────────
+const FadeIn: React.FC<{ frame: number }> = ({ frame }) => {
+  const op = interpolate(frame, [0, 10], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  return (
-    <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        background: color,
-        opacity: op,
-        pointerEvents: "none",
-      }}
-    />
-  );
+  return op > 0 ? (
+    <div style={{ position: "absolute", inset: 0, background: BG, opacity: op, pointerEvents: "none" }} />
+  ) : null;
 };
 
 // ─── scene 1 · HYPERFIXATION slams in (0–55f) ─────────────────────────
@@ -205,7 +197,7 @@ const S1: React.FC = () => {
       <div style={{ position: "absolute", bottom: 220, opacity: subOp, transform: `translateY(${subY}px)` }}>
         <span style={{ fontSize: 28, fontWeight: 700, color: DIM, letterSpacing: 1 }}>it&apos;s not just really liking something.</span>
       </div>
-      <Flash frame={frame} />
+      <FadeIn frame={frame} />
     </AbsoluteFill>
   );
 };
@@ -239,7 +231,7 @@ const S2: React.FC = () => {
         <span style={{ fontSize: 48, fontWeight: 800, lineHeight: 1.1, letterSpacing: -2, color: INK }}>restructure your entire life around it for 3 weeks then ghost it.</span>
       </div>
 
-      <Flash frame={frame} />
+      <FadeIn frame={frame} />
     </AbsoluteFill>
   );
 };
@@ -291,7 +283,7 @@ const S3: React.FC = () => {
         </div>
       </div>
 
-      <Flash frame={frame} />
+      <FadeIn frame={frame} />
     </AbsoluteFill>
   );
 };
@@ -338,7 +330,7 @@ const S4: React.FC = () => {
           );
         })}
       </div>
-      <Flash frame={frame} />
+      <FadeIn frame={frame} />
     </AbsoluteFill>
   );
 };
@@ -348,7 +340,6 @@ const S5: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const bgFlash = interpolate(frame, [0, 8, 20], [1, 0.7, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const line1 = useSlam(frame, fps, 6);
   const line2 = useSlam(frame, fps, 18);
   const line3 = useSlam(frame, fps, 30);
@@ -356,9 +347,7 @@ const S5: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ background: BG, fontFamily: FF, display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 72px" }}>
-      {/* white flash overlay */}
-      <div style={{ position: "absolute", inset: 0, background: INK, opacity: bgFlash, pointerEvents: "none" }} />
-
+      <FadeIn frame={frame} />
       <span style={{ fontSize: 18, fontWeight: 900, letterSpacing: 6, color: DIM, textTransform: "uppercase", marginBottom: 32, opacity: interpolate(frame, [15, 25], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) }}>
         common with ADHD + autism
       </span>
@@ -433,7 +422,7 @@ const S6: React.FC = () => {
           </div>
         </div>
       </div>
-      <Flash frame={frame} />
+      <FadeIn frame={frame} />
     </AbsoluteFill>
   );
 };
