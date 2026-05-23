@@ -6,12 +6,21 @@ import { ComingSoon } from "./ComingSoon";
 import { WhatIs } from "./WhatIs";
 import { WhatIsV2 } from "./WhatIsV2";
 import { WhatIsV3 } from "./WhatIsV3";
+import { Story } from "./Story";
 
 const FPS = 30;
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Composition
+        id="Story"
+        component={Story}
+        durationInFrames={120}
+        fps={FPS}
+        width={1080}
+        height={1920}
+      />
       <Composition
         id="WhatIsV3"
         component={WhatIsV3}
