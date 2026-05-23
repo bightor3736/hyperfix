@@ -3,12 +3,21 @@ import { Composition } from "remotion";
 import { Day47 } from "./Day47";
 import { Launch } from "./Launch";
 import { ComingSoon } from "./ComingSoon";
+import { WhatIs } from "./WhatIs";
 
 const FPS = 30;
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Composition
+        id="WhatIs"
+        component={WhatIs}
+        durationInFrames={1110}
+        fps={FPS}
+        width={1080}
+        height={1920}
+      />
       <Composition
         id="Day47"
         component={Day47}
