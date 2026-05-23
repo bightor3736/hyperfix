@@ -13,31 +13,31 @@ const TEAL = "#5EEAD4";
 const CARD_BG = "#101012";
 const BORDER = "rgba(244,244,244,0.07)";
 
-function Logo() {
+function GemMark({ size = 56 }: { size?: number }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: 64,
-        height: 64,
-        borderRadius: 32,
-        background: TEAL,
-        flexShrink: 0,
-      }}
-    >
-      <span
-        style={{
-          fontFamily: "sans-serif",
-          fontWeight: 900,
-          fontSize: 22,
-          color: BG,
-          letterSpacing: "-0.04em",
-        }}
-      >
-        hx
-      </span>
+    <svg width={size} height={size} viewBox="0 0 64 64" fill="none">
+      <rect width="64" height="64" rx="15" fill="#0A0B0D" />
+      <path d="M58,32 L50,14 L32,32 Z" fill="#3CCFBA" />
+      <path d="M32,58 L14,50 L32,32 Z" fill="#3CCFBA" />
+      <path d="M6,32 L14,14 L32,32 Z" fill="#3CCFBA" />
+      <path d="M32,6 L50,14 L32,32 Z" fill="#5EEAD4" />
+      <path d="M58,32 L50,50 L32,32 Z" fill="#0D9488" />
+      <path d="M50,50 L32,58 L32,32 Z" fill="#0A7A70" />
+      <path d="M14,50 L6,32 L32,32 Z" fill="#0D9488" />
+      <path d="M14,14 L32,6 L32,32 Z" fill="#0A7A70" />
+      <path d="M43,32 L39,39 L32,43 L25,39 L21,32 L25,25 L32,21 L39,25 Z" fill="rgba(255,255,255,0.18)" />
+    </svg>
+  );
+}
+
+function LogoLockup() {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+      <GemMark size={52} />
+      <div style={{ display: "flex", fontFamily: "Georgia, serif", fontSize: 30, fontWeight: 700, letterSpacing: "-0.05em", lineHeight: 1 }}>
+        <span style={{ color: INK }}>hyper</span>
+        <span style={{ color: TEAL, fontStyle: "italic" }}>fix</span>
+      </div>
     </div>
   );
 }
@@ -67,7 +67,7 @@ function Dots({ current }: { current: number }) {
 function TopBar({ n }: { n: number }) {
   return (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-      <Logo />
+      <LogoLockup />
       <span
         style={{
           fontFamily: "monospace",
@@ -494,14 +494,14 @@ function Slide6() {
       }}
     >
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <Logo />
+        <GemMark size={96} />
 
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            marginTop: 56,
+            marginTop: 48,
           }}
         >
           <span
@@ -526,10 +526,11 @@ function Slide6() {
               lineHeight: 0.88,
               letterSpacing: "-0.05em",
               textAlign: "center",
+              fontFamily: "Georgia, serif",
             }}
           >
             <span style={{ color: INK }}>hyper</span>
-            <span style={{ color: TEAL }}>fix.app</span>
+            <span style={{ color: TEAL, fontStyle: "italic" }}>fix.app</span>
           </div>
         </div>
 

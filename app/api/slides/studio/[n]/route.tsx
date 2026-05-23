@@ -18,6 +18,24 @@ const TOTAL = 6;
 
 /* ── shared chrome ── */
 
+function GemMark({ size = 56, inverted = false }: { size?: number; inverted?: boolean }) {
+  const tile = inverted ? "#C8C8C8" : "#0A0B0D";
+  return (
+    <svg width={size} height={size} viewBox="0 0 64 64" fill="none">
+      <rect width="64" height="64" rx="15" fill={tile} />
+      <path d="M58,32 L50,14 L32,32 Z" fill="#3CCFBA" />
+      <path d="M32,58 L14,50 L32,32 Z" fill="#3CCFBA" />
+      <path d="M6,32 L14,14 L32,32 Z" fill="#3CCFBA" />
+      <path d="M32,6 L50,14 L32,32 Z" fill="#5EEAD4" />
+      <path d="M58,32 L50,50 L32,32 Z" fill="#0D9488" />
+      <path d="M50,50 L32,58 L32,32 Z" fill="#0A7A70" />
+      <path d="M14,50 L6,32 L32,32 Z" fill="#0D9488" />
+      <path d="M14,14 L32,6 L32,32 Z" fill="#0A7A70" />
+      <path d="M43,32 L39,39 L32,43 L25,39 L21,32 L25,25 L32,21 L39,25 Z" fill="rgba(255,255,255,0.18)" />
+    </svg>
+  );
+}
+
 function Wordmark({ inverted = false }: { inverted?: boolean }) {
   return (
     <div style={{ display: "flex", fontFamily: "Georgia, serif", fontSize: 48, letterSpacing: "-0.05em", fontWeight: 600, lineHeight: 1 }}>
@@ -31,11 +49,14 @@ function Footer({ n, inverted = false }: { n: number; inverted?: boolean }) {
   const muted = inverted ? "rgba(10,10,10,0.45)" : "rgba(244,244,244,0.25)";
   return (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", width: "100%" }}>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <Wordmark inverted={inverted} />
-        <span style={{ fontFamily: "monospace", fontSize: 18, letterSpacing: "0.22em", textTransform: "uppercase", color: muted, marginTop: 10 }}>
-          hyperfix.app
-        </span>
+      <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+        <GemMark size={52} inverted={inverted} />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Wordmark inverted={inverted} />
+          <span style={{ fontFamily: "monospace", fontSize: 18, letterSpacing: "0.22em", textTransform: "uppercase", color: muted, marginTop: 10 }}>
+            hyperfix.app
+          </span>
+        </div>
       </div>
       <span style={{ fontFamily: "monospace", fontSize: 18, letterSpacing: "0.22em", textTransform: "uppercase", color: muted }}>
         {String(n).padStart(2, "0")} / {String(TOTAL).padStart(2, "0")}
