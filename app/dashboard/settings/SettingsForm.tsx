@@ -20,6 +20,7 @@ type Profile = {
   referral_code?: string | null;
   referral_count?: number | null;
   notification_prefs?: Record<string, boolean> | null;
+  social_link?: string | null;
 } | null;
 
 type Props = {
@@ -36,6 +37,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
   const [displayName, setDisplayName] = useState(profile?.display_name ?? "");
   const [username, setUsername] = useState(profile?.username ?? "");
   const [bio, setBio] = useState(profile?.bio ?? "");
+  const [socialLink, setSocialLink] = useState(profile?.social_link ?? "");
   const [isPublic, setIsPublic] = useState(profile?.is_public ?? false);
   const [avatarUrl, setAvatarUrl] = useState(profile?.avatar_url ?? "");
 
@@ -232,6 +234,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           display_name: displayName.trim() || null,
           username: username.trim() || null,
           bio: bio.trim() || null,
+          social_link: socialLink.trim() || null,
           is_public: isPublic,
           ...(profile?.is_pro ? { accent_color: accentColor } : {}),
           notification_prefs: {
@@ -629,6 +632,17 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               rows={3}
               maxLength={160}
               className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40 resize-none"
+              style={inputStyle}
+            />
+          </FieldGroup>
+
+          <FieldGroup label="Link" hint="TikTok, Instagram, Twitter — one link shown on your profile">
+            <input
+              type="url"
+              value={socialLink}
+              onChange={(e) => setSocialLink(e.target.value)}
+              placeholder="https://tiktok.com/@you"
+              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40"
               style={inputStyle}
             />
           </FieldGroup>
