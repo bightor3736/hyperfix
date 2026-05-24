@@ -400,7 +400,7 @@ export function ExploreTabSwitcher({
   trendingFixes,
   trendingReactionMap,
 }: Props) {
-  const [tab, setTab] = useState<"everyone" | "trending" | "following" | "activity">("everyone");
+  const [tab, setTab] = useState<"everyone" | "trending" | "longest" | "following" | "activity">("everyone");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [extraFixes, setExtraFixes] = useState<Fix[]>([]);
   const [extraReactions, setExtraReactions] = useState<Record<string, ReactionCounts>>({});
@@ -412,11 +412,17 @@ export function ExploreTabSwitcher({
   const allEveryoneFixes = [...everyoneFixes, ...extraFixes];
   const allEveryoneReactions = { ...everyoneReactions, ...extraReactions };
 
+  const longestFixes = [...allEveryoneFixes].sort(
+    (a, b) => dayCount(a.started_at, a.ended_at) - dayCount(b.started_at, b.ended_at)
+  ).reverse();
+
   const rawFixes =
     tab === "following" && followingFixes
       ? followingFixes
       : tab === "trending"
       ? trendingFixes
+      : tab === "longest"
+      ? longestFixes
       : allEveryoneFixes;
   const fixes = selectedCategory ? rawFixes.filter((f) => f.category === selectedCategory) : rawFixes;
   const reactions =
@@ -444,6 +450,7 @@ export function ExploreTabSwitcher({
       <div className="flex gap-2 mb-8 overflow-x-auto scrollbar-hide pb-1">
         <TabButton label="Everyone" active={tab === "everyone"} onClick={() => setTab("everyone")} />
         <TabButton label="Trending" active={tab === "trending"} onClick={() => setTab("trending")} />
+        <TabButton label="Longest" active={tab === "longest"} onClick={() => setTab("longest")} />
         {isLoggedIn && <TabButton label="Following" active={tab === "following"} onClick={() => setTab("following")} />}
         {isLoggedIn && <TabButton label="Activity" active={tab === "activity"} onClick={() => setTab("activity")} />}
       </div>

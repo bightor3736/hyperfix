@@ -47,6 +47,35 @@ async function getPublicFixCount(): Promise<number> {
   }
 }
 
+async function getTrendingFixes(): Promise<{ id: string; title: string; category: string; days: number; intensity: number }[]> {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !serviceKey) return [];
+  try {
+    const res = await fetch(
+      `${supabaseUrl}/rest/v1/fixes?select=id,title,category,intensity,started_at&is_public=eq.true&ended_at=is.null&order=started_at.asc&limit=24`,
+      {
+        headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` },
+        next: { revalidate: 300 },
+      }
+    );
+    if (!res.ok) return [];
+    const rows: { id: string; title: string; category: string; intensity: number; started_at: string }[] = await res.json();
+    return rows
+      .map((r) => ({
+        id: r.id,
+        title: r.title,
+        category: r.category,
+        intensity: r.intensity,
+        days: Math.max(1, Math.ceil((Date.now() - new Date(r.started_at).getTime()) / 86_400_000)),
+      }))
+      .sort((a, b) => b.days - a.days)
+      .slice(0, 6);
+  } catch {
+    return [];
+  }
+}
+
 export const metadata: Metadata = {
   title: "Hyperfix — what are you obsessed with?",
 };
@@ -310,9 +339,10 @@ export default async function Page({
     return <OAuthCallback code={params.code} />;
   }
 
-  const [waitlistCount, publicFixCount] = await Promise.all([
+  const [waitlistCount, publicFixCount, trendingFixes] = await Promise.all([
     getWaitlistCount(),
     getPublicFixCount(),
+    getTrendingFixes(),
   ]);
 
   return (
@@ -453,6 +483,59 @@ export default async function Page({
             </p>
           </div>
         </section>
+
+        {/* LIVE FIXATIONS ------------------------------------------------- */}
+        {trendingFixes.length > 0 && (
+          <section className="relative px-6 sm:px-10 py-16" style={{ borderTop: `1px solid ${CARD_BORDER}` }}>
+            <GrainOverlay opacity={0.06} />
+            <div className="relative max-w-5xl mx-auto">
+              <RevealSection>
+                <p className="font-mono text-xs uppercase tracking-widest mb-8" style={{ color: "rgba(244,244,244,0.35)" }}>
+                  people are currently tracking
+                </p>
+              </RevealSection>
+              <div className="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2 snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
+                {trendingFixes.map((fix, i) => (
+                  <RevealSection key={fix.id} delay={i * 60}>
+                    <a
+                      href={`/fix/${fix.id}`}
+                      className="shrink-0 snap-start block rounded-2xl overflow-hidden transition-transform hover:-translate-y-1 hover:shadow-2xl"
+                      style={{ width: 140, border: "1px solid rgba(244,244,244,0.08)" }}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={`/api/share/${fix.id}`}
+                        alt={`${fix.title} — day ${fix.days}`}
+                        width={140}
+                        height={249}
+                        style={{ width: 140, height: 249, objectFit: "cover", display: "block" }}
+                        loading="lazy"
+                      />
+                    </a>
+                  </RevealSection>
+                ))}
+                <RevealSection delay={trendingFixes.length * 60}>
+                  <a
+                    href="/explore"
+                    className="shrink-0 snap-start flex flex-col items-center justify-center rounded-2xl transition-all hover:-translate-y-1"
+                    style={{
+                      width: 140,
+                      height: 249,
+                      background: "rgba(244,244,244,0.03)",
+                      border: "1px solid rgba(244,244,244,0.08)",
+                      color: "rgba(244,244,244,0.4)",
+                    }}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: 8 }}>
+                      <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+                    </svg>
+                    <span className="font-mono text-xs">explore all</span>
+                  </a>
+                </RevealSection>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* BENEFITS ------------------------------------------------------- */}
         <section className="relative px-6 sm:px-10 py-24 sm:py-32">

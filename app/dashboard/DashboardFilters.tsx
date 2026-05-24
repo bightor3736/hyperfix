@@ -7,6 +7,70 @@ import { checkInFix, bulkCheckInFixes } from "@/app/actions/fixes";
 import { CountUp } from "@/components/CountUp";
 import { Search, TickSquare } from "react-iconly";
 
+function QuickExportButton({ fixId, title }: { fixId: string; title: string }) {
+  const [state, setState] = useState<"idle" | "loading" | "done">("idle");
+
+  async function handleExport(e: React.MouseEvent) {
+    e.preventDefault();
+    if (state !== "idle") return;
+    setState("loading");
+    try {
+      const res = await fetch(`/api/share/${fixId}`);
+      if (!res.ok) throw new Error();
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const filename = `hyperfix-${title.slice(0, 32).replace(/\s+/g, "-").toLowerCase()}.png`;
+      if (
+        navigator.share &&
+        navigator.canShare?.({ files: [new File([blob], filename, { type: "image/png" })] })
+      ) {
+        await navigator.share({ files: [new File([blob], filename, { type: "image/png" })] });
+      } else {
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+      }
+      URL.revokeObjectURL(url);
+      setState("done");
+      setTimeout(() => setState("idle"), 2500);
+    } catch {
+      setState("idle");
+    }
+  }
+
+  return (
+    <button
+      onClick={handleExport}
+      title="Export card"
+      className="inline-flex items-center gap-1 font-sans text-xs rounded-full px-2.5 py-1 transition-all hover:opacity-90 active:scale-95"
+      style={{
+        background: state === "done" ? "rgba(13,148,136,0.12)" : "rgba(215,38,56,0.08)",
+        border: `1px solid ${state === "done" ? "rgba(13,148,136,0.30)" : "rgba(215,38,56,0.22)"}`,
+        color: state === "done" ? "#0D9488" : "#D72638",
+      }}
+    >
+      {state === "loading" ? (
+        <svg className="animate-spin" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <circle cx="12" cy="12" r="10" strokeOpacity="0.25" />
+          <path d="M12 2a10 10 0 0 1 10 10" />
+        </svg>
+      ) : state === "done" ? (
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      ) : (
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+      )}
+      {state === "done" ? "saved!" : "card"}
+    </button>
+  );
+}
+
 type Fix = {
   id: string;
   title: string;
@@ -272,21 +336,24 @@ function FixGridCard({
           </button>
         )}
 
-        <Link
-          href={`/dashboard/fix/${fix.id}/studio`}
-          className="inline-flex items-center gap-1 font-sans text-xs rounded-full px-2.5 py-1 transition-all hover:opacity-90"
-          style={{
-            background: "rgba(94,234,212,0.08)",
-            border: "1px solid rgba(94,234,212,0.20)",
-            color: TEAL,
-          }}
-        >
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-          </svg>
-          Studio
-        </Link>
+        <div className="flex items-center gap-1.5">
+          <QuickExportButton fixId={fix.id} title={fix.title} />
+          <Link
+            href={`/dashboard/fix/${fix.id}/studio`}
+            className="inline-flex items-center gap-1 font-sans text-xs rounded-full px-2.5 py-1 transition-all hover:opacity-90"
+            style={{
+              background: "rgba(94,234,212,0.08)",
+              border: "1px solid rgba(94,234,212,0.20)",
+              color: TEAL,
+            }}
+          >
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            Studio
+          </Link>
+        </div>
       </div>
     </div>
   );

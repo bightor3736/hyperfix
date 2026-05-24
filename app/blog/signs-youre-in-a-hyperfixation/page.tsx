@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import WaitlistForm from "@/components/WaitlistForm";
+import { BlogCardCTA } from "@/components/BlogCardCTA";
 import HyperfixCard from "@/components/HyperfixCard";
 import { TiltCard } from "@/components/TiltCard";
 
@@ -173,6 +174,7 @@ export default function SignsYoureInAHyperfixationPage() {
           </div>
         </section>
 
+        <BlogCardCTA />
         <section className="px-6 sm:px-10 py-16 sm:py-24 bg-[#111113]">
           <div className="max-w-3xl mx-auto">
             <h2 className="font-display text-3xl sm:text-4xl leading-tight tracking-tightest mb-8 text-balance">

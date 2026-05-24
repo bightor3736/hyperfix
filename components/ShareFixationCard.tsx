@@ -52,37 +52,6 @@ export function ShareFixationCard({ fixId, isPublic, title, days, intensity }: P
     }
   }
 
-  if (!isPublic) {
-    return (
-      <div
-        className="relative overflow-hidden rounded-2xl p-5 flex items-center gap-4"
-        style={{
-          background: "rgba(215,38,56,0.06)",
-          border: "1px solid rgba(215,38,56,0.18)",
-        }}
-      >
-        <div style={{ flex: 1 }}>
-          <p className="font-mono text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "rgba(215,38,56,0.7)" }}>
-            export card
-          </p>
-          <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.5)" }}>
-            Make this fixation public to export a shareable card
-          </p>
-        </div>
-        <div
-          className="shrink-0 rounded-xl px-4 py-2 font-mono text-xs font-bold"
-          style={{
-            background: "rgba(215,38,56,0.12)",
-            color: "rgba(215,38,56,0.4)",
-            border: "1px solid rgba(215,38,56,0.15)",
-          }}
-        >
-          Locked
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div
       className="relative overflow-hidden rounded-2xl p-5"
