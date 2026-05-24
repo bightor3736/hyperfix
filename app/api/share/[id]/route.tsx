@@ -1,5 +1,8 @@
 import { ImageResponse } from "next/og";
+import type { SatoriOptions } from "next/dist/compiled/@vercel/og/satori";
 import { NextRequest } from "next/server";
+
+type FontEntry = NonNullable<SatoriOptions["fonts"]>[number];
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { createClient as createServerClient } from "@/lib/supabase/server";
 
@@ -371,7 +374,7 @@ export async function GET(
     const frauncesFamily = frauncesFont ? "Fraunces" : "Georgia, serif";
     const monoFamily = monoFont ? "JetBrains Mono" : "monospace";
     const sansFamily = sansFont ? "Instrument Sans" : "ui-sans-serif, system-ui, sans-serif";
-    const fonts: ConstructorParameters<typeof ImageResponse>[1]["fonts"] = [];
+    const fonts: FontEntry[] = [];
     if (frauncesFont) fonts.push({ name: "Fraunces", data: frauncesFont, weight: 600, style: "normal" });
     if (monoFont) fonts.push({ name: "JetBrains Mono", data: monoFont, weight: 700, style: "normal" });
     if (sansFont) fonts.push({ name: "Instrument Sans", data: sansFont, weight: 500, style: "normal" });
@@ -425,7 +428,7 @@ export async function GET(
   const monoFamily = monoFont ? "JetBrains Mono" : "monospace";
   const sansFamily = sansFont ? "Instrument Sans" : "ui-sans-serif, system-ui, sans-serif";
 
-  const fonts: ConstructorParameters<typeof ImageResponse>[1]["fonts"] = [];
+  const fonts: FontEntry[] = [];
   if (frauncesFont) fonts.push({ name: "Fraunces", data: frauncesFont, weight: 600, style: "normal" });
   if (monoFont) fonts.push({ name: "JetBrains Mono", data: monoFont, weight: 700, style: "normal" });
   if (sansFont) fonts.push({ name: "Instrument Sans", data: sansFont, weight: 500, style: "normal" });
