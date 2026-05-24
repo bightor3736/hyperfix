@@ -8,6 +8,7 @@ import { StreakHeatmap } from "@/components/StreakHeatmap";
 import { WeekRings } from "@/components/WeekRings";
 import { ReferralCard } from "@/components/ReferralCard";
 import { Plus } from "@/components/icons";
+import { MilestoneBanner } from "@/components/MilestoneBanner";
 
 type Fix = {
   id: string;
@@ -187,6 +188,12 @@ export default async function DashboardPage() {
   const greeting = getGreeting();
   const firstName = displayName.split(" ")[0];
   const subtext = getSubtext(totalActive, currentStreak, highestIntensity);
+
+  // Detect milestone fixes (day count exactly at 7, 30, 100, or 365)
+  const MILESTONES = [7, 30, 100, 365] as const;
+  const milestoneFixes = fixes
+    .map((f) => ({ id: f.id, title: f.title, days: getDayCount(f.started_at) }))
+    .filter((f) => (MILESTONES as readonly number[]).includes(f.days));
 
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-12" style={{ background: PAGE_BG }}>
@@ -393,6 +400,10 @@ export default async function DashboardPage() {
           >
             Could not load fixes: {fetchError}
           </div>
+        )}
+
+        {milestoneFixes.length > 0 && (
+          <MilestoneBanner milestones={milestoneFixes} />
         )}
 
         {fixes.length > 0 ? (

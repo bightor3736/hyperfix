@@ -76,16 +76,30 @@ export function WrappedClient({
         longestTitle: longestFix.title,
         longestDays: String(longestFix.days),
         quote,
+        name: viewerName !== "you" ? viewerName : "",
       });
 
       const res = await fetch(`/api/wrapped/image?${params}`);
       const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `hyperfix-wrapped-${year}.png`;
-      a.click();
-      URL.revokeObjectURL(url);
+      const filename = `hyperfix-wrapped-${year}.png`;
+
+      if (
+        navigator.share &&
+        navigator.canShare?.({ files: [new File([blob], filename, { type: "image/png" })] })
+      ) {
+        await navigator.share({
+          files: [new File([blob], filename, { type: "image/png" })],
+          title: `My Hyperfix Wrapped ${year}`,
+          text: `${totalFixes} fixations. ${totalDays} days of being unwell. hyperfix.app`,
+        });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
     } finally {
       setDownloading(false);
     }
