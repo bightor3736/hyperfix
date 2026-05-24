@@ -176,8 +176,8 @@ export default async function AnalyticsPage() {
 
         {/* Top stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-          <StatCard label="current streak" value={currentStreak} sub={currentStreak === 1 ? "day" : "days"} />
-          <StatCard label="longest streak" value={bestStreak} sub={bestStreak === 1 ? "day" : "days"} />
+          <StatCard label="current run" value={currentStreak} sub={currentStreak === 1 ? "day" : "days"} />
+          <StatCard label="longest run" value={bestStreak} sub={bestStreak === 1 ? "day" : "days"} />
           <StatCard label="total check-ins" value={entries.length} />
           <StatCard label="last 30 days" value={last30Count} sub="check-ins" />
         </div>

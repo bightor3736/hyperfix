@@ -9,6 +9,7 @@ import { WeekRings } from "@/components/WeekRings";
 import { ReferralCard } from "@/components/ReferralCard";
 import { Plus } from "@/components/icons";
 import { MilestoneBanner } from "@/components/MilestoneBanner";
+import { WelcomeBackBanner } from "@/components/WelcomeBackBanner";
 
 type Fix = {
   id: string;
@@ -72,7 +73,7 @@ function getGreeting(): string {
 function getSubtext(totalActive: number, currentStreak: number, highestIntensity: number): string {
   if (totalActive === 0) return "nothing logged yet. what has taken over your brain?";
   if (highestIntensity >= 9) return `${totalActive} active fix${totalActive !== 1 ? "es" : ""}. you are not well. we love that for you.`;
-  if (currentStreak >= 14) return `${currentStreak}-day streak. this is getting serious.`;
+  if (currentStreak >= 14) return `${currentStreak}-day run. this is getting serious.`;
   if (currentStreak >= 7) return `${currentStreak} days in a row. you're so normal about this.`;
   if (totalActive >= 5) return `${totalActive} active fixations. it's giving chaos.`;
   return `${totalActive} active fix${totalActive !== 1 ? "es" : ""}. the brain is doing its thing.`;
@@ -242,6 +243,18 @@ export default async function DashboardPage() {
               <p className="font-sans text-base sm:text-lg max-w-xl" style={{ color: "rgba(255,255,255,0.72)" }}>
                 {subtext}
               </p>
+              {fixes.length >= 3 && (
+                <Link
+                  href="/dashboard/pattern"
+                  className="inline-flex items-center gap-1.5 font-mono text-xs mt-4 transition-colors hover:text-[#5EEAD4]"
+                  style={{ color: "rgba(255,255,255,0.35)" }}
+                >
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                  </svg>
+                  see your pattern →
+                </Link>
+              )}
             </div>
 
             <Link
@@ -270,7 +283,7 @@ export default async function DashboardPage() {
             >
               <GrainOverlay opacity={0.22} />
               <div className="relative">
-                <EyebrowPill>check-in streak</EyebrowPill>
+                <EyebrowPill>check-in run</EyebrowPill>
                 <div className="flex items-baseline gap-2 mt-6">
                   <span
                     className="font-display leading-none"
@@ -290,11 +303,11 @@ export default async function DashboardPage() {
                 </div>
                 <p className="mt-3 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
                   {currentStreak === 0
-                    ? "check in to start your streak."
+                    ? "check in to start your run."
                     : currentStreak >= 30
                       ? "absolute unit. legendary."
                       : currentStreak >= 7
-                        ? "you're on a run. don't break it."
+                        ? "you're on a roll. keep going."
                         : "keep going. it's building."}
                 </p>
               </div>
@@ -403,6 +416,8 @@ export default async function DashboardPage() {
             Could not load fixes: {fetchError}
           </div>
         )}
+
+        <WelcomeBackBanner firstName={firstName} activeCount={totalActive} />
 
         {milestoneFixes.length > 0 && (
           <MilestoneBanner milestones={milestoneFixes} />
