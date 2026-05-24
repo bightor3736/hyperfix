@@ -93,7 +93,7 @@ function isValidStatus(s: string): s is FixStatus {
 }
 
 const STATUS_FILTERS = ["All", "Day 1", "Obsessing", "On loop", "Fading", "Post-fix", "Dormant", "Send help"] as const;
-const CATEGORY_FILTERS = ["All", "song", "fanfic", "show", "film", "ship", "game", "book", "other"] as const;
+const CATEGORY_FILTERS = ["All", "Song", "Fanfic", "Show", "Film", "Ship", "Game", "Book", "Other"] as const;
 type SortOrder = "newest" | "longest" | "intense" | "unchecked";
 
 const TEAL = "#5EEAD4";
@@ -441,7 +441,7 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
     let result = fixes.filter((fix) => {
       const matchesSearch = search.trim() === "" || fix.title.toLowerCase().includes(search.toLowerCase());
       const matchesStatus = statusFilter === "All" || fix.status === statusFilter;
-      const matchesCategory = categoryFilter === "All" || fix.category === categoryFilter;
+      const matchesCategory = categoryFilter === "All" || fix.category.toLowerCase() === categoryFilter.toLowerCase();
       return matchesSearch && matchesStatus && matchesCategory;
     });
 
@@ -481,7 +481,7 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
             className="w-full rounded-full pl-10 pr-4 py-2.5 font-sans text-sm outline-none transition-all focus:ring-2 focus:ring-[#5EEAD4]/35 placeholder:text-[rgba(255,255,255,0.3)]"
             style={{
               background: CARD_BG,
-              border: `1px solid ${CARD_BORDER}`,
+              border: "1px solid rgba(255,255,255,0.14)",
               color: "#F4F4F4",
             }}
           />
@@ -542,7 +542,7 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
         </div>
       ) : (
         <div className="py-16 text-center anim-fadeUp">
-          <p className="font-display" style={{ color: "rgba(255,255,255,0.35)", fontSize: 22, fontWeight: 600 }}>
+          <p className="font-display" style={{ color: "rgba(255,255,255,0.55)", fontSize: 22, fontWeight: 600 }}>
             No fixes match.
           </p>
         </div>

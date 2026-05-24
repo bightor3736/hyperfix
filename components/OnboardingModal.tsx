@@ -62,7 +62,7 @@ export function OnboardingModal({ totalFixes }: { totalFixes: number }) {
 
         <button
           onClick={dismiss}
-          className="absolute top-4 right-4 p-2 rounded-full transition-opacity hover:opacity-70 z-10"
+          className="absolute top-4 right-4 p-2 rounded-full transition-all hover:opacity-70 active:scale-90 z-10"
           style={{
             background: "rgba(255,255,255,0.08)",
             color: "rgba(255,255,255,0.55)",

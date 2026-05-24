@@ -304,7 +304,7 @@ export default async function ExplorePage() {
                 className="font-sans text-sm flex-1 rounded-full px-4 py-2.5 outline-none"
                 style={{
                   background: "rgba(7,7,8,0.6)",
-                  border: "1px solid rgba(255,255,255,0.12)",
+                  border: "1px solid rgba(255,255,255,0.16)",
                   color: "#F4F4F4",
                 }}
               />

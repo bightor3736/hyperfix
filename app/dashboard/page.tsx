@@ -278,7 +278,7 @@ export default async function DashboardPage() {
                       fontSize: "clamp(56px, 12vw, 84px)",
                       letterSpacing: "-0.04em",
                       fontWeight: 600,
-                      color: currentStreak >= 7 ? TEAL : currentStreak > 0 ? "#FFFFFF" : "rgba(255,255,255,0.2)",
+                      color: currentStreak > 0 ? TEAL : "rgba(255,255,255,0.2)",
                       textShadow: currentStreak >= 7 ? "0 0 40px rgba(94,234,212,0.45)" : "none",
                     }}
                   >
@@ -291,9 +291,11 @@ export default async function DashboardPage() {
                 <p className="mt-3 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
                   {currentStreak === 0
                     ? "check in to start your streak."
-                    : currentStreak >= 7
-                      ? "you're on a run. don't break it."
-                      : "keep going."}
+                    : currentStreak >= 30
+                      ? "absolute unit. legendary."
+                      : currentStreak >= 7
+                        ? "you're on a run. don't break it."
+                        : "keep going. it's building."}
                 </p>
               </div>
             </div>
@@ -312,7 +314,7 @@ export default async function DashboardPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 sm:col-span-2">
+            <div className="grid grid-cols-2 gap-4 sm:col-span-2 sm:grid-cols-2">
               <div
                 className="relative overflow-hidden rounded-3xl p-6 motion-card anim-fadeUp delay-300"
                 style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}

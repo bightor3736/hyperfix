@@ -304,7 +304,7 @@ export default async function PublicProfilePage({
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 flex-wrap mb-0.5">
-              <h1 className="text-2xl font-display font-medium">{displayName}</h1>
+              <h1 className="text-3xl font-display font-medium">{displayName}</h1>
               {typedProfile.is_pro && (
                 <span
                   className="font-mono text-[9px] rounded px-1.5 py-0.5 shrink-0"
@@ -337,7 +337,7 @@ export default async function PublicProfilePage({
             <p className="font-mono text-sm" style={{ color: "#9A9A9A" }}>
               @{typedProfile.username}
             </p>
-            <p className="font-mono text-xs mt-1 mb-3" style={{ color: "rgba(244,244,244,0.3)" }}>
+            <p className="font-mono text-xs mt-1 mb-3" style={{ color: "rgba(244,244,244,0.45)" }}>
               <Link
                 href={`/u/${typedProfile.username}/followers`}
                 className="transition-colors hover:text-[#5EEAD4]"
@@ -353,7 +353,7 @@ export default async function PublicProfilePage({
               </Link>
             </p>
             {typedProfile.bio && (
-              <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.75)" }}>
+              <p className="text-sm leading-relaxed mb-4 max-w-lg" style={{ color: "rgba(255,255,255,0.75)" }}>
                 {typedProfile.bio}
               </p>
             )}
@@ -413,7 +413,7 @@ export default async function PublicProfilePage({
 
         {/* Stats */}
         <div
-          className="grid grid-cols-3 gap-px rounded-xl overflow-hidden mb-10"
+          className="grid grid-cols-3 gap-px rounded-2xl overflow-hidden mb-10"
           style={{ background: "rgba(244,244,244,0.07)" }}
         >
           {[
@@ -426,7 +426,7 @@ export default async function PublicProfilePage({
               className="px-3 py-4 sm:px-6 sm:py-5 text-center"
               style={{ background: "#111113" }}
             >
-              <div className="text-xl sm:text-2xl font-display font-medium mb-1 truncate">{stat.value}</div>
+              <div className="text-2xl sm:text-3xl font-display font-medium mb-1 truncate">{stat.value}</div>
               <div className="text-[9px] sm:text-xs font-mono uppercase tracking-widest" style={{ color: "#9A9A9A" }}>
                 {stat.label}
               </div>
@@ -438,7 +438,7 @@ export default async function PublicProfilePage({
         {endedPublicCount > 0 && (
           <Link
             href={`/u/${typedProfile.username}/graveyard`}
-            className="group flex items-center justify-between gap-4 rounded-2xl p-5 mb-8 transition-all hover:border-[rgba(94,234,212,0.3)]"
+            className="group flex items-center justify-between gap-4 rounded-3xl p-5 mb-8 transition-all hover:border-[rgba(94,234,212,0.3)]"
             style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
           >
             <div className="flex items-center gap-3">
@@ -482,7 +482,7 @@ export default async function PublicProfilePage({
                   <Link
                     key={fix.id}
                     href={`/fix/${fix.id}`}
-                    className="group block rounded-xl p-5 transition-all duration-200 hover:scale-[1.01]"
+                    className="group block rounded-2xl p-5 transition-all duration-200 hover:scale-[1.01]"
                     style={{
                       background: "#111113",
                       border: "1px solid rgba(244,244,244,0.07)",
