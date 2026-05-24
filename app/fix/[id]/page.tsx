@@ -5,6 +5,7 @@ import { LogoLockup } from "@/components/Logo";
 import { FixReactions } from "@/components/FixReactions";
 import { ShareButton } from "@/components/ShareButton";
 import { FixComments } from "@/components/FixComments";
+import { ShareFixationCard } from "@/components/ShareFixationCard";
 import type { Metadata } from "next";
 
 const TEAL = "#5EEAD4";
@@ -414,6 +415,17 @@ export default async function PublicFixPage({
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Share card export CTA */}
+        <div className="mb-6 anim-fadeUp" style={{ animationDelay: "40ms" }}>
+          <ShareFixationCard
+            fixId={id}
+            isPublic={typedFix.is_public}
+            title={typedFix.title}
+            days={days}
+            intensity={typedFix.intensity}
+          />
         </div>
 
         {/* Reactions */}
