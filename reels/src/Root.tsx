@@ -8,12 +8,39 @@ import { WhatIsV2 } from "./WhatIsV2";
 import { WhatIsV3 } from "./WhatIsV3";
 import { Story } from "./Story";
 import { AppDemo } from "./AppDemo";
+import { Pipeline } from "./Pipeline";
+import { Signs } from "./Signs";
+import { Reveal } from "./Reveal";
 
 const FPS = 30;
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Composition
+        id="Pipeline"
+        component={Pipeline}
+        durationInFrames={270}
+        fps={FPS}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="Signs"
+        component={Signs}
+        durationInFrames={380}
+        fps={FPS}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="Reveal"
+        component={Reveal}
+        durationInFrames={360}
+        fps={FPS}
+        width={1080}
+        height={1920}
+      />
       <Composition
         id="AppDemo"
         component={AppDemo}
