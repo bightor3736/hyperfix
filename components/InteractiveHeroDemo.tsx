@@ -16,8 +16,8 @@ const PLACEHOLDERS = [
   "taylor swift · folklore",
 ];
 
-const PAPER_NOISE_URL =
-  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.07  0 0 0 0 0.07  0 0 0 0 0.07  0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
+const CARD_NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 export function InteractiveHeroDemo() {
   const [title, setTitle] = useState("");
@@ -165,87 +165,185 @@ export function InteractiveHeroDemo() {
             </p>
           </div>
 
-          {/* Card preview side */}
+          {/* Card preview side — dark Hyperfix style matching the app */}
           <div className="flex items-center justify-center">
             <div
-              className="relative"
+              className="relative overflow-hidden"
               style={{
-                width: 240,
+                width: 250,
                 aspectRatio: "9 / 14",
-                background: "#F4EFE6",
-                borderRadius: 12,
-                boxShadow: "0 24px 60px -10px rgba(0,0,0,0.55), 0 8px 20px -6px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.04)",
-                overflow: "hidden",
-                transform: showCard ? "rotate(-3deg)" : "rotate(-6deg) scale(0.94)",
-                opacity: showCard ? 1 : 0.7,
+                background:
+                  "radial-gradient(ellipse 110% 80% at 50% 120%, #5EEAD4 0%, #2DD4BF 12%, #0E4F47 32%, #08231F 56%, #070708 82%)",
+                borderRadius: 18,
+                border: "1px solid rgba(94,234,212,0.18)",
+                boxShadow:
+                  "0 24px 60px -10px rgba(0,0,0,0.7), 0 8px 20px -6px rgba(94,234,212,0.18), 0 0 0 1px rgba(255,255,255,0.04)",
+                transform: showCard ? "rotate(-2deg)" : "rotate(-5deg) scale(0.94)",
+                opacity: showCard ? 1 : 0.75,
                 transition: "all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)",
               }}
             >
-              <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ backgroundImage: PAPER_NOISE_URL, backgroundSize: "180px 180px", opacity: 0.6 }} />
-              <div style={{ height: 8, background: "#D72638" }} />
-              <div className="relative p-4 flex flex-col h-[calc(100%-8px)]">
-                <p style={{ fontFamily: "var(--font-jetbrains-mono), monospace", fontSize: 8, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(17,17,17,0.5)", fontWeight: 700 }}>
-                  hyperfix · log
-                </p>
+              {/* Grain overlay */}
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none mix-blend-overlay"
+                style={{ backgroundImage: CARD_NOISE_URL, backgroundSize: "180px 180px", opacity: 0.4 }}
+              />
+              {/* Top dim overlay */}
+              <div
+                aria-hidden
+                className="absolute top-0 left-0 right-0 pointer-events-none"
+                style={{
+                  height: "55%",
+                  background: "linear-gradient(180deg, rgba(7,7,8,0.7) 0%, rgba(7,7,8,0.2) 60%, transparent 100%)",
+                }}
+              />
+
+              <div className="relative h-full p-5 flex flex-col">
+                {/* Top row — brand + category */}
+                <div className="flex items-center justify-between">
+                  <span
+                    className="inline-flex items-center font-mono"
+                    style={{
+                      fontSize: 8,
+                      letterSpacing: "0.22em",
+                      textTransform: "uppercase",
+                      color: "rgba(255,255,255,0.55)",
+                      fontWeight: 600,
+                    }}
+                  >
+                    hyperfix
+                  </span>
+                  <span
+                    className="inline-flex items-center font-mono rounded-full px-1.5 py-0.5"
+                    style={{
+                      fontSize: 7,
+                      letterSpacing: "0.18em",
+                      textTransform: "uppercase",
+                      color: TEAL,
+                      background: "rgba(94,234,212,0.10)",
+                      border: "1px solid rgba(94,234,212,0.25)",
+                      fontWeight: 600,
+                    }}
+                  >
+                    log
+                  </span>
+                </div>
+
+                {/* Title */}
                 <p
-                  className="mt-3"
+                  className="mt-4"
                   style={{
-                    fontFamily: "Georgia, serif",
-                    fontSize: 15,
+                    fontFamily: "var(--font-fraunces), Georgia, serif",
+                    fontSize: 17,
                     lineHeight: 1.15,
-                    color: "#111",
-                    fontWeight: 700,
-                    letterSpacing: "-0.01em",
+                    color: "#FFFFFF",
+                    fontWeight: 600,
+                    letterSpacing: "-0.02em",
                     display: "-webkit-box",
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: "vertical",
                     overflow: "hidden",
-                    minHeight: 36,
+                    minHeight: 40,
                   }}
                 >
                   {displayTitle}
                 </p>
+
+                {/* Big day count */}
                 <div className="mt-auto">
                   <div className="flex items-end gap-2">
                     <span
+                      className="tabular-nums"
                       style={{
-                        fontFamily: "Georgia, serif",
-                        fontSize: 78,
-                        lineHeight: 0.85,
-                        color: "#D72638",
-                        fontWeight: 700,
-                        letterSpacing: "-0.04em",
+                        fontFamily: "var(--font-fraunces), Georgia, serif",
+                        fontSize: 84,
+                        lineHeight: 0.82,
+                        color: TEAL,
+                        fontWeight: 600,
+                        letterSpacing: "-0.05em",
+                        textShadow: "0 0 40px rgba(94,234,212,0.55)",
                       }}
                     >
                       {day}
                     </span>
-                    <div className="pb-1">
-                      <span style={{ fontFamily: "var(--font-jetbrains-mono), monospace", fontSize: 8, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(17,17,17,0.5)", fontWeight: 700 }}>
+                    <div className="pb-1.5">
+                      <span
+                        style={{
+                          fontFamily: "var(--font-jetbrains-mono), monospace",
+                          fontSize: 8,
+                          letterSpacing: "0.22em",
+                          textTransform: "uppercase",
+                          color: "rgba(94,234,212,0.7)",
+                          fontWeight: 600,
+                        }}
+                      >
                         days<br />deep
                       </span>
                     </div>
                   </div>
-                  <p style={{ fontFamily: "var(--font-jetbrains-mono), monospace", fontSize: 8, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(17,17,17,0.45)", fontWeight: 700, marginTop: 12 }}>
-                    intensity · {intensity}/10
-                  </p>
-                  <div className="flex gap-0.5 mt-1.5">
-                    {Array.from({ length: 10 }).map((_, i) => (
-                      <div
-                        key={i}
-                        style={{
-                          flex: 1,
-                          height: 4,
-                          borderRadius: 1,
-                          background: i < intensity ? "#0D9488" : "rgba(17,17,17,0.10)",
-                        }}
-                      />
-                    ))}
+
+                  {/* Intensity */}
+                  <div className="mt-4 flex items-center justify-between">
+                    <span
+                      style={{
+                        fontFamily: "var(--font-jetbrains-mono), monospace",
+                        fontSize: 8,
+                        letterSpacing: "0.22em",
+                        textTransform: "uppercase",
+                        color: "rgba(255,255,255,0.45)",
+                        fontWeight: 600,
+                      }}
+                    >
+                      intensity
+                    </span>
+                    <span
+                      className="tabular-nums"
+                      style={{
+                        fontFamily: "var(--font-jetbrains-mono), monospace",
+                        fontSize: 11,
+                        color: intensityColor,
+                        fontWeight: 700,
+                      }}
+                    >
+                      {intensity}<span style={{ opacity: 0.55 }}>/10</span>
+                    </span>
                   </div>
-                  <div className="mt-3 pt-2 flex items-center justify-between" style={{ borderTop: "1px dashed rgba(17,17,17,0.18)" }}>
-                    <span style={{ fontFamily: "var(--font-jetbrains-mono), monospace", fontSize: 7, color: "rgba(17,17,17,0.4)", letterSpacing: "0.15em", textTransform: "uppercase" }}>
+                  <div className="mt-1.5 h-1 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
+                    <div
+                      className="h-full rounded-full transition-all duration-300"
+                      style={{
+                        width: `${intensity * 10}%`,
+                        background: `linear-gradient(to right, rgba(94,234,212,0.5), ${intensityColor})`,
+                        boxShadow: `0 0 8px ${intensityColor}80`,
+                      }}
+                    />
+                  </div>
+
+                  {/* Footer */}
+                  <div
+                    className="mt-4 pt-2.5 flex items-center justify-between"
+                    style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "var(--font-jetbrains-mono), monospace",
+                        fontSize: 7,
+                        color: "rgba(255,255,255,0.35)",
+                        letterSpacing: "0.18em",
+                        textTransform: "uppercase",
+                      }}
+                    >
                       hyperfix.app
                     </span>
-                    <span style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: 9, color: "rgba(17,17,17,0.45)" }}>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-fraunces), Georgia, serif",
+                        fontStyle: "italic",
+                        fontSize: 10,
+                        color: "rgba(94,234,212,0.55)",
+                      }}
+                    >
                       still counting.
                     </span>
                   </div>

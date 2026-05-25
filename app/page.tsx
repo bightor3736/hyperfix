@@ -430,9 +430,14 @@ export default async function Page({
                     <p className="mt-2 font-sans text-base" style={{ color: "rgba(10,31,28,0.78)" }}>
                       For the chronically unwell who want the full toolkit.
                     </p>
-                    <p className="mt-6 font-display" style={{ fontSize: 52, fontWeight: 600, letterSpacing: "-0.02em", color: "#0A1F1C" }}>
-                      TBA<span className="font-sans text-lg" style={{ color: "rgba(10,31,28,0.6)" }}>/mo</span>
-                    </p>
+                    <div className="mt-6 flex items-baseline gap-3">
+                      <p className="font-display" style={{ fontSize: 52, fontWeight: 600, letterSpacing: "-0.02em", color: "#0A1F1C" }}>
+                        $5<span className="font-sans text-lg" style={{ color: "rgba(10,31,28,0.6)" }}>/mo</span>
+                      </p>
+                      <p className="font-sans text-sm" style={{ color: "rgba(10,31,28,0.55)" }}>
+                        or $39/year · save 35%
+                      </p>
+                    </div>
                     <ul className="mt-6 space-y-3">
                       {["Everything in Free", "Premium card templates", "Custom profile URL", "AI eulogy generator", "Hyperfix Wrapped", "Priority support"].map((line) => (
                         <li key={line} className="flex items-center gap-3 font-sans text-base" style={{ color: "#0A1F1C" }}>
