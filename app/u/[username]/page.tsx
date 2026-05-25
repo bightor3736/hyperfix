@@ -114,12 +114,15 @@ export async function generateMetadata({
       title: `${name} on Hyperfix`,
       description,
       images: [{
-        url: `/api/og?title=${encodeURIComponent(name)}&sub=${encodeURIComponent(description)}&accent=${encodeURIComponent("@" + username)}&color=${encodeURIComponent(ogAccent)}`,
+        url: `https://hyperfix.app/api/og/profile/${username}`,
         width: 1200,
         height: 630,
       }],
     },
-    twitter: { card: "summary_large_image" },
+    twitter: {
+      card: "summary_large_image",
+      images: [`https://hyperfix.app/api/og/profile/${username}`],
+    },
   };
 }
 

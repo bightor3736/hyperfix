@@ -1,5 +1,5 @@
 import { createAdminClient } from "@/lib/supabase/admin";
-import { sendStreakReminderEmail, sendMilestoneEmail } from "@/lib/email";
+import { sendStreakReminderEmail, sendMilestoneEmail, sendFixInactivityEmail } from "@/lib/email";
 
 export const runtime = "nodejs";
 
@@ -116,10 +116,70 @@ export async function GET(req: Request) {
     }
   }
 
+  // --- Fix inactivity reminders ---
+  // Find users with active fixes who haven't checked in for exactly 3 days
+  let inactivitySent = 0;
+
+  const threeDaysAgo = new Date(Date.now() - 3 * 86_400_000).toISOString().split("T")[0];
+  const twoDaysAgo = new Date(Date.now() - 2 * 86_400_000).toISOString().split("T")[0];
+
+  // Users whose last check-in was exactly 3 days ago (not 2 or 1 days ago, and not today)
+  const { data: lastCheckins3 } = await supabase
+    .from("fix_entries")
+    .select("user_id")
+    .eq("date", threeDaysAgo);
+
+  const { data: recentCheckins } = await supabase
+    .from("fix_entries")
+    .select("user_id")
+    .gte("date", twoDaysAgo);
+
+  const recentSet = new Set((recentCheckins ?? []).map((e: { user_id: string }) => e.user_id));
+  const inactiveUsers = [...new Set((lastCheckins3 ?? []).map((e: { user_id: string }) => e.user_id))]
+    .filter((uid) => !recentSet.has(uid));
+
+  for (const userId of inactiveUsers) {
+    try {
+      const { data: activeFixes } = await supabase
+        .from("fixes")
+        .select("id, title, started_at")
+        .eq("user_id", userId)
+        .is("ended_at", null)
+        .order("started_at", { ascending: true })
+        .limit(3);
+
+      if (!activeFixes || activeFixes.length === 0) continue;
+
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("display_name, username")
+        .eq("id", userId)
+        .single();
+
+      const { data: authUser } = await supabase.auth.admin.getUserById(userId);
+      const email = authUser?.user?.email;
+      if (!email) continue;
+
+      const name = profile?.display_name || profile?.username || email.split("@")[0];
+      const fixes = activeFixes.map((f: { id: string; title: string; started_at: string }) => ({
+        title: f.title,
+        id: f.id,
+        daysSinceCheckin: 3,
+        dayCount: Math.max(1, Math.ceil((Date.now() - new Date(f.started_at).getTime()) / 86_400_000)),
+      }));
+
+      await sendFixInactivityEmail({ toEmail: email, toName: name, fixes });
+      inactivitySent++;
+    } catch (err) {
+      errors.push(`inactivity:${userId}: ${err}`);
+    }
+  }
+
   return Response.json({
     ok: true,
     streakReminders,
     milestonesSent,
+    inactivitySent,
     errors: errors.length > 0 ? errors : undefined,
   });
 }

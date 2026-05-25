@@ -190,6 +190,19 @@ export default async function DashboardPage() {
   const firstName = displayName.split(" ")[0];
   const subtext = getSubtext(totalActive, currentStreak, highestIntensity);
 
+  // Trending suggestions for new users
+  let trendingSuggestions: { id: string; title: string; category: string }[] = [];
+  if (fixes.length === 0) {
+    const { data: trending } = await supabase
+      .from("fixes")
+      .select("id, title, category")
+      .eq("is_public", true)
+      .is("ended_at", null)
+      .order("created_at", { ascending: false })
+      .limit(8);
+    trendingSuggestions = (trending ?? []).slice(0, 6);
+  }
+
   // Detect milestone fixes (day count exactly at 7, 30, 100, or 365)
   const MILESTONES = [7, 30, 100, 365] as const;
   const milestoneFixes = fixes
@@ -430,7 +443,7 @@ export default async function DashboardPage() {
             </Suspense>
           </div>
         ) : (
-          <EmptyState />
+          <EmptyState suggestions={trendingSuggestions} />
         )}
 
         {referralCode && (
@@ -462,7 +475,13 @@ export default async function DashboardPage() {
   );
 }
 
-function EmptyState() {
+const CATEGORY_EMOJI: Record<string, string> = {
+  song: "🎵", fanfic: "📖", show: "📺", film: "🎬", ship: "💜",
+  game: "🎮", "video essay": "🎥", podcast: "🎙️", book: "📚",
+  character: "✨", other: "✦",
+};
+
+function EmptyState({ suggestions }: { suggestions: { id: string; title: string; category: string }[] }) {
   return (
     <div
       className="relative overflow-hidden rounded-3xl p-10 sm:p-16 text-center anim-fadeUp"
@@ -511,7 +530,32 @@ function EmptyState() {
           + Log a fix
         </Link>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full mt-2">
+        {suggestions.length > 0 && (
+          <div className="w-full">
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>
+              others are currently tracking
+            </p>
+            <div className="flex flex-wrap gap-2 justify-center">
+              {suggestions.map((s) => (
+                <Link
+                  key={s.id}
+                  href={`/fix/${s.id}`}
+                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-sans text-xs transition-all hover:scale-105 hover:opacity-90"
+                  style={{
+                    background: "rgba(15,16,17,0.8)",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    color: "rgba(255,255,255,0.7)",
+                  }}
+                >
+                  <span>{CATEGORY_EMOJI[s.category] ?? "✦"}</span>
+                  <span className="truncate max-w-[120px]">{s.title}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full">
           {[
             { step: "01", title: "Name it", body: "Log whatever's taken over your brain." },
             { step: "02", title: "Count it", body: "The day counter starts. Check in daily." },

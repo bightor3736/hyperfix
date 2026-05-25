@@ -389,3 +389,46 @@ export async function sendReactionNotification({
     `),
   }).catch(console.error);
 }
+
+export async function sendFixInactivityEmail({
+  toEmail,
+  toName,
+  fixes,
+}: {
+  toEmail: string;
+  toName: string;
+  fixes: { title: string; id: string; daysSinceCheckin: number; dayCount: number }[];
+}) {
+  const resend = getResend();
+  if (!resend) return;
+
+  const fixLines = fixes.slice(0, 3).map(f =>
+    `<li style="margin-bottom:8px;"><strong style="color:#F4F4F4;">&ldquo;${f.title}&rdquo;</strong> <span style="color:rgba(244,244,244,0.35);">— day ${f.dayCount}</span></li>`
+  ).join("");
+
+  await resend.emails.send({
+    from: "hyperfix <hello@hyperfix.app>",
+    to: toEmail,
+    subject: `your fixes miss you, ${toName}`,
+    html: emailShell(`
+      <tr><td style="padding-bottom:20px;">
+        <h1 style="margin:0;font-size:44px;font-weight:700;line-height:1;color:#F4F4F4;letter-spacing:-0.03em;">
+          still obsessed?
+        </h1>
+      </td></tr>
+      <tr><td style="padding-bottom:24px;">
+        <p style="margin:0;font-size:16px;line-height:1.65;color:rgba(244,244,244,0.55);">
+          hey ${toName} — you haven&rsquo;t checked in for a few days. your fixes are waiting.
+        </p>
+      </td></tr>
+      <tr><td style="padding-bottom:28px;">
+        <ul style="margin:0;padding-left:20px;font-size:14px;line-height:1.8;color:rgba(244,244,244,0.5);">
+          ${fixLines}
+        </ul>
+      </td></tr>
+      <tr><td style="padding:0 0 40px;">
+        ${ctaButton("https://hyperfix.app/dashboard", "check in now &rarr;")}
+      </td></tr>
+    `),
+  }).catch(console.error);
+}
