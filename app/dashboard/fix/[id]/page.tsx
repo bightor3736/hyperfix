@@ -4,9 +4,10 @@ import { FixStatusPill as _FixStatusPill, type FixStatus } from "@/components/Fi
 import { notFound, redirect } from "next/navigation";
 import { FixDetailClient } from "./FixDetailClient";
 import { ShareButton } from "@/components/ShareButton";
+import { ShareLinkBar } from "@/components/ShareLinkBar";
 import { Sparkline } from "@/components/Sparkline";
 import { FixReactions } from "@/components/FixReactions";
-import { LogoLockup } from "@/components/Logo";
+import { LogoLockup as _LogoLockup } from "@/components/Logo";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { FlameIcon } from "@/components/LandingIcons";
 
@@ -170,50 +171,41 @@ export default async function FixDetailPage({
 
       {/* Glass sticky nav */}
       <nav
-        className="sticky top-0 z-40 px-6 sm:px-10 py-5 flex items-center justify-between"
+        className="sticky top-0 z-40 px-4 sm:px-8 py-3 flex items-center justify-between gap-3"
         style={{
-          background: "rgba(7,7,8,0.78)",
+          background: "rgba(7,7,8,0.85)",
           backdropFilter: "blur(20px)",
           borderBottom: `1px solid ${CARD_BORDER}`,
         }}
       >
-        <Link href="/" aria-label="Hyperfix home" className="transition-transform hover:scale-[1.02]">
-          <LogoLockup size="sm" />
+        <Link href="/dashboard" className="font-mono text-xs shrink-0 transition-opacity hover:opacity-60" style={{ color: "rgba(255,255,255,0.4)" }}>
+          ← my fixes
         </Link>
-        <div className="flex items-center gap-3">
-          <Link
-            href="/dashboard"
-            className="font-sans text-sm transition-colors"
-            style={{ color: "rgba(255,255,255,0.55)" }}
-          >
-            ← my fixes
-          </Link>
+        <div className="flex items-center gap-2">
           {typedFix.is_public && (
             <Link
               href={`/fix/${id}`}
-              className="font-sans text-sm font-medium px-3 py-1.5 rounded-full transition-all hover:opacity-90"
+              className="hidden sm:inline-flex items-center gap-1.5 font-sans text-xs font-medium px-3 py-1.5 rounded-full transition-all hover:opacity-80"
               style={{
-                background: "rgba(244,244,244,0.06)",
-                border: "1px solid rgba(244,244,244,0.12)",
-                color: "rgba(244,244,244,0.6)",
+                background: "rgba(244,244,244,0.05)",
+                border: "1px solid rgba(244,244,244,0.10)",
+                color: "rgba(244,244,244,0.55)",
               }}
             >
-              View public →
+              Public page
             </Link>
           )}
           <Link
             href={`/dashboard/fix/${id}/card`}
-            className="inline-flex items-center gap-1.5 font-sans text-sm font-medium px-3 py-1.5 rounded-full transition-all hover:opacity-90"
+            className="inline-flex items-center gap-1.5 font-sans text-xs font-medium px-3 py-1.5 rounded-full transition-all hover:opacity-80"
             style={{
-              background: "rgba(94,234,212,0.08)",
-              border: "1px solid rgba(94,234,212,0.25)",
-              color: TEAL,
+              background: "rgba(244,244,244,0.05)",
+              border: "1px solid rgba(244,244,244,0.10)",
+              color: "rgba(244,244,244,0.55)",
             }}
           >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-              <circle cx="8.5" cy="8.5" r="1.5" />
-              <polyline points="21 15 16 10 5 21" />
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
             </svg>
             Customize card
           </Link>
@@ -324,6 +316,11 @@ export default async function FixDetailPage({
             />
           </div>
         </div>
+
+        {/* Share link — public fixes only */}
+        {typedFix.is_public && (
+          <ShareLinkBar fixId={id} />
+        )}
 
         {/* Day counter + sparkline card */}
         <div
