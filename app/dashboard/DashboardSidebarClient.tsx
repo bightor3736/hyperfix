@@ -1,12 +1,30 @@
 "use client";
 
-import { useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { LogoLockup } from "@/components/Logo";
 import { NotificationBell } from "@/components/NotificationBell";
 import { Home, Discovery, Search, Category, Star, Setting, Plus, Logout, Chart } from "react-iconly";
+
+function MessagesIcon({ active }: { active: boolean }) {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={active ? 2 : 1.6}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M3 7l9 6 9-6" />
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+    </svg>
+  );
+}
 
 type Props = {
   displayName: string;
@@ -20,6 +38,27 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
   const router = useRouter();
   const pathname = usePathname();
   const [pending, startTransition] = useTransition();
+  const [unreadMessages, setUnreadMessages] = useState(0);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function load() {
+      try {
+        const res = await fetch("/api/messages/unread-count");
+        if (!res.ok) return;
+        const data = (await res.json()) as { count: number };
+        if (!cancelled) setUnreadMessages(data.count ?? 0);
+      } catch {
+        /* ignore */
+      }
+    }
+    load();
+    const id = setInterval(load, 60_000);
+    return () => {
+      cancelled = true;
+      clearInterval(id);
+    };
+  }, [pathname]);
 
   function handleSignOut() {
     startTransition(async () => {
@@ -30,7 +69,12 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
     });
   }
 
-  const navItems = [
+  const navItems: Array<{
+    href: string;
+    label: string;
+    icon: (active: boolean) => React.ReactNode;
+    badge?: number;
+  }> = [
     {
       href: "/dashboard",
       label: "Dashboard",
@@ -61,6 +105,12 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
           <path d="M10 10 L14 10 M12 8 L12 12" />
         </svg>
       ),
+    },
+    {
+      href: "/dashboard/messages",
+      label: "Messages",
+      icon: (active: boolean) => <MessagesIcon active={active} />,
+      badge: unreadMessages,
     },
     {
       href: `/wrapped/${new Date().getFullYear()}`,
