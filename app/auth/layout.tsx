@@ -288,6 +288,93 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <div className="w-full max-w-[380px] anim-fadeUp delay-200 my-auto">
             {children}
           </div>
+
+          {/* mobile-only mini visual below form */}
+          <div className="lg:hidden w-full max-w-[380px] mt-10 mb-4 anim-fadeUp delay-700">
+            <div
+              className="rounded-2xl p-6 relative overflow-hidden"
+              style={{
+                background:
+                  "radial-gradient(ellipse 100% 80% at 50% 100%, #0E4F47 0%, #08231F 45%, #0F1011 90%)",
+                border: "1px solid rgba(255,255,255,0.06)",
+              }}
+            >
+              <div className="flex items-center gap-4">
+                <div
+                  style={{
+                    width: 56,
+                    height: 86,
+                    background: "#F4EFE6",
+                    borderRadius: 8,
+                    flexShrink: 0,
+                    overflow: "hidden",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "0 10px 20px -8px rgba(0,0,0,0.5)",
+                    transform: "rotate(-4deg)",
+                  }}
+                >
+                  <div style={{ height: 4, background: "#D72638" }} />
+                  <div className="flex-1 flex flex-col items-center justify-center">
+                    <span
+                      style={{
+                        fontFamily: "Georgia, serif",
+                        fontSize: 28,
+                        color: "#D72638",
+                        fontWeight: 700,
+                        lineHeight: 1,
+                      }}
+                    >
+                      47
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-jetbrains-mono), monospace",
+                        fontSize: 6,
+                        color: "rgba(17,17,17,0.5)",
+                        letterSpacing: "0.2em",
+                        marginTop: 2,
+                      }}
+                    >
+                      DAYS
+                    </span>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <p
+                    className="font-display"
+                    style={{
+                      color: "#FFFFFF",
+                      fontSize: 20,
+                      lineHeight: 1.1,
+                      letterSpacing: "-0.02em",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Severance
+                  </p>
+                  <p
+                    className="font-sans text-sm mt-1"
+                    style={{ color: "rgba(255,255,255,0.55)" }}
+                  >
+                    the door scene
+                  </p>
+                  <p
+                    className="font-mono mt-2"
+                    style={{
+                      color: "#5EEAD4",
+                      fontSize: 10,
+                      letterSpacing: "0.18em",
+                      textTransform: "uppercase",
+                      fontWeight: 700,
+                    }}
+                  >
+                    intensity 8/10
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* desktop footer */}

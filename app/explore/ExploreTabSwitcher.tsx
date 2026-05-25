@@ -378,6 +378,93 @@ type Props = {
   isLoggedIn?: boolean;
 };
 
+type EmptyKind = "public" | "filtered" | "trending" | "following" | "longest" | "activity" | "cards";
+
+function EmptyState({ kind, onClearFilter }: { kind: EmptyKind; onClearFilter?: () => void }) {
+  const copy: Record<EmptyKind, { title: string; sub: string; cta?: { label: string; href: string } | null }> = {
+    public: {
+      title: "Nothing here yet.",
+      sub: "No public fixes yet — be the first to share what owns your brain.",
+      cta: { label: "Start tracking", href: "/auth/signup" },
+    },
+    filtered: {
+      title: "Nothing in this category yet.",
+      sub: "Try a different category or clear the filter.",
+      cta: null,
+    },
+    trending: {
+      title: "Nothing trending yet.",
+      sub: "Once people start reacting to fixes, the hottest ones land here.",
+      cta: null,
+    },
+    longest: {
+      title: "Nothing here yet.",
+      sub: "Long-running obsessions will show up here once people log them.",
+      cta: null,
+    },
+    following: {
+      title: "Nobody yet.",
+      sub: "Follow people to see what's owning their brains right now.",
+      cta: { label: "Browse everyone", href: "#" },
+    },
+    activity: {
+      title: "Nothing yet.",
+      sub: "Follow people to see when they start and end fixations here.",
+      cta: null,
+    },
+    cards: {
+      title: "Nothing public yet.",
+      sub: "Be the first to share a hyperfix.",
+      cta: { label: "Start tracking", href: "/auth/signup" },
+    },
+  };
+
+  const { title, sub, cta } = copy[kind];
+
+  return (
+    <div
+      className="flex flex-col items-center justify-center text-center rounded-3xl py-20 px-6"
+      style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}
+    >
+      <p
+        className="font-display mb-2"
+        style={{
+          color: "rgba(255,255,255,0.85)",
+          fontSize: "clamp(22px, 3vw, 28px)",
+          letterSpacing: "-0.02em",
+          fontWeight: 600,
+        }}
+      >
+        {title}
+      </p>
+      <p className="font-sans text-sm max-w-sm" style={{ color: "rgba(244,244,244,0.45)", lineHeight: 1.55 }}>
+        {sub}
+      </p>
+      {kind === "filtered" && onClearFilter ? (
+        <button
+          onClick={onClearFilter}
+          className="mt-6 font-mono text-[11px] uppercase tracking-widest px-4 py-2 rounded-full transition-all"
+          style={{
+            background: "rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            color: "rgba(244,244,244,0.6)",
+          }}
+        >
+          Clear filter
+        </button>
+      ) : cta ? (
+        <Link
+          href={cta.href}
+          className="mt-6 inline-flex items-center gap-2 font-sans text-sm font-semibold px-5 py-2.5 rounded-full transition-opacity hover:opacity-90"
+          style={{ background: "#5EEAD4", color: "#070708" }}
+        >
+          {cta.label} <span aria-hidden>→</span>
+        </Link>
+      ) : null}
+    </div>
+  );
+}
+
 function TabButton({
   label,
   active,
@@ -484,25 +571,33 @@ export function ExploreTabSwitcher({
     <div>
       {/* Tab switcher */}
       <div className="flex gap-2 mb-8 overflow-x-auto scrollbar-hide pb-1">
-        <TabButton label="Everyone" active={tab === "everyone"} onClick={() => setTab("everyone")} />
-        <TabButton label="Cards" active={tab === "cards"} onClick={() => setTab("cards")} />
-        <TabButton label="Trending" active={tab === "trending"} onClick={() => setTab("trending")} />
-        <TabButton label="Longest" active={tab === "longest"} onClick={() => setTab("longest")} />
-        {isLoggedIn && <TabButton label="Following" active={tab === "following"} onClick={() => setTab("following")} />}
-        {isLoggedIn && <TabButton label="Activity" active={tab === "activity"} onClick={() => setTab("activity")} />}
+        <TabButton label="Everyone" active={tab === "everyone"} count={allEveryoneFixes.length} onClick={() => setTab("everyone")} />
+        <TabButton label="Cards" active={tab === "cards"} count={allEveryoneFixes.length} onClick={() => setTab("cards")} />
+        <TabButton label="Trending" active={tab === "trending"} count={trendingFixes.length} onClick={() => setTab("trending")} />
+        <TabButton label="Longest" active={tab === "longest"} count={longestFixes.length} onClick={() => setTab("longest")} />
+        {isLoggedIn && (
+          <TabButton
+            label="Following"
+            active={tab === "following"}
+            count={followingFixes?.length ?? 0}
+            onClick={() => setTab("following")}
+          />
+        )}
+        {isLoggedIn && (
+          <TabButton
+            label="Activity"
+            active={tab === "activity"}
+            count={activityItems?.length ?? 0}
+            onClick={() => setTab("activity")}
+          />
+        )}
       </div>
 
       {/* Cards gallery */}
       {tab === "cards" && (
         <div>
           {allEveryoneFixes.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-32 text-center">
-              <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nothing public yet.</p>
-              <p className="font-mono text-sm mb-8" style={{ color: "rgba(244,244,244,0.3)" }}>Be the first.</p>
-              <Link href="/auth/signup" className="font-mono text-sm px-6 py-3 rounded-full font-bold transition-opacity hover:opacity-90" style={{ background: "#5EEAD4", color: "#F4F4F4" }}>
-                Start tracking →
-              </Link>
-            </div>
+            <EmptyState kind="cards" />
           ) : (
             <>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
@@ -616,10 +711,7 @@ export function ExploreTabSwitcher({
       {tab === "activity" && (
         <div className="max-w-2xl">
           {!activityItems || activityItems.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-32 text-center">
-              <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nothing yet.</p>
-              <p className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>Follow people to see their activity here.</p>
-            </div>
+            <EmptyState kind="activity" />
           ) : (
             <div>{activityItems.map((item, i) => <ActivityCard key={`${item.type}-${item.fixId}-${i}`} item={item} />)}</div>
           )}
@@ -639,13 +731,13 @@ export function ExploreTabSwitcher({
                   className="shrink-0 flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
                   style={
                     isSelected
-                      ? { background: "#5EEAD4", color: "#F4F4F4", border: "1px solid transparent" }
-                      : { background: "#111113", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.5)" }
+                      ? { background: "#5EEAD4", color: "#070708", border: "1px solid transparent", fontWeight: 600 }
+                      : { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", color: "rgba(244,244,244,0.55)" }
                   }
                 >
                   <CategoryIcon category={category} size={11} />
                   <span>{category}</span>
-                  <span className="font-mono tabular-nums" style={{ color: isSelected ? "rgba(244,244,244,0.5)" : "rgba(244,244,244,0.3)", fontSize: 10 }}>
+                  <span className="font-mono tabular-nums" style={{ color: isSelected ? "rgba(7,7,8,0.55)" : "rgba(244,244,244,0.3)", fontSize: 10 }}>
                     · {count}
                   </span>
                 </button>
@@ -658,37 +750,20 @@ export function ExploreTabSwitcher({
       {/* Feed */}
       {tab !== "activity" && (
         fixes.length === 0 && !loadingMore ? (
-          <div className="flex flex-col items-center justify-center py-32 text-center">
-            {selectedCategory && tab !== "trending" ? (
-              <>
-                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nothing here yet.</p>
-                <p className="font-mono text-sm mb-6" style={{ color: "rgba(244,244,244,0.3)" }}>No public fixes in this category.</p>
-                <button onClick={() => setSelectedCategory(null)} className="font-mono text-sm px-4 py-2 rounded-full transition-all duration-150"
-                  style={{ background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.5)" }}>
-                  Clear filter
-                </button>
-              </>
-            ) : tab === "trending" ? (
-              <>
-                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nothing trending yet.</p>
-                <p className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>Be the first to react to fixes.</p>
-              </>
-            ) : tab === "following" ? (
-              <>
-                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nobody yet.</p>
-                <p className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>Follow people to see their fixes here.</p>
-              </>
-            ) : (
-              <>
-                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nothing public yet.</p>
-                <p className="font-mono text-sm mb-8" style={{ color: "rgba(244,244,244,0.3)" }}>Be the first.</p>
-                <Link href="/auth/signup" className="font-mono text-sm px-6 py-3 rounded-full font-bold transition-opacity hover:opacity-90"
-                  style={{ background: "#5EEAD4", color: "#F4F4F4" }}>
-                  Start tracking →
-                </Link>
-              </>
-            )}
-          </div>
+          <EmptyState
+            kind={
+              selectedCategory && tab !== "trending"
+                ? "filtered"
+                : tab === "trending"
+                ? "trending"
+                : tab === "following"
+                ? "following"
+                : tab === "longest"
+                ? "longest"
+                : "public"
+            }
+            onClearFilter={() => setSelectedCategory(null)}
+          />
         ) : (
           <>
             <div className="masonry-grid" style={{ columnGap: "16px" }}>

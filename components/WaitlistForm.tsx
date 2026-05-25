@@ -72,21 +72,24 @@ export default function WaitlistForm({
           placeholder="your@email.com"
           aria-label="Email address"
           disabled={pending}
-          className="flex-1 px-4 py-3.5 font-mono text-sm focus:outline-none transition-colors disabled:opacity-50 text-[rgba(244,244,244,0.9)] placeholder:text-[rgba(244,244,244,0.3)] focus:ring-1 focus:ring-accent/50"
+          className="flex-1 px-4 py-3.5 font-mono text-sm focus:outline-none transition-all duration-200 disabled:opacity-50 text-[rgba(244,244,244,0.9)] placeholder:text-[rgba(244,244,244,0.3)] focus:ring-2 focus:ring-[#5EEAD4]/40 focus:border-[rgba(94,234,212,0.4)] focus:-translate-y-px"
           style={{
             background: "#1C1C1E",
             border: "1px solid rgba(244,244,244,0.1)",
             borderRadius: 12,
+            boxShadow: "0 1px 0 0 rgba(255,255,255,0.02) inset",
           }}
         />
         <button
           type="submit"
           disabled={pending}
-          className="shrink-0 px-6 py-3.5 font-mono text-[11px] uppercase tracking-widest font-bold transition-all disabled:opacity-50 active:scale-[0.98] hover:opacity-90"
+          className="shrink-0 px-6 py-3.5 font-mono text-[11px] uppercase tracking-widest font-bold transition-all duration-200 disabled:opacity-50 active:scale-[0.98] hover:opacity-95 hover:-translate-y-px"
           style={{
             background: "#5EEAD4",
             color: "#0A0A0A",
             borderRadius: 999,
+            boxShadow:
+              "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 8px 28px rgba(94,234,212,0.30)",
           }}
         >
           {pending ? "adding you…" : "I'm obsessed, let me in →"}
@@ -105,7 +108,7 @@ export default function WaitlistForm({
           <span className="tabular">
             {count !== null ? count.toLocaleString() : "1,247"}
           </span>{" "}
-          people are currently obsessed with something
+          on the list · currently obsessed with something
         </p>
       )}
     </div>

@@ -30,7 +30,7 @@ export default function LoginPage() {
         className="font-sans text-base mb-6 anim-fadeUp delay-200"
         style={{ color: "rgba(255,255,255,0.55)" }}
       >
-        Enter your details to pick up where you left off.
+        Pick up the count where you left off.
       </p>
 
       <div className="anim-fadeUp delay-300">
@@ -57,6 +57,12 @@ export default function LoginPage() {
         >
           Sign up
         </a>
+      </p>
+      <p
+        className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.18em] anim-fadeUp delay-700"
+        style={{ color: "rgba(255,255,255,0.28)" }}
+      >
+        or join the unwell at hyperfix.app
       </p>
     </div>
   );

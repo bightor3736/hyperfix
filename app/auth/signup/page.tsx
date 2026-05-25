@@ -24,13 +24,13 @@ export default function SignupPage() {
           fontWeight: 600,
         }}
       >
-        Create your account.
+        Start counting.
       </h1>
       <p
         className="font-sans text-base mb-6 anim-fadeUp delay-200"
         style={{ color: "rgba(255,255,255,0.55)" }}
       >
-        Free forever. No credit card. Start counting the days.
+        30 seconds. Free forever. The number doesn&apos;t lie.
       </p>
 
       <div className="anim-fadeUp delay-300">
