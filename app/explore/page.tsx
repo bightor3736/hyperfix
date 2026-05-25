@@ -1,8 +1,12 @@
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import Link from "next/link";
 import { LogoLockup } from "@/components/Logo";
 import type { Metadata } from "next";
 import { ExploreTabSwitcher } from "./ExploreTabSwitcher";
+
+const CARD_BG = "#0F1011";
+const CARD_BORDER = "rgba(255,255,255,0.06)";
 
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
@@ -198,6 +202,19 @@ export default async function ExplorePage() {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 20)
     .map(([id]) => id);
+
+  // Stats strip — pulls from admin client server-side
+  const admin = createAdminClient();
+  const [{ count: publicFixCount }, { count: peopleCount }, { count: weeklyCheckinCount }] = await Promise.all([
+    admin.from("fixes").select("id", { count: "exact", head: true }).eq("is_public", true),
+    admin.from("profiles").select("id", { count: "exact", head: true }),
+    admin.from("fix_entries").select("id", { count: "exact", head: true }).gte("created_at", sevenDaysAgo),
+  ]);
+  const stats = {
+    publicFixes: publicFixCount ?? 0,
+    people: peopleCount ?? 0,
+    weeklyCheckins: weeklyCheckinCount ?? 0,
+  };
 
   let trendingFixes: Fix[] = [];
   let trendingReactionMap: Record<string, ReactionCounts> = {};
