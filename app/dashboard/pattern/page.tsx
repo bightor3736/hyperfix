@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { CategoryIcon } from "@/components/CategoryIcon";
+import { TombstoneIcon } from "@/components/MilestoneIcons";
 
 export const metadata: Metadata = {
   title: "Your Pattern · Hyperfix",
@@ -139,7 +141,9 @@ export default async function PatternPage() {
                     your main obsession type
                   </p>
                   <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ background: categoryColor(topCategory) }} />
+                    <span className="flex-shrink-0 inline-flex" style={{ color: categoryColor(topCategory) }}>
+                      <CategoryIcon category={topCategory} size={20} />
+                    </span>
                     <p className="font-display text-xl font-semibold" style={{ letterSpacing: "-0.02em" }}>{topCategory}</p>
                     <span className="font-mono text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>{catCounts[topCategory]}×</span>
                   </div>
@@ -186,7 +190,9 @@ export default async function PatternPage() {
                     const color = categoryColor(cat);
                     return (
                       <div key={cat} className="flex items-center gap-3">
-                        <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: color }} />
+                        <span className="flex-shrink-0 inline-flex" style={{ color }}>
+                          <CategoryIcon category={cat} size={14} />
+                        </span>
                         <span className="font-sans text-xs w-20 shrink-0 capitalize" style={{ color: "rgba(255,255,255,0.55)" }}>{cat}</span>
                         <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
                           <div className="h-full rounded-full transition-all" style={{ width: `${(count / max) * 100}%`, background: color }} />
@@ -255,10 +261,11 @@ export default async function PatternPage() {
               <div className="text-center">
                 <Link
                   href="/dashboard/graveyard"
-                  className="font-sans text-sm transition-colors hover:text-[#5EEAD4]"
+                  className="inline-flex items-center gap-2 font-sans text-sm transition-colors hover:text-[#5EEAD4]"
                   style={{ color: "rgba(255,255,255,0.3)" }}
                 >
-                  🪦 view the graveyard →
+                  <TombstoneIcon size={14} />
+                  view the graveyard →
                 </Link>
               </div>
             )}

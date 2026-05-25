@@ -5,6 +5,8 @@ import { createClient } from "@/lib/supabase/client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { TagsInput } from "@/components/TagsInput";
 import { CloseSquare, Star } from "react-iconly";
+import { CategoryIcon } from "@/components/CategoryIcon";
+import { SparkleIcon } from "@/components/LandingIcons";
 
 const CATEGORIES = [
   "song", "fanfic", "show", "film", "ship", "game",
@@ -147,7 +149,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
             <CloseSquare set="light" size={15} primaryColor="currentColor" />
           </button>
           <p className="font-sans text-sm pr-6" style={{ color: "rgba(94,234,212,0.9)" }}>
-            Welcome to Hyperfix 👋 Log your first fix below — what are you obsessed with right now?
+            Welcome to Hyperfix. Log your first fix below — what are you obsessed with right now?
           </p>
         </div>
       )}
@@ -171,7 +173,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
             <CloseSquare set="light" size={15} primaryColor="currentColor" />
           </button>
           <p className="font-sans text-sm pr-6" style={{ color: "rgba(94,234,212,0.9)" }}>
-            Imported from a share 📥 We pre-filled what we could — tweak it and start tracking.
+            Imported from a share. We pre-filled what we could — tweak it and start tracking.
           </p>
         </div>
       )}
@@ -208,7 +210,9 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
               "Priority support",
             ].map((feature) => (
               <li key={feature} className="flex items-center gap-2.5 font-sans text-sm" style={{ color: "rgba(244,244,244,0.65)" }}>
-                <span style={{ color: "#5EEAD4", fontSize: 16 }}>✦</span>
+                <span style={{ color: "#5EEAD4", display: "inline-flex" }} aria-hidden>
+                  <SparkleIcon size={14} />
+                </span>
                 {feature}
               </li>
             ))}
@@ -241,23 +245,24 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
       <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.3)" }}>Quick start</p>
       <div className="flex flex-wrap gap-2">
         {[
-          { label: "🎵 Song on loop", cat: "song" as Category, placeholder: "which song?" },
-          { label: "📖 Fanfic", cat: "fanfic" as Category, placeholder: "which fic?" },
-          { label: "📺 Show", cat: "show" as Category, placeholder: "which show?" },
-          { label: "🎮 Game", cat: "game" as Category, placeholder: "which game?" },
-          { label: "🚢 Ship", cat: "ship" as Category, placeholder: "who?" },
-          { label: "🎬 Film", cat: "film" as Category, placeholder: "which film?" },
+          { label: "Song on loop", cat: "song" as Category, placeholder: "which song?" },
+          { label: "Fanfic", cat: "fanfic" as Category, placeholder: "which fic?" },
+          { label: "Show", cat: "show" as Category, placeholder: "which show?" },
+          { label: "Game", cat: "game" as Category, placeholder: "which game?" },
+          { label: "Ship", cat: "ship" as Category, placeholder: "who?" },
+          { label: "Film", cat: "film" as Category, placeholder: "which film?" },
         ].map((t) => (
           <button
             key={t.label}
             type="button"
             onClick={() => { setCategory(t.cat); setTitle(""); }}
-            className="px-3 py-1.5 rounded-full font-sans text-sm transition-all hover:opacity-90"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-sans text-sm transition-all hover:opacity-90"
             style={category === t.cat
               ? { background: "#5EEAD4", color: "#0A0A0A", fontWeight: 600 }
               : { background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.6)" }
             }
           >
+            <CategoryIcon category={t.cat} size={14} />
             {t.label}
           </button>
         ))}
@@ -301,13 +306,14 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
                 key={cat}
                 type="button"
                 onClick={() => setCategory(cat)}
-                className="px-3 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150 hover:scale-105 active:scale-[0.97]"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150 hover:scale-105 active:scale-[0.97]"
                 style={{
                   background: isSelected ? "rgba(94,234,212,0.15)" : "rgba(244,244,244,0.05)",
                   border: isSelected ? "1px solid rgba(94,234,212,0.4)" : "1px solid rgba(244,244,244,0.1)",
                   color: isSelected ? "#5EEAD4" : "rgba(244,244,244,0.5)",
                 }}
               >
+                <CategoryIcon category={cat} size={11} />
                 {cat}
               </button>
             );

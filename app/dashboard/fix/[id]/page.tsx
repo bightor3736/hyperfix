@@ -7,6 +7,8 @@ import { ShareButton } from "@/components/ShareButton";
 import { Sparkline } from "@/components/Sparkline";
 import { FixReactions } from "@/components/FixReactions";
 import { LogoLockup } from "@/components/Logo";
+import { CategoryIcon } from "@/components/CategoryIcon";
+import { FlameIcon } from "@/components/LandingIcons";
 
 const TEAL = "#5EEAD4";
 const CARD_BG = "#0F1011";
@@ -227,13 +229,14 @@ export default async function FixDetailPage({
             {/* Category eyebrow */}
             <div className="flex items-center gap-2 mb-5 flex-wrap">
               <span
-                className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1"
+                className="inline-flex items-center gap-1.5 font-sans text-xs rounded-full px-3 py-1"
                 style={{
                   background: "rgba(94,234,212,0.12)",
                   color: TEAL,
                   border: "1px solid rgba(94,234,212,0.25)",
                 }}
               >
+                <CategoryIcon category={typedFix.category} size={12} />
                 {typedFix.category}
               </span>
             </div>
@@ -379,7 +382,7 @@ export default async function FixDetailPage({
               className="absolute inset-0 pointer-events-none mix-blend-overlay"
               style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.18 }}
             />
-            <span className="relative" style={{ fontSize: 20 }}>🔥</span>
+            <span className="relative inline-flex" style={{ color: TEAL }}><FlameIcon size={20} /></span>
             <p className="relative flex-1 font-display font-semibold text-sm" style={{ color: TEAL }}>
               {othersCount} other {othersCount === 1 ? "person is" : "people are"} also tracking &ldquo;{typedFix.title}&rdquo;
             </p>

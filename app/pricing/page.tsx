@@ -216,7 +216,9 @@ export default function PricingPage() {
                     <ul className="mt-6 mb-10 space-y-3 flex-1">
                       {PRO_FEATURES.map((f) => (
                         <li key={f.name} className="flex items-start gap-2.5 font-sans text-base" style={{ color: "#0A1F1C" }}>
-                          <span className="shrink-0 text-base leading-none mt-0.5" aria-hidden>{f.icon}</span>
+                          <span className="shrink-0 leading-none mt-0.5 inline-flex" aria-hidden>
+                            <f.Icon size={16} />
+                          </span>
                           <span>{f.name}</span>
                         </li>
                       ))}

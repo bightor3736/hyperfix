@@ -57,6 +57,16 @@ export function HeartCrackIcon({ size = 14, className }: IconProps) {
   );
 }
 
+export function TombstoneIcon({ size = 14, className }: IconProps) {
+  return (
+    <svg {...baseProps(size)} className={className} aria-hidden>
+      <path d="M5 21V11a7 7 0 0 1 14 0v10" />
+      <path d="M3 21h18" />
+      <path d="M9 10h6M12 10v6" />
+    </svg>
+  );
+}
+
 export function GiftIcon({ size = 14, className }: IconProps) {
   return (
     <svg {...baseProps(size)} className={className} aria-hidden>

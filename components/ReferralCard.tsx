@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SparkleIcon } from "@/components/LandingIcons";
 
 const TEAL = "#5EEAD4";
 const CARD_BG = "#0F1011";
@@ -73,14 +74,15 @@ export function ReferralCard({
         <div className="flex items-start justify-between gap-4 mb-5">
           <div>
             <span
-              className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-3"
+              className="inline-flex items-center gap-1.5 font-sans text-xs rounded-full px-3 py-1 mb-3"
               style={{
                 background: "rgba(94,234,212,0.10)",
                 color: TEAL,
                 border: "1px solid rgba(94,234,212,0.22)",
               }}
             >
-              {isPro ? "✦ Pro unlocked" : "invite friends"}
+              {isPro && <SparkleIcon size={12} />}
+              {isPro ? "Pro unlocked" : "invite friends"}
             </span>
             <h2
               className="font-display"
