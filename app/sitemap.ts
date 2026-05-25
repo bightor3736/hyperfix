@@ -6,13 +6,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: SITE,
-      lastModified: new Date("2026-05-17"),
+      lastModified: new Date("2026-05-25"),
       changeFrequency: "weekly",
       priority: 1.0,
     },
     {
+      url: `${SITE}/adhd`,
+      lastModified: new Date("2026-05-25"),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE}/explore`,
+      lastModified: new Date("2026-05-25"),
+      changeFrequency: "daily",
+      priority: 0.85,
+    },
+    {
       url: `${SITE}/hyperfixation-tracker`,
-      lastModified: new Date("2026-05-17"),
+      lastModified: new Date("2026-05-25"),
       changeFrequency: "monthly",
       priority: 0.9,
     },

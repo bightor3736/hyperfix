@@ -28,12 +28,7 @@ export const PRO_FEATURES: ProFeature[] = [
   {
     icon: "📦",
     name: "Data export",
-    desc: "Download every fix, check-in, Studio block, and comment as a JSON file.",
-  },
-  {
-    icon: "🧩",
-    name: "Unlimited Studio blocks",
-    desc: "Free accounts cap at 8 blocks per fix — Pro lets you build without limits.",
+    desc: "Download every fix, check-in, and comment as a JSON file.",
   },
   {
     icon: "✦",

@@ -34,11 +34,6 @@ export async function GET() {
     .select("*")
     .eq("user_id", user.id);
 
-  const { data: studioBlocks } = await supabase
-    .from("fix_studio_blocks")
-    .select("*")
-    .eq("user_id", user.id);
-
   const { data: comments } = await supabase
     .from("fix_comments")
     .select("*")
@@ -50,7 +45,6 @@ export async function GET() {
     profile,
     fixes: fixes ?? [],
     fix_entries: entries ?? [],
-    studio_blocks: studioBlocks ?? [],
     comments: comments ?? [],
   };
 

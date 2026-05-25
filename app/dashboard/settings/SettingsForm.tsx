@@ -815,7 +815,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               <ProTag />
             </div>
             <p className="font-sans text-[12px]" style={{ color: "rgba(244,244,244,0.35)" }}>
-              Download all your fixes, check-ins, Studio blocks, and comments as a JSON file.
+              Download all your fixes, check-ins, and comments as a JSON file.
             </p>
             <button
               type="button"

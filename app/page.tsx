@@ -47,37 +47,18 @@ async function getPublicFixCount(): Promise<number> {
   }
 }
 
-async function getTrendingFixes(): Promise<{ id: string; title: string; category: string; days: number; intensity: number }[]> {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!supabaseUrl || !serviceKey) return [];
-  try {
-    const res = await fetch(
-      `${supabaseUrl}/rest/v1/fixes?select=id,title,category,intensity,started_at&is_public=eq.true&ended_at=is.null&order=started_at.asc&limit=24`,
-      {
-        headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` },
-        next: { revalidate: 300 },
-      }
-    );
-    if (!res.ok) return [];
-    const rows: { id: string; title: string; category: string; intensity: number; started_at: string }[] = await res.json();
-    return rows
-      .map((r) => ({
-        id: r.id,
-        title: r.title,
-        category: r.category,
-        intensity: r.intensity,
-        days: Math.max(1, Math.ceil((Date.now() - new Date(r.started_at).getTime()) / 86_400_000)),
-      }))
-      .sort((a, b) => b.days - a.days)
-      .slice(0, 6);
-  } catch {
-    return [];
-  }
-}
-
 export const metadata: Metadata = {
-  title: "Hyperfix — what are you obsessed with?",
+  title: "Hyperfix — Hyperfixation Tracker | Log Your Obsessions",
+  description:
+    "The #1 hyperfixation tracker. Log the song on loop, the fanfic you can't quit, the show that owns you. Count the days. Build streaks. Share cards. Free forever.",
+  alternates: { canonical: "https://hyperfix.app" },
+  openGraph: {
+    title: "Hyperfix — Hyperfixation Tracker",
+    description:
+      "Log your current obsession. Count the days. Mourn it when it ends. Free hyperfixation tracker for songs, fanfic, shows, K-pop, anime, and more.",
+    url: "https://hyperfix.app",
+    type: "website",
+  },
 };
 
 // ---- DESIGN TOKENS ---------------------------------------------------------
@@ -201,43 +182,6 @@ const reviews = [
   },
 ];
 
-const studioFeatures = [
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <polyline points="14 2 14 8 20 8" />
-        <line x1="16" y1="13" x2="8" y2="13" />
-        <line x1="16" y1="17" x2="8" y2="17" />
-        <polyline points="10 9 9 9 8 9" />
-      </svg>
-    ),
-    title: "Notes",
-    body: "Drop everything you're thinking about the fix. Theories, quotes, timestamps, spirals. All of it goes here — messy is fine.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-      </svg>
-    ),
-    title: "Links",
-    body: "Save every video essay, every Reddit thread, every fan wiki. The research that fed the obsession, in one place.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-        <circle cx="8.5" cy="8.5" r="1.5" />
-        <polyline points="21 15 16 10 5 21" />
-      </svg>
-    ),
-    title: "Images",
-    body: "The screenshots, the fanart, the reference images. Add a caption. Build a visual diary of exactly what took over your brain.",
-  },
-];
-
 const faqs = [
   {
     q: "What exactly is Hyperfix?",
@@ -339,17 +283,30 @@ export default async function Page({
     return <OAuthCallback code={params.code} />;
   }
 
-  const [waitlistCount, publicFixCount, trendingFixes] = await Promise.all([
+  const [waitlistCount, publicFixCount] = await Promise.all([
     getWaitlistCount(),
     getPublicFixCount(),
-    getTrendingFixes(),
   ]);
+
+  const orgSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Hyperfix",
+    url: "https://hyperfix.app",
+    logo: "https://hyperfix.app/icon?size=512",
+    description: "The hyperfixation tracker for songs, shows, fanfic, K-pop, anime, and every obsession in between.",
+    sameAs: ["https://twitter.com/hyperfixapp"],
+  };
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
       />
 
       <main id="main-content" className="relative z-10 text-ink" style={{ background: PAGE_BG }}>
@@ -376,8 +333,8 @@ export default async function Page({
             <a href="/blog" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.65)" }}>
               Blog
             </a>
-            <a href="/studio" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.65)" }}>
-              Studio
+            <a href="/adhd" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.65)" }}>
+              ADHD
             </a>
             <a href="#pricing" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.65)" }}>
               Pricing
@@ -483,78 +440,6 @@ export default async function Page({
             </p>
           </div>
         </section>
-
-        {/* LIVE FIXATIONS ------------------------------------------------- */}
-        {trendingFixes.length > 0 && (
-          <section className="relative px-6 sm:px-10 py-16" style={{ borderTop: `1px solid ${CARD_BORDER}` }}>
-            <GrainOverlay opacity={0.06} />
-            <div className="relative max-w-5xl mx-auto">
-              <RevealSection>
-                <div className="flex items-center justify-between mb-8">
-                  <p className="font-mono text-xs uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.35)" }}>
-                    people are currently tracking
-                  </p>
-                  <a href="/explore" className="font-mono text-xs transition-colors hover:text-[#5EEAD4]" style={{ color: "rgba(244,244,244,0.25)" }}>
-                    see all →
-                  </a>
-                </div>
-              </RevealSection>
-              <div className="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2 snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
-                {trendingFixes.map((fix, i) => (
-                  <RevealSection key={fix.id} delay={i * 60}>
-                    <a
-                      href={`/fix/${fix.id}`}
-                      className="shrink-0 snap-start block rounded-2xl overflow-hidden transition-all hover:-translate-y-1.5 hover:shadow-2xl group"
-                      style={{ width: 160, border: "1px solid rgba(244,244,244,0.10)" }}
-                    >
-                      <div className="relative" style={{ width: 160, height: 284 }}>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={`/api/share/${fix.id}`}
-                          alt={`${fix.title} — day ${fix.days}`}
-                          width={160}
-                          height={284}
-                          style={{ width: 160, height: 284, objectFit: "cover", display: "block" }}
-                          loading="lazy"
-                        />
-                        {/* Title overlay */}
-                        <div
-                          className="absolute inset-x-0 bottom-0 p-3"
-                          style={{ background: "linear-gradient(to top, rgba(7,7,8,0.92) 0%, transparent 100%)" }}
-                        >
-                          <p className="font-display text-xs font-semibold leading-tight" style={{ color: "#F4F4F4", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-                            {fix.title}
-                          </p>
-                          <p className="font-mono text-[10px] mt-0.5" style={{ color: "rgba(94,234,212,0.8)" }}>
-                            day {fix.days}
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </RevealSection>
-                ))}
-                <RevealSection delay={trendingFixes.length * 60}>
-                  <a
-                    href="/explore"
-                    className="shrink-0 snap-start flex flex-col items-center justify-center rounded-2xl transition-all hover:-translate-y-1"
-                    style={{
-                      width: 160,
-                      height: 284,
-                      background: "rgba(244,244,244,0.03)",
-                      border: "1px solid rgba(244,244,244,0.08)",
-                      color: "rgba(244,244,244,0.4)",
-                    }}
-                  >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: 8 }}>
-                      <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-                    </svg>
-                    <span className="font-mono text-xs">explore all</span>
-                  </a>
-                </RevealSection>
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* BENEFITS ------------------------------------------------------- */}
         <section className="relative px-6 sm:px-10 py-24 sm:py-32">
@@ -823,174 +708,113 @@ export default async function Page({
           </div>
         </section>
 
-        {/* STUDIO --------------------------------------------------------- */}
-        <section id="studio" className="relative px-6 sm:px-10 py-24 sm:py-32" style={{ borderTop: `1px solid ${CARD_BORDER}` }}>
+        {/* SEO HUB -------------------------------------------------------- */}
+        <section className="relative px-6 sm:px-10 py-24 sm:py-32" style={{ borderTop: `1px solid ${CARD_BORDER}` }}>
           <GrainOverlay opacity={0.08} />
-          {/* Soft teal bloom behind the section */}
-          <div
-            aria-hidden
-            className="absolute pointer-events-none"
-            style={{
-              inset: 0,
-              background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(94,234,212,0.06) 0%, transparent 70%)",
-              zIndex: 0,
-            }}
-          />
           <div className="relative max-w-5xl mx-auto">
             <RevealSection>
-              <EyebrowPill>Hyperfix Studio</EyebrowPill>
+              <EyebrowPill>Built for Every Obsession</EyebrowPill>
             </RevealSection>
             <RevealSection delay={100}>
               <h2
                 className="mt-7 font-display text-ink max-w-2xl"
                 style={{ fontSize: "clamp(36px, 5.5vw, 60px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}
               >
-                Your Fix Has
+                Whatever You&apos;re
                 <br />
-                a Workspace Now.
+                Unwell About.
               </h2>
             </RevealSection>
             <RevealSection delay={200}>
               <p className="mt-5 max-w-xl font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
-                Studio is a private scratchpad attached to any fixation. Drop notes,
-                save links, pin images — all the things that live in twelve browser
-                tabs and three Discord threads, finally in one place.
+                Hyperfix works for every kind of hyperfixation — songs, fanfic, shows, K-pop, anime, books, ships, video games, and everything in between.
               </p>
             </RevealSection>
 
-            {/* Block-type cards */}
-            <div className="mt-14 grid sm:grid-cols-3 gap-4 sm:gap-5">
-              {studioFeatures.map((sf, i) => (
-                <RevealSection key={sf.title} delay={280 + i * 100}>
-                  <div
-                    className="motion-card relative overflow-hidden rounded-3xl p-7 h-full"
-                    style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, minHeight: 260 }}
+            {/* Niche tracker links */}
+            <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {[
+                { href: "/kpop-tracker", label: "K-pop Tracker", emoji: "🎤", desc: "Bias eras, albums, concert runs" },
+                { href: "/anime-tracker", label: "Anime Tracker", emoji: "✨", desc: "Current season, rewatch, OP loops" },
+                { href: "/fanfic-tracker", label: "Fanfic Tracker", emoji: "📖", desc: "WIPs, re-reads, fandom phases" },
+                { href: "/rewatch-tracker", label: "Rewatch Tracker", emoji: "🔁", desc: "The show you can't stop" },
+                { href: "/booktok-tracker", label: "BookTok Tracker", emoji: "📚", desc: "Reading era, TBR, five-stars" },
+                { href: "/adhd", label: "ADHD Hyperfixation", emoji: "⚡", desc: "Built for the way your brain works" },
+              ].map((item, i) => (
+                <RevealSection key={item.href} delay={300 + i * 60}>
+                  <a
+                    href={item.href}
+                    className="motion-card relative overflow-hidden flex flex-col gap-2 rounded-2xl p-5 h-full transition-all hover:-translate-y-0.5"
+                    style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
                   >
-                    <GrainOverlay opacity={0.22} />
-                    <div className="relative flex flex-col h-full gap-5">
-                      <div className="anim-floatY" style={{ display: "inline-block", animationDelay: `${i * 0.4}s` }}>
-                        <IconTile>{sf.icon}</IconTile>
-                      </div>
-                      <div className="mt-auto">
-                        <h3
-                          className="font-display text-ink"
-                          style={{ fontSize: "clamp(20px, 2.4vw, 24px)", letterSpacing: "-0.01em", fontWeight: 600 }}
-                        >
-                          {sf.title}
-                        </h3>
-                        <p className="mt-2 font-sans text-[15px] leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
-                          {sf.body}
-                        </p>
-                      </div>
+                    <GrainOverlay opacity={0.18} />
+                    <div className="relative">
+                      <span style={{ fontSize: 28 }}>{item.emoji}</span>
+                      <p className="font-display text-sm font-semibold mt-2" style={{ color: "#F4F4F4" }}>{item.label}</p>
+                      <p className="font-sans text-xs mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>{item.desc}</p>
                     </div>
-                  </div>
+                  </a>
                 </RevealSection>
               ))}
             </div>
 
-            {/* Studio mock workspace */}
-            <RevealSection delay={500}>
-              <div
-                className="mt-10 relative overflow-hidden rounded-3xl p-6 sm:p-10"
-                style={{
-                  background: CARD_BG,
-                  border: `1px solid ${TEAL_DARK_BORDER}`,
-                  boxShadow: "0 0 80px rgba(94,234,212,0.08)",
-                }}
-              >
-                <GrainOverlay opacity={0.18} />
-                <div className="relative">
-                  {/* Studio header */}
-                  <div className="flex items-center justify-between mb-8">
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-xs tracking-widest uppercase" style={{ color: TEAL }}>HYPERFIX · Studio</span>
-                      <span className="h-px flex-1 w-6" style={{ background: TEAL_DARK_BORDER }} />
-                    </div>
-                    <span className="font-sans text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>Day 47</span>
-                  </div>
-                  {/* Mock blocks */}
-                  <div className="space-y-3">
-                    {/* Note block */}
-                    <div
-                      className="rounded-2xl p-4"
-                      style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${CARD_BORDER}` }}
+            {/* vs. comparison links */}
+            <RevealSection delay={700}>
+              <div className="mt-10 rounded-2xl p-5 sm:p-6" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+                <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>
+                  How Hyperfix compares
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { href: "/vs/notion", label: "vs. Notion" },
+                    { href: "/vs/letterboxd", label: "vs. Letterboxd" },
+                    { href: "/vs/goodreads", label: "vs. Goodreads" },
+                    { href: "/vs/daylio", label: "vs. Daylio" },
+                    { href: "/vs/spotify", label: "vs. Spotify" },
+                    { href: "/vs/obsidian", label: "vs. Obsidian" },
+                    { href: "/vs/discord", label: "vs. Discord" },
+                    { href: "/vs/spreadsheet", label: "vs. Spreadsheets" },
+                  ].map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      className="inline-flex items-center font-mono text-xs rounded-full px-3 py-1.5 transition-all hover:opacity-80"
+                      style={{
+                        background: "rgba(255,255,255,0.04)",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        color: "rgba(255,255,255,0.55)",
+                      }}
                     >
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="font-mono text-xs uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>Note</span>
-                      </div>
-                      <p className="font-sans text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
-                        ok the way the themes of isolation mirror the opening sequence is NOT a coincidence and here&apos;s my 900-word proof thread that nobody asked for but everyone needs
-                      </p>
-                    </div>
-                    {/* Link block */}
-                    <div
-                      className="rounded-2xl p-4 flex items-center gap-4"
-                      style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${CARD_BORDER}` }}
-                    >
-                      <div
-                        className="shrink-0 flex items-center justify-center rounded-xl"
-                        style={{ width: 40, height: 40, background: TEAL_DARK_BG, border: `1px solid ${TEAL_DARK_BORDER}`, color: TEAL }}
-                      >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                        </svg>
-                      </div>
-                      <div className="min-w-0">
-                        <p className="font-sans text-sm font-medium" style={{ color: "rgba(255,255,255,0.85)" }}>Every Foreshadowing Moment (Video Essay)</p>
-                        <p className="font-mono text-xs mt-0.5 truncate" style={{ color: "rgba(255,255,255,0.35)" }}>youtube.com/watch?v=…</p>
-                      </div>
-                    </div>
-                    {/* Image block */}
-                    <div
-                      className="rounded-2xl p-4"
-                      style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${CARD_BORDER}` }}
-                    >
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="font-mono text-xs uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>Image</span>
-                      </div>
-                      <div
-                        className="rounded-xl flex items-center justify-center"
-                        style={{
-                          height: 72,
-                          background: `linear-gradient(135deg, ${TEAL_DARK_BG} 0%, rgba(94,234,212,0.03) 100%)`,
-                          border: `1px dashed ${TEAL_DARK_BORDER}`,
-                          color: TEAL,
-                        }}
-                      >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                          <circle cx="8.5" cy="8.5" r="1.5" />
-                          <polyline points="21 15 16 10 5 21" />
-                        </svg>
-                      </div>
-                      <p className="mt-2 font-sans text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>the scene that broke me, captioned</p>
-                    </div>
-                  </div>
+                      {item.label}
+                    </a>
+                  ))}
                 </div>
               </div>
             </RevealSection>
 
-            <RevealSection delay={600}>
-              <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                <a
-                  href="/studio"
-                  className="inline-flex items-center gap-3 font-sans text-base font-semibold px-7 py-4 transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
-                  style={{
-                    background: TEAL,
-                    color: "#0A1F1C",
-                    borderRadius: 999,
-                    boxShadow: "0 0 40px rgba(94,234,212,0.25)",
-                  }}
-                >
-                  Learn About Studio
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14M13 5l7 7-7 7" />
-                  </svg>
-                </a>
-                <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
-                  Available on every fix · no extra setup
+            {/* Blog links */}
+            <RevealSection delay={800}>
+              <div className="mt-4 rounded-2xl p-5 sm:p-6" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+                <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>
+                  From the blog
                 </p>
+                <div className="flex flex-col gap-2">
+                  {[
+                    { href: "/blog/what-is-hyperfixation", label: "What is hyperfixation?" },
+                    { href: "/blog/adhd-hyperfixation", label: "ADHD and hyperfixation: what's really happening" },
+                    { href: "/blog/signs-youre-in-a-hyperfixation", label: "10 signs you're deep in a hyperfixation" },
+                    { href: "/blog/how-to-track-your-hyperfixations", label: "How to track your hyperfixations" },
+                  ].map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      className="font-sans text-sm transition-colors hover:text-[#5EEAD4]"
+                      style={{ color: "rgba(255,255,255,0.55)" }}
+                    >
+                      → {item.label}
+                    </a>
+                  ))}
+                </div>
               </div>
             </RevealSection>
           </div>
