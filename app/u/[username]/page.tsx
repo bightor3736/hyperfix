@@ -9,6 +9,7 @@ import { resolveAccent, hexToRgba } from "@/lib/accent";
 import { CategoryIcon, CATEGORY_COLOR } from "@/components/CategoryIcon";
 import { TombstoneIcon } from "@/components/MilestoneIcons";
 import { PinIcon } from "@/components/LandingIcons";
+import { SocialChips } from "@/components/SocialChips";
 
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
@@ -37,6 +38,7 @@ interface Profile {
   banner_url: string | null;
   is_pro: boolean | null;
   accent_color: string | null;
+  social_link?: string | null;
 }
 
 function dayCount(startedAt: string, endedAt: string | null): number {
@@ -140,7 +142,7 @@ export default async function PublicProfilePage({
 
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select("id, username, display_name, avatar_url, bio, is_public, pinned_fix_id, pinned_fix_ids, banner_url, is_pro, accent_color")
+    .select("id, username, display_name, avatar_url, bio, is_public, pinned_fix_id, pinned_fix_ids, banner_url, is_pro, accent_color, social_link")
     .eq("username", username)
     .single();
 
@@ -237,145 +239,174 @@ export default async function PublicProfilePage({
         </Link>
       </nav>
 
-      <main id="main-content" className="relative max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        {/* Profile hero card */}
+      <main id="main-content" className="relative max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        {/* Banner — full width, vvault-style with avatar overlap */}
         <div
-          className="relative overflow-hidden rounded-3xl mb-8 anim-fadeUp"
+          className="relative overflow-hidden rounded-3xl anim-fadeUp"
           style={{
+            height: "clamp(220px, 36vw, 320px)",
             ...(typedProfile.banner_url
               ? {
                   backgroundImage: `url(${typedProfile.banner_url})`,
                   backgroundSize: "cover",
-                  backgroundPosition: "center top",
+                  backgroundPosition: "center",
                 }
               : {
-                  background: `radial-gradient(ellipse 80% 120% at 50% 130%, ${accent} 0%, ${hexToRgba(accent, 0.55)} 22%, ${hexToRgba(accent, 0.16)} 42%, ${hexToRgba(accent, 0.04)} 58%, #070708 78%)`,
+                  background: `radial-gradient(ellipse 90% 100% at 50% 110%, ${accent} 0%, ${hexToRgba(accent, 0.55)} 18%, ${hexToRgba(accent, 0.16)} 38%, ${hexToRgba(accent, 0.04)} 58%, #070708 80%)`,
                 }),
-            border: typedProfile.is_pro
-              ? `1px solid ${hexToRgba(accent, 0.25)}`
-              : "1px solid rgba(255,255,255,0.06)",
-            boxShadow: typedProfile.is_pro ? `0 0 0 1px ${hexToRgba(accent, 0.08)}, 0 8px 40px ${hexToRgba(accent, 0.08)}` : undefined,
+            border: "1px solid rgba(255,255,255,0.06)",
           }}
         >
-          {/* Banner dark scrim (always shown, stronger when banner image is present) */}
+          {/* Grain (hyperfix identity) */}
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none mix-blend-overlay"
+            style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.45 }}
+          />
+          {/* Dark scrim — only on bottom 50% so the photo stays visible */}
           <div
             aria-hidden
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: typedProfile.banner_url
-                ? "linear-gradient(180deg, rgba(7,7,8,0.55) 0%, rgba(7,7,8,0.25) 40%, rgba(7,7,8,0.7) 100%)"
-                : "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)",
+              background: "linear-gradient(180deg, transparent 0%, transparent 35%, rgba(7,7,8,0.45) 75%, rgba(7,7,8,0.85) 100%)",
             }}
           />
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none mix-blend-overlay"
-            style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }}
-          />
-          {/* Pro shimmer border accent */}
-          {typedProfile.is_pro && (
-            <div
-              aria-hidden
-              className="absolute inset-0 pointer-events-none rounded-3xl"
-              style={{
-                background: `linear-gradient(135deg, ${hexToRgba(accent, 0.08)} 0%, transparent 50%, ${hexToRgba(accent, 0.04)} 100%)`,
-              }}
-            />
-          )}
-          {/* Content padding wrapper */}
-          <div className="relative p-6 sm:p-10">
-          <div className="flex flex-col sm:flex-row items-start gap-6">
-          <div className="relative shrink-0">
-            {typedProfile.is_pro && (
-              <div
-                className="absolute -inset-2 rounded-full pointer-events-none"
-                style={{
-                  background: `radial-gradient(circle, ${hexToRgba(accent, 0.4)} 0%, transparent 70%)`,
-                  filter: "blur(6px)",
-                }}
-              />
-            )}
-            {typedProfile.avatar_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={typedProfile.avatar_url}
-                alt={displayName}
-                className="relative w-20 h-20 rounded-full object-cover"
-                style={{ border: typedProfile.is_pro ? `2px solid ${hexToRgba(accent, 0.5)}` : "2px solid rgba(244,244,244,0.1)" }}
-              />
-            ) : (
-              <div className="relative">
-                <Initials name={displayName} accent={accent} />
-              </div>
-            )}
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-3 flex-wrap mb-0.5">
-              <h1 className="text-3xl font-display font-medium">{displayName}</h1>
+
+          {/* Name + handle overlay on banner bottom */}
+          <div className="absolute inset-x-0 bottom-0 px-5 sm:px-8 pb-5 sm:pb-7 flex items-end gap-4 sm:gap-5">
+            {/* Avatar — overlaps banner bottom-left */}
+            <div className="relative shrink-0">
               {typedProfile.is_pro && (
-                <span
-                  className="font-mono text-[9px] rounded px-1.5 py-0.5 shrink-0"
+                <div
+                  className="absolute -inset-2 rounded-full pointer-events-none"
                   style={{
-                    background: hexToRgba(accent, 0.18),
+                    background: `radial-gradient(circle, ${hexToRgba(accent, 0.5)} 0%, transparent 70%)`,
+                    filter: "blur(8px)",
+                  }}
+                />
+              )}
+              {typedProfile.avatar_url ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={typedProfile.avatar_url}
+                  alt={displayName}
+                  className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover"
+                  style={{
+                    border: `3px solid #070708`,
+                    boxShadow: `0 4px 16px rgba(0,0,0,0.6)`,
+                  }}
+                />
+              ) : (
+                <div
+                  className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center font-display font-semibold"
+                  style={{
+                    background: `${accent}22`,
+                    border: `3px solid #070708`,
+                    boxShadow: `0 4px 16px rgba(0,0,0,0.6)`,
                     color: accent,
-                    border: `1px solid ${hexToRgba(accent, 0.35)}`,
-                    boxShadow: `0 0 10px ${hexToRgba(accent, 0.2)}`,
+                    fontSize: 24,
                   }}
                 >
-                  PRO
-                </span>
-              )}
-              {!isSelf && (
-                currentUser
-                  ? <FollowButtonLoggedIn
-                      targetUserId={typedProfile.id}
-                      targetUsername={typedProfile.username ?? ""}
-                      initialFollowing={isFollowing}
-                      initialCount={followerCount ?? 0}
-                    />
-                  : <FollowButton
-                      targetUserId={typedProfile.id}
-                      targetUsername={typedProfile.username ?? ""}
-                      initialFollowing={false}
-                      initialCount={followerCount ?? 0}
-                    />
+                  {displayName.slice(0, 2).toUpperCase()}
+                </div>
               )}
             </div>
-            <p className="font-mono text-sm" style={{ color: "#9A9A9A" }}>
-              @{typedProfile.username}
-            </p>
-            <p className="font-mono text-xs mt-1 mb-3" style={{ color: "rgba(244,244,244,0.45)" }}>
+
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h1
+                  className="font-display"
+                  style={{
+                    fontSize: "clamp(24px, 5vw, 36px)",
+                    fontWeight: 600,
+                    color: "#F4F4F4",
+                    letterSpacing: "-0.02em",
+                    lineHeight: 1,
+                    textShadow: "0 2px 16px rgba(0,0,0,0.5)",
+                  }}
+                >
+                  {displayName}
+                </h1>
+                {typedProfile.is_pro && (
+                  <span
+                    className="font-mono text-[9px] rounded px-1.5 py-0.5 shrink-0"
+                    style={{
+                      background: hexToRgba(accent, 0.22),
+                      color: accent,
+                      border: `1px solid ${hexToRgba(accent, 0.4)}`,
+                      boxShadow: `0 0 12px ${hexToRgba(accent, 0.25)}`,
+                    }}
+                  >
+                    PRO
+                  </span>
+                )}
+              </div>
+              <p
+                className="font-mono mt-1"
+                style={{
+                  fontSize: 13,
+                  color: typedProfile.is_pro ? accent : "rgba(94,234,212,0.7)",
+                  textShadow: "0 1px 8px rgba(0,0,0,0.5)",
+                }}
+              >
+                @{typedProfile.username}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Action row + social chips */}
+        <div className="flex items-start justify-between gap-4 mt-5 mb-5 flex-wrap">
+          <div className="flex-1 min-w-0 flex flex-col gap-3">
+            {typedProfile.social_link && (
+              <SocialChips socialLink={typedProfile.social_link} />
+            )}
+            <p className="font-mono text-xs" style={{ color: "rgba(244,244,244,0.45)" }}>
               <Link
                 href={`/u/${typedProfile.username}/followers`}
                 className="transition-colors hover:text-[#5EEAD4]"
               >
-                <span style={{ color: "rgba(244,244,244,0.6)" }}>{followerCount ?? 0}</span> followers
+                <span style={{ color: "rgba(244,244,244,0.7)" }}>{followerCount ?? 0}</span> followers
               </Link>
               {" · "}
               <Link
                 href={`/u/${typedProfile.username}/following`}
                 className="transition-colors hover:text-[#5EEAD4]"
               >
-                <span style={{ color: "rgba(244,244,244,0.6)" }}>{followingCount ?? 0}</span> following
+                <span style={{ color: "rgba(244,244,244,0.7)" }}>{followingCount ?? 0}</span> following
               </Link>
             </p>
-            {typedProfile.bio && (
-              <p className="text-sm leading-relaxed mb-4 max-w-lg" style={{ color: "rgba(255,255,255,0.75)" }}>
-                {typedProfile.bio}
-              </p>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            {!isSelf && (
+              currentUser
+                ? <FollowButtonLoggedIn
+                    targetUserId={typedProfile.id}
+                    targetUsername={typedProfile.username ?? ""}
+                    initialFollowing={isFollowing}
+                    initialCount={followerCount ?? 0}
+                  />
+                : <FollowButton
+                    targetUserId={typedProfile.id}
+                    targetUsername={typedProfile.username ?? ""}
+                    initialFollowing={false}
+                    initialCount={followerCount ?? 0}
+                  />
             )}
             {isSelf && (
-              <div className="mt-3">
-                <ShareProfileButton
-                  username={typedProfile.username ?? ""}
-                  displayName={displayName}
-                />
-              </div>
+              <ShareProfileButton
+                username={typedProfile.username ?? ""}
+                displayName={displayName}
+              />
             )}
           </div>
-          </div>
-          </div>
         </div>
+
+        {typedProfile.bio && (
+          <p className="text-sm leading-relaxed mb-8 max-w-2xl" style={{ color: "rgba(255,255,255,0.7)" }}>
+            {typedProfile.bio}
+          </p>
+        )}
 
         {/* Pinned fixes */}
         {pinnedFixes.length > 0 && (
