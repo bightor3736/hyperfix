@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import ActivityTicker from "@/components/ActivityTicker";
 import Footer from "@/components/Footer";
 import { LogoLockup } from "@/components/Logo";
 import { RevealSection } from "@/components/RevealSection";
@@ -1256,6 +1258,9 @@ export default async function Page({
         </section>
 
         <Footer />
+        <Suspense fallback={null}>
+          <ActivityTicker />
+        </Suspense>
       </main>
     </>
   );
