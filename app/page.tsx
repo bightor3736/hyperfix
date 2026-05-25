@@ -490,27 +490,46 @@ export default async function Page({
             <GrainOverlay opacity={0.06} />
             <div className="relative max-w-5xl mx-auto">
               <RevealSection>
-                <p className="font-mono text-xs uppercase tracking-widest mb-8" style={{ color: "rgba(244,244,244,0.35)" }}>
-                  people are currently tracking
-                </p>
+                <div className="flex items-center justify-between mb-8">
+                  <p className="font-mono text-xs uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.35)" }}>
+                    people are currently tracking
+                  </p>
+                  <a href="/explore" className="font-mono text-xs transition-colors hover:text-[#5EEAD4]" style={{ color: "rgba(244,244,244,0.25)" }}>
+                    see all →
+                  </a>
+                </div>
               </RevealSection>
               <div className="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2 snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
                 {trendingFixes.map((fix, i) => (
                   <RevealSection key={fix.id} delay={i * 60}>
                     <a
                       href={`/fix/${fix.id}`}
-                      className="shrink-0 snap-start block rounded-2xl overflow-hidden transition-transform hover:-translate-y-1 hover:shadow-2xl"
-                      style={{ width: 140, border: "1px solid rgba(244,244,244,0.08)" }}
+                      className="shrink-0 snap-start block rounded-2xl overflow-hidden transition-all hover:-translate-y-1.5 hover:shadow-2xl group"
+                      style={{ width: 160, border: "1px solid rgba(244,244,244,0.10)" }}
                     >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={`/api/share/${fix.id}`}
-                        alt={`${fix.title} — day ${fix.days}`}
-                        width={140}
-                        height={249}
-                        style={{ width: 140, height: 249, objectFit: "cover", display: "block" }}
-                        loading="lazy"
-                      />
+                      <div className="relative" style={{ width: 160, height: 284 }}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={`/api/share/${fix.id}`}
+                          alt={`${fix.title} — day ${fix.days}`}
+                          width={160}
+                          height={284}
+                          style={{ width: 160, height: 284, objectFit: "cover", display: "block" }}
+                          loading="lazy"
+                        />
+                        {/* Title overlay */}
+                        <div
+                          className="absolute inset-x-0 bottom-0 p-3"
+                          style={{ background: "linear-gradient(to top, rgba(7,7,8,0.92) 0%, transparent 100%)" }}
+                        >
+                          <p className="font-display text-xs font-semibold leading-tight" style={{ color: "#F4F4F4", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                            {fix.title}
+                          </p>
+                          <p className="font-mono text-[10px] mt-0.5" style={{ color: "rgba(94,234,212,0.8)" }}>
+                            day {fix.days}
+                          </p>
+                        </div>
+                      </div>
                     </a>
                   </RevealSection>
                 ))}
@@ -519,8 +538,8 @@ export default async function Page({
                     href="/explore"
                     className="shrink-0 snap-start flex flex-col items-center justify-center rounded-2xl transition-all hover:-translate-y-1"
                     style={{
-                      width: 140,
-                      height: 249,
+                      width: 160,
+                      height: 284,
                       background: "rgba(244,244,244,0.03)",
                       border: "1px solid rgba(244,244,244,0.08)",
                       color: "rgba(244,244,244,0.4)",

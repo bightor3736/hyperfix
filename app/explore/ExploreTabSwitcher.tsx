@@ -400,7 +400,7 @@ export function ExploreTabSwitcher({
   trendingFixes,
   trendingReactionMap,
 }: Props) {
-  const [tab, setTab] = useState<"everyone" | "trending" | "longest" | "following" | "activity">("everyone");
+  const [tab, setTab] = useState<"everyone" | "trending" | "longest" | "following" | "activity" | "cards">("everyone");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [extraFixes, setExtraFixes] = useState<Fix[]>([]);
   const [extraReactions, setExtraReactions] = useState<Record<string, ReactionCounts>>({});
@@ -449,11 +449,131 @@ export function ExploreTabSwitcher({
       {/* Tab switcher */}
       <div className="flex gap-2 mb-8 overflow-x-auto scrollbar-hide pb-1">
         <TabButton label="Everyone" active={tab === "everyone"} onClick={() => setTab("everyone")} />
+        <TabButton label="Cards" active={tab === "cards"} onClick={() => setTab("cards")} />
         <TabButton label="Trending" active={tab === "trending"} onClick={() => setTab("trending")} />
         <TabButton label="Longest" active={tab === "longest"} onClick={() => setTab("longest")} />
         {isLoggedIn && <TabButton label="Following" active={tab === "following"} onClick={() => setTab("following")} />}
         {isLoggedIn && <TabButton label="Activity" active={tab === "activity"} onClick={() => setTab("activity")} />}
       </div>
+
+      {/* Cards gallery */}
+      {tab === "cards" && (
+        <div>
+          {allEveryoneFixes.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-32 text-center">
+              <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nothing public yet.</p>
+              <p className="font-mono text-sm mb-8" style={{ color: "rgba(244,244,244,0.3)" }}>Be the first.</p>
+              <Link href="/auth/signup" className="font-mono text-sm px-6 py-3 rounded-full font-bold transition-opacity hover:opacity-90" style={{ background: "#5EEAD4", color: "#F4F4F4" }}>
+                Start tracking →
+              </Link>
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {allEveryoneFixes.map((fix) => {
+                  const days = dayCount(fix.started_at, fix.ended_at);
+                  return (
+                    <Link
+                      key={fix.id}
+                      href={`/fix/${fix.id}`}
+                      className="group block rounded-2xl overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl"
+                      style={{ border: "1px solid rgba(244,244,244,0.08)" }}
+                    >
+                      <div className="relative" style={{ aspectRatio: "9/16" }}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={`/api/share/${fix.id}`}
+                          alt={fix.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        <div
+                          className="absolute inset-x-0 bottom-0 p-2.5"
+                          style={{ background: "linear-gradient(to top, rgba(7,7,8,0.95) 0%, transparent 100%)" }}
+                        >
+                          <p className="font-display text-xs font-semibold leading-snug" style={{ color: "#F4F4F4", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                            {fix.title}
+                          </p>
+                          <div className="flex items-center justify-between mt-1">
+                            <p className="font-mono text-[10px]" style={{ color: "rgba(94,234,212,0.8)" }}>day {days}</p>
+                            {fix.profiles?.username && (
+                              <p className="font-mono text-[9px] truncate ml-2" style={{ color: "rgba(244,244,244,0.35)" }}>@{fix.profiles.username}</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+              {hasMore && (
+                <div className="flex justify-center mt-10">
+                  <button
+                    onClick={loadMore}
+                    disabled={loadingMore}
+                    className="px-8 py-3 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all hover:opacity-80 disabled:opacity-50"
+                    style={{ background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.12)", color: "rgba(244,244,244,0.6)" }}
+                  >
+                    {loadingMore ? "Loading…" : "Load more"}
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
+
+      {/* Find your people */}
+      {tab === "everyone" && !selectedCategory && trendingCategories.length > 0 && allEveryoneFixes.length > 0 && (
+        <div className="mb-8 rounded-3xl p-5 sm:p-6" style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}>
+          <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "rgba(244,244,244,0.3)" }}>
+            find your people
+          </p>
+          <div className="flex flex-col gap-3">
+            {trendingCategories.slice(0, 5).map(({ category, count }) => {
+              const emoji = CATEGORY_EMOJI[category] ?? "✦";
+              const sample = allEveryoneFixes.filter((f) => f.category === category).slice(0, 4);
+              return (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className="flex items-center gap-3 w-full text-left rounded-2xl p-3 transition-all hover:bg-[rgba(255,255,255,0.03)]"
+                  style={{ border: "1px solid rgba(255,255,255,0.06)" }}
+                >
+                  <span style={{ fontSize: 22, flexShrink: 0 }}>{emoji}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-sans text-sm font-medium capitalize" style={{ color: "#F4F4F4" }}>{category}</p>
+                    <p className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.35)" }}>{count} {count === 1 ? "person" : "people"} tracking this right now</p>
+                  </div>
+                  <div className="flex -space-x-2 shrink-0">
+                    {sample.map((fix) => (
+                      fix.profiles?.avatar_url ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          key={fix.id}
+                          src={fix.profiles.avatar_url}
+                          alt={fix.profiles.display_name ?? ""}
+                          className="w-7 h-7 rounded-full object-cover"
+                          style={{ border: "2px solid #0F1011" }}
+                        />
+                      ) : (
+                        <div
+                          key={fix.id}
+                          className="w-7 h-7 rounded-full flex items-center justify-center font-mono text-[10px]"
+                          style={{ background: "rgba(94,234,212,0.15)", border: "2px solid #0F1011", color: "#5EEAD4" }}
+                        >
+                          {(fix.profiles?.display_name ?? fix.profiles?.username ?? "?").slice(0, 1).toUpperCase()}
+                        </div>
+                      )
+                    ))}
+                  </div>
+                  <span className="font-mono text-[10px] shrink-0" style={{ color: "rgba(94,234,212,0.6)" }}>see all →</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Activity feed */}
       {tab === "activity" && (
