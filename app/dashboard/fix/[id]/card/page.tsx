@@ -18,15 +18,29 @@ export default async function CustomizeCardPage({
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/auth/login");
 
+  // Query without card_style first (it may not exist if the migration hasn't been run yet)
   const { data: fix } = await supabase
     .from("fixes")
-    .select("id, user_id, title, banner_url, card_style")
+    .select("id, user_id, title, banner_url")
     .eq("id", id)
     .single();
 
   if (!fix || fix.user_id !== user.id) notFound();
 
-  const cardStyle = (fix.card_style as "paper" | "dark" | "minimal" | "photo" | null) ?? null;
+  // Try to load card_style separately — non-fatal if the column doesn't exist
+  let cardStyle: "paper" | "dark" | "minimal" | "photo" | null = null;
+  try {
+    const { data: styleRow } = await supabase
+      .from("fixes")
+      .select("card_style")
+      .eq("id", id)
+      .single();
+    if (styleRow && "card_style" in styleRow) {
+      cardStyle = (styleRow.card_style as "paper" | "dark" | "minimal" | "photo" | null) ?? null;
+    }
+  } catch {
+    cardStyle = null;
+  }
 
   return (
     <div className="min-h-screen" style={{ background: "#070708", color: "#F4F4F4" }}>
