@@ -157,7 +157,7 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
       {/* Tooltip for private fix */}
       {showTooltip && (
         <div
-          className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 rounded-xl text-xs font-mono whitespace-nowrap z-50"
+          className="absolute top-full right-0 mt-2 px-3 py-2 rounded-xl text-xs font-mono whitespace-nowrap z-50"
           style={{
             background: "#161618",
             border: "1px solid rgba(244,244,244,0.12)",
@@ -166,23 +166,13 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
           }}
         >
           Make fix public in settings to share
-          <div
-            className="absolute top-full left-1/2 -translate-x-1/2"
-            style={{
-              width: 0,
-              height: 0,
-              borderLeft: "5px solid transparent",
-              borderRight: "5px solid transparent",
-              borderTop: "5px solid rgba(244,244,244,0.12)",
-            }}
-          />
         </div>
       )}
 
       {/* Dropdown */}
       {open && isPublic && (
         <div
-          className="absolute bottom-full left-0 mb-2 rounded-2xl p-2 z-50 flex flex-col gap-1 min-w-[200px]"
+          className="absolute top-full right-0 mt-2 rounded-2xl p-2 z-50 flex flex-col gap-1 min-w-[200px]"
           style={{
             background: "#161618",
             border: "1px solid rgba(244,244,244,0.1)",
