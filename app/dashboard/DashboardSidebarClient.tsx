@@ -183,7 +183,19 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
               }}
             >
               {item.icon(isActive)}
-              {item.label}
+              <span className="flex-1">{item.label}</span>
+              {typeof item.badge === "number" && item.badge > 0 && (
+                <span
+                  className="inline-flex items-center justify-center font-mono text-[10px] font-semibold rounded-full px-1.5 min-w-[18px] h-[18px]"
+                  style={{
+                    background: "#5EEAD4",
+                    color: "#0A0A0A",
+                    lineHeight: 1,
+                  }}
+                >
+                  {item.badge > 99 ? "99+" : item.badge}
+                </span>
+              )}
             </Link>
           );
         })}
