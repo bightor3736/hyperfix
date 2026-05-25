@@ -558,15 +558,6 @@ function ProUpsellCard() {
 // ---------- Demo data for the blurred preview ----------
 
 function buildDemoData(): AnalyticsData {
-  const dates: string[] = [];
-  // A plausible-looking 12 week streak pattern
-  for (let i = 0; i < 84; i++) {
-    const d = new Date(Date.now() - i * 86_400_000);
-    // ~70% density, weighted recent
-    const p = i < 14 ? 0.88 : i < 40 ? 0.65 : 0.45;
-    if (Math.sin(i * 1.3) * 0.3 + Math.random() * 0 + 0.5 < p) dates.push(dayKey(d));
-  }
-  // Deterministic instead of random:
   const detDates: string[] = [];
   const pattern = [1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1];
   for (let i = 0; i < 84; i++) {
@@ -731,8 +722,13 @@ export default async function AnalyticsPage() {
           </p>
         </div>
 
+        {/* Top stats — always real, always unlocked */}
+        <div className="mb-6">
+          <TopStatsGrid data={realData} />
+        </div>
+
         {isPro ? (
-          <AnalyticsBlock data={realData} hasData={hasIntensity} />
+          <AnalyticsLockedBlock data={realData} hasData={hasIntensity} />
         ) : (
           <div className="relative">
             <div
@@ -740,18 +736,16 @@ export default async function AnalyticsPage() {
               className="pointer-events-none select-none"
               style={{ filter: "blur(6px)" }}
             >
-              <AnalyticsBlock data={demoData} hasData={true} />
+              <AnalyticsLockedBlock data={demoData} hasData={true} />
             </div>
             <div
-              className="absolute inset-0 flex items-center justify-center"
+              className="absolute inset-0 flex items-start justify-center pt-16 sm:pt-24"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(7,7,8,0.4) 0%, rgba(7,7,8,0.75) 40%, rgba(7,7,8,0.95) 100%)",
+                  "linear-gradient(to bottom, rgba(7,7,8,0.5) 0%, rgba(7,7,8,0.85) 30%, rgba(7,7,8,0.95) 100%)",
               }}
             >
-              <div className="sticky top-24 w-full flex justify-center">
-                <ProUpsellCard />
-              </div>
+              <ProUpsellCard />
             </div>
           </div>
         )}
