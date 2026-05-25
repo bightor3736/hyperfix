@@ -1067,7 +1067,7 @@ export async function GET(
 
   const { data: fix, error } = await admin
     .from("fixes")
-    .select("id, title, category, intensity, started_at, ended_at, is_public, user_id, banner_url")
+    .select("id, title, category, intensity, started_at, ended_at, is_public, user_id, banner_url, card_style")
     .eq("id", id)
     .single();
 
@@ -1107,10 +1107,11 @@ export async function GET(
   if (monoFont) fonts.push({ name: "JetBrains Mono", data: monoFont, weight: 700, style: "normal" });
   if (sansFont) fonts.push({ name: "Instrument Sans", data: sansFont, weight: 500, style: "normal" });
 
-  // Style selection: ?style=paper|dark|minimal|photo. Defaults: photo if banner, else paper.
+  // Style selection: ?style= URL param > saved card_style > photo if banner > paper.
   const requestedStyle = req.nextUrl.searchParams.get("style");
+  const savedStyle = fix.card_style as string | null;
   const hasBanner = !!fix.banner_url;
-  const style = requestedStyle ?? (hasBanner ? "photo" : "paper");
+  const style = requestedStyle ?? savedStyle ?? (hasBanner ? "photo" : "paper");
 
   const commonProps = {
     title: fix.title,

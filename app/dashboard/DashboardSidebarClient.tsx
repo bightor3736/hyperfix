@@ -139,6 +139,39 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
         })}
       </nav>
 
+      {/* Pro upsell — free users only */}
+      {!isPro && (
+        <div className="px-3 pb-3">
+          <Link
+            href="/pricing"
+            className="block relative overflow-hidden rounded-2xl p-3.5 transition-all hover:-translate-y-0.5 group"
+            style={{
+              background: "linear-gradient(135deg, rgba(94,234,212,0.08) 0%, rgba(94,234,212,0.02) 100%)",
+              border: "1px solid rgba(94,234,212,0.2)",
+            }}
+          >
+            <div className="flex items-center gap-2 mb-1.5">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5EEAD4" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "#5EEAD4" }}>
+                Hyperfix Pro
+              </span>
+            </div>
+            <p className="font-sans text-[12px] mb-2 leading-snug" style={{ color: "rgba(244,244,244,0.7)" }}>
+              Unlimited fixes, custom theme, premium card templates.
+            </p>
+            <span
+              className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-widest group-hover:gap-1.5 transition-all"
+              style={{ color: "#5EEAD4" }}
+            >
+              See plans →
+            </span>
+          </Link>
+        </div>
+      )}
+
       {/* User section */}
       <div className="p-4" style={{ borderTop: "1px solid rgba(244,244,244,0.06)" }}>
         {/* Avatar + name + bell */}

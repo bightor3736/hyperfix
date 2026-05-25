@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FixBannerUpload } from "@/components/FixBannerUpload";
+import { createClient } from "@/lib/supabase/client";
 
 type Style = "paper" | "dark" | "minimal" | "photo";
 
@@ -21,12 +22,28 @@ type Props = {
   fixId: string;
   userId: string;
   initialBannerUrl: string | null;
+  initialCardStyle: Style | null;
   fixTitle: string;
 };
 
-export function CardEditor({ fixId, userId, initialBannerUrl, fixTitle }: Props) {
-  const [style, setStyle] = useState<Style>(initialBannerUrl ? "photo" : "paper");
+export function CardEditor({ fixId, userId, initialBannerUrl, initialCardStyle, fixTitle }: Props) {
+  const [style, setStyle] = useState<Style>(
+    initialCardStyle ?? (initialBannerUrl ? "photo" : "paper")
+  );
   const [bannerUrl, setBannerUrl] = useState<string | null>(initialBannerUrl);
+  const [savedToast, setSavedToast] = useState(false);
+
+  async function persistStyle(next: Style) {
+    setStyle(next);
+    try {
+      const supabase = createClient();
+      await supabase.from("fixes").update({ card_style: next }).eq("id", fixId);
+      setSavedToast(true);
+      setTimeout(() => setSavedToast(false), 1500);
+    } catch {
+      // Non-fatal — preview still works
+    }
+  }
   const [downloading, setDownloading] = useState(false);
   const [previewKey, setPreviewKey] = useState(0); // bust cache on banner change
 
@@ -123,9 +140,22 @@ export function CardEditor({ fixId, userId, initialBannerUrl, fixTitle }: Props)
       <div className="flex flex-col gap-6">
         {/* Style picker */}
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(244,244,244,0.35)" }}>
-            template
-          </p>
+          <div className="flex items-center justify-between mb-3">
+            <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.35)" }}>
+              template
+            </p>
+            {savedToast && (
+              <span
+                className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-widest anim-fadeUp"
+                style={{ color: TEAL }}
+              >
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                saved
+              </span>
+            )}
+          </div>
           <div className="grid grid-cols-2 gap-2">
             {STYLES.map((s) => {
               const isActive = style === s.key;
@@ -134,7 +164,7 @@ export function CardEditor({ fixId, userId, initialBannerUrl, fixTitle }: Props)
                 <button
                   key={s.key}
                   type="button"
-                  onClick={() => !disabled && setStyle(s.key)}
+                  onClick={() => !disabled && persistStyle(s.key)}
                   disabled={disabled}
                   className="text-left rounded-2xl p-3 transition-all disabled:opacity-40"
                   style={{

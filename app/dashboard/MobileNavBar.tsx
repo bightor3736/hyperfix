@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Discovery, Plus, Category, Chart, Setting } from "react-iconly";
+import { Home, Discovery, Plus, User, Setting } from "react-iconly";
 
-export function MobileNavBar() {
+export function MobileNavBar({ username }: { username?: string | null }) {
   const pathname = usePathname();
+  const profileHref = username ? `/u/${username}` : "/dashboard/settings";
 
   return (
     <nav
@@ -24,14 +25,9 @@ export function MobileNavBar() {
       <MobileNavLink href="/explore" label="Explore" pathname={pathname}>
         <Discovery set="light" size={22} primaryColor="currentColor" />
       </MobileNavLink>
-      <MobileNavLink href="/dashboard/new" label="New fix" pathname={pathname}>
-        <Plus set="light" size={22} primaryColor="currentColor" />
-      </MobileNavLink>
-      <MobileNavLink href="/dashboard/lists" label="Lists" pathname={pathname}>
-        <Category set="light" size={22} primaryColor="currentColor" />
-      </MobileNavLink>
-      <MobileNavLink href="/dashboard/analytics" label="Analytics" pathname={pathname}>
-        <Chart set="light" size={22} primaryColor="currentColor" />
+      <MobileNavFab href="/dashboard/new" pathname={pathname} />
+      <MobileNavLink href={profileHref} label="Profile" pathname={pathname}>
+        <User set="light" size={22} primaryColor="currentColor" />
       </MobileNavLink>
       <MobileNavLink href="/dashboard/settings" label="Settings" pathname={pathname}>
         <Setting set="light" size={22} primaryColor="currentColor" />
@@ -63,6 +59,28 @@ function MobileNavLink({
     >
       {children}
       <span className="font-mono text-[10px] uppercase tracking-widest">{label}</span>
+    </Link>
+  );
+}
+
+function MobileNavFab({ href, pathname }: { href: string; pathname: string }) {
+  const isActive = pathname === href || pathname.startsWith(href + "/");
+  return (
+    <Link
+      href={href}
+      aria-label="New fix"
+      aria-current={isActive ? "page" : undefined}
+      className="flex items-center justify-center rounded-full transition-all active:scale-95"
+      style={{
+        width: 44,
+        height: 44,
+        transform: "translateY(-8px)",
+        background: "#5EEAD4",
+        color: "#070708",
+        boxShadow: "0 4px 16px rgba(94,234,212,0.4)",
+      }}
+    >
+      <Plus set="bold" size={24} primaryColor="currentColor" />
     </Link>
   );
 }

@@ -20,11 +20,13 @@ export default async function CustomizeCardPage({
 
   const { data: fix } = await supabase
     .from("fixes")
-    .select("id, user_id, title, banner_url")
+    .select("id, user_id, title, banner_url, card_style")
     .eq("id", id)
     .single();
 
   if (!fix || fix.user_id !== user.id) notFound();
+
+  const cardStyle = (fix.card_style as "paper" | "dark" | "minimal" | "photo" | null) ?? null;
 
   return (
     <div className="min-h-screen" style={{ background: "#070708", color: "#F4F4F4" }}>
@@ -74,6 +76,7 @@ export default async function CustomizeCardPage({
           fixId={id}
           userId={user.id}
           initialBannerUrl={fix.banner_url ?? null}
+          initialCardStyle={cardStyle}
           fixTitle={fix.title}
         />
       </main>

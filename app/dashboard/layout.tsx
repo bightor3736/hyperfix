@@ -57,7 +57,7 @@ export default async function DashboardLayout({
 
         <PWAInstallPrompt />
 
-        <MobileNavBar />
+        <MobileNavBar username={profile?.username ?? null} />
       </div>
     </div>
     </ToastProvider>

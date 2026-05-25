@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import WaitlistForm from "@/components/WaitlistForm";
 import Nav from "@/components/Nav";
+import { ProCheckoutButton } from "@/components/ProCheckoutButton";
 import Footer from "@/components/Footer";
 import { RevealSection } from "@/components/RevealSection";
 
 export const metadata: Metadata = {
   title: "Hyperfix Pricing — free forever, Pro for the obsessed",
   description:
-    "Hyperfix is free to log your obsessions, share cards, and build your graveyard. Pro unlocks unlimited fixes, custom themes, analytics, and more. Early waitlist users lock in a permanent discount.",
+    "Hyperfix is free to log your obsessions, share cards, and build your graveyard. Pro unlocks unlimited fixes, custom themes, analytics, and more. Cancel anytime.",
   alternates: { canonical: "https://hyperfix.app/pricing" },
   openGraph: {
     images: [
@@ -66,9 +66,9 @@ const comparisonRows: Row[] = [
 ];
 
 const faqs = [
-  { q: "When will Pro pricing be announced?", a: "Before launch. We'll email the waitlist before publishing the price anywhere — you'll have time to decide whether to lock in the early discount." },
-  { q: "What's the early waitlist discount?", a: "A permanent percentage discount on Pro, locked in for as long as you stay subscribed. If you're on the waitlist when we launch, you get it automatically — no code required." },
-  { q: "Will there be a free trial of Pro?", a: "Yes. When Pro launches there will be a trial period. We want you to use the features before committing to them." },
+  { q: "Can I cancel anytime?", a: "Yes. Pro is month-to-month, no commitment. Cancel from your settings and you'll keep Pro access until the end of the current billing period." },
+  { q: "Is there a free trial?", a: "The Free plan is the trial — it's unlimited in time, just capped in features. When you're ready for unlimited fixes and the full toolkit, upgrade to Pro." },
+  { q: "How does billing work?", a: "Pro is billed monthly via Stripe. You can update your payment method or cancel at any time from your account settings. We email a receipt for every charge." },
   { q: "Do you sell my data?", a: "No. Never. We don't train AI on your obsessions. Your hyperfixation history is yours — encrypted in our database, not for sale." },
   { q: "What happens if I cancel Pro?", a: "You keep everything. Your graveyard, history, closed fixes — all stays. You lose access to Pro-only features going forward, but your data is yours." },
 ];
@@ -243,12 +243,12 @@ export default function PricingPage() {
                     }}
                   >
                     <GrainOverlay opacity={0.18} />
-                    {/* Early bird badge */}
+                    {/* Popular badge */}
                     <span
                       className="absolute top-5 right-5 font-mono text-[10px] tracking-widest uppercase rounded-full px-2.5 py-1"
                       style={{ background: TEAL_BG, color: TEAL, border: `1px solid ${TEAL_BORDER}` }}
                     >
-                      Early bird
+                      Popular
                     </span>
                     <div className="relative flex flex-col h-full">
                       <h3 className="font-display text-ink" style={{ fontSize: 26, fontWeight: 600 }}>Pro</h3>
@@ -263,7 +263,7 @@ export default function PricingPage() {
                         <span className="font-sans text-lg" style={{ color: "rgba(255,255,255,0.5)" }}> / month</span>
                       </p>
                       <p className="mt-2 font-sans text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
-                        Permanent discount for waitlist signups.
+                        Cancel anytime. Pro unlocks unlimited fixes and the full toolkit.
                       </p>
                       <ul className="mt-8 mb-10 space-y-3 flex-1">
                         {proFeatures.map((f) => (
@@ -285,20 +285,20 @@ export default function PricingPage() {
                           </li>
                         ))}
                       </ul>
-                      <a
-                        href="/join"
-                        className="inline-flex w-full items-center justify-between font-sans text-base font-semibold px-6 py-4 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
+                      <ProCheckoutButton
+                        className="inline-flex w-full items-center justify-center gap-2 font-sans text-base font-semibold px-6 py-4 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] disabled:opacity-70"
                         style={{ background: TEAL, color: "#0A1F1C", borderRadius: 999 }}
-                      >
-                        Join the waitlist
-                        <span aria-hidden>→</span>
-                      </a>
+                        label="Get Pro"
+                      />
                     </div>
                   </div>
                 </div>
               </RevealSection>
             </div>
           </section>
+
+          {/* hidden anchor target for legacy #waitlist links */}
+          <div id="waitlist" aria-hidden style={{ position: "absolute" }} />
 
           {/* COMPARISON TABLE ---------------------------------------------- */}
           <section className="relative px-6 sm:px-10 pb-20 sm:pb-28">
@@ -383,9 +383,8 @@ export default function PricingPage() {
             </div>
           </section>
 
-          {/* WAITLIST CTA -------------------------------------------------- */}
+          {/* FINAL CTA ----------------------------------------------------- */}
           <section
-            id="waitlist"
             className="relative px-6 sm:px-10 py-20 sm:py-28"
             style={{ borderTop: `1px solid ${CARD_BORDER}` }}
           >
@@ -395,7 +394,7 @@ export default function PricingPage() {
                   className="font-mono text-xs uppercase tracking-widest"
                   style={{ color: "rgba(255,255,255,0.45)" }}
                 >
-                  Pricing not finalized yet
+                  Ready when you are
                 </span>
               </RevealSection>
               <RevealSection delay={100}>
@@ -403,20 +402,23 @@ export default function PricingPage() {
                   className="mt-5 font-display text-ink"
                   style={{ fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}
                 >
-                  Join the waitlist. Lock in the discount.
+                  Start your hyperfixation toolkit.
                 </h2>
               </RevealSection>
               <RevealSection delay={200}>
-                <div className="mt-10 max-w-md mx-auto">
-                  <WaitlistForm variant="dark" />
+                <div className="mt-10 flex justify-center">
+                  <ProCheckoutButton
+                    className="inline-flex items-center justify-center gap-2 font-sans text-base font-semibold px-8 py-4 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] disabled:opacity-70"
+                    style={{ background: TEAL, color: "#0A1F1C", borderRadius: 999, minWidth: 220 }}
+                    label="Get Pro"
+                  />
                 </div>
               </RevealSection>
               <RevealSection delay={300}>
-                <p
-                  className="mt-6 font-sans text-sm"
-                  style={{ color: "rgba(255,255,255,0.45)" }}
-                >
-                  Permanent discount when Pro launches.
+                <p className="mt-6 font-sans text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
+                  <a href="/join" className="underline-offset-4 hover:underline transition-opacity hover:opacity-80">
+                    Continue free
+                  </a>
                 </p>
               </RevealSection>
             </div>

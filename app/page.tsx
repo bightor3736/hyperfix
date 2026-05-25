@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import { LogoLockup } from "@/components/Logo";
 import { RevealSection } from "@/components/RevealSection";
 import { HeroProductMock } from "@/components/HeroProductMock";
+import { ProCheckoutButton } from "@/components/ProCheckoutButton";
 import {
   HeadphonesIcon, NoteIcon, XIcon, ChatIcon, PinIcon, BrainIcon,
   MicIcon, SparkleIcon, BookIcon, RepeatIcon, LibraryIcon, BoltIcon, FlameIcon,
@@ -146,7 +147,7 @@ const faqs = [
   },
   {
     q: "Is it free?",
-    a: "Yes. Logging fixes, checking in, building streaks, and sharing cards are all free forever. A Pro tier is on the way with unlimited fixes, premium card templates, and a custom profile URL.",
+    a: "Yes. Logging fixes, checking in, building streaks, and sharing cards are all free forever. Pro unlocks unlimited fixes, premium card templates, and a custom profile URL — cancel anytime.",
   },
   {
     q: "How is this different from Notion or a journal?",
@@ -1058,11 +1059,11 @@ export default async function Page({
               >
                 Free Forever.
                 <br />
-                Pro is on the Way.
+                Pro for the Obsessed.
               </h2>
               <p className="mt-5 mx-auto max-w-xl font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
-                Hyperfix is free to use. A Pro tier with unlimited fixes and premium
-                cards is coming soon. Early members get a permanent discount.
+                Hyperfix is free to use. Pro unlocks unlimited fixes, premium card
+                templates, and the full toolkit. Cancel anytime.
               </p>
             </div>
 
@@ -1143,7 +1144,7 @@ export default async function Page({
                       className="font-sans text-xs font-semibold px-3 py-1 rounded-full"
                       style={{ background: "#0A1F1C", color: TEAL }}
                     >
-                      Coming Soon
+                      Popular
                     </span>
                   </div>
                   <p className="mt-2 font-sans text-base" style={{ color: "rgba(10,31,28,0.78)" }}>
@@ -1169,14 +1170,11 @@ export default async function Page({
                       </li>
                     ))}
                   </ul>
-                  <a
-                    href="/join"
-                    className="mt-10 inline-flex w-full items-center justify-between font-sans text-base font-semibold px-6 py-4 transition-all hover:opacity-90 active:scale-[0.98]"
+                  <ProCheckoutButton
+                    className="mt-10 inline-flex w-full items-center justify-center gap-2 font-sans text-base font-semibold px-6 py-4 transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-70"
                     style={{ background: "#0A1F1C", color: TEAL, borderRadius: 999 }}
-                  >
-                    Join the Waitlist
-                    <span>»</span>
-                  </a>
+                    label="Get Pro"
+                  />
                 </div>
               </div>
               </RevealSection>
