@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { useToast } from "@/components/Toast";
 
 type Props = {
   userId: string;
@@ -16,6 +17,7 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [progress, setProgress] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
 
   async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -41,6 +43,7 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
       if (uploadErr) {
         setProgress(null);
         setError("Upload failed.");
+        toast({ message: "Upload failed.", type: "error" });
         return;
       }
 
@@ -55,16 +58,19 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
           .eq("id", fixId);
         if (updateErr) {
           setError("Uploaded but failed to save.");
+          toast({ message: "Save failed.", type: "error" });
           return;
         }
       }
 
       setProgress(100);
       onChange(publicUrl);
+      toast({ message: "Banner uploaded", type: "success" });
       setTimeout(() => setProgress(null), 1000);
     } catch {
       setProgress(null);
       setError("Upload failed.");
+      toast({ message: "Upload failed.", type: "error" });
     }
   }
 

@@ -3,6 +3,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { posts } from "@/lib/blog";
 import { RevealSection } from "@/components/RevealSection";
+import { BookIcon } from "@/components/LandingIcons";
 
 export const metadata: Metadata = {
   title: "Hyperfix Blog — on hyperfixation, obsession, and the things that run your life",
@@ -31,8 +32,6 @@ export const metadata: Metadata = {
 const TEAL = "#5EEAD4";
 const CARD_BG = "#0F1011";
 const CARD_BORDER = "rgba(255,255,255,0.06)";
-const NOISE_URL =
-  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -88,21 +87,6 @@ const articles = [
   },
 ];
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <span
-      className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5"
-      style={{
-        background: "rgba(94,234,212,0.10)",
-        color: TEAL,
-        border: "1px solid rgba(94,234,212,0.22)",
-      }}
-    >
-      {children}
-    </span>
-  );
-}
-
 export default function BlogIndexPage() {
   return (
     <>
@@ -113,77 +97,60 @@ export default function BlogIndexPage() {
 
       <Nav />
       <div
-        className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative"
+        className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16"
         style={{ background: "#070708" }}
       >
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none mix-blend-overlay"
-          style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }}
-        />
-
         <main id="main-content" className="relative max-w-5xl mx-auto">
-          {/* Hero card */}
-          <div
-            className="relative overflow-hidden rounded-3xl p-6 sm:p-10 mb-6 anim-fadeUp"
-            style={{
-              background:
-                "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
-              border: `1px solid ${CARD_BORDER}`,
-            }}
-          >
-            <div
-              aria-hidden
-              className="absolute inset-0 pointer-events-none mix-blend-overlay"
-              style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }}
-            />
-            <div
-              aria-hidden
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)",
-              }}
-            />
-            <div className="relative">
-              <Eyebrow>blog</Eyebrow>
-              <h1
-                className="font-display anim-fadeUp delay-100"
-                style={{
-                  color: "#FFFFFF",
-                  fontSize: "clamp(36px, 6vw, 56px)",
-                  lineHeight: 1.05,
-                  letterSpacing: "-0.02em",
-                  fontWeight: 600,
-                }}
+          {/* Clean vvault header */}
+          <header className="pt-8 sm:pt-12 pb-10 sm:pb-14 anim-fadeUp">
+            <div className="flex items-center gap-2 mb-6">
+              <BookIcon size={14} className="opacity-60" />
+              <span
+                className="font-mono text-[11px] uppercase tracking-[0.18em]"
+                style={{ color: "rgba(255,255,255,0.5)" }}
               >
-                On obsession, counting,
-                <br />
-                and the things that ran your life.
-              </h1>
-              <p
-                className="mt-6 font-sans text-base sm:text-lg max-w-xl anim-fadeUp delay-200"
-                style={{ color: "rgba(255,255,255,0.72)" }}
-              >
-                Guides and honest writing for people who can&apos;t shut up about their current thing.
-              </p>
-              <a
-                href="/blog/feed.xml"
-                className="mt-6 inline-flex items-center gap-2 font-sans text-xs anim-fadeUp delay-300 transition-colors"
-                style={{ color: TEAL }}
-              >
-                <span aria-hidden="true">◉</span> RSS feed
-              </a>
+                Journal · Hyperfix
+              </span>
             </div>
-          </div>
+            <h1
+              className="font-display"
+              style={{
+                color: "#FFFFFF",
+                fontSize: "clamp(32px, 5.5vw, 48px)",
+                lineHeight: 1.05,
+                letterSpacing: "-0.02em",
+                fontWeight: 500,
+              }}
+            >
+              Field notes on obsession.
+            </h1>
+            <p
+              className="mt-4 font-sans text-base sm:text-lg max-w-xl"
+              style={{ color: "rgba(255,255,255,0.6)" }}
+            >
+              Guides and honest writing for people who can&apos;t shut up about their current thing.
+            </p>
+            <a
+              href="/blog/feed.xml"
+              className="mt-6 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] transition-colors"
+              style={{ color: TEAL }}
+            >
+              RSS feed →
+            </a>
+          </header>
 
           {/* Latest posts */}
           {posts.length > 0 && (
             <RevealSection>
-              <div className="mb-2">
-                <Eyebrow>latest</Eyebrow>
+              <div className="mb-4">
+                <span
+                  className="font-mono text-[11px] uppercase tracking-[0.18em]"
+                  style={{ color: "rgba(255,255,255,0.4)" }}
+                >
+                  Latest
+                </span>
               </div>
-              <div className="grid sm:grid-cols-2 gap-4 mb-10">
+              <div className="grid sm:grid-cols-2 gap-4 mb-12">
                 {posts.map((post, i) => {
                   const formattedDate = new Date(post.date).toLocaleDateString("en-GB", {
                     day: "numeric",
@@ -195,7 +162,7 @@ export default function BlogIndexPage() {
                     <a
                       key={post.slug}
                       href={`/blog/${post.slug}`}
-                      className="motion-card group relative overflow-hidden rounded-3xl p-6 sm:p-8 anim-fadeUp"
+                      className="group block rounded-2xl p-6 sm:p-7 transition-all duration-200 hover:-translate-y-0.5 anim-fadeUp"
                       style={{
                         background: CARD_BG,
                         border: `1px solid ${CARD_BORDER}`,
@@ -203,51 +170,46 @@ export default function BlogIndexPage() {
                         animationDelay: delay,
                       }}
                     >
-                      <div
-                        aria-hidden
-                        className="absolute inset-0 pointer-events-none mix-blend-overlay"
+                      <span
+                        className="inline-flex items-center font-mono text-[10px] uppercase tracking-[0.18em] rounded-full px-2.5 py-1 mb-4"
                         style={{
-                          backgroundImage: NOISE_URL,
-                          backgroundSize: "240px 240px",
-                          opacity: 0.22,
+                          background: "rgba(94,234,212,0.08)",
+                          color: TEAL,
+                          border: "1px solid rgba(94,234,212,0.18)",
                         }}
-                      />
-                      <div className="relative">
-                        <span
-                          className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-4"
-                          style={{
-                            background: "rgba(94,234,212,0.10)",
-                            color: TEAL,
-                            border: "1px solid rgba(94,234,212,0.22)",
-                          }}
-                        >
-                          {post.category}
-                        </span>
-                        <h2
-                          className="font-display group-hover:text-[#5EEAD4] transition-colors mb-3"
-                          style={{
-                            color: "#FFFFFF",
-                            fontSize: 22,
-                            fontWeight: 600,
-                            letterSpacing: "-0.01em",
-                            lineHeight: 1.18,
-                          }}
-                        >
-                          {post.title}
-                        </h2>
-                        <p
-                          className="font-sans text-sm leading-relaxed mb-5"
-                          style={{ color: "rgba(255,255,255,0.6)" }}
-                        >
-                          {post.excerpt}
-                        </p>
-                        <p
-                          className="font-sans text-xs"
-                          style={{ color: "rgba(255,255,255,0.35)" }}
-                        >
-                          {post.readTime} read · {formattedDate}
-                        </p>
-                      </div>
+                      >
+                        {post.category}
+                      </span>
+                      <h2
+                        className="font-display group-hover:text-[#5EEAD4] transition-colors mb-3"
+                        style={{
+                          color: "#FFFFFF",
+                          fontSize: 22,
+                          fontWeight: 500,
+                          letterSpacing: "-0.01em",
+                          lineHeight: 1.2,
+                        }}
+                      >
+                        {post.title}
+                      </h2>
+                      <p
+                        className="font-sans text-sm leading-relaxed mb-5"
+                        style={{
+                          color: "rgba(255,255,255,0.55)",
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {post.excerpt}
+                      </p>
+                      <p
+                        className="font-mono text-[11px] tabular-nums"
+                        style={{ color: "rgba(255,255,255,0.35)" }}
+                      >
+                        {post.readTime} read · {formattedDate}
+                      </p>
                     </a>
                   );
                 })}
@@ -257,8 +219,13 @@ export default function BlogIndexPage() {
 
           {/* More reading */}
           <RevealSection>
-            <div className="mb-2">
-              <Eyebrow>more reading</Eyebrow>
+            <div className="mb-4">
+              <span
+                className="font-mono text-[11px] uppercase tracking-[0.18em]"
+                style={{ color: "rgba(255,255,255,0.4)" }}
+              >
+                More reading
+              </span>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {articles.map((article, i) => {
@@ -267,7 +234,7 @@ export default function BlogIndexPage() {
                   <a
                     key={article.href}
                     href={article.href}
-                    className="motion-card group relative overflow-hidden rounded-3xl p-6 sm:p-8 flex flex-col gap-4 anim-fadeUp"
+                    className="group flex flex-col gap-4 rounded-2xl p-6 sm:p-7 transition-all duration-200 hover:-translate-y-0.5 anim-fadeUp"
                     style={{
                       background: CARD_BG,
                       border: `1px solid ${CARD_BORDER}`,
@@ -275,51 +242,46 @@ export default function BlogIndexPage() {
                       animationDelay: delay,
                     }}
                   >
-                    <div
-                      aria-hidden
-                      className="absolute inset-0 pointer-events-none mix-blend-overlay"
+                    <span
+                      className="inline-flex items-center font-mono text-[10px] uppercase tracking-[0.18em] rounded-full px-2.5 py-1 self-start"
                       style={{
-                        backgroundImage: NOISE_URL,
-                        backgroundSize: "240px 240px",
-                        opacity: 0.22,
+                        background: "rgba(94,234,212,0.08)",
+                        color: TEAL,
+                        border: "1px solid rgba(94,234,212,0.18)",
                       }}
-                    />
-                    <div className="relative flex flex-col gap-4 flex-1">
-                      <span
-                        className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 self-start"
-                        style={{
-                          background: "rgba(94,234,212,0.10)",
-                          color: TEAL,
-                          border: "1px solid rgba(94,234,212,0.22)",
-                        }}
-                      >
-                        {article.stamp}
-                      </span>
-                      <h2
-                        className="font-display group-hover:text-[#5EEAD4] transition-colors"
-                        style={{
-                          color: "#FFFFFF",
-                          fontSize: 20,
-                          fontWeight: 600,
-                          letterSpacing: "-0.01em",
-                          lineHeight: 1.18,
-                        }}
-                      >
-                        {article.title}
-                      </h2>
-                      <p
-                        className="font-sans text-sm leading-relaxed flex-1"
-                        style={{ color: "rgba(255,255,255,0.6)" }}
-                      >
-                        {article.desc}
-                      </p>
-                      <span
-                        className="font-sans text-sm self-start"
-                        style={{ color: TEAL }}
-                      >
-                        Read →
-                      </span>
-                    </div>
+                    >
+                      {article.stamp}
+                    </span>
+                    <h2
+                      className="font-display group-hover:text-[#5EEAD4] transition-colors"
+                      style={{
+                        color: "#FFFFFF",
+                        fontSize: 20,
+                        fontWeight: 500,
+                        letterSpacing: "-0.01em",
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      {article.title}
+                    </h2>
+                    <p
+                      className="font-sans text-sm leading-relaxed flex-1"
+                      style={{
+                        color: "rgba(255,255,255,0.55)",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {article.desc}
+                    </p>
+                    <span
+                      className="font-mono text-[11px] uppercase tracking-[0.18em] self-start"
+                      style={{ color: TEAL }}
+                    >
+                      Read →
+                    </span>
                   </a>
                 );
               })}

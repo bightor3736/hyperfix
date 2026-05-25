@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FixBannerUpload } from "@/components/FixBannerUpload";
 import { createClient } from "@/lib/supabase/client";
+import { useToast } from "@/components/Toast";
 
 type Style = "paper" | "dark" | "minimal" | "photo";
 
@@ -32,6 +33,7 @@ export function CardEditor({ fixId, userId, initialBannerUrl, initialCardStyle, 
   );
   const [bannerUrl, setBannerUrl] = useState<string | null>(initialBannerUrl);
   const [savedToast, setSavedToast] = useState(false);
+  const { toast } = useToast();
 
   async function persistStyle(next: Style) {
     setStyle(next);

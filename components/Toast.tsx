@@ -19,10 +19,13 @@ interface ToastContextValue {
 
 const ToastContext = createContext<ToastContextValue | null>(null);
 
+const NOOP_TOAST: ToastContextValue = { toast: () => {} };
+
 export function useToast() {
   const ctx = useContext(ToastContext);
-  if (!ctx) throw new Error("useToast must be used within ToastProvider");
-  return ctx;
+  // Gracefully degrade outside a ToastProvider (e.g. on public pages that
+  // share components with the dashboard) instead of throwing.
+  return ctx ?? NOOP_TOAST;
 }
 
 function ToastIcon({ type }: { type: ToastType }) {

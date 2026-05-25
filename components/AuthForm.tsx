@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { Show, Hide } from "react-iconly";
+import { useToast } from "@/components/Toast";
 
 // ── Shared input ─────────────────────────────────────────────────────────────
 
@@ -212,6 +213,7 @@ export function LoginFormInner() {
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const supabase = createClient();
+  const { toast } = useToast();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -221,6 +223,7 @@ export function LoginFormInner() {
       if (error) {
         setError("Invalid email or password.");
       } else {
+        toast({ message: "Welcome back.", type: "success" });
         window.location.replace("/dashboard");
       }
     });
@@ -267,6 +270,7 @@ export function LoginFormInner() {
 
 export function SignupFormInner() {
   const router = useRouter();
+  const { toast } = useToast();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -326,6 +330,7 @@ export function SignupFormInner() {
       }
 
       setSuccess("Check your email to confirm your account, then log in.");
+      toast({ message: "You're in. Let's start counting.", type: "success" });
       router.push("/auth/verify");
     });
   }
