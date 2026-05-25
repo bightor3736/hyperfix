@@ -136,17 +136,35 @@ export function LiveProfileEditor({
         />
 
         {/* "Change banner" hover overlay */}
-        <div
-          className="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-all opacity-100 sm:opacity-0 group-hover:opacity-100"
-          style={{
-            background: "rgba(7,7,8,0.7)",
-            border: "1px solid rgba(94,234,212,0.3)",
-            color: TEAL,
-            backdropFilter: "blur(8px)",
-          }}
-        >
-          <CameraIcon size={12} />
-          {uploading === "banner" ? "uploading…" : bannerUrl ? "change banner" : "upload banner"}
+        <div className="absolute top-3 right-3 flex items-center gap-2 transition-all opacity-100 sm:opacity-0 group-hover:opacity-100">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setPickerOpen(true);
+            }}
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-all hover:opacity-80"
+            style={{
+              background: "rgba(7,7,8,0.7)",
+              border: "1px solid rgba(255,255,255,0.06)",
+              color: "rgba(244,244,244,0.85)",
+              backdropFilter: "blur(8px)",
+            }}
+          >
+            or pick a preset
+          </button>
+          <div
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest"
+            style={{
+              background: "rgba(7,7,8,0.7)",
+              border: "1px solid rgba(94,234,212,0.3)",
+              color: TEAL,
+              backdropFilter: "blur(8px)",
+            }}
+          >
+            <CameraIcon size={12} />
+            {uploading === "banner" ? "uploading…" : bannerUrl ? "change banner" : "upload banner"}
+          </div>
         </div>
 
         {/* Bottom overlay — avatar + name + username */}
@@ -313,6 +331,13 @@ export function LiveProfileEditor({
           if (f) uploadFile(f, "banners", "banner");
         }}
       />
+
+      {pickerOpen && (
+        <BannerGalleryPicker
+          onSelect={applyPreset}
+          onClose={() => setPickerOpen(false)}
+        />
+      )}
 
       {/* Bio — inline editable below banner */}
       <div className="mt-5">
