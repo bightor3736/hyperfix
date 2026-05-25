@@ -383,16 +383,18 @@ export default async function DashboardPage() {
 
         {heatmapDates.length > 0 && (
           <div
-            className="relative overflow-hidden rounded-3xl p-7 mb-6 motion-card anim-fadeUp delay-500"
+            className="relative rounded-3xl p-5 mb-6 anim-fadeUp delay-500"
             style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
           >
-            <GrainOverlay opacity={0.22} />
-            <div className="relative">
-              <EyebrowPill>check-in history</EyebrowPill>
-              <div className="mt-6">
-                <StreakHeatmap dates={heatmapDates} />
-              </div>
+            <div className="flex items-center justify-between mb-4">
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+                check-in history
+              </p>
+              <p className="font-mono text-[10px] tabular-nums" style={{ color: "rgba(255,255,255,0.45)" }}>
+                {heatmapDates.length} {heatmapDates.length === 1 ? "day" : "days"} logged
+              </p>
             </div>
+            <StreakHeatmap dates={heatmapDates} />
           </div>
         )}
 

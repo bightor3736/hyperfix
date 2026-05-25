@@ -2,7 +2,8 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { FixStatusPill } from "@/components/FixStatusPill";
+import { CategoryIcon, CATEGORY_COLOR, categoryLabel } from "@/components/CategoryIcon";
+import { TombstoneIcon } from "@/components/MilestoneIcons";
 
 export type GraveyardFix = {
   id: string;
@@ -17,11 +18,13 @@ export type GraveyardFix = {
 const TEAL = "#5EEAD4";
 const CARD_BG = "#0F1011";
 const CARD_BORDER = "rgba(255,255,255,0.06)";
-const NOISE_URL =
-  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
 function getDayCount(startedAt: string, endedAt: string): number {
@@ -30,7 +33,7 @@ function getDayCount(startedAt: string, endedAt: string): number {
   return Math.max(1, Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)));
 }
 
-function timeAgo(dateStr: string): string {
+function writtenAgo(dateStr: string): string {
   const end = new Date(dateStr);
   const now = new Date();
   const diff = now.getTime() - end.getTime();
@@ -46,93 +49,107 @@ function timeAgo(dateStr: string): string {
 
 function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
   const days = getDayCount(fix.started_at, fix.ended_at);
-  const rested = timeAgo(fix.ended_at);
-  const delay = `${Math.min(index, 6) * 60}ms`;
+  const accent = CATEGORY_COLOR[fix.category?.toLowerCase()] ?? CATEGORY_COLOR.other;
+  const delay = `${Math.min(index, 8) * 50}ms`;
 
   return (
-    <div
-      className="motion-card relative overflow-hidden rounded-3xl p-6 flex flex-col gap-4 anim-fadeUp"
-      style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, animationDelay: delay }}
+    <Link
+      href={`/fix/${fix.id}`}
+      className="motion-card group relative overflow-hidden rounded-3xl p-6 sm:p-7 flex flex-col gap-5 anim-fadeUp transition-colors"
+      style={{
+        background: CARD_BG,
+        border: `1px solid ${CARD_BORDER}`,
+        animationDelay: delay,
+        ["--hover-border" as string]: accent,
+      }}
     >
+      {/* Tombstone decoration top right */}
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 80% 40% at 50% 110%, rgba(94,234,212,0.08), transparent 70%)" }}
-      />
+        className="absolute top-5 right-5 opacity-30 transition-opacity group-hover:opacity-60"
+        style={{ color: "rgba(255,255,255,0.7)" }}
+      >
+        <TombstoneIcon size={22} />
+      </div>
 
-      <div className="relative flex items-center justify-between gap-2 flex-wrap">
-        <div className="flex items-center gap-2">
-          <span
-            className="inline-flex items-center font-sans text-[11px] rounded-full px-2.5 py-0.5"
-            style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}
-          >
-            {fix.category}
-          </span>
-          <FixStatusPill status="Ended" size="sm" />
-        </div>
-        <span className="font-sans text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
-          {rested}
+      {/* Category chip */}
+      <div className="flex items-center gap-2">
+        <span
+          className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest rounded-full px-2.5 py-1"
+          style={{
+            background: `${accent}14`,
+            color: accent,
+            border: `1px solid ${accent}33`,
+          }}
+        >
+          <CategoryIcon category={fix.category} size={11} color={accent} />
+          {categoryLabel(fix.category)}
         </span>
       </div>
 
-      <Link href={`/dashboard/fix/${fix.id}`} className="relative">
-        <h3
-          className="font-display transition-colors hover:text-[#5EEAD4]"
+      {/* Title — italic serif, "in memoriam" feel */}
+      <h3
+        className="font-display"
+        style={{
+          color: "#F4F4F4",
+          fontSize: "clamp(22px, 2.6vw, 26px)",
+          fontWeight: 600,
+          fontStyle: "italic",
+          letterSpacing: "-0.015em",
+          lineHeight: 1.15,
+          display: "-webkit-box",
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: "vertical",
+          overflow: "hidden",
+        }}
+      >
+        {fix.title}
+      </h3>
+
+      {/* Date range · days */}
+      <p
+        className="font-sans text-[13px] tabular-nums"
+        style={{ color: "rgba(255,255,255,0.5)" }}
+      >
+        {formatDate(fix.started_at)} – {formatDate(fix.ended_at)}{" "}
+        <span style={{ color: "rgba(255,255,255,0.3)" }}>·</span>{" "}
+        <span style={{ color: TEAL }}>{days} day{days === 1 ? "" : "s"}</span>
+      </p>
+
+      {/* Eulogy quote */}
+      {fix.eulogy ? (
+        <blockquote
+          className="font-display m-0 pl-4"
           style={{
-            color: "#FFFFFF",
-            fontSize: 19,
-            fontWeight: 600,
-            letterSpacing: "-0.01em",
-            lineHeight: 1.18,
+            borderLeft: `2px solid ${accent}66`,
+            color: "rgba(255,255,255,0.7)",
+            fontStyle: "italic",
+            fontSize: 15,
+            lineHeight: 1.5,
             display: "-webkit-box",
-            WebkitLineClamp: 2,
+            WebkitLineClamp: 3,
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
           }}
         >
-          {fix.title}
-        </h3>
-      </Link>
-
-      <div className="relative">
-        <div className="flex items-baseline gap-2 mb-1">
-          <span
-            className="font-display leading-none tabular-nums"
-            style={{ color: TEAL, fontSize: 44, fontWeight: 600, letterSpacing: "-0.04em" }}
-          >
-            {days}
-          </span>
-          <span className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-            days of your life
-          </span>
-        </div>
-        <p className="font-sans text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
-          {formatDate(fix.started_at)} — {formatDate(fix.ended_at)}
-        </p>
-      </div>
-
-      {fix.eulogy ? (
-        <blockquote
-          className="relative font-display text-[14px] leading-relaxed pl-4 m-0"
-          style={{ borderLeft: `2px solid ${TEAL}`, color: "rgba(255,255,255,0.7)", fontStyle: "italic" }}
-        >
           &ldquo;{fix.eulogy}&rdquo;
         </blockquote>
       ) : (
-        <Link
-          href={`/dashboard/fix/${fix.id}`}
-          className="motion-link relative inline-flex font-sans text-sm transition-colors"
-          style={{ color: TEAL }}
+        <p
+          className="font-sans text-sm"
+          style={{ color: "rgba(255,255,255,0.35)", fontStyle: "italic" }}
         >
-          Write a eulogy →
-        </Link>
+          No eulogy. Click to write one.
+        </p>
       )}
-    </div>
+
+      <p
+        className="font-mono text-[10px] uppercase tracking-widest mt-auto"
+        style={{ color: "rgba(255,255,255,0.3)" }}
+      >
+        buried {writtenAgo(fix.ended_at)}
+      </p>
+    </Link>
   );
 }
 
@@ -165,7 +182,7 @@ export function GraveyardGrid({ fixes }: { fixes: GraveyardFix[] }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search the graveyard…"
-          className="font-sans text-sm flex-1 rounded-2xl px-4 py-2.5 outline-none"
+          className="font-sans text-sm flex-1 rounded-2xl px-4 py-2.5 outline-none transition-colors focus:border-[rgba(94,234,212,0.4)]"
           style={{
             background: CARD_BG,
             border: `1px solid ${CARD_BORDER}`,
@@ -178,11 +195,19 @@ export function GraveyardGrid({ fixes }: { fixes: GraveyardFix[] }) {
               <button
                 key={c}
                 onClick={() => setCategory(c)}
-                className="font-mono text-[11px] uppercase tracking-widest rounded-full px-3.5 py-1.5 transition-colors"
+                className="font-mono text-[10px] uppercase tracking-widest rounded-full px-3.5 py-1.5 transition-colors"
                 style={
                   c === category
-                    ? { background: "rgba(94,234,212,0.12)", border: "1px solid rgba(94,234,212,0.3)", color: TEAL }
-                    : { background: "rgba(244,244,244,0.04)", border: "1px solid rgba(244,244,244,0.08)", color: "rgba(244,244,244,0.5)" }
+                    ? {
+                        background: "rgba(94,234,212,0.12)",
+                        border: "1px solid rgba(94,234,212,0.3)",
+                        color: TEAL,
+                      }
+                    : {
+                        background: "rgba(244,244,244,0.04)",
+                        border: "1px solid rgba(244,244,244,0.08)",
+                        color: "rgba(244,244,244,0.5)",
+                      }
                 }
               >
                 {c}
@@ -197,12 +222,15 @@ export function GraveyardGrid({ fixes }: { fixes: GraveyardFix[] }) {
           className="rounded-3xl p-12 text-center"
           style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
         >
-          <p className="font-display text-lg" style={{ color: "rgba(244,244,244,0.5)" }}>
+          <p
+            className="font-display text-lg"
+            style={{ color: "rgba(244,244,244,0.5)", fontStyle: "italic" }}
+          >
             No matches.
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {filtered.map((fix, i) => (
             <TombstoneCard key={fix.id} fix={fix} index={i} />
           ))}
