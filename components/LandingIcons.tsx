@@ -144,3 +144,33 @@ export function HeartIcon({ size = 14, className }: IconProps) {
     </svg>
   );
 }
+
+export function SwirlIcon({ size = 18, className }: IconProps) {
+  return (
+    <svg {...baseProps(size)} className={className} aria-hidden>
+      <path d="M12 12 m0 -6 a6 6 0 1 1 -6 6 a4 4 0 0 1 4 -4 a2.5 2.5 0 0 1 2.5 2.5 a1.5 1.5 0 0 1 -1.5 1.5" />
+    </svg>
+  );
+}
+
+export function TombIcon({ size = 18, className }: IconProps) {
+  return (
+    <svg {...baseProps(size)} className={className} aria-hidden>
+      <path d="M5 20V12a7 7 0 0 1 14 0v8z" />
+      <path d="M3 20h18" />
+      <path d="M10 11h4" />
+      <path d="M12 11v4" />
+    </svg>
+  );
+}
+
+export function UsersIcon({ size = 18, className }: IconProps) {
+  return (
+    <svg {...baseProps(size)} className={className} aria-hidden>
+      <path d="M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+      <path d="M2 20c0-3.5 3.13-6 7-6s7 2.5 7 6" />
+      <path d="M16 4.5a3.5 3.5 0 0 1 0 7" />
+      <path d="M17 14c2.5.5 5 2.6 5 6" />
+    </svg>
+  );
+}

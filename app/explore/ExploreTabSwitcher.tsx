@@ -3,6 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
+import { CategoryIcon } from "@/components/CategoryIcon";
+import { FlameIcon, BoltIcon } from "@/components/LandingIcons";
+import { SkullIcon, TrophyIcon } from "@/components/MilestoneIcons";
+import {
+  REACTION_TYPES,
+  normalizeReactionCounts,
+  getReactionMeta,
+  type ReactionType,
+} from "@/lib/reactions";
 import type { ActivityItem } from "./page";
 
 const VALID_STATUSES: FixStatus[] = [
@@ -36,11 +45,12 @@ function intensityColor(intensity: number): string {
   return "#5EEAD4";
 }
 
-function getMilestone(days: number): { icon: string; label: string } | null {
-  if (days >= 365) return { icon: "🏆", label: "1 year" };
-  if (days >= 100) return { icon: "💀", label: "100 days" };
-  if (days >= 30) return { icon: "⚡", label: "30 days" };
-  if (days >= 7) return { icon: "🔥", label: "7 days" };
+type MilestoneIconComponent = (p: { size?: number; className?: string }) => React.JSX.Element;
+function getMilestone(days: number): { Icon: MilestoneIconComponent; label: string } | null {
+  if (days >= 365) return { Icon: TrophyIcon, label: "1 year" };
+  if (days >= 100) return { Icon: SkullIcon, label: "100 days" };
+  if (days >= 30) return { Icon: BoltIcon, label: "30 days" };
+  if (days >= 7) return { Icon: FlameIcon, label: "7 days" };
   return null;
 }
 
@@ -64,21 +74,7 @@ type Fix = {
 
 type ReactionCounts = Record<string, number>;
 
-const TOP_EMOJIS = ["💀", "🎵", "📖", "💜", "🔁", "😭"];
-
-const CATEGORY_EMOJI: Record<string, string> = {
-  song: "🎵",
-  fanfic: "📖",
-  show: "📺",
-  film: "🎬",
-  ship: "💜",
-  game: "🎮",
-  "video essay": "🎥",
-  podcast: "🎙️",
-  book: "📚",
-  character: "✨",
-  other: "✦",
-};
+const TOP_REACTIONS: ReactionType[] = REACTION_TYPES.map((r) => r.key);
 
 function MiniReactions({ counts }: { counts: ReactionCounts }) {
   const top = TOP_EMOJIS.filter((e) => (counts[e] ?? 0) > 0).slice(0, 3);
@@ -140,7 +136,7 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
         {/* Category + status + milestone */}
         <div className="flex items-center gap-2 flex-wrap mb-3">
           <span
-            className="font-mono uppercase tracking-widest rounded-full px-2.5 py-1"
+            className="inline-flex items-center gap-1 font-mono uppercase tracking-widest rounded-full px-2.5 py-1"
             style={{
               fontSize: 9,
               background: `rgba(${rgb},0.1)`,
@@ -148,12 +144,13 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
               color,
             }}
           >
+            <CategoryIcon category={fix.category} size={10} />
             {fix.category}
           </span>
           <FixStatusPill status={status} size="sm" />
           {milestone && (
             <span
-              className="font-mono rounded-full px-1.5 py-0.5 uppercase tracking-widest"
+              className="inline-flex items-center gap-1 font-mono rounded-full px-1.5 py-0.5 uppercase tracking-widest"
               style={{
                 fontSize: 9,
                 background: `rgba(${rgb},0.1)`,
@@ -161,7 +158,8 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
                 color,
               }}
             >
-              {milestone.icon} {milestone.label}
+              <milestone.Icon size={10} />
+              {milestone.label}
             </span>
           )}
         </div>
@@ -294,7 +292,6 @@ function formatTimeAgo(timestamp: string): string {
 
 function ActivityCard({ item }: { item: ActivityItem }) {
   const initials = getInitials(item.displayName, item.username);
-  const emoji = CATEGORY_EMOJI[item.fixCategory] ?? "✦";
   const timeAgo = formatTimeAgo(item.timestamp);
 
   return (
@@ -344,7 +341,7 @@ function ActivityCard({ item }: { item: ActivityItem }) {
         </div>
         <div className="flex items-center gap-1.5 mt-1.5">
           <span
-            className="font-mono uppercase tracking-widest rounded-full px-2 py-0.5"
+            className="inline-flex items-center gap-1 font-mono uppercase tracking-widest rounded-full px-2 py-0.5"
             style={{
               fontSize: 9,
               background: item.type === "ended" ? "rgba(244,244,244,0.05)" : "rgba(94,234,212,0.08)",
@@ -352,7 +349,8 @@ function ActivityCard({ item }: { item: ActivityItem }) {
               color: item.type === "ended" ? "rgba(244,244,244,0.4)" : "#5EEAD4",
             }}
           >
-            {emoji} {item.fixCategory}
+            <CategoryIcon category={item.fixCategory} size={9} />
+            {item.fixCategory}
           </span>
           {item.type === "ended" && (
             <span className="font-mono" style={{ fontSize: 9, color: "rgba(244,244,244,0.25)" }}>◼ ended</span>
@@ -531,7 +529,6 @@ export function ExploreTabSwitcher({
           </p>
           <div className="flex flex-col gap-3">
             {trendingCategories.slice(0, 5).map(({ category, count }) => {
-              const emoji = CATEGORY_EMOJI[category] ?? "✦";
               const sample = allEveryoneFixes.filter((f) => f.category === category).slice(0, 4);
               return (
                 <button
@@ -540,7 +537,9 @@ export function ExploreTabSwitcher({
                   className="flex items-center gap-3 w-full text-left rounded-2xl p-3 transition-all hover:bg-[rgba(255,255,255,0.03)]"
                   style={{ border: "1px solid rgba(255,255,255,0.06)" }}
                 >
-                  <span style={{ fontSize: 22, flexShrink: 0 }}>{emoji}</span>
+                  <span style={{ flexShrink: 0, color: "rgba(244,244,244,0.6)" }}>
+                    <CategoryIcon category={category} size={22} />
+                  </span>
                   <div className="flex-1 min-w-0">
                     <p className="font-sans text-sm font-medium capitalize" style={{ color: "#F4F4F4" }}>{category}</p>
                     <p className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.35)" }}>{count} {count === 1 ? "person" : "people"} tracking this right now</p>
@@ -594,7 +593,6 @@ export function ExploreTabSwitcher({
         <div className="overflow-x-auto no-scrollbar mb-8 -mx-1 px-1">
           <div className="flex gap-2 w-max">
             {trendingCategories.map(({ category, count }) => {
-              const emoji = CATEGORY_EMOJI[category] ?? "✦";
               const isSelected = selectedCategory === category;
               return (
                 <button
@@ -607,7 +605,7 @@ export function ExploreTabSwitcher({
                       : { background: "#111113", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.5)" }
                   }
                 >
-                  <span>{emoji}</span>
+                  <CategoryIcon category={category} size={11} />
                   <span>{category}</span>
                   <span className="font-mono tabular-nums" style={{ color: isSelected ? "rgba(244,244,244,0.5)" : "rgba(244,244,244,0.3)", fontSize: 10 }}>
                     · {count}

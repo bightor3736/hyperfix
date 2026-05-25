@@ -452,19 +452,13 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           </div>
         </div>
 
-        {/* Banner (Pro) */}
+        {/* Banner */}
         <div className="mb-8">
-            <button
-              type="button"
-              onClick={isPro ? undefined : () => openPro("Profile banner")}
-              className="flex items-center gap-1.5 mb-3"
-              style={{ cursor: isPro ? "default" : "pointer" }}
-            >
+            <div className="flex items-center gap-1.5 mb-3">
               <span className="font-sans text-[11px] font-semibold uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.25)" }}>
                 Profile banner
               </span>
-              <ProTag />
-            </button>
+            </div>
             <div
               className="relative rounded-2xl overflow-hidden mb-3 flex items-end"
               style={{
@@ -484,7 +478,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               <div className="absolute bottom-3 right-3 flex gap-2">
                 <button
                   type="button"
-                  onClick={() => (isPro ? bannerFileInputRef.current?.click() : openPro("Profile banner"))}
+                  onClick={() => bannerFileInputRef.current?.click()}
                   className="px-3 py-1.5 rounded-full font-sans text-xs font-medium transition-all hover:opacity-80"
                   style={{
                     background: "rgba(7,7,8,0.85)",
@@ -495,7 +489,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                 >
                   {bannerUrl ? "Change" : "Upload banner"}
                 </button>
-                {isPro && bannerUrl && (
+                {bannerUrl && (
                   <button
                     type="button"
                     onClick={async () => {

@@ -6,6 +6,8 @@ import { FixReactions } from "@/components/FixReactions";
 import { ShareButton } from "@/components/ShareButton";
 import { FixComments } from "@/components/FixComments";
 import { ShareFixationCard } from "@/components/ShareFixationCard";
+import { CategoryIcon } from "@/components/CategoryIcon";
+import { FlameIcon } from "@/components/LandingIcons";
 import type { Metadata } from "next";
 
 const TEAL = "#5EEAD4";

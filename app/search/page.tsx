@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { SearchInput } from "./SearchInput";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { CategoryIcon } from "@/components/CategoryIcon";
 
 export const metadata: Metadata = {
   title: "Search · Hyperfix",
@@ -37,20 +38,6 @@ type FixResult = {
     display_name: string | null;
     avatar_url: string | null;
   } | null;
-};
-
-const CATEGORY_EMOJI: Record<string, string> = {
-  song: "🎵",
-  fanfic: "📖",
-  show: "📺",
-  film: "🎬",
-  ship: "💜",
-  game: "🎮",
-  "video essay": "🎥",
-  podcast: "🎙️",
-  book: "📚",
-  character: "✨",
-  other: "✦",
 };
 
 function dayCount(startedAt: string, endedAt: string | null): number {
@@ -120,7 +107,6 @@ function ProfileCard({ profile }: { profile: Profile }) {
 
 function FixCard({ fix }: { fix: FixResult }) {
   const days = dayCount(fix.started_at, fix.ended_at);
-  const emoji = CATEGORY_EMOJI[fix.category] ?? "✦";
   const username = fix.profiles?.username;
   const displayName = fix.profiles?.display_name;
   const avatarUrl = fix.profiles?.avatar_url;
@@ -136,7 +122,7 @@ function FixCard({ fix }: { fix: FixResult }) {
       <div className="relative">
         <div className="flex items-center gap-2 mb-3">
           <span
-            className="font-sans rounded-full px-2.5 py-0.5"
+            className="inline-flex items-center gap-1.5 font-sans rounded-full px-2.5 py-0.5"
             style={{
               fontSize: 11,
               background: "rgba(94,234,212,0.10)",
@@ -144,7 +130,8 @@ function FixCard({ fix }: { fix: FixResult }) {
               color: TEAL,
             }}
           >
-            {emoji} {fix.category}
+            <CategoryIcon category={fix.category} size={11} />
+            {fix.category}
           </span>
         </div>
         <h3
