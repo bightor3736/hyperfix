@@ -29,6 +29,7 @@ interface Fix {
   is_public: boolean;
   user_id: string;
   tags: string[] | null;
+  banner_url: string | null;
 }
 
 interface Profile {
@@ -144,7 +145,7 @@ export default async function PublicFixPage({
 
   const { data: fix, error } = await supabase
     .from("fixes")
-    .select("id, title, category, status, intensity, note, eulogy, started_at, ended_at, is_public, user_id, tags")
+    .select("id, title, category, status, intensity, note, eulogy, started_at, ended_at, is_public, user_id, tags, banner_url")
     .eq("id", id)
     .single();
 
@@ -259,12 +260,33 @@ export default async function PublicFixPage({
       </nav>
 
       <main id="main-content" className="relative max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-16">
+        {/* Custom banner (if set) */}
+        {typedFix.banner_url && (
+          <div
+            className="relative overflow-hidden rounded-3xl mb-5 anim-fadeUp"
+            style={{
+              height: 180,
+              backgroundImage: `url(${typedFix.banner_url})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              border: `1px solid ${CARD_BORDER}`,
+            }}
+          >
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: "linear-gradient(180deg, transparent 0%, transparent 50%, rgba(7,7,8,0.65) 100%)" }}
+            />
+          </div>
+        )}
+
         {/* Bloom hero card */}
         <div
           className="relative overflow-hidden rounded-3xl mb-8 p-6 sm:p-10 anim-fadeUp"
           style={{
-            background:
-              "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
+            background: typedFix.banner_url
+              ? CARD_BG
+              : "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
             border: `1px solid ${CARD_BORDER}`,
           }}
         >

@@ -238,7 +238,7 @@ export default async function PublicProfilePage({
         <div
           className="relative overflow-hidden rounded-3xl mb-8 anim-fadeUp"
           style={{
-            ...(typedProfile.is_pro && typedProfile.banner_url
+            ...(typedProfile.banner_url
               ? {
                   backgroundImage: `url(${typedProfile.banner_url})`,
                   backgroundSize: "cover",
@@ -258,7 +258,7 @@ export default async function PublicProfilePage({
             aria-hidden
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: typedProfile.is_pro && typedProfile.banner_url
+              background: typedProfile.banner_url
                 ? "linear-gradient(180deg, rgba(7,7,8,0.55) 0%, rgba(7,7,8,0.25) 40%, rgba(7,7,8,0.7) 100%)"
                 : "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)",
             }}

@@ -4,6 +4,7 @@ import { useState, useMemo, useTransition } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { TagsInput } from "@/components/TagsInput";
+import { FixBannerUpload } from "@/components/FixBannerUpload";
 import { CloseSquare, Star } from "react-iconly";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { SparkleIcon } from "@/components/LandingIcons";
@@ -68,7 +69,16 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
   const [note, setNote] = useState(shared.note);
   const [isPublic, setIsPublic] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
+  const [bannerUrl, setBannerUrl] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Load user id once for the banner uploader.
+  if (typeof window !== "undefined" && userId === null) {
+    createClient().auth.getUser().then(({ data }) => {
+      if (data.user) setUserId(data.user.id);
+    });
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -105,6 +115,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
             is_public: isPublic,
             started_at: new Date().toISOString(),
             tags,
+            banner_url: bannerUrl,
           })
           .select("id")
           .single();
@@ -408,6 +419,13 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
           }}
         />
       </div>
+
+      {/* Banner image */}
+      {userId && (
+        <div className="flex flex-col gap-2">
+          <FixBannerUpload userId={userId} bannerUrl={bannerUrl} onChange={setBannerUrl} />
+        </div>
+      )}
 
       {/* Tags */}
       <div className="flex flex-col gap-2">

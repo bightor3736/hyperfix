@@ -30,6 +30,7 @@ type Fix = {
   ended_at: string | null;
   created_at: string;
   tags: string[];
+  banner_url: string | null;
 };
 
 const VALID_STATUSES: FixStatus[] = [
@@ -73,7 +74,7 @@ export default async function FixDetailPage({
 
   const { data: fix, error } = await supabase
     .from("fixes")
-    .select("id, user_id, title, category, status, intensity, note, eulogy, is_public, started_at, ended_at, created_at, tags")
+    .select("id, user_id, title, category, status, intensity, note, eulogy, is_public, started_at, ended_at, created_at, tags, banner_url")
     .eq("id", id)
     .eq("user_id", user.id)
     .single();
@@ -206,12 +207,33 @@ export default async function FixDetailPage({
 
       <main className="relative max-w-2xl mx-auto px-4 sm:px-6 pt-8 pb-16">
 
+        {/* Custom banner (if set) */}
+        {typedFix.banner_url && (
+          <div
+            className="relative overflow-hidden rounded-3xl mb-4 anim-fadeUp"
+            style={{
+              height: 160,
+              backgroundImage: `url(${typedFix.banner_url})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              border: `1px solid ${CARD_BORDER}`,
+            }}
+          >
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: "linear-gradient(180deg, transparent 0%, transparent 50%, rgba(7,7,8,0.65) 100%)" }}
+            />
+          </div>
+        )}
+
         {/* Bloom hero card */}
         <div
           className="relative overflow-hidden rounded-3xl mb-5 p-6 sm:p-10 anim-fadeUp"
           style={{
-            background:
-              "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
+            background: typedFix.banner_url
+              ? CARD_BG
+              : "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
             border: `1px solid ${CARD_BORDER}`,
           }}
         >
