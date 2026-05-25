@@ -70,6 +70,14 @@ export function LiveProfileEditor({
   const bannerInputRef = useRef<HTMLInputElement>(null);
   const [editing, setEditing] = useState<EditingField>(null);
   const [uploading, setUploading] = useState<null | "avatar" | "banner">(null);
+  const [pickerOpen, setPickerOpen] = useState(false);
+
+  async function applyPreset(presetId: string) {
+    const url = bannerPresetUrl(presetId);
+    const supabase = createClient();
+    await supabase.from("profiles").update({ banner_url: url }).eq("id", userId);
+    setBannerUrl(url);
+  }
 
   async function uploadFile(file: File, bucket: "avatars" | "banners", kind: "avatar" | "banner") {
     setUploading(kind);
