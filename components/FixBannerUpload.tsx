@@ -3,6 +3,8 @@
 import { useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useToast } from "@/components/Toast";
+import { BannerGalleryPicker } from "@/components/BannerGalleryPicker";
+import { bannerPresetUrl } from "@/lib/banner-presets";
 
 type Props = {
   userId: string;
@@ -17,7 +19,27 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [progress, setProgress] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [pickerOpen, setPickerOpen] = useState(false);
   const { toast } = useToast();
+
+  async function handlePresetSelect(presetId: string) {
+    setError(null);
+    const url = bannerPresetUrl(presetId);
+    if (fixId) {
+      const supabase = createClient();
+      const { error: updateErr } = await supabase
+        .from("fixes")
+        .update({ banner_url: url })
+        .eq("id", fixId);
+      if (updateErr) {
+        setError("Failed to save preset.");
+        toast({ message: "Save failed.", type: "error" });
+        return;
+      }
+    }
+    onChange(url);
+    toast({ message: "Banner set", type: "success" });
+  }
 
   async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -140,6 +162,26 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
         </div>
       </div>
       <input ref={inputRef} type="file" accept="image/*" className="sr-only" onChange={handleChange} />
+      <div className="flex items-center gap-2 mb-2">
+        <button
+          type="button"
+          onClick={() => setPickerOpen(true)}
+          className="px-3 py-1.5 rounded-full font-sans text-xs font-medium transition-all hover:opacity-80"
+          style={{
+            background: "#0F1011",
+            border: "1px solid rgba(255,255,255,0.06)",
+            color: TEAL,
+          }}
+        >
+          Or pick a preset
+        </button>
+      </div>
+      {pickerOpen && (
+        <BannerGalleryPicker
+          onSelect={handlePresetSelect}
+          onClose={() => setPickerOpen(false)}
+        />
+      )}
       {progress !== null && (
         <div className="w-48 mb-2">
           <div className="flex justify-between mb-1">

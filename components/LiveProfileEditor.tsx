@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { SocialChips } from "@/components/SocialChips";
 import { hexToRgba } from "@/lib/accent";
+import { BannerGalleryPicker } from "@/components/BannerGalleryPicker";
+import { bannerPresetUrl } from "@/lib/banner-presets";
 
 const TEAL = "#5EEAD4";
 const NOISE_URL =

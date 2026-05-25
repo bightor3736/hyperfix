@@ -1,5 +1,6 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sendStreakReminderEmail, sendMilestoneEmail, sendFixInactivityEmail } from "@/lib/email";
+import { sendPushToUser } from "@/lib/push";
 
 export const runtime = "nodejs";
 
@@ -70,6 +71,12 @@ export async function GET(req: Request) {
 
       const name = profile?.display_name || profile?.username || email.split("@")[0];
       await sendStreakReminderEmail({ toEmail: email, toName: name, streakDays: streak });
+      await sendPushToUser(userId, {
+        title: `Keep your ${streak}-day streak`,
+        body: "You haven't checked in today. Tap to log your fix.",
+        url: "/dashboard",
+        tag: "streak-reminder",
+      });
       streakReminders++;
     } catch (err) {
       errors.push(`streak:${userId}: ${err}`);
@@ -169,6 +176,17 @@ export async function GET(req: Request) {
       }));
 
       await sendFixInactivityEmail({ toEmail: email, toName: name, fixes });
+      const firstFix = fixes[0];
+      const pushBody =
+        fixes.length === 1
+          ? `"${firstFix.title}" hasn't been checked in for 3 days.`
+          : `${fixes.length} active fixes haven't been checked in for 3 days.`;
+      await sendPushToUser(userId, {
+        title: "Don't lose your hyperfix",
+        body: pushBody,
+        url: fixes.length === 1 ? `/dashboard/fix/${firstFix.id}` : "/dashboard",
+        tag: "inactivity-reminder",
+      });
       inactivitySent++;
     } catch (err) {
       errors.push(`inactivity:${userId}: ${err}`);
