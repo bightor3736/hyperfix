@@ -515,50 +515,15 @@ function IllustratedSlide({
   );
 }
 
-// ── Pexels ────────────────────────────────────────────────────────────────
-
-// One search query per pack — picked to match the pack's emotional vibe
-const PACK_PHOTO_QUERY = [
-  "notebook pen obsession studying focus",  // 0 — you might be hyperfixated if
-  "music vinyl headphones concert light",   // 1 — types of hyperfixation
-  "night window rain solitude empty room",  // 2 — post-fix grief
-  "spark fire discovery light curiosity",   // 3 — stages
-  "friends coffee conversation laughing",   // 4 — things people say
-  "mind calm focus desk minimal",           // 5 — ADHD brains
-];
-
-type PexelsPhoto = { src: { large2x: string; large: string } };
-type PexelsResponse = { photos: PexelsPhoto[] };
-
-async function fetchPexelsPhoto(query: string, seed: number): Promise<string | null> {
-  const apiKey = process.env.PEXELS_API_KEY;
-  if (!apiKey) return null;
-  try {
-    const res = await fetch(
-      `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=15&orientation=portrait&size=large`,
-      { headers: { Authorization: apiKey } }
-    );
-    if (!res.ok) return null;
-    const data = await res.json() as PexelsResponse;
-    const photos = data.photos ?? [];
-    if (!photos.length) return null;
-    // Deterministic pick so same pack+slide always uses the same photo
-    const photo = photos[seed % photos.length];
-    return photo.src.large2x ?? photo.src.large ?? null;
-  } catch {
-    return null;
-  }
-}
-
 // ─────────────────────────────────────────────────────────────────────────
 // STYLE 5 — "Photo"
-// Full-bleed Pexels photo, heavy dark gradient, lime text overlay.
-// CTA slides always flip to lime-on-dark (no photo needed).
+// Hyperfix-tinted gradient background, heavy dark overlay, teal text.
+// CTA slides flip to teal-on-dark.
 // ─────────────────────────────────────────────────────────────────────────
 function PhotoSlide({
-  slide, n, total, photoUrl,
+  slide, n, total,
 }: {
-  slide: Slide; n: number; total: number; photoUrl: string | null;
+  slide: Slide; n: number; total: number;
 }) {
   const isCta = !!slide.cta;
   const fs = fontSize(slide.headline);
@@ -599,33 +564,22 @@ function PhotoSlide({
   return (
     <div style={{
       width: "100%", height: "100%",
-      background: "#060606",
+      background: "#070708",
       display: "flex", flexDirection: "column",
       position: "relative",
       overflow: "hidden",
       fontFamily: "serif",
     }}>
-      {/* Pexels photo — full bleed */}
-      {photoUrl && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={photoUrl}
-          alt=""
-          style={{
-            position: "absolute",
-            top: 0, left: 0,
-            width: "100%", height: "100%",
-            objectFit: "cover",
-            objectPosition: "center",
-          }}
-        />
-      )}
+      {/* Hyperfix teal glow — bottom-center */}
+      <div style={{ position: "absolute", bottom: -400, left: "50%", transform: "translateX(-50%)", width: 1200, height: 1200, borderRadius: "50%", background: "radial-gradient(circle, rgba(94,234,212,0.22) 0%, rgba(94,234,212,0.07) 38%, transparent 68%)", display: "flex" }} />
+      {/* Top-right echo */}
+      <div style={{ position: "absolute", top: -250, right: -200, width: 700, height: 700, borderRadius: "50%", background: "radial-gradient(circle, rgba(94,234,212,0.09) 0%, transparent 65%)", display: "flex" }} />
 
-      {/* Gradient overlay — heavier at top and bottom for text legibility */}
+      {/* Gradient overlay for text legibility */}
       <div style={{
         position: "absolute",
         top: 0, left: 0, right: 0, bottom: 0,
-        background: "linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 38%, rgba(0,0,0,0.3) 55%, rgba(0,0,0,0.88) 100%)",
+        background: "linear-gradient(to bottom, rgba(7,7,8,0.7) 0%, rgba(7,7,8,0.2) 40%, rgba(7,7,8,0.75) 100%)",
         display: "flex",
       }} />
 
@@ -723,9 +677,7 @@ export async function GET(req: NextRequest) {
   const props = { slide, n: slideNum, total };
 
   if (styleIdx === 5) {
-    const query = PACK_PHOTO_QUERY[packIdx] ?? "focus minimal obsession";
-    const photoUrl = await fetchPexelsPhoto(query, slideNum - 1);
-    const jsx = <PhotoSlide {...props} photoUrl={photoUrl} />;
+    const jsx = <PhotoSlide {...props} />;
     return new ImageResponse(jsx, { width: W, height: H });
   }
 

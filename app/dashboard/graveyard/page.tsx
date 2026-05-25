@@ -1,13 +1,12 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { GraveyardExportButton } from "@/components/GraveyardExportButton";
 import { GraveyardGrid, type GraveyardFix } from "./GraveyardGrid";
 
 const TEAL = "#5EEAD4";
 const CARD_BG = "#0F1011";
 const CARD_BORDER = "rgba(255,255,255,0.06)";
-const NOISE_URL =
-  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 function getDayCount(startedAt: string, endedAt: string): number {
   const start = new Date(startedAt);
@@ -15,55 +14,82 @@ function getDayCount(startedAt: string, endedAt: string): number {
   return Math.max(1, Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)));
 }
 
+function StatCard({ label, value, sub }: { label: string; value: string; sub?: string }) {
+  return (
+    <div
+      className="rounded-3xl p-5 anim-fadeUp"
+      style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
+    >
+      <p
+        className="font-mono text-[10px] uppercase tracking-widest mb-3"
+        style={{ color: "rgba(255,255,255,0.4)" }}
+      >
+        {label}
+      </p>
+      <p
+        className="font-display tabular-nums"
+        style={{
+          color: "#FFFFFF",
+          fontSize: 32,
+          fontWeight: 600,
+          letterSpacing: "-0.02em",
+          lineHeight: 1,
+        }}
+      >
+        {value}
+      </p>
+      {sub && (
+        <p
+          className="font-sans text-xs mt-2"
+          style={{ color: "rgba(255,255,255,0.4)" }}
+        >
+          {sub}
+        </p>
+      )}
+    </div>
+  );
+}
+
 function EmptyGraveyard() {
   return (
     <div
-      className="relative overflow-hidden rounded-3xl p-12 sm:p-16 text-center anim-fadeUp"
-      style={{
-        background:
-          "radial-gradient(ellipse 80% 120% at 50% 130%, #2DD4BF 0%, #0E4F47 26%, #08231F 50%, #0F1011 80%)",
-        border: `1px solid ${CARD_BORDER}`,
-      }}
+      className="rounded-3xl p-12 sm:p-16 text-center anim-fadeUp"
+      style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
     >
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: NOISE_URL, backgroundSize: "220px 220px", opacity: 0.5 }}
-      />
-      <div className="relative">
-        <span
-          className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-6"
-          style={{
-            background: "rgba(94,234,212,0.12)",
-            color: TEAL,
-            border: "1px solid rgba(94,234,212,0.25)",
-          }}
-        >
-          the graveyard
-        </span>
-        <h2
-          className="font-display"
-          style={{
-            color: "#FFFFFF",
-            fontSize: "clamp(28px, 5vw, 40px)",
-            letterSpacing: "-0.02em",
-            fontWeight: 600,
-            lineHeight: 1.05,
-          }}
-        >
-          Nothing here yet.
-        </h2>
-        <p className="mt-4 font-sans text-base" style={{ color: "rgba(255,255,255,0.65)" }}>
-          When a fix fades, it gets buried here. With a eulogy, if you loved it.
-        </p>
-      </div>
+      <h2
+        className="font-display"
+        style={{
+          color: "#FFFFFF",
+          fontSize: "clamp(24px, 4vw, 32px)",
+          letterSpacing: "-0.02em",
+          fontWeight: 600,
+          lineHeight: 1.1,
+        }}
+      >
+        Nothing buried yet.
+      </h2>
+      <p
+        className="mt-3 font-sans text-base max-w-md mx-auto"
+        style={{ color: "rgba(255,255,255,0.55)" }}
+      >
+        When a fixation fades, this is where it goes.
+      </p>
+      <Link
+        href="/dashboard"
+        className="inline-flex mt-6 font-sans text-sm transition-colors"
+        style={{ color: TEAL }}
+      >
+        End an active fix → see it here
+      </Link>
     </div>
   );
 }
 
 export default async function GraveyardPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
     redirect("/auth/login");
@@ -89,77 +115,50 @@ export default async function GraveyardPage() {
   const total = graveyardFixes.length;
   const totalDays = graveyardFixes.reduce(
     (sum, f) => sum + getDayCount(f.started_at, f.ended_at),
-    0
+    0,
   );
-  const eulogyCount = graveyardFixes.filter((f) => f.eulogy).length;
+  const longest = graveyardFixes.reduce(
+    (max, f) => {
+      const d = getDayCount(f.started_at, f.ended_at);
+      return d > max.days ? { days: d, title: f.title } : max;
+    },
+    { days: 0, title: "" },
+  );
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }}
-      />
-      <div className="relative max-w-5xl mx-auto">
-        {/* Hero header card */}
-        <div
-          className="relative overflow-hidden rounded-3xl mb-6 p-6 sm:p-10 anim-fadeUp"
-          style={{
-            background:
-              "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
-            border: `1px solid ${CARD_BORDER}`,
-          }}
-        >
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none mix-blend-overlay"
-            style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }}
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)",
-            }}
-          />
-          <div className="relative flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+    <div
+      className="min-h-screen px-4 sm:px-6 lg:px-8 pt-10 pb-16"
+      style={{ background: "#070708" }}
+    >
+      <div className="max-w-5xl mx-auto">
+        {/* Hero */}
+        <div className="mb-10 anim-fadeUp">
+          <p
+            className="font-mono text-[11px] uppercase tracking-[0.18em] mb-4"
+            style={{ color: TEAL }}
+          >
+            The Graveyard
+          </p>
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
             <div>
-              <span
-                className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5"
-                style={{
-                  background: "rgba(94,234,212,0.12)",
-                  color: TEAL,
-                  border: "1px solid rgba(94,234,212,0.25)",
-                }}
-              >
-                graveyard
-              </span>
               <h1
                 className="font-display"
                 style={{
                   color: "#FFFFFF",
-                  fontSize: "clamp(36px, 6vw, 60px)",
-                  lineHeight: 1.02,
+                  fontSize: "clamp(32px, 5.5vw, 48px)",
+                  lineHeight: 1.04,
                   letterSpacing: "-0.02em",
                   fontWeight: 600,
                 }}
               >
-                The things that
-                <br />
-                used to run your life.
+                In loving memory.
               </h1>
-              <div className="mt-5 flex items-center gap-4 flex-wrap font-sans text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
-                <span>RIP · {total} {total === 1 ? "fix" : "fixes"}</span>
-                {totalDays > 0 && (
-                  <span style={{ color: TEAL }}>· {totalDays.toLocaleString()} days lived</span>
-                )}
-                {eulogyCount > 0 && (
-                  <span style={{ color: "rgba(255,255,255,0.5)" }}>
-                    · {eulogyCount} {eulogyCount === 1 ? "eulogy" : "eulogies"} written
-                  </span>
-                )}
-              </div>
+              <p
+                className="mt-4 font-sans text-base max-w-lg"
+                style={{ color: "rgba(255,255,255,0.6)" }}
+              >
+                Every obsession that ran its course. Click any to read the eulogy you wrote.
+              </p>
             </div>
             {total > 0 && (
               <div className="shrink-0">
@@ -169,12 +168,29 @@ export default async function GraveyardPage() {
           </div>
         </div>
 
-        {/* Grid or empty state */}
-        {total === 0 ? (
-          <EmptyGraveyard />
-        ) : (
-          <GraveyardGrid fixes={graveyardFixes} />
+        {/* Stats strip */}
+        {total > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10">
+            <StatCard
+              label="Total buried"
+              value={total.toLocaleString()}
+              sub={total === 1 ? "fixation" : "fixations"}
+            />
+            <StatCard
+              label="Longest run"
+              value={`${longest.days.toLocaleString()}d`}
+              sub={longest.title || undefined}
+            />
+            <StatCard
+              label="Days lost"
+              value={totalDays.toLocaleString()}
+              sub="lifetime hours, gone"
+            />
+          </div>
         )}
+
+        {/* Grid or empty state */}
+        {total === 0 ? <EmptyGraveyard /> : <GraveyardGrid fixes={graveyardFixes} />}
       </div>
     </div>
   );

@@ -9,12 +9,15 @@ import { AddToListButton } from "@/components/AddToListButton";
 import { useToast } from "@/components/Toast";
 import { TagsInput } from "@/components/TagsInput";
 import { CloseSquare, Star } from "react-iconly";
+import { FlameIcon, BoltIcon, SparkleIcon, PinIcon } from "@/components/LandingIcons";
+import { SkullIcon, TrophyIcon } from "@/components/MilestoneIcons";
 
-function getMilestone(days: number): { icon: string; heading: string; sub: string } | null {
-  if (days === 365) return { icon: "🏆", heading: "One whole year.", sub: "You have been unwell for 365 days. Legendary." };
-  if (days === 100) return { icon: "💀", heading: "100 days deep.", sub: "That's dedication. Or a cry for help. Either way, we respect it." };
-  if (days === 30) return { icon: "⚡", heading: "One month in.", sub: "This fix has officially lasted longer than most diets." };
-  if (days === 7) return { icon: "🔥", heading: "One week.", sub: "Seven days strong. It's not a phase." };
+type MilestoneIconComponent = (p: { size?: number; className?: string }) => React.JSX.Element;
+function getMilestone(days: number): { Icon: MilestoneIconComponent; heading: string; sub: string } | null {
+  if (days === 365) return { Icon: TrophyIcon, heading: "One whole year.", sub: "You have been unwell for 365 days. Legendary." };
+  if (days === 100) return { Icon: SkullIcon, heading: "100 days deep.", sub: "That's dedication. Or a cry for help. Either way, we respect it." };
+  if (days === 30) return { Icon: BoltIcon, heading: "One month in.", sub: "This fix has officially lasted longer than most diets." };
+  if (days === 7) return { Icon: FlameIcon, heading: "One week.", sub: "Seven days strong. It's not a phase." };
   return null;
 }
 
@@ -256,7 +259,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
             boxShadow: "0 0 32px rgba(94,234,212,0.12)",
           }}
         >
-          <span style={{ fontSize: 28, lineHeight: 1 }}>{milestone.icon}</span>
+          <span style={{ color: "#5EEAD4", display: "inline-flex" }} aria-hidden>
+            <milestone.Icon size={28} />
+          </span>
           <div className="flex-1 min-w-0">
             <p className="font-display font-bold text-base" style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}>
               {milestone.heading}
@@ -281,10 +286,11 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
         <div>
           <button
             onClick={() => setShowCheckIn(true)}
-            className="w-full sm:w-auto px-6 py-3 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
+            className="inline-flex items-center gap-2 w-full sm:w-auto justify-center px-6 py-3 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
             style={{ background: "#5EEAD4", color: "#0A0A0A" }}
           >
-            ✦ Check in today
+            <SparkleIcon size={14} />
+            Check in today
           </button>
         </div>
       )}
@@ -656,19 +662,20 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
             startTransition(async () => {
               try {
                 await pinFix(next ? fixId : null);
-                toast({ message: next ? "📌 Pinned to profile" : "Unpinned from profile", type: "success" });
+                toast({ message: next ? "Pinned to profile" : "Unpinned from profile", type: "success" });
               } catch {
                 setIsPinned(!next);
               }
             });
           }}
-          className="px-4 py-2 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80"
           style={isPinned
             ? { background: "rgba(94,234,212,0.12)", border: "1px solid rgba(94,234,212,0.3)", color: "#5EEAD4" }
             : { background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.12)", color: "rgba(244,244,244,0.6)" }
           }
         >
-          {isPinned ? "📌 Pinned" : "Pin to profile"}
+          <PinIcon size={14} />
+          {isPinned ? "Pinned" : "Pin to profile"}
         </button>
         <button
           onClick={() => setShowEditModal(true)}

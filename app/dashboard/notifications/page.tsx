@@ -2,7 +2,16 @@ import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
+import type { ComponentType } from "react";
 import { MarkAllReadButton } from "./MarkAllReadButton";
+import {
+  HeartIcon,
+  ChatIcon,
+  SparkleIcon,
+  FlameIcon,
+  PinIcon,
+} from "@/components/LandingIcons";
+import { legacyEmojiToType, getReactionMeta } from "@/lib/reactions";
 
 export const metadata: Metadata = { title: "Notifications · Hyperfix" };
 
@@ -32,41 +41,158 @@ function one<T>(v: T | T[] | null): T | null {
   return v;
 }
 
-function notifContent(n: Notif): { text: string; href: string | null } | null {
+type Rendered = {
+  Icon: ComponentType<{ size?: number; className?: string }>;
+  iconColor: string;
+  text: React.ReactNode;
+  href: string | null;
+};
+
+function renderNotif(n: Notif): Rendered | null {
   const actor = one(n.actor);
   const fix = one(n.fix);
   const name = actor?.display_name ?? actor?.username ?? "Someone";
   const fixTitle = fix?.title ?? "your fix";
 
   if (n.type === "reaction") {
+    const type = n.emoji ? legacyEmojiToType(n.emoji) : null;
+    const meta = type ? getReactionMeta(type) : null;
     return {
-      text: `${name} reacted ${n.emoji ?? ""} to "${fixTitle}"`,
+      Icon: HeartIcon,
+      iconColor: "#F472B6",
+      text: (
+        <>
+          <span style={{ color: "#F4F4F4" }}>{name}</span>
+          <span style={{ color: "rgba(244,244,244,0.55)" }}> reacted </span>
+          {meta && (
+            <span
+              className="inline-flex items-center gap-1 align-middle rounded-full px-1.5 py-0.5 mx-0.5"
+              style={{
+                background: "rgba(255,255,255,0.06)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                color: "rgba(244,244,244,0.85)",
+                fontSize: 11,
+              }}
+            >
+              <meta.Icon size={11} />
+              {meta.label}
+            </span>
+          )}
+          <span style={{ color: "rgba(244,244,244,0.55)" }}> to </span>
+          <span style={{ color: "#F4F4F4" }}>&ldquo;{fixTitle}&rdquo;</span>
+        </>
+      ),
       href: n.fix_id ? `/fix/${n.fix_id}` : null,
     };
   }
   if (n.type === "follow") {
     return {
-      text: `${name} started following you`,
+      Icon: PinIcon,
+      iconColor: "#06B6D4",
+      text: (
+        <>
+          <span style={{ color: "#F4F4F4" }}>{name}</span>
+          <span style={{ color: "rgba(244,244,244,0.55)" }}> started following you</span>
+        </>
+      ),
       href: actor?.username ? `/u/${actor.username}` : null,
     };
   }
   if (n.type === "comment") {
     return {
-      text: `${name} commented on "${fixTitle}"`,
+      Icon: ChatIcon,
+      iconColor: "#A78BFA",
+      text: (
+        <>
+          <span style={{ color: "#F4F4F4" }}>{name}</span>
+          <span style={{ color: "rgba(244,244,244,0.55)" }}> commented on </span>
+          <span style={{ color: "#F4F4F4" }}>&ldquo;{fixTitle}&rdquo;</span>
+        </>
+      ),
       href: n.fix_id ? `/fix/${n.fix_id}` : null,
+    };
+  }
+  if (n.type === "milestone") {
+    return {
+      Icon: SparkleIcon,
+      iconColor: TEAL,
+      text: (
+        <span style={{ color: "#F4F4F4" }}>
+          You hit a milestone on <span style={{ color: "#F4F4F4" }}>&ldquo;{fixTitle}&rdquo;</span>
+        </span>
+      ),
+      href: n.fix_id ? `/dashboard/fix/${n.fix_id}` : null,
+    };
+  }
+  if (n.type === "streak") {
+    return {
+      Icon: FlameIcon,
+      iconColor: "#F59E0B",
+      text: (
+        <span style={{ color: "#F4F4F4" }}>
+          Your streak on <span>&ldquo;{fixTitle}&rdquo;</span> is still going. Don&apos;t break the chain.
+        </span>
+      ),
+      href: n.fix_id ? `/dashboard/fix/${n.fix_id}` : null,
+    };
+  }
+  if (n.type === "message") {
+    return {
+      Icon: ChatIcon,
+      iconColor: "#5EEAD4",
+      text: (
+        <>
+          <span style={{ color: "#F4F4F4" }}>{name}</span>
+          <span style={{ color: "rgba(244,244,244,0.55)" }}> sent you a message</span>
+        </>
+      ),
+      href: "/dashboard/messages",
     };
   }
   return null;
 }
 
-function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+function startOfDay(d: Date): number {
+  const x = new Date(d);
+  x.setHours(0, 0, 0, 0);
+  return x.getTime();
 }
+
+function bucketFor(dateStr: string): "today" | "yesterday" | "week" | "earlier" {
+  const today = startOfDay(new Date());
+  const ts = startOfDay(new Date(dateStr));
+  const dayMs = 86_400_000;
+  if (ts === today) return "today";
+  if (ts === today - dayMs) return "yesterday";
+  if (ts >= today - 6 * dayMs) return "week";
+  return "earlier";
+}
+
+function relTime(dateStr: string): string {
+  const d = new Date(dateStr);
+  const diff = Date.now() - d.getTime();
+  const m = Math.floor(diff / 60_000);
+  if (m < 1) return "just now";
+  if (m < 60) return `${m}m`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h`;
+  const days = Math.floor(h / 24);
+  if (days < 7) return `${days}d`;
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
+const BUCKET_LABEL: Record<string, string> = {
+  today: "Today",
+  yesterday: "Yesterday",
+  week: "This week",
+  earlier: "Earlier",
+};
+const BUCKET_ORDER: Array<"today" | "yesterday" | "week" | "earlier"> = [
+  "today",
+  "yesterday",
+  "week",
+  "earlier",
+];
 
 export default async function NotificationsPage() {
   const supabase = await createClient();
@@ -85,7 +211,7 @@ export default async function NotificationsPage() {
       id, type, emoji, read, created_at, fix_id,
       actor:profiles!notifications_actor_id_fkey(username, display_name, avatar_url),
       fix:fixes!notifications_fix_id_fkey(title)
-    `
+    `,
     )
     .eq("user_id", user.id)
     .order("created_at", { ascending: false })
@@ -94,74 +220,171 @@ export default async function NotificationsPage() {
   const notifications = (rows ?? []) as Notif[];
   const hasUnread = notifications.some((n) => !n.read);
 
+  // Group by day bucket
+  const grouped: Record<string, Notif[]> = {
+    today: [],
+    yesterday: [],
+    week: [],
+    earlier: [],
+  };
+  for (const n of notifications) {
+    grouped[bucketFor(n.created_at)].push(n);
+  }
+  const useGrouping = notifications.length > 6;
+
+  const renderRow = (n: Notif) => {
+    const r = renderNotif(n);
+    if (!r) return null;
+    const { Icon, iconColor, text, href } = r;
+    const inner = (
+      <div className="flex items-start gap-3">
+        {/* Unread dot rail */}
+        <div className="flex flex-col items-center pt-1.5 shrink-0" style={{ width: 8 }}>
+          {!n.read ? (
+            <span
+              className="block w-1.5 h-1.5 rounded-full"
+              style={{ background: TEAL }}
+              aria-label="unread"
+            />
+          ) : (
+            <span className="block w-1.5 h-1.5" />
+          )}
+        </div>
+        {/* Icon */}
+        <div
+          className="shrink-0 rounded-full flex items-center justify-center"
+          style={{
+            width: 32,
+            height: 32,
+            background: `${iconColor}14`,
+            border: `1px solid ${iconColor}26`,
+            color: iconColor,
+            opacity: n.read ? 0.7 : 1,
+          }}
+        >
+          <Icon size={14} />
+        </div>
+        {/* Text + time */}
+        <div className="flex-1 min-w-0">
+          <p
+            className="font-sans text-[14px] leading-snug"
+            style={{ opacity: n.read ? 0.7 : 1 }}
+          >
+            {text}
+          </p>
+          <p
+            className="font-mono text-[10px] uppercase tracking-widest mt-1.5 tabular-nums"
+            style={{ color: "rgba(244,244,244,0.3)" }}
+          >
+            {relTime(n.created_at)}
+          </p>
+        </div>
+      </div>
+    );
+    const baseClass =
+      "block rounded-2xl px-4 py-3.5 transition-colors hover:bg-[rgba(255,255,255,0.02)]";
+    return href ? (
+      <Link key={n.id} href={href} className={baseClass}>
+        {inner}
+      </Link>
+    ) : (
+      <div key={n.id} className={baseClass.replace("hover:bg-[rgba(255,255,255,0.02)]", "")}>
+        {inner}
+      </div>
+    );
+  };
+
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-12" style={{ background: "#070708" }}>
+    <div
+      className="min-h-screen px-4 sm:px-6 lg:px-8 pt-10 pb-16"
+      style={{ background: "#070708" }}
+    >
       <div className="max-w-2xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-display font-medium" style={{ color: "#F4F4F4" }}>
-            Notifications
-          </h1>
+        {/* Header */}
+        <div className="mb-8 flex items-end justify-between gap-4 flex-wrap anim-fadeUp">
+          <div>
+            <p
+              className="font-mono text-[11px] uppercase tracking-[0.18em] mb-3"
+              style={{ color: TEAL }}
+            >
+              Notifications
+            </p>
+            <h1
+              className="font-display"
+              style={{
+                color: "#FFFFFF",
+                fontSize: "clamp(28px, 4.5vw, 40px)",
+                lineHeight: 1.05,
+                letterSpacing: "-0.02em",
+                fontWeight: 600,
+              }}
+            >
+              What&apos;s been happening.
+            </h1>
+            <p
+              className="mt-3 font-sans text-base"
+              style={{ color: "rgba(255,255,255,0.6)" }}
+            >
+              Reactions, follows, comments — all the signs you&apos;re not alone in this.
+            </p>
+          </div>
           <MarkAllReadButton hasUnread={hasUnread} />
         </div>
 
         {notifications.length === 0 ? (
           <div
-            className="rounded-3xl p-12 text-center"
+            className="rounded-3xl p-12 text-center anim-fadeUp"
             style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
           >
-            <p className="font-display text-lg" style={{ color: "rgba(244,244,244,0.5)" }}>
-              No notifications yet.
-            </p>
-            <p className="font-sans text-sm mt-2" style={{ color: "rgba(244,244,244,0.3)" }}>
-              Reactions, comments, and new followers will show up here.
+            <h2
+              className="font-display"
+              style={{
+                color: "#FFFFFF",
+                fontSize: "clamp(22px, 3vw, 28px)",
+                letterSpacing: "-0.02em",
+                fontWeight: 600,
+                lineHeight: 1.1,
+              }}
+            >
+              All caught up.
+            </h2>
+            <p
+              className="mt-3 font-sans text-sm max-w-sm mx-auto"
+              style={{ color: "rgba(244,244,244,0.45)" }}
+            >
+              When people react, follow, or comment, you&apos;ll see it here.
             </p>
           </div>
         ) : (
-          <div className="flex flex-col gap-2">
-            {notifications.map((n) => {
-              const content = notifContent(n);
-              if (!content) return null;
-              const { text, href } = content;
-              const style = {
-                background: n.read ? CARD_BG : "rgba(94,234,212,0.05)",
-                border: `1px solid ${n.read ? CARD_BORDER : "rgba(94,234,212,0.18)"}`,
-              };
-              const inner = (
-                <>
-                  <div className="flex items-center gap-2">
-                    {!n.read && (
-                      <span
-                        className="w-1.5 h-1.5 rounded-full shrink-0"
-                        style={{ background: TEAL }}
-                      />
-                    )}
-                    <p
-                      className="font-sans text-sm leading-snug"
-                      style={{ color: n.read ? "rgba(244,244,244,0.6)" : "#F4F4F4" }}
-                    >
-                      {text}
-                    </p>
-                  </div>
-                  <p className="font-mono text-[10px] mt-1.5" style={{ color: "rgba(244,244,244,0.25)" }}>
-                    {formatDate(n.created_at)}
-                  </p>
-                </>
-              );
-              return href ? (
-                <Link
-                  key={n.id}
-                  href={href}
-                  className="block rounded-2xl p-4 transition-all hover:border-[rgba(94,234,212,0.3)]"
-                  style={style}
-                >
-                  {inner}
-                </Link>
-              ) : (
-                <div key={n.id} className="rounded-2xl p-4" style={style}>
-                  {inner}
-                </div>
-              );
-            })}
+          <div
+            className="rounded-3xl overflow-hidden anim-fadeUp"
+            style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
+          >
+            {useGrouping ? (
+              <div className="flex flex-col py-2">
+                {BUCKET_ORDER.map((bucket) => {
+                  const items = grouped[bucket];
+                  if (!items || items.length === 0) return null;
+                  return (
+                    <div key={bucket}>
+                      <div className="px-5 pt-4 pb-2">
+                        <p
+                          className="font-mono text-[10px] uppercase tracking-widest"
+                          style={{ color: "rgba(244,244,244,0.4)" }}
+                        >
+                          {BUCKET_LABEL[bucket]}
+                        </p>
+                      </div>
+                      <div className="flex flex-col px-2 pb-2">
+                        {items.map(renderRow)}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="flex flex-col p-2">{notifications.map(renderRow)}</div>
+            )}
           </div>
         )}
       </div>

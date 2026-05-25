@@ -14,36 +14,65 @@ const NOISE_URL =
 export default function NotFound() {
   return (
     <main className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative" style={{ background: "#070708" }}>
-      <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
+      <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.06 }} />
 
-      <div className="relative max-w-2xl w-full">
-        <div className="relative overflow-hidden rounded-3xl p-8 sm:p-14 text-center anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)", border: `1px solid ${CARD_BORDER}` }}>
-          <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
-          <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
-          <div className="relative">
-            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>404</span>
-            <h1 className="font-display anim-fadeUp delay-100" style={{ color: "#FFFFFF", fontSize: "clamp(40px, 7vw, 64px)", lineHeight: 1.02, letterSpacing: "-0.02em", fontWeight: 600 }}>
-              This fix doesn&apos;t exist.
-            </h1>
-            <p className="mt-5 font-sans text-base sm:text-lg max-w-md mx-auto anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.72)" }}>
-              It may have ended, or it never started.
-            </p>
+      <div className="relative max-w-xl w-full text-center anim-fadeUp">
+        <p className="font-mono text-[10px] uppercase tracking-widest mb-6" style={{ color: "rgba(94,234,212,0.6)" }}>
+          404
+        </p>
+        <h1
+          className="font-display tabular-nums mb-3"
+          style={{
+            color: "#F4F4F4",
+            fontSize: "clamp(80px, 18vw, 160px)",
+            lineHeight: 0.9,
+            letterSpacing: "-0.05em",
+            fontWeight: 600,
+            textShadow: "0 0 60px rgba(94,234,212,0.2)",
+          }}
+        >
+          404
+        </h1>
+        <h2
+          className="font-display mt-6"
+          style={{
+            color: "#F4F4F4",
+            fontSize: "clamp(28px, 5vw, 40px)",
+            letterSpacing: "-0.02em",
+            fontWeight: 600,
+            lineHeight: 1.05,
+          }}
+        >
+          This fix doesn&apos;t exist.
+        </h2>
+        <p className="mt-4 font-sans text-base max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.55)" }}>
+          It may have ended. Or it never started. Or someone shared the wrong link.
+        </p>
 
-            <div className="mt-7 anim-fadeUp delay-300">
-              <Link
-                href="/"
-                className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
-                style={{
-                  background: "#FFFFFF",
-                  color: "#0A0A0A",
-                  borderRadius: 999,
-                  boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 40px rgba(94,234,212,0.25)",
-                }}
-              >
-                Go home →
-              </Link>
-            </div>
-          </div>
+        <div className="mt-10 flex flex-wrap justify-center gap-3">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3 transition-all hover:opacity-95 active:scale-[0.98]"
+            style={{
+              background: "#FFFFFF",
+              color: "#0A0A0A",
+              borderRadius: 999,
+            }}
+          >
+            Go home
+          </Link>
+          <Link
+            href="/explore"
+            className="inline-flex items-center gap-2 font-sans text-sm font-medium px-6 py-3 transition-all hover:opacity-80"
+            style={{
+              background: "rgba(94,234,212,0.08)",
+              border: "1px solid rgba(94,234,212,0.25)",
+              color: TEAL,
+              borderRadius: 999,
+            }}
+          >
+            Explore public fixations →
+          </Link>
         </div>
       </div>
     </main>

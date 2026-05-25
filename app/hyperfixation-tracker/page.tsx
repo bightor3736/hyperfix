@@ -23,8 +23,6 @@ export const metadata: Metadata = {
 const TEAL = "#5EEAD4";
 const CARD_BG = "#0F1011";
 const CARD_BORDER = "rgba(255,255,255,0.06)";
-const NOISE_URL =
-  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 const faqs = [
   {
@@ -100,11 +98,11 @@ const sampleCards = [
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5"
+      className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6"
       style={{
-        background: "rgba(94,234,212,0.10)",
+        background: "rgba(94,234,212,0.08)",
         color: TEAL,
-        border: "1px solid rgba(94,234,212,0.22)",
+        border: "1px solid rgba(94,234,212,0.20)",
       }}
     >
       {children}
@@ -132,15 +130,10 @@ function SectionHeadline({ children }: { children: React.ReactNode }) {
 function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <div
-      className={`motion-card relative overflow-hidden rounded-3xl p-6 sm:p-10 ${className}`}
+      className={`rounded-3xl p-6 sm:p-10 ${className}`}
       style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
     >
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
-      />
-      <div className="relative">{children}</div>
+      {children}
     </div>
   );
 }
@@ -159,54 +152,36 @@ export default function HyperfixationTrackerPage() {
 
       <Nav />
       <div
-        className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative"
+        className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16"
         style={{ background: "#070708" }}
       >
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none mix-blend-overlay"
-          style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }}
-        />
-
-        <main id="main-content" className="relative max-w-5xl mx-auto flex flex-col gap-6">
+        <main id="main-content" className="max-w-5xl mx-auto flex flex-col gap-6">
           {/* HERO */}
-          <div
-            className="relative overflow-hidden rounded-3xl p-6 sm:p-10 anim-fadeUp"
-            style={{
-              background:
-                "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
-              border: `1px solid ${CARD_BORDER}`,
-            }}
-          >
-            <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
-            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
-            <div className="relative">
-              <Eyebrow>hyperfixation tracker</Eyebrow>
-              <h1
-                className="font-display anim-fadeUp delay-100"
-                style={{
-                  color: "#FFFFFF",
-                  fontSize: "clamp(36px, 6vw, 60px)",
-                  lineHeight: 1.02,
-                  letterSpacing: "-0.02em",
-                  fontWeight: 600,
-                }}
-              >
-                Log it. Count it.
-                <br />
-                Mourn it when it ends.
-              </h1>
-              <p className="mt-6 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.72)" }}>
-                A place to log your current obsession, count the days it&apos;s lasted, and mourn it when it ends. Built for fandom brains, BookTok readers, K-pop stans, and everyone whose Notes app is full of thoughts about fictional people.
-              </p>
-              <p className="mt-4 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.6)" }}>
-                Not a Notion template. Not a clinical tool. A hyperfixation tracker that actually understands what a hyperfixation is.
-              </p>
-              <div className="mt-7 anim-fadeUp delay-300">
-                <WaitlistForm id="waitlist" variant="light" />
-              </div>
+          <section className="px-2 sm:px-6 pt-12 pb-10 anim-fadeUp">
+            <Eyebrow>hyperfixation tracker</Eyebrow>
+            <h1
+              className="font-display anim-fadeUp delay-100"
+              style={{
+                color: "#FFFFFF",
+                fontSize: "clamp(36px, 7vw, 64px)",
+                lineHeight: 1.02,
+                letterSpacing: "-0.03em",
+                fontWeight: 600,
+              }}
+            >
+              Log it. Count it.{" "}
+              <span style={{ color: TEAL }}>Mourn it when it ends.</span>
+            </h1>
+            <p className="mt-6 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
+              A place to log your current obsession, count the days it&apos;s lasted, and mourn it when it ends. Built for fandom brains, BookTok readers, K-pop stans, and everyone whose Notes app is full of thoughts about fictional people.
+            </p>
+            <p className="mt-4 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
+              Not a Notion template. Not a clinical tool. A hyperfixation tracker that actually understands what a hyperfixation is.
+            </p>
+            <div className="mt-8 anim-fadeUp delay-300 max-w-md">
+              <WaitlistForm id="waitlist" variant="light" />
             </div>
-          </div>
+          </section>
 
           {/* WHAT IS A HYPERFIXATION */}
           <RevealSection>
@@ -365,34 +340,28 @@ export default function HyperfixationTrackerPage() {
           {/* FINAL CTA */}
           <RevealSection>
             <div
-              className="relative overflow-hidden rounded-3xl p-8 sm:p-14 text-center"
-              style={{
-                background:
-                  "radial-gradient(ellipse 80% 120% at 50% 130%, #2DD4BF 0%, #0E4F47 26%, #08231F 50%, #0F1011 80%)",
-                border: `1px solid ${CARD_BORDER}`,
-              }}
+              className="rounded-3xl p-8 sm:p-14 text-center"
+              style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
             >
-              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "220px 220px", opacity: 0.5 }} />
-              <div className="relative">
-                <Eyebrow>join the waitlist</Eyebrow>
-                <h2
-                  className="font-display"
-                  style={{
-                    color: "#FFFFFF",
-                    fontSize: "clamp(30px, 5vw, 48px)",
-                    letterSpacing: "-0.02em",
-                    fontWeight: 600,
-                    lineHeight: 1.05,
-                  }}
-                >
-                  Your hyperfixation deserves a record.
-                </h2>
-                <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.72)" }}>
-                  The waitlist gets first access in waves. Early users get a permanent Pro discount and the most embarrassing usernames before they&apos;re gone.
-                </p>
-                <div className="mt-6">
-                  <WaitlistForm variant="dark" />
-                </div>
+              <Eyebrow>join the waitlist</Eyebrow>
+              <h2
+                className="font-display"
+                style={{
+                  color: "#FFFFFF",
+                  fontSize: "clamp(30px, 5vw, 48px)",
+                  letterSpacing: "-0.03em",
+                  fontWeight: 600,
+                  lineHeight: 1.05,
+                }}
+              >
+                Your hyperfixation{" "}
+                <span style={{ color: TEAL }}>deserves a record.</span>
+              </h2>
+              <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
+                The waitlist gets first access in waves. Early users get a permanent Pro discount and the most embarrassing usernames before they&apos;re gone.
+              </p>
+              <div className="mt-7 max-w-md mx-auto">
+                <WaitlistForm variant="dark" />
               </div>
             </div>
           </RevealSection>

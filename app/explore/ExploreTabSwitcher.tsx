@@ -3,6 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
+import { CategoryIcon } from "@/components/CategoryIcon";
+import { FlameIcon, BoltIcon } from "@/components/LandingIcons";
+import { SkullIcon, TrophyIcon } from "@/components/MilestoneIcons";
+import {
+  REACTION_TYPES,
+  normalizeReactionCounts,
+  getReactionMeta,
+  type ReactionType,
+} from "@/lib/reactions";
 import type { ActivityItem } from "./page";
 
 const VALID_STATUSES: FixStatus[] = [
@@ -36,11 +45,12 @@ function intensityColor(intensity: number): string {
   return "#5EEAD4";
 }
 
-function getMilestone(days: number): { icon: string; label: string } | null {
-  if (days >= 365) return { icon: "🏆", label: "1 year" };
-  if (days >= 100) return { icon: "💀", label: "100 days" };
-  if (days >= 30) return { icon: "⚡", label: "30 days" };
-  if (days >= 7) return { icon: "🔥", label: "7 days" };
+type MilestoneIconComponent = (p: { size?: number; className?: string }) => React.JSX.Element;
+function getMilestone(days: number): { Icon: MilestoneIconComponent; label: string } | null {
+  if (days >= 365) return { Icon: TrophyIcon, label: "1 year" };
+  if (days >= 100) return { Icon: SkullIcon, label: "100 days" };
+  if (days >= 30) return { Icon: BoltIcon, label: "30 days" };
+  if (days >= 7) return { Icon: FlameIcon, label: "7 days" };
   return null;
 }
 
@@ -64,41 +74,32 @@ type Fix = {
 
 type ReactionCounts = Record<string, number>;
 
-const TOP_EMOJIS = ["💀", "🎵", "📖", "💜", "🔁", "😭"];
-
-const CATEGORY_EMOJI: Record<string, string> = {
-  song: "🎵",
-  fanfic: "📖",
-  show: "📺",
-  film: "🎬",
-  ship: "💜",
-  game: "🎮",
-  "video essay": "🎥",
-  podcast: "🎙️",
-  book: "📚",
-  character: "✨",
-  other: "✦",
-};
+const TOP_REACTIONS: ReactionType[] = REACTION_TYPES.map((r) => r.key);
 
 function MiniReactions({ counts }: { counts: ReactionCounts }) {
-  const top = TOP_EMOJIS.filter((e) => (counts[e] ?? 0) > 0).slice(0, 3);
+  const normalized = normalizeReactionCounts(counts);
+  const top = TOP_REACTIONS.filter((k) => normalized[k] > 0).slice(0, 3);
   if (top.length === 0) return null;
   return (
     <div className="flex items-center gap-1.5 flex-wrap">
-      {top.map((emoji) => (
-        <span
-          key={emoji}
-          className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[11px]"
-          style={{
-            background: "rgba(244,244,244,0.06)",
-            border: "1px solid rgba(244,244,244,0.1)",
-            color: "rgba(244,244,244,0.5)",
-          }}
-        >
-          {emoji}
-          <span className="tabular-nums">{counts[emoji]}</span>
-        </span>
-      ))}
+      {top.map((key) => {
+        const { Icon, label } = getReactionMeta(key);
+        return (
+          <span
+            key={key}
+            className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[11px] uppercase tracking-widest"
+            style={{
+              background: "rgba(244,244,244,0.06)",
+              border: "1px solid rgba(244,244,244,0.1)",
+              color: "rgba(244,244,244,0.5)",
+            }}
+            aria-label={label}
+          >
+            <Icon size={12} />
+            <span className="tabular-nums">{normalized[key]}</span>
+          </span>
+        );
+      })}
     </div>
   );
 }
@@ -140,7 +141,7 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
         {/* Category + status + milestone */}
         <div className="flex items-center gap-2 flex-wrap mb-3">
           <span
-            className="font-mono uppercase tracking-widest rounded-full px-2.5 py-1"
+            className="inline-flex items-center gap-1 font-mono uppercase tracking-widest rounded-full px-2.5 py-1"
             style={{
               fontSize: 9,
               background: `rgba(${rgb},0.1)`,
@@ -148,12 +149,13 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
               color,
             }}
           >
+            <CategoryIcon category={fix.category} size={10} />
             {fix.category}
           </span>
           <FixStatusPill status={status} size="sm" />
           {milestone && (
             <span
-              className="font-mono rounded-full px-1.5 py-0.5 uppercase tracking-widest"
+              className="inline-flex items-center gap-1 font-mono rounded-full px-1.5 py-0.5 uppercase tracking-widest"
               style={{
                 fontSize: 9,
                 background: `rgba(${rgb},0.1)`,
@@ -161,7 +163,8 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
                 color,
               }}
             >
-              {milestone.icon} {milestone.label}
+              <milestone.Icon size={10} />
+              {milestone.label}
             </span>
           )}
         </div>
@@ -294,7 +297,6 @@ function formatTimeAgo(timestamp: string): string {
 
 function ActivityCard({ item }: { item: ActivityItem }) {
   const initials = getInitials(item.displayName, item.username);
-  const emoji = CATEGORY_EMOJI[item.fixCategory] ?? "✦";
   const timeAgo = formatTimeAgo(item.timestamp);
 
   return (
@@ -344,7 +346,7 @@ function ActivityCard({ item }: { item: ActivityItem }) {
         </div>
         <div className="flex items-center gap-1.5 mt-1.5">
           <span
-            className="font-mono uppercase tracking-widest rounded-full px-2 py-0.5"
+            className="inline-flex items-center gap-1 font-mono uppercase tracking-widest rounded-full px-2 py-0.5"
             style={{
               fontSize: 9,
               background: item.type === "ended" ? "rgba(244,244,244,0.05)" : "rgba(94,234,212,0.08)",
@@ -352,7 +354,8 @@ function ActivityCard({ item }: { item: ActivityItem }) {
               color: item.type === "ended" ? "rgba(244,244,244,0.4)" : "#5EEAD4",
             }}
           >
-            {emoji} {item.fixCategory}
+            <CategoryIcon category={item.fixCategory} size={9} />
+            {item.fixCategory}
           </span>
           {item.type === "ended" && (
             <span className="font-mono" style={{ fontSize: 9, color: "rgba(244,244,244,0.25)" }}>◼ ended</span>
@@ -372,20 +375,139 @@ type Props = {
   activityItems: ActivityItem[] | null;
   trendingFixes: Fix[];
   trendingReactionMap: Record<string, ReactionCounts>;
+  isLoggedIn?: boolean;
 };
 
-function TabButton({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
+type EmptyKind = "public" | "filtered" | "trending" | "following" | "longest" | "activity" | "cards";
+
+function EmptyState({ kind, onClearFilter }: { kind: EmptyKind; onClearFilter?: () => void }) {
+  const copy: Record<EmptyKind, { title: string; sub: string; cta?: { label: string; href: string } | null }> = {
+    public: {
+      title: "Nothing here yet.",
+      sub: "No public fixes yet — be the first to share what owns your brain.",
+      cta: { label: "Start tracking", href: "/auth/signup" },
+    },
+    filtered: {
+      title: "Nothing in this category yet.",
+      sub: "Try a different category or clear the filter.",
+      cta: null,
+    },
+    trending: {
+      title: "Nothing trending yet.",
+      sub: "Once people start reacting to fixes, the hottest ones land here.",
+      cta: null,
+    },
+    longest: {
+      title: "Nothing here yet.",
+      sub: "Long-running obsessions will show up here once people log them.",
+      cta: null,
+    },
+    following: {
+      title: "Nobody yet.",
+      sub: "Follow people to see what's owning their brains right now.",
+      cta: { label: "Browse everyone", href: "#" },
+    },
+    activity: {
+      title: "Nothing yet.",
+      sub: "Follow people to see when they start and end fixations here.",
+      cta: null,
+    },
+    cards: {
+      title: "Nothing public yet.",
+      sub: "Be the first to share a hyperfix.",
+      cta: { label: "Start tracking", href: "/auth/signup" },
+    },
+  };
+
+  const { title, sub, cta } = copy[kind];
+
+  return (
+    <div
+      className="flex flex-col items-center justify-center text-center rounded-3xl py-20 px-6"
+      style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}
+    >
+      <p
+        className="font-display mb-2"
+        style={{
+          color: "rgba(255,255,255,0.85)",
+          fontSize: "clamp(22px, 3vw, 28px)",
+          letterSpacing: "-0.02em",
+          fontWeight: 600,
+        }}
+      >
+        {title}
+      </p>
+      <p className="font-sans text-sm max-w-sm" style={{ color: "rgba(244,244,244,0.45)", lineHeight: 1.55 }}>
+        {sub}
+      </p>
+      {kind === "filtered" && onClearFilter ? (
+        <button
+          onClick={onClearFilter}
+          className="mt-6 font-mono text-[11px] uppercase tracking-widest px-4 py-2 rounded-full transition-all"
+          style={{
+            background: "rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            color: "rgba(244,244,244,0.6)",
+          }}
+        >
+          Clear filter
+        </button>
+      ) : cta ? (
+        <Link
+          href={cta.href}
+          className="mt-6 inline-flex items-center gap-2 font-sans text-sm font-semibold px-5 py-2.5 rounded-full transition-opacity hover:opacity-90"
+          style={{ background: "#5EEAD4", color: "#070708" }}
+        >
+          {cta.label} <span aria-hidden>→</span>
+        </Link>
+      ) : null}
+    </div>
+  );
+}
+
+function TabButton({
+  label,
+  active,
+  count,
+  onClick,
+}: {
+  label: string;
+  active: boolean;
+  count?: number;
+  onClick: () => void;
+}) {
   return (
     <button
       onClick={onClick}
-      className="px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
+      className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
       style={
         active
-          ? { background: "#5EEAD4", color: "#F4F4F4", border: "1px solid transparent" }
-          : { background: "rgba(244,244,244,0.04)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.5)" }
+          ? {
+              background: "#5EEAD4",
+              color: "#070708",
+              border: "1px solid transparent",
+              fontWeight: 600,
+            }
+          : {
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(255,255,255,0.06)",
+              color: "rgba(244,244,244,0.6)",
+            }
       }
     >
-      {label}
+      <span>{label}</span>
+      {typeof count === "number" && count > 0 && (
+        <span
+          className="font-mono tabular-nums rounded-full px-1.5 py-px"
+          style={{
+            fontSize: 9,
+            background: active ? "rgba(7,7,8,0.18)" : "rgba(255,255,255,0.06)",
+            color: active ? "rgba(7,7,8,0.7)" : "rgba(244,244,244,0.45)",
+          }}
+        >
+          {count}
+        </span>
+      )}
     </button>
   );
 }
@@ -399,15 +521,16 @@ export function ExploreTabSwitcher({
   activityItems,
   trendingFixes,
   trendingReactionMap,
+  isLoggedIn: isLoggedInProp,
 }: Props) {
-  const [tab, setTab] = useState<"everyone" | "trending" | "longest" | "following" | "activity">("everyone");
+  const [tab, setTab] = useState<"everyone" | "trending" | "longest" | "following" | "activity" | "cards">("everyone");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [extraFixes, setExtraFixes] = useState<Fix[]>([]);
   const [extraReactions, setExtraReactions] = useState<Record<string, ReactionCounts>>({});
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(everyoneFixes.length >= 48);
 
-  const isLoggedIn = followingFixes !== null;
+  const isLoggedIn = isLoggedInProp ?? followingFixes !== null;
 
   const allEveryoneFixes = [...everyoneFixes, ...extraFixes];
   const allEveryoneReactions = { ...everyoneReactions, ...extraReactions };
@@ -448,21 +571,147 @@ export function ExploreTabSwitcher({
     <div>
       {/* Tab switcher */}
       <div className="flex gap-2 mb-8 overflow-x-auto scrollbar-hide pb-1">
-        <TabButton label="Everyone" active={tab === "everyone"} onClick={() => setTab("everyone")} />
-        <TabButton label="Trending" active={tab === "trending"} onClick={() => setTab("trending")} />
-        <TabButton label="Longest" active={tab === "longest"} onClick={() => setTab("longest")} />
-        {isLoggedIn && <TabButton label="Following" active={tab === "following"} onClick={() => setTab("following")} />}
-        {isLoggedIn && <TabButton label="Activity" active={tab === "activity"} onClick={() => setTab("activity")} />}
+        <TabButton label="Everyone" active={tab === "everyone"} count={allEveryoneFixes.length} onClick={() => setTab("everyone")} />
+        <TabButton label="Cards" active={tab === "cards"} count={allEveryoneFixes.length} onClick={() => setTab("cards")} />
+        <TabButton label="Trending" active={tab === "trending"} count={trendingFixes.length} onClick={() => setTab("trending")} />
+        <TabButton label="Longest" active={tab === "longest"} count={longestFixes.length} onClick={() => setTab("longest")} />
+        {isLoggedIn && (
+          <TabButton
+            label="Following"
+            active={tab === "following"}
+            count={followingFixes?.length ?? 0}
+            onClick={() => setTab("following")}
+          />
+        )}
+        {isLoggedIn && (
+          <TabButton
+            label="Activity"
+            active={tab === "activity"}
+            count={activityItems?.length ?? 0}
+            onClick={() => setTab("activity")}
+          />
+        )}
       </div>
+
+      {/* Cards gallery */}
+      {tab === "cards" && (
+        <div>
+          {allEveryoneFixes.length === 0 ? (
+            <EmptyState kind="cards" />
+          ) : (
+            <>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {allEveryoneFixes.map((fix) => {
+                  const days = dayCount(fix.started_at, fix.ended_at);
+                  return (
+                    <Link
+                      key={fix.id}
+                      href={`/fix/${fix.id}`}
+                      className="group block rounded-2xl overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl"
+                      style={{ border: "1px solid rgba(244,244,244,0.08)" }}
+                    >
+                      <div className="relative" style={{ aspectRatio: "9/16" }}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={`/api/share/${fix.id}`}
+                          alt={fix.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        <div
+                          className="absolute inset-x-0 bottom-0 p-2.5"
+                          style={{ background: "linear-gradient(to top, rgba(7,7,8,0.95) 0%, transparent 100%)" }}
+                        >
+                          <p className="font-display text-xs font-semibold leading-snug" style={{ color: "#F4F4F4", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                            {fix.title}
+                          </p>
+                          <div className="flex items-center justify-between mt-1">
+                            <p className="font-mono text-[10px]" style={{ color: "rgba(94,234,212,0.8)" }}>day {days}</p>
+                            {fix.profiles?.username && (
+                              <p className="font-mono text-[9px] truncate ml-2" style={{ color: "rgba(244,244,244,0.35)" }}>@{fix.profiles.username}</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+              {hasMore && (
+                <div className="flex justify-center mt-10">
+                  <button
+                    onClick={loadMore}
+                    disabled={loadingMore}
+                    className="px-8 py-3 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all hover:opacity-80 disabled:opacity-50"
+                    style={{ background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.12)", color: "rgba(244,244,244,0.6)" }}
+                  >
+                    {loadingMore ? "Loading…" : "Load more"}
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
+
+      {/* Find your people */}
+      {tab === "everyone" && !selectedCategory && trendingCategories.length > 0 && allEveryoneFixes.length > 0 && (
+        <div className="mb-8 rounded-3xl p-5 sm:p-6" style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}>
+          <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "rgba(244,244,244,0.3)" }}>
+            find your people
+          </p>
+          <div className="flex flex-col gap-3">
+            {trendingCategories.slice(0, 5).map(({ category, count }) => {
+              const sample = allEveryoneFixes.filter((f) => f.category === category).slice(0, 4);
+              return (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className="flex items-center gap-3 w-full text-left rounded-2xl p-3 transition-all hover:bg-[rgba(255,255,255,0.03)]"
+                  style={{ border: "1px solid rgba(255,255,255,0.06)" }}
+                >
+                  <span style={{ flexShrink: 0, color: "rgba(244,244,244,0.6)" }}>
+                    <CategoryIcon category={category} size={22} />
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-sans text-sm font-medium capitalize" style={{ color: "#F4F4F4" }}>{category}</p>
+                    <p className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.35)" }}>{count} {count === 1 ? "person" : "people"} tracking this right now</p>
+                  </div>
+                  <div className="flex -space-x-2 shrink-0">
+                    {sample.map((fix) => (
+                      fix.profiles?.avatar_url ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          key={fix.id}
+                          src={fix.profiles.avatar_url}
+                          alt={fix.profiles.display_name ?? ""}
+                          className="w-7 h-7 rounded-full object-cover"
+                          style={{ border: "2px solid #0F1011" }}
+                        />
+                      ) : (
+                        <div
+                          key={fix.id}
+                          className="w-7 h-7 rounded-full flex items-center justify-center font-mono text-[10px]"
+                          style={{ background: "rgba(94,234,212,0.15)", border: "2px solid #0F1011", color: "#5EEAD4" }}
+                        >
+                          {(fix.profiles?.display_name ?? fix.profiles?.username ?? "?").slice(0, 1).toUpperCase()}
+                        </div>
+                      )
+                    ))}
+                  </div>
+                  <span className="font-mono text-[10px] shrink-0" style={{ color: "rgba(94,234,212,0.6)" }}>see all →</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Activity feed */}
       {tab === "activity" && (
         <div className="max-w-2xl">
           {!activityItems || activityItems.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-32 text-center">
-              <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nothing yet.</p>
-              <p className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>Follow people to see their activity here.</p>
-            </div>
+            <EmptyState kind="activity" />
           ) : (
             <div>{activityItems.map((item, i) => <ActivityCard key={`${item.type}-${item.fixId}-${i}`} item={item} />)}</div>
           )}
@@ -474,7 +723,6 @@ export function ExploreTabSwitcher({
         <div className="overflow-x-auto no-scrollbar mb-8 -mx-1 px-1">
           <div className="flex gap-2 w-max">
             {trendingCategories.map(({ category, count }) => {
-              const emoji = CATEGORY_EMOJI[category] ?? "✦";
               const isSelected = selectedCategory === category;
               return (
                 <button
@@ -483,13 +731,13 @@ export function ExploreTabSwitcher({
                   className="shrink-0 flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
                   style={
                     isSelected
-                      ? { background: "#5EEAD4", color: "#F4F4F4", border: "1px solid transparent" }
-                      : { background: "#111113", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.5)" }
+                      ? { background: "#5EEAD4", color: "#070708", border: "1px solid transparent", fontWeight: 600 }
+                      : { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", color: "rgba(244,244,244,0.55)" }
                   }
                 >
-                  <span>{emoji}</span>
+                  <CategoryIcon category={category} size={11} />
                   <span>{category}</span>
-                  <span className="font-mono tabular-nums" style={{ color: isSelected ? "rgba(244,244,244,0.5)" : "rgba(244,244,244,0.3)", fontSize: 10 }}>
+                  <span className="font-mono tabular-nums" style={{ color: isSelected ? "rgba(7,7,8,0.55)" : "rgba(244,244,244,0.3)", fontSize: 10 }}>
                     · {count}
                   </span>
                 </button>
@@ -502,37 +750,20 @@ export function ExploreTabSwitcher({
       {/* Feed */}
       {tab !== "activity" && (
         fixes.length === 0 && !loadingMore ? (
-          <div className="flex flex-col items-center justify-center py-32 text-center">
-            {selectedCategory && tab !== "trending" ? (
-              <>
-                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nothing here yet.</p>
-                <p className="font-mono text-sm mb-6" style={{ color: "rgba(244,244,244,0.3)" }}>No public fixes in this category.</p>
-                <button onClick={() => setSelectedCategory(null)} className="font-mono text-sm px-4 py-2 rounded-full transition-all duration-150"
-                  style={{ background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.5)" }}>
-                  Clear filter
-                </button>
-              </>
-            ) : tab === "trending" ? (
-              <>
-                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nothing trending yet.</p>
-                <p className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>Be the first to react to fixes.</p>
-              </>
-            ) : tab === "following" ? (
-              <>
-                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nobody yet.</p>
-                <p className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>Follow people to see their fixes here.</p>
-              </>
-            ) : (
-              <>
-                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>Nothing public yet.</p>
-                <p className="font-mono text-sm mb-8" style={{ color: "rgba(244,244,244,0.3)" }}>Be the first.</p>
-                <Link href="/auth/signup" className="font-mono text-sm px-6 py-3 rounded-full font-bold transition-opacity hover:opacity-90"
-                  style={{ background: "#5EEAD4", color: "#F4F4F4" }}>
-                  Start tracking →
-                </Link>
-              </>
-            )}
-          </div>
+          <EmptyState
+            kind={
+              selectedCategory && tab !== "trending"
+                ? "filtered"
+                : tab === "trending"
+                ? "trending"
+                : tab === "following"
+                ? "following"
+                : tab === "longest"
+                ? "longest"
+                : "public"
+            }
+            onClearFilter={() => setSelectedCategory(null)}
+          />
         ) : (
           <>
             <div className="masonry-grid" style={{ columnGap: "16px" }}>

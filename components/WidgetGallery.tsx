@@ -305,7 +305,7 @@ function WidgetFitness() {
         </div>
       </div>
       <div style={{ color: DIM, fontSize: 11, marginTop: -4 }}>
-        <span style={{ marginRight: 4 }}>👟</span>Steps Today
+        Steps Today
       </div>
 
       <div style={{ marginTop: 6, height: 44 }}>
@@ -315,7 +315,7 @@ function WidgetFitness() {
       <div style={{ ...row("space-between"), marginTop: 8 }}>
         <span style={label}>⟳ 7.20 km</span>
         <span style={label}>⏱ 320 min</span>
-        <span style={label}>🔥 2,340 kCal</span>
+        <span style={label}>2,340 kCal</span>
       </div>
     </div>
   );

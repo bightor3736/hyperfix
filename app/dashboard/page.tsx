@@ -8,6 +8,7 @@ import { StreakHeatmap } from "@/components/StreakHeatmap";
 import { WeekRings } from "@/components/WeekRings";
 import { ReferralCard } from "@/components/ReferralCard";
 import { Plus } from "@/components/icons";
+import { CategoryIcon } from "@/components/CategoryIcon";
 import { MilestoneBanner } from "@/components/MilestoneBanner";
 import { WelcomeBackBanner } from "@/components/WelcomeBackBanner";
 
@@ -22,6 +23,7 @@ type Fix = {
   ended_at: string | null;
   created_at: string;
   is_public: boolean;
+  banner_url: string | null;
 };
 
 const TEAL = "#5EEAD4";
@@ -122,7 +124,7 @@ export default async function DashboardPage() {
   if (user) {
     const { data, error } = await supabase
       .from("fixes")
-      .select("id, title, category, status, intensity, note, started_at, ended_at, created_at, is_public")
+      .select("id, title, category, status, intensity, note, started_at, ended_at, created_at, is_public, banner_url")
       .eq("user_id", user.id)
       .not("status", "eq", "Ended")
       .order("created_at", { ascending: false });
@@ -190,6 +192,19 @@ export default async function DashboardPage() {
   const firstName = displayName.split(" ")[0];
   const subtext = getSubtext(totalActive, currentStreak, highestIntensity);
 
+  // Trending suggestions for new users
+  let trendingSuggestions: { id: string; title: string; category: string }[] = [];
+  if (fixes.length === 0) {
+    const { data: trending } = await supabase
+      .from("fixes")
+      .select("id, title, category")
+      .eq("is_public", true)
+      .is("ended_at", null)
+      .order("created_at", { ascending: false })
+      .limit(8);
+    trendingSuggestions = (trending ?? []).slice(0, 6);
+  }
+
   // Detect milestone fixes (day count exactly at 7, 30, 100, or 365)
   const MILESTONES = [7, 30, 100, 365] as const;
   const milestoneFixes = fixes
@@ -201,189 +216,166 @@ export default async function DashboardPage() {
       <OnboardingModal totalFixes={totalActive} />
       <div className="max-w-5xl mx-auto">
 
-        {/* Hero header — teal radial bloom + grain */}
-        <div
-          className="relative rounded-3xl overflow-hidden mb-6 anim-fadeUp"
-          style={{
-            background:
-              "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
-            border: `1px solid ${CARD_BORDER}`,
-            minHeight: 220,
-          }}
-        >
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none mix-blend-overlay"
-            style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }}
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)",
-            }}
-          />
-
-          <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 p-6 sm:p-10">
-            <div className="flex-1">
-              <div className="mb-4">
-                <EyebrowPill>good {greeting}</EyebrowPill>
-              </div>
-              <h1
-                className="font-display text-ink mb-3"
-                style={{
-                  fontSize: "clamp(36px, 6vw, 60px)",
-                  lineHeight: 1.02,
-                  letterSpacing: "-0.02em",
-                  fontWeight: 600,
-                }}
+        {/* Hero header — tight, restrained */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-8 anim-fadeUp">
+          <div className="flex-1 min-w-0">
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(94,234,212,0.55)" }}>
+              good {greeting}
+            </p>
+            <h1
+              className="font-display text-ink mb-3"
+              style={{
+                fontSize: "clamp(32px, 5vw, 48px)",
+                lineHeight: 1.02,
+                letterSpacing: "-0.02em",
+                fontWeight: 600,
+              }}
+            >
+              {firstName}.
+            </h1>
+            <p className="font-sans text-sm sm:text-base max-w-xl" style={{ color: "rgba(255,255,255,0.55)" }}>
+              {subtext}
+            </p>
+            {fixes.length >= 3 && (
+              <Link
+                href="/dashboard/pattern"
+                className="inline-flex items-center gap-1.5 font-mono text-xs mt-4 transition-colors hover:text-[#5EEAD4]"
+                style={{ color: "rgba(255,255,255,0.35)" }}
               >
-                {firstName}.
-              </h1>
-              <p className="font-sans text-base sm:text-lg max-w-xl" style={{ color: "rgba(255,255,255,0.72)" }}>
-                {subtext}
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
+                see your pattern →
+              </Link>
+            )}
+          </div>
+
+          <Link
+            href="/dashboard/new"
+            className="hidden lg:inline-flex items-center gap-2.5 font-sans text-sm font-semibold px-5 py-3 transition-all hover:opacity-95 active:scale-[0.98]"
+            style={{
+              background: "#FFFFFF",
+              color: "#0A0A0A",
+              borderRadius: 999,
+            }}
+          >
+            <Plus set="light" size={16} primaryColor="currentColor" />
+            New fix
+          </Link>
+        </div>
+
+        {/* Stats grid — uniform 4-card layout */}
+        {(totalActive > 0 || fetchError || currentStreak > 0) && (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+            {/* Streak */}
+            <div
+              className="relative rounded-3xl p-5 anim-fadeUp delay-100"
+              style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
+            >
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+                check-in run
               </p>
-              {fixes.length >= 3 && (
-                <Link
-                  href="/dashboard/pattern"
-                  className="inline-flex items-center gap-1.5 font-mono text-xs mt-4 transition-colors hover:text-[#5EEAD4]"
-                  style={{ color: "rgba(255,255,255,0.35)" }}
+              <div className="flex items-baseline gap-1.5 mt-3">
+                <span
+                  className="font-display leading-none tabular-nums"
+                  style={{
+                    fontSize: "clamp(36px, 7vw, 52px)",
+                    letterSpacing: "-0.04em",
+                    fontWeight: 600,
+                    color: currentStreak > 0 ? TEAL : "rgba(255,255,255,0.2)",
+                    textShadow: currentStreak >= 7 ? "0 0 30px rgba(94,234,212,0.4)" : "none",
+                  }}
                 >
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                  </svg>
-                  see your pattern →
-                </Link>
+                  {currentStreak > 0 ? currentStreak : "0"}
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>
+                  {currentStreak === 1 ? "day" : "days"}
+                </span>
+              </div>
+              <p className="mt-2 font-sans text-xs leading-snug" style={{ color: "rgba(255,255,255,0.4)" }}>
+                {currentStreak === 0
+                  ? "start your run today."
+                  : currentStreak >= 30
+                  ? "legendary."
+                  : currentStreak >= 7
+                  ? "on a roll."
+                  : "it's building."}
+              </p>
+            </div>
+
+            {/* Active fixes */}
+            <div
+              className="relative rounded-3xl p-5 anim-fadeUp delay-200"
+              style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
+            >
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+                active fixes
+              </p>
+              <div className="flex items-baseline gap-1.5 mt-3">
+                <span
+                  className="font-display leading-none tabular-nums"
+                  style={{
+                    fontSize: "clamp(36px, 7vw, 52px)",
+                    letterSpacing: "-0.04em",
+                    fontWeight: 600,
+                    color: "#FFFFFF",
+                  }}
+                >
+                  {totalActive}
+                </span>
+              </div>
+              {longestFix > 0 && (
+                <p className="mt-2 font-mono text-[10px]" style={{ color: "rgba(255,255,255,0.4)" }}>
+                  longest <span style={{ color: "rgba(255,255,255,0.65)" }}>{longestFix}d</span>
+                </p>
               )}
             </div>
 
-            <Link
-              href="/dashboard/new"
-              className="hidden lg:inline-flex items-center gap-2.5 font-sans text-sm font-semibold px-6 py-3.5 transition-all hover:opacity-95 active:scale-[0.98] anim-fadeUp delay-200"
+            {/* Peak intensity */}
+            <div
+              className="relative rounded-3xl p-5 anim-fadeUp delay-300"
               style={{
-                background: "#FFFFFF",
-                color: "#0A0A0A",
-                borderRadius: 999,
-                boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4)",
+                background: highestIntensity >= 8 ? "rgba(230,57,70,0.05)" : CARD_BG,
+                border: highestIntensity >= 8 ? "1px solid rgba(230,57,70,0.20)" : `1px solid ${CARD_BORDER}`,
               }}
             >
-              <Plus set="light" size={16} primaryColor="currentColor" />
-              New fix
-            </Link>
-          </div>
-        </div>
-
-        {/* Stats grid */}
-        {(totalActive > 0 || fetchError || currentStreak > 0) && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-            {/* Streak card */}
-            <div
-              className="relative overflow-hidden rounded-3xl p-7 motion-card anim-fadeUp delay-100"
-              style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
-            >
-              <GrainOverlay opacity={0.22} />
-              <div className="relative">
-                <EyebrowPill>check-in run</EyebrowPill>
-                <div className="flex items-baseline gap-2 mt-6">
-                  <span
-                    className="font-display leading-none"
-                    style={{
-                      fontSize: "clamp(56px, 12vw, 84px)",
-                      letterSpacing: "-0.04em",
-                      fontWeight: 600,
-                      color: currentStreak > 0 ? TEAL : "rgba(255,255,255,0.2)",
-                      textShadow: currentStreak >= 7 ? "0 0 40px rgba(94,234,212,0.45)" : "none",
-                    }}
-                  >
-                    {currentStreak > 0 ? currentStreak : "0"}
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+                peak intensity
+              </p>
+              <div className="flex items-baseline gap-1.5 mt-3">
+                <span
+                  className="font-display leading-none tabular-nums"
+                  style={{
+                    fontSize: "clamp(36px, 7vw, 52px)",
+                    letterSpacing: "-0.04em",
+                    fontWeight: 600,
+                    color: highestIntensity >= 8 ? "#E63946" : highestIntensity > 0 ? "#FFFFFF" : "rgba(255,255,255,0.2)",
+                    textShadow: highestIntensity >= 8 ? "0 0 28px rgba(230,57,70,0.35)" : "none",
+                  }}
+                >
+                  {highestIntensity > 0 ? highestIntensity : "—"}
+                </span>
+                {highestIntensity > 0 && (
+                  <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>
+                    /10
                   </span>
-                  <span className="font-sans text-base" style={{ color: "rgba(255,255,255,0.45)" }}>
-                    {currentStreak === 1 ? "day" : "days"}
-                  </span>
-                </div>
-                <p className="mt-3 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  {currentStreak === 0
-                    ? "check in to start your run."
-                    : currentStreak >= 30
-                      ? "absolute unit. legendary."
-                      : currentStreak >= 7
-                        ? "you're on a roll. keep going."
-                        : "keep going. it's building."}
-                </p>
+                )}
               </div>
+              <p className="mt-2 font-mono text-[10px]" style={{ color: "rgba(255,255,255,0.4)" }}>
+                {highestIntensity >= 9 ? "send help" : highestIntensity >= 7 ? "deeply unwell" : highestIntensity > 0 ? "tracking it" : "log a fix"}
+              </p>
             </div>
 
             {/* Week rings */}
             <div
-              className="relative overflow-hidden rounded-3xl p-7 motion-card anim-fadeUp delay-200"
+              className="relative rounded-3xl p-5 anim-fadeUp delay-400 col-span-2 lg:col-span-1"
               style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
             >
-              <GrainOverlay opacity={0.22} />
-              <div className="relative">
-                <EyebrowPill>this week</EyebrowPill>
-                <div className="mt-6">
-                  <WeekRings checkedDates={heatmapDates} />
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 sm:col-span-2 sm:grid-cols-2">
-              <div
-                className="relative overflow-hidden rounded-3xl p-6 motion-card anim-fadeUp delay-300"
-                style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
-              >
-                <GrainOverlay opacity={0.22} />
-                <div className="relative">
-                  <EyebrowPill>active fixes</EyebrowPill>
-                  <div className="flex items-baseline gap-3 mt-5">
-                    <span
-                      className="font-display leading-none"
-                      style={{
-                        fontSize: "clamp(40px, 8vw, 60px)",
-                        letterSpacing: "-0.03em",
-                        fontWeight: 600,
-                        color: "#FFFFFF",
-                      }}
-                    >
-                      {totalActive}
-                    </span>
-                    {longestFix > 0 && (
-                      <span className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
-                        longest {longestFix}d
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className="relative overflow-hidden rounded-3xl p-6 motion-card anim-fadeUp delay-400"
-                style={{
-                  background: highestIntensity >= 8 ? "rgba(230,57,70,0.06)" : CARD_BG,
-                  border: highestIntensity >= 8 ? "1px solid rgba(230,57,70,0.20)" : `1px solid ${CARD_BORDER}`,
-                }}
-              >
-                <GrainOverlay opacity={0.22} />
-                <div className="relative">
-                  <EyebrowPill>peak intensity</EyebrowPill>
-                  <div className="flex items-baseline gap-2 mt-5">
-                    <span
-                      className="font-display leading-none"
-                      style={{
-                        fontSize: "clamp(40px, 8vw, 60px)",
-                        letterSpacing: "-0.03em",
-                        fontWeight: 600,
-                        color: highestIntensity >= 8 ? "#E63946" : highestIntensity > 0 ? "#FFFFFF" : "rgba(255,255,255,0.2)",
-                        textShadow: highestIntensity >= 8 ? "0 0 32px rgba(230,57,70,0.35)" : "none",
-                      }}
-                    >
-                      {highestIntensity > 0 ? highestIntensity : "—"}
-                    </span>
-                    {highestIntensity > 0 && (
-                      <span className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>/10</span>
-                    )}
-                  </div>
-                </div>
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+                this week
+              </p>
+              <div className="mt-3">
+                <WeekRings checkedDates={heatmapDates} />
               </div>
             </div>
           </div>
@@ -391,16 +383,18 @@ export default async function DashboardPage() {
 
         {heatmapDates.length > 0 && (
           <div
-            className="relative overflow-hidden rounded-3xl p-7 mb-6 motion-card anim-fadeUp delay-500"
+            className="relative rounded-3xl p-5 mb-6 anim-fadeUp delay-500"
             style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
           >
-            <GrainOverlay opacity={0.22} />
-            <div className="relative">
-              <EyebrowPill>check-in history</EyebrowPill>
-              <div className="mt-6">
-                <StreakHeatmap dates={heatmapDates} />
-              </div>
+            <div className="flex items-center justify-between mb-4">
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+                check-in history
+              </p>
+              <p className="font-mono text-[10px] tabular-nums" style={{ color: "rgba(255,255,255,0.45)" }}>
+                {heatmapDates.length} {heatmapDates.length === 1 ? "day" : "days"} logged
+              </p>
             </div>
+            <StreakHeatmap dates={heatmapDates} />
           </div>
         )}
 
@@ -430,7 +424,7 @@ export default async function DashboardPage() {
             </Suspense>
           </div>
         ) : (
-          <EmptyState />
+          <EmptyState suggestions={trendingSuggestions} />
         )}
 
         {referralCode && (
@@ -462,7 +456,7 @@ export default async function DashboardPage() {
   );
 }
 
-function EmptyState() {
+function EmptyState({ suggestions }: { suggestions: { id: string; title: string; category: string }[] }) {
   return (
     <div
       className="relative overflow-hidden rounded-3xl p-10 sm:p-16 text-center anim-fadeUp"
@@ -511,7 +505,32 @@ function EmptyState() {
           + Log a fix
         </Link>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full mt-2">
+        {suggestions.length > 0 && (
+          <div className="w-full">
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>
+              others are currently tracking
+            </p>
+            <div className="flex flex-wrap gap-2 justify-center">
+              {suggestions.map((s) => (
+                <Link
+                  key={s.id}
+                  href={`/fix/${s.id}`}
+                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-sans text-xs transition-all hover:scale-105 hover:opacity-90"
+                  style={{
+                    background: "rgba(15,16,17,0.8)",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    color: "rgba(255,255,255,0.7)",
+                  }}
+                >
+                  <CategoryIcon category={s.category} size={12} />
+                  <span className="truncate max-w-[120px]">{s.title}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full">
           {[
             { step: "01", title: "Name it", body: "Log whatever's taken over your brain." },
             { step: "02", title: "Count it", body: "The day counter starts. Check in daily." },

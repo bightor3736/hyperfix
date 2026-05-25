@@ -109,6 +109,29 @@ export function NotificationBell() {
       };
     }
 
+    if (n.type === "message") {
+      return {
+        text: `${name} sent you a message`,
+        href: "/dashboard/messages",
+      };
+    }
+
+    if (n.type === "milestone") {
+      const fixTitle = n.fix?.title ?? "your fix";
+      return {
+        text: `You hit a milestone on "${fixTitle}"`,
+        href: n.fix_id ? `/dashboard/fix/${n.fix_id}` : null,
+      };
+    }
+
+    if (n.type === "streak") {
+      const fixTitle = n.fix?.title ?? "your fix";
+      return {
+        text: `Your streak on "${fixTitle}" is still going`,
+        href: n.fix_id ? `/dashboard/fix/${n.fix_id}` : null,
+      };
+    }
+
     return null;
   }
 

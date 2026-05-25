@@ -46,45 +46,20 @@ export default async function ListsPage() {
         style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }}
       />
       <div className="relative max-w-5xl mx-auto">
-        {/* Hero */}
-        <div
-          className="relative overflow-hidden rounded-3xl mb-6 p-6 sm:p-10 anim-fadeUp"
-          style={{
-            background:
-              "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
-            border: `1px solid ${CARD_BORDER}`,
-          }}
-        >
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none mix-blend-overlay"
-            style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }}
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)",
-            }}
-          />
-          <div className="relative flex flex-col sm:flex-row sm:items-end justify-between gap-6">
-            <div>
-              <span
-                className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5"
-                style={{
-                  background: "rgba(94,234,212,0.12)",
-                  color: TEAL,
-                  border: "1px solid rgba(94,234,212,0.25)",
-                }}
+        {/* Hero — tight, restrained */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8 anim-fadeUp">
+            <div className="flex-1 min-w-0">
+              <p
+                className="font-mono text-[10px] uppercase tracking-widest mb-3"
+                style={{ color: "rgba(94,234,212,0.55)" }}
               >
                 your lists
-              </span>
+              </p>
               <h1
                 className="font-display"
                 style={{
-                  color: "#FFFFFF",
-                  fontSize: "clamp(36px, 6vw, 56px)",
+                  color: "#F4F4F4",
+                  fontSize: "clamp(32px, 5vw, 48px)",
                   lineHeight: 1.02,
                   letterSpacing: "-0.02em",
                   fontWeight: 600,
@@ -114,7 +89,6 @@ export default async function ListsPage() {
               <Plus set="light" size={16} primaryColor="currentColor" />
               New list
             </Link>
-          </div>
         </div>
 
         {error && (

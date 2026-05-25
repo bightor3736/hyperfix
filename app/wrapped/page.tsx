@@ -97,11 +97,11 @@ export default function WrappedPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
+      <main id="main-content" className="relative z-10 text-ink bg-[#070708]">
         <Nav />
 
         {/* HERO */}
-        <section className="px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-28">
+        <section className="px-6 sm:px-10 pt-12 sm:pt-16 pb-16">
           <div className="max-w-5xl mx-auto">
             <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
               coming soon · hyperfix wrapped · 2026
@@ -129,8 +129,8 @@ export default function WrappedPage() {
         </section>
 
         {/* MOCK STATS */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
-          <div className="max-w-5xl mx-auto bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)] p-10 sm:p-16">
+        <section className="px-6 sm:px-10 py-16">
+          <div className="max-w-5xl mx-auto bg-[#0F1011] rounded-3xl border border-[rgba(255,255,255,0.06)] p-10 sm:p-14">
             <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
               preview · example wrapped stats
             </span>
@@ -161,7 +161,7 @@ export default function WrappedPage() {
         </section>
 
         {/* MOCK ERAS */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
+        <section className="px-6 sm:px-10 py-16">
           <div className="max-w-5xl mx-auto">
             <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">the eras</span>
             <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-12 text-balance">
@@ -183,7 +183,7 @@ export default function WrappedPage() {
         </section>
 
         {/* HOW IT WORKS */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
+        <section className="px-6 sm:px-10 py-16">
           <div className="max-w-5xl mx-auto">
             <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">how it works</span>
             <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-12 max-w-3xl text-balance">
@@ -226,7 +226,7 @@ export default function WrappedPage() {
         </section>
 
         {/* CTA */}
-        <section className="px-6 sm:px-10 py-24 sm:py-36 bg-[#111113]">
+        <section className="px-6 sm:px-10 py-20 bg-[#0F1011]">
           <div className="max-w-4xl mx-auto">
             <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
               join the waitlist

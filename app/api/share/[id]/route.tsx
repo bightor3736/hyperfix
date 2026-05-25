@@ -66,6 +66,14 @@ function titleFontSize(title: string): number {
   return 140;
 }
 
+function titleFontSizeOnImage(title: string): number {
+  // Slightly smaller when overlaid on image (more readable)
+  if (title.length > 50) return 68;
+  if (title.length > 35) return 88;
+  if (title.length > 20) return 108;
+  return 128;
+}
+
 // ─── Gem mark (inline SVG for Satori) ────────────────────────────────
 function GemMark({ size }: { size: number }) {
   return (
@@ -91,6 +99,7 @@ function ShareCard({
   startedAt,
   intensity,
   category,
+  username,
   frauncesFamily,
   monoFamily,
   sansFamily,
@@ -98,6 +107,7 @@ function ShareCard({
   title: string;
   days: number;
   startedAt: string;
+  username: string | null;
   intensity: number;
   category: string;
   frauncesFamily: string;
@@ -338,24 +348,679 @@ function ShareCard({
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "flex-end",
+          justifyContent: "space-between",
           gap: 12,
           paddingTop: 48,
           borderTop: "1px solid rgba(17,17,17,0.1)",
         }}
       >
-        <GemMark size={36} />
+        {username ? (
+          <span
+            style={{
+              fontFamily: monoFamily,
+              fontSize: 24,
+              fontWeight: 700,
+              color: INK_FAINT,
+              letterSpacing: "0.04em",
+            }}
+          >
+            @{username}
+          </span>
+        ) : (
+          <span style={{ display: "flex" }} />
+        )}
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <GemMark size={36} />
+          <span
+            style={{
+              fontFamily: sansFamily,
+              fontSize: 28,
+              fontWeight: 500,
+              color: INK_MUTED,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            hyperfix.app
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Image-backed variant (when fix has banner_url) ─────────────────
+function ShareCardImageBg({
+  title,
+  days,
+  startedAt,
+  intensity,
+  category,
+  bannerUrl,
+  username,
+  frauncesFamily,
+  monoFamily,
+  sansFamily,
+}: {
+  title: string;
+  days: number;
+  startedAt: string;
+  intensity: number;
+  category: string;
+  bannerUrl: string;
+  username: string | null;
+  frauncesFamily: string;
+  monoFamily: string;
+  sansFamily: string;
+}) {
+  const fs = titleFontSizeOnImage(title);
+  const daysStr = String(days);
+  const daysFontSize = daysStr.length >= 4 ? 240 : daysStr.length === 3 ? 280 : 320;
+
+  return (
+    <div
+      style={{
+        width: W,
+        height: H,
+        background: "#070708",
+        display: "flex",
+        flexDirection: "column",
+        position: "relative",
+      }}
+    >
+      {/* Full background image */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={bannerUrl}
+        alt=""
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: W,
+          height: H,
+          objectFit: "cover",
+        }}
+      />
+
+      {/* Dark gradient scrim — fades from transparent top to deep black bottom */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(180deg, rgba(7,7,8,0.55) 0%, rgba(7,7,8,0.4) 30%, rgba(7,7,8,0.75) 70%, rgba(7,7,8,0.95) 100%)",
+          display: "flex",
+        }}
+      />
+
+      {/* Subtle grain overlay */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage:
+            "radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+          display: "flex",
+        }}
+      />
+
+      {/* Teal accent line on top */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 6,
+          background: "#5EEAD4",
+          display: "flex",
+        }}
+      />
+
+      {/* Header row: brand + handle (top) */}
+      <div
+        style={{
+          position: "absolute",
+          top: 72,
+          left: 96,
+          right: 96,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <GemMark size={40} />
+          <span
+            style={{
+              fontFamily: sansFamily,
+              fontSize: 26,
+              fontWeight: 500,
+              color: "#F4F4F4",
+              letterSpacing: "-0.01em",
+            }}
+          >
+            hyperfix.app
+          </span>
+        </div>
+        {username && (
+          <span
+            style={{
+              fontFamily: monoFamily,
+              fontSize: 24,
+              fontWeight: 700,
+              color: "rgba(244,244,244,0.65)",
+              letterSpacing: "0.04em",
+            }}
+          >
+            @{username}
+          </span>
+        )}
+      </div>
+
+      {/* Bottom content area */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          padding: "0 96px 128px 96px",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        {/* Category */}
+        <span
+          style={{
+            fontFamily: monoFamily,
+            fontSize: 20,
+            fontWeight: 700,
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "rgba(94,234,212,0.85)",
+            marginBottom: 28,
+          }}
+        >
+          {category}
+        </span>
+
+        {/* Title */}
+        <div style={{ display: "flex", flexDirection: "column", marginBottom: 64 }}>
+          <span
+            style={{
+              fontFamily: frauncesFamily,
+              fontSize: fs,
+              fontWeight: 600,
+              color: "#F4F4F4",
+              lineHeight: 1.04,
+              letterSpacing: "-0.03em",
+              textShadow: "0 4px 32px rgba(0,0,0,0.6)",
+            }}
+          >
+            {title}
+          </span>
+        </div>
+
+        {/* Stats row */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            gap: 32,
+          }}
+        >
+          {/* Day count */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span
+              style={{
+                fontFamily: monoFamily,
+                fontSize: daysFontSize,
+                fontWeight: 700,
+                color: "#5EEAD4",
+                lineHeight: 0.9,
+                letterSpacing: "-0.04em",
+                textShadow: "0 0 40px rgba(94,234,212,0.4)",
+              }}
+            >
+              {daysStr}
+            </span>
+            <span
+              style={{
+                fontFamily: monoFamily,
+                fontSize: 26,
+                fontWeight: 700,
+                letterSpacing: "0.28em",
+                textTransform: "uppercase",
+                color: "rgba(244,244,244,0.55)",
+                marginTop: 18,
+              }}
+            >
+              {days === 1 ? "day" : "days"}
+            </span>
+            <span
+              style={{
+                fontFamily: sansFamily,
+                fontSize: 24,
+                fontWeight: 500,
+                color: "rgba(244,244,244,0.4)",
+                marginTop: 10,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              since {formatDate(startedAt)}
+            </span>
+          </div>
+
+          {/* Intensity */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 12 }}>
+            <span
+              style={{
+                fontFamily: monoFamily,
+                fontSize: 16,
+                fontWeight: 700,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "rgba(244,244,244,0.45)",
+              }}
+            >
+              intensity
+            </span>
+            <span
+              style={{
+                fontFamily: frauncesFamily,
+                fontSize: 96,
+                fontWeight: 600,
+                color: intensity >= 8 ? "#D72638" : "#F4F4F4",
+                lineHeight: 1,
+                letterSpacing: "-0.04em",
+                textShadow: intensity >= 8 ? "0 0 32px rgba(215,38,56,0.4)" : "none",
+              }}
+            >
+              {intensity}
+              <span style={{ fontSize: 40, color: "rgba(244,244,244,0.35)" }}>/10</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Dark variant (no banner image, dark palette) ──────────────────
+function ShareCardDark({
+  title,
+  days,
+  startedAt,
+  intensity,
+  category,
+  username,
+  frauncesFamily,
+  monoFamily,
+  sansFamily,
+}: {
+  title: string;
+  days: number;
+  startedAt: string;
+  intensity: number;
+  category: string;
+  username: string | null;
+  frauncesFamily: string;
+  monoFamily: string;
+  sansFamily: string;
+}) {
+  const fs = titleFontSize(title);
+  const daysStr = String(days);
+  const daysFontSize = daysStr.length >= 4 ? 280 : daysStr.length === 3 ? 320 : 360;
+
+  return (
+    <div
+      style={{
+        width: W,
+        height: H,
+        background: "#070708",
+        display: "flex",
+        flexDirection: "column",
+        padding: "120px 96px",
+        position: "relative",
+      }}
+    >
+      {/* Subtle dot grid */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage:
+            "radial-gradient(circle, rgba(244,244,244,0.04) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+          display: "flex",
+        }}
+      />
+
+      {/* Teal radial bloom from bottom */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(ellipse 70% 50% at 50% 100%, rgba(94,234,212,0.12) 0%, transparent 70%)",
+          display: "flex",
+        }}
+      />
+
+      {/* Top teal accent */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 6,
+          background: "#5EEAD4",
+          display: "flex",
+        }}
+      />
+
+      <div style={{ display: "flex", flexDirection: "column", flex: 1, position: "relative" }}>
+        <span
+          style={{
+            fontFamily: monoFamily,
+            fontSize: 20,
+            fontWeight: 700,
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "#5EEAD4",
+            marginBottom: 32,
+          }}
+        >
+          {category}
+        </span>
+
+        <span
+          style={{
+            fontFamily: monoFamily,
+            fontSize: 18,
+            fontWeight: 700,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "rgba(244,244,244,0.35)",
+            marginBottom: 28,
+          }}
+        >
+          currently unwell about
+        </span>
+
+        <div style={{ display: "flex", flexDirection: "column", marginBottom: 80 }}>
+          <span
+            style={{
+              fontFamily: frauncesFamily,
+              fontSize: fs,
+              fontWeight: 600,
+              color: "#F4F4F4",
+              lineHeight: 1.05,
+              letterSpacing: "-0.03em",
+            }}
+          >
+            {title}
+          </span>
+        </div>
+
+        <div style={{ display: "flex", height: 1, background: "rgba(244,244,244,0.1)", marginBottom: 80 }} />
+
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginBottom: 48 }}>
+          <span
+            style={{
+              fontFamily: monoFamily,
+              fontSize: daysFontSize,
+              fontWeight: 700,
+              color: "#5EEAD4",
+              lineHeight: 0.9,
+              letterSpacing: "-0.04em",
+            }}
+          >
+            {daysStr}
+          </span>
+          <span
+            style={{
+              fontFamily: monoFamily,
+              fontSize: 28,
+              fontWeight: 700,
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
+              color: "rgba(244,244,244,0.4)",
+              marginTop: 20,
+            }}
+          >
+            {days === 1 ? "day" : "days"}
+          </span>
+        </div>
+
         <span
           style={{
             fontFamily: sansFamily,
             fontSize: 28,
             fontWeight: 500,
-            color: INK_MUTED,
+            color: "rgba(244,244,244,0.45)",
+            marginBottom: 64,
             letterSpacing: "-0.01em",
           }}
         >
-          hyperfix.app
+          since {formatDate(startedAt)}
         </span>
+
+        <div style={{ display: "flex", height: 1, background: "rgba(244,244,244,0.1)", marginBottom: 48 }} />
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: "auto" }}>
+          <span
+            style={{
+              fontFamily: monoFamily,
+              fontSize: 16,
+              fontWeight: 700,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "rgba(244,244,244,0.35)",
+            }}
+          >
+            intensity
+          </span>
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            {Array.from({ length: 10 }).map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  width: 56,
+                  height: 20,
+                  borderRadius: 4,
+                  background: i < intensity ? "#5EEAD4" : "rgba(244,244,244,0.08)",
+                }}
+              />
+            ))}
+            <span
+              style={{
+                fontFamily: monoFamily,
+                fontSize: 22,
+                fontWeight: 700,
+                color: "rgba(244,244,244,0.5)",
+                marginLeft: 16,
+              }}
+            >
+              {intensity}/10
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 12,
+          paddingTop: 48,
+          borderTop: "1px solid rgba(244,244,244,0.08)",
+        }}
+      >
+        {username ? (
+          <span
+            style={{
+              fontFamily: monoFamily,
+              fontSize: 24,
+              fontWeight: 700,
+              color: "rgba(244,244,244,0.35)",
+              letterSpacing: "0.04em",
+            }}
+          >
+            @{username}
+          </span>
+        ) : (
+          <span style={{ display: "flex" }} />
+        )}
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <GemMark size={36} />
+          <span
+            style={{
+              fontFamily: sansFamily,
+              fontSize: 28,
+              fontWeight: 500,
+              color: "rgba(244,244,244,0.5)",
+              letterSpacing: "-0.01em",
+            }}
+          >
+            hyperfix.app
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Minimal variant ─────────────────────────────────────────────────
+function ShareCardMinimal({
+  title,
+  days,
+  startedAt,
+  intensity,
+  username,
+  frauncesFamily,
+  monoFamily,
+  sansFamily,
+}: {
+  title: string;
+  days: number;
+  startedAt: string;
+  intensity: number;
+  category: string;
+  username: string | null;
+  frauncesFamily: string;
+  monoFamily: string;
+  sansFamily: string;
+}) {
+  const fs = titleFontSize(title);
+  const daysStr = String(days);
+  const daysFontSize = daysStr.length >= 4 ? 260 : daysStr.length === 3 ? 300 : 340;
+
+  return (
+    <div
+      style={{
+        width: W,
+        height: H,
+        background: PAPER,
+        display: "flex",
+        flexDirection: "column",
+        padding: "160px 120px",
+        position: "relative",
+      }}
+    >
+      {/* Spacer top */}
+      <div style={{ flex: 1, display: "flex" }} />
+
+      {/* Centered title + day count */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+        <span
+          style={{
+            fontFamily: frauncesFamily,
+            fontSize: fs,
+            fontWeight: 600,
+            color: INK,
+            lineHeight: 1.05,
+            letterSpacing: "-0.03em",
+            marginBottom: 80,
+            textAlign: "center",
+          }}
+        >
+          {title}
+        </span>
+
+        <span
+          style={{
+            fontFamily: monoFamily,
+            fontSize: daysFontSize,
+            fontWeight: 700,
+            color: RED,
+            lineHeight: 0.9,
+            letterSpacing: "-0.04em",
+          }}
+        >
+          {daysStr}
+        </span>
+        <span
+          style={{
+            fontFamily: monoFamily,
+            fontSize: 26,
+            fontWeight: 700,
+            letterSpacing: "0.28em",
+            textTransform: "uppercase",
+            color: INK_MUTED,
+            marginTop: 24,
+          }}
+        >
+          {days === 1 ? "day" : "days"} · since {formatDate(startedAt)} · intensity {intensity}/10
+        </span>
+      </div>
+
+      {/* Spacer bottom */}
+      <div style={{ flex: 1, display: "flex" }} />
+
+      {/* Watermark */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 12,
+        }}
+      >
+        {username ? (
+          <span
+            style={{
+              fontFamily: monoFamily,
+              fontSize: 24,
+              fontWeight: 700,
+              color: INK_FAINT,
+              letterSpacing: "0.04em",
+            }}
+          >
+            @{username}
+          </span>
+        ) : (
+          <span style={{ display: "flex" }} />
+        )}
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <GemMark size={32} />
+          <span
+            style={{
+              fontFamily: sansFamily,
+              fontSize: 24,
+              fontWeight: 500,
+              color: INK_MUTED,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            hyperfix.app
+          </span>
+        </div>
       </div>
     </div>
   );
@@ -385,6 +1050,7 @@ export async function GET(
         startedAt={new Date(Date.now() - 47 * 86400000).toISOString()}
         intensity={9}
         category="TV show"
+        username="kai"
         frauncesFamily={frauncesFamily}
         monoFamily={monoFamily}
         sansFamily={sansFamily}
@@ -401,13 +1067,21 @@ export async function GET(
 
   const { data: fix, error } = await admin
     .from("fixes")
-    .select("id, title, category, intensity, started_at, ended_at, is_public, user_id")
+    .select("id, title, category, intensity, started_at, ended_at, is_public, user_id, banner_url, card_style")
     .eq("id", id)
     .single();
 
   if (error || !fix) {
     return new Response("Not found", { status: 404 });
   }
+
+  // Fetch username for credit on the card
+  const { data: profile } = await admin
+    .from("profiles")
+    .select("username")
+    .eq("id", fix.user_id)
+    .single();
+  const username: string | null = profile?.username ?? null;
 
   // Auth: public fix OR authenticated owner
   if (!fix.is_public) {
@@ -433,24 +1107,41 @@ export async function GET(
   if (monoFont) fonts.push({ name: "JetBrains Mono", data: monoFont, weight: 700, style: "normal" });
   if (sansFont) fonts.push({ name: "Instrument Sans", data: sansFont, weight: 500, style: "normal" });
 
-  return new ImageResponse(
-    <ShareCard
-      title={fix.title}
-      days={days}
-      startedAt={fix.started_at}
-      intensity={fix.intensity}
-      category={fix.category}
-      frauncesFamily={frauncesFamily}
-      monoFamily={monoFamily}
-      sansFamily={sansFamily}
-    />,
-    {
-      width: W,
-      height: H,
-      fonts,
-      headers: {
-        "Cache-Control": "public, s-maxage=60, stale-while-revalidate=3600",
-      },
-    }
-  );
+  // Style selection: ?style= URL param > saved card_style > photo if banner > paper.
+  const requestedStyle = req.nextUrl.searchParams.get("style");
+  const savedStyle = fix.card_style as string | null;
+  const hasBanner = !!fix.banner_url;
+  const style = requestedStyle ?? savedStyle ?? (hasBanner ? "photo" : "paper");
+
+  const commonProps = {
+    title: fix.title,
+    days,
+    startedAt: fix.started_at,
+    intensity: fix.intensity,
+    category: fix.category,
+    username,
+    frauncesFamily,
+    monoFamily,
+    sansFamily,
+  };
+
+  let element: React.ReactElement;
+  if (style === "photo" && hasBanner) {
+    element = <ShareCardImageBg {...commonProps} bannerUrl={fix.banner_url as string} />;
+  } else if (style === "dark") {
+    element = <ShareCardDark {...commonProps} />;
+  } else if (style === "minimal") {
+    element = <ShareCardMinimal {...commonProps} />;
+  } else {
+    element = <ShareCard {...commonProps} />;
+  }
+
+  return new ImageResponse(element, {
+    width: W,
+    height: H,
+    fonts,
+    headers: {
+      "Cache-Control": "public, s-maxage=60, stale-while-revalidate=3600",
+    },
+  });
 }

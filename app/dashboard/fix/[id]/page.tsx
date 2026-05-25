@@ -7,6 +7,8 @@ import { ShareButton } from "@/components/ShareButton";
 import { Sparkline } from "@/components/Sparkline";
 import { FixReactions } from "@/components/FixReactions";
 import { LogoLockup } from "@/components/Logo";
+import { CategoryIcon } from "@/components/CategoryIcon";
+import { FlameIcon } from "@/components/LandingIcons";
 
 const TEAL = "#5EEAD4";
 const CARD_BG = "#0F1011";
@@ -28,6 +30,7 @@ type Fix = {
   ended_at: string | null;
   created_at: string;
   tags: string[];
+  banner_url: string | null;
 };
 
 const VALID_STATUSES: FixStatus[] = [
@@ -71,7 +74,7 @@ export default async function FixDetailPage({
 
   const { data: fix, error } = await supabase
     .from("fixes")
-    .select("id, user_id, title, category, status, intensity, note, eulogy, is_public, started_at, ended_at, created_at, tags")
+    .select("id, user_id, title, category, status, intensity, note, eulogy, is_public, started_at, ended_at, created_at, tags, banner_url")
     .eq("id", id)
     .eq("user_id", user.id)
     .single();
@@ -185,17 +188,6 @@ export default async function FixDetailPage({
           >
             ← my fixes
           </Link>
-          <Link
-            href={`/dashboard/fix/${id}/studio`}
-            className="font-sans text-sm font-medium px-3 py-1.5 rounded-full transition-all hover:opacity-90"
-            style={{
-              background: "rgba(94,234,212,0.10)",
-              border: "1px solid rgba(94,234,212,0.25)",
-              color: "#5EEAD4",
-            }}
-          >
-            Studio →
-          </Link>
           {typedFix.is_public && (
             <Link
               href={`/fix/${id}`}
@@ -209,42 +201,93 @@ export default async function FixDetailPage({
               View public →
             </Link>
           )}
+          <Link
+            href={`/dashboard/fix/${id}/card`}
+            className="inline-flex items-center gap-1.5 font-sans text-sm font-medium px-3 py-1.5 rounded-full transition-all hover:opacity-90"
+            style={{
+              background: "rgba(94,234,212,0.08)",
+              border: "1px solid rgba(94,234,212,0.25)",
+              color: TEAL,
+            }}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21 15 16 10 5 21" />
+            </svg>
+            Customize card
+          </Link>
           <ShareButton fixId={id} isPublic={typedFix.is_public} fixTitle={typedFix.title} days={days} intensity={typedFix.intensity} />
         </div>
       </nav>
 
       <main className="relative max-w-2xl mx-auto px-4 sm:px-6 pt-8 pb-16">
 
-        {/* Bloom hero card */}
+        {/* Custom banner (if set) */}
+        {typedFix.banner_url && (
+          <div
+            className="relative overflow-hidden rounded-3xl mb-4 anim-fadeUp"
+            style={{
+              height: 160,
+              backgroundImage: `url(${typedFix.banner_url})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              border: `1px solid ${CARD_BORDER}`,
+            }}
+          >
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: "linear-gradient(180deg, transparent 0%, transparent 50%, rgba(7,7,8,0.65) 100%)" }}
+            />
+          </div>
+        )}
+
+        {/* Hero card — subtle when no banner, neutral when banner is set */}
         <div
-          className="relative overflow-hidden rounded-3xl mb-5 p-6 sm:p-10 anim-fadeUp"
+          className="relative overflow-hidden rounded-3xl mb-5 p-6 sm:p-9 anim-fadeUp"
           style={{
-            background:
-              "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
+            background: CARD_BG,
             border: `1px solid ${CARD_BORDER}`,
           }}
         >
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none mix-blend-overlay"
-            style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }}
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none"
-            style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }}
-          />
+          {/* Top teal accent line — only when there's no banner above */}
+          {!typedFix.banner_url && (
+            <div
+              aria-hidden
+              className="absolute top-0 left-0 right-0 pointer-events-none"
+              style={{
+                height: 2,
+                background: "linear-gradient(90deg, transparent 0%, rgba(94,234,212,0.5) 50%, transparent 100%)",
+              }}
+            />
+          )}
+          {/* Subtle teal radial in corner — only when no banner */}
+          {!typedFix.banner_url && (
+            <div
+              aria-hidden
+              className="absolute pointer-events-none"
+              style={{
+                top: -80,
+                right: -80,
+                width: 240,
+                height: 240,
+                background: "radial-gradient(circle, rgba(94,234,212,0.12) 0%, transparent 70%)",
+              }}
+            />
+          )}
           <div className="relative">
             {/* Category eyebrow */}
             <div className="flex items-center gap-2 mb-5 flex-wrap">
               <span
-                className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1"
+                className="inline-flex items-center gap-1.5 font-sans text-xs rounded-full px-3 py-1"
                 style={{
                   background: "rgba(94,234,212,0.12)",
                   color: TEAL,
                   border: "1px solid rgba(94,234,212,0.25)",
                 }}
               >
+                <CategoryIcon category={typedFix.category} size={12} />
                 {typedFix.category}
               </span>
             </div>
@@ -390,7 +433,7 @@ export default async function FixDetailPage({
               className="absolute inset-0 pointer-events-none mix-blend-overlay"
               style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.18 }}
             />
-            <span className="relative" style={{ fontSize: 20 }}>🔥</span>
+            <span className="relative inline-flex" style={{ color: TEAL }}><FlameIcon size={20} /></span>
             <p className="relative flex-1 font-display font-semibold text-sm" style={{ color: TEAL }}>
               {othersCount} other {othersCount === 1 ? "person is" : "people are"} also tracking &ldquo;{typedFix.title}&rdquo;
             </p>

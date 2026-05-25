@@ -6,6 +6,8 @@ import { FixReactions } from "@/components/FixReactions";
 import { ShareButton } from "@/components/ShareButton";
 import { FixComments } from "@/components/FixComments";
 import { ShareFixationCard } from "@/components/ShareFixationCard";
+import { CategoryIcon } from "@/components/CategoryIcon";
+import { FlameIcon } from "@/components/LandingIcons";
 import type { Metadata } from "next";
 
 const TEAL = "#5EEAD4";
@@ -27,77 +29,7 @@ interface Fix {
   is_public: boolean;
   user_id: string;
   tags: string[] | null;
-}
-
-type StudioBlockRow = {
-  id: string;
-  type: "note" | "link" | "image";
-  content: { text?: string; url?: string; title?: string; caption?: string };
-  sort_order: number;
-};
-
-function StudioBlockReadonly({ block }: { block: StudioBlockRow }) {
-  const c = block.content;
-  return (
-    <div
-      className="relative overflow-hidden rounded-2xl p-5"
-      style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
-    >
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.18 }}
-      />
-      <div className="relative">
-        {block.type === "note" && (
-          <p
-            className="font-sans text-sm leading-relaxed"
-            style={{ color: "rgba(244,244,244,0.85)", whiteSpace: "pre-wrap", wordBreak: "break-word" }}
-          >
-            {c.text}
-          </p>
-        )}
-        {block.type === "link" && c.url && (
-          <a
-            href={c.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 transition-colors hover:text-[#5EEAD4]"
-            style={{ color: "#F4F4F4" }}
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-            </svg>
-            <span className="font-sans text-sm min-w-0">
-              <span className="block font-medium truncate">{c.title || c.url}</span>
-              {c.title && (
-                <span className="block font-mono text-[11px] truncate" style={{ color: "rgba(244,244,244,0.35)" }}>
-                  {c.url}
-                </span>
-              )}
-            </span>
-          </a>
-        )}
-        {block.type === "image" && c.url && (
-          <div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={c.url}
-              alt={c.caption || "studio image"}
-              className="rounded-xl w-full object-cover"
-              style={{ maxHeight: 420, border: "1px solid rgba(244,244,244,0.08)" }}
-            />
-            {c.caption && (
-              <p className="font-sans text-xs mt-2" style={{ color: "rgba(244,244,244,0.4)" }}>
-                {c.caption}
-              </p>
-            )}
-          </div>
-        )}
-      </div>
-    </div>
-  );
+  banner_url: string | null;
 }
 
 interface Profile {
@@ -213,7 +145,7 @@ export default async function PublicFixPage({
 
   const { data: fix, error } = await supabase
     .from("fixes")
-    .select("id, title, category, status, intensity, note, eulogy, started_at, ended_at, is_public, user_id, tags")
+    .select("id, title, category, status, intensity, note, eulogy, started_at, ended_at, is_public, user_id, tags, banner_url")
     .eq("id", id)
     .single();
 
@@ -293,14 +225,6 @@ export default async function PublicFixPage({
     profiles: Array.isArray(c.profiles) ? (c.profiles[0] ?? null) : c.profiles,
   })) as Comment[];
 
-  // Studio blocks — RLS allows public read when the fix is public
-  const { data: studioData } = await supabase
-    .from("fix_studio_blocks")
-    .select("id, type, content, sort_order")
-    .eq("fix_id", id)
-    .order("sort_order", { ascending: true });
-  const studioBlocks = (studioData ?? []) as StudioBlockRow[];
-
   return (
     <div className="min-h-screen relative" style={{ background: "#070708", color: "#F4F4F4" }}>
       <div
@@ -336,12 +260,33 @@ export default async function PublicFixPage({
       </nav>
 
       <main id="main-content" className="relative max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-16">
+        {/* Custom banner (if set) */}
+        {typedFix.banner_url && (
+          <div
+            className="relative overflow-hidden rounded-3xl mb-5 anim-fadeUp"
+            style={{
+              height: 180,
+              backgroundImage: `url(${typedFix.banner_url})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              border: `1px solid ${CARD_BORDER}`,
+            }}
+          >
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: "linear-gradient(180deg, transparent 0%, transparent 50%, rgba(7,7,8,0.65) 100%)" }}
+            />
+          </div>
+        )}
+
         {/* Bloom hero card */}
         <div
           className="relative overflow-hidden rounded-3xl mb-8 p-6 sm:p-10 anim-fadeUp"
           style={{
-            background:
-              "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
+            background: typedFix.banner_url
+              ? CARD_BG
+              : "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
             border: `1px solid ${CARD_BORDER}`,
           }}
         >
@@ -359,13 +304,14 @@ export default async function PublicFixPage({
             {/* Category + status row */}
             <div className="flex items-center gap-2 mb-5 flex-wrap">
               <span
-                className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1"
+                className="inline-flex items-center gap-1.5 font-sans text-xs rounded-full px-3 py-1"
                 style={{
                   background: "rgba(94,234,212,0.12)",
                   color: TEAL,
                   border: "1px solid rgba(94,234,212,0.25)",
                 }}
               >
+                <CategoryIcon category={typedFix.category} size={12} />
                 {typedFix.category}
               </span>
               <span
@@ -453,7 +399,7 @@ export default async function PublicFixPage({
                   className="absolute inset-0 pointer-events-none mix-blend-overlay"
                   style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.18 }}
                 />
-                <span style={{ fontSize: 20 }}>🔥</span>
+                <span style={{ color: TEAL, display: "inline-flex" }}><FlameIcon size={20} /></span>
                 <p
                   className="relative font-display"
                   style={{ color: TEAL, fontSize: 16, fontWeight: 600, lineHeight: 1.3 }}
@@ -533,23 +479,6 @@ export default async function PublicFixPage({
                 #{tag}
               </span>
             ))}
-          </div>
-        )}
-
-        {/* Studio */}
-        {studioBlocks.length > 0 && (
-          <div className="mb-8 anim-fadeUp" style={{ animationDelay: "185ms" }}>
-            <div className="flex items-center gap-2 mb-3">
-              <p className="font-sans text-[10px] uppercase tracking-widest" style={{ color: TEAL }}>
-                studio
-              </p>
-              <span className="h-px flex-1" style={{ background: "rgba(94,234,212,0.15)" }} />
-            </div>
-            <div className="flex flex-col gap-3">
-              {studioBlocks.map((block) => (
-                <StudioBlockReadonly key={block.id} block={block} />
-              ))}
-            </div>
           </div>
         )}
 

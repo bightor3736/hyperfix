@@ -304,6 +304,7 @@ details > summary::-webkit-details-marker {
 .anim-floatY     { animation: floatY 4s ease-in-out infinite; }
 .anim-driftX     { animation: driftX 6s ease-in-out infinite; }
 .anim-spinSlow   { animation: spinSlow 24s linear infinite; }
+.anim-spin       { animation: spinSlow 1s linear infinite; }
 
 .delay-100 { animation-delay: 0.10s; }
 .delay-200 { animation-delay: 0.20s; }

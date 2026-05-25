@@ -11,8 +11,8 @@ function FeatureList() {
     <div className="flex flex-col gap-3">
       {PRO_FEATURES.map((f) => (
         <div key={f.name} className="flex items-start gap-3">
-          <span className="text-lg shrink-0 leading-none mt-0.5" aria-hidden>
-            {f.icon}
+          <span className="shrink-0 leading-none mt-0.5 inline-flex" style={{ color: TEAL }} aria-hidden>
+            <f.Icon size={18} />
           </span>
           <div className="min-w-0">
             <p className="font-sans text-sm font-semibold" style={{ color: "#F4F4F4" }}>

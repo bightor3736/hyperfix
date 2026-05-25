@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { FlameIcon, BoltIcon, SparkleIcon } from "@/components/LandingIcons";
+import { SkullIcon, TrophyIcon } from "@/components/MilestoneIcons";
 
 type MilestoneFix = {
   id: string;
@@ -11,11 +13,13 @@ type MilestoneFix = {
 const STORAGE_KEY = "hyperfix_dismissed_milestones";
 const MILESTONES = [7, 30, 100, 365] as const;
 
-const MILESTONE_COPY: Record<number, { icon: string; headline: string; sub: string }> = {
-  7:   { icon: "🔥", headline: "one week in.",   sub: "still going. this is becoming something." },
-  30:  { icon: "⚡", headline: "one month in.",  sub: "this fix has officially outlasted most diets." },
-  100: { icon: "💀", headline: "100 days.",      sub: "that's dedication. or a cry for help. respect." },
-  365: { icon: "🏆", headline: "one year.",      sub: "you spent a full year on this. legendary status." },
+type MilestoneIconComponent = (p: { size?: number; className?: string }) => React.JSX.Element;
+
+const MILESTONE_COPY: Record<number, { Icon: MilestoneIconComponent; headline: string; sub: string }> = {
+  7:   { Icon: FlameIcon,  headline: "one week in.",   sub: "still going. this is becoming something." },
+  30:  { Icon: BoltIcon,   headline: "one month in.",  sub: "this fix has officially outlasted most diets." },
+  100: { Icon: SkullIcon,  headline: "100 days.",      sub: "that's dedication. or a cry for help. respect." },
+  365: { Icon: TrophyIcon, headline: "one year.",      sub: "you spent a full year on this. legendary status." },
 };
 
 type Props = {
@@ -84,7 +88,7 @@ export function MilestoneBanner({ milestones }: Props) {
       {visible.map((fix) => {
         const milestone = MILESTONES.find((m) => m === fix.days) ?? fix.days;
         const copy = MILESTONE_COPY[milestone] ?? {
-          icon: "✦",
+          Icon: SparkleIcon,
           headline: `day ${fix.days}.`,
           sub: "still going.",
         };
@@ -118,7 +122,16 @@ export function MilestoneBanner({ milestones }: Props) {
             </button>
 
             <div className="flex items-start gap-4 pr-6">
-              <span style={{ fontSize: 36, lineHeight: 1, flexShrink: 0 }}>{copy.icon}</span>
+              <span
+                style={{
+                  color: fix.days >= 100 ? "#D72638" : "#5EEAD4",
+                  display: "inline-flex",
+                  flexShrink: 0,
+                }}
+                aria-hidden
+              >
+                <copy.Icon size={36} />
+              </span>
 
               <div className="flex-1 min-w-0">
                 <p

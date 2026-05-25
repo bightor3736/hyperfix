@@ -1,12 +1,30 @@
 "use client";
 
-import { useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { LogoLockup } from "@/components/Logo";
 import { NotificationBell } from "@/components/NotificationBell";
 import { Home, Discovery, Search, Category, Star, Setting, Plus, Logout, Chart } from "react-iconly";
+
+function MessagesIcon({ active }: { active: boolean }) {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={active ? 2 : 1.6}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M3 7l9 6 9-6" />
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+    </svg>
+  );
+}
 
 type Props = {
   displayName: string;
@@ -20,6 +38,27 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
   const router = useRouter();
   const pathname = usePathname();
   const [pending, startTransition] = useTransition();
+  const [unreadMessages, setUnreadMessages] = useState(0);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function load() {
+      try {
+        const res = await fetch("/api/messages/unread-count");
+        if (!res.ok) return;
+        const data = (await res.json()) as { count: number };
+        if (!cancelled) setUnreadMessages(data.count ?? 0);
+      } catch {
+        /* ignore */
+      }
+    }
+    load();
+    const id = setInterval(load, 60_000);
+    return () => {
+      cancelled = true;
+      clearInterval(id);
+    };
+  }, [pathname]);
 
   function handleSignOut() {
     startTransition(async () => {
@@ -30,7 +69,12 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
     });
   }
 
-  const navItems = [
+  const navItems: Array<{
+    href: string;
+    label: string;
+    icon: (active: boolean) => React.ReactNode;
+    badge?: number;
+  }> = [
     {
       href: "/dashboard",
       label: "Dashboard",
@@ -61,6 +105,12 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
           <path d="M10 10 L14 10 M12 8 L12 12" />
         </svg>
       ),
+    },
+    {
+      href: "/dashboard/messages",
+      label: "Messages",
+      icon: (active: boolean) => <MessagesIcon active={active} />,
+      badge: unreadMessages,
     },
     {
       href: `/wrapped/${new Date().getFullYear()}`,
@@ -133,11 +183,56 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
               }}
             >
               {item.icon(isActive)}
-              {item.label}
+              <span className="flex-1">{item.label}</span>
+              {typeof item.badge === "number" && item.badge > 0 && (
+                <span
+                  className="inline-flex items-center justify-center font-mono text-[10px] font-semibold rounded-full px-1.5 min-w-[18px] h-[18px]"
+                  style={{
+                    background: "#5EEAD4",
+                    color: "#0A0A0A",
+                    lineHeight: 1,
+                  }}
+                >
+                  {item.badge > 99 ? "99+" : item.badge}
+                </span>
+              )}
             </Link>
           );
         })}
       </nav>
+
+      {/* Pro upsell — free users only */}
+      {!isPro && (
+        <div className="px-3 pb-3">
+          <Link
+            href="/pricing"
+            className="block relative overflow-hidden rounded-2xl p-3.5 transition-all hover:-translate-y-0.5 group"
+            style={{
+              background: "linear-gradient(135deg, rgba(94,234,212,0.08) 0%, rgba(94,234,212,0.02) 100%)",
+              border: "1px solid rgba(94,234,212,0.2)",
+            }}
+          >
+            <div className="flex items-center gap-2 mb-1.5">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5EEAD4" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "#5EEAD4" }}>
+                Hyperfix Pro
+              </span>
+            </div>
+            <p className="font-sans text-[12px] mb-2 leading-snug" style={{ color: "rgba(244,244,244,0.7)" }}>
+              Unlimited fixes, custom theme, premium card templates.
+            </p>
+            <span
+              className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-widest group-hover:gap-1.5 transition-all"
+              style={{ color: "#5EEAD4" }}
+            >
+              See plans →
+            </span>
+          </Link>
+        </div>
+      )}
 
       {/* User section */}
       <div className="p-4" style={{ borderTop: "1px solid rgba(244,244,244,0.06)" }}>

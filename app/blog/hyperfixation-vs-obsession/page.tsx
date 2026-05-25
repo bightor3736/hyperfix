@@ -69,13 +69,13 @@ export default function HyperfixationVsObsessionPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
+      <main id="main-content" className="relative z-10 text-ink bg-[#070708]">
         <Nav />
 
         <section className="px-6 sm:px-10 pt-16 sm:pt-24 pb-12 border-b border-[rgba(244,244,244,0.07)]">
           <div className="max-w-3xl mx-auto">
             <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">explainer · hyperfix</span>
-            <h1 className="font-display font-medium text-[2.75rem] sm:text-[4.5rem] leading-[0.92] tracking-crush text-ink">
+            <h1 className="font-display font-medium text-ink" style={{ fontSize: "clamp(32px, 5.5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.02em" }}>
               Hyperfixation vs. Obsession
             </h1>
             <p className="mt-6 font-sans text-lg sm:text-xl text-[rgba(244,244,244,0.5)] leading-snug max-w-2xl">
@@ -98,7 +98,7 @@ export default function HyperfixationVsObsessionPage() {
                 <h2 className="font-display text-2xl sm:text-3xl leading-tight tracking-tight text-ink mb-5">
                   The words aren&apos;t synonyms
                 </h2>
-                <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-relaxed">
+                <p className="font-sans text-base sm:text-[17px] text-[rgba(255,255,255,0.72)] leading-[1.75]">
                   If you&apos;ve ever described yourself as &ldquo;obsessed&rdquo; with a show, a
                   game, a band, a fictional character — you probably meant hyperfixated. And if
                   you&apos;ve ever been told your hyperfixation sounds like an obsession, the person
@@ -114,7 +114,7 @@ export default function HyperfixationVsObsessionPage() {
                 <h2 className="font-display text-2xl sm:text-3xl leading-tight tracking-tight text-ink mb-5">
                   What obsession actually means (clinically)
                 </h2>
-                <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-relaxed">
+                <p className="font-sans text-base sm:text-[17px] text-[rgba(255,255,255,0.72)] leading-[1.75]">
                   In clinical psychology, obsession has a specific meaning. It&apos;s a feature of
                   OCD: an intrusive, unwanted thought, image, or urge that arrives uninvited and
                   won&apos;t leave. The key word is unwanted. Obsessions in the OCD sense are
@@ -132,7 +132,7 @@ export default function HyperfixationVsObsessionPage() {
                 <h2 className="font-display text-2xl sm:text-3xl leading-tight tracking-tight text-ink mb-5">
                   What hyperfixation actually means
                 </h2>
-                <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-relaxed">
+                <p className="font-sans text-base sm:text-[17px] text-[rgba(255,255,255,0.72)] leading-[1.75]">
                   Hyperfixation is associated with ADHD and autism — sometimes both, sometimes one,
                   sometimes neither but neurodivergent-adjacent in ways that don&apos;t have neat
                   labels yet. It&apos;s an intense, sustained focus on a specific interest or topic
@@ -150,7 +150,7 @@ export default function HyperfixationVsObsessionPage() {
                 <h2 className="font-display text-2xl sm:text-3xl leading-tight tracking-tight text-ink mb-5">
                   The key difference: ego-dystonic vs. ego-syntonic
                 </h2>
-                <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-relaxed">
+                <p className="font-sans text-base sm:text-[17px] text-[rgba(255,255,255,0.72)] leading-[1.75]">
                   This is the hinge the whole distinction turns on. Ego-dystonic means the
                   experience feels alien, unwanted, inconsistent with your sense of self.
                   Ego-syntonic means it feels like an expression of who you are — wanted, chosen,
@@ -168,7 +168,7 @@ export default function HyperfixationVsObsessionPage() {
                 <h2 className="font-display text-2xl sm:text-3xl leading-tight tracking-tight text-ink mb-5">
                   When to get help
                 </h2>
-                <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-relaxed">
+                <p className="font-sans text-base sm:text-[17px] text-[rgba(255,255,255,0.72)] leading-[1.75]">
                   This article isn&apos;t telling you whether you have OCD. It&apos;s not qualified
                   to. But here&apos;s a useful heuristic: if your intense thoughts feel wanted and
                   pleasurable (even when they&apos;re also inconvenient), that&apos;s more likely
@@ -186,7 +186,7 @@ export default function HyperfixationVsObsessionPage() {
                 <h2 className="font-display text-2xl sm:text-3xl leading-tight tracking-tight text-ink mb-5">
                   Why it matters what you call it
                 </h2>
-                <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-relaxed">
+                <p className="font-sans text-base sm:text-[17px] text-[rgba(255,255,255,0.72)] leading-[1.75]">
                   Language shapes how you treat yourself. If you call a hyperfixation an obsession,
                   you might try to suppress it, feel guilty for having it, or worry that something
                   is wrong with you. If you call an OCD obsession a hyperfixation, you might dismiss
@@ -232,7 +232,7 @@ export default function HyperfixationVsObsessionPage() {
             <div className="grid sm:grid-cols-3 gap-4">
               <a
                 href="/blog/what-is-hyperfixation"
-                className="block border border-[rgba(244,244,244,0.07)] p-6 hover:border-ink transition-colors"
+                className="block rounded-2xl border border-[rgba(255,255,255,0.06)] bg-[#0F1011] p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-[rgba(94,234,212,0.3)]"
               >
                 <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-3">explainer</span>
                 <p className="font-display text-lg tracking-tight text-ink leading-snug">
@@ -241,7 +241,7 @@ export default function HyperfixationVsObsessionPage() {
               </a>
               <a
                 href="/blog/adhd-hyperfixation"
-                className="block border border-[rgba(244,244,244,0.07)] p-6 hover:border-ink transition-colors"
+                className="block rounded-2xl border border-[rgba(255,255,255,0.06)] bg-[#0F1011] p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-[rgba(94,234,212,0.3)]"
               >
                 <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-3">deep dive</span>
                 <p className="font-display text-lg tracking-tight text-ink leading-snug">
@@ -250,7 +250,7 @@ export default function HyperfixationVsObsessionPage() {
               </a>
               <a
                 href="/blog/hyperfixation-ending"
-                className="block border border-[rgba(244,244,244,0.07)] p-6 hover:border-ink transition-colors"
+                className="block rounded-2xl border border-[rgba(255,255,255,0.06)] bg-[#0F1011] p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-[rgba(94,234,212,0.3)]"
               >
                 <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-3">guide</span>
                 <p className="font-display text-lg tracking-tight text-ink leading-snug">
@@ -261,7 +261,7 @@ export default function HyperfixationVsObsessionPage() {
           </div>
         </section>
 
-        <section className="px-6 sm:px-10 py-16 sm:py-24 bg-[#111113]">
+        <section className="px-6 sm:px-10 py-16 sm:py-24 bg-[#0F1011]">
           <div className="max-w-3xl mx-auto">
             <h2 className="font-display text-3xl sm:text-4xl leading-tight tracking-tightest mb-8">
               Track what you&apos;re choosing right now.

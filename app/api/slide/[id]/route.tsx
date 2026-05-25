@@ -190,46 +190,16 @@ function CtaSlide() {
   );
 }
 
-async function fetchPexelsPhoto(query: string, seed: number): Promise<string | null> {
-  const apiKey = process.env.PEXELS_API_KEY;
-  if (!apiKey) return null;
-  try {
-    const res = await fetch(
-      `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=15&orientation=landscape&size=large`,
-      { headers: { Authorization: apiKey } }
-    );
-    if (!res.ok) return null;
-    const data = await res.json() as { photos: { src: { large2x: string; large: string } }[] };
-    const photos = data.photos ?? [];
-    if (!photos.length) return null;
-    const photo = photos[seed % photos.length];
-    return photo.src.large2x ?? photo.src.large ?? null;
-  } catch {
-    return null;
-  }
-}
-
-// Per-sign Pexels queries matched to each sign's theme
-const SIGN_QUERIES = [
-  "reading books research studying",       // sign 1: looked it up once
-  "friends talking conversation sharing",  // sign 2: recommending unprompted
-  "night late studying desk lamp",         // sign 3: schedule reorganised
-  "calm meditation regulation breath",     // sign 4: using it to regulate
-  "thinking ideas brainstorming notes",    // sign 5: opinions on discourse
-  "journal writing creating notebook",     // sign 6: made something about it
-  "window rain ending sunset fading",      // sign 7: can feel it fading
-];
-
-function PhotoSignSlide({ index, photoUrl }: { index: number; photoUrl: string | null }) {
+function PhotoSignSlide({ index }: { index: number }) {
   const sign = signs[index - 1];
 
   return (
-    <div style={{ width: "100%", height: "100%", background: "#060606", position: "relative", display: "flex", flexDirection: "column", overflow: "hidden" }}>
-      {photoUrl && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={photoUrl} alt="" style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
-      )}
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 35%, rgba(0,0,0,0.75) 100%)", display: "flex" }} />
+    <div style={{ width: "100%", height: "100%", background: "#070708", position: "relative", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+      {/* Hyperfix teal glow — bottom-left */}
+      <div style={{ position: "absolute", bottom: -300, left: -200, width: 900, height: 900, borderRadius: "50%", background: "radial-gradient(circle, rgba(94,234,212,0.18) 0%, rgba(94,234,212,0.06) 40%, transparent 70%)", display: "flex" }} />
+      {/* Hyperfix teal glow — top-right echo */}
+      <div style={{ position: "absolute", top: -200, right: -200, width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, rgba(94,234,212,0.08) 0%, transparent 65%)", display: "flex" }} />
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: "linear-gradient(to bottom, rgba(7,7,8,0.6) 0%, rgba(7,7,8,0.1) 35%, rgba(7,7,8,0.7) 100%)", display: "flex" }} />
       <div style={{ position: "relative", display: "flex", flexDirection: "column", width: "100%", height: "100%", padding: 80, fontFamily: "Georgia, serif", color: INK }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
           <span style={{ fontFamily: "monospace", fontSize: 22, letterSpacing: "0.25em", textTransform: "uppercase", color: ACCENT }}>sign · {sign.n}</span>
@@ -260,9 +230,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   const usePhoto = new URL(req.url).searchParams.get("photo") === "1";
 
   if (usePhoto && n >= 1 && n <= 7) {
-    const query = SIGN_QUERIES[n - 1] ?? "focus obsession";
-    const photoUrl = await fetchPexelsPhoto(query, n - 1);
-    return new ImageResponse(<PhotoSignSlide index={n} photoUrl={photoUrl} />, SIZE);
+    return new ImageResponse(<PhotoSignSlide index={n} />, SIZE);
   }
 
   let element: React.ReactElement;

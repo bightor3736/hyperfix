@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import {
+  RepeatIcon, BoltIcon, BrainIcon, NoteIcon, BookIcon, LibraryIcon, SparkleIcon,
+} from "@/components/LandingIcons";
 
 export const metadata: Metadata = {
   title: "ADHD Hyperfixation Tracker — hyperfix",
@@ -20,17 +23,17 @@ const CARD_BORDER = "rgba(255,255,255,0.06)";
 
 const PAIN_POINTS = [
   {
-    emoji: "🔁",
+    Icon: RepeatIcon,
     title: "You get obsessed with something for 3 weeks",
     sub: "Learn everything. Buy the gear. Tell everyone. Feel electric.",
   },
   {
-    emoji: "💀",
+    Icon: BrainIcon,
     title: "Then one day you just... don't",
     sub: "No warning. The interest is gone. The supplies sit there judging you.",
   },
   {
-    emoji: "😬",
+    Icon: NoteIcon,
     title: "The guilt is the worst part",
     sub: "\"Why can't I stick to anything?\" You can. Your brain just cycles. That's not a flaw.",
   },
@@ -38,32 +41,32 @@ const PAIN_POINTS = [
 
 const FEATURES = [
   {
-    icon: "📍",
+    Icon: NoteIcon,
     title: "Log what's taken over your brain",
     desc: "Name it, rate how deep you are (1–10), track the exact day count. No setup, no system to maintain.",
   },
   {
-    icon: "🪦",
+    Icon: LibraryIcon,
     title: "The Graveyard — not a failure, a museum",
     desc: "When a fixation fades, it goes to the Graveyard. All the things you loved, preserved. Because they mattered.",
   },
   {
-    icon: "📊",
+    Icon: SparkleIcon,
     title: "See your actual pattern",
     desc: "How long do your fixations usually last? What categories come back? Your data answers questions your brain can't.",
   },
   {
-    icon: "🚫",
+    Icon: RepeatIcon,
     title: "No streaks. No shame.",
     desc: "Streaks punish ADHD brains. Here, missing days is neutral. Come back when you come back. Welcome back energy, always.",
   },
   {
-    icon: "⚡",
+    Icon: BoltIcon,
     title: "Zero friction",
     desc: "One tap to check in. No onboarding cliff, no system to set up, no 47-step tutorial. Works immediately.",
   },
   {
-    icon: "🔓",
+    Icon: BookIcon,
     title: "Free. Always.",
     desc: "Tracking and the Graveyard are free. Share your fixation as a card. No paywall before you get value.",
   },
@@ -188,7 +191,18 @@ export default async function ADHDPage() {
               className="flex items-start gap-5 rounded-3xl p-6"
               style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
             >
-              <span style={{ fontSize: 32, flexShrink: 0 }}>{p.emoji}</span>
+              <div
+                className="flex items-center justify-center rounded-xl shrink-0"
+                style={{
+                  width: 44,
+                  height: 44,
+                  background: "rgba(94,234,212,0.06)",
+                  border: "1px solid rgba(94,234,212,0.18)",
+                  color: TEAL,
+                }}
+              >
+                <p.Icon size={20} />
+              </div>
               <div>
                 <p className="font-display font-semibold text-lg mb-1" style={{ letterSpacing: "-0.01em" }}>{p.title}</p>
                 <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>{p.sub}</p>
@@ -216,7 +230,18 @@ export default async function ADHDPage() {
               className="rounded-3xl p-6"
               style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
             >
-              <span style={{ fontSize: 28, display: "block", marginBottom: 12 }}>{f.icon}</span>
+              <div
+                className="flex items-center justify-center rounded-xl mb-4"
+                style={{
+                  width: 40,
+                  height: 40,
+                  background: "rgba(94,234,212,0.06)",
+                  border: "1px solid rgba(94,234,212,0.18)",
+                  color: TEAL,
+                }}
+              >
+                <f.Icon size={18} />
+              </div>
               <p className="font-display font-semibold text-base mb-2" style={{ letterSpacing: "-0.01em" }}>{f.title}</p>
               <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>{f.desc}</p>
             </div>

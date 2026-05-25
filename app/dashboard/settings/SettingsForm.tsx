@@ -4,8 +4,11 @@ import { useState, useRef, useEffect, useCallback, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Send } from "react-iconly";
-import { ACCENT_PRESETS, DEFAULT_ACCENT } from "@/lib/accent";
+import { ACCENT_PRESETS, DEFAULT_ACCENT, resolveAccent } from "@/lib/accent";
 import { ProUpsellModal } from "@/components/ProUpsell";
+import { LiveProfileEditor } from "@/components/LiveProfileEditor";
+import { PushToggle } from "@/components/PushToggle";
+import { useToast } from "@/components/Toast";
 
 type Profile = {
   id: string;
@@ -32,6 +35,7 @@ type Props = {
 export function SettingsForm({ profile, userEmail, userId }: Props) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
+  const { toast: showToast } = useToast();
 
   // Form state
   const [displayName, setDisplayName] = useState(profile?.display_name ?? "");
@@ -257,8 +261,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           return;
         }
 
-        setToast("Saved ✓");
-        setTimeout(() => setToast(null), 2000);
+        showToast({ message: "Saved.", type: "success" });
         router.refresh();
       } catch (err) {
         setSaveError(err instanceof Error ? err.message : "Failed to save.");
@@ -373,11 +376,34 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
 
   return (
     <div className="flex flex-col gap-10">
-      {/* ── Profile section ── */}
+      {/* ── Live profile preview ── */}
       <section>
         <SectionHeading>Profile</SectionHeading>
+        <LiveProfileEditor
+          userId={userId}
+          displayName={displayName}
+          setDisplayName={setDisplayName}
+          username={username}
+          setUsername={setUsername}
+          bio={bio}
+          setBio={setBio}
+          socialLink={socialLink}
+          setSocialLink={setSocialLink}
+          avatarUrl={avatarUrl}
+          setAvatarUrl={setAvatarUrl}
+          bannerUrl={bannerUrl}
+          setBannerUrl={setBannerUrl}
+          accent={resolveAccent(isPro, accentColor)}
+          isPro={isPro}
+        />
+      </section>
 
-        {/* Avatar */}
+      {/* ── Theme & accent ── */}
+      <section>
+        <SectionHeading>Theme</SectionHeading>
+
+        {/* Avatar — hidden legacy (kept for compat, edited via LiveProfileEditor above) */}
+        <div className="hidden">
         <div className="flex flex-col items-center gap-4 mb-8 sm:flex-row sm:items-start">
           {/* Circle */}
           <div className="relative shrink-0">
@@ -452,19 +478,13 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           </div>
         </div>
 
-        {/* Banner (Pro) */}
+        {/* Banner */}
         <div className="mb-8">
-            <button
-              type="button"
-              onClick={isPro ? undefined : () => openPro("Profile banner")}
-              className="flex items-center gap-1.5 mb-3"
-              style={{ cursor: isPro ? "default" : "pointer" }}
-            >
+            <div className="flex items-center gap-1.5 mb-3">
               <span className="font-sans text-[11px] font-semibold uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.25)" }}>
                 Profile banner
               </span>
-              <ProTag />
-            </button>
+            </div>
             <div
               className="relative rounded-2xl overflow-hidden mb-3 flex items-end"
               style={{
@@ -484,7 +504,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               <div className="absolute bottom-3 right-3 flex gap-2">
                 <button
                   type="button"
-                  onClick={() => (isPro ? bannerFileInputRef.current?.click() : openPro("Profile banner"))}
+                  onClick={() => bannerFileInputRef.current?.click()}
                   className="px-3 py-1.5 rounded-full font-sans text-xs font-medium transition-all hover:opacity-80"
                   style={{
                     background: "rgba(7,7,8,0.85)",
@@ -495,7 +515,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                 >
                   {bannerUrl ? "Change" : "Upload banner"}
                 </button>
-                {isPro && bannerUrl && (
+                {bannerUrl && (
                   <button
                     type="button"
                     onClick={async () => {
@@ -543,6 +563,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             <p className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.2)" }}>
               Recommended: 1500×500px · JPG or PNG · max 5MB
             </p>
+        </div>
         </div>
 
         {/* Accent color (Pro) */}
@@ -693,6 +714,10 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
       {/* ── Notifications section ── */}
       <section>
         <SectionHeading>Notifications</SectionHeading>
+
+        {/* Push notifications (browser/PWA) */}
+        <PushToggle />
+
         <div className="flex flex-col gap-3">
           <NotifToggle
             label="Streak reminders"
@@ -815,7 +840,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               <ProTag />
             </div>
             <p className="font-sans text-[12px]" style={{ color: "rgba(244,244,244,0.35)" }}>
-              Download all your fixes, check-ins, Studio blocks, and comments as a JSON file.
+              Download all your fixes, check-ins, and comments as a JSON file.
             </p>
             <button
               type="button"

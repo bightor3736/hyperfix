@@ -89,11 +89,12 @@ export default async function CardPage({
       >
         {/* Card preview */}
         <div
-          className="relative rounded-2xl overflow-hidden shadow-2xl mb-8"
+          className="relative rounded-2xl overflow-hidden mb-8"
           style={{
             width: "min(360px, 90vw)",
             aspectRatio: "9/16",
-            border: "1px solid rgba(244,244,244,0.1)",
+            border: "1px solid rgba(255,255,255,0.06)",
+            boxShadow: "0 32px 80px rgba(0,0,0,0.45)",
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -106,18 +107,18 @@ export default async function CardPage({
 
         {/* Meta text */}
         <p
-          className="font-mono text-xs uppercase tracking-widest mb-2 text-center"
-          style={{ color: "rgba(244,244,244,0.35)" }}
+          className="font-mono text-[10px] uppercase tracking-widest mb-3 text-center"
+          style={{ color: "rgba(94,234,212,0.55)" }}
         >
           {fix.category}
         </p>
         <h1
-          className="font-display text-2xl font-semibold text-center mb-1"
-          style={{ color: "#F4F4F4", letterSpacing: "-0.02em", maxWidth: 400 }}
+          className="font-display text-2xl text-center mb-2"
+          style={{ color: "#F4F4F4", letterSpacing: "-0.02em", fontWeight: 600, maxWidth: 400 }}
         >
           {fix.title}
         </h1>
-        <p className="font-sans text-sm text-center mb-8" style={{ color: "rgba(244,244,244,0.45)" }}>
+        <p className="font-mono text-xs text-center mb-8 tabular-nums" style={{ color: "rgba(244,244,244,0.45)" }}>
           day {days} · intensity {fix.intensity}/10
         </p>
 
@@ -125,11 +126,12 @@ export default async function CardPage({
         <div className="flex flex-col items-center gap-3 w-full" style={{ maxWidth: 320 }}>
           <Link
             href="/"
-            className="w-full flex items-center justify-center gap-2 rounded-2xl py-3.5 font-mono text-sm font-bold transition-all duration-150"
+            className="w-full flex items-center justify-center gap-2 rounded-full py-3.5 font-sans text-sm font-semibold transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
             style={{
-              background: "#D72638",
-              color: "#fff",
+              background: "#FFFFFF",
+              color: "#070708",
               textDecoration: "none",
+              boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 8px 28px rgba(94,234,212,0.22)",
             }}
           >
             Track your own fixation →
@@ -137,10 +139,10 @@ export default async function CardPage({
           <a
             href={imageUrl}
             download={`hyperfix-${fix.title.slice(0, 32).replace(/\s+/g, "-").toLowerCase()}.png`}
-            className="w-full flex items-center justify-center gap-2 rounded-2xl py-3 font-mono text-sm transition-all duration-150"
+            className="w-full flex items-center justify-center gap-2 rounded-full py-3 font-sans text-sm transition-all duration-150"
             style={{
-              background: "rgba(244,244,244,0.05)",
-              border: "1px solid rgba(244,244,244,0.12)",
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(255,255,255,0.08)",
               color: "rgba(244,244,244,0.6)",
               textDecoration: "none",
             }}

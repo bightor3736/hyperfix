@@ -2,6 +2,28 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Send, TickSquare, Download } from "react-iconly";
+import { useToast } from "@/components/Toast";
+
+function InstagramIcon({ size = 13 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <circle cx="12" cy="12" r="5" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function Spinner({ size = 13 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+      <path d="M12 2a10 10 0 0 1 10 10" style={{ opacity: 0.3 }} />
+      <path d="M12 2a10 10 0 0 1 10 10">
+        <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="0.75s" repeatCount="indefinite" />
+      </path>
+    </svg>
+  );
+}
 
 type Props = {
   fixId: string;
@@ -15,7 +37,9 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [downloading, setDownloading] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -42,15 +66,48 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
     const url = `${window.location.origin}/fix/${fixId}`;
     await navigator.clipboard.writeText(url);
     setCopied(true);
+    toast({ message: "Link copied", type: "success" });
     setTimeout(() => {
       setCopied(false);
       setOpen(false);
     }, 1500);
   }
 
-  function handleDownloadCard() {
-    window.open(`/api/card/${fixId}`, "_blank");
-    setOpen(false);
+  async function handleDownloadCard() {
+    setDownloading("card");
+    try {
+      const res = await fetch(`/api/card/${fixId}`);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `hyperfix-${fixTitle?.replace(/\s+/g, "-").toLowerCase() ?? fixId}.png`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } finally {
+      setDownloading(null);
+      setOpen(false);
+    }
+  }
+
+  async function handleDownloadStory() {
+    setDownloading("story");
+    try {
+      const res = await fetch(`/api/share/${fixId}`);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `hyperfix-${fixTitle?.replace(/\s+/g, "-").toLowerCase() ?? fixId}-story.png`;
+      a.click();
+      URL.revokeObjectURL(url);
+      toast({ message: "Saved as Story", type: "success" });
+    } catch {
+      toast({ message: "Download failed.", type: "error" });
+    } finally {
+      setDownloading(null);
+      setOpen(false);
+    }
   }
 
   function handleTwitterShare() {
@@ -74,22 +131,26 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
     <div ref={ref} className="relative inline-block">
       <button
         onClick={handleButtonClick}
+        disabled={!!downloading}
         className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-mono text-xs font-medium transition-all duration-150"
         style={{
           background: "rgba(244,244,244,0.05)",
           border: "1px solid rgba(244,244,244,0.12)",
-          color: "rgba(244,244,244,0.7)",
+          color: downloading ? "rgba(244,244,244,0.4)" : "rgba(244,244,244,0.7)",
+          cursor: downloading ? "not-allowed" : undefined,
         }}
         onMouseEnter={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.borderColor = "#5EEAD4";
-          (e.currentTarget as HTMLButtonElement).style.color = "#5EEAD4";
+          if (!downloading) {
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "#5EEAD4";
+            (e.currentTarget as HTMLButtonElement).style.color = "#5EEAD4";
+          }
         }}
         onMouseLeave={(e) => {
           (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(244,244,244,0.12)";
-          (e.currentTarget as HTMLButtonElement).style.color = "rgba(244,244,244,0.7)";
+          (e.currentTarget as HTMLButtonElement).style.color = downloading ? "rgba(244,244,244,0.4)" : "rgba(244,244,244,0.7)";
         }}
       >
-        <Send set="light" size={14} primaryColor="currentColor" />
+        {downloading ? <Spinner size={14} /> : <Send set="light" size={14} primaryColor="currentColor" />}
         Share card
       </button>
 
@@ -163,13 +224,34 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
 
           <button
             onClick={handleDownloadCard}
+            disabled={!!downloading}
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-mono text-xs transition-colors text-left"
-            style={{ color: "rgba(244,244,244,0.7)" }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "rgba(244,244,244,0.05)")}
+            style={{
+              color: downloading === "card" ? "#5EEAD4" : "rgba(244,244,244,0.7)",
+              cursor: downloading ? "not-allowed" : undefined,
+              opacity: downloading && downloading !== "card" ? 0.5 : 1,
+            }}
+            onMouseEnter={(e) => !downloading && ((e.currentTarget as HTMLButtonElement).style.background = "rgba(244,244,244,0.05)")}
             onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
           >
-            <Download set="light" size={14} primaryColor="currentColor" />
+            {downloading === "card" ? <Spinner size={14} /> : <Download set="light" size={14} primaryColor="currentColor" />}
             Download card
+          </button>
+
+          <button
+            onClick={handleDownloadStory}
+            disabled={!!downloading}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-mono text-xs transition-colors text-left"
+            style={{
+              color: downloading === "story" ? "#5EEAD4" : "rgba(244,244,244,0.7)",
+              cursor: downloading ? "not-allowed" : undefined,
+              opacity: downloading && downloading !== "story" ? 0.5 : 1,
+            }}
+            onMouseEnter={(e) => !downloading && ((e.currentTarget as HTMLButtonElement).style.background = "rgba(244,244,244,0.05)")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
+          >
+            {downloading === "story" ? <Spinner size={14} /> : <InstagramIcon size={13} />}
+            Save as Story (9:16)
           </button>
         </div>
       )}

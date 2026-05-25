@@ -89,7 +89,7 @@ export default function OnboardingUsernamePage() {
     : "#fcd34d";
 
   const feedbackText =
-    validation === "available" ? "✓ Available"
+    validation === "available" ? "Available"
     : validation === "taken" ? "Already taken"
     : validation === "invalid" ? "3–20 chars, letters / numbers / underscores"
     : "";
@@ -175,7 +175,14 @@ export default function OnboardingUsernamePage() {
 
               <div className="h-5 mt-1.5">
                 {feedbackText && (
-                  <p className="font-sans text-xs" style={{ color: feedbackColor }}>{feedbackText}</p>
+                  <p className="font-sans text-xs inline-flex items-center gap-1.5" style={{ color: feedbackColor }}>
+                    {validation === "available" && (
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    )}
+                    {feedbackText}
+                  </p>
                 )}
               </div>
             </div>

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { TRACK_SLUGS } from "@/lib/track-data";
 
 const SITE = "https://hyperfix.app";
 
@@ -6,13 +7,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: SITE,
-      lastModified: new Date("2026-05-17"),
+      lastModified: new Date("2026-05-25"),
       changeFrequency: "weekly",
       priority: 1.0,
     },
     {
+      url: `${SITE}/adhd`,
+      lastModified: new Date("2026-05-25"),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE}/explore`,
+      lastModified: new Date("2026-05-25"),
+      changeFrequency: "daily",
+      priority: 0.85,
+    },
+    {
+      url: `${SITE}/quiz`,
+      lastModified: new Date("2026-05-25"),
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
       url: `${SITE}/hyperfixation-tracker`,
-      lastModified: new Date("2026-05-17"),
+      lastModified: new Date("2026-05-25"),
       changeFrequency: "monthly",
       priority: 0.9,
     },
@@ -245,5 +264,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  return [...staticRoutes, ...profileRoutes, ...fixRoutes];
+  const trackRoutes: MetadataRoute.Sitemap = TRACK_SLUGS.map((slug) => ({
+    url: `${SITE}/track/${slug}`,
+    lastModified: new Date("2026-05-25"),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...trackRoutes, ...profileRoutes, ...fixRoutes];
 }

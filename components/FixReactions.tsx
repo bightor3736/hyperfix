@@ -1,8 +1,14 @@
 "use client";
 
-import { useState } from "react";
-
-const EMOJIS = ["💀", "🎵", "📖", "💜", "🔁", "😭"];
+import { useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
+import {
+  REACTION_TYPES,
+  normalizeReactionCounts,
+  normalizeUserReactions,
+  legacyEmojiToType,
+  type ReactionType,
+} from "@/lib/reactions";
 
 type Props = {
   fixId: string;
@@ -11,67 +17,102 @@ type Props = {
 };
 
 export function FixReactions({ fixId, initialReactions, userReactions = [] }: Props) {
-  const [counts, setCounts] = useState<Record<string, number>>(initialReactions);
-  const [active, setActive] = useState<Set<string>>(new Set(userReactions));
-  const [loading, setLoading] = useState<Set<string>>(new Set());
+  const [counts, setCounts] = useState<Record<ReactionType, number>>(() =>
+    normalizeReactionCounts(initialReactions),
+  );
+  const [active, setActive] = useState<Set<ReactionType>>(
+    () => new Set(normalizeUserReactions(userReactions)),
+  );
+  const [loading, setLoading] = useState<Set<ReactionType>>(new Set());
 
-  async function handleReaction(emoji: string) {
-    if (loading.has(emoji)) return;
+  // Realtime: subscribe to fix_reactions inserts/deletes for this fix and update counts live.
+  useEffect(() => {
+    const supabase = createClient();
+    const channel = supabase
+      .channel(`fix-reactions:${fixId}`)
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "fix_reactions", filter: `fix_id=eq.${fixId}` },
+        (payload) => {
+          const raw = (payload.new as { emoji?: string })?.emoji;
+          if (!raw) return;
+          const type = legacyEmojiToType(raw);
+          if (!type) return;
+          setCounts((prev) => ({ ...prev, [type]: (prev[type] ?? 0) + 1 }));
+        },
+      )
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "fix_reactions", filter: `fix_id=eq.${fixId}` },
+        (payload) => {
+          const raw = (payload.old as { emoji?: string })?.emoji;
+          if (!raw) return;
+          const type = legacyEmojiToType(raw);
+          if (!type) return;
+          setCounts((prev) => ({ ...prev, [type]: Math.max(0, (prev[type] ?? 0) - 1) }));
+        },
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [fixId]);
 
-    // Optimistic update
-    const wasActive = active.has(emoji);
+  async function handleReaction(key: ReactionType) {
+    if (loading.has(key)) return;
+
+    const wasActive = active.has(key);
     setActive((prev) => {
       const next = new Set(prev);
-      if (wasActive) next.delete(emoji);
-      else next.add(emoji);
+      if (wasActive) next.delete(key);
+      else next.add(key);
       return next;
     });
     setCounts((prev) => ({
       ...prev,
-      [emoji]: Math.max(0, (prev[emoji] ?? 0) + (wasActive ? -1 : 1)),
+      [key]: Math.max(0, (prev[key] ?? 0) + (wasActive ? -1 : 1)),
     }));
 
-    setLoading((prev) => new Set([...prev, emoji]));
+    setLoading((prev) => new Set([...prev, key]));
 
     try {
       const res = await fetch("/api/reactions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fixId, emoji }),
+        body: JSON.stringify({ fixId, emoji: key }),
       });
 
       if (res.ok) {
         const data = await res.json();
-        setCounts(data.counts ?? {});
+        setCounts(normalizeReactionCounts(data.counts ?? {}));
       } else {
         // Revert on error
         setActive((prev) => {
           const next = new Set(prev);
-          if (wasActive) next.add(emoji);
-          else next.delete(emoji);
+          if (wasActive) next.add(key);
+          else next.delete(key);
           return next;
         });
         setCounts((prev) => ({
           ...prev,
-          [emoji]: Math.max(0, (prev[emoji] ?? 0) + (wasActive ? 1 : -1)),
+          [key]: Math.max(0, (prev[key] ?? 0) + (wasActive ? 1 : -1)),
         }));
       }
     } catch {
-      // Revert on error
       setActive((prev) => {
         const next = new Set(prev);
-        if (wasActive) next.add(emoji);
-        else next.delete(emoji);
+        if (wasActive) next.add(key);
+        else next.delete(key);
         return next;
       });
       setCounts((prev) => ({
         ...prev,
-        [emoji]: Math.max(0, (prev[emoji] ?? 0) + (wasActive ? 1 : -1)),
+        [key]: Math.max(0, (prev[key] ?? 0) + (wasActive ? 1 : -1)),
       }));
     } finally {
       setLoading((prev) => {
         const next = new Set(prev);
-        next.delete(emoji);
+        next.delete(key);
         return next;
       });
     }
@@ -79,31 +120,33 @@ export function FixReactions({ fixId, initialReactions, userReactions = [] }: Pr
 
   return (
     <div className="flex flex-wrap gap-2">
-      {EMOJIS.map((emoji) => {
-        const count = counts[emoji] ?? 0;
-        const isActive = active.has(emoji);
+      {REACTION_TYPES.map(({ key, label, Icon }) => {
+        const count = counts[key] ?? 0;
+        const isActive = active.has(key);
         return (
           <button
-            key={emoji}
-            onClick={() => handleReaction(emoji)}
-            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-sm font-mono transition-all duration-150 hover:scale-105 active:scale-95"
-            style={
-              isActive
-                ? {
-                    background: "rgba(94,234,212,0.12)",
-                    border: "1px solid rgba(94,234,212,0.3)",
-                    color: "#5EEAD4",
-                  }
-                : {
-                    background: "rgba(244,244,244,0.06)",
-                    border: "1px solid rgba(244,244,244,0.1)",
-                    color: "rgba(244,244,244,0.5)",
-                  }
-            }
+            key={key}
+            onClick={() => handleReaction(key)}
+            aria-pressed={isActive}
+            aria-label={label}
+            className="inline-flex flex-col items-center gap-1 rounded-xl px-3 py-2 transition-all duration-150 hover:scale-105 active:scale-95"
+            style={{
+              background: isActive ? "rgba(94,234,212,0.1)" : "rgba(255,255,255,0.03)",
+              border: `1px solid ${isActive ? "rgba(94,234,212,0.3)" : "rgba(255,255,255,0.08)"}`,
+              color: isActive ? "#5EEAD4" : "rgba(255,255,255,0.6)",
+            }}
           >
-            <span>{emoji}</span>
+            <Icon size={18} />
+            <span className="font-mono text-[10px] uppercase tracking-widest">
+              {label}
+            </span>
             {count > 0 && (
-              <span className="text-xs tabular-nums">{count}</span>
+              <span
+                className="font-mono text-[9px] tabular-nums"
+                style={{ color: "rgba(94,234,212,0.7)" }}
+              >
+                {count}
+              </span>
             )}
           </button>
         );
