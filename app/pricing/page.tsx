@@ -259,8 +259,11 @@ export default function PricingPage() {
                         className="mt-7 font-display text-ink tabular-nums"
                         style={{ fontSize: 48, fontWeight: 600, letterSpacing: "-0.02em" }}
                       >
-                        <span style={{ color: TEAL }}>$TBA</span>
+                        <span style={{ color: TEAL }}>$5</span>
                         <span className="font-sans text-lg" style={{ color: "rgba(255,255,255,0.5)" }}> / month</span>
+                      </p>
+                      <p className="mt-2 font-sans text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
+                        or <span style={{ color: TEAL }}>$39/year</span> — save 35%
                       </p>
                       <p className="mt-2 font-sans text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
                         Cancel anytime. Pro unlocks unlimited fixes and the full toolkit.
