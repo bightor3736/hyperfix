@@ -90,28 +90,30 @@ export default function BookTrackerPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
+      <main id="main-content" className="relative z-10 text-ink" style={{ background: "#070708" }}>
 
         <Nav />
 
-        <section className="px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-32">
+        {/* HERO */}
+        <section className="px-6 sm:px-8 pt-16 pb-16">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
-              book tracker · hyperfix.app · 2026
+            <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-8" style={{ background: "rgba(94,234,212,0.08)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.20)" }}>
+              book hyperfixation tracker
             </span>
-            <h1 className="font-display font-medium text-[2.6rem] sm:text-[4rem] lg:text-[5.2rem] leading-[0.92] tracking-crush text-ink">
-              The book didn&apos;t just break you.
-              <br />
-              <span className="italic text-accent">It&apos;s been breaking you for forty-seven days.</span>
+            <h1 className="font-display font-semibold text-[2.5rem] sm:text-[3.25rem] lg:text-[4rem] leading-[0.98] text-ink tabular-nums" style={{ letterSpacing: "-0.03em" }}>
+              The book didn&apos;t just break you.{" "}
+              <span style={{ color: "#5EEAD4" }}>It&apos;s been breaking you for forty-seven days.</span>
             </h1>
-            <p className="mt-8 font-sans text-lg sm:text-xl text-[rgba(244,244,244,0.5)] max-w-2xl leading-snug">
+            <p className="mt-6 font-sans text-base sm:text-lg max-w-2xl" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
               BookTok found it. The algorithm surfaced it. You downloaded the sample at midnight and finished the whole thing by 4 a.m. and then you just... didn&apos;t put it down. Not really. You shelved it on Goodreads and gave it five stars and wrote a review, and none of that captured what actually happened. Which is that it&apos;s been forty-seven days and you&apos;re still thinking about a sentence in chapter nine.
             </p>
-            <p className="mt-4 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-2xl leading-snug">
+            <p className="mt-4 font-sans text-base sm:text-lg max-w-2xl" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
               Hyperfix is not a reading log. It&apos;s a fixation log. Log the book that rearranged you — the re-reads, the fic, the author&apos;s entire back-catalogue you consumed in two weeks, the spiral that started with one novel and ended with you deep in a fandom you didn&apos;t plan to join. The counter runs from the moment it got its claws in you.
             </p>
-            <WaitlistForm id="waitlist" variant="light" />
-            <div className="mt-16 flex justify-start">
+            <div className="mt-8 max-w-md">
+              <WaitlistForm id="waitlist" variant="light" />
+            </div>
+            <div className="mt-12 flex justify-start">
               <TiltCard tiltLimit={10} scale={1.03} effect="gravitate">
                 <HyperfixCard {...sampleCard} tilt="" />
               </TiltCard>
@@ -119,43 +121,43 @@ export default function BookTrackerPage() {
           </div>
         </section>
 
-        <section className="px-6 sm:px-10 py-20 sm:py-32 bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)]">
-          <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+        {/* WHAT IT TRACKS */}
+        <section className="px-6 sm:px-8 py-16">
+          <div className="max-w-5xl mx-auto rounded-3xl p-8 sm:p-12" style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}>
+            <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "rgba(94,234,212,0.08)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.20)" }}>
               what it tracks
             </span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.98] tracking-tightest mb-16 max-w-3xl">
-              Not your shelf.
-              <br />
-              <span className="italic text-accent">Your obsession.</span>
+            <h2 className="font-display font-semibold max-w-3xl" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}>
+              Not your shelf.{" "}
+              <span style={{ color: "#5EEAD4" }}>Your obsession.</span>
             </h2>
 
-            <div className="grid md:grid-cols-3 gap-10">
+            <div className="grid md:grid-cols-3 gap-8 mt-10">
               {[
                 {
                   label: "01",
                   h: "The re-read counter.",
-                  p: "First reads and third reads are different experiences. Log each re-read as its own fix — its own start date, intensity score, and closing note. Your graveyard will show you how your relationship with a book changes over time. What you missed the first time. What you can&apos;t stop noticing by the third.",
+                  p: "First reads and third reads are different experiences. Log each re-read as its own fix — its own start date, intensity score, and closing note. Your graveyard will show you how your relationship with a book changes over time. What you missed the first time. What you can't stop noticing by the third.",
                 },
                 {
                   label: "02",
                   h: "The fic spiral.",
-                  p: "You finished the book. Then you found the fic. Now it&apos;s three weeks later and you&apos;ve read 400,000 words of fan-written aftermath and you have feelings about pairings you cannot explain to anyone who hasn&apos;t read the source. Log the fic spiral as its own fix. The counter knows what&apos;s running your brain right now.",
+                  p: "You finished the book. Then you found the fic. Now it's three weeks later and you've read 400,000 words of fan-written aftermath and you have feelings about pairings you cannot explain to anyone who hasn't read the source. Log the fic spiral as its own fix. The counter knows what's running your brain right now.",
                 },
                 {
                   label: "03",
                   h: "The back-catalogue dive.",
-                  p: "One book cracked you open and now you&apos;re reading everything this author has ever written in publication order. That&apos;s a fixation. Log it as one entry — &ldquo;[Author] back-catalogue spiral&rdquo; — and let the counter run for as long as it takes. Some of these go for months. Hyperfix doesn&apos;t blink.",
+                  p: "One book cracked you open and now you're reading everything this author has ever written in publication order. That's a fixation. Log it as one entry — “[Author] back-catalogue spiral” — and let the counter run for as long as it takes. Some of these go for months. Hyperfix doesn't blink.",
                 },
               ].map((s) => (
-                <div key={s.label} className="border-t-2 border-[rgba(244,244,244,0.07)] pt-6">
-                  <span className="font-mono text-[11px] uppercase tracking-widest text-accent mb-3 block">
-                    {s.label}
+                <div key={s.label}>
+                  <span className="font-mono text-[11px] uppercase tracking-widest mb-3 block tabular-nums" style={{ color: "#5EEAD4" }}>
+                    step {s.label}
                   </span>
-                  <h3 className="font-display text-2xl tracking-tight mb-3 text-ink">
+                  <h3 className="font-display font-semibold text-lg mb-2" style={{ color: "#FFFFFF", letterSpacing: "-0.01em" }}>
                     {s.h}
                   </h3>
-                  <p className="font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
+                  <p className="font-sans text-base" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
                     {s.p}
                   </p>
                 </div>
@@ -164,71 +166,67 @@ export default function BookTrackerPage() {
           </div>
         </section>
 
-        <section className="px-6 sm:px-10 py-20 sm:py-32">
+        {/* DIFFERENCE */}
+        <section className="px-6 sm:px-8 py-16">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">the difference</span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.98] tracking-tightest mb-16 max-w-3xl">
-              Goodreads tracks shelves.
-              <br />
-              <span className="italic text-accent">Hyperfix tracks the damage.</span>
+            <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "rgba(94,234,212,0.08)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.20)" }}>the difference</span>
+            <h2 className="font-display font-semibold max-w-3xl" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}>
+              Goodreads tracks shelves.{" "}
+              <span style={{ color: "#5EEAD4" }}>Hyperfix tracks the damage.</span>
             </h2>
 
-            <div className="grid md:grid-cols-2 gap-12">
-              <div className="border-t border-[rgba(244,244,244,0.07)] pt-8">
-                <h3 className="font-display text-2xl tracking-tight mb-5">
+            <div className="grid md:grid-cols-2 gap-8 mt-12">
+              <div className="rounded-3xl p-6 sm:p-8" style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <h3 className="font-display font-semibold text-xl mb-4" style={{ color: "#FFFFFF", letterSpacing: "-0.01em" }}>
                   Hyperfix vs. Goodreads
                 </h3>
-                <div className="space-y-4 font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
-                  <p>
-                    Goodreads tells you how many books you&apos;ve read this year. Hyperfix tells you which one has been living in your head for fifty-two days. Goodreads has a star rating. Hyperfix has an intensity score that you can update as the fixation deepens. You can love a book and shelve it and move on. A hyperfixation doesn&apos;t give you that option. Only one of these tools knows the difference.
-                  </p>
-                </div>
+                <p className="font-sans text-base" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
+                  Goodreads tells you how many books you&apos;ve read this year. Hyperfix tells you which one has been living in your head for fifty-two days. Goodreads has a star rating. Hyperfix has an intensity score that you can update as the fixation deepens. You can love a book and shelve it and move on. A hyperfixation doesn&apos;t give you that option. Only one of these tools knows the difference.
+                </p>
               </div>
 
-              <div className="border-t border-[rgba(244,244,244,0.07)] pt-8">
-                <h3 className="font-display text-2xl tracking-tight mb-5">
+              <div className="rounded-3xl p-6 sm:p-8" style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <h3 className="font-display font-semibold text-xl mb-4" style={{ color: "#FFFFFF", letterSpacing: "-0.01em" }}>
                   Hyperfix vs. StoryGraph
                 </h3>
-                <div className="space-y-4 font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
-                  <p>
-                    StoryGraph is excellent at tracking what you read and when and how you felt about the pacing. It will not help you when you&apos;re on your third re-read of a novel you already reviewed, or when you&apos;ve spent two weeks reading fic for a book you finished a month ago, or when you&apos;ve read an author&apos;s entire catalogue and need to record the experience of doing that. Hyperfix exists for the behavior that doesn&apos;t fit on a shelf.
-                  </p>
-                </div>
+                <p className="font-sans text-base" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
+                  StoryGraph is excellent at tracking what you read and when and how you felt about the pacing. It will not help you when you&apos;re on your third re-read of a novel you already reviewed, or when you&apos;ve spent two weeks reading fic for a book you finished a month ago, or when you&apos;ve read an author&apos;s entire catalogue and need to record the experience of doing that. Hyperfix exists for the behavior that doesn&apos;t fit on a shelf.
+                </p>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="px-6 sm:px-10 py-20 sm:py-32">
+        {/* FAQ */}
+        <section className="px-6 sm:px-8 py-16">
           <div className="max-w-4xl mx-auto">
-            <div className="mb-16">
-              <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-6">
-                frequently · asked · questions
+            <div className="mb-10">
+              <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "rgba(94,234,212,0.08)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.20)" }}>
+                frequently asked
               </span>
-              <h2 className="font-display text-4xl sm:text-6xl leading-[0.98] tracking-tightest">
-                Everything you wanted
-                <br />
-                <span className="italic text-accent">to ask.</span>
+              <h2 className="font-display font-semibold" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}>
+                Everything you wanted{" "}
+                <span style={{ color: "#5EEAD4" }}>to ask.</span>
               </h2>
             </div>
-            <div className="divide-y divide-[rgba(244,244,244,0.07)] border-y border-[rgba(244,244,244,0.07)]">
+            <div className="divide-y divide-[rgba(255,255,255,0.06)] border-y border-[rgba(255,255,255,0.06)]">
               {faqs.map((faq, i) => (
                 <details
                   key={i}
-                  className="group py-6 [&_summary::-webkit-details-marker]:hidden"
+                  className="group py-5 [&_summary::-webkit-details-marker]:hidden"
                 >
                   <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
-                    <h3 className="font-display text-xl sm:text-2xl tracking-tight leading-snug text-ink">
-                      <span className="font-mono text-xs text-accent mr-3 tabular">
+                    <h3 className="font-display font-semibold text-base sm:text-lg leading-snug" style={{ color: "#FFFFFF", letterSpacing: "-0.01em" }}>
+                      <span className="font-mono text-xs mr-3 tabular-nums" style={{ color: "#5EEAD4" }}>
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       {faq.q}
                     </h3>
-                    <span aria-hidden="true" className="font-mono text-2xl text-[rgba(244,244,244,0.4)] group-open:rotate-45 transition-transform shrink-0">
+                    <span aria-hidden="true" className="text-xl group-open:rotate-45 transition-transform shrink-0" style={{ color: "#5EEAD4" }}>
                       +
                     </span>
                   </summary>
-                  <p className="mt-4 ml-10 font-sans text-base sm:text-lg text-[rgba(244,244,244,0.5)] leading-relaxed max-w-2xl">
+                  <p className="mt-4 ml-9 font-sans text-base max-w-2xl" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
                     {faq.a}
                   </p>
                 </details>
@@ -237,20 +235,22 @@ export default function BookTrackerPage() {
           </div>
         </section>
 
-        <section className="px-6 sm:px-10 py-24 sm:py-40 bg-[#111113]">
-          <div className="max-w-4xl mx-auto text-center">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+        {/* FINAL CTA */}
+        <section className="px-6 sm:px-8 py-16">
+          <div className="max-w-4xl mx-auto rounded-3xl p-8 sm:p-14 text-center" style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}>
+            <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "rgba(94,234,212,0.08)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.20)" }}>
               join the waitlist
             </span>
-            <h2 className="font-display text-5xl sm:text-7xl leading-[0.92] tracking-crush">
-              Day one was weeks ago.
-              <br />
-              <span className="italic text-accent">Log it before day one hundred.</span>
+            <h2 className="font-display font-semibold tabular-nums" style={{ color: "#FFFFFF", fontSize: "clamp(30px, 5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}>
+              Day one was weeks ago.{" "}
+              <span style={{ color: "#5EEAD4" }}>Log it before day one hundred.</span>
             </h2>
-            <p className="mt-8 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-xl mx-auto leading-snug">
+            <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
               The waitlist gets first access in waves. Early users get a permanent Pro discount and the most embarrassing usernames before they&apos;re gone.
             </p>
-            <WaitlistForm variant="dark" />
+            <div className="mt-7 max-w-md mx-auto">
+              <WaitlistForm variant="dark" />
+            </div>
           </div>
         </section>
 

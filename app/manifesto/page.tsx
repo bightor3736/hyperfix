@@ -126,18 +126,16 @@ export default function ManifestoPage() {
         <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
 
         <main id="main-content" className="relative max-w-3xl mx-auto flex flex-col gap-6">
-          {/* Hero card */}
-          <div className="relative overflow-hidden rounded-3xl p-6 sm:p-10 anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)", border: `1px solid ${CARD_BORDER}` }}>
-            <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
-            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
-            <div className="relative">
-              <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>the manifesto</span>
-              <h1 className="font-display anim-fadeUp delay-100" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 6vw, 60px)", lineHeight: 1.02, letterSpacing: "-0.02em", fontWeight: 600 }}>
-                On obsession, counting,
-                <br />
-                and the things that ran your life.
-              </h1>
-            </div>
+          {/* Hero — tight, restrained */}
+          <div className="anim-fadeUp mb-2">
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(94,234,212,0.55)" }}>
+              the manifesto
+            </p>
+            <h1 className="font-display" style={{ color: "#F4F4F4", fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.02, letterSpacing: "-0.02em", fontWeight: 600 }}>
+              On obsession, counting,
+              <br />
+              and the things that ran your life.
+            </h1>
           </div>
 
           {/* Body sections */}

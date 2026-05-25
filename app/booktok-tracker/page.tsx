@@ -125,45 +125,30 @@ export default function BooktokTrackerPage() {
         </section>
 
         {/* BOOKTOK EXPLAINED */}
-        <section className="px-6 sm:px-10 py-20 sm:py-32 bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)]">
-          <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+        <section className="px-6 sm:px-8 py-16">
+          <div className="max-w-5xl mx-auto rounded-3xl p-8 sm:p-12" style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}>
+            <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "rgba(94,234,212,0.08)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.20)" }}>
               the experience
             </span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.98] tracking-tightest mb-10">
-              You finished the book.
-              <br />
-              <span className="italic text-accent">
-                The book hasn't finished with you.
-              </span>
+            <h2 className="font-display font-semibold" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}>
+              You finished the book.{" "}
+              <span style={{ color: "#5EEAD4" }}>The book hasn&apos;t finished with you.</span>
             </h2>
-            <div className="grid md:grid-cols-2 gap-10 max-w-4xl">
-              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(244,244,244,0.5)]">
+            <div className="grid md:grid-cols-2 gap-10 mt-10 max-w-4xl">
+              <div className="space-y-4 font-sans text-base sm:text-lg" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
                 <p>
-                  The book hangover is real. You closed the back cover three
-                  weeks ago and you still can't pick up anything new. You're
-                  posting about it. You're searching the hashtag. You're in
-                  a Discord server with thirty people who are equally
-                  unhinged about the same fictional couple.
+                  The book hangover is real. You closed the back cover three weeks ago and you still can&apos;t pick up anything new. You&apos;re posting about it. You&apos;re searching the hashtag. You&apos;re in a Discord server with thirty people who are equally unhinged about the same fictional couple.
                 </p>
                 <p>
-                  Goodreads has you marked as "read." But you're not done
-                  with it. The obsession has a life of its own after the
-                  last page.
+                  Goodreads has you marked as &quot;read.&quot; But you&apos;re not done with it. The obsession has a life of its own after the last page.
                 </p>
               </div>
-              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(244,244,244,0.5)]">
+              <div className="space-y-4 font-sans text-base sm:text-lg" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
                 <p>
-                  Hyperfix tracks the obsession, not the reading. You can
-                  log a book the moment you finish it and the counter starts
-                  from there — how many days since you closed it, how
-                  unwell you still are, what you wrote in the notes field
-                  at 2 a.m. on day 8.
+                  Hyperfix tracks the obsession, not the reading. You can log a book the moment you finish it and the counter starts from there — how many days since you closed it, how unwell you still are, what you wrote in the notes field at 2 a.m. on day 8.
                 </p>
                 <p>
-                  When the obsession finally lifts, you mark it done.
-                  Hyperfix writes the eulogy. The full record of the
-                  post-book era, saved forever.
+                  When the obsession finally lifts, you mark it done. Hyperfix writes the eulogy. The full record of the post-book era, saved forever.
                 </p>
               </div>
             </div>
@@ -171,22 +156,19 @@ export default function BooktokTrackerPage() {
         </section>
 
         {/* HYPERFIX VS GOODREADS */}
-        <section className="px-6 sm:px-10 py-20 sm:py-32">
+        <section className="px-6 sm:px-8 py-16">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">the difference</span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-12 max-w-3xl">
-              Goodreads logs your library.
-              <br />
-              <span className="italic text-accent">
-                Hyperfix logs your damage.
-              </span>
+            <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "rgba(94,234,212,0.08)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.20)" }}>the difference</span>
+            <h2 className="font-display font-semibold max-w-3xl" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}>
+              Goodreads logs your library.{" "}
+              <span style={{ color: "#5EEAD4" }}>Hyperfix logs your damage.</span>
             </h2>
-            <div className="grid md:grid-cols-2 gap-10 max-w-4xl">
-              <div className="border-t border-[rgba(244,244,244,0.07)] pt-8">
-                <h3 className="font-display text-2xl tracking-tight mb-4">
+            <div className="grid md:grid-cols-2 gap-8 mt-12 max-w-4xl">
+              <div className="rounded-3xl p-6 sm:p-8" style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <h3 className="font-display font-semibold text-xl mb-4" style={{ color: "#FFFFFF", letterSpacing: "-0.01em" }}>
                   What Goodreads does
                 </h3>
-                <ul className="space-y-3 font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
+                <ul className="space-y-3 font-sans text-base" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
                   {[
                     "Logs every book you've ever read",
                     "Tracks reading pace and yearly goals",
@@ -195,17 +177,17 @@ export default function BooktokTrackerPage() {
                     "Reading challenges and social comparisons",
                   ].map((item) => (
                     <li key={item} className="flex gap-3">
-                      <span className="text-ink font-bold shrink-0">✓</span>
-                      {item}
+                      <span className="shrink-0 mt-1" style={{ color: "rgba(255,255,255,0.35)" }}>—</span>
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="border-t-2 border-accent pt-8">
-                <h3 className="font-display text-2xl tracking-tight mb-4 text-accent">
+              <div className="rounded-3xl p-6 sm:p-8" style={{ background: "#0F1011", border: "1px solid rgba(94,234,212,0.25)" }}>
+                <h3 className="font-display font-semibold text-xl mb-4" style={{ color: "#5EEAD4", letterSpacing: "-0.01em" }}>
                   What Hyperfix does
                 </h3>
-                <ul className="space-y-3 font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
+                <ul className="space-y-3 font-sans text-base" style={{ color: "rgba(255,255,255,0.65)", lineHeight: 1.6 }}>
                   {[
                     "Tracks the one book currently consuming you",
                     "Running day counter from when the obsession started",
@@ -215,49 +197,48 @@ export default function BooktokTrackerPage() {
                     "Eulogy when the obsession ends",
                   ].map((item) => (
                     <li key={item} className="flex gap-3">
-                      <span className="text-accent font-bold shrink-0">✓</span>
-                      {item}
+                      <span className="shrink-0 mt-1" style={{ color: "#5EEAD4" }}>—</span>
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
-            <p className="mt-10 font-display italic text-[rgba(244,244,244,0.4)] text-lg max-w-xl">
-              Use Goodreads for the archive. Use Hyperfix for the current
-              crisis. They're not competing.
+            <p className="mt-8 font-sans text-base max-w-xl" style={{ color: "rgba(255,255,255,0.4)", lineHeight: 1.6 }}>
+              Use Goodreads for the archive. Use Hyperfix for the current crisis. They&apos;re not competing.
             </p>
           </div>
         </section>
 
         {/* FAQ */}
-        <section className="px-6 sm:px-10 py-20 sm:py-32">
+        <section className="px-6 sm:px-8 py-16">
           <div className="max-w-4xl mx-auto">
-            <div className="mb-16">
-              <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-6">
-                frequently · asked · questions
+            <div className="mb-10">
+              <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "rgba(94,234,212,0.08)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.20)" }}>
+                frequently asked
               </span>
-              <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest">
+              <h2 className="font-display font-semibold" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}>
                 The book questions.
               </h2>
             </div>
-            <div className="divide-y divide-[rgba(244,244,244,0.07)] border-y border-[rgba(244,244,244,0.07)]">
+            <div className="divide-y divide-[rgba(255,255,255,0.06)] border-y border-[rgba(255,255,255,0.06)]">
               {faqs.map((faq, i) => (
                 <details
                   key={i}
-                  className="group py-6 [&_summary::-webkit-details-marker]:hidden"
+                  className="group py-5 [&_summary::-webkit-details-marker]:hidden"
                 >
                   <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
-                    <h3 className="font-display text-xl sm:text-2xl tracking-tight leading-snug text-ink">
-                      <span className="font-mono text-xs text-accent mr-3 tabular">
+                    <h3 className="font-display font-semibold text-base sm:text-lg leading-snug" style={{ color: "#FFFFFF", letterSpacing: "-0.01em" }}>
+                      <span className="font-mono text-xs mr-3 tabular-nums" style={{ color: "#5EEAD4" }}>
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       {faq.q}
                     </h3>
-                    <span aria-hidden="true" className="font-mono text-2xl text-[rgba(244,244,244,0.4)] group-open:rotate-45 transition-transform shrink-0">
+                    <span aria-hidden="true" className="text-xl group-open:rotate-45 transition-transform shrink-0" style={{ color: "#5EEAD4" }}>
                       +
                     </span>
                   </summary>
-                  <p className="mt-4 ml-10 font-sans text-base sm:text-lg text-[rgba(244,244,244,0.5)] leading-relaxed max-w-2xl">
+                  <p className="mt-4 ml-9 font-sans text-base max-w-2xl" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
                     {faq.a}
                   </p>
                 </details>
@@ -267,21 +248,21 @@ export default function BooktokTrackerPage() {
         </section>
 
         {/* FINAL CTA */}
-        <section className="px-6 sm:px-10 py-24 sm:py-36 bg-[#111113]">
-          <div className="max-w-4xl mx-auto text-center">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+        <section className="px-6 sm:px-8 py-16">
+          <div className="max-w-4xl mx-auto rounded-3xl p-8 sm:p-14 text-center" style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}>
+            <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "rgba(94,234,212,0.08)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.20)" }}>
               join the waitlist
             </span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.92] tracking-crush">
-              The book hangover
-              <br />
-              <span className="italic text-accent">has a home now.</span>
+            <h2 className="font-display font-semibold" style={{ color: "#FFFFFF", fontSize: "clamp(30px, 5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}>
+              The book hangover{" "}
+              <span style={{ color: "#5EEAD4" }}>has a home now.</span>
             </h2>
-            <p className="mt-8 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-xl mx-auto leading-snug">
-              Waitlist is open. Early users get a permanent Pro discount and
-              the best usernames before they're taken.
+            <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
+              Waitlist is open. Early users get a permanent Pro discount and the best usernames before they&apos;re taken.
             </p>
-            <WaitlistForm variant="dark" />
+            <div className="mt-7 max-w-md mx-auto">
+              <WaitlistForm variant="dark" />
+            </div>
           </div>
         </section>
 
