@@ -78,38 +78,6 @@ const NOISE_URL =
 
 // ---- DATA ------------------------------------------------------------------
 
-const benefits = [
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" />
-      </svg>
-    ),
-    title: "Instant Logging",
-    body: "Capture a fix in seconds, not paragraphs. Name it. Pick a category. Set intensity 1–10. The day counter starts the moment you hit save.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M9.5 2A7.5 7.5 0 0 0 2 9.5c0 4 3 7 5 8s2 2 2 4M14.5 2A7.5 7.5 0 0 1 22 9.5c0 4-3 7-5 8s-2 2-2 4" />
-        <path d="M9 22h6" />
-      </svg>
-    ),
-    title: "Truly Personal",
-    body: "Built for the way your brain actually works. Notes, mood, intensity, streaks — the obsession is yours, the journal adapts to it, not the other way around.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="4" />
-        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-      </svg>
-    ),
-    title: "Highly Shareable",
-    body: "Every fix becomes a card. Drop it in the group chat, the Stories, the Discord. The card is the whole point. The unwellness is best appreciated together.",
-  },
-];
-
 const features = [
   {
     title: "Day Counter",
@@ -137,48 +105,30 @@ const features = [
   },
 ];
 
-const steps = [
-  {
-    step: "Step 1",
-    title: "Log Your Fix",
-    body: "Pick the obsession. A song, a fic, a film, a character, a real person whose Wikipedia you read at 3am. One line of input is enough. Your counter starts now.",
-  },
-  {
-    step: "Step 2",
-    title: "Check In Daily",
-    body: "How bad is it today? Drop the intensity, drop a note, drop a screenshot. Each check-in builds your streak and adds a square to the heatmap.",
-  },
-  {
-    step: "Step 3",
-    title: "Mourn It When It Ends",
-    body: "Every fix eventually fades. Hyperfix is there for that too. Write the eulogy. Archive the card. Visit the graveyard whenever you want to feel something.",
-  },
-];
-
 const reviews = [
   {
-    name: "@parchment.spiral",
+    name: "Mara",
     role: "the marauders era · day 312",
     quote:
-      "i have been waiting for this app since 2019 when i had to explain to my therapist why i made a spreadsheet about a fictional war. i am no longer alone.",
+      "i had a spreadsheet about a fictional war and now i don't. that feels like progress and also exactly the same. either way. five stars.",
   },
   {
-    name: "@kai.unwell",
+    name: "Kai",
     role: "genshin lore · day 89",
     quote:
-      "finally something that understands the difference between liking something and being OWNED by something. five stars. life ruined. would recommend.",
+      "finally something that understands the difference between liking a thing and being owned by it. life ruined in the best way.",
   },
   {
-    name: "@theosobs",
+    name: "Theo",
     role: "hozier discography · day 44",
     quote:
-      "i literally told my partner 'hyperfix is coming out and that's why i'm like this' and they said 'that explains so much.' the app diagnosed my whole 2024.",
+      "told my partner 'hyperfix is why i'm like this.' they said 'oh that explains so much.' app diagnosed my entire year.",
   },
   {
-    name: "@nour.fixated",
+    name: "Nour",
     role: "acotar · day 156",
     quote:
-      "the day counter is the feature i didn't know i needed. yes it has been 156 days. yes i am fine. stop asking. the counter is doing the asking for me now.",
+      "the day counter does the work my therapist has been trying to do for two years. 156 days. yes i am fine. stop asking. the number is asking now.",
   },
 ];
 
@@ -428,29 +378,34 @@ export default async function Page({
                     "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 60px rgba(94,234,212,0.25)",
                 }}
               >
-                Get Started
+                Log Your First Fix
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M13 5l7 7-7 7" />
                 </svg>
               </a>
             </div>
 
-            <p className="mt-7 font-sans text-sm anim-fadeUp delay-700" style={{ color: "rgba(255,255,255,0.5)" }}>
-              free forever · no credit card needed
-            </p>
+            <div className="mt-7 flex flex-col items-center gap-2 anim-fadeUp delay-700">
+              <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+                free forever · no credit card · 30 seconds to your first day count
+              </p>
+              <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "rgba(94,234,212,0.55)" }}>
+                {publicFixCount.toLocaleString()}+ obsessions logged · and counting
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* BENEFITS ------------------------------------------------------- */}
+        {/* PAIN POINTS ---------------------------------------------------- */}
         <section className="relative px-6 sm:px-10 py-24 sm:py-32">
           <GrainOverlay opacity={0.08} />
           <div className="relative max-w-5xl mx-auto">
             <RevealSection>
-              <EyebrowPill>Benefits</EyebrowPill>
+              <EyebrowPill>The Problem</EyebrowPill>
             </RevealSection>
             <RevealSection delay={100}>
               <h2
-                className="mt-7 font-display text-ink max-w-2xl"
+                className="mt-7 font-display text-ink max-w-3xl"
                 style={{
                   fontSize: "clamp(36px, 5.5vw, 60px)",
                   lineHeight: 1.05,
@@ -458,113 +413,320 @@ export default async function Page({
                   fontWeight: 600,
                 }}
               >
-                Everything You Need
+                Your obsession lives across five apps.
                 <br />
-                to Stay Unwell.
+                <span style={{ color: "rgba(255,255,255,0.55)" }}>None of them get it.</span>
               </h2>
             </RevealSection>
-            <RevealSection delay={200}>
-              <p className="mt-5 max-w-xl font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
-                Hyperfix gives your obsession the structure it deserves — without the
-                spreadsheets, the Notion template, or the friend who keeps asking if
-                you&apos;re okay.
-              </p>
-            </RevealSection>
 
-            <div className="mt-14 grid gap-4 sm:gap-5">
-              {benefits.map((b, i) => (
-                <RevealSection key={b.title} delay={300 + i * 120}>
+            <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+              {[
+                {
+                  icon: "🎧",
+                  app: "Spotify",
+                  title: "One song. Ten thousand plays.",
+                  body: "Repeat hits the same. No notes, no day count, no proof you've heard this exact 30 seconds nine hundred times this week.",
+                },
+                {
+                  icon: "📝",
+                  app: "Notes app",
+                  title: "A bullet point you forgot why.",
+                  body: "Three months later: 'Severance episode 7 — door???' You don't remember the door. The door remembers you.",
+                },
+                {
+                  icon: "𝕏",
+                  app: "Twitter",
+                  title: "The rant thread you deleted.",
+                  body: "1.2k words on a fictional war. You scared yourself. The receipts are gone but the obsession is still there.",
+                },
+                {
+                  icon: "💬",
+                  app: "Discord",
+                  title: "Screenshot graveyard in a DM.",
+                  body: "Pinned to a friend who has not opened the chat in 47 days. They liked the first one. The rest is yours.",
+                },
+                {
+                  icon: "📌",
+                  app: "Pinterest",
+                  title: "A board you can't show anyone.",
+                  body: "Eight hundred pins. Same character. Same outfit. Same lighting. Your algorithm has stopped trying to suggest variety.",
+                },
+                {
+                  icon: "🧠",
+                  app: "Your brain",
+                  title: "Vibes. No structure.",
+                  body: "You can't remember when it started. You can't tell when it ends. You only know you used to be a different person.",
+                },
+              ].map((item, i) => (
+                <RevealSection key={item.app} delay={200 + i * 80}>
                   <div
-                    className="motion-card relative overflow-hidden rounded-3xl p-7 sm:p-10"
-                    style={{
-                      background: CARD_BG,
-                      border: `1px solid ${CARD_BORDER}`,
-                      minHeight: 340,
-                    }}
+                    className="motion-card relative overflow-hidden rounded-3xl p-6 h-full"
+                    style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
                   >
-                    <GrainOverlay opacity={0.22} />
+                    <GrainOverlay opacity={0.18} />
                     <div className="relative">
-                      <div className="anim-floatY" style={{ display: "inline-block", animationDelay: `${i * 0.4}s` }}>
-                        <IconTile>{b.icon}</IconTile>
+                      <div className="flex items-center gap-2 mb-4">
+                        <span style={{ fontSize: 22 }}>{item.icon}</span>
+                        <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+                          {item.app}
+                        </span>
                       </div>
-                      <div className="mt-32 sm:mt-48">
-                        <h3
-                          className="font-display text-ink"
-                          style={{ fontSize: "clamp(24px, 3vw, 30px)", letterSpacing: "-0.01em", fontWeight: 600 }}
-                        >
-                          {b.title}
-                        </h3>
-                        <p className="mt-3 font-sans text-base leading-relaxed max-w-xl" style={{ color: "rgba(255,255,255,0.6)" }}>
-                          {b.body}
-                        </p>
-                      </div>
+                      <h3 className="font-display text-ink" style={{ fontSize: 19, letterSpacing: "-0.01em", fontWeight: 600 }}>
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 font-sans text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
+                        {item.body}
+                      </p>
                     </div>
                   </div>
                 </RevealSection>
               ))}
             </div>
+
+            <RevealSection delay={800}>
+              <p
+                className="mt-12 text-center font-display max-w-2xl mx-auto"
+                style={{
+                  fontSize: "clamp(20px, 2.6vw, 26px)",
+                  color: TEAL,
+                  letterSpacing: "-0.01em",
+                  fontWeight: 600,
+                }}
+              >
+                Hyperfix is the one place that does.
+              </p>
+            </RevealSection>
           </div>
         </section>
 
-        {/* HOW IT WORKS --------------------------------------------------- */}
+        {/* TOOLS — interactive product UI cards --------------------------- */}
+        <section id="tools" className="relative px-6 sm:px-10 py-24 sm:py-32" style={{ borderTop: `1px solid ${CARD_BORDER}` }}>
+          <GrainOverlay opacity={0.08} />
+          <div className="relative max-w-6xl mx-auto">
+            <RevealSection>
+              <EyebrowPill>The Product</EyebrowPill>
+            </RevealSection>
+            <RevealSection delay={100}>
+              <h2
+                className="mt-7 font-display text-ink max-w-3xl"
+                style={{ fontSize: "clamp(36px, 5.5vw, 60px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}
+              >
+                One journal,
+                <br />
+                six tools for the unwell.
+              </h2>
+            </RevealSection>
+            <RevealSection delay={200}>
+              <p className="mt-5 max-w-xl font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                Each tool built for the exact way a hyperfixation behaves. The counter, the heatmap, the share card, the eulogy. All in one place. All free.
+              </p>
+            </RevealSection>
+
+            <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+              {/* Day Counter card */}
+              <div className="motion-card group relative overflow-hidden rounded-3xl p-6 transition-all hover:-translate-y-1" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, minHeight: 320 }}>
+                <GrainOverlay opacity={0.18} />
+                <div className="relative flex flex-col h-full">
+                  <div className="rounded-2xl p-5 mb-4" style={{ background: "rgba(94,234,212,0.05)", border: `1px solid ${TEAL_DARK_BORDER}` }}>
+                    <div className="flex items-baseline gap-3">
+                      <span className="font-display tabular-nums" style={{ fontSize: 56, color: TEAL, fontWeight: 700, lineHeight: 1, letterSpacing: "-0.04em" }}>
+                        47
+                      </span>
+                      <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(94,234,212,0.6)" }}>days</span>
+                    </div>
+                    <p className="font-sans text-sm mt-3" style={{ color: "rgba(255,255,255,0.75)" }}>severance — the door scene</p>
+                    <div className="mt-3 h-1 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
+                      <div className="h-full anim-glowPulse" style={{ width: "78%", background: TEAL, boxShadow: `0 0 8px ${TEAL}` }} />
+                    </div>
+                    <p className="font-mono text-[10px] mt-2" style={{ color: "rgba(255,255,255,0.4)" }}>intensity 8/10</p>
+                  </div>
+                  <div className="mt-auto">
+                    <h3 className="font-display text-ink" style={{ fontSize: 18, fontWeight: 600 }}>Day Counter</h3>
+                    <p className="mt-1.5 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>Watch your obsession age in real time. The number is the proof.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Share Card */}
+              <div className="motion-card group relative overflow-hidden rounded-3xl p-6 transition-all hover:-translate-y-1" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, minHeight: 320 }}>
+                <GrainOverlay opacity={0.18} />
+                <div className="relative flex flex-col h-full">
+                  <div className="rounded-2xl p-4 mb-4 flex items-center justify-center" style={{ background: "#F4EFE6", aspectRatio: "9/12", maxHeight: 180 }}>
+                    <div className="text-center" style={{ color: "#111" }}>
+                      <p className="font-mono text-[8px] uppercase tracking-widest" style={{ color: "rgba(17,17,17,0.4)" }}>hyperfix · day 47</p>
+                      <p className="font-display mt-1.5" style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.02em" }}>severance —</p>
+                      <p className="font-display" style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.02em" }}>the door scene</p>
+                      <p className="font-display tabular-nums mt-2" style={{ fontSize: 32, color: "#D72638", fontWeight: 700, lineHeight: 1 }}>8<span style={{ fontSize: 16, color: "rgba(17,17,17,0.4)" }}>/10</span></p>
+                      <p className="font-mono text-[7px] mt-2" style={{ color: "rgba(17,17,17,0.4)" }}>i'm so normal 😭</p>
+                    </div>
+                  </div>
+                  <div className="mt-auto">
+                    <h3 className="font-display text-ink" style={{ fontSize: 18, fontWeight: 600 }}>Share Cards</h3>
+                    <p className="mt-1.5 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>Every fix renders to a 9:16 card. Drop it in the chat. No explanation needed.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Streak heatmap */}
+              <div className="motion-card group relative overflow-hidden rounded-3xl p-6 transition-all hover:-translate-y-1" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, minHeight: 320 }}>
+                <GrainOverlay opacity={0.18} />
+                <div className="relative flex flex-col h-full">
+                  <div className="rounded-2xl p-4 mb-4" style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${CARD_BORDER}` }}>
+                    <div className="grid" style={{ gridTemplateColumns: "repeat(13, 1fr)", gap: 3 }}>
+                      {Array.from({ length: 13 * 5 }).map((_, idx) => {
+                        const intensity = Math.sin((idx * 0.7) + 1) * 0.5 + 0.5;
+                        const filled = intensity > 0.3;
+                        const opacity = filled ? 0.2 + intensity * 0.8 : 0;
+                        return (
+                          <div
+                            key={idx}
+                            style={{
+                              aspectRatio: "1 / 1",
+                              borderRadius: 2,
+                              background: filled ? TEAL : "rgba(255,255,255,0.05)",
+                              opacity: filled ? opacity : 1,
+                            }}
+                          />
+                        );
+                      })}
+                    </div>
+                    <div className="flex items-center justify-between mt-3 font-mono text-[9px]" style={{ color: "rgba(255,255,255,0.35)" }}>
+                      <span>13 weeks</span>
+                      <span style={{ color: TEAL }}>🔥 12-day run</span>
+                    </div>
+                  </div>
+                  <div className="mt-auto">
+                    <h3 className="font-display text-ink" style={{ fontSize: 18, fontWeight: 600 }}>Streak Heatmap</h3>
+                    <p className="mt-1.5 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>Daily check-ins. The shape of your obsession over weeks.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Eulogy */}
+              <div className="motion-card group relative overflow-hidden rounded-3xl p-6 transition-all hover:-translate-y-1" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, minHeight: 320 }}>
+                <GrainOverlay opacity={0.18} />
+                <div className="relative flex flex-col h-full">
+                  <div className="rounded-2xl p-4 mb-4" style={{ background: "rgba(215,38,56,0.05)", border: "1px solid rgba(215,38,56,0.2)" }}>
+                    <p className="font-mono text-[9px] uppercase tracking-widest" style={{ color: "rgba(215,38,56,0.7)" }}>◼ ended · day 156</p>
+                    <p className="font-display mt-2" style={{ fontSize: 15, fontWeight: 600, color: "#F4F4F4" }}>"hozier discography"</p>
+                    <p className="font-sans italic text-xs mt-3 leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+                      we had a good run. you turned a normal commute into a five-month spiral. i&apos;ll never look at a bog the same.
+                    </p>
+                    <p className="font-mono text-[9px] mt-3" style={{ color: "rgba(255,255,255,0.3)" }}>filed in the graveyard, may 2026</p>
+                  </div>
+                  <div className="mt-auto">
+                    <h3 className="font-display text-ink" style={{ fontSize: 18, fontWeight: 600 }}>Eulogies</h3>
+                    <p className="mt-1.5 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>When it dies, write the obituary. Build a graveyard of past selves.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Profile */}
+              <div className="motion-card group relative overflow-hidden rounded-3xl p-6 transition-all hover:-translate-y-1" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, minHeight: 320 }}>
+                <GrainOverlay opacity={0.18} />
+                <div className="relative flex flex-col h-full">
+                  <div className="rounded-2xl p-4 mb-4" style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${CARD_BORDER}` }}>
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-9 h-9 rounded-full flex items-center justify-center font-mono font-bold text-xs" style={{ background: TEAL_DARK_BG, border: `1px solid ${TEAL_DARK_BORDER}`, color: TEAL }}>
+                        KA
+                      </div>
+                      <div>
+                        <p className="font-display font-semibold text-sm" style={{ color: "#F4F4F4" }}>kai.unwell</p>
+                        <p className="font-mono text-[9px]" style={{ color: "rgba(255,255,255,0.4)" }}>@kai · 8 active · 23 buried</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-1.5">
+                      {["💜", "🎮", "📺"].map((emoji, i) => (
+                        <div key={i} className="rounded-lg p-2 text-center" style={{ background: "rgba(255,255,255,0.04)" }}>
+                          <span style={{ fontSize: 14 }}>{emoji}</span>
+                          <p className="font-mono text-[8px] mt-1" style={{ color: "rgba(255,255,255,0.35)" }}>day {[89, 156, 47][i]}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mt-auto">
+                    <h3 className="font-display text-ink" style={{ fontSize: 18, fontWeight: 600 }}>Public Profile</h3>
+                    <p className="mt-1.5 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>Your hyperfixations, public. Followers, eras, the whole archive.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Reactions / Comments */}
+              <div className="motion-card group relative overflow-hidden rounded-3xl p-6 transition-all hover:-translate-y-1" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, minHeight: 320 }}>
+                <GrainOverlay opacity={0.18} />
+                <div className="relative flex flex-col h-full">
+                  <div className="rounded-2xl p-4 mb-4" style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${CARD_BORDER}` }}>
+                    <div className="flex gap-1.5 mb-3 flex-wrap">
+                      {[{ e: "💀", n: 42 }, { e: "😭", n: 17 }, { e: "🔁", n: 9 }, { e: "💜", n: 6 }].map((r) => (
+                        <span key={r.e} className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-mono text-[10px]"
+                          style={{ background: TEAL_DARK_BG, border: `1px solid ${TEAL_DARK_BORDER}`, color: TEAL }}>
+                          {r.e} {r.n}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="flex items-start gap-2 pt-2 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+                      <div className="w-5 h-5 rounded-full flex items-center justify-center font-mono text-[8px] shrink-0" style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.6)" }}>N</div>
+                      <p className="font-sans text-xs italic" style={{ color: "rgba(255,255,255,0.65)" }}>&ldquo;day 156 is wild for someone who said this was a phase&rdquo;</p>
+                    </div>
+                  </div>
+                  <div className="mt-auto">
+                    <h3 className="font-display text-ink" style={{ fontSize: 18, fontWeight: 600 }}>Reactions & Comments</h3>
+                    <p className="mt-1.5 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>Your friends react in your language. Six emojis. One conversation.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* WORKFLOW — 4 steps -------------------------------------------- */}
         <section className="relative px-6 sm:px-10 py-24 sm:py-32" style={{ borderTop: `1px solid ${CARD_BORDER}` }}>
           <GrainOverlay opacity={0.08} />
           <div className="relative max-w-5xl mx-auto">
-            <EyebrowPill>How It Works</EyebrowPill>
-            <h2
-              className="mt-7 font-display text-ink max-w-2xl"
-              style={{ fontSize: "clamp(36px, 5.5vw, 60px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}
-            >
-              The Whole Thing
-              <br />
-              in 3 Simple Steps.
-            </h2>
-            <p className="mt-5 max-w-xl font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
-              No onboarding flow. No tutorial video. Just log the fix and let the rest
-              unfold.
-            </p>
+            <RevealSection>
+              <EyebrowPill>How It Works</EyebrowPill>
+            </RevealSection>
+            <RevealSection delay={100}>
+              <h2
+                className="mt-7 font-display text-ink max-w-3xl"
+                style={{ fontSize: "clamp(36px, 5.5vw, 60px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}
+              >
+                From spiral to share.
+                <br />
+                <span style={{ color: "rgba(255,255,255,0.55)" }}>Four steps. Same journal, every time.</span>
+              </h2>
+            </RevealSection>
 
-            <div className="mt-14 grid gap-4 sm:gap-5">
-              {steps.map((s, i) => (
-                <RevealSection key={s.step} delay={i * 140}>
-                  <div
-                    className="motion-card relative overflow-hidden rounded-3xl p-7 sm:p-10"
-                    style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, minHeight: 360 }}
-                  >
-                    <GrainOverlay opacity={0.22} />
+            <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+              {[
+                { n: "1", title: "Log", body: "Drop the fix. Name it, pick a category, set intensity 1–10. 30 seconds." },
+                { n: "2", title: "Count", body: "Day counter starts. Check in daily. The number tells the truth your mouth won't." },
+                { n: "3", title: "Share", body: "Every fix renders to a 9:16 card. Post it. Watch the group chat lose it." },
+                { n: "4", title: "Mourn", body: "When it fades, write the eulogy. File it in the graveyard. Move on." },
+              ].map((step, i) => (
+                <RevealSection key={step.n} delay={200 + i * 100}>
+                  <div className="motion-card relative overflow-hidden rounded-3xl p-6 h-full"
+                    style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+                    <GrainOverlay opacity={0.18} />
                     <div className="relative">
-                      <EyebrowPill>{s.step}</EyebrowPill>
-                      {/* Pixel-grid illustration — cells pop in sequence */}
-                      <div className="mt-8 mb-10 grid" style={{ gridTemplateColumns: "repeat(14, 1fr)", gap: 4, maxWidth: 360 }}>
-                        {Array.from({ length: 14 * 8 }).map((_, idx) => {
-                          const row = Math.floor(idx / 14);
-                          const col = idx % 14;
-                          const threshold = i === 0 ? col - row * 1.2 + 4 : i === 1 ? Math.abs(col - 7) + row * 1.1 - 2 : (13 - col) - row * 1.2 + 4;
-                          const lit = threshold > 0 && threshold < 6;
-                          const alpha = lit ? 0.55 + (threshold / 14) : 0.06;
-                          // Stagger by Manhattan distance from a corner so they cascade
-                          const cellDelay = lit ? 0.2 + (row + col) * 0.04 : 0;
-                          return (
-                            <div
-                              key={idx}
-                              className={lit ? "anim-cellPop" : undefined}
-                              style={{
-                                aspectRatio: "1 / 1",
-                                borderRadius: 4,
-                                background: lit ? TEAL : "rgba(255,255,255,0.04)",
-                                opacity: lit ? alpha : 1,
-                                boxShadow: lit ? `0 0 8px rgba(94,234,212,${alpha * 0.7})` : "none",
-                                animationDelay: lit ? `${cellDelay}s` : undefined,
-                              }}
-                            />
-                          );
-                        })}
+                      <div
+                        className="font-display tabular-nums mb-4"
+                        style={{
+                          fontSize: 56,
+                          color: TEAL,
+                          fontWeight: 700,
+                          lineHeight: 1,
+                          letterSpacing: "-0.04em",
+                          textShadow: "0 0 32px rgba(94,234,212,0.4)",
+                        }}
+                      >
+                        {step.n}
                       </div>
-                      <h3 className="font-display text-ink" style={{ fontSize: "clamp(24px, 3vw, 30px)", letterSpacing: "-0.01em", fontWeight: 600 }}>
-                        {s.title}
+                      <h3 className="font-display text-ink" style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>
+                        {step.title}
                       </h3>
-                      <p className="mt-3 font-sans text-base leading-relaxed max-w-xl" style={{ color: "rgba(255,255,255,0.6)" }}>
-                        {s.body}
+                      <p className="mt-2 font-sans text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
+                        {step.body}
                       </p>
                     </div>
                   </div>
@@ -631,14 +793,28 @@ export default async function Page({
         <section className="relative px-6 sm:px-10 py-24 sm:py-32" style={{ borderTop: `1px solid ${CARD_BORDER}` }}>
           <GrainOverlay opacity={0.08} />
           <div className="relative max-w-5xl mx-auto">
-            <EyebrowPill>Reviews</EyebrowPill>
+            <div className="flex items-center gap-3 flex-wrap">
+              <EyebrowPill>Loved by the unwell</EyebrowPill>
+              <span
+                className="inline-flex items-center gap-2 font-mono text-xs rounded-full px-3 py-1.5"
+                style={{ background: TEAL_DARK_BG, color: TEAL, border: `1px solid ${TEAL_DARK_BORDER}` }}
+              >
+                <span className="flex gap-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span key={i} style={{ color: TEAL }}>★</span>
+                  ))}
+                </span>
+                4.9 / 5
+                <span style={{ color: "rgba(94,234,212,0.55)" }}>· from early members</span>
+              </span>
+            </div>
             <h2
               className="mt-7 font-display text-ink max-w-3xl"
               style={{ fontSize: "clamp(36px, 5.5vw, 60px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}
             >
-              People Who Hyperfix
+              People who hyperfix
               <br />
-              Don&apos;t Go Back.
+              don&apos;t go back.
             </h2>
             <p className="mt-5 max-w-xl font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
               From the chronically online to the deeply private — here&apos;s what
@@ -1045,15 +1221,14 @@ export default async function Page({
                   className="font-display text-ink mx-auto max-w-3xl"
                   style={{ fontSize: "clamp(42px, 7vw, 80px)", lineHeight: 1.03, letterSpacing: "-0.02em", fontWeight: 600 }}
                 >
-                  Start Counting
+                  Log your obsession
                   <br />
-                  the Days.
+                  like a person who has one.
                 </h2>
               </RevealSection>
               <RevealSection delay={150}>
                 <p className="mt-7 mx-auto max-w-xl font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.78)" }}>
-                  Join {publicFixCount.toLocaleString()}+ logged fixations. Set up your
-                  first hyperfix in minutes — no credit card, no commitment, no judgment.
+                  Free forever. No card. 30 seconds to your first day count. {publicFixCount.toLocaleString()}+ fixations already logged.
                 </p>
               </RevealSection>
               <RevealSection delay={300}>
@@ -1069,7 +1244,7 @@ export default async function Page({
                         "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 60px rgba(94,234,212,0.30)",
                     }}
                   >
-                    Get Started
+                    Log Your First Fix
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M5 12h14M13 5l7 7-7 7" />
                     </svg>
