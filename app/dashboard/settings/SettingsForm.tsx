@@ -396,11 +396,12 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
         />
       </section>
 
-      {/* ── Detailed profile fields (legacy form below preview) ── */}
+      {/* ── Theme & accent ── */}
       <section>
-        <SectionHeading>Profile details</SectionHeading>
+        <SectionHeading>Theme</SectionHeading>
 
-        {/* Avatar */}
+        {/* Avatar — hidden legacy (kept for compat, edited via LiveProfileEditor above) */}
+        <div className="hidden">
         <div className="flex flex-col items-center gap-4 mb-8 sm:flex-row sm:items-start">
           {/* Circle */}
           <div className="relative shrink-0">
@@ -560,6 +561,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             <p className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.2)" }}>
               Recommended: 1500×500px · JPG or PNG · max 5MB
             </p>
+        </div>
         </div>
 
         {/* Accent color (Pro) */}
