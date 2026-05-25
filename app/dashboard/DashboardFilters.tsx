@@ -6,6 +6,7 @@ import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
 import { checkInFix, bulkCheckInFixes } from "@/app/actions/fixes";
 import { CountUp } from "@/components/CountUp";
 import { Search, TickSquare } from "react-iconly";
+import { CategoryIcon, CATEGORY_COLOR } from "@/components/CategoryIcon";
 
 function QuickExportButton({ fixId, title }: { fixId: string; title: string }) {
   const [state, setState] = useState<"idle" | "loading" | "done">("idle");
@@ -82,6 +83,7 @@ type Fix = {
   ended_at: string | null;
   created_at: string;
   is_public?: boolean;
+  banner_url?: string | null;
 };
 
 const VALID_STATUSES: FixStatus[] = [
@@ -156,157 +158,153 @@ function FixGridCard({
 
   const delay = `${Math.min(index, 6) * 60}ms`;
 
+  const catColor = CATEGORY_COLOR[fix.category.toLowerCase()] || TEAL;
+
   return (
     <div
-      className="motion-card relative overflow-hidden rounded-3xl p-5 flex flex-col anim-fadeUp"
+      className="relative rounded-3xl flex flex-col anim-fadeUp transition-all duration-200 hover:-translate-y-0.5 group/card"
       style={{
         background: CARD_BG,
         border: `1px solid ${CARD_BORDER}`,
         animationDelay: delay,
-        boxShadow: `0 0 24px rgba(${rgb},0.05)`,
+        overflow: "hidden",
       }}
     >
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
-      />
-      {/* Intensity bloom from bottom — subtle */}
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse 80% 60% at 50% 110%, rgba(${rgb},0.18) 0%, transparent 60%)`,
-        }}
-      />
-      {/* Intensity badge — top right */}
-      <div
-        className="absolute z-10"
-        style={{
-          top: -10,
-          right: -10,
-          width: 40,
-          height: 40,
-          borderRadius: 999,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: `rgba(${rgb},0.20)`,
-          border: `1px solid rgba(${rgb},0.50)`,
-          color,
-          boxShadow: `0 0 22px rgba(${rgb},0.55)`,
-          backdropFilter: "blur(8px)",
-        }}
-      >
-        <span className="font-display text-sm" style={{ fontWeight: 600 }}>
-          {fix.intensity}
-        </span>
-      </div>
-
-      <Link href={`/dashboard/fix/${fix.id}`} className="relative flex-1 block group">
-        {/* Category eyebrow + status */}
-        <div className="flex items-center gap-2 mb-4 flex-wrap">
-          <span
-            className="inline-flex items-center font-sans text-[11px] rounded-full px-2.5 py-0.5"
-            style={{
-              background: "rgba(94,234,212,0.10)",
-              color: TEAL,
-              border: "1px solid rgba(94,234,212,0.22)",
-            }}
-          >
-            {fix.category}
-          </span>
-          <FixStatusPill status={status} size="sm" />
-          {fix.is_public && (
-            <span
-              className="inline-flex items-center gap-1 font-sans text-[10px] rounded-full px-2.5 py-0.5"
-              style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.10)",
-                color: "rgba(255,255,255,0.35)",
-              }}
-              title="Public — visible to anyone"
-            >
-              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-              </svg>
-              public
-            </span>
-          )}
-          {milestone && (
-            <span
-              className="font-sans text-[11px] rounded-full px-2.5 py-0.5"
-              style={{
-                background: `rgba(${rgb},0.12)`,
-                border: `1px solid rgba(${rgb},0.32)`,
-                color,
-              }}
-            >
-              {milestone.icon} {milestone.label}
-            </span>
-          )}
-        </div>
-
-        {/* Title — serif */}
-        <h3
-          className="font-display text-ink mb-5 transition-colors group-hover:text-[#5EEAD4]"
+      <Link href={`/dashboard/fix/${fix.id}`} className="block">
+        {/* Banner — uses uploaded banner_url or a subtle category-tinted gradient */}
+        <div
+          className="relative w-full"
           style={{
-            fontSize: 19,
-            fontWeight: 600,
-            letterSpacing: "-0.01em",
-            lineHeight: 1.18,
-            display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
+            height: 96,
+            backgroundImage: fix.banner_url ? `url(${fix.banner_url})` : undefined,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            background: fix.banner_url
+              ? undefined
+              : `linear-gradient(135deg, ${catColor}22 0%, ${catColor}08 50%, ${CARD_BG} 100%)`,
+            borderBottom: `1px solid ${CARD_BORDER}`,
           }}
         >
-          {fix.title}
-        </h3>
-
-        {/* Hero day count */}
-        <div className="flex items-baseline gap-2 mb-4">
-          <span
-            className="font-display leading-none tabular-nums"
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: "linear-gradient(180deg, transparent 0%, transparent 55%, rgba(15,16,17,0.9) 100%)" }}
+          />
+          {/* Intensity chip floating bottom-right of banner */}
+          <div
+            className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5"
             style={{
-              color: justCheckedIn ? color : "#FFFFFF",
-              fontSize: 56,
-              fontWeight: 600,
-              letterSpacing: "-0.04em",
-              textShadow: justCheckedIn ? `0 0 36px rgba(${rgb},0.55)` : "none",
-              transition: "color 0.3s ease, text-shadow 0.3s ease",
+              background: "rgba(7,7,8,0.6)",
+              border: `1px solid rgba(${rgb},0.35)`,
+              backdropFilter: "blur(8px)",
+              color,
             }}
           >
-            <CountUp to={days} duration={900} />
-          </span>
-          <span className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
-            day{days !== 1 ? "s" : ""}
-          </span>
+            <span className="font-mono tabular-nums" style={{ fontSize: 10, fontWeight: 600 }}>
+              {fix.intensity}<span style={{ opacity: 0.55 }}>/10</span>
+            </span>
+          </div>
         </div>
 
-        {/* Intensity bar */}
-        <div
-          className="h-1.5 rounded-full overflow-hidden mb-1"
-          style={{ background: "rgba(255,255,255,0.06)" }}
-        >
-          <div
-            className="h-full rounded-full"
+        <div className="relative p-5 group">
+          {/* Category + status row */}
+          <div className="flex items-center gap-1.5 mb-4 flex-wrap">
+            <span
+              className="inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-widest rounded-full px-2 py-0.5"
+              style={{
+                background: `${catColor}14`,
+                color: catColor,
+                border: `1px solid ${catColor}33`,
+              }}
+            >
+              <CategoryIcon category={fix.category} size={9} />
+              {fix.category}
+            </span>
+            <FixStatusPill status={status} size="sm" />
+            {fix.is_public && (
+              <span
+                className="inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-widest rounded-full px-2 py-0.5"
+                style={{
+                  background: "rgba(255,255,255,0.03)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  color: "rgba(255,255,255,0.35)",
+                }}
+                title="Public — visible to anyone"
+              >
+                public
+              </span>
+            )}
+            {milestone && (
+              <span
+                className="inline-flex items-center font-mono text-[9px] uppercase tracking-widest rounded-full px-2 py-0.5"
+                style={{
+                  background: `rgba(${rgb},0.10)`,
+                  border: `1px solid rgba(${rgb},0.28)`,
+                  color,
+                }}
+              >
+                {milestone.label}
+              </span>
+            )}
+          </div>
+
+          {/* Title — serif */}
+          <h3
+            className="font-display text-ink mb-4 transition-colors group-hover:text-[#5EEAD4]"
             style={{
-              width: `${pct}%`,
-              background: `linear-gradient(to right, rgba(${rgb},0.5), ${color})`,
-              boxShadow: `0 0 10px rgba(${rgb},0.7)`,
-              transition: "width 0.4s ease",
+              fontSize: 19,
+              fontWeight: 600,
+              letterSpacing: "-0.01em",
+              lineHeight: 1.18,
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
             }}
-          />
+          >
+            {fix.title}
+          </h3>
+
+          {/* Day count */}
+          <div className="flex items-baseline gap-2 mb-3">
+            <span
+              className="font-display leading-none tabular-nums"
+              style={{
+                color: justCheckedIn ? color : "#F4F4F4",
+                fontSize: 48,
+                fontWeight: 600,
+                letterSpacing: "-0.04em",
+                textShadow: justCheckedIn ? `0 0 30px rgba(${rgb},0.45)` : "none",
+                transition: "color 0.3s ease, text-shadow 0.3s ease",
+              }}
+            >
+              <CountUp to={days} duration={900} />
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>
+              day{days !== 1 ? "s" : ""}
+            </span>
+          </div>
+
+          {/* Intensity bar */}
+          <div
+            className="h-1 rounded-full overflow-hidden"
+            style={{ background: "rgba(255,255,255,0.05)" }}
+          >
+            <div
+              className="h-full rounded-full"
+              style={{
+                width: `${pct}%`,
+                background: `linear-gradient(to right, rgba(${rgb},0.4), ${color})`,
+                transition: "width 0.4s ease",
+              }}
+            />
+          </div>
         </div>
-        <p className="font-sans text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
-          intensity {fix.intensity}/10
-        </p>
       </Link>
 
       {/* Check-in row */}
       <div
-        className="relative mt-4 pt-4 flex items-center justify-between gap-2"
+        className="relative flex items-center justify-between gap-2 px-5 py-4"
         style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
       >
         {checkedInToday || justCheckedIn ? (

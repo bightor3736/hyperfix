@@ -23,6 +23,7 @@ type Fix = {
   ended_at: string | null;
   created_at: string;
   is_public: boolean;
+  banner_url: string | null;
 };
 
 const TEAL = "#5EEAD4";
@@ -123,7 +124,7 @@ export default async function DashboardPage() {
   if (user) {
     const { data, error } = await supabase
       .from("fixes")
-      .select("id, title, category, status, intensity, note, started_at, ended_at, created_at, is_public")
+      .select("id, title, category, status, intensity, note, started_at, ended_at, created_at, is_public, banner_url")
       .eq("user_id", user.id)
       .not("status", "eq", "Ended")
       .order("created_at", { ascending: false });
@@ -215,76 +216,52 @@ export default async function DashboardPage() {
       <OnboardingModal totalFixes={totalActive} />
       <div className="max-w-5xl mx-auto">
 
-        {/* Hero header — teal radial bloom + grain */}
-        <div
-          className="relative rounded-3xl overflow-hidden mb-6 anim-fadeUp"
-          style={{
-            background:
-              "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
-            border: `1px solid ${CARD_BORDER}`,
-            minHeight: 220,
-          }}
-        >
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none mix-blend-overlay"
-            style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }}
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)",
-            }}
-          />
-
-          <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 p-6 sm:p-10">
-            <div className="flex-1">
-              <div className="mb-4">
-                <EyebrowPill>good {greeting}</EyebrowPill>
-              </div>
-              <h1
-                className="font-display text-ink mb-3"
-                style={{
-                  fontSize: "clamp(36px, 6vw, 60px)",
-                  lineHeight: 1.02,
-                  letterSpacing: "-0.02em",
-                  fontWeight: 600,
-                }}
-              >
-                {firstName}.
-              </h1>
-              <p className="font-sans text-base sm:text-lg max-w-xl" style={{ color: "rgba(255,255,255,0.72)" }}>
-                {subtext}
-              </p>
-              {fixes.length >= 3 && (
-                <Link
-                  href="/dashboard/pattern"
-                  className="inline-flex items-center gap-1.5 font-mono text-xs mt-4 transition-colors hover:text-[#5EEAD4]"
-                  style={{ color: "rgba(255,255,255,0.35)" }}
-                >
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                  </svg>
-                  see your pattern →
-                </Link>
-              )}
-            </div>
-
-            <Link
-              href="/dashboard/new"
-              className="hidden lg:inline-flex items-center gap-2.5 font-sans text-sm font-semibold px-6 py-3.5 transition-all hover:opacity-95 active:scale-[0.98] anim-fadeUp delay-200"
+        {/* Hero header — tight, restrained */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-8 anim-fadeUp">
+          <div className="flex-1 min-w-0">
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(94,234,212,0.55)" }}>
+              good {greeting}
+            </p>
+            <h1
+              className="font-display text-ink mb-3"
               style={{
-                background: "#FFFFFF",
-                color: "#0A0A0A",
-                borderRadius: 999,
-                boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4)",
+                fontSize: "clamp(32px, 5vw, 48px)",
+                lineHeight: 1.02,
+                letterSpacing: "-0.02em",
+                fontWeight: 600,
               }}
             >
-              <Plus set="light" size={16} primaryColor="currentColor" />
-              New fix
-            </Link>
+              {firstName}.
+            </h1>
+            <p className="font-sans text-sm sm:text-base max-w-xl" style={{ color: "rgba(255,255,255,0.55)" }}>
+              {subtext}
+            </p>
+            {fixes.length >= 3 && (
+              <Link
+                href="/dashboard/pattern"
+                className="inline-flex items-center gap-1.5 font-mono text-xs mt-4 transition-colors hover:text-[#5EEAD4]"
+                style={{ color: "rgba(255,255,255,0.35)" }}
+              >
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
+                see your pattern →
+              </Link>
+            )}
           </div>
+
+          <Link
+            href="/dashboard/new"
+            className="hidden lg:inline-flex items-center gap-2.5 font-sans text-sm font-semibold px-5 py-3 transition-all hover:opacity-95 active:scale-[0.98]"
+            style={{
+              background: "#FFFFFF",
+              color: "#0A0A0A",
+              borderRadius: 999,
+            }}
+          >
+            <Plus set="light" size={16} primaryColor="currentColor" />
+            New fix
+          </Link>
         </div>
 
         {/* Stats grid */}
