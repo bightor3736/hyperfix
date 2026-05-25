@@ -243,26 +243,39 @@ export default async function FixDetailPage({
           </div>
         )}
 
-        {/* Bloom hero card */}
+        {/* Hero card — subtle when no banner, neutral when banner is set */}
         <div
-          className="relative overflow-hidden rounded-3xl mb-5 p-6 sm:p-10 anim-fadeUp"
+          className="relative overflow-hidden rounded-3xl mb-5 p-6 sm:p-9 anim-fadeUp"
           style={{
-            background: typedFix.banner_url
-              ? CARD_BG
-              : "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
+            background: CARD_BG,
             border: `1px solid ${CARD_BORDER}`,
           }}
         >
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none mix-blend-overlay"
-            style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }}
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none"
-            style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }}
-          />
+          {/* Top teal accent line — only when there's no banner above */}
+          {!typedFix.banner_url && (
+            <div
+              aria-hidden
+              className="absolute top-0 left-0 right-0 pointer-events-none"
+              style={{
+                height: 2,
+                background: "linear-gradient(90deg, transparent 0%, rgba(94,234,212,0.5) 50%, transparent 100%)",
+              }}
+            />
+          )}
+          {/* Subtle teal radial in corner — only when no banner */}
+          {!typedFix.banner_url && (
+            <div
+              aria-hidden
+              className="absolute pointer-events-none"
+              style={{
+                top: -80,
+                right: -80,
+                width: 240,
+                height: 240,
+                background: "radial-gradient(circle, rgba(94,234,212,0.12) 0%, transparent 70%)",
+              }}
+            />
+          )}
           <div className="relative">
             {/* Category eyebrow */}
             <div className="flex items-center gap-2 mb-5 flex-wrap">
