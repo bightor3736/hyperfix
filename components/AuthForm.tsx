@@ -311,6 +311,20 @@ export function SignupFormInner() {
           .catch(() => {});
       }
 
+      // Fire-and-forget affiliate attribution
+      const affSlug = typeof localStorage !== "undefined"
+        ? localStorage.getItem("hf_aff")
+        : null;
+      if (affSlug) {
+        fetch("/api/aff", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ slug: affSlug, event: "signup" }),
+        })
+          .then(() => localStorage.removeItem("hf_aff"))
+          .catch(() => {});
+      }
+
       setSuccess("Check your email to confirm your account, then log in.");
       router.push("/auth/verify");
     });

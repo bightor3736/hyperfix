@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { Suspense } from "react";
+import { AffTracker } from "@/components/AffTracker";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -157,6 +159,7 @@ export default function RootLayout({
           >
             Skip to content
           </a>
+          <Suspense fallback={null}><AffTracker /></Suspense>
           {children}
           <Analytics />
         </body>
