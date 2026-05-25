@@ -165,9 +165,10 @@ function FixGridCard({
       className="relative rounded-3xl flex flex-col anim-fadeUp transition-all duration-200 hover:-translate-y-0.5 group/card"
       style={{
         background: CARD_BG,
-        border: `1px solid ${CARD_BORDER}`,
+        border: `1px solid ${checkedInToday ? "rgba(94,234,212,0.22)" : CARD_BORDER}`,
         animationDelay: delay,
         overflow: "hidden",
+        boxShadow: checkedInToday ? "0 0 0 1px rgba(94,234,212,0.08), 0 8px 32px rgba(94,234,212,0.06)" : undefined,
       }}
     >
       <Link href={`/dashboard/fix/${fix.id}`} className="block">
@@ -175,27 +176,53 @@ function FixGridCard({
         <div
           className="relative w-full"
           style={{
-            height: 96,
+            height: 132,
             backgroundImage: fix.banner_url ? `url(${fix.banner_url})` : undefined,
             backgroundSize: "cover",
             backgroundPosition: "center",
             background: fix.banner_url
               ? undefined
-              : `linear-gradient(135deg, ${catColor}22 0%, ${catColor}08 50%, ${CARD_BG} 100%)`,
+              : `linear-gradient(135deg, ${catColor}30 0%, ${catColor}0C 55%, ${CARD_BG} 100%)`,
             borderBottom: `1px solid ${CARD_BORDER}`,
           }}
         >
           <div
             aria-hidden
             className="absolute inset-0 pointer-events-none"
-            style={{ background: "linear-gradient(180deg, transparent 0%, transparent 55%, rgba(15,16,17,0.9) 100%)" }}
+            style={{ background: "linear-gradient(180deg, transparent 0%, transparent 50%, rgba(15,16,17,0.92) 100%)" }}
           />
-          {/* Intensity chip floating bottom-right of banner */}
+          {/* Day count overlay on banner top-left — big, screenshot-worthy */}
+          <div className="absolute top-3 left-3 flex items-baseline gap-1">
+            <span
+              className="font-display tabular-nums"
+              style={{
+                fontSize: 28,
+                fontWeight: 700,
+                color: "#F4F4F4",
+                lineHeight: 1,
+                letterSpacing: "-0.04em",
+                textShadow: "0 2px 12px rgba(0,0,0,0.6)",
+              }}
+            >
+              {days}
+            </span>
+            <span
+              className="font-mono uppercase tracking-widest"
+              style={{
+                fontSize: 9,
+                color: "rgba(244,244,244,0.7)",
+                textShadow: "0 1px 6px rgba(0,0,0,0.6)",
+              }}
+            >
+              day{days !== 1 ? "s" : ""}
+            </span>
+          </div>
+          {/* Intensity chip bottom-right */}
           <div
             className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5"
             style={{
-              background: "rgba(7,7,8,0.6)",
-              border: `1px solid rgba(${rgb},0.35)`,
+              background: "rgba(7,7,8,0.65)",
+              border: `1px solid rgba(${rgb},0.4)`,
               backdropFilter: "blur(8px)",
               color,
             }}
@@ -204,6 +231,22 @@ function FixGridCard({
               {fix.intensity}<span style={{ opacity: 0.55 }}>/10</span>
             </span>
           </div>
+          {/* Checked in today indicator — top-right */}
+          {checkedInToday && (
+            <div
+              className="absolute top-3 right-3 w-5 h-5 rounded-full flex items-center justify-center"
+              style={{
+                background: TEAL,
+                color: "#070708",
+                boxShadow: "0 0 12px rgba(94,234,212,0.6)",
+              }}
+              title="Checked in today"
+            >
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+            </div>
+          )}
         </div>
 
         <div className="relative p-5 group">
