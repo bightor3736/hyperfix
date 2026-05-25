@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { DashboardSidebarClient } from "./DashboardSidebarClient";
 import { ToastProvider } from "@/components/ToastProvider";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
+import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { MobileNavBar } from "./MobileNavBar";
 
 export default async function DashboardLayout({
@@ -56,6 +57,7 @@ export default async function DashboardLayout({
         </main>
 
         <PWAInstallPrompt />
+        <ServiceWorkerRegister />
 
         <MobileNavBar username={profile?.username ?? null} />
       </div>

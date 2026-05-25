@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
 import {
   REACTION_TYPES,
   normalizeReactionCounts,
   normalizeUserReactions,
+  legacyEmojiToType,
   type ReactionType,
 } from "@/lib/reactions";
 
@@ -22,6 +24,39 @@ export function FixReactions({ fixId, initialReactions, userReactions = [] }: Pr
     () => new Set(normalizeUserReactions(userReactions)),
   );
   const [loading, setLoading] = useState<Set<ReactionType>>(new Set());
+
+  // Realtime: subscribe to fix_reactions inserts/deletes for this fix and update counts live.
+  useEffect(() => {
+    const supabase = createClient();
+    const channel = supabase
+      .channel(`fix-reactions:${fixId}`)
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "fix_reactions", filter: `fix_id=eq.${fixId}` },
+        (payload) => {
+          const raw = (payload.new as { emoji?: string })?.emoji;
+          if (!raw) return;
+          const type = legacyEmojiToType(raw);
+          if (!type) return;
+          setCounts((prev) => ({ ...prev, [type]: (prev[type] ?? 0) + 1 }));
+        },
+      )
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "fix_reactions", filter: `fix_id=eq.${fixId}` },
+        (payload) => {
+          const raw = (payload.old as { emoji?: string })?.emoji;
+          if (!raw) return;
+          const type = legacyEmojiToType(raw);
+          if (!type) return;
+          setCounts((prev) => ({ ...prev, [type]: Math.max(0, (prev[type] ?? 0) - 1) }));
+        },
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [fixId]);
 
   async function handleReaction(key: ReactionType) {
     if (loading.has(key)) return;

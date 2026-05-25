@@ -7,6 +7,7 @@ import { Send } from "react-iconly";
 import { ACCENT_PRESETS, DEFAULT_ACCENT, resolveAccent } from "@/lib/accent";
 import { ProUpsellModal } from "@/components/ProUpsell";
 import { LiveProfileEditor } from "@/components/LiveProfileEditor";
+import { PushToggle } from "@/components/PushToggle";
 import { useToast } from "@/components/Toast";
 
 type Profile = {
@@ -713,6 +714,10 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
       {/* ── Notifications section ── */}
       <section>
         <SectionHeading>Notifications</SectionHeading>
+
+        {/* Push notifications (browser/PWA) */}
+        <PushToggle />
+
         <div className="flex flex-col gap-3">
           <NotifToggle
             label="Streak reminders"
