@@ -24,8 +24,6 @@ export const metadata: Metadata = {
 const TEAL = "#5EEAD4";
 const CARD_BG = "#0F1011";
 const CARD_BORDER = "rgba(255,255,255,0.06)";
-const NOISE_URL =
-  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 const faqs = [
   {
@@ -101,8 +99,8 @@ const sampleCards = [
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5"
-      style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}
+      className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6"
+      style={{ background: "rgba(94,234,212,0.08)", color: TEAL, border: "1px solid rgba(94,234,212,0.20)" }}
     >
       {children}
     </span>
@@ -119,9 +117,8 @@ function SectionHeadline({ children }: { children: React.ReactNode }) {
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
-    <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-10" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
-      <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
-      <div className="relative">{children}</div>
+    <div className="rounded-3xl p-6 sm:p-10" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+      {children}
     </div>
   );
 }
@@ -133,36 +130,23 @@ export default function KPopTrackerPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <Nav />
-      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
-        <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
-
-        <main id="main-content" className="relative max-w-5xl mx-auto flex flex-col gap-6">
+      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "#070708" }}>
+        <main id="main-content" className="max-w-5xl mx-auto flex flex-col gap-6">
           {/* HERO */}
-          <div
-            className="relative overflow-hidden rounded-3xl p-6 sm:p-10 anim-fadeUp"
-            style={{
-              background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
-              border: `1px solid ${CARD_BORDER}`,
-            }}
-          >
-            <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
-            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
-            <div className="relative">
-              <Eyebrow>k-pop tracker</Eyebrow>
-              <h1 className="font-display anim-fadeUp delay-100" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 6vw, 60px)", lineHeight: 1.02, letterSpacing: "-0.02em", fontWeight: 600 }}>
-                The era. The bias.
-                <br />
-                The comeback spiral.
-              </h1>
-              <p className="mt-6 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.72)" }}>
-                K-pop hyperfixation has a specific shape. The bias era that rewires your brain. The comeback you prestreamed at midnight. The album you&apos;ve listened to so many times you can&apos;t hear what other people hear when they play it for the first time. The deep-dive into discography that started as casual listening and ended with you having opinions about b-sides from 2019.
-              </p>
-              <p className="mt-4 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.6)" }}>
-                Hyperfix tracks all of it. The era, the days, the intensity. When a new comeback kicks off a new spiral, log it. When the bias wrecker overtakes your main bias — log that too. When it finally fades, the eulogy captures the whole run: how many days, peak intensity, the note you wrote at 3 a.m. after the fancam.
-              </p>
-              <div className="mt-7 anim-fadeUp delay-300"><WaitlistForm id="waitlist" variant="light" /></div>
-            </div>
-          </div>
+          <section className="px-2 sm:px-6 pt-12 pb-10 anim-fadeUp">
+            <Eyebrow>k-pop hyperfixation tracker</Eyebrow>
+            <h1 className="font-display anim-fadeUp delay-100" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 7vw, 64px)", lineHeight: 1.02, letterSpacing: "-0.03em", fontWeight: 600 }}>
+              The era. The bias.{" "}
+              <span style={{ color: TEAL }}>The comeback spiral.</span>
+            </h1>
+            <p className="mt-6 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
+              K-pop hyperfixation has a specific shape. The bias era that rewires your brain. The comeback you prestreamed at midnight. The album you&apos;ve listened to so many times you can&apos;t hear what other people hear when they play it for the first time. The deep-dive into discography that started as casual listening and ended with you having opinions about b-sides from 2019.
+            </p>
+            <p className="mt-4 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
+              Hyperfix tracks all of it. The era, the days, the intensity. When a new comeback kicks off a new spiral, log it. When the bias wrecker overtakes your main bias — log that too. When it finally fades, the eulogy captures the whole run: how many days, peak intensity, the note you wrote at 3 a.m. after the fancam.
+            </p>
+            <div className="mt-8 anim-fadeUp delay-300 max-w-md"><WaitlistForm id="waitlist" variant="light" /></div>
+          </section>
 
           <RevealSection>
             <Card>
@@ -251,18 +235,16 @@ export default function KPopTrackerPage() {
           </RevealSection>
 
           <RevealSection>
-            <div className="relative overflow-hidden rounded-3xl p-8 sm:p-14 text-center" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #2DD4BF 0%, #0E4F47 26%, #08231F 50%, #0F1011 80%)", border: `1px solid ${CARD_BORDER}` }}>
-              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "220px 220px", opacity: 0.5 }} />
-              <div className="relative">
-                <Eyebrow>join the waitlist</Eyebrow>
-                <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(30px, 5vw, 48px)", letterSpacing: "-0.02em", fontWeight: 600, lineHeight: 1.05 }}>
-                  The era started. Log it before you forget day one.
-                </h2>
-                <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.72)" }}>
-                  The waitlist gets first access in waves. Early users get a permanent Pro discount and the most embarrassing usernames before they&apos;re gone.
-                </p>
-                <div className="mt-6"><WaitlistForm variant="dark" /></div>
-              </div>
+            <div className="rounded-3xl p-8 sm:p-14 text-center" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+              <Eyebrow>join the waitlist</Eyebrow>
+              <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(30px, 5vw, 48px)", letterSpacing: "-0.03em", fontWeight: 600, lineHeight: 1.05 }}>
+                The era started.{" "}
+                <span style={{ color: TEAL }}>Log it before you forget day one.</span>
+              </h2>
+              <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
+                The waitlist gets first access in waves. Early users get a permanent Pro discount and the most embarrassing usernames before they&apos;re gone.
+              </p>
+              <div className="mt-7 max-w-md mx-auto"><WaitlistForm variant="dark" /></div>
             </div>
           </RevealSection>
         </main>
