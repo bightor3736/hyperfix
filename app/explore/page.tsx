@@ -264,76 +264,105 @@ export default async function ExplorePage() {
         </Link>
       </nav>
 
-      <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12">
-        {/* Hero header card */}
-        <div
-          className="relative overflow-hidden rounded-3xl mb-8 p-6 sm:p-10 anim-fadeUp"
-          style={{
-            background:
-              "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
-            border: "1px solid rgba(255,255,255,0.06)",
-          }}
-        >
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none mix-blend-overlay"
-            style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }}
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none"
-            style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }}
-          />
-          <div className="relative">
-            <span
-              className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5"
+      <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-16">
+        {/* Hero — restrained, vvault-style */}
+        <header className="mb-10 sm:mb-12 anim-fadeUp">
+          <p
+            className="font-mono text-[10px] uppercase tracking-widest mb-4"
+            style={{ color: "rgba(255,255,255,0.35)" }}
+          >
+            explore
+          </p>
+          <h1
+            className="font-display"
+            style={{
+              color: "#FFFFFF",
+              fontSize: "clamp(32px, 5.5vw, 48px)",
+              lineHeight: 1.02,
+              letterSpacing: "-0.02em",
+              fontWeight: 600,
+            }}
+          >
+            What people are obsessed with.
+          </h1>
+          <p
+            className="mt-4 font-sans max-w-xl"
+            style={{ color: "rgba(255,255,255,0.55)", fontSize: 16, lineHeight: 1.55 }}
+          >
+            Browse public hyperfixations. Discover what owns other people&apos;s brains.
+          </p>
+
+          <form action="/search" method="GET" className="mt-7 flex gap-2 max-w-md">
+            <input
+              type="text"
+              name="q"
+              placeholder="Search fixes, tags, people…"
+              aria-label="Search"
+              className="font-sans text-sm flex-1 rounded-full px-4 py-2.5 outline-none transition-colors focus:border-[rgba(94,234,212,0.4)]"
               style={{
-                background: "rgba(94,234,212,0.12)",
-                color: "#5EEAD4",
-                border: "1px solid rgba(94,234,212,0.25)",
+                background: CARD_BG,
+                border: `1px solid ${CARD_BORDER}`,
+                color: "#F4F4F4",
+              }}
+            />
+            <button
+              type="submit"
+              className="font-sans text-sm font-semibold px-5 py-2.5 rounded-full transition-all hover:opacity-90 active:scale-[0.98]"
+              style={{ background: "#5EEAD4", color: "#070708" }}
+            >
+              Search
+            </button>
+          </form>
+
+          {!user && (
+            <Link
+              href="/auth/signup"
+              className="inline-flex items-center gap-2 mt-5 px-3.5 py-1.5 rounded-full font-mono text-[11px] transition-all hover:border-[rgba(94,234,212,0.35)]"
+              style={{
+                background: "rgba(94,234,212,0.06)",
+                border: "1px solid rgba(94,234,212,0.18)",
+                color: "rgba(94,234,212,0.85)",
               }}
             >
-              explore
-            </span>
-            <h1
-              className="font-display"
-              style={{
-                color: "#FFFFFF",
-                fontSize: "clamp(36px, 6vw, 60px)",
-                lineHeight: 1.02,
-                letterSpacing: "-0.02em",
-                fontWeight: 600,
-              }}
+              <span style={{ color: "rgba(244,244,244,0.6)" }}>log in to follow people you&apos;d never meet IRL who are obsessed with the same thing</span>
+              <span aria-hidden>→</span>
+            </Link>
+          )}
+        </header>
+
+        {/* Stats strip */}
+        <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-10 anim-fadeUp delay-100">
+          {[
+            { label: "public fixes", value: stats.publicFixes },
+            { label: "people", value: stats.people },
+            { label: "check-ins this week", value: stats.weeklyCheckins },
+          ].map((s) => (
+            <div
+              key={s.label}
+              className="rounded-3xl p-5"
+              style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
             >
-              What everyone&apos;s
-              <br />
-              obsessed with right now.
-            </h1>
-            <p className="mt-4 font-sans text-base sm:text-lg" style={{ color: "rgba(255,255,255,0.72)" }}>
-              Browse the obsessions running other people&apos;s lives.
-            </p>
-            <form action="/search" method="GET" className="mt-6 flex gap-2 max-w-md">
-              <input
-                type="text"
-                name="q"
-                placeholder="Search fixes, tags, people…"
-                aria-label="Search"
-                className="font-sans text-sm flex-1 rounded-full px-4 py-2.5 outline-none"
-                style={{
-                  background: "rgba(7,7,8,0.6)",
-                  border: "1px solid rgba(255,255,255,0.16)",
-                  color: "#F4F4F4",
-                }}
-              />
-              <button
-                type="submit"
-                className="font-sans text-sm font-semibold px-5 py-2.5 rounded-full transition-all hover:opacity-90 active:scale-[0.98]"
-                style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+              <p
+                className="font-mono text-[10px] uppercase tracking-widest"
+                style={{ color: "rgba(255,255,255,0.35)" }}
               >
-                Search
-              </button>
-            </form>
-          </div>
+                {s.label}
+              </p>
+              <div className="mt-3">
+                <span
+                  className="font-display leading-none tabular-nums"
+                  style={{
+                    fontSize: "clamp(28px, 5vw, 44px)",
+                    letterSpacing: "-0.04em",
+                    fontWeight: 600,
+                    color: "#FFFFFF",
+                  }}
+                >
+                  {s.value.toLocaleString()}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
 
         <ExploreTabSwitcher
@@ -345,6 +374,7 @@ export default async function ExplorePage() {
           activityItems={activityItems}
           trendingFixes={trendingFixes}
           trendingReactionMap={trendingReactionMap}
+          isLoggedIn={!!user}
         />
       </main>
     </div>

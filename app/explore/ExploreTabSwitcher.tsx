@@ -375,20 +375,52 @@ type Props = {
   activityItems: ActivityItem[] | null;
   trendingFixes: Fix[];
   trendingReactionMap: Record<string, ReactionCounts>;
+  isLoggedIn?: boolean;
 };
 
-function TabButton({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
+function TabButton({
+  label,
+  active,
+  count,
+  onClick,
+}: {
+  label: string;
+  active: boolean;
+  count?: number;
+  onClick: () => void;
+}) {
   return (
     <button
       onClick={onClick}
-      className="px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
+      className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
       style={
         active
-          ? { background: "#5EEAD4", color: "#F4F4F4", border: "1px solid transparent" }
-          : { background: "rgba(244,244,244,0.04)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.5)" }
+          ? {
+              background: "#5EEAD4",
+              color: "#070708",
+              border: "1px solid transparent",
+              fontWeight: 600,
+            }
+          : {
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(255,255,255,0.06)",
+              color: "rgba(244,244,244,0.6)",
+            }
       }
     >
-      {label}
+      <span>{label}</span>
+      {typeof count === "number" && count > 0 && (
+        <span
+          className="font-mono tabular-nums rounded-full px-1.5 py-px"
+          style={{
+            fontSize: 9,
+            background: active ? "rgba(7,7,8,0.18)" : "rgba(255,255,255,0.06)",
+            color: active ? "rgba(7,7,8,0.7)" : "rgba(244,244,244,0.45)",
+          }}
+        >
+          {count}
+        </span>
+      )}
     </button>
   );
 }
@@ -402,6 +434,7 @@ export function ExploreTabSwitcher({
   activityItems,
   trendingFixes,
   trendingReactionMap,
+  isLoggedIn: isLoggedInProp,
 }: Props) {
   const [tab, setTab] = useState<"everyone" | "trending" | "longest" | "following" | "activity" | "cards">("everyone");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -410,7 +443,7 @@ export function ExploreTabSwitcher({
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(everyoneFixes.length >= 48);
 
-  const isLoggedIn = followingFixes !== null;
+  const isLoggedIn = isLoggedInProp ?? followingFixes !== null;
 
   const allEveryoneFixes = [...everyoneFixes, ...extraFixes];
   const allEveryoneReactions = { ...everyoneReactions, ...extraReactions };
