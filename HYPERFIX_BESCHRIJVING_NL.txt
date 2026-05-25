@@ -1,0 +1,1233 @@
+================================================================================
+HYPERFIX — VOLLEDIGE APP-BESCHRIJVING (NEDERLANDS)
+================================================================================
+
+Een complete technische en inhoudelijke uitleg van Hyperfix: wat het is, voor
+wie het bedoeld is, hoe het werkt, welke schermen er bestaan, welke data er
+wordt opgeslagen, hoe de visuele identiteit eruitziet, en hoe alles technisch
+in elkaar steekt.
+
+
+================================================================================
+1. WAT IS HYPERFIX?
+================================================================================
+
+Hyperfix is een hyperfixatie-tracker — een dagboek voor je huidige obsessie.
+De app is gemaakt voor mensen die niet meer kunnen stoppen met praten over
+het ding waar ze op dit moment helemaal in opgaan: het nummer dat al twee
+weken op repeat staat, de serie die hun hersenen heeft hergeprogrammeerd,
+de fanfic die ze voor de zesde keer herlezen, het K-pop bandlid waar ze
+ineens alles van willen weten, het personage uit een game waar ze geen
+slaap meer voor krijgen.
+
+De grondgedachte: een hyperfixatie is een tijdelijk, intens fenomeen.
+Het begint plotseling, eet je hersenen op, en op een dag is het weg.
+Hyperfix maakt dat hele bewustzijnsproces zichtbaar — je telt de dagen,
+logt dagelijks hoe erg het is op een schaal van 1 tot 10, deelt het met
+vrienden via mooie 9:16 cards (voor Stories), en wanneer de fix eindelijk
+sterft schrijf je een eulogy (lijkrede) die in "the graveyard" terechtkomt.
+
+De doelgroep is overduidelijk: Gen Z, ADHD-community, fandom-cultuur,
+BookTok, K-pop fans, anime kijkers, fanfic lezers, gamers, serie-bingers.
+Iedereen die zichzelf herkent in "ik kan nergens anders aan denken".
+
+De tone of voice is droog, zelfbewust, ironisch melancholisch. Phrases
+als "the chronically unwell", "send help", "still counting", "log it,
+count it, mourn it" — het ding maakt grapjes over hoe ongezond intens
+hyperfixaties kunnen zijn zonder ze ooit te pathologiseren.
+
+De pitch: "The journal for your obsession. Log it. Count the days.
+Share the card. Mourn it when it ends. Free forever."
+
+
+================================================================================
+2. TECHNISCHE STACK
+================================================================================
+
+Hyperfix is gebouwd als moderne web-app met server-side rendering en is
+volledig installeerbaar als PWA (Progressive Web App).
+
+Frontend & framework:
+  - Next.js 16.2.6 (App Router, server components, edge runtime)
+  - React 19.2.6
+  - TypeScript 5.6.3 (strict mode overal)
+  - Tailwind CSS 3.4.15 (custom config, gecombineerd met inline styles
+    voor de brand-tokens zoals teal #5EEAD4)
+
+Lettertypes (via Google Fonts, geladen door next/font):
+  - Fraunces — display serif, variabele as voor optical sizing en SOFT,
+    gebruikt voor koppen, day counters en titels
+  - Instrument Sans — moderne sans-serif voor body tekst en knoppen
+  - JetBrains Mono — monospace voor labels, counters, kleine tags
+
+Backend & database:
+  - Supabase als alles-in-een backend
+    - PostgreSQL database met Row Level Security (RLS) op elke tabel
+    - Supabase Auth voor login (email/wachtwoord + OAuth)
+    - Supabase Storage voor uploads (banner-afbeeldingen)
+    - Realtime subscriptions voor reacties en berichten
+  - @supabase/supabase-js 2.105.4
+  - @supabase/ssr 0.10.3 voor server-side cookies
+
+Betalingen:
+  - Stripe v22.1.1 voor Pro-abonnementen
+  - Pro kost $5/maand of $39/jaar (~33% korting op de jaartarief)
+  - Stripe Checkout voor het afsluiten, Stripe Webhook voor synchroniseren
+
+E-mail:
+  - Resend v6.12.3 voor transactionele e-mails
+    (verificatie, wachtwoord reset, welkom, nieuwsbrief)
+
+Push notificaties:
+  - Web Push v3.6.7 + service worker (public/sw.js)
+  - VAPID-keys voor het ondertekenen van pushes
+  - Push subscriptions opgeslagen in eigen tabel
+
+AI:
+  - @anthropic-ai/sdk v0.96.0 (Claude API)
+  - Gebruikt voor het automatisch genereren van eulogies (Pro-feature)
+
+Beeldgeneratie:
+  - Next.js Edge Image Response (next/og) voor dynamische 9:16 share cards,
+    OG-afbeeldingen voor social media, slides voor TikTok/Instagram
+
+Analytics:
+  - Vercel Analytics v2.0.1
+  - Eigen referral-tracking via AffTracker component
+
+Overige utilities:
+  - clsx en tailwind-merge voor className composities
+  - react-iconly voor een deel van de iconenset
+  - Eigen LandingIcons en MilestoneIcons als custom SVG-bibliotheken
+
+Deployment:
+  - Vercel (Next.js native)
+  - Supabase (managed database & auth)
+
+
+================================================================================
+3. ALLE PAGINA'S (ROUTES)
+================================================================================
+
+De app heeft meer dan honderd routes. Hieronder de complete kaart, gegroepeerd.
+
+--- 3.1 Marketing & publieke pagina's ---
+
+/                       Landingspagina. Hero met EyebrowPill ("3812+
+                        obsessions logged"), titel "The journal for your
+                        obsession.", knop "Log your first fix" + link
+                        "try the demo ↓", interactieve hero-demo, sectie
+                        "Features", pricing sectie, FAQ accordeon,
+                        final CTA, activity ticker onderin.
+
+/explore                Publieke feed van recente fixes. Tabs "everyone"
+                        en "following", trending categorieën, reacties.
+
+/pricing                Volledige pricing-pagina. Hero, Free en Pro
+                        kaarten, vergelijkingstabel, FAQ, CTA.
+
+/search                 Globale zoekpagina voor fixes en profielen.
+
+/join                   Redirect naar /auth/signup. Slaat ?ref=[code]
+                        op in localStorage voor referral-tracking.
+
+/manifesto              Brand-manifesto (waar geloven we in).
+
+/privacy                Privacybeleid.
+
+/tos                    Algemene voorwaarden.
+
+--- 3.2 SEO landingspagina's (long-tail keywords) ---
+
+/hyperfixation-tracker  Lange tekst over hyperfixaties + product-pitch.
+/fanfic-tracker         Idem, gericht op fanfiction lezers.
+/booktok-tracker        Voor de BookTok-community.
+/book-tracker           Generieke boekenversie.
+/anime-tracker          Anime kijkers.
+/kpop-tracker           K-pop fans.
+/rewatch-tracker        Mensen die series herhaaldelijk kijken.
+/adhd                   "Hyperfixaties en ADHD" content-pagina.
+
+--- 3.3 Vergelijkingspagina's ---
+
+/vs/notion              Hyperfix vs Notion.
+/vs/letterboxd          vs Letterboxd.
+/vs/shelf               vs Shelf.
+/vs/goodreads           vs Goodreads.
+/vs/obsidian            vs Obsidian.
+/vs/spotify             vs Spotify.
+/vs/discord             vs Discord.
+/vs/spreadsheet         vs een Excel-sheet.
+/vs/airtable            vs Airtable.
+/vs/daylio              vs Daylio (mood-tracker).
+
+--- 3.4 Authenticatie ---
+
+/auth/login             Login (email/wachtwoord + OAuth knoppen).
+/auth/signup            Registratie met optionele referral-code.
+/auth/callback          OAuth callback-handler.
+/auth/forgot            Wachtwoord vergeten — invul e-mail.
+/auth/reset             Wachtwoord resetten via e-mail-link.
+/auth/verify            Bevestigingspagina na e-mail-verificatie.
+
+De auth-layout is volledig kaartloos: alleen logo bovenin, formulier
+gecentreerd, en een kleine footerregel. Geen decoratieve panelen of
+preview-cards — clean op zowel desktop als mobiel.
+
+--- 3.5 Onboarding ---
+
+/onboarding/username    Eerste keer dat je inlogt zonder username:
+                        je moet er een kiezen voor je je dashboard ziet.
+
+--- 3.6 Dashboard (alleen voor ingelogde gebruikers) ---
+
+/dashboard              Hoofd-dashboard. Grid van actieve fixes,
+                        statistieken (dagentelling, langste streak),
+                        streak-heatmap (GitHub-stijl, 13 weken),
+                        "new fix"-knop, welkom-banner.
+
+/dashboard/new          Nieuwe fix aanmaken (titel, categorie,
+                        intensity slider, optionele notitie, publiek/
+                        privé-toggle).
+
+/dashboard/fix/[id]     Detailpagina van één fix. Toont:
+                        - Banner-afbeelding (indien ingesteld)
+                        - Categorie-pill + titel
+                        - Status-pill ("Day 1", "Obsessing", "On loop",
+                          "Fading", "Post-fix", "Ended", "Dormant",
+                          "Send help")
+                        - Intensity meter (1–10)
+                        - Check-in knop (eenmaal per dag)
+                        - Grote teal day-counter
+                        - Sparkline van afgelopen 14 dagen
+                        - Notitie (indien aanwezig)
+                        - Reactions (alleen op publieke fixes)
+                        - "Others tracking this" (sociale bewijs)
+                        - Fix-discovery (andere publieke fixes in
+                          dezelfde categorie)
+                        - Check-in geschiedenis (laatste 30 entries)
+                        - Eulogy (indien beëindigd)
+                        Bovenin een sticky nav met "← my fixes",
+                        "Public page" (indien publiek), "Customize card"
+                        en de share-knop.
+
+/dashboard/fix/[id]/card  Editor voor de deelbare share card. Kies
+                        een template (paper, dark, minimal, photo),
+                        upload een banner, download het 1080x1920 PNG.
+
+/dashboard/settings     Profielinstellingen: display name, avatar
+                        upload, bio, username, e-mail, tijdzone,
+                        notificatievoorkeuren, data-export,
+                        account-verwijdering, referral-code.
+
+/dashboard/graveyard    Galerij van beëindigde fixes. Filters per
+                        categorie, eulogies leesbaar, statistieken
+                        (totaal beëindigd, gemiddelde duur, "most
+                        mourned"). Pro kan dit exporteren als JSON.
+
+/dashboard/analytics    Pro-only. Streak-geschiedenis, intensity-
+                        trends per categorie, taart-diagram van
+                        categorieverdeling, top fixes, langste
+                        streak-stats.
+
+/dashboard/lists        Eigen verzamelingen van fixes (zoals playlists).
+/dashboard/lists/[id]   Detail van een lijst.
+/dashboard/lists/[id]/edit  Lijst-metadata bewerken.
+/dashboard/lists/new    Nieuwe lijst aanmaken.
+
+/dashboard/messages     Inbox met conversaties. Ongelezen-badge.
+/dashboard/messages/[id]  Conversatie-thread met één persoon.
+
+/dashboard/notifications  Notificatie-feed (reacties, follows,
+                        milestones, streaks, berichten).
+
+/dashboard/affiliates   Referral-dashboard. Eigen code, verzamelde
+                        credits, payout-geschiedenis.
+
+/dashboard/pattern      Patroon-analytics (trends in kijkgedrag,
+                        gepland).
+/dashboard/traffic      Traffic naar je publieke profiel (Pro-feature,
+                        gepland).
+
+--- 3.7 Publieke profielen & fixes ---
+
+/u/[username]           Publiek profiel. Avatar, bio, banner-afbeelding,
+                        accent-kleur (Pro), tot drie pinned fixes,
+                        grid van publieke fixes, follower/following
+                        counts, follow- en message-knop, social links.
+
+/u/[username]/followers Lijst van volgers.
+/u/[username]/following Lijst van mensen die deze gebruiker volgt.
+/u/[username]/graveyard Beëindigde fixes van die gebruiker (publiek).
+
+/fix/[id]               Publieke versie van een fix. Read-only.
+                        Reacties + comments mogen door iedere
+                        ingelogde gebruiker. Eigen OG-image voor
+                        het delen op social media.
+
+/tag/[tag]              Alle (publieke) fixes met een bepaalde tag.
+
+/track/[slug]           Programmatic SEO. Voorgemaakte pagina's voor
+                        ongeveer honderd populaire onderwerpen
+                        (Severance, BTS, ACOTAR, Taylor Swift, etc.).
+                        Toont social proof ("x mensen tracken dit nu"),
+                        gerelateerde items, korte intro, een CTA.
+
+--- 3.8 Speelse / interactieve pagina's ---
+
+/quiz                   Hyperfixatie-archetype quiz. Genereert een
+                        custom beeld als uitkomst.
+
+/wrapped/[year]         Jaarrecap. Statistieken: totaal aantal fixes,
+                        dagen, categorieën, langste streak, meest
+                        intense fix, gemiddelde intensity. Met
+                        deelbare card.
+/wrapped                Redirect naar het huidige jaar.
+
+/card/[fixationId]      Standalone view van een share card (9:16
+                        beeld + metadata) voor publieke fixes.
+
+--- 3.9 Brand & social-asset generators ---
+
+/brand/logo             Logo varianten.
+/brand/cards            Voorbeeld share cards.
+/brand/avatar           Profielfoto-varianten.
+/brand/social           Social media assets.
+/brand/reel/[1-3]       Reel-templates 1, 2, 3.
+/brand/post/launch      Launch-post assets.
+/slides/signs-youre-in-a-hyperfixation  Interactief slidedeck.
+
+--- 3.10 Foutpagina's ---
+
+/404                    Custom not-found pagina.
+/error                  Error boundary fallback.
+
+
+================================================================================
+4. API-ROUTES (server-side endpoints)
+================================================================================
+
+Hyperfix heeft meer dan zestig API-endpoints. De belangrijkste:
+
+--- 4.1 Authenticatie ---
+
+POST /api/auth/signup           Account aanmaken via e-mail.
+POST /api/auth/welcome          Welkomstmail versturen.
+GET  /api/auth/me               Huidige gebruiker ophalen.
+
+--- 4.2 Core data ---
+
+GET/POST /api/reactions/[id]    Reacties op een fix toevoegen/verwijderen.
+GET      /api/reactions          Reactie-counts ophalen.
+POST     /api/api/explore/fixes Gepagineerde publieke fixes.
+
+--- 4.3 Berichten ---
+
+POST /api/messages              Direct message sturen.
+GET  /api/messages/unread-count Polling voor ongelezen-count.
+POST /api/conversations/start   Conversatie starten of ophalen.
+
+--- 4.4 Profiel & sociaal ---
+
+POST /api/follow                Volgen / ontvolgen.
+POST /api/username/check        Beschikbaarheid checken.
+POST /api/username/set          Username instellen na eerste login.
+
+--- 4.5 OG-afbeeldingen (dynamisch, edge runtime) ---
+
+GET /api/og                     Generiek OG-image generator.
+GET /api/og/profile/[username]  Profiel OG-image.
+GET /api/og/track/[slug]        Track-page OG-image.
+GET /api/og/wrapped/image       Wrapped OG-image.
+
+--- 4.6 Share cards & beelden ---
+
+GET /api/share/[id]             9:16 share card PNG (banner + titel +
+                                day count + intensity).
+GET /api/card/[id]              Card met custom styling.
+GET /api/slide/[id]             Educatieve slide.
+GET /api/slides/[category]/[n]  Slidedeck per categorie (intro, tips,
+                                stages, red flags, etc.).
+GET /api/brand/pfp/[id]         Brand profielfoto-renderer.
+GET /api/brand/slide/[id]       Brand slide-renderer.
+GET /api/illustration/[id]      Illustratie-generator.
+GET /api/logo/[id]              Logo-varianten.
+GET /api/mark/[id]              Wordmark SVG.
+GET /api/tiktok                 TikTok-slide generator.
+GET /api/quiz/[archetype]       Quiz-uitkomst slide.
+GET /api/screenshot             Screenshot-utility.
+GET /api/wrapped/image          Jaarrecap-beeld.
+
+--- 4.7 Betalingen ---
+
+POST /api/stripe/checkout       Stripe Checkout-sessie starten.
+POST /api/stripe/webhook        Stripe-webhook (subscription events).
+
+--- 4.8 Push & notificaties ---
+
+POST /api/push/subscribe        Push subscription registreren.
+POST /api/push/unsubscribe      Push subscription verwijderen.
+GET  /api/notifications         Notificaties ophalen.
+
+--- 4.9 AI eulogy (Pro) ---
+
+POST /api/eulogy/generate       Eulogy genereren via Claude API.
+
+--- 4.10 Admin & cron ---
+
+POST /api/admin/setup           Setup-endpoint (admin-only).
+POST /api/cron/daily            Dagelijkse cronjob.
+POST /api/cron/weekly           Wekelijkse cronjob.
+
+--- 4.11 Overig ---
+
+GET  /api/stats                  Publieke statistieken.
+GET  /api/waitlist-count         Wachtlijst-aantal.
+POST /api/waitlist               Op de wachtlijst.
+GET  /api/aff                    Affiliate tracking-pixel.
+POST /api/referral               Referral claimen.
+GET  /api/unsubscribe            Uitschrijven uit e-mail.
+GET  /api/export/graveyard       Graveyard exporteren als JSON/CSV (Pro).
+GET  /api/promo/fix/[slug]       Promotionele content per fix.
+GET  /api/promo/graveyard        Promotionele content voor graveyard.
+
+
+================================================================================
+5. DATABASE-SCHEMA (Supabase PostgreSQL)
+================================================================================
+
+Twaalf tabellen, allemaal met Row Level Security (RLS) aan.
+
+--- 5.1 profiles ---
+
+  id                   uuid (verwijst naar auth.users), primary key
+  username             text, uniek
+  display_name         text
+  avatar_url           text
+  bio                  text
+  is_public            boolean, default true
+  is_pro               boolean, default false
+  stripe_customer_id   text
+  stripe_subscription_id  text
+  referral_code        text, uniek
+  referred_by          uuid (verwijst naar profiles.id)
+  referral_count       int, default 0
+  banner_url           text
+  pinned_fix_id        uuid (legacy single pin)
+  pinned_fix_ids       uuid[] (Pro-feature: tot 3 pinned fixes)
+  accent_color         text (Pro)
+  timezone             text, default 'UTC'
+  notification_prefs   jsonb, default {}
+  created_at           timestamptz
+
+--- 5.2 fixes ---
+
+  id                   uuid, primary key
+  user_id              uuid (profiles.id, cascade on delete)
+  title                text
+  category             text, default 'other'
+  status               text, default 'Day 1'
+  intensity            int, 1-10, default 5
+  note                 text
+  eulogy               text
+  cover_url            text
+  banner_url           text
+  card_style           text ('paper' | 'dark' | 'minimal' | 'photo')
+  tags                 text[]
+  is_public            boolean, default false
+  started_at           timestamptz, default now()
+  ended_at             timestamptz (null als actief)
+  created_at           timestamptz
+
+--- 5.3 fix_entries (dagelijkse check-ins) ---
+
+  id                   uuid, primary key
+  fix_id               uuid
+  user_id              uuid
+  date                 date, default current_date
+  intensity            int, 1-10 (check-constraint)
+  note                 text
+  created_at           timestamptz
+  UNIQUE (fix_id, date)   -- één check-in per dag per fix
+
+--- 5.4 fix_reactions ---
+
+  id                   uuid, primary key
+  fix_id               uuid
+  user_id              uuid
+  emoji                text
+  created_at           timestamptz
+  UNIQUE (fix_id, user_id, emoji)
+
+--- 5.5 follows ---
+
+  id                   uuid, primary key
+  follower_id          uuid
+  following_id         uuid
+  created_at           timestamptz
+  UNIQUE (follower_id, following_id)
+  CHECK (follower_id != following_id)
+
+--- 5.6 notifications ---
+
+  id                   uuid, primary key
+  user_id              uuid
+  type                 text ('reaction', 'follow', 'milestone',
+                            'message', 'streak')
+  actor_id             uuid (null toegestaan)
+  fix_id               uuid (null toegestaan)
+  emoji                text (null toegestaan)
+  read                 boolean, default false
+  created_at           timestamptz
+
+--- 5.7 fix_comments ---
+
+  id                   uuid, primary key
+  fix_id               uuid
+  user_id              uuid
+  content              text (1–500 tekens)
+  created_at           timestamptz
+
+--- 5.8 fix_lists ---
+
+  id                   uuid, primary key
+  user_id              uuid
+  name                 text
+  description          text
+  is_public            boolean, default true
+  created_at           timestamptz
+  updated_at           timestamptz
+
+--- 5.9 fix_list_items ---
+
+  id                   uuid, primary key
+  list_id              uuid
+  fix_id               uuid
+  note                 text
+  sort_order           int, default 0
+  added_at             timestamptz
+  UNIQUE (list_id, fix_id)
+
+--- 5.10 fix_studio_blocks (rich content) ---
+
+  id                   uuid, primary key
+  fix_id               uuid
+  user_id              uuid
+  type                 text ('note' | 'link' | 'image')
+  content              jsonb
+  sort_order           int
+  created_at, updated_at
+
+--- 5.11 conversations (DMs) ---
+
+  id                   uuid, primary key
+  user_a               uuid
+  user_b               uuid
+  last_message_at      timestamptz
+  created_at           timestamptz
+  CONSTRAINT: user_a < user_b  -- deterministische volgorde
+  UNIQUE (user_a, user_b)
+
+--- 5.12 messages ---
+
+  id                   uuid, primary key
+  conversation_id      uuid
+  sender_id            uuid
+  body                 text (1–2000 tekens)
+  read                 boolean, default false
+  created_at           timestamptz
+
+--- 5.13 push_subscriptions (PWA) ---
+
+  id                   uuid, primary key
+  user_id              uuid
+  endpoint             text, uniek
+  p256dh               text
+  auth                 text
+  created_at           timestamptz
+
+--- 5.14 waitlist ---
+
+  id                   uuid, primary key
+  email                text, uniek
+  source               text, default 'landing'
+  created_at           timestamptz
+
+Belangrijke RLS-regels:
+- Publieke fixes en publieke profielen zijn voor iedereen leesbaar.
+- Privé-fixes alleen voor de eigenaar.
+- Iedere gebruiker mag alleen zijn eigen data muteren.
+- Notifications worden vanuit de service-role key geschreven
+  (background jobs / API-routes met admin-client).
+
+
+================================================================================
+6. COMPONENTEN-ARCHITECTUUR
+================================================================================
+
+De components-map bevat ongeveer honderd herbruikbare blokken,
+gegroepeerd per rol:
+
+--- Forms & input ---
+  AuthForm                Login/signup formulier met OAuth-knoppen.
+  NewFixForm              Nieuwe fix aanmaken.
+  SettingsForm            Profielinstellingen.
+  TagsInput               Tags toevoegen via komma/spatie.
+  MessageInput            DM-veld met send-knop.
+  SearchInput             Globale zoekbalk.
+
+--- Cards & weergave ---
+  HyperfixCard            Fix-tegel in het dashboard.
+  FixCardSkeleton         Loading skeleton.
+  TiltCard                3D tilt-wrapper.
+  ShareFixationCard       9:16 export van een fix.
+  ShareButton             Share-knop met dropdown.
+  ShareLinkBar            Kopieer-link balkje.
+
+--- Datavisualisatie ---
+  Sparkline               14-daagse intensity-curve in SVG.
+  StreakHeatmap           13-weken activity-heatmap.
+  WeekRings               Compacte radiale week-indicator.
+  CountUp                 Animatie van 0 naar getal.
+  FixCalculator           Helper voor dagen/streaks/stats.
+
+--- Sociaal & interactie ---
+  FixReactions            Emoji-reactie-knoppen.
+  FixComments             Comment-thread.
+  FollowButton            (unauth versie)
+  FollowButtonLoggedIn    (auth versie)
+  FollowListView          Followers/following carousel.
+  MessageButton           Start DM-knop.
+  NotificationBell        Belletje met ongelezen-badge.
+  MessageThread           Conversatie-UI.
+
+--- Profiel ---
+  LiveProfileEditor       Editable profile preview.
+  ShareProfileButton      Profiel-link knop.
+  ReferralCard            Referral-code + copy.
+  SocialChips             Social link chips.
+
+--- Onboarding & auth ---
+  OAuthCallback           OAuth redirect handler.
+  OnboardingModal         Eerste-login username picker.
+  ProUpsell               Pro feature unlock CTA.
+
+--- Navigatie ---
+  Nav                     Hoofdnav (logo, links, login/CTA).
+  DashboardSidebarClient  Dashboard sidebar.
+  MobileNavBar            Onderbalk-tabs voor mobiel.
+
+--- UI-patronen ---
+  RevealSection           Scroll-triggered fade-in.
+  ProCheckoutButton       Stripe-redirect knop.
+  ProUpgradeButton        Alternatieve CTA.
+  MilestoneBanner         Mijlpaal-banner (7d, 30d, 100d, 365d).
+  WelcomeBackBanner       "Welcome back, [name]".
+  Toast / ToastProvider   Toast-systeem (success, error, loading).
+  PWAInstallPrompt        Install-prompt iOS/Android.
+  ServiceWorkerRegister   SW-registratie.
+
+--- Editors ---
+  CardEditor              Share card template editor.
+  BannerGalleryPicker     Banner preset picker (24 presets).
+  FixBannerUpload         Custom banner upload.
+  FixStatusPill           Status dropdown.
+
+--- Content & marketing ---
+  InteractiveHeroDemo     Interactieve hero-demo op de landingspagina.
+  HeroProductMock         Mockup-kaart.
+  ActivityTicker          Real-time activity-stream.
+  BlogCardCTA             CTA-blok op blog-posts.
+  WidgetGallery           Galerij van widget mockups.
+  Footer                  Site-footer.
+  Logo / LogoLockup       Logo + wordmark.
+  CategoryIcon            Categorie-gebaseerd icoon.
+  LandingIcons            Custom SVG-iconenset (flame, bolt, sparkle).
+  MilestoneIcons          Mijlpaal-trofeeën.
+  AddToListButton         Fix toevoegen aan lijst.
+  GraveyardExportButton   Export-knop voor graveyard.
+
+
+================================================================================
+7. KERN-FEATURES IN DETAIL
+================================================================================
+
+--- 7.1 Fix-levenscyclus ---
+
+1) Aanmaken
+   Titel (verplicht), categorie (dropdown: song, show, film, fanfic,
+   book, game, character, ship, podcast, video-essay, anders),
+   initiële intensity (1–10), optionele notitie, publiek/privé-toggle.
+
+2) Day counter
+   Auto-berekend uit `started_at`. Toont "Day N" en telt elke
+   dag verder.
+
+3) Status
+   Een enum die de gebruiker handmatig kiest om de bewustzijnsfase
+   te markeren: "Day 1", "Obsessing", "On loop", "Fading", "Post-fix",
+   "Ended", "Dormant", "Send help".
+
+4) Intensity-meter
+   Schaal 1–10, met semantische labels (8–9 "deeply unwell",
+   10 "send help"). Kleurcodering: teal voor laag, oranje voor
+   midden, rood voor hoog.
+
+5) Tags
+   Komma-gescheiden, doorzoekbare labels.
+
+6) Banner-afbeelding
+   Per fix optioneel een banner. Kies een uit de gallery van 24
+   presets of upload een eigen afbeelding.
+
+7) Privacy
+   Per fix in te stellen. Publieke fixes:
+   - Verschijnen op je profiel
+   - Hebben een eigen URL /fix/[id]
+   - Zijn doorzoekbaar in /explore
+   - Kunnen reacties en comments krijgen
+
+8) Beëindigen
+   Markeer als "Ended" en schrijf een eulogy. Pro-gebruikers
+   kunnen Claude AI een eulogy laten genereren op basis van titel,
+   categorie, intensity, tags en duur.
+
+9) Graveyard
+   Beëindigde fixes komen automatisch in de graveyard terecht.
+
+10) Verwijderen
+    Iedere gebruiker kan zijn eigen fixes hard verwijderen.
+
+--- 7.2 Dagelijkse check-ins ---
+
+- Eén check-in per fix per dag (unique constraint op fix_id + date).
+- Log de intensity van die dag (los van de "huidige" intensity op de fix).
+- Optionele notitie.
+- Drijft de sparkline (lijngrafiek over de tijd).
+- Een "checked in today"-vinkje verschijnt op de fix-detailpagina.
+
+--- 7.3 Streaks & heatmap ---
+
+Streak
+   Het aantal opeenvolgende dagen dat de gebruiker minstens één
+   check-in heeft gedaan op een willekeurige fix. Toont "current"
+   en "longest".
+
+Heatmap
+   GitHub-stijl raster van 13 weken (90 dagen) waarin elke dag
+   gekleurd is op basis van het aantal check-ins.
+
+Statistieken
+   Totaal aantal check-ins, langste streak, gemiddelde intensity
+   per categorie (Pro).
+
+--- 7.4 Sparkline ---
+
+- Intensity over een 14-daags venster.
+- Smooth cubic-bezier path SVG.
+- Gradient fill teal naar transparant.
+- Hover-tooltip (Pro).
+
+--- 7.5 Share cards ---
+
+Generatie
+   Via /api/share/[id] of /api/card/[id] (Next.js edge function met
+   next/og ImageResponse). Resolutie 1080×1920 (9:16, perfect voor
+   Instagram Stories en TikTok).
+
+Stijlen
+   - paper:   crème achtergrond, serif display, retro-newspaper
+              gevoel (gebruikt in de iconische landing-mockup —
+              inmiddels uit de UI gehaald maar nog wel een
+              template)
+   - dark:    de standaard Hyperfix-look (zwart met teal bloom)
+   - minimal: alleen type, geen achtergrond
+   - photo:   gebaseerd op de banner-afbeelding van de fix
+
+Inhoud
+   - Titel
+   - Day count (groot, teal)
+   - Intensity bar of getal
+   - Categorie-icoon
+   - Gebruikersnaam
+   - "tracked on hyperfix.app"
+
+Export
+   Download als PNG of via native iOS/Android share sheet.
+
+Customization
+   In /dashboard/fix/[id]/card kun je het template kiezen.
+   Wordt opgeslagen in fixes.card_style.
+
+--- 7.6 Publiek profiel /u/[username] ---
+
+- Avatar, bio, banner, accent-kleur (Pro)
+- Tot 3 pinned fixes (Pro) of 1 pinned (Free)
+- Grid van publieke fixes
+- Followers/following counts (klikbaar)
+- Follow- en message-knop
+- Optionele social links
+- Aparte /graveyard subpagina
+
+--- 7.7 Publieke fixpagina /fix/[id] ---
+
+- Read-only weergave van de fix
+- Reacties (één emoji per gebruiker)
+- Comments (max 500 tekens, eigen comments verwijderbaar)
+- Sparkline
+- Link naar het profiel van de maker
+- Eigen OG-image voor het delen
+
+--- 7.8 Reacties ---
+
+- Gecureerde set emoji's (geen vrije input)
+- Eén emoji per user per fix (toevoegen/verwijderen/wisselen)
+- Aggregated count per emoji
+- Real-time updates via Supabase subscriptions
+- Triggert notificatie naar de eigenaar van de fix
+
+--- 7.9 Comments ---
+
+- Alleen op publieke fixes
+- Toont username, avatar, display name
+- Relatieve tijdstempels ("3h ago", "just now")
+- Eigen comments verwijderbaar; eigenaar van de fix kan
+  modereren.
+- Max 500 tekens.
+
+--- 7.10 Graveyard ---
+
+- /dashboard/graveyard (eigen) of /u/[username]/graveyard (publiek)
+- Grid van beëindigde fixes met eulogy-snippets
+- Filters per categorie
+- Statistieken: totaal beëindigd, gemiddelde duur, categorie-
+  verdeling, "most mourned"
+- Pro: exporteer als JSON
+
+--- 7.11 Eulogies ---
+
+- Handmatig: maximaal 2000 tekens vrije tekst.
+- AI-gegenereerd (Pro): Claude API neemt titel, categorie,
+  intensity, tags en duur en schrijft een afscheid.
+- Opgeslagen in fixes.eulogy, doorzoekbaar.
+
+--- 7.12 Followers ---
+
+- Volg publieke profielen.
+- "Following"-tab in /explore toont recente fixes van mensen
+  die je volgt.
+- Notificatie bij nieuwe follower.
+
+--- 7.13 Direct messages ---
+
+- Per gebruikerspaar één conversatie (deterministisch via
+  user_a < user_b).
+- Berichten 1–2000 tekens, met read-status.
+- Inbox in /dashboard/messages, thread in
+  /dashboard/messages/[id].
+- Ongelezen-badge op de nav (polling).
+
+--- 7.14 Notificaties ---
+
+Types: reaction, follow, milestone, message, streak.
+Read/unread per gebruiker te markeren.
+Te zien in /dashboard/notifications.
+Push-notificaties via PWA (opt-in).
+
+--- 7.15 Referral-systeem ---
+
+- Iedere gebruiker krijgt automatisch een referral_code
+  (eerste 8 tekens van het user-id).
+- /join?ref=[code] slaat de code op in localStorage en
+  redirect naar signup.
+- Server-side validatie bij account-creatie zet
+  profiles.referred_by.
+- profiles.referral_count telt hoeveel mensen je hebt
+  aangedragen.
+- Beloningen zijn gepland (nog niet uitgerold).
+
+--- 7.16 Wrapped (jaarrecap) ---
+
+- /wrapped/[year], default huidig jaar.
+- Statistieken: totaal aantal fixes, dagen, categorieën,
+  langste fix, meest intense, langste streak.
+- Deelbare image via /api/wrapped/image.
+
+
+================================================================================
+8. FREE VS PRO
+================================================================================
+
+--- Free (gratis, voor altijd) ---
+
+- Tot 3 actieve fixes tegelijk
+- 1 pinned fix
+- Standaard share cards (paper/dark/minimal templates)
+- Publiek profiel, followers, reacties, comments
+- Dagelijkse check-ins, streaks, sparkline, heatmap
+- Graveyard
+- Hyperfix Wrapped (jaarrecap)
+- Handmatige eulogies
+- Géén custom accent color
+- Géén profielbanner
+- Basis-analytics
+- Géén data-export
+
+--- Pro ($5/maand of $39/jaar, ~33% korting jaarlijks) ---
+
+- Onbeperkt actieve fixes
+- Tot 3 pinned fixes
+- Custom accent-kleur op je profiel
+- Profielbanner
+- Premium share card templates
+- AI-gegenereerde eulogies (via Claude)
+- Volledige analytics (intensity trends, categorie-breakdowns,
+  langste streaks per categorie)
+- Data-export als JSON
+- Pro-badge op je profiel
+- Priority support
+- Annuleerbaar op elk moment
+- Geen proefperiode — Free is de "trial"
+
+Stripe-flow:
+- /api/stripe/checkout → Stripe Checkout-sessie
+- Webhook /api/stripe/webhook → updates profiles.is_pro,
+  stripe_customer_id, stripe_subscription_id
+
+
+================================================================================
+9. AUTHENTICATIE
+================================================================================
+
+- Email/wachtwoord registratie + verplichte e-mail-verificatie
+- OAuth via Google, GitHub, Apple (alles via Supabase Auth)
+- Wachtwoord vergeten via /auth/forgot, reset via /auth/reset
+- Sessions via Supabase SSR middleware (cookie-based, refresh tokens)
+- Middleware redirect:
+    /dashboard/* zonder login → /auth/login
+    /auth/*       met login    → /dashboard
+    ingelogd zonder username   → /onboarding/username
+- Auth-layout is bewust simpel: alleen logo, formulier, footer.
+  Geen kaartwrapper, op desktop én mobiel.
+
+
+================================================================================
+10. VISUELE IDENTITEIT
+================================================================================
+
+--- 10.1 Kleurenpalet ---
+
+  Page background:      #070708   (bijna-zwart)
+  Card background:      #0F1011   (iets minder zwart)
+  Primary text:         #F4F4F4   (gebroken wit)
+  Muted text:           rgba(255,255,255,0.55)
+  Faint text:           rgba(255,255,255,0.22)
+
+  Accent — teal:        #5EEAD4   (primair, knoppen, links)
+  Teal deep:            #2DD4BF   (hover/active)
+  Teal light:           #A7F3D0   (lichte achtergronden)
+
+  Intensity hot (9-10): #E63946   (rood, "send help")
+  Intensity warm (7-8): #FB923C   (oranje)
+  Success:              #34D399
+  Danger:               #E63946
+
+--- 10.2 Typografie ---
+
+  Display (koppen):     Fraunces — serif, variabele as voor optical
+                        sizing. Gebruikt op grote koppen, day counters,
+                        fix-titels. Letter-spacing -0.02em, weight 600.
+
+  Body:                 Instrument Sans — moderne sans-serif.
+                        Default 16px / line-height 1.65.
+
+  Monospace:            JetBrains Mono — voor labels, kleine tags,
+                        counters. Vaak uppercase met letter-spacing
+                        0.18-0.22em.
+
+--- 10.3 Visuele effecten ---
+
+  Grain overlay
+    SVG fractal noise filter (feTurbulence), vaste pixel-grootte,
+    opacity ~0.3, mix-blend-mode overlay. Aanwezig op de body en op
+    grote sections en cards. Geeft de UI een lichte "film grain"
+    textuur.
+
+  Teal bloom
+    Radial gradients vanaf de onderkant van hero-secties:
+    radial-gradient(ellipse 80% 70% at 50% 100%,
+                    #5EEAD4 0%, #2DD4BF 18%, #0E4F47 38%,
+                    #08231F 58%, #070708 78%)
+    Geeft het signature "obsessie-gloed" gevoel.
+
+  Card shadows
+    Geen klassieke drop-shadows op zwart. Wel teal glows op
+    interactieve elementen:
+    box-shadow: 0 0 24px rgba(94,234,212,0.10)
+
+  Animaties
+    .anim-fadeUp        scroll-triggered fade-in van onder
+    .anim-bloom         pulsing radial-gradient achter de hero
+    .anim-glowPulse     pulsing dot of accent
+    .anim-cellPop       cell-pop voor wisselende counters
+
+  Border radius
+    18-24px op cards (rounded-3xl), 999px op pills en knoppen.
+
+  Spacing
+    4-pixel baseline. Standaardstappen 4/6/8/12/16/20/24/32/40.
+
+--- 10.4 Responsiveness ---
+
+- Mobile first.
+- 1 kolom default, 2 kolommen vanaf sm (640px), 3 kolommen vanaf
+  lg (1024px) waar zinvol.
+- Font-sizes via clamp() voor vloeiende scaling.
+- Alleen dark mode — geen light/dark toggle.
+- overflow-x-hidden op de body om horizontale scroll te voorkomen.
+- Aparte MobileNavBar voor de bottom-tabs op telefoon.
+
+
+================================================================================
+11. SEO & METADATA
+================================================================================
+
+--- 11.1 Structured data (schema.org) ---
+
+  SoftwareApplication   Beschrijving van Hyperfix als app.
+  WebSite               Site-identiteit.
+  FAQPage               Vraag-antwoord rich snippets op landing & pricing.
+  Organization          Bedrijfsinfo + social links.
+  BreadcrumbList        Navigatie-hiërarchie op pricing.
+  Article               Op blog-posts en /card/[id], /fix/[id].
+
+--- 11.2 OG-images ---
+
+- /opengraph-image: standaard landingspagina (teal + zwart).
+- /api/og: generiek met title, sub, accent-parameters.
+- /api/og/profile/[username]: profiel-OG.
+- /api/og/track/[slug]: track-page OG met emoji fallback.
+- Alle images zijn 1200×630 (standaard OG-formaat).
+
+--- 11.3 Sitemap ---
+
+Static:
+   /, /pricing, /explore, /blog/*, /privacy, /tos, /manifesto,
+   /wrapped, /quiz, /adhd, etc.
+
+Dynamic:
+   /track/[slug] (~98 curated items)
+   /u/[username] (publieke profielen)
+   /fix/[id] (publieke fixes)
+
+Priorities: home 1.0, kernpagina's 0.8–0.9, dynamische content 0.5–0.7.
+
+--- 11.4 Robots.txt ---
+
+  Allow:    /
+  Disallow: /api/, /admin/
+  Sitemap:  https://hyperfix.app/sitemap.xml
+
+--- 11.5 Meta tags ---
+
+Title template:
+  "Hyperfix — the hyperfixation tracker for people who can't shut up
+  about their current obsession"
+
+Description:
+  "Log your current obsession. Count the days. Mourn it when it ends.
+  A diary for the song on loop, the fic you've re-read six times,
+  and the character who rearranged your brain."
+
+Keywords: hyperfixation tracker, obsession tracker, fanfic tracker,
+BookTok tracker, fandom tracker, ADHD hyperfixation, K-pop bias
+tracker, anime tracker, rewatch tracker, etc.
+
+Viewport: device-width, initial-scale=1, viewport-fit=cover
+Theme-color: #080808
+PWA-capable: ja (apple-mobile-web-app-capable + manifest.webmanifest)
+
+
+================================================================================
+12. PROGRESSIVE WEB APP (PWA)
+================================================================================
+
+- public/sw.js — service worker (offline support, push handling)
+- PWAInstallPrompt component — iOS/Android install prompts
+- ServiceWorkerRegister — registratie bij app load
+- manifest.ts — webapp manifest (icoon, naam, themakleur)
+- Volledig installeerbaar op desktop + mobiel
+- Push notifications via VAPID keys
+- Safe-area aware (viewport-fit=cover, env(safe-area-inset-*))
+
+
+================================================================================
+13. PROGRAMMATIC SEO ("track"-pagina's)
+================================================================================
+
+In /lib/track-data.ts staat een gecureerde lijst van ongeveer 98
+populaire onderwerpen:
+
+- Series (Severance, The Bear, Succession, BG3, etc.)
+- Muzikanten (Taylor Swift, Hozier, Chappell Roan, BTS, NewJeans,
+  Olivia Rodrigo, etc.)
+- Anime (Jujutsu Kaisen, Attack on Titan, Spy x Family, etc.)
+- Boekenseries (ACOTAR, Fourth Wing, Hunger Games, etc.)
+- Games (Baldur's Gate 3, Hades, Stardew Valley, etc.)
+- Films (Saltburn, Barbie, etc.)
+
+Voor elk item:
+- slug
+- naam
+- categorie
+- "tracking count" (sociaal bewijs)
+- gemiddelde "days deep"
+- emoji
+- gerelateerde items
+- intro-blurb
+
+/track/[slug] genereert automatisch:
+- Pagina met intro, tracking count, gerelateerde items
+- CTA om zelf te beginnen met tracken
+- Eigen OG-image via /api/og/track/[slug]
+- Sitemap-entries
+
+
+================================================================================
+14. E-MAIL (Resend)
+================================================================================
+
+Transactionele templates:
+- Verificatiemail (na signup)
+- Welkomstmail (na verificatie)
+- Wachtwoord-reset
+- (Gepland) dagelijkse/wekelijkse digest via cronjob
+- (Gepland) promotionele mails
+- Unsubscribe-flow via /api/unsubscribe
+
+
+================================================================================
+15. ADMIN, CRON & ENV VARIABLES
+================================================================================
+
+--- 15.1 Cron jobs ---
+
+POST /api/cron/daily    Streaks updaten, dagelijkse reminders,
+                        nieuwe milestones detecteren.
+POST /api/cron/weekly   Wekelijkse digest, statistieken aggregeren.
+
+Beveiligd via CRON_SECRET header.
+
+--- 15.2 Admin endpoints ---
+
+POST /api/admin/setup   Eenmalige setup (beveiligd met ADMIN_SECRET).
+
+--- 15.3 Environment variables ---
+
+  NEXT_PUBLIC_SUPABASE_URL          Supabase REST URL
+  NEXT_PUBLIC_SUPABASE_ANON_KEY     Publieke anon-key
+  SUPABASE_SERVICE_ROLE_KEY         Service role (server-only)
+
+  STRIPE_SECRET_KEY                 Stripe secret
+  STRIPE_PRO_PRICE_ID               Pro price/product ID
+  STRIPE_WEBHOOK_SECRET             Webhook verification
+
+  RESEND_API_KEY                    E-mail API
+
+  VAPID_PUBLIC_KEY                  Web Push public
+  VAPID_PRIVATE_KEY                 Web Push private
+  VAPID_CONTACT_EMAIL               Push contact
+
+  NEXT_PUBLIC_SITE_URL              Canonical domein
+  CRON_SECRET                       Cron job auth
+  ADMIN_SECRET                      Admin auth
+  ADMIN_EMAIL                       Admin contact
+  SETUP_SECRET                      Setup endpoint auth
+
+  ANTHROPIC_API_KEY                 (impliciet, voor eulogy-generator)
+
+
+================================================================================
+16. HOOKS & UTILITIES
+================================================================================
+
+  useProGate()            Forceert paywall voor Pro-features.
+  useToast()              Toast-systeem (success, error, loading).
+  getStripe()             Lazy Stripe singleton.
+  createClient()          Browser-side Supabase client.
+  createServerClient()    Server-side client (met cookies).
+  createAdminClient()     Service-role client (admin-acties).
+  sendVerificationEmail() Resend template.
+  sendWelcomeEmail()      Resend template.
+  resolveAccent()         Kleur-resolver (accent_color fallback).
+  hexToRgba()             Kleurconversie.
+  getReactionMeta()       Helpers voor reactie-emoji's.
+  normalizeReactionCounts() Aggregatie van reacties.
+
+
+================================================================================
+17. RECENTE WIJZIGINGEN (uit git log, mei 2026)
+================================================================================
+
+- 25 mei: timezone-migratie, notification_prefs, push_subscriptions,
+          messages-tabel, banner_url en card_style kolommen op fixes,
+          pricing-redesign (Pro-kaart van massief teal naar dark +
+          teal border zoals vvault.app), auth-layout gestript tot
+          alleen logo + formulier, overflow-x-hidden op body.
+
+- 21-25 mei: DMs (conversations + messages), message sidebar nav,
+             banner gallery (24 presets), MessageThread component.
+
+- 20-21 mei: realtime reactions via Supabase subscriptions,
+             TOS redesign, manifesto-pagina.
+
+- 19-20 mei: lists sub-pages, onboarding polish, card styling.
+
+- 19 mei:    analytics paywall preview, graveyard redesign,
+             notifications redesign.
+
+- 17-19 mei: niche SEO-pages (anime, fanfic, hyperfixation,
+             rewatch), 404 redesign, auth split-layout.
+
+
+================================================================================
+18. SAMENVATTING
+================================================================================
+
+Hyperfix is een full-stack moderne web-app gebouwd op Next.js 16,
+React 19, Supabase en Stripe, die het concept van een hyperfixatie
+als trackbaar fenomeen behandelt. De gebruiker logt een obsessie,
+ziet de dagen oplopen, doet dagelijkse check-ins, deelt deelbare
+9:16 cards op social media, ontvangt reacties en comments van
+anderen, en archiveert beëindigde fixes met een eulogy in de
+graveyard.
+
+Het bedrijfsmodel is freemium: tot drie actieve fixes en de
+hoofdfeatures zijn gratis voor altijd, Pro à $5/maand of $39/jaar
+geeft onbeperkte fixes, AI-eulogies, custom accent-kleuren,
+profielbanners, premium card templates, volledige analytics en
+data-export.
+
+De visuele identiteit is bewust editorial en dark: bijna-zwart
+(#070708), één signature teal (#5EEAD4), Fraunces als display
+serif, Instrument Sans als body, JetBrains Mono voor labels.
+Subtiele grain-overlays en teal-bloom radial gradients geven
+het z'n karakteristieke "obsessie-gloed".
+
+De app is volledig responsive, installeerbaar als PWA, ondersteunt
+push-notificaties, OAuth-login, en publiceert ongeveer honderd
+voorgemaakte SEO-pagina's via /track/[slug] voor populaire
+onderwerpen. Onder de motorkap zit Supabase PostgreSQL met
+twaalf tabellen (alles met Row Level Security), zestig+ API-routes
+(waarvan veel edge-functions voor dynamische beeldgeneratie),
+en een groeiende set sociale features (followers, comments,
+reacties, DMs, notifications).
+
+Met andere woorden: Hyperfix is een dagboek voor de chronisch
+geobsedeerde, gebouwd met de aandacht voor detail en de
+verzorgde esthetiek van een product dat zichzelf serieus neemt
+zonder ooit z'n humor te verliezen.
+
+================================================================================
+EINDE
+================================================================================
