@@ -286,7 +286,16 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         {/* Form area */}
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 py-8 overflow-y-auto">
           <div className="w-full max-w-[380px] anim-fadeUp delay-200 my-auto">
-            {children}
+            <div
+              className="rounded-3xl p-7 sm:p-8"
+              style={{
+                background: "#0F1011",
+                border: "1px solid rgba(255,255,255,0.06)",
+                boxShadow: "0 24px 48px rgba(0,0,0,0.4)",
+              }}
+            >
+              {children}
+            </div>
           </div>
 
           {/* mobile-only mini visual below form */}

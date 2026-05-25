@@ -160,7 +160,7 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
       <div className="mx-4 mb-4" style={{ height: 1, background: "rgba(244,244,244,0.06)" }} />
 
       {/* Nav */}
-      <nav className="flex-1 px-3 flex flex-col gap-1">
+      <nav className="flex-1 px-3 flex flex-col gap-1 overflow-y-auto min-h-0">
         {navItems.map((item) => {
           const isActive =
             item.href === "/dashboard"
