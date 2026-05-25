@@ -3,180 +3,62 @@ import { LogoLockup } from "@/components/Logo";
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
-const PAPER_NOISE_URL =
-  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.07  0 0 0 0 0.07  0 0 0 0 0.07  0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
-
-// ── Mock share card (paper-style, big day count) ─────────────────────────────
+// ── Dark Hyperfix share card (matches the actual app card style) ─────────────
 function MockShareCard() {
   const days = 47;
   const intensity = 8;
   return (
     <div
-      className="relative"
+      className="relative overflow-hidden"
       style={{
-        width: 280,
-        height: 420,
-        background: "#F4EFE6",
-        borderRadius: 14,
-        boxShadow:
-          "0 30px 80px -20px rgba(0,0,0,0.55), 0 12px 28px -10px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.04)",
-        overflow: "hidden",
-        transform: "rotate(-4deg)",
+        width: 240,
+        height: 370,
+        background: "radial-gradient(ellipse 110% 80% at 50% 120%, #5EEAD4 0%, #2DD4BF 12%, #0E4F47 32%, #08231F 56%, #070708 82%)",
+        borderRadius: 16,
+        boxShadow: "0 30px 80px -10px rgba(0,0,0,0.7), 0 8px 24px -6px rgba(94,234,212,0.2), 0 0 0 1px rgba(94,234,212,0.18)",
+        transform: "rotate(-3deg)",
       }}
     >
-      {/* paper noise */}
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{ backgroundImage: PAPER_NOISE_URL, backgroundSize: "180px 180px", opacity: 0.6 }}
-      />
-      {/* red top stripe */}
-      <div style={{ height: 10, background: "#D72638", width: "100%" }} />
+      {/* grain */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.4 }} />
+      {/* top dim */}
+      <div aria-hidden className="absolute top-0 left-0 right-0 pointer-events-none" style={{ height: "55%", background: "linear-gradient(180deg, rgba(7,7,8,0.75) 0%, transparent 100%)" }} />
 
-      <div className="relative p-6 flex flex-col h-[calc(100%-10px)]">
-        {/* header */}
+      <div className="relative h-full p-5 flex flex-col">
         <div className="flex items-center justify-between">
-          <span
-            style={{
-              fontFamily: "var(--font-jetbrains-mono), JetBrains Mono, monospace",
-              fontSize: 9,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "rgba(17,17,17,0.5)",
-              fontWeight: 700,
-            }}
-          >
-            hyperfix · log #0047
+          <span style={{ fontFamily: "var(--font-jetbrains-mono), monospace", fontSize: 7, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", fontWeight: 600 }}>
+            hyperfix
           </span>
-          <span
-            style={{
-              fontFamily: "var(--font-jetbrains-mono), JetBrains Mono, monospace",
-              fontSize: 9,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "#D72638",
-              fontWeight: 800,
-            }}
-          >
-            unwell
+          <span style={{ fontFamily: "var(--font-jetbrains-mono), monospace", fontSize: 7, letterSpacing: "0.18em", textTransform: "uppercase", color: "#5EEAD4", background: "rgba(94,234,212,0.12)", border: "1px solid rgba(94,234,212,0.25)", borderRadius: 99, padding: "2px 6px", fontWeight: 600 }}>
+            log
           </span>
         </div>
 
-        {/* title */}
-        <div className="mt-4">
-          <p
-            style={{
-              fontFamily: "Georgia, 'Times New Roman', serif",
-              fontSize: 21,
-              lineHeight: 1.1,
-              color: "#111",
-              fontWeight: 700,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            Severance
-          </p>
-          <p
-            style={{
-              fontFamily: "Georgia, 'Times New Roman', serif",
-              fontStyle: "italic",
-              fontSize: 13,
-              color: "rgba(17,17,17,0.55)",
-              marginTop: 2,
-            }}
-          >
-            the door scene
-          </p>
-        </div>
+        <p style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontSize: 16, lineHeight: 1.15, color: "#FFFFFF", fontWeight: 600, letterSpacing: "-0.02em", marginTop: 14 }}>
+          severance —<br />the door scene
+        </p>
 
-        {/* big day count */}
         <div className="mt-auto">
-          <div className="flex items-end gap-3">
-            <span
-              style={{
-                fontFamily: "Georgia, 'Times New Roman', serif",
-                fontSize: 110,
-                lineHeight: 0.85,
-                color: "#D72638",
-                fontWeight: 700,
-                letterSpacing: "-0.04em",
-              }}
-            >
+          <div style={{ display: "flex", alignItems: "flex-end", gap: 8 }}>
+            <span style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontSize: 80, lineHeight: 0.82, color: "#5EEAD4", fontWeight: 600, letterSpacing: "-0.05em", textShadow: "0 0 40px rgba(94,234,212,0.55)" }}>
               {days}
             </span>
-            <div className="pb-2">
-              <span
-                style={{
-                  fontFamily: "var(--font-jetbrains-mono), JetBrains Mono, monospace",
-                  fontSize: 10,
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  color: "rgba(17,17,17,0.5)",
-                  fontWeight: 700,
-                }}
-              >
-                days
-                <br />
-                deep
-              </span>
-            </div>
+            <span style={{ fontFamily: "var(--font-jetbrains-mono), monospace", fontSize: 7, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(94,234,212,0.7)", fontWeight: 600, paddingBottom: 8 }}>
+              days<br />deep
+            </span>
           </div>
 
-          {/* intensity row */}
-          <div className="mt-5">
-            <p
-              style={{
-                fontFamily: "var(--font-jetbrains-mono), JetBrains Mono, monospace",
-                fontSize: 9,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "rgba(17,17,17,0.45)",
-                fontWeight: 700,
-              }}
-            >
-              intensity · {intensity}/10
-            </p>
-            <div className="flex gap-1 mt-2">
-              {Array.from({ length: 10 }).map((_, i) => (
-                <div
-                  key={i}
-                  style={{
-                    flex: 1,
-                    height: 6,
-                    borderRadius: 2,
-                    background: i < intensity ? "#0D9488" : "rgba(17,17,17,0.10)",
-                  }}
-                />
-              ))}
-            </div>
+          <div style={{ marginTop: 14, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <span style={{ fontFamily: "var(--font-jetbrains-mono), monospace", fontSize: 7, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", fontWeight: 600 }}>intensity</span>
+            <span style={{ fontFamily: "var(--font-jetbrains-mono), monospace", fontSize: 10, color: "#5EEAD4", fontWeight: 700 }}>{intensity}<span style={{ opacity: 0.5 }}>/10</span></span>
+          </div>
+          <div style={{ marginTop: 4, height: 3, borderRadius: 99, background: "rgba(255,255,255,0.08)", overflow: "hidden" }}>
+            <div style={{ height: "100%", width: `${intensity * 10}%`, background: "linear-gradient(to right, rgba(94,234,212,0.5), #5EEAD4)", boxShadow: "0 0 8px rgba(94,234,212,0.6)", borderRadius: 99 }} />
           </div>
 
-          {/* footer line */}
-          <div
-            className="mt-5 pt-3 flex items-center justify-between"
-            style={{ borderTop: "1px dashed rgba(17,17,17,0.18)" }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-jetbrains-mono), JetBrains Mono, monospace",
-                fontSize: 9,
-                color: "rgba(17,17,17,0.4)",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-              }}
-            >
-              hyperfix.app
-            </span>
-            <span
-              style={{
-                fontFamily: "Georgia, serif",
-                fontStyle: "italic",
-                fontSize: 11,
-                color: "rgba(17,17,17,0.45)",
-              }}
-            >
-              still counting.
-            </span>
+          <div style={{ marginTop: 14, paddingTop: 10, borderTop: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <span style={{ fontFamily: "var(--font-jetbrains-mono), monospace", fontSize: 7, color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase" }}>hyperfix.app</span>
+            <span style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontStyle: "italic", fontSize: 10, color: "rgba(94,234,212,0.55)" }}>still counting.</span>
           </div>
         </div>
       </div>
@@ -294,53 +176,54 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             <div
               className="rounded-2xl p-6 relative overflow-hidden"
               style={{
-                background:
-                  "radial-gradient(ellipse 100% 80% at 50% 100%, #0E4F47 0%, #08231F 45%, #0F1011 90%)",
-                border: "1px solid rgba(255,255,255,0.06)",
+                background: "radial-gradient(ellipse 100% 80% at 50% 110%, #0E4F47 0%, #08231F 45%, #0F1011 90%)",
+                border: "1px solid rgba(94,234,212,0.12)",
               }}
             >
               <div className="flex items-center gap-4">
+                {/* Mini dark Hyperfix card */}
                 <div
                   style={{
                     width: 56,
                     height: 86,
-                    background: "#F4EFE6",
+                    background: "radial-gradient(ellipse 100% 80% at 50% 130%, #2DD4BF 0%, #0E4F47 40%, #070708 80%)",
                     borderRadius: 8,
                     flexShrink: 0,
                     overflow: "hidden",
                     display: "flex",
                     flexDirection: "column",
-                    boxShadow: "0 10px 20px -8px rgba(0,0,0,0.5)",
-                    transform: "rotate(-4deg)",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: "0 10px 20px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(94,234,212,0.18)",
+                    transform: "rotate(-3deg)",
                   }}
                 >
-                  <div style={{ height: 4, background: "#D72638" }} />
-                  <div className="flex-1 flex flex-col items-center justify-center">
-                    <span
-                      style={{
-                        fontFamily: "Georgia, serif",
-                        fontSize: 28,
-                        color: "#D72638",
-                        fontWeight: 700,
-                        lineHeight: 1,
-                      }}
-                    >
-                      47
-                    </span>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-jetbrains-mono), monospace",
-                        fontSize: 6,
-                        color: "rgba(17,17,17,0.5)",
-                        letterSpacing: "0.2em",
-                        marginTop: 2,
-                      }}
-                    >
-                      DAYS
-                    </span>
-                  </div>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-fraunces), Georgia, serif",
+                      fontSize: 30,
+                      color: "#5EEAD4",
+                      fontWeight: 700,
+                      lineHeight: 1,
+                      textShadow: "0 0 20px rgba(94,234,212,0.6)",
+                    }}
+                  >
+                    47
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-jetbrains-mono), monospace",
+                      fontSize: 6,
+                      color: "rgba(94,234,212,0.6)",
+                      letterSpacing: "0.2em",
+                      marginTop: 3,
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    DAYS
+                  </span>
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <p
                     className="font-display"
                     style={{
@@ -437,18 +320,18 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                 aria-hidden
                 className="absolute"
                 style={{
-                  width: 260,
-                  height: 400,
-                  background: "rgba(244,239,230,0.06)",
-                  border: "1px solid rgba(244,239,230,0.08)",
+                  width: 220,
+                  height: 340,
+                  background: "rgba(94,234,212,0.04)",
+                  border: "1px solid rgba(94,234,212,0.08)",
                   borderRadius: 14,
                   left: 30,
-                  top: 50,
+                  top: 55,
                   transform: "rotate(-9deg)",
                   boxShadow: "0 20px 60px -20px rgba(0,0,0,0.4)",
                 }}
               />
-              <div className="absolute" style={{ left: 60, top: 25 }}>
+              <div className="absolute" style={{ left: 70, top: 35 }}>
                 <MockShareCard />
               </div>
 

@@ -403,56 +403,65 @@ export default async function Page({
               </RevealSection>
 
               <RevealSection delay={140}>
-                <div
-                  className="motion-card relative overflow-hidden rounded-3xl p-7 sm:p-9 h-full anim-glowPulse"
-                  style={{
-                    background: TEAL,
-                    border: `1px solid ${TEAL_DEEP}`,
-                    color: "#0A1F1C",
-                    boxShadow: "0 24px 80px rgba(94,234,212,0.25)",
-                  }}
-                >
+                <div className="relative h-full">
+                  {/* Subtle teal bloom behind Pro card */}
                   <div
                     aria-hidden
-                    className="absolute inset-0 pointer-events-none mix-blend-overlay"
-                    style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.3 }}
+                    className="absolute pointer-events-none"
+                    style={{
+                      inset: "-40px -40px -40px -40px",
+                      background: "radial-gradient(ellipse 80% 70% at 50% 50%, rgba(94,234,212,0.16) 0%, transparent 70%)",
+                      filter: "blur(24px)",
+                      zIndex: 0,
+                    }}
                   />
-                  <div className="relative">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-display" style={{ fontSize: 26, fontWeight: 600, color: "#0A1F1C" }}>Pro</h3>
-                      <span
-                        className="font-sans text-xs font-semibold px-3 py-1 rounded-full"
-                        style={{ background: "#0A1F1C", color: TEAL }}
-                      >
-                        Popular
-                      </span>
-                    </div>
-                    <p className="mt-2 font-sans text-base" style={{ color: "rgba(10,31,28,0.78)" }}>
-                      For the chronically unwell who want the full toolkit.
-                    </p>
-                    <div className="mt-6 flex items-baseline gap-3">
-                      <p className="font-display" style={{ fontSize: 52, fontWeight: 600, letterSpacing: "-0.02em", color: "#0A1F1C" }}>
-                        $5<span className="font-sans text-lg" style={{ color: "rgba(10,31,28,0.6)" }}>/mo</span>
+                  <div
+                    className="motion-card relative overflow-hidden rounded-3xl p-7 sm:p-9 h-full"
+                    style={{
+                      background: CARD_BG,
+                      border: `1px solid ${TEAL_DARK_BORDER}`,
+                      boxShadow: "0 0 0 1px rgba(94,234,212,0.06), 0 24px 60px rgba(94,234,212,0.10)",
+                    }}
+                  >
+                    <GrainOverlay opacity={0.22} />
+                    <div className="relative">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="font-display text-ink" style={{ fontSize: 26, fontWeight: 600 }}>Pro</h3>
+                        <span
+                          className="font-mono text-[10px] tracking-widest uppercase rounded-full px-2.5 py-1"
+                          style={{ background: TEAL_DARK_BG, color: TEAL, border: `1px solid ${TEAL_DARK_BORDER}` }}
+                        >
+                          Popular
+                        </span>
+                      </div>
+                      <p className="font-sans text-base" style={{ color: "rgba(255,255,255,0.6)" }}>
+                        For the chronically unwell who want the full toolkit.
                       </p>
-                      <p className="font-sans text-sm" style={{ color: "rgba(10,31,28,0.55)" }}>
-                        or $39/year · save 35%
-                      </p>
+                      <div className="mt-6 flex items-baseline gap-3 flex-wrap">
+                        <p className="font-display text-ink" style={{ fontSize: 52, fontWeight: 600, letterSpacing: "-0.02em" }}>
+                          <span style={{ color: TEAL }}>$5</span>
+                          <span className="font-sans text-lg" style={{ color: "rgba(255,255,255,0.5)" }}>/mo</span>
+                        </p>
+                        <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
+                          or $39/year · save 35%
+                        </p>
+                      </div>
+                      <ul className="mt-6 space-y-3">
+                        {["Everything in Free", "Premium card templates", "Custom profile URL", "AI eulogy generator", "Hyperfix Wrapped", "Priority support"].map((line) => (
+                          <li key={line} className="flex items-center gap-3 font-sans text-base" style={{ color: "rgba(255,255,255,0.82)" }}>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={TEAL} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                              <path d="M20 6 9 17l-5-5" />
+                            </svg>
+                            {line}
+                          </li>
+                        ))}
+                      </ul>
+                      <ProCheckoutButton
+                        className="mt-8 inline-flex w-full items-center justify-center gap-2 font-sans text-base font-semibold px-6 py-4 transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-70"
+                        style={{ background: TEAL, color: "#0A1F1C", borderRadius: 999 }}
+                        label="Get Pro"
+                      />
                     </div>
-                    <ul className="mt-6 space-y-3">
-                      {["Everything in Free", "Premium card templates", "Custom profile URL", "AI eulogy generator", "Hyperfix Wrapped", "Priority support"].map((line) => (
-                        <li key={line} className="flex items-center gap-3 font-sans text-base" style={{ color: "#0A1F1C" }}>
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A1F1C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M20 6 9 17l-5-5" />
-                          </svg>
-                          {line}
-                        </li>
-                      ))}
-                    </ul>
-                    <ProCheckoutButton
-                      className="mt-8 inline-flex w-full items-center justify-center gap-2 font-sans text-base font-semibold px-6 py-4 transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-70"
-                      style={{ background: "#0A1F1C", color: TEAL, borderRadius: 999 }}
-                      label="Get Pro"
-                    />
                   </div>
                 </div>
               </RevealSection>
