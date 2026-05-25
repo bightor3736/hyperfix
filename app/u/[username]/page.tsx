@@ -6,6 +6,9 @@ import type { Metadata } from "next";
 import { FollowButton, FollowButtonLoggedIn } from "@/components/FollowButton";
 import { ShareProfileButton } from "@/components/ShareProfileButton";
 import { resolveAccent, hexToRgba } from "@/lib/accent";
+import { CategoryIcon, CATEGORY_COLOR } from "@/components/CategoryIcon";
+import { TombstoneIcon } from "@/components/MilestoneIcons";
+import { PinIcon } from "@/components/LandingIcons";
 
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
@@ -19,6 +22,7 @@ interface Fix {
   started_at: string;
   ended_at: string | null;
   is_public: boolean;
+  banner_url?: string | null;
 }
 
 interface Profile {
@@ -148,7 +152,7 @@ export default async function PublicProfilePage({
 
   const { data: fixes } = await supabase
     .from("fixes")
-    .select("id, title, category, status, intensity, started_at, ended_at, is_public")
+    .select("id, title, category, status, intensity, started_at, ended_at, is_public, banner_url")
     .eq("user_id", typedProfile.id)
     .order("created_at", { ascending: false });
 
@@ -376,9 +380,12 @@ export default async function PublicProfilePage({
         {/* Pinned fixes */}
         {pinnedFixes.length > 0 && (
           <div className="mb-8">
-            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(244,244,244,0.35)" }}>
-              📌 {pinnedFixes.length > 1 ? "currently obsessed with" : "currently obsessed with"}
-            </p>
+            <div className="flex items-center gap-1.5 mb-3" style={{ color: "rgba(244,244,244,0.35)" }}>
+              <PinIcon size={11} />
+              <p className="font-mono text-[10px] uppercase tracking-widest">
+                currently obsessed with
+              </p>
+            </div>
             <div className="flex flex-col gap-3">
               {pinnedFixes.map((pf) => (
                 <Link
@@ -445,7 +452,18 @@ export default async function PublicProfilePage({
             style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
           >
             <div className="flex items-center gap-3">
-              <span style={{ fontSize: 22 }}>🪦</span>
+              <div
+                className="flex items-center justify-center rounded-xl shrink-0"
+                style={{
+                  width: 40,
+                  height: 40,
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  color: "rgba(255,255,255,0.5)",
+                }}
+              >
+                <TombstoneIcon size={20} />
+              </div>
               <div>
                 <p className="font-display font-medium text-base leading-snug group-hover:text-[#5EEAD4] transition-colors">
                   The graveyard
@@ -459,69 +477,114 @@ export default async function PublicProfilePage({
           </Link>
         )}
 
-        {/* Public fixes */}
+        {/* Public fixes — vvault-style visual cards */}
         <div>
-          <h2 className="text-sm font-mono uppercase tracking-widest mb-5" style={{ color: "#9A9A9A" }}>
-            Public fixes
-          </h2>
+          <div className="flex items-baseline justify-between mb-5">
+            <h2 className="text-sm font-mono uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.6)" }}>
+              Active fixations
+            </h2>
+            {publicFixes.filter((f) => !f.ended_at).length > 4 && (
+              <span className="font-mono text-xs" style={{ color: "rgba(244,244,244,0.35)" }}>
+                {publicFixes.filter((f) => !f.ended_at).length} total
+              </span>
+            )}
+          </div>
 
           {publicFixes.filter((f) => !f.ended_at).length === 0 ? (
             <div
-              className="rounded-2xl p-8 text-center"
-              style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
+              className="rounded-3xl p-10 text-center"
+              style={{ background: "#0F1011", border: "1px solid rgba(244,244,244,0.06)" }}
             >
               <p className="font-display text-lg mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>
-                Nothing public yet.
+                {isSelf ? "Nothing public yet." : "No active fixations yet."}
               </p>
               <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>
-                {isSelf ? "Turn a fix public to show it here." : "This person keeps their obsessions private."}
+                {isSelf
+                  ? "Turn a fix public to show it here."
+                  : "This person keeps their obsessions private."}
               </p>
             </div>
           ) : (
-            <div className="grid sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               {publicFixes.filter((f) => !f.ended_at).map((fix) => {
                 const days = dayCount(fix.started_at, fix.ended_at);
+                const catColor = CATEGORY_COLOR[fix.category.toLowerCase()] || "#5EEAD4";
                 return (
                   <Link
                     key={fix.id}
                     href={`/fix/${fix.id}`}
-                    className="group block rounded-2xl p-5 transition-all duration-200 hover:scale-[1.01]"
+                    className="group block rounded-3xl overflow-hidden transition-all duration-200 hover:-translate-y-1"
                     style={{
-                      background: "#111113",
-                      border: "1px solid rgba(244,244,244,0.07)",
+                      background: "#0F1011",
+                      border: "1px solid rgba(244,244,244,0.06)",
                     }}
                   >
-                    <div className="flex items-start justify-between gap-3 mb-3">
-                      <h3 className="font-display font-medium text-base leading-snug group-hover:text-[#5EEAD4] transition-colors">
+                    {/* Cover area — banner_url or category gradient */}
+                    <div
+                      className="relative w-full aspect-square"
+                      style={{
+                        backgroundImage: fix.banner_url ? `url(${fix.banner_url})` : undefined,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        background: fix.banner_url
+                          ? undefined
+                          : `linear-gradient(135deg, ${catColor}40 0%, ${catColor}10 60%, #0F1011 100%)`,
+                      }}
+                    >
+                      <div
+                        aria-hidden
+                        className="absolute inset-0 pointer-events-none"
+                        style={{ background: "linear-gradient(180deg, transparent 0%, transparent 50%, rgba(15,16,17,0.92) 100%)" }}
+                      />
+                      {/* Day count badge top-left */}
+                      <div
+                        className="absolute top-3 left-3 inline-flex items-baseline gap-0.5 rounded-md px-2 py-1"
+                        style={{
+                          background: "rgba(15,16,17,0.7)",
+                          border: "1px solid rgba(244,244,244,0.08)",
+                          backdropFilter: "blur(8px)",
+                        }}
+                      >
+                        <span className="font-display tabular-nums" style={{ fontSize: 18, fontWeight: 700, color: "#F4F4F4", lineHeight: 1, letterSpacing: "-0.02em" }}>
+                          {days}
+                        </span>
+                        <span className="font-mono text-[9px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.55)" }}>
+                          d
+                        </span>
+                      </div>
+                      {/* Category chip bottom-left */}
+                      <div className="absolute bottom-3 left-3 right-3">
+                        <span
+                          className="inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-widest rounded-full px-2 py-0.5"
+                          style={{
+                            background: `${catColor}22`,
+                            border: `1px solid ${catColor}44`,
+                            color: catColor,
+                            backdropFilter: "blur(8px)",
+                          }}
+                        >
+                          <CategoryIcon category={fix.category} size={9} />
+                          {fix.category}
+                        </span>
+                      </div>
+                    </div>
+                    {/* Title */}
+                    <div className="p-4">
+                      <h3
+                        className="font-display font-medium leading-snug group-hover:text-[#5EEAD4] transition-colors"
+                        style={{
+                          fontSize: 14,
+                          color: "#F4F4F4",
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          letterSpacing: "-0.01em",
+                        }}
+                      >
                         {fix.title}
                       </h3>
-                      <span
-                        className="shrink-0 text-[10px] font-mono uppercase tracking-widest rounded-full px-2.5 py-1"
-                        style={{
-                          background: "rgba(94,234,212,0.1)",
-                          border: "1px solid rgba(94,234,212,0.25)",
-                          color: "#5EEAD4",
-                        }}
-                      >
-                        {fix.category}
-                      </span>
                     </div>
-                    <div className="flex items-center gap-3 mb-3">
-                      <span
-                        className="text-[10px] font-mono uppercase tracking-widest rounded-full px-2.5 py-1"
-                        style={{
-                          background: "rgba(244,244,244,0.06)",
-                          border: "1px solid rgba(244,244,244,0.12)",
-                          color: "rgba(244,244,244,0.6)",
-                        }}
-                      >
-                        {fix.status}
-                      </span>
-                      <span className="text-xs font-mono" style={{ color: "#9A9A9A" }}>
-                        {days} {days === 1 ? "day" : "days"}
-                      </span>
-                    </div>
-                    <IntensityBar intensity={fix.intensity} />
                   </Link>
                 );
               })}
