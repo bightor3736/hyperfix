@@ -201,6 +201,22 @@ export default async function FixDetailPage({
               View public →
             </Link>
           )}
+          <Link
+            href={`/dashboard/fix/${id}/card`}
+            className="inline-flex items-center gap-1.5 font-sans text-sm font-medium px-3 py-1.5 rounded-full transition-all hover:opacity-90"
+            style={{
+              background: "rgba(94,234,212,0.08)",
+              border: "1px solid rgba(94,234,212,0.25)",
+              color: TEAL,
+            }}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21 15 16 10 5 21" />
+            </svg>
+            Customize card
+          </Link>
           <ShareButton fixId={id} isPublic={typedFix.is_public} fixTitle={typedFix.title} days={days} intensity={typedFix.intensity} />
         </div>
       </nav>
