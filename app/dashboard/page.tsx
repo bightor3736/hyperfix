@@ -264,117 +264,118 @@ export default async function DashboardPage() {
           </Link>
         </div>
 
-        {/* Stats grid */}
+        {/* Stats grid — uniform 4-card layout */}
         {(totalActive > 0 || fetchError || currentStreak > 0) && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-            {/* Streak card */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+            {/* Streak */}
             <div
-              className="relative overflow-hidden rounded-3xl p-7 motion-card anim-fadeUp delay-100"
+              className="relative rounded-3xl p-5 anim-fadeUp delay-100"
               style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
             >
-              <GrainOverlay opacity={0.22} />
-              <div className="relative">
-                <EyebrowPill>check-in run</EyebrowPill>
-                <div className="flex items-baseline gap-2 mt-6">
-                  <span
-                    className="font-display leading-none"
-                    style={{
-                      fontSize: "clamp(56px, 12vw, 84px)",
-                      letterSpacing: "-0.04em",
-                      fontWeight: 600,
-                      color: currentStreak > 0 ? TEAL : "rgba(255,255,255,0.2)",
-                      textShadow: currentStreak >= 7 ? "0 0 40px rgba(94,234,212,0.45)" : "none",
-                    }}
-                  >
-                    {currentStreak > 0 ? currentStreak : "0"}
-                  </span>
-                  <span className="font-sans text-base" style={{ color: "rgba(255,255,255,0.45)" }}>
-                    {currentStreak === 1 ? "day" : "days"}
-                  </span>
-                </div>
-                <p className="mt-3 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  {currentStreak === 0
-                    ? "check in to start your run."
-                    : currentStreak >= 30
-                      ? "absolute unit. legendary."
-                      : currentStreak >= 7
-                        ? "you're on a roll. keep going."
-                        : "keep going. it's building."}
-                </p>
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+                check-in run
+              </p>
+              <div className="flex items-baseline gap-1.5 mt-3">
+                <span
+                  className="font-display leading-none tabular-nums"
+                  style={{
+                    fontSize: "clamp(36px, 7vw, 52px)",
+                    letterSpacing: "-0.04em",
+                    fontWeight: 600,
+                    color: currentStreak > 0 ? TEAL : "rgba(255,255,255,0.2)",
+                    textShadow: currentStreak >= 7 ? "0 0 30px rgba(94,234,212,0.4)" : "none",
+                  }}
+                >
+                  {currentStreak > 0 ? currentStreak : "0"}
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>
+                  {currentStreak === 1 ? "day" : "days"}
+                </span>
               </div>
+              <p className="mt-2 font-sans text-xs leading-snug" style={{ color: "rgba(255,255,255,0.4)" }}>
+                {currentStreak === 0
+                  ? "start your run today."
+                  : currentStreak >= 30
+                  ? "legendary."
+                  : currentStreak >= 7
+                  ? "on a roll."
+                  : "it's building."}
+              </p>
+            </div>
+
+            {/* Active fixes */}
+            <div
+              className="relative rounded-3xl p-5 anim-fadeUp delay-200"
+              style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
+            >
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+                active fixes
+              </p>
+              <div className="flex items-baseline gap-1.5 mt-3">
+                <span
+                  className="font-display leading-none tabular-nums"
+                  style={{
+                    fontSize: "clamp(36px, 7vw, 52px)",
+                    letterSpacing: "-0.04em",
+                    fontWeight: 600,
+                    color: "#FFFFFF",
+                  }}
+                >
+                  {totalActive}
+                </span>
+              </div>
+              {longestFix > 0 && (
+                <p className="mt-2 font-mono text-[10px]" style={{ color: "rgba(255,255,255,0.4)" }}>
+                  longest <span style={{ color: "rgba(255,255,255,0.65)" }}>{longestFix}d</span>
+                </p>
+              )}
+            </div>
+
+            {/* Peak intensity */}
+            <div
+              className="relative rounded-3xl p-5 anim-fadeUp delay-300"
+              style={{
+                background: highestIntensity >= 8 ? "rgba(230,57,70,0.05)" : CARD_BG,
+                border: highestIntensity >= 8 ? "1px solid rgba(230,57,70,0.20)" : `1px solid ${CARD_BORDER}`,
+              }}
+            >
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+                peak intensity
+              </p>
+              <div className="flex items-baseline gap-1.5 mt-3">
+                <span
+                  className="font-display leading-none tabular-nums"
+                  style={{
+                    fontSize: "clamp(36px, 7vw, 52px)",
+                    letterSpacing: "-0.04em",
+                    fontWeight: 600,
+                    color: highestIntensity >= 8 ? "#E63946" : highestIntensity > 0 ? "#FFFFFF" : "rgba(255,255,255,0.2)",
+                    textShadow: highestIntensity >= 8 ? "0 0 28px rgba(230,57,70,0.35)" : "none",
+                  }}
+                >
+                  {highestIntensity > 0 ? highestIntensity : "—"}
+                </span>
+                {highestIntensity > 0 && (
+                  <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>
+                    /10
+                  </span>
+                )}
+              </div>
+              <p className="mt-2 font-mono text-[10px]" style={{ color: "rgba(255,255,255,0.4)" }}>
+                {highestIntensity >= 9 ? "send help" : highestIntensity >= 7 ? "deeply unwell" : highestIntensity > 0 ? "tracking it" : "log a fix"}
+              </p>
             </div>
 
             {/* Week rings */}
             <div
-              className="relative overflow-hidden rounded-3xl p-7 motion-card anim-fadeUp delay-200"
+              className="relative rounded-3xl p-5 anim-fadeUp delay-400 col-span-2 lg:col-span-1"
               style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
             >
-              <GrainOverlay opacity={0.22} />
-              <div className="relative">
-                <EyebrowPill>this week</EyebrowPill>
-                <div className="mt-6">
-                  <WeekRings checkedDates={heatmapDates} />
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 sm:col-span-2 sm:grid-cols-2">
-              <div
-                className="relative overflow-hidden rounded-3xl p-6 motion-card anim-fadeUp delay-300"
-                style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
-              >
-                <GrainOverlay opacity={0.22} />
-                <div className="relative">
-                  <EyebrowPill>active fixes</EyebrowPill>
-                  <div className="flex items-baseline gap-3 mt-5">
-                    <span
-                      className="font-display leading-none"
-                      style={{
-                        fontSize: "clamp(40px, 8vw, 60px)",
-                        letterSpacing: "-0.03em",
-                        fontWeight: 600,
-                        color: "#FFFFFF",
-                      }}
-                    >
-                      {totalActive}
-                    </span>
-                    {longestFix > 0 && (
-                      <span className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
-                        longest {longestFix}d
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className="relative overflow-hidden rounded-3xl p-6 motion-card anim-fadeUp delay-400"
-                style={{
-                  background: highestIntensity >= 8 ? "rgba(230,57,70,0.06)" : CARD_BG,
-                  border: highestIntensity >= 8 ? "1px solid rgba(230,57,70,0.20)" : `1px solid ${CARD_BORDER}`,
-                }}
-              >
-                <GrainOverlay opacity={0.22} />
-                <div className="relative">
-                  <EyebrowPill>peak intensity</EyebrowPill>
-                  <div className="flex items-baseline gap-2 mt-5">
-                    <span
-                      className="font-display leading-none"
-                      style={{
-                        fontSize: "clamp(40px, 8vw, 60px)",
-                        letterSpacing: "-0.03em",
-                        fontWeight: 600,
-                        color: highestIntensity >= 8 ? "#E63946" : highestIntensity > 0 ? "#FFFFFF" : "rgba(255,255,255,0.2)",
-                        textShadow: highestIntensity >= 8 ? "0 0 32px rgba(230,57,70,0.35)" : "none",
-                      }}
-                    >
-                      {highestIntensity > 0 ? highestIntensity : "—"}
-                    </span>
-                    {highestIntensity > 0 && (
-                      <span className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>/10</span>
-                    )}
-                  </div>
-                </div>
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+                this week
+              </p>
+              <div className="mt-3">
+                <WeekRings checkedDates={heatmapDates} />
               </div>
             </div>
           </div>
