@@ -136,6 +136,19 @@ function renderNotif(n: Notif): Rendered | null {
       href: n.fix_id ? `/dashboard/fix/${n.fix_id}` : null,
     };
   }
+  if (n.type === "message") {
+    return {
+      Icon: ChatIcon,
+      iconColor: "#5EEAD4",
+      text: (
+        <>
+          <span style={{ color: "#F4F4F4" }}>{name}</span>
+          <span style={{ color: "rgba(244,244,244,0.55)" }}> sent you a message</span>
+        </>
+      ),
+      href: "/dashboard/messages",
+    };
+  }
   return null;
 }
 
