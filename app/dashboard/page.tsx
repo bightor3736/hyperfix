@@ -8,6 +8,7 @@ import { StreakHeatmap } from "@/components/StreakHeatmap";
 import { WeekRings } from "@/components/WeekRings";
 import { ReferralCard } from "@/components/ReferralCard";
 import { Plus } from "@/components/icons";
+import { CategoryIcon } from "@/components/CategoryIcon";
 import { MilestoneBanner } from "@/components/MilestoneBanner";
 import { WelcomeBackBanner } from "@/components/WelcomeBackBanner";
 
@@ -475,12 +476,6 @@ export default async function DashboardPage() {
   );
 }
 
-const CATEGORY_EMOJI: Record<string, string> = {
-  song: "🎵", fanfic: "📖", show: "📺", film: "🎬", ship: "💜",
-  game: "🎮", "video essay": "🎥", podcast: "🎙️", book: "📚",
-  character: "✨", other: "✦",
-};
-
 function EmptyState({ suggestions }: { suggestions: { id: string; title: string; category: string }[] }) {
   return (
     <div
@@ -547,7 +542,7 @@ function EmptyState({ suggestions }: { suggestions: { id: string; title: string;
                     color: "rgba(255,255,255,0.7)",
                   }}
                 >
-                  <span>{CATEGORY_EMOJI[s.category] ?? "✦"}</span>
+                  <CategoryIcon category={s.category} size={12} />
                   <span className="truncate max-w-[120px]">{s.title}</span>
                 </Link>
               ))}

@@ -77,24 +77,29 @@ type ReactionCounts = Record<string, number>;
 const TOP_REACTIONS: ReactionType[] = REACTION_TYPES.map((r) => r.key);
 
 function MiniReactions({ counts }: { counts: ReactionCounts }) {
-  const top = TOP_EMOJIS.filter((e) => (counts[e] ?? 0) > 0).slice(0, 3);
+  const normalized = normalizeReactionCounts(counts);
+  const top = TOP_REACTIONS.filter((k) => normalized[k] > 0).slice(0, 3);
   if (top.length === 0) return null;
   return (
     <div className="flex items-center gap-1.5 flex-wrap">
-      {top.map((emoji) => (
-        <span
-          key={emoji}
-          className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[11px]"
-          style={{
-            background: "rgba(244,244,244,0.06)",
-            border: "1px solid rgba(244,244,244,0.1)",
-            color: "rgba(244,244,244,0.5)",
-          }}
-        >
-          {emoji}
-          <span className="tabular-nums">{counts[emoji]}</span>
-        </span>
-      ))}
+      {top.map((key) => {
+        const { Icon, label } = getReactionMeta(key);
+        return (
+          <span
+            key={key}
+            className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[11px] uppercase tracking-widest"
+            style={{
+              background: "rgba(244,244,244,0.06)",
+              border: "1px solid rgba(244,244,244,0.1)",
+              color: "rgba(244,244,244,0.5)",
+            }}
+            aria-label={label}
+          >
+            <Icon size={12} />
+            <span className="tabular-nums">{normalized[key]}</span>
+          </span>
+        );
+      })}
     </div>
   );
 }

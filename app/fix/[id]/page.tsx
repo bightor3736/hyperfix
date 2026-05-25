@@ -282,13 +282,14 @@ export default async function PublicFixPage({
             {/* Category + status row */}
             <div className="flex items-center gap-2 mb-5 flex-wrap">
               <span
-                className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1"
+                className="inline-flex items-center gap-1.5 font-sans text-xs rounded-full px-3 py-1"
                 style={{
                   background: "rgba(94,234,212,0.12)",
                   color: TEAL,
                   border: "1px solid rgba(94,234,212,0.25)",
                 }}
               >
+                <CategoryIcon category={typedFix.category} size={12} />
                 {typedFix.category}
               </span>
               <span
@@ -376,7 +377,7 @@ export default async function PublicFixPage({
                   className="absolute inset-0 pointer-events-none mix-blend-overlay"
                   style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.18 }}
                 />
-                <span style={{ fontSize: 20 }}>🔥</span>
+                <span style={{ color: TEAL, display: "inline-flex" }}><FlameIcon size={20} /></span>
                 <p
                   className="relative font-display"
                   style={{ color: TEAL, fontSize: 16, fontWeight: 600, lineHeight: 1.3 }}
