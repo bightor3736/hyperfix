@@ -89,39 +89,35 @@ export default function BooktokTrackerPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
+      <main id="main-content" className="relative z-10 text-ink" style={{ background: "#070708" }}>
         <Nav />
 
         {/* HERO */}
-        <section className="px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-32">
-          <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 lg:gap-16 items-end">
+        <section className="px-6 sm:px-8 pt-16 pb-16">
+          <div className="max-w-5xl mx-auto grid lg:grid-cols-12 gap-12 items-end">
             <div className="lg:col-span-7">
-              <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
-                booktok tracker · hyperfix.app · 2026
+              <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-8" style={{ background: "rgba(94,234,212,0.08)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.20)" }}>
+                booktok hyperfixation tracker
               </span>
-              <h1 className="font-display font-medium text-[3rem] sm:text-[4.5rem] lg:text-[6rem] leading-[0.92] tracking-crush text-ink">
-                BookTok
-                <br />
-                <span className="italic text-accent">Tracker</span>
+              <h1 className="font-display font-semibold text-[2.5rem] sm:text-[3.25rem] lg:text-[4rem] leading-[0.98] text-ink" style={{ letterSpacing: "-0.03em" }}>
+                BookTok{" "}
+                <span style={{ color: "#5EEAD4" }}>Tracker.</span>
               </h1>
-              <p className="mt-8 font-sans text-lg sm:text-xl text-[rgba(244,244,244,0.5)] max-w-xl leading-snug">
-                For the book that broke you. Not the one you gave five stars
-                on Goodreads — the one you've been thinking about for three
-                weeks, sent to four people, and referenced unprompted in two
-                separate conversations.
+              <p className="mt-6 font-sans text-base sm:text-lg max-w-xl" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
+                For the book that broke you. Not the one you gave five stars on Goodreads — the one you&apos;ve been thinking about for three weeks, sent to four people, and referenced unprompted in two separate conversations.
               </p>
-              <p className="mt-4 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-xl leading-snug">
-                Goodreads tracks your reading. Hyperfix tracks your
-                obsession. Use both.
+              <p className="mt-4 font-sans text-base sm:text-lg max-w-xl" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
+                Goodreads tracks your reading. Hyperfix tracks your obsession. Use both.
               </p>
-              <WaitlistForm id="waitlist" variant="light" />
+              <div className="mt-8 max-w-md">
+                <WaitlistForm id="waitlist" variant="light" />
+              </div>
             </div>
             <div className="lg:col-span-5">
               <div className="relative">
-                <div className="absolute -inset-6 sm:-inset-10 -rotate-2 -z-10" />
                 <HyperfixCard {...sampleCard} />
-                <p className="mt-6 font-display italic text-[rgba(244,244,244,0.4)] text-sm text-center max-w-xs mx-auto">
-                  ↑ day 23. intensity 9. she has not recovered.
+                <p className="mt-6 font-mono text-xs text-center max-w-xs mx-auto tabular-nums" style={{ color: "rgba(255,255,255,0.35)" }}>
+                  day 23 · intensity 9 · she has not recovered.
                 </p>
               </div>
             </div>

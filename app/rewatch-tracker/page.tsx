@@ -24,8 +24,6 @@ export const metadata: Metadata = {
 const TEAL = "#5EEAD4";
 const CARD_BG = "#0F1011";
 const CARD_BORDER = "rgba(255,255,255,0.06)";
-const NOISE_URL =
-  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 const faqs = [
   {
@@ -99,16 +97,15 @@ const sampleCards = [
 ];
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
-  return <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>{children}</span>;
+  return <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "rgba(94,234,212,0.08)", color: TEAL, border: "1px solid rgba(94,234,212,0.20)" }}>{children}</span>;
 }
 function SectionHeadline({ children }: { children: React.ReactNode }) {
   return <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.02em", fontWeight: 600 }}>{children}</h2>;
 }
 function Card({ children }: { children: React.ReactNode }) {
   return (
-    <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-10" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
-      <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
-      <div className="relative">{children}</div>
+    <div className="rounded-3xl p-6 sm:p-10" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+      {children}
     </div>
   );
 }
@@ -120,29 +117,22 @@ export default function RewatchTrackerPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <Nav />
-      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
-        <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
-
-        <main id="main-content" className="relative max-w-5xl mx-auto flex flex-col gap-6">
-          <div className="relative overflow-hidden rounded-3xl p-6 sm:p-10 anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)", border: `1px solid ${CARD_BORDER}` }}>
-            <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
-            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
-            <div className="relative">
-              <Eyebrow>rewatch tracker</Eyebrow>
-              <h1 className="font-display anim-fadeUp delay-100" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 6vw, 60px)", lineHeight: 1.02, letterSpacing: "-0.02em", fontWeight: 600 }}>
-                For the show you&apos;ve
-                <br />
-                watched too many times.
-              </h1>
-              <p className="mt-6 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.72)" }}>
-                Letterboxd logs that you watched it. It doesn&apos;t log that you&apos;ve watched it seven times. It doesn&apos;t track that you&apos;re currently on your third full rewatch of a series this year. It doesn&apos;t know that rewatching isn&apos;t something you chose — it&apos;s something your brain is doing because it needs the thing and you&apos;re not done with it yet.
-              </p>
-              <p className="mt-4 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.6)" }}>
-                Hyperfix tracks the rewatch as a first-class event. Not a footnote on the original entry — its own fixation, its own counter, its own eulogy when it ends. Because a third rewatch of Pride &amp; Prejudice in a single winter is not the same as the first watch. It&apos;s a specific era. It deserves a specific record.
-              </p>
-              <div className="mt-7 anim-fadeUp delay-300"><WaitlistForm id="waitlist" variant="light" /></div>
-            </div>
-          </div>
+      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "#070708" }}>
+        <main id="main-content" className="max-w-5xl mx-auto flex flex-col gap-6">
+          <section className="px-2 sm:px-6 pt-12 pb-10 anim-fadeUp">
+            <Eyebrow>rewatch hyperfixation tracker</Eyebrow>
+            <h1 className="font-display anim-fadeUp delay-100" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 7vw, 64px)", lineHeight: 1.02, letterSpacing: "-0.03em", fontWeight: 600 }}>
+              For the show you&apos;ve{" "}
+              <span style={{ color: TEAL }}>watched too many times.</span>
+            </h1>
+            <p className="mt-6 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
+              Letterboxd logs that you watched it. It doesn&apos;t log that you&apos;ve watched it seven times. It doesn&apos;t track that you&apos;re currently on your third full rewatch of a series this year. It doesn&apos;t know that rewatching isn&apos;t something you chose — it&apos;s something your brain is doing because it needs the thing and you&apos;re not done with it yet.
+            </p>
+            <p className="mt-4 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
+              Hyperfix tracks the rewatch as a first-class event. Not a footnote on the original entry — its own fixation, its own counter, its own eulogy when it ends. Because a third rewatch of Pride &amp; Prejudice in a single winter is not the same as the first watch. It&apos;s a specific era. It deserves a specific record.
+            </p>
+            <div className="mt-8 anim-fadeUp delay-300 max-w-md"><WaitlistForm id="waitlist" variant="light" /></div>
+          </section>
 
           <RevealSection>
             <Card>
@@ -231,18 +221,16 @@ export default function RewatchTrackerPage() {
           </RevealSection>
 
           <RevealSection>
-            <div className="relative overflow-hidden rounded-3xl p-8 sm:p-14 text-center" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #2DD4BF 0%, #0E4F47 26%, #08231F 50%, #0F1011 80%)", border: `1px solid ${CARD_BORDER}` }}>
-              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "220px 220px", opacity: 0.5 }} />
-              <div className="relative">
-                <Eyebrow>join the waitlist</Eyebrow>
-                <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(30px, 5vw, 48px)", letterSpacing: "-0.02em", fontWeight: 600, lineHeight: 1.05 }}>
-                  The seventh rewatch started. Log it. You know why you&apos;re here.
-                </h2>
-                <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.72)" }}>
-                  The waitlist gets first access in waves. Early users get a permanent Pro discount and the most embarrassing usernames before they&apos;re gone.
-                </p>
-                <div className="mt-6"><WaitlistForm variant="dark" /></div>
-              </div>
+            <div className="rounded-3xl p-8 sm:p-14 text-center" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+              <Eyebrow>join the waitlist</Eyebrow>
+              <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(30px, 5vw, 48px)", letterSpacing: "-0.03em", fontWeight: 600, lineHeight: 1.05 }}>
+                The seventh rewatch started.{" "}
+                <span style={{ color: TEAL }}>You know why you&apos;re here.</span>
+              </h2>
+              <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
+                The waitlist gets first access in waves. Early users get a permanent Pro discount and the most embarrassing usernames before they&apos;re gone.
+              </p>
+              <div className="mt-7 max-w-md mx-auto"><WaitlistForm variant="dark" /></div>
             </div>
           </RevealSection>
         </main>
