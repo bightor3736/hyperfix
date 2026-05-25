@@ -54,7 +54,7 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "#0A0A0A" }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#070708" }}>
         <div className="animate-pulse rounded-full h-6 w-6" style={{ background: "rgba(94,234,212,0.3)" }} />
       </div>
     );
@@ -62,7 +62,7 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
 
   if (notFound) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4" style={{ background: "#0A0A0A" }}>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4" style={{ background: "#070708" }}>
         <p className="font-display text-2xl" style={{ color: "rgba(244,244,244,0.4)" }}>List not found.</p>
         <Link href="/dashboard/lists" className="font-mono text-sm underline" style={{ color: "#5EEAD4" }}>← Back to lists</Link>
       </div>
@@ -70,7 +70,7 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
   }
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "#0A0A0A" }}>
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "#070708" }}>
       <div className="max-w-xl mx-auto">
         <div className="mb-8">
           <Link
@@ -83,9 +83,12 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
           </Link>
         </div>
 
+        <p className="font-mono text-[11px] uppercase tracking-[0.18em] mb-3" style={{ color: "#5EEAD4" }}>
+          list
+        </p>
         <h1
-          className="font-display font-bold mb-8"
-          style={{ color: "#F4F4F4", fontSize: "clamp(24px, 4vw, 36px)", letterSpacing: "-0.02em" }}
+          className="font-display mb-8"
+          style={{ color: "#F4F4F4", fontSize: "clamp(24px, 4vw, 36px)", letterSpacing: "-0.02em", fontWeight: 600 }}
         >
           Edit list
         </h1>
@@ -103,7 +106,7 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
               placeholder="My list name"
               maxLength={80}
               className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none focus:ring-2 focus:ring-[#5EEAD4]/40 transition-all"
-              style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.1)", color: "#F4F4F4" }}
+              style={{ background: "#0F1011", border: "1px solid rgba(244,244,244,0.1)", color: "#F4F4F4" }}
             />
           </div>
 
@@ -119,14 +122,14 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
               rows={3}
               maxLength={300}
               className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none focus:ring-2 focus:ring-[#5EEAD4]/40 resize-none transition-all"
-              style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.1)", color: "#F4F4F4" }}
+              style={{ background: "#0F1011", border: "1px solid rgba(244,244,244,0.1)", color: "#F4F4F4" }}
             />
           </div>
 
           {/* Visibility toggle */}
           <div
             className="rounded-xl p-4 flex items-center justify-between"
-            style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
+            style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}
           >
             <div>
               <p className="font-sans text-sm font-medium" style={{ color: "#F4F4F4" }}>
@@ -153,7 +156,7 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
                 <div
                   className="w-4 h-4 rounded-full transition-all duration-200 mt-0.5"
                   style={{
-                    background: isPublic ? "#0A0A0A" : "rgba(244,244,244,0.4)",
+                    background: isPublic ? "#070708" : "rgba(244,244,244,0.4)",
                     transform: isPublic ? "translateX(22px)" : "translateX(2px)",
                   }}
                 />
@@ -179,7 +182,7 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
               onClick={handleSave}
               disabled={pending || !name.trim()}
               className="flex-1 py-3 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 disabled:opacity-50"
-              style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+              style={{ background: "#5EEAD4", color: "#070708" }}
             >
               {pending ? "Saving…" : "Save changes"}
             </button>

@@ -35,7 +35,7 @@ export default function NewListPage() {
   }
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-12" style={{ background: "#0A0A0A" }}>
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-12" style={{ background: "#070708" }}>
       <div className="max-w-xl mx-auto">
 
         {/* Back */}
@@ -52,11 +52,14 @@ export default function NewListPage() {
 
         {/* Header */}
         <div className="mb-8">
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] mb-3" style={{ color: "#5EEAD4" }}>
+            new list
+          </p>
           <h1
-            className="font-display font-bold leading-tight"
-            style={{ color: "#F4F4F4", fontSize: "clamp(24px, 4vw, 36px)", letterSpacing: "-0.02em" }}
+            className="font-display leading-tight"
+            style={{ color: "#F4F4F4", fontSize: "clamp(24px, 4vw, 36px)", letterSpacing: "-0.02em", fontWeight: 600 }}
           >
-            New list
+            Curate a collection
           </h1>
           <p className="font-sans text-sm mt-1" style={{ color: "rgba(244,244,244,0.4)" }}>
             Curate your fixations into a collection.
@@ -78,7 +81,7 @@ export default function NewListPage() {
               placeholder="My top fixations of 2025"
               className="w-full rounded-xl px-4 py-4 font-sans text-base outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40"
               style={{
-                background: "#111113",
+                background: "#0F1011",
                 border: "1px solid rgba(244,244,244,0.1)",
                 color: "#F4F4F4",
               }}
@@ -100,7 +103,7 @@ export default function NewListPage() {
               rows={3}
               className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40 resize-none"
               style={{
-                background: "#111113",
+                background: "#0F1011",
                 border: "1px solid rgba(244,244,244,0.1)",
                 color: "#F4F4F4",
               }}
@@ -126,7 +129,7 @@ export default function NewListPage() {
                 <div
                   className="w-4 h-4 rounded-full transition-all duration-200 mt-0.5"
                   style={{
-                    background: isPublic ? "#0A0A0A" : "rgba(244,244,244,0.4)",
+                    background: isPublic ? "#070708" : "rgba(244,244,244,0.4)",
                     transform: isPublic ? "translateX(22px)" : "translateX(2px)",
                   }}
                 />
@@ -161,7 +164,7 @@ export default function NewListPage() {
             type="submit"
             disabled={pending}
             className="w-full py-4 rounded-2xl font-sans text-base font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-            style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+            style={{ background: "#5EEAD4", color: "#070708" }}
           >
             {pending ? "Creating…" : "Create list →"}
           </button>
