@@ -7,6 +7,7 @@ import { Send } from "react-iconly";
 import { ACCENT_PRESETS, DEFAULT_ACCENT, resolveAccent } from "@/lib/accent";
 import { ProUpsellModal } from "@/components/ProUpsell";
 import { LiveProfileEditor } from "@/components/LiveProfileEditor";
+import { useToast } from "@/components/Toast";
 
 type Profile = {
   id: string;
@@ -33,6 +34,7 @@ type Props = {
 export function SettingsForm({ profile, userEmail, userId }: Props) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
+  const { toast: showToast } = useToast();
 
   // Form state
   const [displayName, setDisplayName] = useState(profile?.display_name ?? "");
@@ -258,8 +260,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           return;
         }
 
-        setToast("Saved ✓");
-        setTimeout(() => setToast(null), 2000);
+        showToast({ message: "Saved.", type: "success" });
         router.refresh();
       } catch (err) {
         setSaveError(err instanceof Error ? err.message : "Failed to save.");

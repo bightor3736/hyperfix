@@ -105,13 +105,13 @@ export default function SignsYoureInAHyperfixationPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
+      <main id="main-content" className="relative z-10 text-ink bg-[#070708]">
         <Nav />
 
         <section className="px-6 sm:px-10 pt-16 sm:pt-24 pb-12 border-b border-[rgba(244,244,244,0.07)]">
           <div className="max-w-3xl mx-auto">
             <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">guide · hyperfix</span>
-            <h1 className="font-display font-medium text-[2.75rem] sm:text-[4.5rem] leading-[0.92] tracking-crush text-ink text-balance">
+            <h1 className="font-display font-medium text-ink text-balance" style={{ fontSize: "clamp(32px, 5.5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.02em" }}>
               Signs You&apos;re in a Hyperfixation
             </h1>
             <p className="mt-4 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)]">
@@ -128,7 +128,7 @@ export default function SignsYoureInAHyperfixationPage() {
                   <h2 className="font-display text-2xl sm:text-3xl leading-tight tracking-tight text-ink mb-5">
                     {sec.h}
                   </h2>
-                  <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-relaxed">
+                  <p className="font-sans text-base sm:text-[17px] text-[rgba(255,255,255,0.72)] leading-[1.75]">
                     {sec.body}
                   </p>
                 </section>
@@ -162,11 +162,11 @@ export default function SignsYoureInAHyperfixationPage() {
           <div className="max-w-3xl mx-auto">
             <p className="font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] mb-6">Read next</p>
             <div className="grid sm:grid-cols-2 gap-4">
-              <a href="/blog/what-is-hyperfixation" className="block border border-[rgba(244,244,244,0.07)] p-6 hover:border-ink transition-colors">
+              <a href="/blog/what-is-hyperfixation" className="block rounded-2xl border border-[rgba(255,255,255,0.06)] bg-[#0F1011] p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-[rgba(94,234,212,0.3)]">
                 <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-3">explainer</span>
                 <p className="font-display text-lg tracking-tight text-ink leading-snug">What Is Hyperfixation? →</p>
               </a>
-              <a href="/blog/how-to-track-your-hyperfixations" className="block border border-[rgba(244,244,244,0.07)] p-6 hover:border-ink transition-colors">
+              <a href="/blog/how-to-track-your-hyperfixations" className="block rounded-2xl border border-[rgba(255,255,255,0.06)] bg-[#0F1011] p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-[rgba(94,234,212,0.3)]">
                 <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-3">guide</span>
                 <p className="font-display text-lg tracking-tight text-ink leading-snug">How to Track Your Hyperfixations →</p>
               </a>
@@ -175,7 +175,7 @@ export default function SignsYoureInAHyperfixationPage() {
         </section>
 
         <BlogCardCTA />
-        <section className="px-6 sm:px-10 py-16 sm:py-24 bg-[#111113]">
+        <section className="px-6 sm:px-10 py-16 sm:py-24 bg-[#0F1011]">
           <div className="max-w-3xl mx-auto">
             <h2 className="font-display text-3xl sm:text-4xl leading-tight tracking-tightest mb-8 text-balance">
               Log the one you&apos;re in right now.

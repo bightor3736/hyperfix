@@ -8,6 +8,7 @@ import { FixBannerUpload } from "@/components/FixBannerUpload";
 import { CloseSquare, Star } from "react-iconly";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { SparkleIcon } from "@/components/LandingIcons";
+import { useToast } from "@/components/Toast";
 
 const CATEGORIES = [
   "song", "fanfic", "show", "film", "ship", "game",
@@ -39,6 +40,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
   const searchParams = useSearchParams();
   const showWelcome = searchParams.get("welcome") === "1";
   const [pending, startTransition] = useTransition();
+  const { toast } = useToast();
 
   // Pre-fill from a shared link (Web Share Target API → /dashboard/new?title=…&text=…&url=…)
   const shared = useMemo(() => {
@@ -125,6 +127,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
           return;
         }
 
+        toast({ message: "Fix logged. The counter starts now.", type: "success" });
         router.push(`/dashboard/fix/${data.id}`);
         router.refresh();
       } catch (err) {

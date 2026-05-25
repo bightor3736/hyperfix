@@ -53,6 +53,7 @@ export function CardEditor({ fixId, userId, initialBannerUrl, initialCardStyle, 
 
   async function handleDownload() {
     setDownloading(true);
+    toast({ message: "Generating your card…", type: "info" });
     try {
       const res = await fetch(previewUrl);
       const blob = await res.blob();
@@ -63,6 +64,9 @@ export function CardEditor({ fixId, userId, initialBannerUrl, initialCardStyle, 
       a.download = `hyperfix-${safeTitle}-${style}.png`;
       a.click();
       URL.revokeObjectURL(url);
+      toast({ message: "Card saved. Post it.", type: "success" });
+    } catch {
+      toast({ message: "Download failed.", type: "error" });
     } finally {
       setDownloading(false);
     }

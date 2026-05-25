@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Send, TickSquare, Download } from "react-iconly";
+import { useToast } from "@/components/Toast";
 
 function InstagramIcon({ size = 13 }: { size?: number }) {
   return (
@@ -38,6 +39,7 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
   const [showTooltip, setShowTooltip] = useState(false);
   const [downloading, setDownloading] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -64,6 +66,7 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
     const url = `${window.location.origin}/fix/${fixId}`;
     await navigator.clipboard.writeText(url);
     setCopied(true);
+    toast({ message: "Link copied", type: "success" });
     setTimeout(() => {
       setCopied(false);
       setOpen(false);
@@ -98,6 +101,9 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
       a.download = `hyperfix-${fixTitle?.replace(/\s+/g, "-").toLowerCase() ?? fixId}-story.png`;
       a.click();
       URL.revokeObjectURL(url);
+      toast({ message: "Saved as Story", type: "success" });
+    } catch {
+      toast({ message: "Download failed.", type: "error" });
     } finally {
       setDownloading(null);
       setOpen(false);

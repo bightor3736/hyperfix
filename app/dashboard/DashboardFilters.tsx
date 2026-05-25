@@ -7,6 +7,7 @@ import { checkInFix, bulkCheckInFixes } from "@/app/actions/fixes";
 import { CountUp } from "@/components/CountUp";
 import { Search, TickSquare } from "react-iconly";
 import { CategoryIcon, CATEGORY_COLOR } from "@/components/CategoryIcon";
+import { useToast } from "@/components/Toast";
 
 function QuickExportButton({ fixId, title }: { fixId: string; title: string }) {
   const [state, setState] = useState<"idle" | "loading" | "done">("idle");
@@ -426,6 +427,7 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
   const [localCheckedIn, setLocalCheckedIn] = useState<Set<string>>(new Set(checkedInIds));
   const [bulkPending, setBulkPending] = useState(false);
   const [_pending, startTransition] = useTransition();
+  const { toast } = useToast();
 
   const uncheckedCount = fixes.filter((f) => !localCheckedIn.has(f.id)).length;
 
@@ -453,12 +455,14 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
     startTransition(async () => {
       try {
         await checkInFix(fixId, 5);
+        toast({ message: "Checked in.", type: "success" });
       } catch {
         setLocalCheckedIn((prev) => {
           const next = new Set(prev);
           next.delete(fixId);
           return next;
         });
+        toast({ message: "Check-in failed.", type: "error" });
       }
     });
   }

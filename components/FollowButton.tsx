@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useToast } from "@/components/Toast";
 
 type Props = {
   targetUserId: string;
@@ -19,6 +20,7 @@ export function FollowButton({
   const [count, setCount] = useState(initialCount);
   const [hovered, setHovered] = useState(false);
   const [pending, startTransition] = useTransition();
+  const { toast } = useToast();
 
   function handleClick() {
     startTransition(async () => {
@@ -42,6 +44,11 @@ export function FollowButton({
         const data = (await res.json()) as { following: boolean; followerCount: number };
         setFollowing(data.following);
         setCount(data.followerCount);
+        if (data.following) {
+          toast({ message: `Following @${targetUsername}`, type: "success" });
+        } else {
+          toast({ message: "Unfollowed", type: "info" });
+        }
       } catch {
         setFollowing(following);
         setCount(count);
@@ -107,8 +114,7 @@ export function FollowButtonLoggedIn({
   const [count, setCount] = useState(initialCount);
   const [hovered, setHovered] = useState(false);
   const [pending, startTransition] = useTransition();
-
-  void targetUsername;
+  const { toast } = useToast();
 
   function handleClick() {
     startTransition(async () => {
@@ -130,6 +136,11 @@ export function FollowButtonLoggedIn({
         const data = (await res.json()) as { following: boolean; followerCount: number };
         setFollowing(data.following);
         setCount(data.followerCount);
+        if (data.following) {
+          toast({ message: `Following @${targetUsername}`, type: "success" });
+        } else {
+          toast({ message: "Unfollowed", type: "info" });
+        }
       } catch {
         setFollowing(following);
         setCount(count);
