@@ -936,9 +936,43 @@ export default async function Page({
               ))}
             </div>
 
+            {/* Popular fixations — programmatic SEO landing pages */}
+            <RevealSection delay={650}>
+              <div className="mt-10 rounded-2xl p-5 sm:p-6" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+                <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>
+                  Popular fixations
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { href: "/track/severance", label: "Severance" },
+                    { href: "/track/taylor-swift", label: "Taylor Swift" },
+                    { href: "/track/bts", label: "BTS" },
+                    { href: "/track/baldurs-gate-3", label: "Baldur's Gate 3" },
+                    { href: "/track/acotar", label: "ACOTAR" },
+                    { href: "/track/jujutsu-kaisen", label: "Jujutsu Kaisen" },
+                    { href: "/track/chappell-roan", label: "Chappell Roan" },
+                    { href: "/track/the-bear", label: "The Bear" },
+                  ].map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      className="inline-flex items-center font-mono text-xs rounded-full px-3 py-1.5 transition-all hover:opacity-80"
+                      style={{
+                        background: "rgba(94,234,212,0.06)",
+                        border: "1px solid rgba(94,234,212,0.18)",
+                        color: "rgba(167,243,208,0.85)",
+                      }}
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </RevealSection>
+
             {/* vs. comparison links */}
             <RevealSection delay={700}>
-              <div className="mt-10 rounded-2xl p-5 sm:p-6" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+              <div className="mt-4 rounded-2xl p-5 sm:p-6" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
                 <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>
                   How Hyperfix compares
                 </p>
