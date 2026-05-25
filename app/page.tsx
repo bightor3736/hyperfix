@@ -554,7 +554,7 @@ export default async function Page({
                       <p className="font-display mt-1.5" style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.02em" }}>severance —</p>
                       <p className="font-display" style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.02em" }}>the door scene</p>
                       <p className="font-display tabular-nums mt-2" style={{ fontSize: 32, color: "#D72638", fontWeight: 700, lineHeight: 1 }}>8<span style={{ fontSize: 16, color: "rgba(17,17,17,0.4)" }}>/10</span></p>
-                      <p className="font-mono text-[7px] mt-2" style={{ color: "rgba(17,17,17,0.4)" }}>i'm so normal 😭</p>
+                      <p className="font-mono text-[7px] mt-2 uppercase tracking-widest" style={{ color: "rgba(17,17,17,0.45)" }}>@kai · hyperfix.app</p>
                     </div>
                   </div>
                   <div className="mt-auto">
@@ -663,10 +663,19 @@ export default async function Page({
                 <div className="relative flex flex-col h-full">
                   <div className="rounded-2xl p-4 mb-4" style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${CARD_BORDER}` }}>
                     <div className="flex gap-1.5 mb-3 flex-wrap">
-                      {[{ e: "💀", n: 42 }, { e: "😭", n: 17 }, { e: "🔁", n: 9 }, { e: "💜", n: 6 }].map((r) => (
-                        <span key={r.e} className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-mono text-[10px]"
-                          style={{ background: TEAL_DARK_BG, border: `1px solid ${TEAL_DARK_BORDER}`, color: TEAL }}>
-                          {r.e} {r.n}
+                      {[
+                        { label: "buried", n: 42 },
+                        { label: "spiral", n: 17 },
+                        { label: "loop", n: 9 },
+                        { label: "obsessed", n: 6 },
+                      ].map((r) => (
+                        <span
+                          key={r.label}
+                          className="inline-flex items-center gap-1.5 rounded-full px-2 py-1 font-mono text-[9px] uppercase tracking-widest"
+                          style={{ background: TEAL_DARK_BG, border: `1px solid ${TEAL_DARK_BORDER}`, color: TEAL }}
+                        >
+                          {r.label}
+                          <span className="tabular-nums" style={{ color: "rgba(94,234,212,0.6)" }}>{r.n}</span>
                         </span>
                       ))}
                     </div>
@@ -677,7 +686,7 @@ export default async function Page({
                   </div>
                   <div className="mt-auto">
                     <h3 className="font-display text-ink" style={{ fontSize: 18, fontWeight: 600 }}>Reactions & Comments</h3>
-                    <p className="mt-1.5 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>Your friends react in your language. Six emojis. One conversation.</p>
+                    <p className="mt-1.5 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>Six typed reactions. Friends react in your language without keyboard hunting.</p>
                   </div>
                 </div>
               </div>

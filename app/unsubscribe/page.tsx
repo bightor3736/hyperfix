@@ -19,20 +19,17 @@ export default async function UnsubscribePage() {
   return (
     <>
       <Nav />
-      <main className="min-h-screen flex items-center justify-center px-6 py-24" style={{ background: "#0A0A0A" }}>
+      <main className="min-h-screen flex items-center justify-center px-6 py-24" style={{ background: "#070708" }}>
         <div className="max-w-md w-full text-center">
-          <span
-            className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 mb-8"
-            style={{ background: "rgba(244,244,244,0.07)", color: "rgba(244,244,244,0.4)", border: "1px solid rgba(244,244,244,0.1)" }}
-          >
-            email preferences
-          </span>
+          <p className="font-mono text-[10px] uppercase tracking-widest mb-5" style={{ color: "rgba(94,234,212,0.55)" }}>
+            email
+          </p>
 
           <h1
-            className="font-display font-bold leading-none mb-6"
-            style={{ color: "#F4F4F4", fontSize: "clamp(36px, 6vw, 56px)", letterSpacing: "-0.03em" }}
+            className="font-display mb-6"
+            style={{ color: "#F4F4F4", fontSize: "clamp(32px, 5vw, 44px)", letterSpacing: "-0.02em", fontWeight: 600, lineHeight: 1.05 }}
           >
-            unsubscribe
+            Unsubscribe
           </h1>
 
           {user ? (

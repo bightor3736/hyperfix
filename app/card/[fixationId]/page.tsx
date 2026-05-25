@@ -89,11 +89,12 @@ export default async function CardPage({
       >
         {/* Card preview */}
         <div
-          className="relative rounded-2xl overflow-hidden shadow-2xl mb-8"
+          className="relative rounded-2xl overflow-hidden mb-8"
           style={{
             width: "min(360px, 90vw)",
             aspectRatio: "9/16",
-            border: "1px solid rgba(244,244,244,0.1)",
+            border: "1px solid rgba(255,255,255,0.06)",
+            boxShadow: "0 32px 80px rgba(0,0,0,0.45)",
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}

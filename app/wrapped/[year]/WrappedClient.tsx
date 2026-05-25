@@ -107,8 +107,6 @@ export function WrappedClient({
 
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
-      <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
-
       <main className="relative max-w-3xl mx-auto flex flex-col gap-6">
         {/* HERO with big year */}
         <div className="relative overflow-hidden rounded-3xl p-6 sm:p-12 anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)", border: `1px solid ${CARD_BORDER}` }}>
@@ -135,7 +133,6 @@ export function WrappedClient({
               className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-8 flex flex-col gap-2 anim-fadeUp"
               style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, animationDelay: `${i * 60}ms` }}
             >
-              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
               <span className="relative font-display leading-none tabular-nums" style={{ fontSize: "clamp(2rem, 7vw, 3.5rem)", color: TEAL, fontWeight: 600, letterSpacing: "-0.03em" }}>
                 {card.value}
               </span>
@@ -166,7 +163,6 @@ export function WrappedClient({
 
         {/* Quote */}
         <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-10 flex flex-col gap-3" style={{ background: "rgba(94,234,212,0.06)", border: "1px solid rgba(94,234,212,0.18)" }}>
-          <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.18 }} />
           <div className="relative">
             <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-3" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>
               hyperfix says
@@ -245,7 +241,6 @@ function FixHighlightCard({
 }) {
   return (
     <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-8 flex flex-col gap-4" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
-      <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
       <div className="relative">
         <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-4" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>
           {badge}

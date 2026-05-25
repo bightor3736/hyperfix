@@ -4,12 +4,11 @@ import { LogoLockup } from "@/components/Logo";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { FixStatusPill } from "@/components/FixStatusPill";
+import { TombstoneIcon } from "@/components/MilestoneIcons";
 
 const TEAL = "#5EEAD4";
 const CARD_BG = "#0F1011";
 const CARD_BORDER = "rgba(255,255,255,0.06)";
-const NOISE_URL =
-  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 type GraveyardFix = {
   id: string;
@@ -50,17 +49,6 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
         textDecoration: "none",
       }}
     >
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 80% 40% at 50% 110%, rgba(94,234,212,0.08), transparent 70%)" }}
-      />
-
       <div className="relative flex items-center gap-2 flex-wrap">
         <span
           className="inline-flex items-center font-sans text-[11px] rounded-full px-2.5 py-0.5"
@@ -127,11 +115,6 @@ function EmptyGraveyard() {
       className="relative overflow-hidden rounded-3xl p-12 sm:p-16 text-center anim-fadeUp"
       style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
     >
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
-      />
       <div className="relative max-w-md mx-auto">
         <span
           className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-6"
@@ -201,12 +184,6 @@ export default async function PublicGraveyardPage({
 
   return (
     <div className="min-h-screen relative" style={{ background: "#070708", color: "#F4F4F4" }}>
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }}
-      />
-
       <nav
         className="sticky top-0 z-40 px-6 sm:px-10 py-5 flex items-center justify-between"
         style={{
@@ -227,52 +204,34 @@ export default async function PublicGraveyardPage({
         </Link>
       </nav>
 
-      <main className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
-        {/* Hero card */}
-        <div
-          className="relative overflow-hidden rounded-3xl mb-6 p-6 sm:p-10 anim-fadeUp"
-          style={{
-            background:
-              "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
-            border: `1px solid ${CARD_BORDER}`,
-          }}
-        >
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none mix-blend-overlay"
-            style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }}
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none"
-            style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }}
-          />
-          <div className="relative">
-            <span
-              className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5"
-              style={{
-                background: "rgba(94,234,212,0.12)",
-                color: TEAL,
-                border: "1px solid rgba(94,234,212,0.25)",
-              }}
-            >
-              @{username} · graveyard
-            </span>
-            <h1
-              className="font-display"
-              style={{
-                color: "#FFFFFF",
-                fontSize: "clamp(36px, 6vw, 60px)",
-                lineHeight: 1.02,
-                letterSpacing: "-0.02em",
-                fontWeight: 600,
-              }}
-            >
-              Every obsession
-              <br />
-              they&apos;ve mourned.
-            </h1>
-          </div>
+      <main className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+        {/* Hero — clean header */}
+        <div className="mb-10 anim-fadeUp">
+          <p
+            className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] mb-4"
+            style={{ color: TEAL }}
+          >
+            <TombstoneIcon size={14} />
+            @{username} · the graveyard
+          </p>
+          <h1
+            className="font-display"
+            style={{
+              color: "#FFFFFF",
+              fontSize: "clamp(32px, 5.5vw, 48px)",
+              lineHeight: 1.04,
+              letterSpacing: "-0.02em",
+              fontWeight: 600,
+            }}
+          >
+            Every obsession they&apos;ve mourned.
+          </h1>
+          <p
+            className="mt-4 font-sans text-base max-w-lg"
+            style={{ color: "rgba(255,255,255,0.6)" }}
+          >
+            Public ended fixations, with the eulogies they wrote.
+          </p>
         </div>
 
         {graveyardFixes.length === 0 ? (

@@ -181,27 +181,27 @@ export default function ManifestoPage() {
 
           {/* CTA */}
           <RevealSection>
-            <div className="relative overflow-hidden rounded-3xl p-8 sm:p-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #2DD4BF 0%, #0E4F47 26%, #08231F 50%, #0F1011 80%)", border: `1px solid ${CARD_BORDER}` }}>
-              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "220px 220px", opacity: 0.5 }} />
+            <div className="relative overflow-hidden rounded-3xl p-8 sm:p-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6" style={{ background: CARD_BG, border: `1px solid rgba(94,234,212,0.18)` }}>
+              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "220px 220px", opacity: 0.22 }} />
               <div className="relative">
                 <h2 className="font-display mb-2" style={{ color: "#FFFFFF", fontSize: "clamp(24px, 4vw, 32px)", fontWeight: 600, letterSpacing: "-0.02em" }}>
-                  Join the waitlist.
+                  Start counting.
                 </h2>
                 <p className="font-sans text-sm max-w-sm" style={{ color: "rgba(255,255,255,0.65)" }}>
-                  First access goes out in waves. Early users get a permanent Pro discount.
+                  Log the fixation. Watch the day count climb. Keep the eulogy when it ends.
                 </p>
               </div>
               <a
-                href="/#waitlist"
+                href="/auth/signup"
                 className="relative inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] shrink-0"
                 style={{
                   background: "#FFFFFF",
                   color: "#0A0A0A",
                   borderRadius: 999,
-                  boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 40px rgba(94,234,212,0.25)",
+                  boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 8px 28px rgba(94,234,212,0.22)",
                 }}
               >
-                Get on the list →
+                Start free →
               </a>
             </div>
           </RevealSection>
