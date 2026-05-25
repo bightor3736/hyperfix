@@ -24,6 +24,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.85,
     },
     {
+      url: `${SITE}/quiz`,
+      lastModified: new Date("2026-05-25"),
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
       url: `${SITE}/hyperfixation-tracker`,
       lastModified: new Date("2026-05-25"),
       changeFrequency: "monthly",

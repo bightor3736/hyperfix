@@ -4,6 +4,11 @@ import ActivityTicker from "@/components/ActivityTicker";
 import Footer from "@/components/Footer";
 import { LogoLockup } from "@/components/Logo";
 import { RevealSection } from "@/components/RevealSection";
+import { HeroProductMock } from "@/components/HeroProductMock";
+import {
+  HeadphonesIcon, NoteIcon, XIcon, ChatIcon, PinIcon, BrainIcon,
+  MicIcon, SparkleIcon, BookIcon, RepeatIcon, LibraryIcon, BoltIcon, FlameIcon,
+} from "@/components/LandingIcons";
 
 async function getWaitlistCount(): Promise<number> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -276,6 +281,9 @@ export default async function Page({
           </a>
 
           <div className="hidden sm:flex items-center gap-9">
+            <a href="/quiz" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.65)" }}>
+              Quiz
+            </a>
             <a href="#features" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.65)" }}>
               Features
             </a>
@@ -395,6 +403,11 @@ export default async function Page({
                 {publicFixCount.toLocaleString()}+ obsessions logged · and counting
               </p>
             </div>
+
+            {/* Product mockup */}
+            <div className="mt-16 sm:mt-20 anim-fadeUp delay-700">
+              <HeroProductMock />
+            </div>
           </div>
         </section>
 
@@ -423,42 +436,12 @@ export default async function Page({
 
             <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
               {[
-                {
-                  icon: "🎧",
-                  app: "Spotify",
-                  title: "One song. Ten thousand plays.",
-                  body: "Repeat hits the same. No notes, no day count, no proof you've heard this exact 30 seconds nine hundred times this week.",
-                },
-                {
-                  icon: "📝",
-                  app: "Notes app",
-                  title: "A bullet point you forgot why.",
-                  body: "Three months later: 'Severance episode 7 — door???' You don't remember the door. The door remembers you.",
-                },
-                {
-                  icon: "𝕏",
-                  app: "Twitter",
-                  title: "The rant thread you deleted.",
-                  body: "1.2k words on a fictional war. You scared yourself. The receipts are gone but the obsession is still there.",
-                },
-                {
-                  icon: "💬",
-                  app: "Discord",
-                  title: "Screenshot graveyard in a DM.",
-                  body: "Pinned to a friend who has not opened the chat in 47 days. They liked the first one. The rest is yours.",
-                },
-                {
-                  icon: "📌",
-                  app: "Pinterest",
-                  title: "A board you can't show anyone.",
-                  body: "Eight hundred pins. Same character. Same outfit. Same lighting. Your algorithm has stopped trying to suggest variety.",
-                },
-                {
-                  icon: "🧠",
-                  app: "Your brain",
-                  title: "Vibes. No structure.",
-                  body: "You can't remember when it started. You can't tell when it ends. You only know you used to be a different person.",
-                },
+                { Icon: HeadphonesIcon, app: "Spotify", title: "One song. Ten thousand plays.", body: "Repeat hits the same. No notes, no day count, no proof you've heard this exact 30 seconds nine hundred times this week." },
+                { Icon: NoteIcon, app: "Notes app", title: "A bullet point you forgot why.", body: "Three months later: 'Severance episode 7 — door???' You don't remember the door. The door remembers you." },
+                { Icon: XIcon, app: "Twitter", title: "The rant thread you deleted.", body: "1.2k words on a fictional war. You scared yourself. The receipts are gone but the obsession is still there." },
+                { Icon: ChatIcon, app: "Discord", title: "Screenshot graveyard in a DM.", body: "Pinned to a friend who has not opened the chat in 47 days. They liked the first one. The rest is yours." },
+                { Icon: PinIcon, app: "Pinterest", title: "A board you can't show anyone.", body: "Eight hundred pins. Same character. Same outfit. Same lighting. Your algorithm has stopped trying to suggest variety." },
+                { Icon: BrainIcon, app: "Your brain", title: "Vibes. No structure.", body: "You can't remember when it started. You can't tell when it ends. You only know you used to be a different person." },
               ].map((item, i) => (
                 <RevealSection key={item.app} delay={200 + i * 80}>
                   <div
@@ -467,9 +450,20 @@ export default async function Page({
                   >
                     <GrainOverlay opacity={0.18} />
                     <div className="relative">
-                      <div className="flex items-center gap-2 mb-4">
-                        <span style={{ fontSize: 22 }}>{item.icon}</span>
-                        <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+                      <div className="flex items-center gap-2.5 mb-4">
+                        <div
+                          className="flex items-center justify-center rounded-lg shrink-0"
+                          style={{
+                            width: 32,
+                            height: 32,
+                            background: "rgba(255,255,255,0.04)",
+                            border: "1px solid rgba(255,255,255,0.08)",
+                            color: "rgba(255,255,255,0.5)",
+                          }}
+                        >
+                          <item.Icon size={16} />
+                        </div>
+                        <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>
                           {item.app}
                         </span>
                       </div>
@@ -594,7 +588,10 @@ export default async function Page({
                     </div>
                     <div className="flex items-center justify-between mt-3 font-mono text-[9px]" style={{ color: "rgba(255,255,255,0.35)" }}>
                       <span>13 weeks</span>
-                      <span style={{ color: TEAL }}>🔥 12-day run</span>
+                      <span className="inline-flex items-center gap-1" style={{ color: TEAL }}>
+                        <FlameIcon size={11} />
+                        12-day run
+                      </span>
                     </div>
                   </div>
                   <div className="mt-auto">
@@ -638,10 +635,16 @@ export default async function Page({
                       </div>
                     </div>
                     <div className="grid grid-cols-3 gap-1.5">
-                      {["💜", "🎮", "📺"].map((emoji, i) => (
-                        <div key={i} className="rounded-lg p-2 text-center" style={{ background: "rgba(255,255,255,0.04)" }}>
-                          <span style={{ fontSize: 14 }}>{emoji}</span>
-                          <p className="font-mono text-[8px] mt-1" style={{ color: "rgba(255,255,255,0.35)" }}>day {[89, 156, 47][i]}</p>
+                      {[
+                        { cat: "ship", day: 89, color: "#EC4899" },
+                        { cat: "game", day: 156, color: "#10B981" },
+                        { cat: "show", day: 47, color: "#A78BFA" },
+                      ].map((item, i) => (
+                        <div key={i} className="rounded-lg p-2" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.04)" }}>
+                          <p className="font-mono text-[8px] uppercase tracking-widest" style={{ color: item.color, opacity: 0.85 }}>{item.cat}</p>
+                          <p className="font-display tabular-nums mt-0.5" style={{ fontSize: 13, color: "#F4F4F4", fontWeight: 600, lineHeight: 1 }}>
+                            {item.day}<span className="font-mono text-[8px]" style={{ color: "rgba(255,255,255,0.35)" }}>d</span>
+                          </p>
                         </div>
                       ))}
                     </div>
@@ -912,23 +915,34 @@ export default async function Page({
             {/* Niche tracker links */}
             <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 gap-3">
               {[
-                { href: "/kpop-tracker", label: "K-pop Tracker", emoji: "🎤", desc: "Bias eras, albums, concert runs" },
-                { href: "/anime-tracker", label: "Anime Tracker", emoji: "✨", desc: "Current season, rewatch, OP loops" },
-                { href: "/fanfic-tracker", label: "Fanfic Tracker", emoji: "📖", desc: "WIPs, re-reads, fandom phases" },
-                { href: "/rewatch-tracker", label: "Rewatch Tracker", emoji: "🔁", desc: "The show you can't stop" },
-                { href: "/booktok-tracker", label: "BookTok Tracker", emoji: "📚", desc: "Reading era, TBR, five-stars" },
-                { href: "/adhd", label: "ADHD Hyperfixation", emoji: "⚡", desc: "Built for the way your brain works" },
+                { href: "/kpop-tracker", label: "K-pop Tracker", Icon: MicIcon, desc: "Bias eras, albums, concert runs" },
+                { href: "/anime-tracker", label: "Anime Tracker", Icon: SparkleIcon, desc: "Current season, rewatch, OP loops" },
+                { href: "/fanfic-tracker", label: "Fanfic Tracker", Icon: BookIcon, desc: "WIPs, re-reads, fandom phases" },
+                { href: "/rewatch-tracker", label: "Rewatch Tracker", Icon: RepeatIcon, desc: "The show you can't stop" },
+                { href: "/booktok-tracker", label: "BookTok Tracker", Icon: LibraryIcon, desc: "Reading era, TBR, five-stars" },
+                { href: "/adhd", label: "ADHD Hyperfixation", Icon: BoltIcon, desc: "Built for the way your brain works" },
               ].map((item, i) => (
                 <RevealSection key={item.href} delay={300 + i * 60}>
                   <a
                     href={item.href}
-                    className="motion-card relative overflow-hidden flex flex-col gap-2 rounded-2xl p-5 h-full transition-all hover:-translate-y-0.5"
+                    className="motion-card relative overflow-hidden flex flex-col gap-2 rounded-2xl p-5 h-full transition-all hover:-translate-y-0.5 group"
                     style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
                   >
                     <GrainOverlay opacity={0.18} />
                     <div className="relative">
-                      <span style={{ fontSize: 28 }}>{item.emoji}</span>
-                      <p className="font-display text-sm font-semibold mt-2" style={{ color: "#F4F4F4" }}>{item.label}</p>
+                      <div
+                        className="flex items-center justify-center rounded-xl transition-colors group-hover:text-[#5EEAD4]"
+                        style={{
+                          width: 36,
+                          height: 36,
+                          background: "rgba(94,234,212,0.06)",
+                          border: "1px solid rgba(94,234,212,0.15)",
+                          color: TEAL,
+                        }}
+                      >
+                        <item.Icon size={18} />
+                      </div>
+                      <p className="font-display text-sm font-semibold mt-3" style={{ color: "#F4F4F4" }}>{item.label}</p>
                       <p className="font-sans text-xs mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>{item.desc}</p>
                     </div>
                   </a>
