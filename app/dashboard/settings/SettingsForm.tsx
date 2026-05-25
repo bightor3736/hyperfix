@@ -4,8 +4,9 @@ import { useState, useRef, useEffect, useCallback, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Send } from "react-iconly";
-import { ACCENT_PRESETS, DEFAULT_ACCENT } from "@/lib/accent";
+import { ACCENT_PRESETS, DEFAULT_ACCENT, resolveAccent } from "@/lib/accent";
 import { ProUpsellModal } from "@/components/ProUpsell";
+import { LiveProfileEditor } from "@/components/LiveProfileEditor";
 
 type Profile = {
   id: string;
@@ -373,9 +374,31 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
 
   return (
     <div className="flex flex-col gap-10">
-      {/* ── Profile section ── */}
+      {/* ── Live profile preview ── */}
       <section>
         <SectionHeading>Profile</SectionHeading>
+        <LiveProfileEditor
+          userId={userId}
+          displayName={displayName}
+          setDisplayName={setDisplayName}
+          username={username}
+          setUsername={setUsername}
+          bio={bio}
+          setBio={setBio}
+          socialLink={socialLink}
+          setSocialLink={setSocialLink}
+          avatarUrl={avatarUrl}
+          setAvatarUrl={setAvatarUrl}
+          bannerUrl={bannerUrl}
+          setBannerUrl={setBannerUrl}
+          accent={resolveAccent(isPro, accentColor)}
+          isPro={isPro}
+        />
+      </section>
+
+      {/* ── Detailed profile fields (legacy form below preview) ── */}
+      <section>
+        <SectionHeading>Profile details</SectionHeading>
 
         {/* Avatar */}
         <div className="flex flex-col items-center gap-4 mb-8 sm:flex-row sm:items-start">
