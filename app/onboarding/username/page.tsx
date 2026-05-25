@@ -3,17 +3,16 @@
 import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { LogoDark } from "@/components/Logo";
-import Link from "next/link";
+import { LogoLockup } from "@/components/Logo";
 
 type ValidationState = "idle" | "checking" | "available" | "taken" | "invalid";
 
 const USERNAME_REGEX = /^[a-zA-Z0-9_]{3,20}$/;
 
-function debounce<T extends (...args: Parameters<T>) => void>(
-  fn: T,
-  delay: number
-): (...args: Parameters<T>) => void {
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
+
+function debounce<T extends (...args: Parameters<T>) => void>(fn: T, delay: number) {
   let timer: ReturnType<typeof setTimeout>;
   return (...args: Parameters<T>) => {
     clearTimeout(timer);
@@ -31,78 +30,45 @@ export default function OnboardingUsernamePage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const checkUsername = useCallback(
     debounce(async (value: string) => {
-      if (!USERNAME_REGEX.test(value)) {
-        setValidation("invalid");
-        return;
-      }
+      if (!USERNAME_REGEX.test(value)) { setValidation("invalid"); return; }
       setValidation("checking");
       try {
-        const res = await fetch(
-          `/api/username/check?u=${encodeURIComponent(value)}`
-        );
+        const res = await fetch(`/api/username/check?u=${encodeURIComponent(value)}`);
         const data = (await res.json()) as { available: boolean };
         setValidation(data.available ? "available" : "taken");
-      } catch {
-        setValidation("idle");
-      }
+      } catch { setValidation("idle"); }
     }, 400),
     []
   );
 
   useEffect(() => {
-    if (username.length === 0) {
-      setValidation("idle");
-      return;
-    }
+    if (username.length === 0) { setValidation("idle"); return; }
     checkUsername(username);
   }, [username, checkUsername]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (validation !== "available") return;
-
     setSubmitting(true);
     setError(null);
 
     const supabase = createClient();
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
-    if (!session) {
-      setError("Not signed in.");
-      setSubmitting(false);
-      return;
-    }
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) { setError("Not signed in."); setSubmitting(false); return; }
 
     try {
       const res = await fetch("/api/username/set", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session.access_token}`,
-        },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
         body: JSON.stringify({ username }),
       });
       const data = (await res.json()) as { error?: string };
-      if (!res.ok) {
-        setError(data.error ?? "Something went wrong.");
-        setSubmitting(false);
-        return;
-      }
+      if (!res.ok) { setError(data.error ?? "Something went wrong."); setSubmitting(false); return; }
 
-      // Attribute referral if stored
-      const refCode = typeof localStorage !== "undefined"
-        ? localStorage.getItem("hyperfix_ref")
-        : null;
+      const refCode = typeof localStorage !== "undefined" ? localStorage.getItem("hyperfix_ref") : null;
       if (refCode) {
-        fetch("/api/referral", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ code: refCode }),
-        })
-          .then(() => localStorage.removeItem("hyperfix_ref"))
-          .catch(() => {});
+        fetch("/api/referral", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: refCode }) })
+          .then(() => localStorage.removeItem("hyperfix_ref")).catch(() => {});
       }
 
       router.push("/dashboard/new?welcome=1");
@@ -112,75 +78,85 @@ export default function OnboardingUsernamePage() {
     }
   }
 
+  const borderColor =
+    validation === "available" ? "rgba(94,234,212,0.5)"
+    : validation === "taken" || validation === "invalid" ? "rgba(248,113,113,0.4)"
+    : "rgba(255,255,255,0.08)";
+
   const feedbackColor =
-    validation === "available"
-      ? "#A3E635"
-      : validation === "taken"
-      ? "#f87171"
-      : validation === "invalid"
-      ? "#fcd34d"
-      : "transparent";
+    validation === "available" ? "#5EEAD4"
+    : validation === "taken" ? "#f87171"
+    : "#fcd34d";
 
   const feedbackText =
-    validation === "available"
-      ? "Looks good ✓"
-      : validation === "taken"
-      ? "Already taken"
-      : validation === "invalid"
-      ? "3–20 chars, letters/numbers/underscores only"
-      : "";
+    validation === "available" ? "✓ Available"
+    : validation === "taken" ? "Already taken"
+    : validation === "invalid" ? "3–20 chars, letters / numbers / underscores"
+    : "";
+
+  const canSubmit = validation === "available" && !submitting;
 
   return (
-    <div
-      className="min-h-screen flex flex-col"
-      style={{ background: "#080808", color: "#F4F4F4" }}
-    >
-      {/* Nav */}
-      <nav
-        className="border-b"
-        style={{ borderColor: "rgba(244,244,244,0.07)" }}
-      >
-        <div className="max-w-3xl mx-auto px-6 py-4">
-          <Link href="/" aria-label="Hyperfix home">
-            <LogoDark size="sm" />
-          </Link>
-        </div>
-      </nav>
+    <div className="min-h-screen flex flex-col" style={{ background: "#070708", color: "#F4F4F4" }}>
+      {/* Grain */}
+      <div aria-hidden className="fixed inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
 
-      <main
-        id="main-content"
-        className="flex-1 flex items-center justify-center px-6 py-16"
-      >
-        <div className="w-full max-w-sm">
-          <h1 className="text-3xl font-display font-medium mb-2">
-            Choose your username
+      {/* Teal bloom — top center */}
+      <div aria-hidden className="fixed top-0 left-1/2 -translate-x-1/2 pointer-events-none" style={{ width: 560, height: 320, background: "radial-gradient(ellipse at 50% 0%, rgba(45,212,191,0.22) 0%, transparent 70%)" }} />
+
+      {/* Content */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 py-12">
+
+        {/* Logo */}
+        <a href="/" className="mb-10 inline-block transition-transform hover:scale-[1.02]">
+          <LogoLockup size="sm" />
+        </a>
+
+        {/* Card */}
+        <div
+          className="w-full max-w-[380px] rounded-3xl p-8 anim-fadeUp"
+          style={{
+            background: "#0F1011",
+            border: "1px solid rgba(255,255,255,0.07)",
+            boxShadow: "0 32px 80px rgba(0,0,0,0.45), 0 0 60px rgba(94,234,212,0.04)",
+          }}
+        >
+          {/* Step indicator */}
+          <div className="flex items-center gap-2 mb-7">
+            <div className="h-1 w-8 rounded-full" style={{ background: "#5EEAD4" }} />
+            <div className="h-1 w-8 rounded-full" style={{ background: "#5EEAD4" }} />
+            <span className="ml-auto font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.25)" }}>step 2 of 2</span>
+          </div>
+
+          {/* Heading */}
+          <span
+            className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-4"
+            style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}
+          >
+            almost there
+          </span>
+          <h1
+            className="font-display mb-1"
+            style={{ color: "#FFFFFF", fontSize: "clamp(24px, 5vw, 30px)", fontWeight: 600, letterSpacing: "-0.02em", lineHeight: 1.1 }}
+          >
+            Pick your username.
           </h1>
-          <p className="text-sm mb-8" style={{ color: "#9A9A9A" }}>
-            This is how people will find you on Hyperfix.
+          <p className="font-sans text-sm mb-7" style={{ color: "rgba(255,255,255,0.45)" }}>
+            This is how people find you on Hyperfix.
           </p>
 
-          <form onSubmit={handleSubmit} noValidate>
-            <div className="mb-2">
+          {/* Form */}
+          <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3">
+            <div>
               <div
-                className="flex items-center rounded-xl overflow-hidden"
+                className="flex items-center rounded-2xl overflow-hidden transition-all duration-200"
                 style={{
-                  background: "#111113",
-                  border: `1px solid ${
-                    validation === "available"
-                      ? "rgba(163,230,53,0.4)"
-                      : validation === "taken" || validation === "invalid"
-                      ? "rgba(248,113,113,0.3)"
-                      : "rgba(244,244,244,0.1)"
-                  }`,
-                  transition: "border-color 0.2s",
+                  background: "rgba(255,255,255,0.04)",
+                  border: `1px solid ${borderColor}`,
+                  boxShadow: validation === "available" ? "0 0 0 3px rgba(94,234,212,0.08)" : "none",
                 }}
               >
-                <span
-                  className="pl-4 font-mono text-sm select-none"
-                  style={{ color: "#9A9A9A" }}
-                >
-                  @
-                </span>
+                <span className="pl-4 font-mono text-sm select-none" style={{ color: "rgba(255,255,255,0.35)" }}>@</span>
                 <input
                   type="text"
                   value={username}
@@ -189,59 +165,46 @@ export default function OnboardingUsernamePage() {
                   maxLength={20}
                   autoFocus
                   autoComplete="username"
-                  className="flex-1 bg-transparent px-2 py-4 text-sm font-mono outline-none placeholder-[#525252]"
+                  className="flex-1 bg-transparent px-2 py-3.5 text-sm font-mono outline-none"
                   style={{ color: "#F4F4F4" }}
-                  aria-describedby="username-feedback"
                 />
                 {validation === "checking" && (
-                  <span className="pr-4 text-xs font-mono" style={{ color: "#9A9A9A" }}>
-                    …
-                  </span>
+                  <span className="pr-4 font-mono text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>…</span>
+                )}
+              </div>
+
+              <div className="h-5 mt-1.5">
+                {feedbackText && (
+                  <p className="font-sans text-xs" style={{ color: feedbackColor }}>{feedbackText}</p>
                 )}
               </div>
             </div>
 
-            {feedbackText && (
-              <p
-                id="username-feedback"
-                className="text-xs font-mono mb-6 h-4"
-                style={{ color: feedbackColor }}
-              >
-                {feedbackText}
-              </p>
-            )}
-            {!feedbackText && <div className="mb-6 h-4" />}
-
             {error && (
-              <p className="text-xs font-mono mb-4" style={{ color: "#f87171" }}>
+              <p className="font-sans text-xs rounded-xl px-3 py-2.5" style={{ background: "rgba(248,113,113,0.08)", border: "1px solid rgba(248,113,113,0.2)", color: "#f87171" }}>
                 {error}
               </p>
             )}
 
             <button
               type="submit"
-              disabled={validation !== "available" || submitting}
-              className="w-full py-3.5 rounded-xl font-mono text-sm font-medium transition-opacity"
+              disabled={!canSubmit}
+              className="w-full py-3 rounded-full font-sans text-sm font-semibold transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] disabled:cursor-not-allowed"
               style={{
-                background:
-                  validation === "available" && !submitting
-                    ? "#A3E635"
-                    : "rgba(163,230,53,0.25)",
-                color:
-                  validation === "available" && !submitting
-                    ? "#080808"
-                    : "rgba(163,230,53,0.4)",
-                cursor:
-                  validation === "available" && !submitting
-                    ? "pointer"
-                    : "not-allowed",
+                background: canSubmit ? "#FFFFFF" : "rgba(255,255,255,0.1)",
+                color: canSubmit ? "#070708" : "rgba(255,255,255,0.25)",
+                boxShadow: canSubmit ? "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 8px 28px rgba(94,234,212,0.25)" : "none",
               }}
             >
               {submitting ? "Setting up…" : "Claim username →"}
             </button>
           </form>
         </div>
-      </main>
+
+        <p className="relative z-10 mt-6 font-sans text-xs text-center" style={{ color: "rgba(255,255,255,0.25)" }}>
+          You can change this later in settings.
+        </p>
+      </div>
     </div>
   );
 }

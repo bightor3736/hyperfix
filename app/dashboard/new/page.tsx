@@ -1,16 +1,16 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { NewFixForm } from "./NewFixForm";
+import { ArrowLeft } from "@/components/icons";
 
-export const metadata = {
-  title: "New Fix · Hyperfix",
-};
+export const metadata = { title: "New Fix · Hyperfix" };
+
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 export default async function NewFixPage() {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser();
 
   let isPro = false;
   let activeFixCount = 0;
@@ -30,32 +30,56 @@ export default async function NewFixPage() {
   }
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "#0A0A0A" }}>
-      <div className="max-w-2xl mx-auto">
-        {/* Back */}
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none mix-blend-overlay"
+        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }}
+      />
+      <div className="relative max-w-2xl mx-auto">
         <Link
           href="/dashboard"
-          className="inline-flex items-center gap-2 font-sans text-sm mb-8 transition-colors hover:text-accent"
-          style={{ color: "rgba(244,244,244,0.4)" }}
+          className="motion-link inline-flex items-center gap-2 font-sans text-sm mb-8 transition-colors anim-fadeUp"
+          style={{ color: "rgba(255,255,255,0.55)" }}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
+          <ArrowLeft set="light" size={18} primaryColor="currentColor" />
           My fixes
         </Link>
 
-        {/* Header */}
-        <h1
-          className="font-display font-bold mb-2"
-          style={{ color: "#F4F4F4", fontSize: "clamp(28px, 5vw, 42px)", letterSpacing: "-0.03em" }}
+        <span
+          className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5 anim-fadeUp delay-100"
+          style={{
+            background: "rgba(94,234,212,0.10)",
+            color: "#5EEAD4",
+            border: "1px solid rgba(94,234,212,0.22)",
+          }}
         >
-          Log a new fix
+          new fix
+        </span>
+        <h1
+          className="font-display mb-3 anim-fadeUp delay-200"
+          style={{
+            color: "#FFFFFF",
+            fontSize: "clamp(36px, 6vw, 56px)",
+            letterSpacing: "-0.02em",
+            fontWeight: 600,
+            lineHeight: 1.05,
+          }}
+        >
+          What are you
+          <br />
+          obsessed with?
         </h1>
-        <p className="font-sans text-sm mb-10" style={{ color: "rgba(244,244,244,0.4)" }}>
-          What are you unwell about?
+        <p
+          className="font-sans text-base mb-10 anim-fadeUp delay-300"
+          style={{ color: "rgba(255,255,255,0.6)" }}
+        >
+          Name it. Pick a category. Set the intensity. The counter starts the moment you hit save.
         </p>
 
-        <NewFixForm isPro={isPro} activeFixCount={activeFixCount} />
+        <div className="anim-fadeUp delay-400">
+          <NewFixForm isPro={isPro} activeFixCount={activeFixCount} />
+        </div>
       </div>
     </div>
   );

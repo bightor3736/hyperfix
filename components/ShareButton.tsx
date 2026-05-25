@@ -1,13 +1,17 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { Send, TickSquare, Download } from "react-iconly";
 
 type Props = {
   fixId: string;
   isPublic: boolean;
+  fixTitle?: string;
+  days?: number;
+  intensity?: number;
 };
 
-export function ShareButton({ fixId, isPublic }: Props) {
+export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Props) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
@@ -49,6 +53,23 @@ export function ShareButton({ fixId, isPublic }: Props) {
     setOpen(false);
   }
 
+  function handleTwitterShare() {
+    const url = `${window.location.origin}/fix/${fixId}`;
+    const parts = [
+      fixTitle && days ? `day ${days} of ${fixTitle}.` : null,
+      intensity ? `intensity: ${intensity}/10.` : null,
+      `i'm so normal 😭`,
+      url,
+    ].filter(Boolean);
+    const text = parts.join(" ");
+    window.open(
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+    setOpen(false);
+  }
+
   return (
     <div ref={ref} className="relative inline-block">
       <button
@@ -60,21 +81,15 @@ export function ShareButton({ fixId, isPublic }: Props) {
           color: "rgba(244,244,244,0.7)",
         }}
         onMouseEnter={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.borderColor = "#A3E635";
-          (e.currentTarget as HTMLButtonElement).style.color = "#A3E635";
+          (e.currentTarget as HTMLButtonElement).style.borderColor = "#5EEAD4";
+          (e.currentTarget as HTMLButtonElement).style.color = "#5EEAD4";
         }}
         onMouseLeave={(e) => {
           (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(244,244,244,0.12)";
           (e.currentTarget as HTMLButtonElement).style.color = "rgba(244,244,244,0.7)";
         }}
       >
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="18" cy="5" r="3" />
-          <circle cx="6" cy="12" r="3" />
-          <circle cx="18" cy="19" r="3" />
-          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-        </svg>
+        <Send set="light" size={14} primaryColor="currentColor" />
         Share card
       </button>
 
@@ -106,7 +121,7 @@ export function ShareButton({ fixId, isPublic }: Props) {
       {/* Dropdown */}
       {open && isPublic && (
         <div
-          className="absolute bottom-full left-0 mb-2 rounded-2xl p-2 z-50 flex flex-col gap-1 min-w-[180px]"
+          className="absolute bottom-full left-0 mb-2 rounded-2xl p-2 z-50 flex flex-col gap-1 min-w-[200px]"
           style={{
             background: "#161618",
             border: "1px solid rgba(244,244,244,0.1)",
@@ -116,27 +131,36 @@ export function ShareButton({ fixId, isPublic }: Props) {
           <button
             onClick={handleCopyLink}
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-mono text-xs transition-colors text-left"
-            style={{ color: copied ? "#A3E635" : "rgba(244,244,244,0.7)" }}
+            style={{ color: copied ? "#5EEAD4" : "rgba(244,244,244,0.7)" }}
             onMouseEnter={(e) => !copied && ((e.currentTarget as HTMLButtonElement).style.background = "rgba(244,244,244,0.05)")}
             onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
           >
             {copied ? (
               <>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
+                <TickSquare set="bold" size={14} primaryColor="currentColor" />
                 Copied ✓
               </>
             ) : (
               <>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                </svg>
+                <Send set="light" size={14} primaryColor="currentColor" />
                 Copy link
               </>
             )}
           </button>
+
+          <button
+            onClick={handleTwitterShare}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-mono text-xs transition-colors text-left"
+            style={{ color: "rgba(244,244,244,0.7)" }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "rgba(244,244,244,0.05)")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            Post to X / Twitter
+          </button>
+
           <button
             onClick={handleDownloadCard}
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-mono text-xs transition-colors text-left"
@@ -144,11 +168,7 @@ export function ShareButton({ fixId, isPublic }: Props) {
             onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "rgba(244,244,244,0.05)")}
             onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
           >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
+            <Download set="light" size={14} primaryColor="currentColor" />
             Download card
           </button>
         </div>

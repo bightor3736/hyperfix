@@ -10,7 +10,7 @@ const PAPER_DEEP = "#111113";
 const INK = "#F4F4F4";
 const INK_SOFT = "#9A9A9A";
 const MUTED = "#525252";
-const ACCENT = "#A3E635";
+const ACCENT = "#5EEAD4";
 
 const signs = [
   { n: "01", h: "You looked it up once.", sub: "now you know everything. seventeen tabs, the subreddit, the 2019 thread. you have opinions you didn't ask for." },
@@ -190,9 +190,80 @@ function CtaSlide() {
   );
 }
 
-export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+async function fetchPexelsPhoto(query: string, seed: number): Promise<string | null> {
+  const apiKey = process.env.PEXELS_API_KEY;
+  if (!apiKey) return null;
+  try {
+    const res = await fetch(
+      `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=15&orientation=landscape&size=large`,
+      { headers: { Authorization: apiKey } }
+    );
+    if (!res.ok) return null;
+    const data = await res.json() as { photos: { src: { large2x: string; large: string } }[] };
+    const photos = data.photos ?? [];
+    if (!photos.length) return null;
+    const photo = photos[seed % photos.length];
+    return photo.src.large2x ?? photo.src.large ?? null;
+  } catch {
+    return null;
+  }
+}
+
+// Per-sign Pexels queries matched to each sign's theme
+const SIGN_QUERIES = [
+  "reading books research studying",       // sign 1: looked it up once
+  "friends talking conversation sharing",  // sign 2: recommending unprompted
+  "night late studying desk lamp",         // sign 3: schedule reorganised
+  "calm meditation regulation breath",     // sign 4: using it to regulate
+  "thinking ideas brainstorming notes",    // sign 5: opinions on discourse
+  "journal writing creating notebook",     // sign 6: made something about it
+  "window rain ending sunset fading",      // sign 7: can feel it fading
+];
+
+function PhotoSignSlide({ index, photoUrl }: { index: number; photoUrl: string | null }) {
+  const sign = signs[index - 1];
+
+  return (
+    <div style={{ width: "100%", height: "100%", background: "#060606", position: "relative", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+      {photoUrl && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={photoUrl} alt="" style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
+      )}
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 35%, rgba(0,0,0,0.75) 100%)", display: "flex" }} />
+      <div style={{ position: "relative", display: "flex", flexDirection: "column", width: "100%", height: "100%", padding: 80, fontFamily: "Georgia, serif", color: INK }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+          <span style={{ fontFamily: "monospace", fontSize: 22, letterSpacing: "0.25em", textTransform: "uppercase", color: ACCENT }}>sign · {sign.n}</span>
+          <span style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: 200, lineHeight: 0.78, fontWeight: 700, color: ACCENT, opacity: 0.15, letterSpacing: "-0.08em" }}>{sign.n}</span>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", marginTop: "auto", gap: 36 }}>
+          <div style={{ width: 48, height: 4, background: ACCENT, borderRadius: 2, display: "flex" }} />
+          <div style={{ fontSize: 88, lineHeight: 1.02, letterSpacing: "-0.04em", fontWeight: 600, color: INK, maxWidth: 920 }}>{sign.h}</div>
+          <div style={{ fontSize: 30, lineHeight: 1.4, fontStyle: "italic", color: "rgba(244,244,244,0.65)", maxWidth: 820, paddingLeft: 24, borderLeft: `2px solid ${ACCENT}` }}>{sign.sub}</div>
+          <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8 }}>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ display: "flex", fontFamily: "Georgia, serif", fontSize: 36, letterSpacing: "-0.05em", fontWeight: 600, lineHeight: 1, color: INK }}>
+                <span>hyper</span><span style={{ color: ACCENT, fontStyle: "italic" }}>fix</span>
+              </div>
+              <span style={{ fontFamily: "monospace", fontSize: 14, letterSpacing: "0.22em", textTransform: "uppercase", color: MUTED, marginTop: 8 }}>hyperfix.app</span>
+            </div>
+            <span style={{ fontFamily: "monospace", fontSize: 14, letterSpacing: "0.22em", textTransform: "uppercase", color: MUTED, alignSelf: "flex-end" }}>{String(index + 1).padStart(2, "0")} / {String(9).padStart(2, "0")}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const n = parseInt(id, 10);
+  const usePhoto = new URL(req.url).searchParams.get("photo") === "1";
+
+  if (usePhoto && n >= 1 && n <= 7) {
+    const query = SIGN_QUERIES[n - 1] ?? "focus obsession";
+    const photoUrl = await fetchPexelsPhoto(query, n - 1);
+    return new ImageResponse(<PhotoSignSlide index={n} photoUrl={photoUrl} />, SIZE);
+  }
 
   let element: React.ReactElement;
   if (n === 0) element = <CoverSlide />;

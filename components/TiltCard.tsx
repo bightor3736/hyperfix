@@ -92,7 +92,7 @@ export function TiltCard({
           style={{ opacity: isHovered ? 1 : 0, transition: "opacity 0.3s" }}
         >
           <div
-            className="absolute w-[200%] h-[200%] rounded-full opacity-100 dark:opacity-50"
+            className="absolute w-[200%] h-[200%] rounded-full"
             style={{
               left: `${spotlightPos.x}%`,
               top: `${spotlightPos.y}%`,

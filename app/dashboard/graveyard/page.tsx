@@ -1,163 +1,60 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import { FixStatusPill } from "@/components/FixStatusPill";
-import Link from "next/link";
+import { GraveyardExportButton } from "@/components/GraveyardExportButton";
+import { GraveyardGrid, type GraveyardFix } from "./GraveyardGrid";
 
-type GraveyardFix = {
-  id: string;
-  title: string;
-  category: string;
-  status: string;
-  started_at: string;
-  ended_at: string;
-  eulogy: string | null;
-};
-
-function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-}
+const TEAL = "#5EEAD4";
+const CARD_BG = "#0F1011";
+const CARD_BORDER = "rgba(255,255,255,0.06)";
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 function getDayCount(startedAt: string, endedAt: string): number {
   const start = new Date(startedAt);
   const end = new Date(endedAt);
-  const diff = end.getTime() - start.getTime();
-  return Math.max(1, Math.ceil(diff / (1000 * 60 * 60 * 24)));
-}
-
-function TombstoneCard({ fix }: { fix: GraveyardFix }) {
-  const days = getDayCount(fix.started_at, fix.ended_at);
-
-  return (
-    <div
-      className="rounded-2xl p-5 flex flex-col gap-3"
-      style={{
-        background: "#111113",
-        border: "1px solid rgba(244,244,244,0.07)",
-      }}
-    >
-      {/* Top row: category + status */}
-      <div className="flex items-center gap-2 flex-wrap">
-        <span
-          className="font-mono text-[9px] uppercase tracking-widest px-2.5 py-1 rounded-full"
-          style={{
-            background: "rgba(244,244,244,0.06)",
-            border: "1px solid rgba(244,244,244,0.1)",
-            color: "rgba(244,244,244,0.4)",
-          }}
-        >
-          {fix.category}
-        </span>
-        <FixStatusPill status="Ended" size="sm" />
-      </div>
-
-      {/* Title */}
-      <h3
-        className="font-display font-semibold leading-snug"
-        style={{
-          color: "#F4F4F4",
-          fontSize: 17,
-          letterSpacing: "-0.02em",
-          display: "-webkit-box",
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: "vertical",
-          overflow: "hidden",
-        }}
-      >
-        {fix.title}
-      </h3>
-
-      {/* Day count */}
-      <div>
-        <div className="flex items-baseline gap-1.5">
-          <span
-            className="font-display font-black leading-none"
-            style={{
-              color: "#A3E635",
-              fontSize: 40,
-              letterSpacing: "-0.04em",
-              fontVariantNumeric: "tabular-nums",
-            }}
-          >
-            {days}
-          </span>
-          <span
-            className="font-display font-semibold pb-0.5"
-            style={{ color: "#A3E635", fontSize: 16 }}
-          >
-            days
-          </span>
-        </div>
-        <p className="font-mono text-[10px] mt-1" style={{ color: "rgba(244,244,244,0.35)" }}>
-          {formatDate(fix.started_at)} → {formatDate(fix.ended_at)}
-        </p>
-      </div>
-
-      {/* Eulogy or prompt */}
-      {fix.eulogy ? (
-        <blockquote
-          className="font-display italic text-[13px] leading-relaxed pl-3"
-          style={{
-            borderLeft: "2px solid rgba(163,230,53,0.3)",
-            color: "rgba(163,230,53,0.75)",
-            margin: 0,
-          }}
-        >
-          {fix.eulogy}
-        </blockquote>
-      ) : (
-        <p className="font-display italic text-[13px]" style={{ color: "rgba(244,244,244,0.22)" }}>
-          No eulogy written.{" "}
-          <Link
-            href={`/dashboard/fix/${fix.id}`}
-            className="not-italic underline decoration-dotted transition-opacity hover:opacity-80"
-            style={{ color: "rgba(244,244,244,0.4)" }}
-          >
-            Write one →
-          </Link>
-        </p>
-      )}
-    </div>
-  );
+  return Math.max(1, Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)));
 }
 
 function EmptyGraveyard() {
   return (
-    <div className="flex flex-col items-center justify-center py-24 px-6 text-center gap-5">
-      {/* Skull SVG */}
-      <svg
-        width="56"
-        height="56"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="rgba(244,244,244,0.15)"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M12 2C7.03 2 3 6.03 3 11c0 2.96 1.36 5.6 3.5 7.34V20a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1.66A9 9 0 0 0 21 11c0-4.97-4.03-9-9-9z" />
-        <line x1="9" y1="14" x2="9" y2="14" strokeWidth="2" strokeLinecap="round" />
-        <line x1="15" y1="14" x2="15" y2="14" strokeWidth="2" strokeLinecap="round" />
-        <line x1="9" y1="14" x2="9.01" y2="14" />
-        <line x1="15" y1="14" x2="15.01" y2="14" />
-        <circle cx="9" cy="13" r="1.5" fill="rgba(244,244,244,0.15)" stroke="none" />
-        <circle cx="15" cy="13" r="1.5" fill="rgba(244,244,244,0.15)" stroke="none" />
-        <path d="M10 20v1M14 20v1" />
-      </svg>
-
-      <div>
-        <p
-          className="font-display font-semibold text-xl mb-2"
-          style={{ color: "rgba(244,244,244,0.3)", letterSpacing: "-0.02em" }}
+    <div
+      className="relative overflow-hidden rounded-3xl p-12 sm:p-16 text-center anim-fadeUp"
+      style={{
+        background:
+          "radial-gradient(ellipse 80% 120% at 50% 130%, #2DD4BF 0%, #0E4F47 26%, #08231F 50%, #0F1011 80%)",
+        border: `1px solid ${CARD_BORDER}`,
+      }}
+    >
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none mix-blend-overlay"
+        style={{ backgroundImage: NOISE_URL, backgroundSize: "220px 220px", opacity: 0.5 }}
+      />
+      <div className="relative">
+        <span
+          className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-6"
+          style={{
+            background: "rgba(94,234,212,0.12)",
+            color: TEAL,
+            border: "1px solid rgba(94,234,212,0.25)",
+          }}
         >
-          Nothing in the graveyard yet.
-        </p>
-        <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.2)" }}>
-          Fixes you end will be memorialized here.
+          the graveyard
+        </span>
+        <h2
+          className="font-display"
+          style={{
+            color: "#FFFFFF",
+            fontSize: "clamp(28px, 5vw, 40px)",
+            letterSpacing: "-0.02em",
+            fontWeight: 600,
+            lineHeight: 1.05,
+          }}
+        >
+          Nothing here yet.
+        </h2>
+        <p className="mt-4 font-sans text-base" style={{ color: "rgba(255,255,255,0.65)" }}>
+          When a fix fades, it gets buried here. With a eulogy, if you loved it.
         </p>
       </div>
     </div>
@@ -166,9 +63,7 @@ function EmptyGraveyard() {
 
 export default async function GraveyardPage() {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
     redirect("/auth/login");
@@ -192,51 +87,93 @@ export default async function GraveyardPage() {
   }));
 
   const total = graveyardFixes.length;
+  const totalDays = graveyardFixes.reduce(
+    (sum, f) => sum + getDayCount(f.started_at, f.ended_at),
+    0
+  );
+  const eulogyCount = graveyardFixes.filter((f) => f.eulogy).length;
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "#0A0A0A" }}>
-      <div className="max-w-5xl mx-auto">
-
-        {/* Header */}
-        <div className="mb-8">
-          <h1
-            className="font-display font-bold leading-tight"
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none mix-blend-overlay"
+        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }}
+      />
+      <div className="relative max-w-5xl mx-auto">
+        {/* Hero header card */}
+        <div
+          className="relative overflow-hidden rounded-3xl mb-6 p-6 sm:p-10 anim-fadeUp"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
+            border: `1px solid ${CARD_BORDER}`,
+          }}
+        >
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none mix-blend-overlay"
+            style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none"
             style={{
-              color: "#F4F4F4",
-              fontSize: "clamp(28px, 5vw, 48px)",
-              letterSpacing: "-0.03em",
+              background:
+                "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)",
             }}
-          >
-            Graveyard
-          </h1>
-          <p
-            className="font-display italic mt-1"
-            style={{
-              color: "rgba(244,244,244,0.35)",
-              fontSize: "clamp(14px, 2vw, 17px)",
-              letterSpacing: "-0.01em",
-            }}
-          >
-            The things that used to run your life.
-          </p>
-
-          <p
-            className="font-mono text-[10px] uppercase tracking-widest mt-3"
-            style={{ color: "rgba(244,244,244,0.25)" }}
-          >
-            RIP · {total} {total === 1 ? "fix" : "fixes"}
-          </p>
+          />
+          <div className="relative flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+            <div>
+              <span
+                className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5"
+                style={{
+                  background: "rgba(94,234,212,0.12)",
+                  color: TEAL,
+                  border: "1px solid rgba(94,234,212,0.25)",
+                }}
+              >
+                graveyard
+              </span>
+              <h1
+                className="font-display"
+                style={{
+                  color: "#FFFFFF",
+                  fontSize: "clamp(36px, 6vw, 60px)",
+                  lineHeight: 1.02,
+                  letterSpacing: "-0.02em",
+                  fontWeight: 600,
+                }}
+              >
+                The things that
+                <br />
+                used to run your life.
+              </h1>
+              <div className="mt-5 flex items-center gap-4 flex-wrap font-sans text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
+                <span>RIP · {total} {total === 1 ? "fix" : "fixes"}</span>
+                {totalDays > 0 && (
+                  <span style={{ color: TEAL }}>· {totalDays.toLocaleString()} days lived</span>
+                )}
+                {eulogyCount > 0 && (
+                  <span style={{ color: "rgba(255,255,255,0.5)" }}>
+                    · {eulogyCount} {eulogyCount === 1 ? "eulogy" : "eulogies"} written
+                  </span>
+                )}
+              </div>
+            </div>
+            {total > 0 && (
+              <div className="shrink-0">
+                <GraveyardExportButton />
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Grid or empty state */}
         {total === 0 ? (
           <EmptyGraveyard />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {graveyardFixes.map((fix) => (
-              <TombstoneCard key={fix.id} fix={fix} />
-            ))}
-          </div>
+          <GraveyardGrid fixes={graveyardFixes} />
         )}
       </div>
     </div>

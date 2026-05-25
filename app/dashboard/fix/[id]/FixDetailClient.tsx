@@ -8,17 +8,31 @@ import { updateFixTags } from "@/app/actions/tags";
 import { AddToListButton } from "@/components/AddToListButton";
 import { useToast } from "@/components/Toast";
 import { TagsInput } from "@/components/TagsInput";
+import { CloseSquare, Star } from "react-iconly";
+
+function getMilestone(days: number): { icon: string; heading: string; sub: string } | null {
+  if (days === 365) return { icon: "🏆", heading: "One whole year.", sub: "You have been unwell for 365 days. Legendary." };
+  if (days === 100) return { icon: "💀", heading: "100 days deep.", sub: "That's dedication. Or a cry for help. Either way, we respect it." };
+  if (days === 30) return { icon: "⚡", heading: "One month in.", sub: "This fix has officially lasted longer than most diets." };
+  if (days === 7) return { icon: "🔥", heading: "One week.", sub: "Seven days strong. It's not a phase." };
+  return null;
+}
 
 const ALL_STATUSES: FixStatus[] = [
   "Day 1", "Obsessing", "On loop", "Fading", "Post-fix", "Ended", "Dormant", "Send help",
 ];
 
 const INTENSITY_LABELS: Record<number, string> = {
-  1: "mild interest", 2: "mild interest",
-  3: "it's something", 4: "it's something",
-  5: "definitely a thing", 6: "definitely a thing",
-  7: "deeply unwell", 8: "deeply unwell",
-  9: "send help", 10: "send help",
+  1:  "barely a thing",
+  2:  "it's in the back of my head",
+  3:  "thinking about it a normal amount",
+  4:  "okay it has its claws in me",
+  5:  "i think about it every day",
+  6:  "i have reorganised my whole personality",
+  7:  "deeply, catastrophically unwell",
+  8:  "i cannot be perceived right now",
+  9:  "send help. no wait don't. let me stay.",
+  10: "this is a medical emergency",
 };
 
 const CATEGORIES = [
@@ -39,9 +53,10 @@ type Props = {
   isPublic?: boolean;
   tagsInitial?: string[];
   isPinned?: boolean;
+  isPro?: boolean;
 };
 
-export function FixDetailClient({ fixId, title: initialTitle, category: initialCategory, status: initialStatus, intensity: initialIntensity, days, ended: initialEnded, eulogyInitial, hasCheckedInToday: initialCheckedIn = false, isPublic: initialIsPublic = false, tagsInitial = [], isPinned: initialIsPinned = false }: Props) {
+export function FixDetailClient({ fixId, title: initialTitle, category: initialCategory, status: initialStatus, intensity: initialIntensity, days, ended: initialEnded, eulogyInitial, hasCheckedInToday: initialCheckedIn = false, isPublic: initialIsPublic = false, tagsInitial = [], isPinned: initialIsPinned = false, isPro = false }: Props) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const { toast } = useToast();
@@ -77,6 +92,13 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
   const [showCheckIn, setShowCheckIn] = useState(false);
   const [checkInIntensity, setCheckInIntensity] = useState(5);
   const [checkInNote, setCheckInNote] = useState("");
+
+  // AI eulogy generation state
+  const [generatingEulogy, setGeneratingEulogy] = useState(false);
+
+  // Milestone banner
+  const [milestoneDismissed, setMilestoneDismissed] = useState(false);
+  const milestone = !ended ? getMilestone(days) : null;
 
   function handleStatusChange(newStatus: FixStatus) {
     setShowStatusDropdown(false);
@@ -157,6 +179,32 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
     });
   }
 
+  async function handleGenerateEulogy() {
+    setGeneratingEulogy(true);
+    setEulogyText("");
+    try {
+      const res = await fetch("/api/eulogy/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fixId }),
+      });
+      if (!res.ok || !res.body) throw new Error("Failed to generate");
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let text = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        text += decoder.decode(value, { stream: true });
+        setEulogyText(text);
+      }
+    } catch {
+      setError("Could not generate eulogy — try writing your own.");
+    } finally {
+      setGeneratingEulogy(false);
+    }
+  }
+
   function handleCheckIn() {
     startTransition(async () => {
       try {
@@ -188,128 +236,222 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
   const intensityColor =
     intensity >= 9 ? "#E63946" :
     intensity >= 7 ? "#FB923C" :
-    "#A3E635";
+    "#5EEAD4";
 
   const checkInColor =
     checkInIntensity >= 9 ? "#E63946" :
     checkInIntensity >= 7 ? "#FB923C" :
-    "#A3E635";
+    "#5EEAD4";
 
   return (
     <div className="flex flex-col gap-4">
 
-      {/* Daily check-in */}
+      {/* Milestone banner */}
+      {milestone && !milestoneDismissed && (
+        <div
+          className="rounded-2xl px-5 py-4 flex items-start gap-4 relative"
+          style={{
+            background: "rgba(94,234,212,0.08)",
+            border: "1px solid rgba(94,234,212,0.3)",
+            boxShadow: "0 0 32px rgba(94,234,212,0.12)",
+          }}
+        >
+          <span style={{ fontSize: 28, lineHeight: 1 }}>{milestone.icon}</span>
+          <div className="flex-1 min-w-0">
+            <p className="font-display font-bold text-base" style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}>
+              {milestone.heading}
+            </p>
+            <p className="font-sans text-sm mt-0.5" style={{ color: "rgba(244,244,244,0.5)" }}>
+              {milestone.sub}
+            </p>
+          </div>
+          <button
+            onClick={() => setMilestoneDismissed(true)}
+            className="shrink-0 p-1 rounded-lg transition-opacity hover:opacity-60"
+            style={{ color: "rgba(244,244,244,0.3)" }}
+            aria-label="Dismiss"
+          >
+            <CloseSquare set="light" size={15} primaryColor="currentColor" />
+          </button>
+        </div>
+      )}
+
+      {/* Daily check-in trigger */}
       {!ended && !checkedInToday && (
         <div>
           <button
-            onClick={() => setShowCheckIn((v) => !v)}
-            className="px-4 py-2 rounded-full font-sans text-sm font-semibold transition-all hover:opacity-80 active:scale-[0.97]"
+            onClick={() => setShowCheckIn(true)}
+            className="w-full sm:w-auto px-6 py-3 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
+            style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+          >
+            ✦ Check in today
+          </button>
+        </div>
+      )}
+
+      {/* Full-screen check-in modal (Suntera-style) */}
+      {showCheckIn && (
+        <div
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4"
+          style={{ background: "rgba(10,10,10,0.95)", backdropFilter: "blur(20px)" }}
+        >
+          <style>{`
+            @keyframes checkInSlideUp {
+              from { opacity: 0; transform: translateY(32px) scale(0.97); }
+              to   { opacity: 1; transform: translateY(0)    scale(1); }
+            }
+          `}</style>
+          <div
+            className="w-full max-w-sm rounded-3xl overflow-hidden relative flex flex-col"
             style={{
-              background: "transparent",
-              border: "1px solid rgba(163,230,53,0.5)",
-              color: "#A3E635",
+              background: "#0D0D0F",
+              border: "1px solid rgba(244,244,244,0.08)",
+              boxShadow: `0 32px 80px rgba(0,0,0,0.8), 0 0 60px ${checkInColor}18`,
+              animation: "checkInSlideUp 0.3s cubic-bezier(0.2,0.8,0.2,1) both",
             }}
           >
-            Check in today +
-          </button>
-
-          {showCheckIn && (
+            {/* Character stage — vivid colored top section */}
             <div
-              className="mt-3 rounded-2xl p-5 flex flex-col gap-4"
+              className="relative flex flex-col items-center justify-end pt-8 pb-4"
               style={{
-                background: "#111113",
-                border: "1px solid rgba(163,230,53,0.15)",
-                animation: "detailsReveal 0.25s cubic-bezier(0.2,0.6,0.2,1) both",
+                background: checkInIntensity >= 9
+                  ? "linear-gradient(180deg, #2D0A0D 0%, #1A0507 100%)"
+                  : checkInIntensity >= 7
+                    ? "linear-gradient(180deg, #2D1500 0%, #1A0C00 100%)"
+                    : "linear-gradient(180deg, #180D2E 0%, #0E0818 100%)",
+                minHeight: 240,
               }}
             >
-              <h3 className="font-display font-bold text-base" style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}>
-                How&apos;s this fix today?
-              </h3>
+              {/* Color glow spot behind mascot */}
+              <div className="absolute inset-0 pointer-events-none" style={{
+                background: `radial-gradient(ellipse 80% 80% at 50% 60%, ${checkInColor}40, transparent 65%)`,
+              }} />
+              {/* Close */}
+              <button
+                onClick={() => setShowCheckIn(false)}
+                className="absolute top-4 right-4 p-2 rounded-full transition-opacity hover:opacity-60"
+                style={{ background: "rgba(244,244,244,0.08)", color: "rgba(244,244,244,0.45)" }}
+                aria-label="Cancel"
+              >
+                <CloseSquare set="light" size={15} primaryColor="currentColor" />
+              </button>
 
-              {/* Intensity slider */}
-              <div>
-                <div className="flex justify-between mb-2">
-                  <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.4)" }}>
-                    Intensity
-                  </span>
-                  <span className="font-mono text-[10px]" style={{ color: checkInColor }}>
-                    {checkInIntensity}/10
-                  </span>
-                </div>
-                <div className="relative py-3">
-                  <div className="h-3 rounded-full overflow-hidden" style={{ background: "rgba(244,244,244,0.08)" }}>
-                    <div
-                      className="h-full rounded-full transition-all duration-100"
-                      style={{
-                        width: `${(checkInIntensity / 10) * 100}%`,
-                        background: `linear-gradient(to right, #A3E635, ${checkInColor})`,
-                      }}
-                    />
-                  </div>
-                  <input
-                    type="range"
-                    min={1}
-                    max={10}
-                    value={checkInIntensity}
-                    onChange={(e) => setCheckInIntensity(parseInt(e.target.value, 10))}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                  />
-                  <div
-                    className="absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full shadow-lg pointer-events-none transition-all duration-100"
-                    style={{
-                      left: `calc(${((checkInIntensity - 1) / 9) * 100}% - 10px)`,
-                      background: "#F4F4F4",
-                      border: `2px solid ${checkInColor}`,
-                      boxShadow: `0 0 12px ${checkInColor}80`,
-                    }}
-                  />
-                </div>
+              {/* Intensity orb — the hero */}
+              <div
+                className="relative flex items-center justify-center"
+                style={{
+                  width: 180,
+                  height: 180,
+                  borderRadius: 999,
+                  background: `radial-gradient(circle at 35% 30%, ${checkInColor}, ${checkInColor}33 65%, transparent 80%)`,
+                  boxShadow: `0 0 80px ${checkInColor}55, inset 0 0 60px ${checkInColor}33`,
+                  animation: "floatY 4s ease-in-out infinite",
+                }}
+              >
+                <span
+                  className="font-display"
+                  style={{
+                    fontSize: 80,
+                    fontWeight: 600,
+                    color: "#0A0A0A",
+                    letterSpacing: "-0.04em",
+                    textShadow: "0 2px 12px rgba(255,255,255,0.4)",
+                  }}
+                >
+                  {checkInIntensity}
+                </span>
+              </div>
+            </div>
+
+            {/* Content below character */}
+            <div className="px-6 pt-4 pb-7 flex flex-col gap-5">
+              {/* Headline */}
+              <div className="text-center">
+                <h2
+                  className="font-display font-black leading-none uppercase"
+                  style={{ color: "#F4F4F4", fontSize: "clamp(26px, 7vw, 36px)", letterSpacing: "-0.02em" }}
+                >
+                  how bad is it
+                  <br />
+                  <span style={{ color: checkInColor }}>today?</span>
+                </h2>
+                <p className="font-mono text-[10px] mt-2 uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.3)" }}>
+                  {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+                </p>
               </div>
 
-              {/* Note textarea */}
+              {/* Intensity chips — 1-10 grid */}
+              <div>
+                <div className="grid grid-cols-5 gap-2">
+                  {[1,2,3,4,5,6,7,8,9,10].map((n) => {
+                    const chipColor = n >= 9 ? "#E63946" : n >= 7 ? "#FB923C" : "#5EEAD4";
+                    const selected = n === checkInIntensity;
+                    return (
+                      <button
+                        key={n}
+                        onClick={() => setCheckInIntensity(n)}
+                        className="py-3 rounded-2xl font-display font-black text-sm transition-all active:scale-95"
+                        style={{
+                          background: selected ? chipColor : "rgba(244,244,244,0.06)",
+                          color: selected ? "#0A0A0A" : "rgba(244,244,244,0.45)",
+                          border: selected ? "none" : "1px solid rgba(244,244,244,0.07)",
+                          boxShadow: selected ? `0 0 20px ${chipColor}55` : "none",
+                        }}
+                      >
+                        {n}
+                      </button>
+                    );
+                  })}
+                </div>
+                <p
+                  className="font-sans text-xs text-center mt-2 transition-all duration-150"
+                  style={{ color: checkInColor }}
+                >
+                  {INTENSITY_LABELS[checkInIntensity]}
+                </p>
+              </div>
+
+              {/* Note */}
               <textarea
                 value={checkInNote}
                 onChange={(e) => setCheckInNote(e.target.value)}
                 placeholder="one thought about today…"
                 rows={2}
-                className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A3E635]/30 resize-none"
+                className="w-full rounded-2xl px-4 py-3 font-sans text-sm outline-none resize-none transition-colors"
                 style={{
-                  background: "#161618",
-                  border: "1px solid rgba(244,244,244,0.1)",
+                  background: "rgba(244,244,244,0.05)",
+                  border: "1px solid rgba(244,244,244,0.08)",
                   color: "#F4F4F4",
                 }}
               />
 
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setShowCheckIn(false)}
-                  className="px-4 py-2 rounded-xl font-sans text-sm font-medium transition-all hover:opacity-80"
-                  style={{
-                    background: "rgba(244,244,244,0.06)",
-                    border: "1px solid rgba(244,244,244,0.1)",
-                    color: "rgba(244,244,244,0.6)",
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleCheckIn}
-                  disabled={pending}
-                  className="px-5 py-2 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 disabled:opacity-60"
-                  style={{ background: "#A3E635", color: "#0A0A0A" }}
-                >
-                  {pending ? "Logging…" : "Log it →"}
-                </button>
-              </div>
+              {/* Submit */}
+              <button
+                onClick={handleCheckIn}
+                disabled={pending}
+                className="w-full py-4 rounded-2xl font-display font-black text-base uppercase tracking-wide transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
+                style={{ background: checkInColor, color: "#0A0A0A", letterSpacing: "-0.01em" }}
+              >
+                {pending ? "Logging…" : "Log it →"}
+              </button>
             </div>
-          )}
+          </div>
         </div>
       )}
 
       {!ended && checkedInToday && (
-        <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "rgba(163,230,53,0.5)" }}>
-          ✓ Checked in today
-        </p>
+        <div
+          className="rounded-2xl px-4 py-3 flex items-center gap-3"
+          style={{
+            background: "rgba(94,234,212,0.06)",
+            border: "1px solid rgba(94,234,212,0.2)",
+          }}
+        >
+          <span style={{ fontSize: 16 }}>✓</span>
+          <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "rgba(94,234,212,0.7)" }}>
+            Checked in today
+          </p>
+        </div>
       )}
 
       {/* Status pill (clickable) */}
@@ -346,7 +488,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                   onClick={() => handleStatusChange(s)}
                   className="flex items-center px-3 py-2 rounded-xl transition-colors text-left"
                   style={{
-                    background: s === status ? "rgba(163,230,53,0.08)" : "transparent",
+                    background: s === status ? "rgba(94,234,212,0.08)" : "transparent",
                   }}
                 >
                   <FixStatusPill status={s} size="sm" />
@@ -361,8 +503,13 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
       <div
         className="rounded-2xl p-5"
         style={{
-          background: "#111113",
-          border: "1px solid rgba(244,244,244,0.07)",
+          background: intensity >= 9 ? "rgba(230,57,70,0.04)" : "#111113",
+          border: intensity >= 9
+            ? "1px solid rgba(230,57,70,0.25)"
+            : intensity >= 7
+            ? "1px solid rgba(251,146,60,0.15)"
+            : "1px solid rgba(244,244,244,0.07)",
+          boxShadow: intensity >= 9 ? "0 0 24px rgba(230,57,70,0.1)" : "none",
         }}
       >
         <div className="flex items-center justify-between mb-3">
@@ -387,9 +534,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               onClick={() => setShowIntensitySlider((v) => !v)}
               className="px-3 py-1.5 rounded-full font-sans text-xs font-medium transition-all hover:opacity-80"
               style={{
-                background: "rgba(163,230,53,0.08)",
-                border: "1px solid rgba(163,230,53,0.2)",
-                color: "#A3E635",
+                background: "rgba(94,234,212,0.08)",
+                border: "1px solid rgba(94,234,212,0.2)",
+                color: "#5EEAD4",
               }}
             >
               {showIntensitySlider ? "Cancel" : "Update intensity"}
@@ -404,7 +551,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${(intensity / 10) * 100}%`,
-                background: `linear-gradient(to right, #A3E635, ${intensityColor})`,
+                background: `linear-gradient(to right, #5EEAD4, ${intensityColor})`,
               }}
             />
           </div>
@@ -419,7 +566,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                   className="h-full rounded-full transition-all duration-100"
                   style={{
                     width: `${(intensity / 10) * 100}%`,
-                    background: `linear-gradient(to right, #A3E635, ${intensityColor})`,
+                    background: `linear-gradient(to right, #5EEAD4, ${intensityColor})`,
                   }}
                 />
               </div>
@@ -445,7 +592,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               onClick={handleIntensitySave}
               disabled={pending}
               className="self-end px-4 py-2 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 disabled:opacity-60"
-              style={{ background: "#A3E635", color: "#0A0A0A" }}
+              style={{ background: "#5EEAD4", color: "#0A0A0A" }}
             >
               {pending ? "Saving…" : "Save"}
             </button>
@@ -474,7 +621,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
           <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.4)" }}>Tags</p>
           {!ended && (
             <button onClick={() => setEditingTags(v => !v)} className="font-mono text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full transition-all"
-              style={{ background: "rgba(163,230,53,0.08)", border: "1px solid rgba(163,230,53,0.2)", color: "#A3E635" }}>
+              style={{ background: "rgba(94,234,212,0.08)", border: "1px solid rgba(94,234,212,0.2)", color: "#5EEAD4" }}>
               {editingTags ? "Cancel" : "Edit"}
             </button>
           )}
@@ -483,13 +630,13 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
           <div className="flex flex-col gap-3">
             <TagsInput value={tags} onChange={setTags} />
             <button onClick={() => handleTagsSave(tags)} className="self-end px-4 py-2 rounded-full font-sans text-sm font-bold"
-              style={{ background: "#A3E635", color: "#0A0A0A" }}>Save tags</button>
+              style={{ background: "#5EEAD4", color: "#0A0A0A" }}>Save tags</button>
           </div>
         ) : tags.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {tags.map(tag => (
               <span key={tag} className="font-mono text-[11px] uppercase tracking-widest rounded-full px-2.5 py-1"
-                style={{ background: "rgba(163,230,53,0.08)", border: "1px solid rgba(163,230,53,0.2)", color: "#A3E635" }}>
+                style={{ background: "rgba(94,234,212,0.08)", border: "1px solid rgba(94,234,212,0.2)", color: "#5EEAD4" }}>
                 #{tag}
               </span>
             ))}
@@ -517,7 +664,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
           }}
           className="px-4 py-2 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80"
           style={isPinned
-            ? { background: "rgba(163,230,53,0.12)", border: "1px solid rgba(163,230,53,0.3)", color: "#A3E635" }
+            ? { background: "rgba(94,234,212,0.12)", border: "1px solid rgba(94,234,212,0.3)", color: "#5EEAD4" }
             : { background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.12)", color: "rgba(244,244,244,0.6)" }
           }
         >
@@ -558,7 +705,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               type="text"
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
-              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none focus:ring-2 focus:ring-[#A3E635]/40 mb-3"
+              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none focus:ring-2 focus:ring-[#5EEAD4]/40 mb-3"
               style={{ background: "#161618", border: "1px solid rgba(244,244,244,0.1)", color: "#F4F4F4" }}
               placeholder="Title"
             />
@@ -570,7 +717,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                   onClick={() => setEditCategory(cat)}
                   className="px-3 py-1 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all"
                   style={editCategory === cat
-                    ? { background: "#A3E635", color: "#0A0A0A" }
+                    ? { background: "#5EEAD4", color: "#0A0A0A" }
                     : { background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.5)" }
                   }
                 >
@@ -580,7 +727,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
             </div>
             <div className="flex gap-3">
               <button onClick={() => setShowEditModal(false)} className="flex-1 py-2.5 rounded-xl font-sans text-sm font-medium" style={{ background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.6)" }}>Cancel</button>
-              <button onClick={handleEditSave} disabled={pending || !editTitle.trim()} className="flex-1 py-2.5 rounded-xl font-sans text-sm font-bold disabled:opacity-60" style={{ background: "#A3E635", color: "#0A0A0A" }}>
+              <button onClick={handleEditSave} disabled={pending || !editTitle.trim()} className="flex-1 py-2.5 rounded-xl font-sans text-sm font-bold disabled:opacity-60" style={{ background: "#5EEAD4", color: "#0A0A0A" }}>
                 {pending ? "Saving…" : "Save"}
               </button>
             </div>
@@ -604,18 +751,57 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
             <p className="font-sans text-sm mb-4" style={{ color: "rgba(244,244,244,0.4)" }}>
               Optional — say goodbye to this fix.
             </p>
-            <textarea
-              value={eulogyText}
-              onChange={(e) => setEulogyText(e.target.value)}
-              placeholder="It was good while it lasted…"
-              rows={4}
-              className="w-full rounded-xl px-4 py-3 font-display italic text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A3E635]/40 resize-none mb-2"
-              style={{
-                background: "#161618",
-                border: "1px solid rgba(244,244,244,0.1)",
-                color: "#F4F4F4",
-              }}
-            />
+            <div className="relative mb-2">
+              <textarea
+                value={eulogyText}
+                onChange={(e) => setEulogyText(e.target.value)}
+                placeholder="It was good while it lasted…"
+                rows={4}
+                className="w-full rounded-xl px-4 py-3 font-display italic text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40 resize-none"
+                style={{
+                  background: "#161618",
+                  border: "1px solid rgba(244,244,244,0.1)",
+                  color: "#F4F4F4",
+                }}
+              />
+              {generatingEulogy && (
+                <div className="absolute bottom-3 right-3 flex items-center gap-1.5">
+                  <span className="font-mono text-[9px] uppercase tracking-widest animate-pulse" style={{ color: "#5EEAD4" }}>
+                    writing…
+                  </span>
+                </div>
+              )}
+            </div>
+            {isPro ? (
+              <button
+                type="button"
+                onClick={handleGenerateEulogy}
+                disabled={generatingEulogy || pending}
+                className="w-full mb-3 py-2 rounded-xl font-sans text-sm font-medium transition-all hover:opacity-80 disabled:opacity-50 flex items-center justify-center gap-2"
+                style={{
+                  background: "rgba(94,234,212,0.08)",
+                  border: "1px solid rgba(94,234,212,0.2)",
+                  color: "#5EEAD4",
+                }}
+              >
+                <Star set="bold" size={15} primaryColor="currentColor" />
+                {generatingEulogy ? "Generating…" : "Write it for me with AI"}
+              </button>
+            ) : (
+              <a
+                href="/dashboard/settings"
+                className="w-full mb-3 py-2 rounded-xl font-sans text-sm font-medium transition-all hover:opacity-80 flex items-center justify-center gap-2"
+                style={{
+                  background: "rgba(94,234,212,0.05)",
+                  border: "1px dashed rgba(94,234,212,0.25)",
+                  color: "rgba(94,234,212,0.6)",
+                  textDecoration: "none",
+                }}
+              >
+                <Star set="light" size={15} primaryColor="currentColor" />
+                AI eulogy — Pro only · upgrade →
+              </a>
+            )}
             <div className="flex gap-3">
               <button
                 onClick={() => setShowEndModal(false)}
@@ -657,9 +843,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               style={
                 isPublic
                   ? {
-                      background: "rgba(163,230,53,0.12)",
-                      border: "1px solid rgba(163,230,53,0.35)",
-                      color: "#A3E635",
+                      background: "rgba(94,234,212,0.12)",
+                      border: "1px solid rgba(94,234,212,0.35)",
+                      color: "#5EEAD4",
                     }
                   : {
                       background: "rgba(244,244,244,0.06)",
@@ -683,8 +869,8 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               <div
                 className="w-10 h-6 rounded-full transition-all duration-200"
                 style={{
-                  background: isPublic ? "#A3E635" : "rgba(244,244,244,0.1)",
-                  border: isPublic ? "1px solid rgba(163,230,53,0.5)" : "1px solid rgba(244,244,244,0.1)",
+                  background: isPublic ? "#5EEAD4" : "rgba(244,244,244,0.1)",
+                  border: isPublic ? "1px solid rgba(94,234,212,0.5)" : "1px solid rgba(244,244,244,0.1)",
                 }}
               >
                 <div

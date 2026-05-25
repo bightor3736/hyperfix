@@ -98,33 +98,33 @@ export default function VsLetterboxdPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
+      <main id="main-content" className="relative z-10 text-white" style={{ background: "#070708", minHeight: "100vh" }}>
 
         <Nav />
 
         {/* HERO */}
-        <section className="px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-28">
+        <section className="px-4 sm:px-6 lg:px-8 pt-8 pb-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
               comparison · hyperfix vs letterboxd
             </span>
-            <h1 className="font-display font-medium text-[2.8rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[0.92] tracking-crush text-ink text-balance">
+            <h1 className="font-display font-medium text-[2.8rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[0.92] tracking-tight text-white text-balance">
               Letterboxd is for cinema.
               <br />
-              <span className="italic text-accent">
+              <span className="text-[#5EEAD4]">
                 Hyperfix is for whatever's
                 <br />
                 currently running your life.
               </span>
             </h1>
             <div className="mt-10 grid md:grid-cols-2 gap-8 max-w-4xl">
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 Letterboxd is one of the best-designed social products on the
                 internet. If you want to log every film you've ever watched,
                 write reviews, follow people with good taste, and build lists —
                 it's close to perfect.
               </p>
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 But your current hyperfixation is not a film. Or if it is a
                 film, you've rewatched it eleven times this month and what you
                 need is not a star rating — it's a day counter, an intensity
@@ -136,17 +136,17 @@ export default function VsLetterboxdPage() {
         </section>
 
         {/* THE CORE DIFFERENCE */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28 bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
               the distinction
             </span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-10 text-balance">
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10 text-balance">
               Past tense vs.{" "}
-              <span className="italic text-accent">present tense.</span>
+              <span className="text-[#5EEAD4]">present tense.</span>
             </h2>
             <div className="grid md:grid-cols-2 gap-10 max-w-4xl">
-              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(244,244,244,0.5)]">
+              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(255,255,255,0.65)]">
                 <p>
                   Letterboxd is a log. You watched a film — past tense — and
                   you record it. The diary is a record of things that happened.
@@ -160,7 +160,7 @@ export default function VsLetterboxdPage() {
                   is a 9 and climbing.
                 </p>
               </div>
-              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(244,244,244,0.5)]">
+              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(255,255,255,0.65)]">
                 <p>
                   Letterboxd has no concept of this. There's no field for "day
                   47 and still not okay." There's no way to log a fic, a song,
@@ -179,12 +179,12 @@ export default function VsLetterboxdPage() {
         </section>
 
         {/* WHAT LETTERBOXD DOES WELL */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">honest assessment</span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-10 text-balance">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>honest assessment</span>
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10 text-balance">
               What Letterboxd{" "}
-              <span className="italic text-accent">genuinely gets right</span>
+              <span className="text-[#5EEAD4]">genuinely gets right</span>
             </h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl">
               {[
@@ -201,11 +201,11 @@ export default function VsLetterboxdPage() {
                   p: "The Letterboxd community writes genuinely good reviews. The lists are a cultural artifact. If you're a film person, the network effects alone make it irreplaceable.",
                 },
               ].map((item) => (
-                <div key={item.h} className="border-t border-[rgba(244,244,244,0.07)] pt-6">
+                <div key={item.h} className="border-t border-[rgba(255,255,255,0.06)] pt-6">
                   <h3 className="font-display text-xl tracking-tight mb-3">
                     {item.h}
                   </h3>
-                  <p className="font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
+                  <p className="font-sans text-base text-[rgba(255,255,255,0.65)] leading-relaxed">
                     {item.p}
                   </p>
                 </div>
@@ -215,38 +215,38 @@ export default function VsLetterboxdPage() {
         </section>
 
         {/* COMPARISON TABLE */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">side by side</span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-12 text-balance">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>side by side</span>
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-12 text-balance">
               The comparison
             </h2>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
-                  <tr className="border-b border-[rgba(244,244,244,0.15)]">
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">
+                  <tr className="border-b border-[rgba(255,255,255,0.12)]">
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
                       Feature
                     </th>
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
                       Letterboxd
                     </th>
-                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">
+                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
                       Hyperfix
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[rgba(244,244,244,0.07)]">
+                <tbody className="divide-y divide-[rgba(255,255,255,0.06)]">
                   {comparisonRows.map((row) => (
                     <tr key={row.feature}>
-                      <td className="py-4 pr-8 font-display text-base tracking-tight text-ink align-top">
+                      <td className="py-4 pr-8 font-display text-base tracking-tight text-white align-top">
                         {row.feature}
                       </td>
                       <td
                         className={`py-4 pr-8 font-sans text-sm leading-snug align-top ${
                           row.edge === "letterboxd" || row.edge === "both"
-                            ? "text-ink font-medium"
-                            : "text-[rgba(244,244,244,0.4)]"
+                            ? "text-white font-medium"
+                            : "text-[rgba(255,255,255,0.55)]"
                         }`}
                       >
                         {(row.edge === "letterboxd" || row.edge === "both") && (
@@ -257,12 +257,12 @@ export default function VsLetterboxdPage() {
                       <td
                         className={`py-4 font-sans text-sm leading-snug align-top ${
                           row.edge === "hyperfix" || row.edge === "both"
-                            ? "text-accent font-medium"
-                            : "text-[rgba(244,244,244,0.4)]"
+                            ? "text-[#5EEAD4] font-medium"
+                            : "text-[rgba(255,255,255,0.55)]"
                         }`}
                       >
                         {(row.edge === "hyperfix" || row.edge === "both") && (
-                          <span className="text-accent mr-1">✓</span>
+                          <span className="text-[#5EEAD4] mr-1">✓</span>
                         )}
                         {row.hyperfix}
                       </td>
@@ -271,7 +271,7 @@ export default function VsLetterboxdPage() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-8 font-display italic text-[rgba(244,244,244,0.4)] text-base max-w-xl">
+            <p className="mt-8 font-display text-[rgba(255,255,255,0.55)] text-base max-w-xl">
               If you're a film person, you should have both. Letterboxd for
               what you've watched. Hyperfix for the one film you've rewatched
               eleven times this month and cannot explain.
@@ -280,21 +280,21 @@ export default function VsLetterboxdPage() {
         </section>
 
         {/* THE ANGLE */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28 bg-[#111113]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-4xl mx-auto">
-            <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tightest text-balance">
+            <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight text-balance">
               Letterboxd knows
               <br />
               what you watched.
               <br />
-              <span className="italic text-accent">
+              <span className="text-[#5EEAD4]">
                 Hyperfix knows what
                 <br />
                 you can't stop watching.
               </span>
             </h2>
             <div className="mt-10 max-w-2xl">
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 There's a difference between a film you loved and a film that
                 consumed two weeks of your life, three notebooks of thoughts,
                 and a group chat that eventually muted you. Letterboxd holds
@@ -305,17 +305,17 @@ export default function VsLetterboxdPage() {
         </section>
 
         {/* FINAL CTA */}
-        <section className="px-6 sm:px-10 py-24 sm:py-36">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-4xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">join the waitlist</span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tightest max-w-2xl text-balance">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>join the waitlist</span>
+            <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tight max-w-2xl text-balance">
               Log the films on Letterboxd.
               <br />
-              <span className="italic text-accent">
+              <span className="text-[#5EEAD4]">
                 Log the obsession here.
               </span>
             </h2>
-            <p className="mt-6 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-xl leading-snug">
+            <p className="mt-6 font-sans text-lg text-[rgba(255,255,255,0.65)] max-w-xl leading-snug">
               Waitlist is open. First access goes out in waves — early users
               get a permanent Pro discount and the best usernames before
               they're gone.

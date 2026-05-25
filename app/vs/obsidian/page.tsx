@@ -105,29 +105,29 @@ export default function VsObsidianPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
+      <main id="main-content" className="relative z-10 text-white" style={{ background: "#070708", minHeight: "100vh" }}>
 
         <Nav />
 
         {/* HERO */}
-        <section className="px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-28">
+        <section className="px-4 sm:px-6 lg:px-8 pt-8 pb-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
               comparison · hyperfix vs obsidian
             </span>
-            <h1 className="font-display font-medium text-[2.8rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[0.92] tracking-crush text-ink text-balance">
+            <h1 className="font-display font-medium text-[2.8rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[0.92] tracking-tight text-white text-balance">
               You built the vault.
               <br />
-              <span className="italic text-accent">You opened it twice.</span>
+              <span className="text-[#5EEAD4]">You opened it twice.</span>
             </h1>
             <div className="mt-10 grid md:grid-cols-2 gap-8 max-w-4xl">
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 Obsidian is extraordinary software. If you want a second brain —
                 interconnected notes, local-first storage, a PKM system you
                 actually own — it's one of the best tools available. The plugin
                 ecosystem alone has people running their entire lives out of it.
               </p>
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 But the Obsidian hyperfixation template you found at midnight,
                 the one with the Dataview query that counts days since the start
                 date and the rating property you had to configure manually — you
@@ -140,24 +140,24 @@ export default function VsObsidianPage() {
         </section>
 
         {/* DISTINCTION */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28 bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
               the distinction
             </span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-10 max-w-3xl text-balance">
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10 max-w-3xl text-balance">
               A vault stores your obsession.{" "}
-              <span className="italic text-accent">Hyperfix holds it.</span>
+              <span className="text-[#5EEAD4]">Hyperfix holds it.</span>
             </h2>
             <div className="grid md:grid-cols-2 gap-10 max-w-4xl">
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 Obsidian is a tool you build. That's both its power and its
                 cost. Every tracker, every database, every Dataview query — you
                 built it. You maintain it. When the schema breaks or the date
                 formula stops working, that's on you, at whatever hour the fix
                 arrived.
               </p>
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 Hyperfix is opinionated by design. The day counter is automatic.
                 The intensity meter is built in. The eulogy writes itself when
                 you close the fix. You don't configure it. You don't maintain
@@ -168,12 +168,12 @@ export default function VsObsidianPage() {
         </section>
 
         {/* WHAT OBSIDIAN DOES WELL */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">honest assessment</span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-10 text-balance">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>honest assessment</span>
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10 text-balance">
               What Obsidian{" "}
-              <span className="italic text-accent">actually does well</span>
+              <span className="text-[#5EEAD4]">actually does well</span>
             </h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl">
               {[
@@ -190,11 +190,11 @@ export default function VsObsidianPage() {
                   p: "Obsidian is exceptional for notes that grow over time — interconnected thoughts, research, backlinks, graph view. If you want to write 6,000 words about the internal logic of a character arc, Obsidian holds that better than Hyperfix ever will.",
                 },
               ].map((item) => (
-                <div key={item.h} className="border-t border-[rgba(244,244,244,0.07)] pt-6">
+                <div key={item.h} className="border-t border-[rgba(255,255,255,0.06)] pt-6">
                   <h3 className="font-display text-xl tracking-tight mb-3">
                     {item.h}
                   </h3>
-                  <p className="font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
+                  <p className="font-sans text-base text-[rgba(255,255,255,0.65)] leading-relaxed">
                     {item.p}
                   </p>
                 </div>
@@ -204,54 +204,54 @@ export default function VsObsidianPage() {
         </section>
 
         {/* COMPARISON TABLE */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">side by side</span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-12 text-balance">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>side by side</span>
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-12 text-balance">
               The comparison
             </h2>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
-                  <tr className="border-b border-[rgba(244,244,244,0.15)]">
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">
+                  <tr className="border-b border-[rgba(255,255,255,0.12)]">
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
                       Feature
                     </th>
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
                       Obsidian
                     </th>
-                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">
+                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
                       Hyperfix
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[rgba(244,244,244,0.07)]">
+                <tbody className="divide-y divide-[rgba(255,255,255,0.06)]">
                   {comparisonRows.map((row) => (
                     <tr key={row.feature} className="group">
-                      <td className="py-4 pr-8 font-display text-base tracking-tight text-ink align-top">
+                      <td className="py-4 pr-8 font-display text-base tracking-tight text-white align-top">
                         {row.feature}
                       </td>
                       <td
                         className={`py-4 pr-8 font-sans text-sm leading-snug align-top ${
                           row.edge === "obsidian"
-                            ? "text-ink font-medium"
-                            : "text-[rgba(244,244,244,0.4)]"
+                            ? "text-white font-medium"
+                            : "text-[rgba(255,255,255,0.55)]"
                         }`}
                       >
                         {row.edge === "obsidian" && (
-                          <span className="text-ink mr-1">✓</span>
+                          <span className="text-white mr-1">✓</span>
                         )}
                         {row.obsidian}
                       </td>
                       <td
                         className={`py-4 font-sans text-sm leading-snug align-top ${
                           row.edge === "hyperfix"
-                            ? "text-accent font-medium"
-                            : "text-[rgba(244,244,244,0.4)]"
+                            ? "text-[#5EEAD4] font-medium"
+                            : "text-[rgba(255,255,255,0.55)]"
                         }`}
                       >
                         {row.edge === "hyperfix" && (
-                          <span className="text-accent mr-1">✓</span>
+                          <span className="text-[#5EEAD4] mr-1">✓</span>
                         )}
                         {row.hyperfix}
                       </td>
@@ -260,7 +260,7 @@ export default function VsObsidianPage() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-8 font-display italic text-[rgba(244,244,244,0.4)] text-base max-w-xl">
+            <p className="mt-8 font-display text-[rgba(255,255,255,0.55)] text-base max-w-xl">
               Obsidian wins on ownership and flexibility. Hyperfix wins on
               knowing what you actually came here for.
             </p>
@@ -268,14 +268,14 @@ export default function VsObsidianPage() {
         </section>
 
         {/* ANGLE */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28 bg-[#111113]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-4xl mx-auto">
-            <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tightest text-balance">
+            <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight text-balance">
               A blank canvas doesn't know what you're building.
               <br />
-              <span className="italic text-accent">Hyperfix does.</span>
+              <span className="text-[#5EEAD4]">Hyperfix does.</span>
             </h2>
-            <p className="mt-10 font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug max-w-3xl">
+            <p className="mt-10 font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug max-w-3xl">
               The Obsidian vault you built for hyperfixation tracking is still
               there. The Dataview table with the broken "days active" formula.
               The four properties you defined at midnight. The three notes you
@@ -286,15 +286,15 @@ export default function VsObsidianPage() {
         </section>
 
         {/* FINAL CTA */}
-        <section className="px-6 sm:px-10 py-24 sm:py-36">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-4xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">join the waitlist</span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tightest max-w-2xl text-balance">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>join the waitlist</span>
+            <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tight max-w-2xl text-balance">
               Keep the vault for thinking.
               <br />
-              <span className="italic text-accent">Use Hyperfix for the crisis.</span>
+              <span className="text-[#5EEAD4]">Use Hyperfix for the crisis.</span>
             </h2>
-            <p className="mt-6 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-xl leading-snug">
+            <p className="mt-6 font-sans text-lg text-[rgba(255,255,255,0.65)] max-w-xl leading-snug">
               Waitlist is open. First access goes out in waves — early users get
               a permanent Pro discount and the best usernames.
             </p>

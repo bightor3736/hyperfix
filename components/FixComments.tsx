@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { addComment, deleteComment } from "@/app/actions/comments";
+import { addComment, deleteComment, updateComment } from "@/app/actions/comments";
 
 type Comment = {
   id: string;
@@ -69,15 +69,15 @@ function Avatar({
         width: 28,
         height: 28,
         borderRadius: "50%",
-        background: "rgba(163,230,53,0.15)",
-        border: "1px solid rgba(163,230,53,0.25)",
+        background: "rgba(94,234,212,0.15)",
+        border: "1px solid rgba(94,234,212,0.25)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         flexShrink: 0,
         fontSize: 10,
         fontFamily: "var(--font-mono, monospace)",
-        color: "#A3E635",
+        color: "#5EEAD4",
         letterSpacing: "0.05em",
       }}
     >
@@ -91,6 +91,11 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
   const [input, setInput] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [hoveredDelete, setHoveredDelete] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(10);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editInput, setEditInput] = useState("");
+  const [savingEdit, setSavingEdit] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -99,6 +104,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
     const content = input.trim();
     setSubmitting(true);
     setInput("");
+    setActionError(null);
 
     // Optimistic add
     const tempId = `temp-${Date.now()}`;
@@ -117,6 +123,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
       // Revert on error
       setComments((prev) => prev.filter((c) => c.id !== tempId));
       setInput(content);
+      setActionError(result.error || "Couldn't post comment. Try again.");
     } else {
       // Replace optimistic with real data
       setComments((prev) =>
@@ -127,14 +134,55 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
     setSubmitting(false);
   }
 
+  function handleStartEdit(comment: Comment) {
+    setActionError(null);
+    setEditingId(comment.id);
+    setEditInput(comment.content);
+  }
+
+  function handleCancelEdit() {
+    setEditingId(null);
+    setEditInput("");
+  }
+
+  async function handleSaveEdit(commentId: string) {
+    const content = editInput.trim();
+    if (!content || savingEdit) return;
+
+    setSavingEdit(true);
+    setActionError(null);
+    const result = await updateComment(commentId, content);
+    setSavingEdit(false);
+
+    if ("error" in result) {
+      setActionError(result.error || "Couldn't update comment. Try again.");
+      return;
+    }
+    setComments((prev) =>
+      prev.map((c) => (c.id === commentId ? { ...c, content } : c))
+    );
+    setEditingId(null);
+    setEditInput("");
+  }
+
   async function handleDelete(commentId: string) {
+    setActionError(null);
+    const index = comments.findIndex((c) => c.id === commentId);
+    const removed = comments[index];
+    if (!removed) return;
+
     // Optimistic remove
     setComments((prev) => prev.filter((c) => c.id !== commentId));
 
     const result = await deleteComment(commentId);
     if (result && "error" in result) {
-      // Revert — re-fetch isn't easy here, but at least surface isn't broken
-      // The page will revalidate on next load
+      // Restore at original position
+      setComments((prev) => {
+        const next = [...prev];
+        next.splice(Math.min(index, next.length), 0, removed);
+        return next;
+      });
+      setActionError(result.error || "Couldn't delete comment. Try again.");
     }
   }
 
@@ -150,7 +198,17 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
         </p>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 20 }}>
-          {comments.map((comment) => {
+          {comments.length > visibleCount && (
+            <button
+              onClick={() => setVisibleCount((c) => c + 20)}
+              className="font-mono text-[11px] uppercase tracking-widest self-start transition-opacity hover:opacity-80"
+              style={{ color: "#5EEAD4", background: "none", border: "none", cursor: "pointer", padding: 0 }}
+            >
+              Show {comments.length - visibleCount} earlier{" "}
+              {comments.length - visibleCount === 1 ? "comment" : "comments"}
+            </button>
+          )}
+          {comments.slice(-visibleCount).map((comment) => {
             const username = comment.profiles?.username ?? null;
             const avatarUrl = comment.profiles?.avatar_url ?? null;
             const isOwn = currentUserId && comment.user_id === currentUserId;
@@ -169,7 +227,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
                       <Link
                         href={`/u/${username}`}
                         className="font-mono text-xs hover:underline"
-                        style={{ color: "#A3E635" }}
+                        style={{ color: "#5EEAD4" }}
                       >
                         @{username}
                       </Link>
@@ -182,39 +240,122 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
                       {timeAgo(comment.created_at)}
                     </span>
                   </div>
-                  <p
-                    className="font-sans text-sm leading-relaxed"
-                    style={{ color: "rgba(244,244,244,0.8)", wordBreak: "break-word" }}
-                  >
-                    {comment.content}
-                  </p>
+                  {editingId === comment.id ? (
+                    <div>
+                      <textarea
+                        value={editInput}
+                        onChange={(e) => setEditInput(e.target.value.slice(0, 500))}
+                        rows={3}
+                        autoFocus
+                        className="font-sans text-sm w-full"
+                        style={{
+                          background: "#111113",
+                          border: "1px solid rgba(244,244,244,0.2)",
+                          borderRadius: "0.75rem",
+                          padding: "8px 12px",
+                          color: "#F4F4F4",
+                          resize: "vertical",
+                          outline: "none",
+                          display: "block",
+                          marginBottom: 6,
+                        }}
+                      />
+                      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                        <button
+                          onClick={() => handleSaveEdit(comment.id)}
+                          disabled={!editInput.trim() || savingEdit}
+                          className="font-mono text-[10px] uppercase tracking-widest"
+                          style={{
+                            background: editInput.trim() && !savingEdit ? "#5EEAD4" : "rgba(94,234,212,0.3)",
+                            color: "#080808",
+                            border: "none",
+                            borderRadius: "9999px",
+                            padding: "4px 12px",
+                            cursor: editInput.trim() && !savingEdit ? "pointer" : "not-allowed",
+                          }}
+                        >
+                          {savingEdit ? "Saving…" : "Save"}
+                        </button>
+                        <button
+                          onClick={handleCancelEdit}
+                          className="font-mono text-[10px] uppercase tracking-widest"
+                          style={{
+                            background: "none",
+                            border: "none",
+                            cursor: "pointer",
+                            color: "rgba(244,244,244,0.4)",
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <p
+                      className="font-sans text-sm leading-relaxed"
+                      style={{ color: "rgba(244,244,244,0.8)", wordBreak: "break-word" }}
+                    >
+                      {comment.content}
+                    </p>
+                  )}
                 </div>
-                {isOwn && (
-                  <button
-                    onClick={() => handleDelete(comment.id)}
-                    aria-label="Delete comment"
+                {isOwn && editingId !== comment.id && (
+                  <div
                     style={{
-                      background: "none",
-                      border: "none",
-                      cursor: "pointer",
-                      padding: "2px 4px",
-                      color: hoveredDelete === comment.id
-                        ? "rgba(244,244,244,0.6)"
-                        : "rgba(244,244,244,0.0)",
-                      fontSize: 12,
-                      lineHeight: 1,
-                      transition: "color 0.15s",
+                      display: "flex",
+                      gap: 4,
                       flexShrink: 0,
                       marginTop: 1,
+                      opacity: hoveredDelete === comment.id ? 1 : 0,
+                      transition: "opacity 0.15s",
                     }}
                   >
-                    ✕
-                  </button>
+                    <button
+                      onClick={() => handleStartEdit(comment)}
+                      aria-label="Edit comment"
+                      style={{
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                        padding: "2px 4px",
+                        color: "rgba(244,244,244,0.6)",
+                        fontSize: 11,
+                        lineHeight: 1,
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(comment.id)}
+                      aria-label="Delete comment"
+                      style={{
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                        padding: "2px 4px",
+                        color: "rgba(244,244,244,0.6)",
+                        fontSize: 12,
+                        lineHeight: 1,
+                      }}
+                    >
+                      ✕
+                    </button>
+                  </div>
                 )}
               </div>
             );
           })}
         </div>
+      )}
+
+      {actionError && (
+        <p
+          className="font-sans text-xs mb-3"
+          style={{ color: "#fda4af" }}
+          role="alert"
+        >
+          {actionError}
+        </p>
       )}
 
       {/* Input area */}
@@ -257,7 +398,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
               disabled={!input.trim() || submitting}
               className="font-mono text-[11px] uppercase tracking-widest"
               style={{
-                background: input.trim() && !submitting ? "#A3E635" : "rgba(163,230,53,0.3)",
+                background: input.trim() && !submitting ? "#5EEAD4" : "rgba(94,234,212,0.3)",
                 color: "#080808",
                 border: "none",
                 borderRadius: "9999px",
@@ -274,7 +415,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
         <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.4)", marginTop: 12 }}>
           <Link
             href="/auth/login"
-            style={{ color: "#A3E635", textDecoration: "underline" }}
+            style={{ color: "#5EEAD4", textDecoration: "underline" }}
           >
             Log in
           </Link>{" "}

@@ -28,30 +28,30 @@ export default function ForgotPasswordPage() {
 
   if (sent) {
     return (
-      <div>
-        <h1
-          className="font-display font-bold text-[28px] leading-tight mb-1"
-          style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}
-        >
-          Check your email
-        </h1>
-        <p className="font-sans text-sm mb-8" style={{ color: "rgba(244,244,244,0.4)" }}>
-          Reset link sent — it may take a minute to arrive.
-        </p>
-        <div
-          className="rounded-xl px-4 py-3 mb-6 font-sans text-sm"
+      <div className="flex flex-col">
+        <span
+          className="self-start inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5 anim-fadeUp"
           style={{
-            background: "rgba(163,230,53,0.08)",
-            border: "1px solid rgba(163,230,53,0.25)",
-            color: "#a3e635",
+            background: "rgba(94,234,212,0.10)",
+            color: "#5EEAD4",
+            border: "1px solid rgba(94,234,212,0.22)",
           }}
         >
-          Check your email — reset link sent.
-        </div>
+          reset link sent
+        </span>
+        <h1
+          className="font-display leading-tight mb-2 anim-fadeUp delay-100"
+          style={{ color: "#FFFFFF", letterSpacing: "-0.02em", fontSize: "clamp(28px, 4.5vw, 36px)", fontWeight: 600 }}
+        >
+          Check your email.
+        </h1>
+        <p className="font-sans text-base mb-8 anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.55)" }}>
+          We&apos;ve sent a reset link to your inbox. It may take a minute to arrive.
+        </p>
         <a
           href="/auth/login"
-          className="font-sans text-sm transition-colors hover:text-accent"
-          style={{ color: "rgba(244,244,244,0.5)" }}
+          className="motion-link self-start font-sans text-sm transition-colors anim-fadeUp delay-300"
+          style={{ color: "#5EEAD4" }}
         >
           ← Back to login
         </a>
@@ -60,23 +60,33 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div>
-      <h1
-        className="font-display font-bold text-[28px] leading-tight mb-1"
-        style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}
+    <div className="flex flex-col">
+      <span
+        className="self-start inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5 anim-fadeUp"
+        style={{
+          background: "rgba(94,234,212,0.10)",
+          color: "#5EEAD4",
+          border: "1px solid rgba(94,234,212,0.22)",
+        }}
       >
-        Reset password
+        reset password
+      </span>
+      <h1
+        className="font-display leading-tight mb-2 anim-fadeUp delay-100"
+        style={{ color: "#FFFFFF", letterSpacing: "-0.02em", fontSize: "clamp(28px, 4.5vw, 36px)", fontWeight: 600 }}
+      >
+        Forgot it?
       </h1>
-      <p className="font-sans text-sm mb-8" style={{ color: "rgba(244,244,244,0.4)" }}>
+      <p className="font-sans text-base mb-8 anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.55)" }}>
         Enter your email and we&apos;ll send a reset link.
       </p>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 anim-fadeUp delay-300">
         <AuthInput
           label="Email address"
           id="email"
           type="email"
-          placeholder="e.g. you@gmail.com"
+          placeholder="you@gmail.com"
           required
           autoComplete="email"
           value={email}
@@ -86,20 +96,20 @@ export default function ForgotPasswordPage() {
         <button
           type="submit"
           disabled={pending}
-          className="w-full rounded-xl py-3.5 font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-          style={{ background: "#A3E635", color: "#0A0A0A" }}
+          className="w-full rounded-full py-3.5 font-sans text-sm font-semibold transition-all hover:opacity-95 active:scale-[0.98] disabled:opacity-60"
+          style={{
+            background: "#FFFFFF",
+            color: "#0A0A0A",
+            boxShadow: "0 1px 0 0 rgba(255,255,255,0.4) inset, 0 8px 28px rgba(94,234,212,0.22)",
+          }}
         >
           {pending ? "Sending…" : "Send reset link"}
         </button>
       </form>
 
-      <p className="mt-6 text-center font-sans text-[13px]" style={{ color: "rgba(244,244,244,0.35)" }}>
+      <p className="mt-6 text-center font-sans text-sm anim-fadeUp delay-500" style={{ color: "rgba(255,255,255,0.45)" }}>
         Remember it?{" "}
-        <a
-          href="/auth/login"
-          className="font-semibold transition-colors hover:text-accent"
-          style={{ color: "#F4F4F4" }}
-        >
+        <a href="/auth/login" className="motion-link font-semibold transition-colors" style={{ color: "#5EEAD4" }}>
           Log in
         </a>
       </p>

@@ -4,6 +4,9 @@ import { useState, useRef } from "react";
 import HyperfixCard from "@/components/HyperfixCard";
 import { TiltCard } from "@/components/TiltCard";
 
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
+
 const NOTES: Record<number, string> = {
   1: "just a mild interest. probably fine.",
   2: "just a mild interest. probably fine.",
@@ -22,7 +25,7 @@ function StepPill({ n }: { n: string }) {
     <span
       className="font-mono text-[10px] font-bold shrink-0"
       style={{
-        background: "#A3E635",
+        background: "#5EEAD4",
         color: "#0A0A0A",
         borderRadius: 999,
         padding: "3px 10px",
@@ -61,9 +64,14 @@ export default function FixCalculator() {
     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
       {/* Controls */}
       <div
-        className="rounded-[24px] border border-[rgba(244,244,244,0.07)] p-6 sm:p-8 space-y-6"
-        style={{ background: "#111113" }}
+        className="relative overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-6"
+        style={{ background: "#0F1011" }}
       >
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none mix-blend-overlay"
+          style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
+        />
         {/* 01 — what is it */}
         <div>
           <div className="flex items-center gap-3 mb-3">
@@ -81,7 +89,7 @@ export default function FixCalculator() {
             maxLength={80}
             className="w-full px-4 py-3.5 font-display text-lg text-[rgba(244,244,244,0.9)] placeholder:text-[rgba(244,244,244,0.25)] focus:outline-none focus:ring-1 focus:ring-accent/50 transition-colors"
             style={{
-              background: "#1C1C1E",
+              background: "rgba(255,255,255,0.04)",
               border: "1px solid rgba(244,244,244,0.08)",
               borderRadius: 12,
             }}
@@ -105,7 +113,7 @@ export default function FixCalculator() {
               <div
                 className="hover:opacity-80 transition-opacity px-4 py-2.5 font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.5)] font-bold"
                 style={{
-                  background: "#1C1C1E",
+                  background: "rgba(255,255,255,0.04)",
                   border: "1px solid rgba(244,244,244,0.08)",
                   borderRadius: 999,
                 }}

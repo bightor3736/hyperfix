@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import { Show, Hide } from "react-iconly";
 
 // ── Shared input ─────────────────────────────────────────────────────────────
 
@@ -33,14 +34,14 @@ export function AuthInput({
   const isPassword = type === "password";
 
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1">
       <label
         htmlFor={id}
         className="font-sans text-[13px] font-medium"
         style={{ color: "rgba(244,244,244,0.65)" }}
       >
         {label}
-        {required && <span style={{ color: "#A3E635", marginLeft: 2 }}>*</span>}
+        {required && <span style={{ color: "#5EEAD4", marginLeft: 2 }}>*</span>}
       </label>
       <div className="relative">
         <input
@@ -53,11 +54,12 @@ export function AuthInput({
           minLength={minLength}
           value={value}
           onChange={onChange ? (e) => onChange(e.target.value) : undefined}
-          className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.2)] focus:ring-2 focus:ring-[#A3E635]/40"
+          className="w-full rounded-2xl px-4 py-3 font-sans text-sm outline-none transition-all duration-200 placeholder:text-[rgba(244,244,244,0.22)] focus:ring-2 focus:ring-[#5EEAD4]/45 focus:border-[rgba(94,234,212,0.35)] focus:-translate-y-px"
           style={{
-            background: "#161616",
-            border: "1px solid rgba(244,244,244,0.1)",
+            background: "rgba(15,16,17,0.85)",
+            border: "1px solid rgba(255,255,255,0.08)",
             color: "#F4F4F4",
+            boxShadow: "0 1px 0 0 rgba(255,255,255,0.02) inset",
           }}
         />
         {isPassword && (
@@ -104,10 +106,10 @@ export function OAuthButtons({ mode }: { mode: "login" | "signup" }) {
         type="button"
         disabled={pending}
         onClick={() => handleOAuth("google")}
-        className="flex-1 flex items-center justify-center gap-2 rounded-xl py-3 font-sans text-sm font-medium transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50"
+        className="flex-1 flex items-center justify-center gap-2 rounded-2xl py-3 font-sans text-sm font-medium transition-all duration-200 hover:-translate-y-px hover:border-[rgba(94,234,212,0.28)] hover:shadow-[0_8px_28px_rgba(94,234,212,0.10)] active:scale-[0.98] disabled:opacity-50"
         style={{
-          background: "#161616",
-          border: "1px solid rgba(244,244,244,0.12)",
+          background: "rgba(15,16,17,0.85)",
+          border: "1px solid rgba(255,255,255,0.10)",
           color: "#F4F4F4",
         }}
       >
@@ -118,10 +120,10 @@ export function OAuthButtons({ mode }: { mode: "login" | "signup" }) {
         type="button"
         disabled={pending}
         onClick={() => handleOAuth("apple")}
-        className="flex-1 flex items-center justify-center gap-2 rounded-xl py-3 font-sans text-sm font-medium transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50"
+        className="flex-1 flex items-center justify-center gap-2 rounded-2xl py-3 font-sans text-sm font-medium transition-all duration-200 hover:-translate-y-px hover:border-[rgba(94,234,212,0.28)] hover:shadow-[0_8px_28px_rgba(94,234,212,0.10)] active:scale-[0.98] disabled:opacity-50"
         style={{
-          background: "#161616",
-          border: "1px solid rgba(244,244,244,0.12)",
+          background: "rgba(15,16,17,0.85)",
+          border: "1px solid rgba(255,255,255,0.10)",
           color: "#F4F4F4",
         }}
       >
@@ -156,10 +158,14 @@ export function SubmitButton({ label, pending }: { label: string; pending?: bool
     <button
       type="submit"
       disabled={pending}
-      className="w-full rounded-xl py-3.5 font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-      style={{ background: "#A3E635", color: "#0A0A0A" }}
+      className="w-full rounded-full py-3 font-sans text-sm font-semibold transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] disabled:opacity-60 relative overflow-hidden"
+      style={{
+        background: "#FFFFFF",
+        color: "#0A0A0A",
+        boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 8px 28px rgba(94,234,212,0.30)",
+      }}
     >
-      {pending ? "Please wait…" : label}
+      <span className="relative z-10">{pending ? "Please wait…" : label}</span>
     </button>
   );
 }
@@ -188,8 +194,8 @@ export function FormSuccess({ message }: { message: string | null }) {
     <p
       className="text-sm font-sans rounded-xl px-4 py-3"
       style={{
-        background: "rgba(163,230,53,0.08)",
-        border: "1px solid rgba(163,230,53,0.25)",
+        background: "rgba(94,234,212,0.08)",
+        border: "1px solid rgba(94,234,212,0.25)",
         color: "#a3e635",
       }}
     >
@@ -267,7 +273,6 @@ export function SignupFormInner() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
-  const supabase = createClient();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -280,42 +285,48 @@ export function SignupFormInner() {
     }
 
     startTransition(async () => {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: { full_name: name },
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
-        },
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, name }),
       });
+      const data = await res.json().catch(() => ({}));
 
-      if (error) {
-        setError(error.message);
-      } else {
-        // Fire-and-forget welcome email
-        fetch("/api/auth/welcome", {
+      if (!res.ok) {
+        setError(data.error || "Something went wrong. Please try again.");
+        return;
+      }
+
+      // Fire-and-forget referral attribution
+      const refCode = typeof localStorage !== "undefined"
+        ? localStorage.getItem("hyperfix_ref")
+        : null;
+      if (refCode) {
+        fetch("/api/referral", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, name }),
-        }).catch(() => {});
-
-        // Fire-and-forget referral attribution
-        const refCode = typeof localStorage !== "undefined"
-          ? localStorage.getItem("hyperfix_ref")
-          : null;
-        if (refCode) {
-          fetch("/api/referral", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ code: refCode }),
-          })
-            .then(() => localStorage.removeItem("hyperfix_ref"))
-            .catch(() => {});
-        }
-
-        setSuccess("Check your email to confirm your account, then log in.");
-        router.push("/auth/verify");
+          body: JSON.stringify({ code: refCode }),
+        })
+          .then(() => localStorage.removeItem("hyperfix_ref"))
+          .catch(() => {});
       }
+
+      // Fire-and-forget affiliate attribution
+      const affSlug = typeof localStorage !== "undefined"
+        ? localStorage.getItem("hf_aff")
+        : null;
+      if (affSlug) {
+        fetch("/api/aff", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ slug: affSlug, event: "signup" }),
+        })
+          .then(() => localStorage.removeItem("hf_aff"))
+          .catch(() => {});
+      }
+
+      setSuccess("Check your email to confirm your account, then log in.");
+      router.push("/auth/verify");
     });
   }
 
@@ -362,23 +373,11 @@ export function SignupFormInner() {
 // ── Icons ─────────────────────────────────────────────────────────────────────
 
 function Eye() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-      <circle cx="12" cy="12" r="3" />
-    </svg>
-  );
+  return <Show set="light" size={17} primaryColor="currentColor" />;
 }
 
 function EyeOff() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
-      <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
-      <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
-      <line x1="2" y1="2" x2="22" y2="22" />
-    </svg>
-  );
+  return <Hide set="light" size={17} primaryColor="currentColor" />;
 }
 
 function GoogleIcon() {

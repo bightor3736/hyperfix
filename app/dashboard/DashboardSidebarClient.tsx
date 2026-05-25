@@ -4,17 +4,19 @@ import { useTransition } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import { LogoWordmark } from "@/components/Logo";
+import { LogoLockup } from "@/components/Logo";
 import { NotificationBell } from "@/components/NotificationBell";
+import { Home, Discovery, Search, Category, Star, Setting, Plus, Logout, Chart } from "react-iconly";
 
 type Props = {
   displayName: string;
   avatarUrl: string | null;
   userEmail: string;
   isPro?: boolean;
+  username?: string | null;
 };
 
-export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPro }: Props) {
+export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPro, username }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const [pending, startTransition] = useTransition();
@@ -32,53 +34,27 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
     {
       href: "/dashboard",
       label: "Dashboard",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-          <polyline points="9 22 9 12 15 12 15 22" />
-        </svg>
-      ),
+      icon: (active: boolean) => <Home set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
     },
     {
       href: "/explore",
       label: "Explore",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="11" cy="11" r="8" />
-          <line x1="21" y1="21" x2="16.65" y2="16.65" />
-        </svg>
-      ),
+      icon: (active: boolean) => <Discovery set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
     },
     {
       href: "/search",
       label: "Search",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="11" cy="11" r="8" />
-          <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          <line x1="8" y1="11" x2="14" y2="11" />
-          <line x1="11" y1="8" x2="11" y2="14" />
-        </svg>
-      ),
+      icon: (active: boolean) => <Search set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
     },
     {
       href: "/dashboard/lists",
       label: "Lists",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="8" y1="6" x2="21" y2="6" />
-          <line x1="8" y1="12" x2="21" y2="12" />
-          <line x1="8" y1="18" x2="21" y2="18" />
-          <line x1="3" y1="6" x2="3.01" y2="6" />
-          <line x1="3" y1="12" x2="3.01" y2="12" />
-          <line x1="3" y1="18" x2="3.01" y2="18" />
-        </svg>
-      ),
+      icon: (active: boolean) => <Category set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
     },
     {
       href: "/dashboard/graveyard",
       label: "Graveyard",
-      icon: (
+      icon: (_active: boolean) => (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="6" y="2" width="12" height="14" rx="6" />
           <path d="M6 16 L4 22 L20 22 L18 16" />
@@ -89,21 +65,17 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
     {
       href: `/wrapped/${new Date().getFullYear()}`,
       label: `Wrapped '${String(new Date().getFullYear()).slice(2)}`,
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-        </svg>
-      ),
+      icon: (active: boolean) => <Star set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
+    },
+    {
+      href: "/dashboard/analytics",
+      label: "Analytics",
+      icon: (active: boolean) => <Chart set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
     },
     {
       href: "/dashboard/settings",
       label: "Settings",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-          <circle cx="12" cy="12" r="3" />
-        </svg>
-      ),
+      icon: (active: boolean) => <Setting set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
     },
   ];
 
@@ -116,9 +88,21 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
       }}
     >
       {/* Logo */}
-      <div className="px-6 pt-6 pb-4">
-        <Link href="/dashboard">
-          <LogoWordmark size="md" />
+      <div className="px-5 pt-5 pb-4">
+        <Link href="/dashboard" className="inline-block transition-transform hover:scale-[1.02]">
+          <LogoLockup size="sm" />
+        </Link>
+      </div>
+
+      {/* New fix CTA */}
+      <div className="px-3 pb-3">
+        <Link
+          href="/dashboard/new"
+          className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
+          style={{ background: "#5EEAD4", color: "#F4F4F4" }}
+        >
+          <Plus set="light" size={16} primaryColor="currentColor" />
+          New fix
         </Link>
       </div>
 
@@ -143,12 +127,12 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
               href={item.href}
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-sans text-sm font-medium transition-all duration-150"
               style={{
-                color: isActive ? "#A3E635" : "rgba(244,244,244,0.5)",
-                background: isActive ? "rgba(163,230,53,0.08)" : "transparent",
-                border: isActive ? "1px solid rgba(163,230,53,0.15)" : "1px solid transparent",
+                color: isActive ? "#5EEAD4" : "rgba(244,244,244,0.5)",
+                background: isActive ? "rgba(94,234,212,0.08)" : "transparent",
+                border: isActive ? "1px solid rgba(94,234,212,0.15)" : "1px solid transparent",
               }}
             >
-              {item.icon}
+              {item.icon(isActive)}
               {item.label}
             </Link>
           );
@@ -163,9 +147,9 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
             <div
               className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
               style={{
-                background: avatarUrl ? "transparent" : "rgba(163,230,53,0.15)",
-                border: "1px solid rgba(163,230,53,0.2)",
-                color: "#A3E635",
+                background: avatarUrl ? "transparent" : "rgba(94,234,212,0.15)",
+                border: "1px solid rgba(94,234,212,0.2)",
+                color: "#5EEAD4",
                 overflow: "hidden",
               }}
             >
@@ -185,9 +169,9 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
                   <span
                     className="font-mono text-[9px] shrink-0 rounded px-1.5 py-0.5"
                     style={{
-                      background: "rgba(163,230,53,0.2)",
-                      color: "#A3E635",
-                      border: "1px solid rgba(163,230,53,0.3)",
+                      background: "rgba(94,234,212,0.2)",
+                      color: "#5EEAD4",
+                      border: "1px solid rgba(94,234,212,0.3)",
                     }}
                   >
                     PRO
@@ -204,24 +188,39 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
           <NotificationBell />
         </div>
 
-        {/* Sign out */}
-        <button
-          onClick={handleSignOut}
-          disabled={pending}
-          className="w-full flex items-center gap-2 px-3 py-2 rounded-xl font-sans text-sm transition-all duration-150 hover:opacity-80 disabled:opacity-50"
-          style={{
-            color: "rgba(244,244,244,0.4)",
-            background: "rgba(244,244,244,0.04)",
-            border: "1px solid rgba(244,244,244,0.06)",
-          }}
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-            <polyline points="16 17 21 12 16 7" />
-            <line x1="21" y1="12" x2="9" y2="12" />
-          </svg>
-          {pending ? "Signing out…" : "Sign out"}
-        </button>
+        {/* Profile + sign out row */}
+        <div className="flex gap-2">
+          {username && (
+            <Link
+              href={`/u/${username}`}
+              className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl font-sans text-xs font-medium transition-all duration-150 hover:opacity-80"
+              style={{
+                color: "rgba(244,244,244,0.5)",
+                background: "rgba(244,244,244,0.04)",
+                border: "1px solid rgba(244,244,244,0.06)",
+              }}
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+              </svg>
+              My profile
+            </Link>
+          )}
+          <button
+            onClick={handleSignOut}
+            disabled={pending}
+            className={`${username ? "" : "w-full "}flex items-center justify-center gap-2 px-3 py-2 rounded-xl font-sans text-xs transition-all duration-150 hover:opacity-80 disabled:opacity-50`}
+            style={{
+              color: "rgba(244,244,244,0.4)",
+              background: "rgba(244,244,244,0.04)",
+              border: "1px solid rgba(244,244,244,0.06)",
+            }}
+          >
+            <Logout set="light" size={14} primaryColor="currentColor" />
+            {pending ? "…" : "Sign out"}
+          </button>
+        </div>
       </div>
     </aside>
   );

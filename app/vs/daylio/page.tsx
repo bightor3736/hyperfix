@@ -110,13 +110,13 @@ export default function DaylioComparisonPage() {
       />
       <Nav />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
-        <section className="px-6 py-24 md:px-12 lg:px-24">
+      <main id="main-content" className="relative z-10 text-white" style={{ background: "#070708", minHeight: "100vh" }}>
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="mx-auto max-w-5xl">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">comparison · hyperfix vs daylio</span>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>comparison · hyperfix vs daylio</span>
             <h1 className="font-display mb-12 text-5xl font-bold leading-tight md:text-6xl lg:text-7xl">
               Daylio tracks your mood.{" "}
-              <em className="text-accent not-italic">Hyperfix tracks what's causing it.</em>
+              <em className="text-[#5EEAD4] not-italic">Hyperfix tracks what's causing it.</em>
             </h1>
             <div className="grid gap-8 md:grid-cols-2">
               <p className="font-sans text-lg leading-relaxed">
@@ -136,20 +136,20 @@ export default function DaylioComparisonPage() {
           </div>
         </section>
 
-        <section className="px-6 py-24 md:px-12 lg:px-24 bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="mx-auto max-w-5xl">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">the distinction</span>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>the distinction</span>
             <h2 className="font-display mb-12 text-4xl font-bold leading-tight md:text-5xl">
               A mood journal logs the symptom.{" "}
-              <em className="text-accent not-italic">Hyperfix tracks the cause.</em>
+              <em className="text-[#5EEAD4] not-italic">Hyperfix tracks the cause.</em>
             </h2>
             <div className="grid gap-8 md:grid-cols-2">
-              <p className="font-sans text-lg leading-relaxed text-[rgba(244,244,244,0.5)]">
+              <p className="font-sans text-lg leading-relaxed text-[rgba(255,255,255,0.65)]">
                 Daylio's model is: you were here, you felt this, you did these things. It's a record
                 of states and activities. The insight is in the aggregate — patterns over weeks and
                 months. It works by accumulating data points until trends emerge.
               </p>
-              <p className="font-sans text-lg leading-relaxed text-[rgba(244,244,244,0.5)]">
+              <p className="font-sans text-lg leading-relaxed text-[rgba(255,255,255,0.65)]">
                 A hyperfixation isn't a data point. It's an era. Day 47 isn't a mood entry — it's a
                 number that means something. The intensity meter isn't a mood rating — it's a live
                 reading of something that's still happening. Hyperfix is built for the specificity of
@@ -159,7 +159,7 @@ export default function DaylioComparisonPage() {
           </div>
         </section>
 
-        <section className="px-6 py-24 md:px-12 lg:px-24">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="mx-auto max-w-5xl">
             <h2 className="font-display mb-12 text-3xl font-bold md:text-4xl">
               What Daylio Does Well
@@ -167,7 +167,7 @@ export default function DaylioComparisonPage() {
             <div className="grid gap-6 md:grid-cols-3">
               <div className="rounded-2xl p-8">
                 <h3 className="font-display mb-4 text-xl font-bold">Mood tracking</h3>
-                <p className="font-sans text-base leading-relaxed text-[rgba(244,244,244,0.5)]">
+                <p className="font-sans text-base leading-relaxed text-[rgba(255,255,255,0.65)]">
                   Daylio's mood correlation over time is genuinely useful. If you want to understand
                   the relationship between your activities and your emotional state across months,
                   Daylio's charts and patterns are built for that.
@@ -175,7 +175,7 @@ export default function DaylioComparisonPage() {
               </div>
               <div className="rounded-2xl p-8">
                 <h3 className="font-display mb-4 text-xl font-bold">The streak</h3>
-                <p className="font-sans text-base leading-relaxed text-[rgba(244,244,244,0.5)]">
+                <p className="font-sans text-base leading-relaxed text-[rgba(255,255,255,0.65)]">
                   Daylio's daily logging streak is a real behaviour design win. The habit of checking
                   in, logging the day, maintaining the streak — it works for people who respond well
                   to streaks, and many do.
@@ -183,7 +183,7 @@ export default function DaylioComparisonPage() {
               </div>
               <div className="rounded-2xl p-8">
                 <h3 className="font-display mb-4 text-xl font-bold">Simplicity</h3>
-                <p className="font-sans text-base leading-relaxed text-[rgba(244,244,244,0.5)]">
+                <p className="font-sans text-base leading-relaxed text-[rgba(255,255,255,0.65)]">
                   Daylio's logging flow is fast. Tap mood, tap activities, done. For people who want
                   a minimal check-in that doesn't take more than thirty seconds, it's hard to beat.
                 </p>
@@ -192,22 +192,22 @@ export default function DaylioComparisonPage() {
           </div>
         </section>
 
-        <section className="px-6 py-24 md:px-12 lg:px-24">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="mx-auto max-w-5xl">
             <h2 className="font-display mb-12 text-3xl font-bold md:text-4xl">
               Feature comparison
             </h2>
-            <div className="overflow-x-auto rounded-2xl border border-[rgba(244,244,244,0.07)]">
+            <div className="overflow-x-auto rounded-2xl border border-[rgba(255,255,255,0.06)]">
               <table className="w-full">
                 <thead>
                   <tr className="bg-[#1C1C1E]">
-                    <th className="font-sans px-6 py-4 text-left text-sm font-semibold text-[rgba(244,244,244,0.5)]">
+                    <th className="font-sans px-6 py-4 text-left text-sm font-semibold text-[rgba(255,255,255,0.65)]">
                       Feature
                     </th>
-                    <th className="font-sans px-6 py-4 text-left text-sm font-semibold text-[rgba(244,244,244,0.5)]">
+                    <th className="font-sans px-6 py-4 text-left text-sm font-semibold text-[rgba(255,255,255,0.65)]">
                       Daylio
                     </th>
-                    <th className="font-sans px-6 py-4 text-left text-sm font-semibold text-[rgba(244,244,244,0.5)]">
+                    <th className="font-sans px-6 py-4 text-left text-sm font-semibold text-[rgba(255,255,255,0.65)]">
                       Hyperfix
                     </th>
                   </tr>
@@ -222,8 +222,8 @@ export default function DaylioComparisonPage() {
                       <td
                         className={`font-sans px-6 py-4 text-sm ${
                           row.edge === "daylio" || row.edge === "both"
-                            ? "font-semibold text-accent"
-                            : "text-[rgba(244,244,244,0.5)]"
+                            ? "font-semibold text-[#5EEAD4]"
+                            : "text-[rgba(255,255,255,0.65)]"
                         }`}
                       >
                         {row.daylio}
@@ -231,8 +231,8 @@ export default function DaylioComparisonPage() {
                       <td
                         className={`font-sans px-6 py-4 text-sm ${
                           row.edge === "hyperfix" || row.edge === "both"
-                            ? "font-semibold text-accent"
-                            : "text-[rgba(244,244,244,0.5)]"
+                            ? "font-semibold text-[#5EEAD4]"
+                            : "text-[rgba(255,255,255,0.65)]"
                         }`}
                       >
                         {row.hyperfix}
@@ -242,21 +242,21 @@ export default function DaylioComparisonPage() {
                 </tbody>
               </table>
             </div>
-            <p className="font-mono mt-6 text-sm text-[rgba(244,244,244,0.4)]">
+            <p className="font-mono mt-6 text-sm text-[rgba(255,255,255,0.55)]">
               Daylio is a good mood journal. Hyperfix is for the specific, consuming, named thing
               that's running your life right now.
             </p>
           </div>
         </section>
 
-        <section className="px-6 py-24 md:px-12 lg:px-24 bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="mx-auto max-w-5xl">
             <h2 className="font-display mb-8 text-4xl font-bold leading-tight md:text-5xl">
               Your mood was 'good'.
               <br />
-              <em className="text-accent not-italic">What you didn't log was why.</em>
+              <em className="text-[#5EEAD4] not-italic">What you didn't log was why.</em>
             </h2>
-            <p className="font-sans max-w-2xl text-lg leading-relaxed text-[rgba(244,244,244,0.5)]">
+            <p className="font-sans max-w-2xl text-lg leading-relaxed text-[rgba(255,255,255,0.65)]">
               Daylio has 847 entries. You've been consistent. The charts show that you're happier on
               weekends and that "reading" correlates with better mood. What the charts don't show is
               that "reading" for eleven weeks was one specific fic. That the mood was good because of
@@ -267,14 +267,14 @@ export default function DaylioComparisonPage() {
           </div>
         </section>
 
-        <section className="px-6 py-24 md:px-12 lg:px-24">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="mx-auto max-w-5xl text-center">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">join the waitlist</span>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>join the waitlist</span>
             <h2 className="font-display mb-6 text-4xl font-bold leading-tight md:text-5xl">
               Log the thing.{" "}
-              <em className="text-accent not-italic">Not just the mood.</em>
+              <em className="text-[#5EEAD4] not-italic">Not just the mood.</em>
             </h2>
-            <p className="font-sans mx-auto mb-12 max-w-xl text-lg leading-relaxed text-[rgba(244,244,244,0.5)]">
+            <p className="font-sans mx-auto mb-12 max-w-xl text-lg leading-relaxed text-[rgba(255,255,255,0.65)]">
               Waitlist is open. First access goes out in waves — early users get a permanent Pro
               discount and the best usernames before they're taken.
             </p>

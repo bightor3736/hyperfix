@@ -6,7 +6,7 @@ export const runtime = "edge";
 const SIZE = { width: 512, height: 512 };
 const PAPER = "#080808";
 const INK = "#F4F4F4";
-const ACCENT = "#A3E635";
+const ACCENT = "#5EEAD4";
 const MUTED = "#525252";
 
 /* 1 — bordered monogram (current pick) */

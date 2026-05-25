@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useMemo, useTransition } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { TagsInput } from "@/components/TagsInput";
+import { CloseSquare, Star } from "react-iconly";
 
 const CATEGORIES = [
   "song", "fanfic", "show", "film", "ship", "game",
@@ -36,11 +37,33 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
   const showWelcome = searchParams.get("welcome") === "1";
   const [pending, startTransition] = useTransition();
 
+  // Pre-fill from a shared link (Web Share Target API → /dashboard/new?title=…&text=…&url=…)
+  const shared = useMemo(() => {
+    const rawTitle = searchParams.get("title") ?? "";
+    const rawText = searchParams.get("text") ?? "";
+    let url = searchParams.get("url") ?? "";
+    let textNoUrl = rawText;
+    if (!url) {
+      const match = rawText.match(/https?:\/\/\S+/);
+      if (match) {
+        url = match[0];
+        textNoUrl = rawText.replace(match[0], "").trim();
+      }
+    }
+    const fixTitle = (rawTitle || textNoUrl).trim().slice(0, 200);
+    return {
+      isShared: !!(fixTitle || url),
+      title: fixTitle,
+      note: url ? `Shared: ${url}` : "",
+    };
+  }, [searchParams]);
+
   const [welcomeDismissed, setWelcomeDismissed] = useState(false);
-  const [title, setTitle] = useState("");
+  const [sharedDismissed, setSharedDismissed] = useState(false);
+  const [title, setTitle] = useState(shared.title);
   const [category, setCategory] = useState<Category | null>(null);
   const [intensity, setIntensity] = useState(5);
-  const [note, setNote] = useState("");
+  const [note, setNote] = useState(shared.note);
   const [isPublic, setIsPublic] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -101,7 +124,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
   const intensityColor =
     intensity >= 9 ? "#E63946" :
     intensity >= 7 ? "#FB923C" :
-    "#A3E635";
+    "#5EEAD4";
 
   return (
     <div className="flex flex-col gap-8">
@@ -110,47 +133,106 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
         <div
           className="relative rounded-xl p-4"
           style={{
-            background: "rgba(163,230,53,0.08)",
-            border: "1px solid rgba(163,230,53,0.2)",
+            background: "rgba(94,234,212,0.08)",
+            border: "1px solid rgba(94,234,212,0.2)",
           }}
         >
           <button
             type="button"
             onClick={() => setWelcomeDismissed(true)}
             className="absolute top-3 right-3 p-1 rounded-lg transition-colors hover:opacity-70"
-            style={{ color: "rgba(163,230,53,0.6)" }}
+            style={{ color: "rgba(94,234,212,0.6)" }}
             aria-label="Dismiss welcome banner"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
+            <CloseSquare set="light" size={15} primaryColor="currentColor" />
           </button>
-          <p className="font-sans text-sm pr-6" style={{ color: "rgba(163,230,53,0.9)" }}>
-            Welcome to Hyperfix 👋 Log your first fix below — what are you unwell about right now?
+          <p className="font-sans text-sm pr-6" style={{ color: "rgba(94,234,212,0.9)" }}>
+            Welcome to Hyperfix 👋 Log your first fix below — what are you obsessed with right now?
           </p>
         </div>
       )}
 
-      {/* Pro limit banner */}
-      {!isPro && activeFixCount >= 3 && (
+      {/* Shared-link banner */}
+      {shared.isShared && !sharedDismissed && (
         <div
-          className="rounded-xl px-4 py-3 flex items-center justify-between gap-4"
+          className="relative rounded-xl p-4"
           style={{
-            background: "rgba(251,146,60,0.08)",
-            border: "1px solid rgba(251,146,60,0.25)",
+            background: "rgba(94,234,212,0.08)",
+            border: "1px solid rgba(94,234,212,0.2)",
           }}
         >
-          <p className="font-sans text-sm" style={{ color: "rgba(251,146,60,0.9)" }}>
-            You&apos;ve hit the free limit (3 active fixes). End one or upgrade to Pro for unlimited.
-          </p>
-          <a
-            href="/pricing"
-            className="font-sans text-sm font-semibold shrink-0 transition-opacity hover:opacity-80"
-            style={{ color: "#FB923C" }}
+          <button
+            type="button"
+            onClick={() => setSharedDismissed(true)}
+            className="absolute top-3 right-3 p-1 rounded-lg transition-colors hover:opacity-70"
+            style={{ color: "rgba(94,234,212,0.6)" }}
+            aria-label="Dismiss shared banner"
           >
-            Upgrade →
-          </a>
+            <CloseSquare set="light" size={15} primaryColor="currentColor" />
+          </button>
+          <p className="font-sans text-sm pr-6" style={{ color: "rgba(94,234,212,0.9)" }}>
+            Imported from a share 📥 We pre-filled what we could — tweak it and start tracking.
+          </p>
+        </div>
+      )}
+
+      {/* Pro limit modal-style block */}
+      {!isPro && activeFixCount >= 3 && (
+        <div
+          className="rounded-2xl p-6 flex flex-col items-center text-center gap-5"
+          style={{
+            background: "linear-gradient(135deg, rgba(94,234,212,0.07) 0%, rgba(45,212,191,0.04) 100%)",
+            border: "1px solid rgba(94,234,212,0.25)",
+            boxShadow: "0 0 40px rgba(94,234,212,0.08)",
+          }}
+        >
+          <div
+            className="w-12 h-12 rounded-2xl flex items-center justify-center"
+            style={{ background: "rgba(94,234,212,0.12)", border: "1px solid rgba(94,234,212,0.2)" }}
+          >
+            <Star set="bold" size={22} primaryColor="#5EEAD4" />
+          </div>
+          <div>
+            <h3 className="font-display font-bold text-xl mb-1" style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}>
+              3-fix limit reached
+            </h3>
+            <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.5)" }}>
+              Free accounts can track 3 active fixes. You&apos;re fully unwell. Upgrade to log more.
+            </p>
+          </div>
+          <ul className="w-full text-left flex flex-col gap-2">
+            {[
+              "Unlimited active fixes",
+              "AI-written eulogies",
+              "Pro badge on your profile",
+              "Priority support",
+            ].map((feature) => (
+              <li key={feature} className="flex items-center gap-2.5 font-sans text-sm" style={{ color: "rgba(244,244,244,0.65)" }}>
+                <span style={{ color: "#5EEAD4", fontSize: 16 }}>✦</span>
+                {feature}
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-col sm:flex-row gap-3 w-full">
+            <a
+              href="/dashboard/settings"
+              className="flex-1 py-3 rounded-xl font-sans text-sm font-bold text-center transition-all hover:opacity-90 active:scale-[0.97]"
+              style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+            >
+              Upgrade to Pro →
+            </a>
+            <a
+              href="/dashboard"
+              className="flex-1 py-3 rounded-xl font-sans text-sm font-medium text-center transition-all hover:opacity-80"
+              style={{
+                background: "rgba(244,244,244,0.06)",
+                border: "1px solid rgba(244,244,244,0.1)",
+                color: "rgba(244,244,244,0.6)",
+              }}
+            >
+              End a fix first
+            </a>
+          </div>
         </div>
       )}
 
@@ -172,7 +254,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
             onClick={() => { setCategory(t.cat); setTitle(""); }}
             className="px-3 py-1.5 rounded-full font-sans text-sm transition-all hover:opacity-90"
             style={category === t.cat
-              ? { background: "#A3E635", color: "#0A0A0A", fontWeight: 600 }
+              ? { background: "#5EEAD4", color: "#0A0A0A", fontWeight: 600 }
               : { background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.6)" }
             }
           >
@@ -187,14 +269,14 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
       {/* Title */}
       <div className="flex flex-col gap-2">
         <label className="font-sans text-[13px] font-medium" style={{ color: "rgba(244,244,244,0.65)" }}>
-          Title <span style={{ color: "#A3E635" }}>*</span>
+          Title <span style={{ color: "#5EEAD4" }}>*</span>
         </label>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="What are you unwell about?"
-          className="w-full rounded-xl px-4 py-4 font-sans text-lg outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A3E635]/40"
+          placeholder="What are you obsessed with?"
+          className="w-full rounded-xl px-4 py-4 font-sans text-lg outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40"
           style={{
             background: "#111113",
             border: "1px solid rgba(244,244,244,0.1)",
@@ -221,9 +303,9 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
                 onClick={() => setCategory(cat)}
                 className="px-3 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150 hover:scale-105 active:scale-[0.97]"
                 style={{
-                  background: isSelected ? "rgba(163,230,53,0.15)" : "rgba(244,244,244,0.05)",
-                  border: isSelected ? "1px solid rgba(163,230,53,0.4)" : "1px solid rgba(244,244,244,0.1)",
-                  color: isSelected ? "#A3E635" : "rgba(244,244,244,0.5)",
+                  background: isSelected ? "rgba(94,234,212,0.15)" : "rgba(244,244,244,0.05)",
+                  border: isSelected ? "1px solid rgba(94,234,212,0.4)" : "1px solid rgba(244,244,244,0.1)",
+                  color: isSelected ? "#5EEAD4" : "rgba(244,244,244,0.5)",
                 }}
               >
                 {cat}
@@ -235,14 +317,14 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
 
       {/* Intensity slider */}
       <div className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2 flex-wrap">
           <label className="font-sans text-[13px] font-medium" style={{ color: "rgba(244,244,244,0.65)" }}>
             Intensity
           </label>
           <div className="flex items-center gap-2">
             <span
               className="font-display font-black leading-none"
-              style={{ color: intensityColor, fontSize: 28, letterSpacing: "-0.04em" }}
+              style={{ color: intensityColor, fontSize: 24, letterSpacing: "-0.04em" }}
             >
               {intensity}
             </span>
@@ -269,7 +351,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
               className="h-full rounded-full transition-all duration-150"
               style={{
                 width: `${(intensity / 10) * 100}%`,
-                background: `linear-gradient(to right, #A3E635, ${intensityColor})`,
+                background: `linear-gradient(to right, #5EEAD4, ${intensityColor})`,
               }}
             />
           </div>
@@ -312,7 +394,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
           onChange={(e) => setNote(e.target.value)}
           placeholder="One sentence about why you're in it"
           rows={3}
-          className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#A3E635]/40 resize-none"
+          className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40 resize-none"
           style={{
             background: "#111113",
             border: "1px solid rgba(244,244,244,0.1)",
@@ -344,8 +426,8 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
           <div
             className="w-10 h-6 rounded-full transition-all duration-200"
             style={{
-              background: isPublic ? "#A3E635" : "rgba(244,244,244,0.1)",
-              border: isPublic ? "1px solid rgba(163,230,53,0.5)" : "1px solid rgba(244,244,244,0.1)",
+              background: isPublic ? "#5EEAD4" : "rgba(244,244,244,0.1)",
+              border: isPublic ? "1px solid rgba(94,234,212,0.5)" : "1px solid rgba(244,244,244,0.1)",
             }}
           >
             <div
@@ -386,7 +468,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
         type="submit"
         disabled={pending}
         className="w-full py-4 rounded-2xl font-sans text-base font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-        style={{ background: "#A3E635", color: "#0A0A0A" }}
+        style={{ background: "#5EEAD4", color: "#0A0A0A" }}
       >
         {pending ? "Saving…" : "Start tracking →"}
       </button>

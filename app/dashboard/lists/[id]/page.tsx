@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { deleteList, removeFixFromList } from "@/app/actions/lists";
+import { ArrowLeft, Edit, Delete, CloseSquare } from "@/components/icons";
 
 type FixInList = {
   id: string;
@@ -48,16 +49,16 @@ function formatDate(iso: string): string {
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
-  song: "#A3E635",
+  song: "#5EEAD4",
   fanfic: "#F472B6",
   show: "#60A5FA",
   film: "#818CF8",
   ship: "#FB7185",
   game: "#34D399",
   "video essay": "#FBBF24",
-  podcast: "#C084FC",
+  podcast: "#A7F3D0",
   book: "#F97316",
-  character: "#E879F9",
+  character: "#5EEAD4",
   other: "rgba(244,244,244,0.4)",
 };
 
@@ -111,9 +112,7 @@ export default async function ListDetailPage({
             className="inline-flex items-center gap-2 font-sans text-sm transition-colors hover:opacity-80"
             style={{ color: "rgba(244,244,244,0.4)" }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
+            <ArrowLeft set="light" size={18} primaryColor="currentColor" />
             Your lists
           </Link>
         </div>
@@ -128,9 +127,9 @@ export default async function ListDetailPage({
                 style={
                   list.is_public
                     ? {
-                        background: "rgba(163,230,53,0.08)",
-                        border: "1px solid rgba(163,230,53,0.2)",
-                        color: "rgba(163,230,53,0.7)",
+                        background: "rgba(94,234,212,0.08)",
+                        border: "1px solid rgba(94,234,212,0.2)",
+                        color: "rgba(94,234,212,0.7)",
                       }
                     : {
                         background: "rgba(244,244,244,0.05)",
@@ -192,10 +191,7 @@ export default async function ListDetailPage({
                   color: "rgba(244,244,244,0.6)",
                 }}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                </svg>
+                <Edit set="light" size={15} primaryColor="currentColor" />
                 Edit
               </Link>
 
@@ -214,12 +210,7 @@ export default async function ListDetailPage({
                     color: "#fda4af",
                   }}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="3 6 5 6 21 6" />
-                    <path d="M19 6l-1 14H6L5 6" />
-                    <path d="M10 11v6M14 11v6" />
-                    <path d="M9 6V4h6v2" />
-                  </svg>
+                  <Delete set="light" size={15} primaryColor="currentColor" />
                   Delete
                 </button>
               </form>
@@ -279,7 +270,7 @@ export default async function ListDetailPage({
 
                     <Link
                       href={`/dashboard/fix/${fix.id}`}
-                      className="font-display font-semibold leading-snug hover:text-[#A3E635] transition-colors block"
+                      className="font-display font-semibold leading-snug hover:text-[#5EEAD4] transition-colors block"
                       style={{
                         color: isEnded ? "rgba(244,244,244,0.55)" : "#F4F4F4",
                         fontSize: 16,
@@ -302,7 +293,7 @@ export default async function ListDetailPage({
                       className="font-mono text-[10px] mt-2"
                       style={{ color: "rgba(244,244,244,0.25)" }}
                     >
-                      <span style={{ color: isEnded ? "rgba(244,244,244,0.25)" : "rgba(163,230,53,0.6)" }}>
+                      <span style={{ color: isEnded ? "rgba(244,244,244,0.25)" : "rgba(94,234,212,0.6)" }}>
                         {days}d
                       </span>
                       {" · "}added {formatDate(item.added_at)}
@@ -327,10 +318,7 @@ export default async function ListDetailPage({
                         }}
                         aria-label={`Remove ${fix.title} from list`}
                       >
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                          <line x1="18" y1="6" x2="6" y2="18" />
-                          <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
+                        <CloseSquare set="light" size={13} primaryColor="currentColor" />
                       </button>
                     </form>
                   )}
@@ -356,9 +344,9 @@ export default async function ListDetailPage({
                 href="/dashboard"
                 className="flex items-center gap-2 px-5 py-2.5 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
                 style={{
-                  background: "rgba(163,230,53,0.12)",
-                  border: "1px solid rgba(163,230,53,0.3)",
-                  color: "#A3E635",
+                  background: "rgba(94,234,212,0.12)",
+                  border: "1px solid rgba(94,234,212,0.3)",
+                  color: "#5EEAD4",
                 }}
               >
                 Browse fixes →

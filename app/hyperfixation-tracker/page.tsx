@@ -3,6 +3,7 @@ import HyperfixCard from "@/components/HyperfixCard";
 import WaitlistForm from "@/components/WaitlistForm";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { RevealSection } from "@/components/RevealSection";
 
 export const metadata: Metadata = {
   title: "Hyperfixation Tracker — log, count, and mourn your obsessions",
@@ -18,6 +19,12 @@ export const metadata: Metadata = {
     images: [{ url: "/api/og?title=Hyperfixation+Tracker&sub=log+%C2%B7+count+%C2%B7+mourn+%C2%B7+hyperfix.app&accent=Tracker", width: 1200, height: 630 }],
   },
 };
+
+const TEAL = "#5EEAD4";
+const CARD_BG = "#0F1011";
+const CARD_BORDER = "rgba(255,255,255,0.06)";
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 const faqs = [
   {
@@ -90,6 +97,54 @@ const sampleCards = [
   },
 ];
 
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <span
+      className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5"
+      style={{
+        background: "rgba(94,234,212,0.10)",
+        color: TEAL,
+        border: "1px solid rgba(94,234,212,0.22)",
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+function SectionHeadline({ children }: { children: React.ReactNode }) {
+  return (
+    <h2
+      className="font-display"
+      style={{
+        color: "#FFFFFF",
+        fontSize: "clamp(28px, 5vw, 44px)",
+        lineHeight: 1.08,
+        letterSpacing: "-0.02em",
+        fontWeight: 600,
+      }}
+    >
+      {children}
+    </h2>
+  );
+}
+
+function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div
+      className={`motion-card relative overflow-hidden rounded-3xl p-6 sm:p-10 ${className}`}
+      style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
+    >
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none mix-blend-overlay"
+        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
+      />
+      <div className="relative">{children}</div>
+    </div>
+  );
+}
+
 export default function HyperfixationTrackerPage() {
   return (
     <>
@@ -102,255 +157,248 @@ export default function HyperfixationTrackerPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
+      <Nav />
+      <div
+        className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative"
+        style={{ background: "#070708" }}
+      >
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none mix-blend-overlay"
+          style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }}
+        />
 
-        <Nav />
-
-        {/* HERO */}
-        <section className="px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-32">
-          <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
-              hyperfixation tracker · hyperfix.app · 2026
-            </span>
-            <h1 className="font-display font-medium text-[3rem] sm:text-[4.5rem] lg:text-[6rem] leading-[0.92] tracking-crush text-ink">
-              Hyperfixation
-              <br />
-              <span className="italic text-accent">Tracker</span>
-            </h1>
-            <p className="mt-8 font-sans text-lg sm:text-xl text-[rgba(244,244,244,0.5)] max-w-2xl leading-snug">
-              A place to log your current obsession, count the days it's lasted,
-              and mourn it when it ends. Built for fandom brains, BookTok
-              readers, K-pop stans, and everyone whose Notes app is full of
-              thoughts about fictional people.
-            </p>
-            <p className="mt-4 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-2xl leading-snug">
-              Not a Notion template. Not a clinical tool. A hyperfixation
-              tracker that actually understands what a hyperfixation is.
-            </p>
-            <WaitlistForm id="waitlist" variant="light" />
-          </div>
-        </section>
-
-        {/* WHAT IS A HYPERFIXATION */}
-        <section className="px-6 sm:px-10 py-20 sm:py-32">
-          <div className="max-w-5xl mx-auto bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)] p-10 sm:p-16">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
-              the definition
-            </span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.98] tracking-tightest mb-10 text-ink">
-              What is a hyperfixation,
-              <br />
-              <span className="italic text-accent">actually?</span>
-            </h2>
-            <div className="grid md:grid-cols-2 gap-10 max-w-4xl">
-              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(244,244,244,0.5)]">
-                <p>
-                  It's not just liking something a lot. A hyperfixation is an
-                  involuntary, consuming focus on one specific thing — a song,
-                  a fic, a ship, a show, a character, a niche historical
-                  event — that takes over your brain for days or weeks at a
-                  time.
-                </p>
-                <p>
-                  You didn't choose it. It arrived. And now you're reading
-                  every Dramione fic ever written, or explaining Genshin Impact
-                  lore to someone who has never played the game and did not ask.
-                </p>
-              </div>
-              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(244,244,244,0.5)]">
-                <p>
-                  The ADHD and autistic communities put language to this. But
-                  you don't need a diagnosis for it to be true. If you've ever
-                  memorized the Hamilton soundtrack in a weekend, built a
-                  moodboard for a character with eleven lines of dialogue, or
-                  sent your friends a four-paragraph analysis of a bridge at
-                  2 a.m. — you know exactly what this is.
-                </p>
-                <p>
-                  Hyperfix gives it a home.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* HOW IT WORKS */}
-        <section className="px-6 sm:px-10 py-20 sm:py-32">
-          <div className="max-w-6xl mx-auto">
-            <div className="mb-16">
-              <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-6">how it works</span>
-              <h2 className="font-display text-4xl sm:text-6xl leading-[0.98] tracking-tightest max-w-2xl text-ink">
-                A tracker that knows
+        <main id="main-content" className="relative max-w-5xl mx-auto flex flex-col gap-6">
+          {/* HERO */}
+          <div
+            className="relative overflow-hidden rounded-3xl p-6 sm:p-10 anim-fadeUp"
+            style={{
+              background:
+                "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
+              border: `1px solid ${CARD_BORDER}`,
+            }}
+          >
+            <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
+            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
+            <div className="relative">
+              <Eyebrow>hyperfixation tracker</Eyebrow>
+              <h1
+                className="font-display anim-fadeUp delay-100"
+                style={{
+                  color: "#FFFFFF",
+                  fontSize: "clamp(36px, 6vw, 60px)",
+                  lineHeight: 1.02,
+                  letterSpacing: "-0.02em",
+                  fontWeight: 600,
+                }}
+              >
+                Log it. Count it.
                 <br />
-                <span className="italic">what it's tracking.</span>
-              </h2>
+                Mourn it when it ends.
+              </h1>
+              <p className="mt-6 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.72)" }}>
+                A place to log your current obsession, count the days it&apos;s lasted, and mourn it when it ends. Built for fandom brains, BookTok readers, K-pop stans, and everyone whose Notes app is full of thoughts about fictional people.
+              </p>
+              <p className="mt-4 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.6)" }}>
+                Not a Notion template. Not a clinical tool. A hyperfixation tracker that actually understands what a hyperfixation is.
+              </p>
+              <div className="mt-7 anim-fadeUp delay-300">
+                <WaitlistForm id="waitlist" variant="light" />
+              </div>
             </div>
+          </div>
 
-            <div className="grid md:grid-cols-2 gap-16 max-w-4xl">
-              <div className="space-y-12">
-                {[
-                  {
-                    n: "01",
-                    h: "Log the fix.",
-                    p: "Name it. Categorize it — song, fic, ship, show, game, real person, niche historical rabbit hole. Add a start date or let Hyperfix timestamp it now. One field is enough to start; the rest fills in as you go.",
-                  },
-                  {
-                    n: "02",
-                    h: "Watch the counter.",
-                    p: "The day counter starts the moment you log. It ticks. Watching it climb is the point — it externalizes the thing your brain is already doing. Set an intensity rating from 1 to 10. Update it when day 3 becomes day 34.",
-                  },
-                  {
-                    n: "03",
-                    h: "Share the card.",
-                    p: "Every fixation generates a shareable card. Drop it in your group chat. Post it to Instagram Stories. Send it to the one friend who also read the fic. The card is designed to be screenshotted — that's not a side feature, it's the product.",
-                  },
-                ].map((s) => (
-                  <div key={s.n} className="border-t border-[rgba(244,244,244,0.07)] pt-6">
-                    <span className="font-mono text-[11px] uppercase tracking-widest text-accent mb-3 block">
-                      step {s.n}
-                    </span>
-                    <h3 className="font-display text-2xl tracking-tight mb-3 text-ink">
-                      {s.h}
-                    </h3>
-                    <p className="font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
-                      {s.p}
+          {/* WHAT IS A HYPERFIXATION */}
+          <RevealSection>
+            <Card>
+              <Eyebrow>the definition</Eyebrow>
+              <SectionHeadline>What is a hyperfixation, actually?</SectionHeadline>
+              <div className="grid md:grid-cols-2 gap-8 mt-8">
+                <div className="space-y-5 font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                  <p>
+                    It&apos;s not just liking something a lot. A hyperfixation is an involuntary, consuming focus on one specific thing — a song, a fic, a ship, a show, a character, a niche historical event — that takes over your brain for days or weeks at a time.
+                  </p>
+                  <p>
+                    You didn&apos;t choose it. It arrived. And now you&apos;re reading every Dramione fic ever written, or explaining Genshin Impact lore to someone who has never played the game and did not ask.
+                  </p>
+                </div>
+                <div className="space-y-5 font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                  <p>
+                    The ADHD and autistic communities put language to this. But you don&apos;t need a diagnosis for it to be true. If you&apos;ve ever memorized the Hamilton soundtrack in a weekend, built a moodboard for a character with eleven lines of dialogue, or sent your friends a four-paragraph analysis of a bridge at 2 a.m. — you know exactly what this is.
+                  </p>
+                  <p>Hyperfix gives it a home.</p>
+                </div>
+              </div>
+            </Card>
+          </RevealSection>
+
+          {/* HOW IT WORKS */}
+          <RevealSection>
+            <Card>
+              <Eyebrow>how it works</Eyebrow>
+              <SectionHeadline>A tracker that knows what it&apos;s tracking.</SectionHeadline>
+
+              <div className="grid md:grid-cols-2 gap-12 mt-10">
+                <div className="space-y-8">
+                  {[
+                    {
+                      n: "01",
+                      h: "Log the fix.",
+                      p: "Name it. Categorize it — song, fic, ship, show, game, real person, niche historical rabbit hole. Add a start date or let Hyperfix timestamp it now. One field is enough to start; the rest fills in as you go.",
+                    },
+                    {
+                      n: "02",
+                      h: "Watch the counter.",
+                      p: "The day counter starts the moment you log. It ticks. Watching it climb is the point — it externalizes the thing your brain is already doing. Set an intensity rating from 1 to 10. Update it when day 3 becomes day 34.",
+                    },
+                    {
+                      n: "03",
+                      h: "Share the card.",
+                      p: "Every fixation generates a shareable card. Drop it in your group chat. Post it to Instagram Stories. Send it to the one friend who also read the fic. The card is designed to be screenshotted — that's not a side feature, it's the product.",
+                    },
+                  ].map((s) => (
+                    <div key={s.n}>
+                      <span className="font-sans text-xs mb-2 block" style={{ color: TEAL }}>
+                        step {s.n}
+                      </span>
+                      <h3
+                        className="font-display mb-2"
+                        style={{ color: "#FFFFFF", fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em" }}
+                      >
+                        {s.h}
+                      </h3>
+                      <p className="font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                        {s.p}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-col gap-8 items-center justify-center">
+                  {sampleCards.map((card, i) => (
+                    <HyperfixCard key={i} {...card} />
+                  ))}
+                </div>
+              </div>
+            </Card>
+          </RevealSection>
+
+          {/* NOT NOTION, NOT CLINICAL */}
+          <RevealSection>
+            <Card>
+              <Eyebrow>the difference</Eyebrow>
+              <SectionHeadline>Not a template. Not a treatment.</SectionHeadline>
+
+              <div className="grid md:grid-cols-2 gap-10 mt-10">
+                <div>
+                  <h3 className="font-display mb-4" style={{ color: "#FFFFFF", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>
+                    Hyperfix vs. Notion
+                  </h3>
+                  <div className="space-y-4 font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                    <p>
+                      Notion is a tool. You design the schema, maintain it manually, and open it when you remember to. It&apos;ll do whatever you tell it. That&apos;s exactly the problem — a hyperfixation doesn&apos;t wait for you to open a database.
+                    </p>
+                    <p>
+                      Hyperfix is built around the specific shape of the thing. The counter runs automatically. The intensity meter has exactly ten bars because that&apos;s enough. The eulogy writes itself when you close the fix. You don&apos;t configure any of this — it&apos;s just how it works.
+                    </p>
+                    <p className="font-display text-lg" style={{ color: TEAL }}>
+                      &ldquo;Notion is a spreadsheet. Hyperfix is a diary.&rdquo;
                     </p>
                   </div>
-                ))}
-              </div>
+                </div>
 
-              <div className="flex flex-col gap-8 items-center justify-center">
-                {sampleCards.map((card, i) => (
-                  <HyperfixCard key={i} {...card} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* NOT NOTION, NOT CLINICAL */}
-        <section className="px-6 sm:px-10 py-20 sm:py-32">
-          <div className="max-w-5xl mx-auto bg-[#1C1C1E] rounded-3xl border border-[rgba(244,244,244,0.07)] p-10 sm:p-16">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">the difference</span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.98] tracking-tightest mb-16 max-w-3xl text-ink">
-              Not a template.
-              <br />
-              <span className="italic text-accent">Not a treatment.</span>
-            </h2>
-
-            <div className="grid md:grid-cols-2 gap-12">
-              <div className="border-t border-[rgba(244,244,244,0.07)] pt-8">
-                <h3 className="font-display text-2xl tracking-tight mb-5 text-ink">
-                  Hyperfix vs. Notion
-                </h3>
-                <div className="space-y-4 font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
-                  <p>
-                    Notion is a tool. You design the schema, maintain it
-                    manually, and open it when you remember to. It'll do
-                    whatever you tell it. That's exactly the problem — a
-                    hyperfixation doesn't wait for you to open a database.
-                  </p>
-                  <p>
-                    Hyperfix is built around the specific shape of the thing.
-                    The counter runs automatically. The intensity meter has
-                    exactly ten bars because that's enough. The eulogy writes
-                    itself when you close the fix. You don't configure any of
-                    this — it's just how it works.
-                  </p>
-                  <p className="font-display italic text-[rgba(244,244,244,0.5)] text-lg">
-                    "Notion is a spreadsheet. Hyperfix is a diary."
-                  </p>
+                <div>
+                  <h3 className="font-display mb-4" style={{ color: "#FFFFFF", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>
+                    Hyperfix vs. clinical trackers
+                  </h3>
+                  <div className="space-y-4 font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                    <p>
+                      Clinical hyperfixation trackers are built for intervention — they&apos;re designed to help you identify patterns and reduce unwanted obsessive thoughts. They&apos;re medical tools and they&apos;re good at being medical tools.
+                    </p>
+                    <p>
+                      Hyperfix doesn&apos;t pathologize. We&apos;re not trying to get you to have fewer hyperfixations or shorter ones. The Marauders fic that consumed your entire March is not a symptom to be managed. It&apos;s a thing that happened, and it deserves a record.
+                    </p>
+                    <p className="font-display text-lg" style={{ color: TEAL }}>
+                      &ldquo;We&apos;re not trying to fix you. We&apos;re trying to count.&rdquo;
+                    </p>
+                  </div>
                 </div>
               </div>
+            </Card>
+          </RevealSection>
 
-              <div className="border-t border-[rgba(244,244,244,0.07)] pt-8">
-                <h3 className="font-display text-2xl tracking-tight mb-5 text-ink">
-                  Hyperfix vs. clinical trackers
-                </h3>
-                <div className="space-y-4 font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
-                  <p>
-                    Clinical hyperfixation trackers are built for intervention
-                    — they're designed to help you identify patterns and reduce
-                    unwanted obsessive thoughts. They're medical tools and
-                    they're good at being medical tools.
-                  </p>
-                  <p>
-                    Hyperfix doesn't pathologize. We're not trying to get you
-                    to have fewer hyperfixations or shorter ones. The Marauders
-                    fic that consumed your entire March is not a symptom to be
-                    managed. It's a thing that happened, and it deserves a
-                    record.
-                  </p>
-                  <p className="font-display italic text-[rgba(244,244,244,0.5)] text-lg">
-                    "We're not trying to fix you. We're trying to count."
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section className="px-6 sm:px-10 py-20 sm:py-32">
-          <div className="max-w-4xl mx-auto">
-            <div className="mb-16">
-              <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-6">
-                frequently · asked · questions
-              </span>
-              <h2 className="font-display text-4xl sm:text-6xl leading-[0.98] tracking-tightest text-ink">
-                Everything you wanted
-                <br />
-                <span className="italic text-accent">to ask.</span>
-              </h2>
-            </div>
-            <div className="divide-y divide-[rgba(244,244,244,0.07)] border-y border-[rgba(244,244,244,0.07)]">
-              {faqs.map((faq, i) => (
-                <details
-                  key={i}
-                  className="group py-6 [&_summary::-webkit-details-marker]:hidden"
-                >
-                  <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
-                    <h3 className="font-display text-xl sm:text-2xl tracking-tight leading-snug text-ink">
-                      <span className="font-mono text-xs text-accent mr-3 tabular">
-                        {String(i + 1).padStart(2, "0")}
+          {/* FAQ */}
+          <RevealSection>
+            <Card>
+              <Eyebrow>frequently asked</Eyebrow>
+              <SectionHeadline>Everything you wanted to ask.</SectionHeadline>
+              <div className="mt-8 divide-y" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+                {faqs.map((faq, i) => (
+                  <details
+                    key={i}
+                    className="group py-5 [&_summary::-webkit-details-marker]:hidden"
+                    style={{ borderTop: i === 0 ? `1px solid rgba(255,255,255,0.06)` : undefined, borderBottom: `1px solid rgba(255,255,255,0.06)` }}
+                  >
+                    <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
+                      <h3
+                        className="font-display"
+                        style={{ color: "#FFFFFF", fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.3 }}
+                      >
+                        <span className="mr-3 tabular-nums" style={{ color: TEAL, fontSize: 13 }}>
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        {faq.q}
+                      </h3>
+                      <span aria-hidden="true" className="text-xl group-open:rotate-45 transition-transform shrink-0" style={{ color: TEAL }}>
+                        +
                       </span>
-                      {faq.q}
-                    </h3>
-                    <span aria-hidden="true" className="font-mono text-2xl text-[rgba(244,244,244,0.4)] group-open:rotate-45 transition-transform shrink-0">
-                      +
-                    </span>
-                  </summary>
-                  <p className="mt-4 ml-10 font-sans text-base sm:text-lg text-[rgba(244,244,244,0.5)] leading-relaxed max-w-2xl">
-                    {faq.a}
-                  </p>
-                </details>
-              ))}
+                    </summary>
+                    <p className="mt-4 ml-9 font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                      {faq.a}
+                    </p>
+                  </details>
+                ))}
+              </div>
+            </Card>
+          </RevealSection>
+
+          {/* FINAL CTA */}
+          <RevealSection>
+            <div
+              className="relative overflow-hidden rounded-3xl p-8 sm:p-14 text-center"
+              style={{
+                background:
+                  "radial-gradient(ellipse 80% 120% at 50% 130%, #2DD4BF 0%, #0E4F47 26%, #08231F 50%, #0F1011 80%)",
+                border: `1px solid ${CARD_BORDER}`,
+              }}
+            >
+              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "220px 220px", opacity: 0.5 }} />
+              <div className="relative">
+                <Eyebrow>join the waitlist</Eyebrow>
+                <h2
+                  className="font-display"
+                  style={{
+                    color: "#FFFFFF",
+                    fontSize: "clamp(30px, 5vw, 48px)",
+                    letterSpacing: "-0.02em",
+                    fontWeight: 600,
+                    lineHeight: 1.05,
+                  }}
+                >
+                  Your hyperfixation deserves a record.
+                </h2>
+                <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.72)" }}>
+                  The waitlist gets first access in waves. Early users get a permanent Pro discount and the most embarrassing usernames before they&apos;re gone.
+                </p>
+                <div className="mt-6">
+                  <WaitlistForm variant="dark" />
+                </div>
+              </div>
             </div>
-          </div>
-        </section>
-
-        {/* FINAL CTA */}
-        <section className="px-6 sm:px-10 py-24 sm:py-40">
-          <div className="max-w-4xl mx-auto text-center bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)] p-12 sm:p-20">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
-              join the waitlist
-            </span>
-            <h2 className="font-display text-5xl sm:text-7xl leading-[0.92] tracking-crush text-ink">
-              Your hyperfixation
-              <br />
-              <span className="italic text-accent">deserves a record.</span>
-            </h2>
-            <p className="mt-8 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-xl mx-auto leading-snug">
-              The waitlist gets first access in waves. Early users get a
-              permanent Pro discount and the most embarrassing usernames before
-              they're gone.
-            </p>
-            <WaitlistForm variant="dark" />
-          </div>
-        </section>
-
-        <Footer />
-      </main>
+          </RevealSection>
+        </main>
+      </div>
+      <Footer />
     </>
   );
 }

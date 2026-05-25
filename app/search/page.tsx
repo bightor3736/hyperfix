@@ -1,13 +1,20 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { LogoDark } from "@/components/Logo";
 import type { Metadata } from "next";
 import { SearchInput } from "./SearchInput";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Search · Hyperfix",
   description: "Search fixes and people on Hyperfix.",
 };
+
+const TEAL = "#5EEAD4";
+const CARD_BG = "#0F1011";
+const CARD_BORDER = "rgba(255,255,255,0.06)";
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 type Profile = {
   id: string;
@@ -62,19 +69,17 @@ function ProfileCard({ profile }: { profile: Profile }) {
   return (
     <Link
       href={`/u/${profile.username}`}
-      className="flex items-center gap-4 rounded-2xl p-4 transition-all duration-200 hover:-translate-y-0.5"
-      style={{
-        background: "#111113",
-        border: "1px solid rgba(244,244,244,0.07)",
-      }}
+      className="motion-card group relative overflow-hidden flex items-center gap-4 rounded-3xl p-5"
+      style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, textDecoration: "none" }}
     >
+      <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
       <div
-        className="shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-mono font-bold overflow-hidden"
+        className="relative shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-sans font-semibold overflow-hidden"
         style={{
-          background: "rgba(163,230,53,0.15)",
-          border: "1px solid rgba(163,230,53,0.2)",
+          background: "rgba(94,234,212,0.15)",
+          border: "1px solid rgba(94,234,212,0.22)",
           fontSize: 13,
-          color: "#A3E635",
+          color: TEAL,
         }}
       >
         {profile.avatar_url ? (
@@ -84,21 +89,21 @@ function ProfileCard({ profile }: { profile: Profile }) {
           initials
         )}
       </div>
-      <div className="min-w-0 flex-1">
-        <p className="font-display font-medium truncate" style={{ fontSize: 15, color: "#F4F4F4" }}>
+      <div className="relative min-w-0 flex-1">
+        <p className="font-display truncate" style={{ fontSize: 15, color: "#FFFFFF", fontWeight: 600 }}>
           {profile.display_name ?? profile.username ?? "Unknown"}
         </p>
         {profile.username && (
-          <p className="font-mono" style={{ fontSize: 11, color: "rgba(244,244,244,0.4)" }}>
+          <p className="font-sans" style={{ fontSize: 12, color: "rgba(255,255,255,0.45)" }}>
             @{profile.username}
           </p>
         )}
         {profile.bio && (
           <p
-            className="mt-1"
+            className="font-sans mt-1"
             style={{
               fontSize: 12,
-              color: "rgba(244,244,244,0.35)",
+              color: "rgba(255,255,255,0.4)",
               overflow: "hidden",
               display: "-webkit-box",
               WebkitLineClamp: 1,
@@ -124,67 +129,69 @@ function FixCard({ fix }: { fix: FixResult }) {
   return (
     <Link
       href={`/fix/${fix.id}`}
-      className="block rounded-2xl p-4 transition-all duration-200 hover:-translate-y-0.5 group"
-      style={{
-        background: "#111113",
-        border: "1px solid rgba(244,244,244,0.07)",
-      }}
+      className="motion-card group block relative overflow-hidden rounded-3xl p-5"
+      style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, textDecoration: "none" }}
     >
-      <div className="flex items-center gap-2 mb-3">
-        <span
-          className="font-mono uppercase tracking-widest rounded-full px-2.5 py-1"
+      <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
+      <div className="relative">
+        <div className="flex items-center gap-2 mb-3">
+          <span
+            className="font-sans rounded-full px-2.5 py-0.5"
+            style={{
+              fontSize: 11,
+              background: "rgba(94,234,212,0.10)",
+              border: "1px solid rgba(94,234,212,0.22)",
+              color: TEAL,
+            }}
+          >
+            {emoji} {fix.category}
+          </span>
+        </div>
+        <h3
+          className="font-display mb-2 group-hover:text-[#5EEAD4] transition-colors"
           style={{
-            fontSize: 9,
-            background: "rgba(163,230,53,0.08)",
-            border: "1px solid rgba(163,230,53,0.2)",
-            color: "#A3E635",
+            fontSize: 16,
+            lineHeight: 1.3,
+            color: "#FFFFFF",
+            fontWeight: 600,
+            letterSpacing: "-0.01em",
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
           }}
         >
-          {emoji} {fix.category}
-        </span>
-      </div>
-      <h3
-        className="font-display font-medium mb-2 group-hover:text-[#A3E635] transition-colors"
-        style={{
-          fontSize: 15,
-          lineHeight: 1.35,
-          color: "#F4F4F4",
-          display: "-webkit-box",
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: "vertical",
-          overflow: "hidden",
-        }}
-      >
-        {fix.title}
-      </h3>
-      <p className="font-mono text-sm mb-3" style={{ color: "#A3E635" }}>
-        {days} {days === 1 ? "day" : "days"}
-      </p>
-      <div
-        className="flex items-center gap-2 pt-3"
-        style={{ borderTop: "1px solid rgba(244,244,244,0.06)" }}
-      >
+          {fix.title}
+        </h3>
+        <p className="font-sans text-sm mb-3 tabular-nums" style={{ color: TEAL }}>
+          {days} {days === 1 ? "day" : "days"}
+        </p>
         <div
-          className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center font-mono font-bold overflow-hidden"
-          style={{
-            background: "rgba(163,230,53,0.15)",
-            border: "1px solid rgba(163,230,53,0.2)",
-            fontSize: 8,
-            color: "#A3E635",
-          }}
+          className="flex items-center gap-2 pt-3"
+          style={{ borderTop: `1px solid ${CARD_BORDER}` }}
         >
-          {avatarUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={avatarUrl} alt={username ?? "user"} className="w-full h-full object-cover" />
-          ) : (
-            initials
+          <div
+            className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center font-sans font-semibold overflow-hidden"
+            style={{
+              background: "rgba(94,234,212,0.15)",
+              border: "1px solid rgba(94,234,212,0.22)",
+              fontSize: 8,
+              color: TEAL,
+            }}
+          >
+            {avatarUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={avatarUrl} alt={username ?? "user"} className="w-full h-full object-cover" />
+            ) : (
+              initials
+            )}
+          </div>
+          {username && (
+            <span className="font-sans truncate" style={{ fontSize: 11, color: "rgba(255,255,255,0.45)" }}>
+              @{username}
+            </span>
           )}
         </div>
-        {username && (
-          <span className="font-mono truncate" style={{ fontSize: 10, color: "rgba(244,244,244,0.4)" }}>
-            @{username}
-          </span>
-        )}
       </div>
     </Link>
   );
@@ -198,7 +205,7 @@ export default async function SearchPage({
   const { q } = await searchParams;
   const query = q?.trim() ?? "";
 
-  let profiles: Profile[] = [];
+  const profiles: Profile[] = [];
   let fixes: FixResult[] = [];
 
   if (query) {
@@ -207,7 +214,9 @@ export default async function SearchPage({
     const [
       { data: byUsername },
       { data: byDisplayName },
-      { data: fixData },
+      { data: byTitle },
+      { data: byTag },
+      { data: byCategory },
     ] = await Promise.all([
       supabase
         .from("profiles")
@@ -229,9 +238,24 @@ export default async function SearchPage({
         .is("ended_at", null)
         .order("created_at", { ascending: false })
         .limit(20),
+      supabase
+        .from("fixes")
+        .select("id, title, category, status, intensity, started_at, ended_at, profiles(username, display_name, avatar_url)")
+        .eq("is_public", true)
+        .contains("tags", [query.toLowerCase()])
+        .is("ended_at", null)
+        .order("created_at", { ascending: false })
+        .limit(10),
+      supabase
+        .from("fixes")
+        .select("id, title, category, status, intensity, started_at, ended_at, profiles(username, display_name, avatar_url)")
+        .eq("is_public", true)
+        .ilike("category", query)
+        .is("ended_at", null)
+        .order("created_at", { ascending: false })
+        .limit(10),
     ]);
 
-    // Merge and deduplicate profiles by id
     const seen = new Set<string>();
     for (const p of [...(byUsername ?? []), ...(byDisplayName ?? [])]) {
       if (!seen.has(p.id)) {
@@ -240,99 +264,103 @@ export default async function SearchPage({
       }
     }
 
-    fixes = (fixData ?? []) as unknown as FixResult[];
+    const seenFixes = new Set<string>();
+    for (const f of [...(byTitle ?? []), ...(byTag ?? []), ...(byCategory ?? [])]) {
+      const fix = f as unknown as FixResult;
+      if (!seenFixes.has(fix.id)) {
+        seenFixes.add(fix.id);
+        fixes.push(fix);
+      }
+    }
   }
 
   const hasResults = profiles.length > 0 || fixes.length > 0;
 
   return (
-    <div className="min-h-screen" style={{ background: "#0A0A0A", color: "#F4F4F4" }}>
-      {/* Nav */}
-      <nav className="border-b" style={{ borderColor: "rgba(244,244,244,0.07)" }}>
-        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" aria-label="Hyperfix home">
-            <LogoDark size="sm" />
-          </Link>
-          <Link
-            href="/explore"
-            className="font-mono text-[11px] uppercase tracking-widest transition-colors"
-            style={{ color: "rgba(244,244,244,0.5)" }}
-          >
-            Explore →
-          </Link>
-        </div>
-      </nav>
+    <>
+      <Nav />
+      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
+        <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
 
-      <main className="max-w-5xl mx-auto px-6 py-12">
-        {/* Search input */}
-        <div className="mb-12">
-          <SearchInput defaultValue={query} />
-        </div>
+        <main id="main-content" className="relative max-w-5xl mx-auto flex flex-col gap-6">
+          {/* Hero card */}
+          <div className="relative overflow-hidden rounded-3xl p-6 sm:p-10 anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)", border: `1px solid ${CARD_BORDER}` }}>
+            <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
+            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
+            <div className="relative">
+              <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>search</span>
+              <h1 className="font-display anim-fadeUp delay-100 mb-6" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 4.5vw, 40px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}>
+                What are you obsessed with?
+              </h1>
+              <div className="anim-fadeUp delay-200">
+                <SearchInput defaultValue={query} />
+              </div>
+            </div>
+          </div>
 
-        {/* Results */}
-        {query && (
-          <div>
-            {!hasResults ? (
-              <div className="flex flex-col items-center justify-center py-24 text-center">
-                <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>
-                  No results for &ldquo;{query}&rdquo;
+          {/* Results */}
+          {query && (
+            <>
+              {!hasResults ? (
+                <div className="motion-card relative overflow-hidden rounded-3xl p-10 sm:p-16 text-center" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+                  <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
+                  <div className="relative">
+                    <p className="font-display mb-2" style={{ color: "rgba(255,255,255,0.85)", fontSize: 24, fontWeight: 600, letterSpacing: "-0.01em" }}>
+                      No results for &ldquo;{query}&rdquo;
+                    </p>
+                    <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>
+                      Try a different search term.
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {profiles.length > 0 && (
+                    <section>
+                      <h2 className="font-sans text-xs mb-4 px-1" style={{ color: TEAL }}>
+                        People · {profiles.length}
+                      </h2>
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        {profiles.map((profile) => (
+                          <ProfileCard key={profile.id} profile={profile} />
+                        ))}
+                      </div>
+                    </section>
+                  )}
+
+                  {fixes.length > 0 && (
+                    <section>
+                      <h2 className="font-sans text-xs mb-4 px-1" style={{ color: TEAL }}>
+                        Fixes · {fixes.length}
+                      </h2>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {fixes.map((fix) => (
+                          <FixCard key={fix.id} fix={fix} />
+                        ))}
+                      </div>
+                    </section>
+                  )}
+                </>
+              )}
+            </>
+          )}
+
+          {!query && (
+            <div className="motion-card relative overflow-hidden rounded-3xl p-10 sm:p-16 text-center" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
+              <div className="relative">
+                <p className="font-display mb-2" style={{ color: "rgba(255,255,255,0.7)", fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em" }}>
+                  Search for fixes or people.
                 </p>
-                <p className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>
-                  Try a different search term.
+                <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>
+                  Start typing above.
                 </p>
               </div>
-            ) : (
-              <div className="flex flex-col gap-12">
-                {/* People section */}
-                {profiles.length > 0 && (
-                  <section>
-                    <h2
-                      className="font-mono uppercase tracking-widest mb-5"
-                      style={{ fontSize: 11, color: "rgba(244,244,244,0.4)" }}
-                    >
-                      People · {profiles.length}
-                    </h2>
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      {profiles.map((profile) => (
-                        <ProfileCard key={profile.id} profile={profile} />
-                      ))}
-                    </div>
-                  </section>
-                )}
-
-                {/* Fixes section */}
-                {fixes.length > 0 && (
-                  <section>
-                    <h2
-                      className="font-mono uppercase tracking-widest mb-5"
-                      style={{ fontSize: 11, color: "rgba(244,244,244,0.4)" }}
-                    >
-                      Fixes · {fixes.length}
-                    </h2>
-                    <div className="masonry-grid" style={{ columnGap: "16px" }}>
-                      {fixes.map((fix) => (
-                        <FixCard key={fix.id} fix={fix} />
-                      ))}
-                    </div>
-                  </section>
-                )}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Empty state when no query */}
-        {!query && (
-          <div className="flex flex-col items-center justify-center py-24 text-center">
-            <p className="font-display text-2xl mb-2" style={{ color: "rgba(244,244,244,0.4)" }}>
-              What are you unwell about?
-            </p>
-            <p className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.25)" }}>
-              Search for fixes or people.
-            </p>
-          </div>
-        )}
-      </main>
-    </div>
+            </div>
+          )}
+        </main>
+      </div>
+      <Footer />
+    </>
   );
 }

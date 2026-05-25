@@ -50,13 +50,13 @@ export function PWAInstallPrompt() {
         className="max-w-sm mx-auto rounded-2xl p-4 flex items-center gap-4"
         style={{
           background: "#1C1C1E",
-          border: "1px solid rgba(163,230,53,0.2)",
+          border: "1px solid rgba(94,234,212,0.2)",
           boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
         }}
       >
         <div
           className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-display font-black text-sm"
-          style={{ background: "#A3E635", color: "#0A0A0A" }}
+          style={{ background: "#5EEAD4", color: "#0A0A0A" }}
         >
           hf
         </div>
@@ -72,7 +72,7 @@ export function PWAInstallPrompt() {
           <button
             onClick={handleInstall}
             className="px-3 py-1.5 rounded-full font-sans text-xs font-bold transition-all hover:opacity-90"
-            style={{ background: "#A3E635", color: "#0A0A0A" }}
+            style={{ background: "#5EEAD4", color: "#0A0A0A" }}
           >
             Add
           </button>

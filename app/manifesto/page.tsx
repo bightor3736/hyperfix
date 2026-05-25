@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { RevealSection } from "@/components/RevealSection";
 
 export const metadata: Metadata = {
   title: "The Hyperfix Manifesto — on hyperfixation, obsession, and the things that run your life",
@@ -16,6 +17,12 @@ export const metadata: Metadata = {
     images: [{ url: "/api/og?title=The+Manifesto&sub=on+obsession%2C+counting%2C+and+the+things+that+ran+your+life+%C2%B7+hyperfix.app&accent=Manifesto", width: 1200, height: 630 }],
   },
 };
+
+const TEAL = "#5EEAD4";
+const CARD_BG = "#0F1011";
+const CARD_BORDER = "rgba(255,255,255,0.06)";
+const NOISE_URL =
+  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -111,100 +118,98 @@ const sections = [
 export default function ManifestoPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
-        <Nav />
+      <Nav />
+      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
+        <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
 
-        {/* HEADER */}
-        <section className="px-6 sm:px-10 pt-16 sm:pt-24 pb-16 border-b border-[rgba(244,244,244,0.07)]">
-          <div className="max-w-3xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
-              the manifesto · hyperfix · 2026
-            </span>
-            <h1 className="font-display font-medium text-[3rem] sm:text-[5rem] leading-[0.9] tracking-crush text-ink text-balance">
-              On obsession,
-              <br />
-              <span className="italic text-accent">counting,</span>
-              <br />
-              and the things
-              <br />
-              that ran your life.
-            </h1>
+        <main id="main-content" className="relative max-w-3xl mx-auto flex flex-col gap-6">
+          {/* Hero card */}
+          <div className="relative overflow-hidden rounded-3xl p-6 sm:p-10 anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)", border: `1px solid ${CARD_BORDER}` }}>
+            <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
+            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
+            <div className="relative">
+              <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>the manifesto</span>
+              <h1 className="font-display anim-fadeUp delay-100" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 6vw, 60px)", lineHeight: 1.02, letterSpacing: "-0.02em", fontWeight: 600 }}>
+                On obsession, counting,
+                <br />
+                and the things that ran your life.
+              </h1>
+            </div>
           </div>
-        </section>
 
-        {/* BODY */}
-        <section className="px-6 sm:px-10 py-16 sm:py-24">
-          <div className="max-w-3xl mx-auto">
-            <div className="space-y-20">
-              {sections.map((sec) => (
-                <div key={sec.n}>
-                  <div className="flex items-baseline gap-5 mb-6">
-                    <span className="font-mono text-[11px] uppercase tracking-widest text-accent shrink-0">
+          {/* Body sections */}
+          {sections.map((sec) => (
+            <RevealSection key={sec.n}>
+              <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-10" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+                <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
+                <div className="relative">
+                  <div className="flex items-baseline gap-4 mb-5">
+                    <span className="font-display tabular-nums" style={{ color: TEAL, fontSize: 18, fontWeight: 600 }}>
                       {sec.n}
                     </span>
-                    <h2 className="font-display text-2xl sm:text-3xl leading-tight tracking-tight text-ink">
+                    <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 600, letterSpacing: "-0.02em", lineHeight: 1.15 }}>
                       {sec.h}
                     </h2>
                   </div>
-                  <div className="ml-10 space-y-5">
+                  <div className="space-y-5 sm:pl-8">
                     {sec.body.map((para, i) => (
-                      <p
-                        key={i}
-                        className="font-sans text-lg sm:text-xl text-[rgba(244,244,244,0.5)] leading-relaxed"
-                      >
+                      <p key={i} className="font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
                         {para}
                       </p>
                     ))}
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            </RevealSection>
+          ))}
 
-            {/* SIGN-OFF */}
-            <div className="mt-20 pt-10 border-t border-[rgba(244,244,244,0.07)]">
-              <p className="font-display italic text-2xl text-[rgba(244,244,244,0.5)] leading-snug mb-8">
-                "You were unwell about something. It ran your life for a while.
-                That's worth counting."
-              </p>
-              <p className="font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)]">
-                — the hyperfix team, 2026
-              </p>
+          {/* Sign-off */}
+          <RevealSection>
+            <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-10" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
+              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
+              <div className="relative">
+                <p className="font-display text-xl sm:text-2xl leading-snug mb-6" style={{ color: "rgba(255,255,255,0.85)", fontWeight: 600, letterSpacing: "-0.01em" }}>
+                  &ldquo;You were unwell about something. It ran your life for a while. That&apos;s worth counting.&rdquo;
+                </p>
+                <p className="font-sans text-xs" style={{ color: TEAL }}>
+                  — the hyperfix team, 2026
+                </p>
+              </div>
             </div>
-          </div>
-        </section>
+          </RevealSection>
 
-        {/* CTA — low key, this isn't an SEO page */}
-        <section className="px-6 sm:px-10 py-16 sm:py-24 bg-[#111113]">
-          <div className="max-w-3xl mx-auto flex flex-col sm:flex-row sm:items-end justify-between gap-8">
-            <div>
-              <h2 className="font-display text-3xl sm:text-4xl leading-tight tracking-tightest mb-3 text-balance">
-                Join the waitlist.
-              </h2>
-              <p className="font-sans text-base text-[rgba(244,244,244,0.4)] max-w-sm leading-snug">
-                First access goes out in waves. Early users get a permanent
-                Pro discount.
-              </p>
+          {/* CTA */}
+          <RevealSection>
+            <div className="relative overflow-hidden rounded-3xl p-8 sm:p-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #2DD4BF 0%, #0E4F47 26%, #08231F 50%, #0F1011 80%)", border: `1px solid ${CARD_BORDER}` }}>
+              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "220px 220px", opacity: 0.5 }} />
+              <div className="relative">
+                <h2 className="font-display mb-2" style={{ color: "#FFFFFF", fontSize: "clamp(24px, 4vw, 32px)", fontWeight: 600, letterSpacing: "-0.02em" }}>
+                  Join the waitlist.
+                </h2>
+                <p className="font-sans text-sm max-w-sm" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  First access goes out in waves. Early users get a permanent Pro discount.
+                </p>
+              </div>
+              <a
+                href="/#waitlist"
+                className="relative inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] shrink-0"
+                style={{
+                  background: "#FFFFFF",
+                  color: "#0A0A0A",
+                  borderRadius: 999,
+                  boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 40px rgba(94,234,212,0.25)",
+                }}
+              >
+                Get on the list →
+              </a>
             </div>
-            <a
-              href="/#waitlist"
-              className="font-mono text-[11px] uppercase tracking-widest rounded-full px-6 py-4 bg-accent text-[#0A0A0A] hover:opacity-90 transition-opacity shrink-0"
-            >
-              Get on the list →
-            </a>
-          </div>
-        </section>
-
-        <Footer />
-      </main>
+          </RevealSection>
+        </main>
+      </div>
+      <Footer />
     </>
   );
 }

@@ -20,7 +20,7 @@ function buildEmailHtml(name: string): string {
           <!-- Wordmark -->
           <tr>
             <td style="padding-bottom:40px;">
-              <span style="font-size:22px;font-weight:800;letter-spacing:-0.03em;color:#A3E635;">
+              <span style="font-size:22px;font-weight:800;letter-spacing:-0.03em;color:#5EEAD4;">
                 hyperfix
               </span>
             </td>
@@ -51,7 +51,7 @@ function buildEmailHtml(name: string): string {
             <td style="padding-bottom:48px;">
               <a
                 href="https://hyperfix.app/dashboard"
-                style="display:inline-block;background:#A3E635;color:#0A0A0A;font-size:14px;font-weight:700;text-decoration:none;padding:14px 28px;border-radius:12px;letter-spacing:0.01em;"
+                style="display:inline-block;background:#5EEAD4;color:#0A0A0A;font-size:14px;font-weight:700;text-decoration:none;padding:14px 28px;border-radius:12px;letter-spacing:0.01em;"
               >
                 start logging &rarr;
               </a>

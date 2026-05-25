@@ -98,30 +98,30 @@ export default function VsGoodreadsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
+      <main id="main-content" className="relative z-10 text-white" style={{ background: "#070708", minHeight: "100vh" }}>
 
         <Nav />
 
-        <section className="px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-28">
+        <section className="px-4 sm:px-6 lg:px-8 pt-8 pb-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
               comparison · hyperfix vs goodreads
             </span>
-            <h1 className="font-display font-medium text-[2.8rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[0.92] tracking-crush text-ink text-balance">
+            <h1 className="font-display font-medium text-[2.8rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[0.92] tracking-tight text-white text-balance">
               Goodreads knows what you read.
               <br />
-              <span className="italic text-accent">
+              <span className="text-[#5EEAD4]">
                 Hyperfix knows what it did to you.
               </span>
             </h1>
             <div className="mt-10 grid md:grid-cols-2 gap-8 max-w-4xl">
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 Goodreads is genuinely useful. It tracks your reading history,
                 hosts your reviews, runs your annual challenge, and shows you
                 what your friends are reading. For the catalogue of books
                 you've consumed, it's solid infrastructure.
               </p>
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 But it has no concept of the Sarah J. Maas spiral. No field
                 for the fandom hyperfixation that outlasts the book by months.
                 No way to log the re-read you're on for the sixth time. It
@@ -132,17 +132,17 @@ export default function VsGoodreadsPage() {
           </div>
         </section>
 
-        <section className="px-6 sm:px-10 py-20 sm:py-28 bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
               the distinction
             </span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-10 text-balance">
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10 text-balance">
               A reading log tracks completion.{" "}
-              <span className="italic text-accent">Hyperfix tracks possession.</span>
+              <span className="text-[#5EEAD4]">Hyperfix tracks possession.</span>
             </h2>
             <div className="grid md:grid-cols-2 gap-10 max-w-4xl">
-              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(244,244,244,0.5)]">
+              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(255,255,255,0.65)]">
                 <p>
                   Goodreads is a catalogue of things you've finished. Five
                   stars. One-paragraph review. Added to your 2026 reading
@@ -154,7 +154,7 @@ export default function VsGoodreadsPage() {
                   finishing is finishing.
                 </p>
               </div>
-              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(244,244,244,0.5)]">
+              <div className="space-y-5 font-sans text-lg leading-snug text-[rgba(255,255,255,0.65)]">
                 <p>
                   But finishing a book and being done with it are completely
                   different events. The ACOTAR spiral. The three days after
@@ -172,12 +172,12 @@ export default function VsGoodreadsPage() {
           </div>
         </section>
 
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">honest assessment</span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-10 text-balance">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>honest assessment</span>
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10 text-balance">
               What Goodreads{" "}
-              <span className="italic text-accent">genuinely gets right</span>
+              <span className="text-[#5EEAD4]">genuinely gets right</span>
             </h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl">
               {[
@@ -194,11 +194,11 @@ export default function VsGoodreadsPage() {
                   p: "Finding books through friends' reviews, shelf surfing, recommendations. The social layer for book discovery is still Goodreads' best feature, however creaky the interface.",
                 },
               ].map((item) => (
-                <div key={item.h} className="border-t border-[rgba(244,244,244,0.07)] pt-6">
+                <div key={item.h} className="border-t border-[rgba(255,255,255,0.06)] pt-6">
                   <h3 className="font-display text-xl tracking-tight mb-3">
                     {item.h}
                   </h3>
-                  <p className="font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
+                  <p className="font-sans text-base text-[rgba(255,255,255,0.65)] leading-relaxed">
                     {item.p}
                   </p>
                 </div>
@@ -207,38 +207,38 @@ export default function VsGoodreadsPage() {
           </div>
         </section>
 
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">side by side</span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-12 text-balance">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>side by side</span>
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-12 text-balance">
               The comparison
             </h2>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
-                  <tr className="border-b border-[rgba(244,244,244,0.15)]">
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">
+                  <tr className="border-b border-[rgba(255,255,255,0.12)]">
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
                       Feature
                     </th>
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
                       Goodreads
                     </th>
-                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">
+                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
                       Hyperfix
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[rgba(244,244,244,0.07)]">
+                <tbody className="divide-y divide-[rgba(255,255,255,0.06)]">
                   {comparisonRows.map((row) => (
                     <tr key={row.feature}>
-                      <td className="py-4 pr-8 font-display text-base tracking-tight text-ink align-top">
+                      <td className="py-4 pr-8 font-display text-base tracking-tight text-white align-top">
                         {row.feature}
                       </td>
                       <td
                         className={`py-4 pr-8 font-sans text-sm leading-snug align-top ${
                           row.edge === "goodreads" || row.edge === "both"
-                            ? "text-ink font-medium"
-                            : "text-[rgba(244,244,244,0.4)]"
+                            ? "text-white font-medium"
+                            : "text-[rgba(255,255,255,0.55)]"
                         }`}
                       >
                         {(row.edge === "goodreads" || row.edge === "both") && (
@@ -249,12 +249,12 @@ export default function VsGoodreadsPage() {
                       <td
                         className={`py-4 font-sans text-sm leading-snug align-top ${
                           row.edge === "hyperfix" || row.edge === "both"
-                            ? "text-accent font-medium"
-                            : "text-[rgba(244,244,244,0.4)]"
+                            ? "text-[#5EEAD4] font-medium"
+                            : "text-[rgba(255,255,255,0.55)]"
                         }`}
                       >
                         {(row.edge === "hyperfix" || row.edge === "both") && (
-                          <span className="text-accent mr-1">✓</span>
+                          <span className="text-[#5EEAD4] mr-1">✓</span>
                         )}
                         {row.hyperfix}
                       </td>
@@ -263,23 +263,23 @@ export default function VsGoodreadsPage() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-8 font-display italic text-[rgba(244,244,244,0.4)] text-base max-w-xl">
+            <p className="mt-8 font-display text-[rgba(255,255,255,0.55)] text-base max-w-xl">
               Use Goodreads for the catalogue. Use Hyperfix for the crisis.
             </p>
           </div>
         </section>
 
-        <section className="px-6 sm:px-10 py-20 sm:py-28 bg-[#111113]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-4xl mx-auto">
-            <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tightest text-balance">
+            <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight text-balance">
               Goodreads knows you read it.
               <br />
-              <span className="italic text-accent">
+              <span className="text-[#5EEAD4]">
                 Hyperfix knows you never recovered.
               </span>
             </h2>
             <div className="mt-10 max-w-2xl">
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 The reading log you built on Goodreads is useful. It's a good
                 record. But there's no shelf for "currently destroying me" and
                 no row for "re-read four times and counting." The graveyard on
@@ -291,17 +291,17 @@ export default function VsGoodreadsPage() {
           </div>
         </section>
 
-        <section className="px-6 sm:px-10 py-24 sm:py-36">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-4xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">join the waitlist</span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tightest max-w-2xl text-balance">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>join the waitlist</span>
+            <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tight max-w-2xl text-balance">
               Log the books on Goodreads.
               <br />
-              <span className="italic text-accent">
+              <span className="text-[#5EEAD4]">
                 Log what they do to you here.
               </span>
             </h2>
-            <p className="mt-6 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-xl leading-snug">
+            <p className="mt-6 font-sans text-lg text-[rgba(255,255,255,0.65)] max-w-xl leading-snug">
               Waitlist is open. First access goes out in waves — early users
               get a permanent Pro discount and the best usernames.
             </p>

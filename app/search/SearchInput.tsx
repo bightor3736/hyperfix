@@ -28,20 +28,21 @@ export function SearchInput({ defaultValue }: { defaultValue: string }) {
       style={{
         background: "transparent",
         border: "none",
-        borderBottom: "2px solid rgba(244,244,244,0.12)",
+        borderBottom: "2px solid rgba(255,255,255,0.12)",
         outline: "none",
-        fontSize: "clamp(24px, 5vw, 48px)",
-        color: "#F4F4F4",
-        padding: "12px 0",
+        fontSize: "clamp(28px, 5vw, 52px)",
+        color: "#FFFFFF",
+        padding: "14px 0",
         letterSpacing: "-0.02em",
-        caretColor: "#A3E635",
+        fontWeight: 600,
+        caretColor: "#5EEAD4",
         transition: "border-color 0.15s",
       }}
       onFocus={(e) => {
-        (e.target as HTMLInputElement).style.borderBottomColor = "#A3E635";
+        (e.target as HTMLInputElement).style.borderBottomColor = "#5EEAD4";
       }}
       onBlur={(e) => {
-        (e.target as HTMLInputElement).style.borderBottomColor = "rgba(244,244,244,0.12)";
+        (e.target as HTMLInputElement).style.borderBottomColor = "rgba(255,255,255,0.12)";
       }}
     />
   );

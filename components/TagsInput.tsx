@@ -58,7 +58,7 @@ export function TagsInput({ value, onChange, maxTags = 5 }: Props) {
       className="flex flex-wrap gap-2 rounded-xl px-3 py-2.5 cursor-text"
       style={{
         background: "#111113",
-        border: `1px solid ${focused ? "rgba(163,230,53,0.4)" : "rgba(244,244,244,0.1)"}`,
+        border: `1px solid ${focused ? "rgba(94,234,212,0.4)" : "rgba(244,244,244,0.1)"}`,
         minHeight: "44px",
         transition: "border-color 0.15s",
       }}
@@ -68,9 +68,9 @@ export function TagsInput({ value, onChange, maxTags = 5 }: Props) {
           key={tag}
           className="font-mono text-[11px] uppercase tracking-widest rounded-full px-2.5 py-1 flex items-center gap-1.5"
           style={{
-            background: "rgba(163,230,53,0.1)",
-            border: "1px solid rgba(163,230,53,0.2)",
-            color: "#A3E635",
+            background: "rgba(94,234,212,0.1)",
+            border: "1px solid rgba(94,234,212,0.2)",
+            color: "#5EEAD4",
           }}
         >
           {tag}
@@ -78,9 +78,9 @@ export function TagsInput({ value, onChange, maxTags = 5 }: Props) {
             type="button"
             onClick={(e) => { e.stopPropagation(); removeTag(tag); }}
             className="leading-none transition-colors"
-            style={{ color: "rgba(163,230,53,0.5)" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(163,230,53,1)")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(163,230,53,0.5)")}
+            style={{ color: "rgba(94,234,212,0.5)" }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(94,234,212,1)")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(94,234,212,0.5)")}
             aria-label={`Remove tag ${tag}`}
           >
             ✕

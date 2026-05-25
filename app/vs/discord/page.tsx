@@ -132,30 +132,30 @@ export default function VsDiscordPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#0A0A0A]">
+      <main id="main-content" className="relative z-10 text-white" style={{ background: "#070708", minHeight: "100vh" }}>
 
         <Nav />
 
         {/* HERO */}
-        <section className="px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-28">
+        <section className="px-4 sm:px-6 lg:px-8 pt-8 pb-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
               comparison · hyperfix vs discord
             </span>
-            <h1 className="font-display font-medium text-[2.8rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[0.92] tracking-crush text-ink">
+            <h1 className="font-display font-medium text-[2.8rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[0.92] tracking-tight text-white">
               Discord is where you perform it.
               <br />
-              <span className="italic text-accent">Hyperfix is where you keep it.</span>
+              <span className="text-[#5EEAD4]">Hyperfix is where you keep it.</span>
             </h1>
             <div className="mt-10 grid md:grid-cols-2 gap-8 max-w-4xl">
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 Discord is where the fixation goes public — the server you
                 joined at 2am, the channel you have on notify-all for one
                 specific show, the thread where you and three strangers
                 collectively lost your minds over the same scene. For that,
                 Discord is genuinely unmatched.
               </p>
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 But Discord doesn't track the fixation. It doesn't count the
                 days. It doesn't know the intensity peaked at a 9 in week two
                 and is now at a 6. When the fixation ends, the evidence is
@@ -168,24 +168,24 @@ export default function VsDiscordPage() {
         </section>
 
         {/* DISTINCTION */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28 bg-[#111113] rounded-3xl border border-[rgba(244,244,244,0.07)]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
               the distinction
             </span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-10 max-w-3xl">
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10 max-w-3xl">
               A server is a stage.{" "}
-              <span className="italic text-accent">Hyperfix is the archive.</span>
+              <span className="text-[#5EEAD4]">Hyperfix is the archive.</span>
             </h2>
             <div className="grid md:grid-cols-2 gap-10 max-w-4xl">
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 Discord captures the social performance of a hyperfixation —
                 the takes you posted, the theories you shared, the moments when
                 seven people in a channel simultaneously lost it. That's real
                 and it matters. But it's not a record of the fixation. It's a
                 record of the conversations you had while you were in it.
               </p>
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
                 Hyperfix tracks the internal experience: when it started, how
                 hard it hit, how long it held. The day counter runs without you.
                 The intensity is yours to log, not perform. When the fix ends,
@@ -197,12 +197,12 @@ export default function VsDiscordPage() {
         </section>
 
         {/* WHAT DISCORD DOES WELL */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">honest assessment</span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-10">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>honest assessment</span>
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10">
               What Discord{" "}
-              <span className="italic text-accent">actually does well</span>
+              <span className="text-[#5EEAD4]">actually does well</span>
             </h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl">
               {[
@@ -219,11 +219,11 @@ export default function VsDiscordPage() {
                   p: "Big servers run themselves through roles, bots, and structured channels. If you're running a fandom server or a community around a fixation, Discord's tools for that are genuinely sophisticated.",
                 },
               ].map((item) => (
-                <div key={item.h} className="border-t border-[rgba(244,244,244,0.07)] pt-6">
+                <div key={item.h} className="border-t border-[rgba(255,255,255,0.06)] pt-6">
                   <h3 className="font-display text-xl tracking-tight mb-3">
                     {item.h}
                   </h3>
-                  <p className="font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
+                  <p className="font-sans text-base text-[rgba(255,255,255,0.65)] leading-relaxed">
                     {item.p}
                   </p>
                 </div>
@@ -233,54 +233,54 @@ export default function VsDiscordPage() {
         </section>
 
         {/* COMPARISON TABLE */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">side by side</span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-12">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>side by side</span>
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-12">
               The comparison
             </h2>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
-                  <tr className="border-b border-[rgba(244,244,244,0.15)]">
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">
+                  <tr className="border-b border-[rgba(255,255,255,0.12)]">
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
                       Feature
                     </th>
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
                       Discord
                     </th>
-                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] w-1/3">
+                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
                       Hyperfix
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[rgba(244,244,244,0.07)]">
+                <tbody className="divide-y divide-[rgba(255,255,255,0.06)]">
                   {comparisonRows.map((row) => (
                     <tr key={row.feature} className="group">
-                      <td className="py-4 pr-8 font-display text-base tracking-tight text-ink align-top">
+                      <td className="py-4 pr-8 font-display text-base tracking-tight text-white align-top">
                         {row.feature}
                       </td>
                       <td
                         className={`py-4 pr-8 font-sans text-sm leading-snug align-top ${
                           row.edge === "discord"
-                            ? "text-ink font-medium"
-                            : "text-[rgba(244,244,244,0.4)]"
+                            ? "text-white font-medium"
+                            : "text-[rgba(255,255,255,0.55)]"
                         }`}
                       >
                         {row.edge === "discord" && (
-                          <span className="text-ink mr-1">✓</span>
+                          <span className="text-white mr-1">✓</span>
                         )}
                         {row.discord}
                       </td>
                       <td
                         className={`py-4 font-sans text-sm leading-snug align-top ${
                           row.edge === "hyperfix"
-                            ? "text-accent font-medium"
-                            : "text-[rgba(244,244,244,0.4)]"
+                            ? "text-[#5EEAD4] font-medium"
+                            : "text-[rgba(255,255,255,0.55)]"
                         }`}
                       >
                         {row.edge === "hyperfix" && (
-                          <span className="text-accent mr-1">✓</span>
+                          <span className="text-[#5EEAD4] mr-1">✓</span>
                         )}
                         {row.hyperfix}
                       </td>
@@ -289,21 +289,21 @@ export default function VsDiscordPage() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-8 font-display italic text-[rgba(244,244,244,0.4)] text-base max-w-xl">
+            <p className="mt-8 font-display text-[rgba(255,255,255,0.55)] text-base max-w-xl">
               Discord wins on community. Hyperfix wins on keeping the record Discord scatters.
             </p>
           </div>
         </section>
 
         {/* ANGLE */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28 bg-[#111113]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-4xl mx-auto">
-            <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tightest">
+            <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight">
               The server goes quiet eventually.
               <br />
-              <span className="italic text-accent">The era doesn't have to.</span>
+              <span className="text-[#5EEAD4]">The era doesn't have to.</span>
             </h2>
-            <p className="mt-10 font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug max-w-3xl">
+            <p className="mt-10 font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug max-w-3xl">
               You've been in servers that used to be everything. The channel
               that was on notify-all. The thread that ran for days. Now it's
               quiet and you've muted the server and the fixation is over and
@@ -316,25 +316,25 @@ export default function VsDiscordPage() {
         </section>
 
         {/* FAQ */}
-        <section className="px-6 sm:px-10 py-20 sm:py-28">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-3xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">faq</span>
-            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-12">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>faq</span>
+            <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-12">
               Questions
             </h2>
-            <div className="divide-y divide-[rgba(244,244,244,0.07)]">
+            <div className="divide-y divide-[rgba(255,255,255,0.06)]">
               {faqs.map((faq) => (
                 <details key={faq.q} className="group py-5">
-                  <summary className="flex items-start justify-between gap-4 cursor-pointer list-none font-display text-lg tracking-tight text-ink">
+                  <summary className="flex items-start justify-between gap-4 cursor-pointer list-none font-display text-lg tracking-tight text-white">
                     <span className="text-balance">{faq.q}</span>
                     <span
                       aria-hidden="true"
-                      className="font-mono text-[rgba(244,244,244,0.4)] text-base shrink-0 group-open:rotate-45 transition-transform"
+                      className="font-mono text-[rgba(255,255,255,0.55)] text-base shrink-0 group-open:rotate-45 transition-transform"
                     >
                       +
                     </span>
                   </summary>
-                  <p className="mt-4 font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
+                  <p className="mt-4 font-sans text-base text-[rgba(255,255,255,0.65)] leading-relaxed">
                     {faq.a}
                   </p>
                 </details>
@@ -344,15 +344,15 @@ export default function VsDiscordPage() {
         </section>
 
         {/* FINAL CTA */}
-        <section className="px-6 sm:px-10 py-24 sm:py-36 bg-[#111113]">
+        <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-4xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">join the waitlist</span>
-            <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tightest max-w-2xl">
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>join the waitlist</span>
+            <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tight max-w-2xl">
               Keep Discord for the community.
               <br />
-              <span className="italic text-accent">Use Hyperfix for the record.</span>
+              <span className="text-[#5EEAD4]">Use Hyperfix for the record.</span>
             </h2>
-            <p className="mt-6 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-xl leading-snug">
+            <p className="mt-6 font-sans text-lg text-[rgba(255,255,255,0.65)] max-w-xl leading-snug">
               Waitlist is open. First access goes out in waves — early users get
               a permanent Pro discount and the best usernames.
             </p>

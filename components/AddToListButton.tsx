@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { addFixToList, removeFixFromList, createList } from "@/app/actions/lists";
+import { Plus, TickSquare } from "react-iconly";
 
 type FixList = {
   id: string;
@@ -105,10 +106,7 @@ export function AddToListButton({ fixId }: { fixId: string }) {
           color: "rgba(244,244,244,0.5)",
         }}
       >
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-          <line x1="12" y1="5" x2="12" y2="19" />
-          <line x1="5" y1="12" x2="19" y2="12" />
-        </svg>
+        <Plus set="light" size={13} primaryColor="currentColor" />
         Add to list
       </button>
 
@@ -143,22 +141,20 @@ export function AddToListButton({ fixId }: { fixId: string }) {
                   key={list.id}
                   onClick={() => toggleList(list)}
                   disabled={pending === list.id}
-                  className="w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors hover:bg-white/5"
+                  className="w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors hover:bg-[rgba(244,244,244,0.05)]"
                 >
-                  <span className="font-sans text-sm truncate" style={{ color: list.hasThisFix ? "#A3E635" : "rgba(244,244,244,0.8)" }}>
+                  <span className="font-sans text-sm truncate" style={{ color: list.hasThisFix ? "#5EEAD4" : "rgba(244,244,244,0.8)" }}>
                     {list.name}
                   </span>
                   <span
                     className="shrink-0 w-4 h-4 rounded flex items-center justify-center ml-2"
                     style={{
-                      background: list.hasThisFix ? "#A3E635" : "rgba(244,244,244,0.08)",
+                      background: list.hasThisFix ? "#5EEAD4" : "rgba(244,244,244,0.08)",
                       border: list.hasThisFix ? "none" : "1px solid rgba(244,244,244,0.15)",
                     }}
                   >
                     {list.hasThisFix && (
-                      <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="#0A0A0A" strokeWidth="2.5" strokeLinecap="round">
-                        <polyline points="2 6 5 9 10 3" />
-                      </svg>
+                      <TickSquare set="bold" size={10} primaryColor="#0A0A0A" />
                     )}
                   </span>
                 </button>
@@ -182,7 +178,7 @@ export function AddToListButton({ fixId }: { fixId: string }) {
                   onClick={handleCreateList}
                   disabled={!newListName.trim() || pending === "new"}
                   className="font-mono text-[10px] px-2 py-1 rounded transition-opacity hover:opacity-90 disabled:opacity-40"
-                  style={{ background: "#A3E635", color: "#0A0A0A" }}
+                  style={{ background: "#5EEAD4", color: "#0A0A0A" }}
                 >
                   Create
                 </button>
@@ -190,13 +186,10 @@ export function AddToListButton({ fixId }: { fixId: string }) {
             ) : (
               <button
                 onClick={() => setCreating(true)}
-                className="w-full flex items-center gap-2 px-3 py-2.5 font-mono text-[11px] transition-colors hover:bg-white/5"
+                className="w-full flex items-center gap-2 px-3 py-2.5 font-mono text-[11px] transition-colors hover:bg-[rgba(244,244,244,0.05)]"
                 style={{ color: "rgba(244,244,244,0.4)" }}
               >
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <line x1="12" y1="5" x2="12" y2="19" />
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
+                <Plus set="light" size={13} primaryColor="currentColor" />
                 New list
               </button>
             )}

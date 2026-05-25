@@ -80,13 +80,21 @@ export async function POST(req: NextRequest) {
       .eq("id", fixId)
       .single();
     if (fix && fix.user_id !== user.id) {
-      await supabase.from("notifications").insert({
-        user_id: fix.user_id,
-        type: "reaction",
-        actor_id: user.id,
-        fix_id: fixId,
-        emoji,
-      });
+      const { data: ownerPrefs } = await supabase
+        .from("profiles")
+        .select("notification_prefs")
+        .eq("id", fix.user_id)
+        .single();
+      const prefs = (ownerPrefs?.notification_prefs ?? {}) as Record<string, boolean>;
+      if (prefs.social_reactions !== false) {
+        await supabase.from("notifications").insert({
+          user_id: fix.user_id,
+          type: "reaction",
+          actor_id: user.id,
+          fix_id: fixId,
+          emoji,
+        });
+      }
     }
   }
 

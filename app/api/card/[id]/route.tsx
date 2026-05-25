@@ -71,8 +71,8 @@ export async function GET(
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                background: "rgba(163,230,53,0.12)",
-                border: "1px solid rgba(163,230,53,0.3)",
+                background: "rgba(94,234,212,0.12)",
+                border: "1px solid rgba(94,234,212,0.3)",
                 borderRadius: 999,
                 paddingLeft: 14,
                 paddingRight: 14,
@@ -87,7 +87,7 @@ export async function GET(
                   fontFamily: "ui-monospace, monospace",
                   fontSize: 11,
                   fontWeight: 700,
-                  color: "#A3E635",
+                  color: "#5EEAD4",
                   textTransform: "uppercase",
                   letterSpacing: "0.12em",
                 }}
@@ -151,7 +151,7 @@ export async function GET(
                   fontFamily: "Georgia, serif",
                   fontSize: 72,
                   fontWeight: 500,
-                  color: "#A3E635",
+                  color: "#5EEAD4",
                   lineHeight: 1,
                 }}
               >
@@ -177,7 +177,7 @@ export async function GET(
                     width: 18,
                     height: 28,
                     borderRadius: 4,
-                    background: active ? "#A3E635" : "rgba(244,244,244,0.08)",
+                    background: active ? "#5EEAD4" : "rgba(244,244,244,0.08)",
                   }}
                 />
               ))}
@@ -215,7 +215,7 @@ export async function GET(
               height: 420,
               borderRadius: "50%",
               background:
-                "radial-gradient(circle, rgba(163,230,53,0.22) 0%, rgba(163,230,53,0.06) 50%, transparent 70%)",
+                "radial-gradient(circle, rgba(94,234,212,0.22) 0%, rgba(94,234,212,0.06) 50%, transparent 70%)",
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
@@ -244,7 +244,7 @@ export async function GET(
               }}
             >
               hyper
-              <span style={{ color: "#A3E635", fontStyle: "italic" }}>fix</span>
+              <span style={{ color: "#5EEAD4", fontStyle: "italic" }}>fix</span>
             </div>
             <div
               style={{

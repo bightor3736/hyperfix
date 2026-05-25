@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useTransition } from "react";
+import { Notification } from "react-iconly";
 
 type NotificationActor = {
   username: string | null;
@@ -27,6 +28,7 @@ export function NotificationBell() {
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loaded, setLoaded] = useState(false);
+  const [loadError, setLoadError] = useState(false);
   const [, startTransition] = useTransition();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -35,12 +37,16 @@ export function NotificationBell() {
   async function loadNotifications() {
     try {
       const res = await fetch("/api/notifications");
-      if (!res.ok) return;
+      if (!res.ok) {
+        setLoadError(true);
+        return;
+      }
       const data = (await res.json()) as { notifications: Notification[] };
       setNotifications(data.notifications);
+      setLoadError(false);
       setLoaded(true);
     } catch {
-      // ignore
+      setLoadError(true);
     }
   }
 
@@ -76,7 +82,7 @@ export function NotificationBell() {
     return () => clearInterval(interval);
   }, []);
 
-  function getNotificationText(n: Notification): { text: string; href: string } {
+  function getNotificationText(n: Notification): { text: string; href: string | null } | null {
     const actor = n.actor;
     const name = actor?.display_name ?? actor?.username ?? "Someone";
 
@@ -84,18 +90,26 @@ export function NotificationBell() {
       const fixTitle = n.fix?.title ?? "your fix";
       return {
         text: `${name} reacted ${n.emoji ?? ""} to "${fixTitle}"`,
-        href: n.fix_id ? `/fix/${n.fix_id}` : "#",
+        href: n.fix_id ? `/fix/${n.fix_id}` : null,
       };
     }
 
     if (n.type === "follow") {
       return {
         text: `${name} started following you`,
-        href: actor?.username ? `/u/${actor.username}` : "#",
+        href: actor?.username ? `/u/${actor.username}` : null,
       };
     }
 
-    return { text: "New notification", href: "#" };
+    if (n.type === "comment") {
+      const fixTitle = n.fix?.title ?? "your fix";
+      return {
+        text: `${name} commented on "${fixTitle}"`,
+        href: n.fix_id ? `/fix/${n.fix_id}` : null,
+      };
+    }
+
+    return null;
   }
 
   return (
@@ -106,11 +120,7 @@ export function NotificationBell() {
         aria-label="Notifications"
         style={{ color: "rgba(244,244,244,0.5)" }}
       >
-        {/* Bell icon */}
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-        </svg>
+        <Notification set={unreadCount > 0 ? "bold" : "light"} size={18} primaryColor="currentColor" />
         {/* Red dot badge */}
         {unreadCount > 0 && (
           <span
@@ -151,7 +161,7 @@ export function NotificationBell() {
               <button
                 onClick={markAllRead}
                 className="font-mono text-[10px] uppercase tracking-widest transition-opacity hover:opacity-80"
-                style={{ color: "#A3E635" }}
+                style={{ color: "#5EEAD4" }}
               >
                 Mark all read
               </button>
@@ -160,7 +170,20 @@ export function NotificationBell() {
 
           {/* List */}
           <div className="max-h-80 overflow-y-auto">
-            {!loaded ? (
+            {!loaded && loadError ? (
+              <div className="px-4 py-6 text-center">
+                <p className="font-sans text-sm mb-2" style={{ color: "rgba(244,244,244,0.4)" }}>
+                  Couldn&apos;t load notifications.
+                </p>
+                <button
+                  onClick={loadNotifications}
+                  className="font-mono text-[10px] uppercase tracking-widest transition-opacity hover:opacity-80"
+                  style={{ color: "#5EEAD4" }}
+                >
+                  Retry
+                </button>
+              </div>
+            ) : !loaded ? (
               <div className="px-4 py-6 text-center">
                 <span className="font-mono text-xs" style={{ color: "rgba(244,244,244,0.3)" }}>
                   Loading…
@@ -174,18 +197,15 @@ export function NotificationBell() {
               </div>
             ) : (
               notifications.map((n) => {
-                const { text, href } = getNotificationText(n);
-                return (
-                  <a
-                    key={n.id}
-                    href={href}
-                    onClick={() => setOpen(false)}
-                    className="block px-4 py-3 transition-colors hover:bg-[rgba(244,244,244,0.04)]"
-                    style={{
-                      background: n.read ? "transparent" : "rgba(163,230,53,0.04)",
-                      borderBottom: "1px solid rgba(244,244,244,0.04)",
-                    }}
-                  >
+                const result = getNotificationText(n);
+                if (!result) return null;
+                const { text, href } = result;
+                const sharedStyle = {
+                  background: n.read ? "transparent" : "rgba(94,234,212,0.04)",
+                  borderBottom: "1px solid rgba(244,244,244,0.04)",
+                };
+                const inner = (
+                  <>
                     <p className="font-sans text-sm leading-snug" style={{ color: n.read ? "rgba(244,244,244,0.5)" : "#F4F4F4" }}>
                       {text}
                     </p>
@@ -197,11 +217,40 @@ export function NotificationBell() {
                         minute: "2-digit",
                       })}
                     </p>
+                  </>
+                );
+                return href ? (
+                  <a
+                    key={n.id}
+                    href={href}
+                    onClick={() => setOpen(false)}
+                    className="block px-4 py-3 transition-colors hover:bg-[rgba(244,244,244,0.04)]"
+                    style={sharedStyle}
+                  >
+                    {inner}
                   </a>
+                ) : (
+                  <div
+                    key={n.id}
+                    className="px-4 py-3"
+                    style={sharedStyle}
+                  >
+                    {inner}
+                  </div>
                 );
               })
             )}
           </div>
+
+          {/* Footer */}
+          <a
+            href="/dashboard/notifications"
+            onClick={() => setOpen(false)}
+            className="block px-4 py-3 text-center font-mono text-[10px] uppercase tracking-widest transition-opacity hover:opacity-80"
+            style={{ borderTop: "1px solid rgba(244,244,244,0.07)", color: "#5EEAD4" }}
+          >
+            See all notifications
+          </a>
         </div>
       )}
     </div>

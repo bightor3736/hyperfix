@@ -92,12 +92,20 @@ export async function POST(req: NextRequest) {
       following_id: targetUserId,
     });
 
-    // In-app notification
-    await supabase.from("notifications").insert({
-      user_id: targetUserId,
-      type: "follow",
-      actor_id: user.id,
-    });
+    // In-app notification (respect the target's preference)
+    const { data: targetPrefs } = await supabase
+      .from("profiles")
+      .select("notification_prefs")
+      .eq("id", targetUserId)
+      .single();
+    const prefs = (targetPrefs?.notification_prefs ?? {}) as Record<string, boolean>;
+    if (prefs.social_follows !== false) {
+      await supabase.from("notifications").insert({
+        user_id: targetUserId,
+        type: "follow",
+        actor_id: user.id,
+      });
+    }
 
   }
 
