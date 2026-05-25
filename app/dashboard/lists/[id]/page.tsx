@@ -102,7 +102,7 @@ export default async function ListDetailPage({
   );
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-12" style={{ background: "#0A0A0A" }}>
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-12" style={{ background: "#070708" }}>
       <div className="max-w-3xl mx-auto">
 
         {/* Back */}
@@ -152,9 +152,15 @@ export default async function ListDetailPage({
               </span>
             </div>
 
+            <p
+              className="font-mono text-[11px] uppercase tracking-[0.18em] mb-2"
+              style={{ color: "#5EEAD4" }}
+            >
+              list
+            </p>
             <h1
-              className="font-display font-bold leading-tight"
-              style={{ color: "#F4F4F4", fontSize: "clamp(22px, 4vw, 34px)", letterSpacing: "-0.02em" }}
+              className="font-display leading-tight"
+              style={{ color: "#F4F4F4", fontSize: "clamp(22px, 4vw, 34px)", letterSpacing: "-0.02em", fontWeight: 600 }}
             >
               {list.name}
             </h1>
@@ -219,7 +225,7 @@ export default async function ListDetailPage({
         </div>
 
         {/* Divider */}
-        <div style={{ borderTop: "1px solid rgba(244,244,244,0.07)", marginBottom: 24 }} />
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", marginBottom: 24 }} />
 
         {/* Fix items */}
         {items.length > 0 ? (
@@ -237,8 +243,8 @@ export default async function ListDetailPage({
                   key={item.id}
                   className="rounded-2xl p-4 flex items-start gap-4"
                   style={{
-                    background: "#111113",
-                    border: "1px solid rgba(244,244,244,0.07)",
+                    background: "#0F1011",
+                    border: "1px solid rgba(255,255,255,0.06)",
                   }}
                 >
                   {/* Fix info */}
