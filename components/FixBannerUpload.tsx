@@ -116,7 +116,9 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
         className="relative rounded-2xl overflow-hidden mb-3 flex items-end"
         style={{
           height: 120,
-          background: bannerUrl ? undefined : "rgba(94,234,212,0.05)",
+          background: bannerUrl
+            ? undefined
+            : "radial-gradient(ellipse 120% 160% at 50% 130%, #5EEAD4 0%, #2DD4BF 12%, #0E4F47 30%, #08231F 52%, #070708 75%)",
           backgroundImage: bannerUrl ? `url(${bannerUrl})` : undefined,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -124,11 +126,23 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
         }}
       >
         {!bannerUrl && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <p className="font-mono text-xs" style={{ color: "rgba(94,234,212,0.35)" }}>
-              Drop in a vibe (optional)
-            </p>
-          </div>
+          <>
+            {/* noise grain */}
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none mix-blend-overlay"
+              style={{
+                backgroundImage: "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+                backgroundSize: "200px 200px",
+                opacity: 0.45,
+              }}
+            />
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+                Hyperfix default · upload or pick a preset to customise
+              </p>
+            </div>
+          </>
         )}
         <div className="absolute bottom-3 right-3 flex gap-2">
           <button
