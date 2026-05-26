@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { LogoLockup } from "@/components/Logo";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { FixStatusPill } from "@/components/FixStatusPill";
 import { TombstoneIcon } from "@/components/MilestoneIcons";
@@ -161,8 +161,22 @@ export default async function PublicGraveyardPage({
     .eq("username", username)
     .single();
 
-  if (profileError || !profile || !profile.is_public) {
+  if (profileError || !profile) {
     notFound();
+  }
+
+  const {
+    data: { user: currentUser },
+  } = await supabase.auth.getUser();
+
+  const isSelf = currentUser?.id === profile.id;
+
+  if (!profile.is_public && !isSelf) {
+    notFound();
+  }
+
+  if (!currentUser) {
+    redirect(`/auth/signup?next=/u/${username}/graveyard`);
   }
 
   const { data: fixes } = await supabase
