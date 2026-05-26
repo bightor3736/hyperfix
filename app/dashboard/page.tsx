@@ -236,13 +236,27 @@ export default async function DashboardPage() {
               {firstName}.
             </h1>
             {username && (
-              <Link
-                href={`/u/${username}`}
-                className="inline-flex items-center gap-1.5 font-mono text-[11px] mb-3 transition-colors hover:text-[#5EEAD4]"
-                style={{ color: "rgba(255,255,255,0.4)" }}
-              >
-                @{username} · view public profile →
-              </Link>
+              <div className="flex items-center gap-3 mb-3 flex-wrap">
+                <Link
+                  href={`/u/${username}`}
+                  className="inline-flex items-center gap-1.5 font-mono text-[11px] transition-colors hover:text-[#5EEAD4]"
+                  style={{ color: "rgba(255,255,255,0.4)" }}
+                >
+                  @{username} · profile →
+                </Link>
+                <span style={{ color: "rgba(255,255,255,0.15)", fontSize: 10 }}>·</span>
+                <Link
+                  href={`/add/${username}`}
+                  className="inline-flex items-center gap-1 font-mono text-[11px] transition-colors hover:text-[#5EEAD4]"
+                  style={{ color: "rgba(94,234,212,0.55)" }}
+                >
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                  </svg>
+                  hyperfix.app/add/{username}
+                </Link>
+              </div>
             )}
             <p className="font-sans text-sm sm:text-base max-w-xl" style={{ color: "rgba(255,255,255,0.55)" }}>
               {subtext}
