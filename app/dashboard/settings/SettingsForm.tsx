@@ -42,7 +42,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
   const [username, setUsername] = useState(profile?.username ?? "");
   const [bio, setBio] = useState(profile?.bio ?? "");
   const [socialLink, setSocialLink] = useState(profile?.social_link ?? "");
-  const [isPublic, setIsPublic] = useState(profile?.is_public ?? false);
+  const [isPublic] = useState(true);
   const [avatarUrl, setAvatarUrl] = useState(profile?.avatar_url ?? "");
 
   // Notification prefs
@@ -88,7 +88,6 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
     username !== (profile?.username ?? "") ||
     bio !== (profile?.bio ?? "") ||
     socialLink !== (profile?.social_link ?? "") ||
-    isPublic !== (profile?.is_public ?? false) ||
     accentColor !== (profile?.accent_color ?? DEFAULT_ACCENT) ||
     notifStreak !== (notifPrefs.streak_reminders !== false) ||
     notifMilestones !== (notifPrefs.milestones !== false) ||
@@ -697,41 +696,25 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
       <section>
         <SectionHeading>Privacy</SectionHeading>
 
-        <label className="flex items-center justify-between gap-4 cursor-pointer p-4 rounded-2xl" style={cardStyle}>
+        <div className="flex items-center justify-between gap-4 p-4 rounded-2xl" style={cardStyle}>
           <div>
             <p className="font-sans text-sm font-medium" style={{ color: "#F4F4F4" }}>
               Public profile
             </p>
             <p className="font-sans text-[12px] mt-0.5" style={{ color: "rgba(244,244,244,0.35)" }}>
-              Anyone can view your profile and public fixes
+              All profiles on Hyperfix are public
             </p>
           </div>
-
-          {/* Toggle */}
-          <div className="relative shrink-0">
-            <input
-              type="checkbox"
-              checked={isPublic}
-              onChange={(e) => setIsPublic(e.target.checked)}
-              className="sr-only"
-            />
+          <div
+            className="w-11 h-6 rounded-full shrink-0"
+            style={{ background: "#5EEAD4", border: "1px solid rgba(94,234,212,0.5)" }}
+          >
             <div
-              className="w-11 h-6 rounded-full transition-all duration-200"
-              style={{
-                background: isPublic ? "#5EEAD4" : "rgba(244,244,244,0.1)",
-                border: isPublic ? "1px solid rgba(94,234,212,0.5)" : "1px solid rgba(244,244,244,0.1)",
-              }}
-            >
-              <div
-                className="w-4 h-4 rounded-full mt-[3px] transition-all duration-200"
-                style={{
-                  background: isPublic ? "#0A0A0A" : "rgba(244,244,244,0.4)",
-                  transform: isPublic ? "translateX(23px)" : "translateX(3px)",
-                }}
-              />
-            </div>
+              className="w-4 h-4 rounded-full mt-[3px]"
+              style={{ background: "#0A0A0A", transform: "translateX(23px)" }}
+            />
           </div>
-        </label>
+        </div>
       </section>
 
       {/* ── Notifications section ── */}

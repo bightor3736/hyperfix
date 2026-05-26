@@ -248,19 +248,6 @@ export default async function PublicProfilePage({
       </nav>
 
       <main id="main-content" className="relative max-w-2xl mx-auto px-5 sm:px-8 pt-10 sm:pt-16 pb-20">
-        {/* Private profile notice — only shown to owner */}
-        {isSelf && !typedProfile.is_public && (
-          <div
-            className="flex items-center justify-between gap-4 rounded-2xl px-4 py-3 mb-6 font-sans text-sm"
-            style={{ background: "rgba(251,191,36,0.08)", border: "1px solid rgba(251,191,36,0.2)", color: "#FCD34D" }}
-          >
-            <span>Your profile is private — only you can see this.</span>
-            <Link href="/dashboard/settings" className="font-mono text-xs underline underline-offset-2 shrink-0" style={{ color: "#FCD34D" }}>
-              make public →
-            </Link>
-          </div>
-        )}
-
         {/* Optional banner — thin aesthetic strip if user set one */}
         {typedProfile.banner_url && (
           <div
