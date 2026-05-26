@@ -215,12 +215,13 @@ export default async function PublicProfilePage({
         style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }}
       />
 
+      {/* Quiet sticky nav */}
       <nav
-        className="sticky top-0 z-40 px-6 sm:px-10 py-5 flex items-center justify-between"
+        className="sticky top-0 z-40 px-5 sm:px-8 py-4 flex items-center justify-between"
         style={{
           background: "rgba(7,7,8,0.78)",
           backdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          borderBottom: "1px solid rgba(255,255,255,0.05)",
         }}
       >
         <Link href="/" aria-label="Hyperfix home" className="transition-transform hover:scale-[1.02]">
@@ -228,157 +229,141 @@ export default async function PublicProfilePage({
         </Link>
         <Link
           href={currentUser ? "/dashboard" : "/auth/login"}
-          className="font-sans text-sm font-semibold px-5 py-2.5 transition-all duration-200 hover:opacity-95 hover:-translate-y-px"
+          className="font-mono text-[11px] uppercase tracking-widest px-4 py-2 rounded-full transition-all hover:opacity-80"
           style={{
-            background: "#FFFFFF",
-            color: "#0A0A0A",
-            borderRadius: 999,
-            boxShadow: "0 4px 16px rgba(94,234,212,0.18)",
+            background: "rgba(244,244,244,0.05)",
+            border: "1px solid rgba(244,244,244,0.08)",
+            color: "rgba(244,244,244,0.7)",
           }}
         >
-          {currentUser ? "My fixes" : "Log in"}
+          {currentUser ? "my fixes" : "log in"}
         </Link>
       </nav>
 
-      <main id="main-content" className="relative max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
-        {/* Banner — full width, vvault-style with avatar overlap */}
-        <div
-          className="relative overflow-hidden rounded-3xl anim-fadeUp"
-          style={{
-            height: "clamp(220px, 36vw, 320px)",
-            ...(typedProfile.banner_url
-              ? {
-                  backgroundImage: `url(${typedProfile.banner_url})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }
-              : {
-                  background: `radial-gradient(ellipse 90% 100% at 50% 110%, ${accent} 0%, ${hexToRgba(accent, 0.55)} 18%, ${hexToRgba(accent, 0.16)} 38%, ${hexToRgba(accent, 0.04)} 58%, #070708 80%)`,
-                }),
-            border: "1px solid rgba(255,255,255,0.06)",
-          }}
-        >
-          {/* Grain (hyperfix identity) */}
+      <main id="main-content" className="relative max-w-2xl mx-auto px-5 sm:px-8 pt-10 sm:pt-16 pb-20">
+        {/* Optional banner — thin aesthetic strip if user set one */}
+        {typedProfile.banner_url && (
           <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none mix-blend-overlay"
-            style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.45 }}
-          />
-          {/* Dark scrim — only on bottom 50% so the photo stays visible */}
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none"
+            className="relative overflow-hidden rounded-2xl mb-8 anim-fadeUp"
             style={{
-              background: "linear-gradient(180deg, transparent 0%, transparent 35%, rgba(7,7,8,0.45) 75%, rgba(7,7,8,0.85) 100%)",
+              height: "clamp(110px, 18vw, 160px)",
+              backgroundImage: `url(${typedProfile.banner_url})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
-          />
+          >
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none mix-blend-overlay"
+              style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.4 }}
+            />
+          </div>
+        )}
 
-          {/* Name + handle overlay on banner bottom */}
-          <div className="absolute inset-x-0 bottom-0 px-5 sm:px-8 pb-5 sm:pb-7 flex items-end gap-4 sm:gap-5">
-            {/* Avatar — overlaps banner bottom-left */}
-            <div className="relative shrink-0">
-              {typedProfile.is_pro && (
-                <div
-                  className="absolute -inset-2 rounded-full pointer-events-none"
-                  style={{
-                    background: `radial-gradient(circle, ${hexToRgba(accent, 0.5)} 0%, transparent 70%)`,
-                    filter: "blur(8px)",
-                  }}
-                />
-              )}
-              {typedProfile.avatar_url ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={typedProfile.avatar_url}
-                  alt={displayName}
-                  className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover"
-                  style={{
-                    border: `3px solid #070708`,
-                    boxShadow: `0 4px 16px rgba(0,0,0,0.6)`,
-                  }}
-                />
-              ) : (
-                <div
-                  className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center font-display font-semibold"
-                  style={{
-                    background: `${accent}22`,
-                    border: `3px solid #070708`,
-                    boxShadow: `0 4px 16px rgba(0,0,0,0.6)`,
-                    color: accent,
-                    fontSize: 24,
-                  }}
-                >
-                  {displayName.slice(0, 2).toUpperCase()}
-                </div>
-              )}
-            </div>
-
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 flex-wrap">
-                <h1
-                  className="font-display"
-                  style={{
-                    fontSize: "clamp(24px, 5vw, 36px)",
-                    fontWeight: 600,
-                    color: "#F4F4F4",
-                    letterSpacing: "-0.02em",
-                    lineHeight: 1,
-                    textShadow: "0 2px 16px rgba(0,0,0,0.5)",
-                  }}
-                >
-                  {displayName}
-                </h1>
-                {typedProfile.is_pro && (
-                  <span
-                    className="font-mono text-[9px] rounded px-1.5 py-0.5 shrink-0"
-                    style={{
-                      background: hexToRgba(accent, 0.22),
-                      color: accent,
-                      border: `1px solid ${hexToRgba(accent, 0.4)}`,
-                      boxShadow: `0 0 12px ${hexToRgba(accent, 0.25)}`,
-                    }}
-                  >
-                    PRO
-                  </span>
-                )}
-              </div>
-              <p
-                className="font-mono mt-1"
+        {/* Header — avatar + name + handle, quiet and centered */}
+        <header className="anim-fadeUp flex flex-col items-center text-center mb-8">
+          <div className="relative mb-5">
+            {typedProfile.is_pro && (
+              <div
+                aria-hidden
+                className="absolute -inset-3 rounded-full pointer-events-none"
                 style={{
-                  fontSize: 13,
-                  color: typedProfile.is_pro ? accent : "rgba(94,234,212,0.7)",
-                  textShadow: "0 1px 8px rgba(0,0,0,0.5)",
+                  background: `radial-gradient(circle, ${hexToRgba(accent, 0.45)} 0%, transparent 70%)`,
+                  filter: "blur(10px)",
+                }}
+              />
+            )}
+            {typedProfile.avatar_url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={typedProfile.avatar_url}
+                alt={displayName}
+                className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover"
+                style={{ border: "1px solid rgba(244,244,244,0.08)" }}
+              />
+            ) : (
+              <div
+                className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center font-display font-semibold"
+                style={{
+                  background: hexToRgba(accent, 0.14),
+                  border: "1px solid rgba(244,244,244,0.08)",
+                  color: accent,
+                  fontSize: 28,
                 }}
               >
-                @{typedProfile.username}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Action row + social chips */}
-        <div className="flex items-start justify-between gap-4 mt-5 mb-5 flex-wrap">
-          <div className="flex-1 min-w-0 flex flex-col gap-3">
-            {typedProfile.social_link && (
-              <SocialChips socialLink={typedProfile.social_link} />
+                {displayName.slice(0, 2).toUpperCase()}
+              </div>
             )}
-            <p className="font-mono text-xs" style={{ color: "rgba(244,244,244,0.45)" }}>
-              <Link
-                href={`/u/${typedProfile.username}/followers`}
-                className="transition-colors hover:text-[#5EEAD4]"
-              >
-                <span style={{ color: "rgba(244,244,244,0.7)" }}>{followerCount ?? 0}</span> followers
-              </Link>
-              {" · "}
-              <Link
-                href={`/u/${typedProfile.username}/following`}
-                className="transition-colors hover:text-[#5EEAD4]"
-              >
-                <span style={{ color: "rgba(244,244,244,0.7)" }}>{followingCount ?? 0}</span> following
-              </Link>
-            </p>
           </div>
-          <div className="flex items-center gap-2 shrink-0">
+
+          <div className="flex items-center gap-2 mb-1.5">
+            <h1
+              className="font-display"
+              style={{
+                fontSize: "clamp(28px, 4.8vw, 40px)",
+                fontWeight: 600,
+                color: "#F4F4F4",
+                letterSpacing: "-0.025em",
+                lineHeight: 1,
+              }}
+            >
+              {displayName}
+            </h1>
+            {typedProfile.is_pro && (
+              <span
+                className="font-mono text-[9px] uppercase tracking-widest rounded px-1.5 py-0.5"
+                style={{
+                  background: hexToRgba(accent, 0.14),
+                  color: accent,
+                  border: `1px solid ${hexToRgba(accent, 0.3)}`,
+                }}
+              >
+                pro
+              </span>
+            )}
+          </div>
+
+          <p
+            className="font-mono text-[12px] mb-4"
+            style={{ color: "rgba(244,244,244,0.45)" }}
+          >
+            @{typedProfile.username}
+          </p>
+
+          {typedProfile.bio && (
+            <p
+              className="font-sans text-[15px] leading-relaxed max-w-md mb-5"
+              style={{ color: "rgba(244,244,244,0.7)" }}
+            >
+              {typedProfile.bio}
+            </p>
+          )}
+
+          {typedProfile.social_link && (
+            <div className="mb-5">
+              <SocialChips socialLink={typedProfile.social_link} />
+            </div>
+          )}
+
+          {/* Followers · Following */}
+          <p className="font-mono text-[11px] mb-5" style={{ color: "rgba(244,244,244,0.4)" }}>
+            <Link
+              href={`/u/${typedProfile.username}/followers`}
+              className="transition-colors hover:text-[#5EEAD4]"
+            >
+              <span style={{ color: "rgba(244,244,244,0.85)" }}>{followerCount ?? 0}</span> followers
+            </Link>
+            <span className="mx-2" style={{ color: "rgba(244,244,244,0.2)" }}>·</span>
+            <Link
+              href={`/u/${typedProfile.username}/following`}
+              className="transition-colors hover:text-[#5EEAD4]"
+            >
+              <span style={{ color: "rgba(244,244,244,0.85)" }}>{followingCount ?? 0}</span> following
+            </Link>
+          </p>
+
+          {/* Actions */}
+          <div className="flex items-center gap-2 flex-wrap justify-center">
             {!isSelf && (
               currentUser
                 ? <FollowButtonLoggedIn
@@ -404,228 +389,192 @@ export default async function PublicProfilePage({
               />
             )}
           </div>
-        </div>
+        </header>
 
-        {typedProfile.bio && (
-          <p className="text-sm leading-relaxed mb-8 max-w-2xl" style={{ color: "rgba(255,255,255,0.7)" }}>
-            {typedProfile.bio}
-          </p>
-        )}
+        {/* Stats — type as data, no boxes */}
+        <section
+          className="grid grid-cols-3 gap-6 sm:gap-8 mb-12 pb-10 anim-fadeUp"
+          style={{ borderBottom: "1px solid rgba(244,244,244,0.06)" }}
+        >
+          {[
+            { label: "fixations", value: String(allFixes.length) },
+            { label: "days fixated", value: String(totalDays) },
+            { label: "top category", value: mostObsessed ?? "—" },
+          ].map((s) => (
+            <div key={s.label}>
+              <p
+                className="font-display tabular-nums"
+                style={{
+                  fontSize: "clamp(24px, 4vw, 36px)",
+                  fontWeight: 600,
+                  letterSpacing: "-0.03em",
+                  lineHeight: 1,
+                  color: "#F4F4F4",
+                }}
+              >
+                {s.value}
+              </p>
+              <p
+                className="font-mono text-[10px] uppercase tracking-widest mt-2"
+                style={{ color: "rgba(244,244,244,0.4)" }}
+              >
+                {s.label}
+              </p>
+            </div>
+          ))}
+        </section>
 
-        {/* Pinned fixes */}
+        {/* Pinned — vvault list rows */}
         {pinnedFixes.length > 0 && (
-          <div className="mb-8">
-            <div className="flex items-center gap-1.5 mb-3" style={{ color: "rgba(244,244,244,0.35)" }}>
+          <section className="mb-12 anim-fadeUp">
+            <div className="flex items-center gap-2 mb-4">
               <PinIcon size={11} />
-              <p className="font-mono text-[10px] uppercase tracking-widest">
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.4)" }}>
                 currently obsessed with
               </p>
             </div>
-            <div className="flex flex-col gap-3">
-              {pinnedFixes.map((pf) => (
-                <Link
-                  key={pf.id}
-                  href={`/fix/${pf.id}`}
-                  className="group flex items-center gap-4 rounded-2xl p-5 transition-all"
-                  style={{ background: "#111113", border: `1px solid ${hexToRgba(accent, 0.2)}` }}
-                >
-                  <div className="flex-1 min-w-0">
-                    <h3
-                      className="font-display font-medium text-lg leading-snug transition-colors mb-1"
-                      style={{ color: "#F4F4F4" }}
+            <div className="flex flex-col">
+              {pinnedFixes.map((pf, i) => {
+                const catColor = CATEGORY_COLOR[pf.category.toLowerCase()] || accent;
+                return (
+                  <Link
+                    key={pf.id}
+                    href={`/fix/${pf.id}`}
+                    className="group flex items-center gap-4 py-4 transition-colors"
+                    style={{
+                      borderTop: i === 0 ? "1px solid rgba(244,244,244,0.06)" : undefined,
+                      borderBottom: "1px solid rgba(244,244,244,0.06)",
+                    }}
+                  >
+                    <span
+                      className="shrink-0 inline-flex"
+                      style={{ color: catColor }}
                     >
-                      {pf.title}
-                    </h3>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-mono text-[10px] uppercase tracking-widest rounded-full px-2.5 py-1"
-                        style={{ background: hexToRgba(accent, 0.1), border: `1px solid ${hexToRgba(accent, 0.25)}`, color: accent }}>
+                      <CategoryIcon category={pf.category} size={18} />
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <h3
+                        className="font-display group-hover:text-[#5EEAD4] transition-colors truncate"
+                        style={{ fontSize: 16, fontWeight: 500, color: "#F4F4F4", letterSpacing: "-0.01em" }}
+                      >
+                        {pf.title}
+                      </h3>
+                      <p className="font-mono text-[11px] mt-0.5" style={{ color: "rgba(244,244,244,0.4)" }}>
                         {pf.category}
-                      </span>
-                      <span className="font-mono text-xs" style={{ color: "#9A9A9A" }}>
-                        Day {dayCount(pf.started_at, pf.ended_at)}
-                      </span>
+                      </p>
                     </div>
-                  </div>
-                  <div className="shrink-0 text-2xl font-display font-black tabular-nums" style={{ color: accent }}>
-                    {dayCount(pf.started_at, pf.ended_at)}
-                    <span className="text-xs font-mono font-normal ml-1" style={{ color: hexToRgba(accent, 0.5) }}>d</span>
-                  </div>
-                </Link>
-              ))}
+                    <div className="shrink-0 text-right">
+                      <p
+                        className="font-display tabular-nums"
+                        style={{ fontSize: 22, fontWeight: 600, color: accent, lineHeight: 1, letterSpacing: "-0.02em" }}
+                      >
+                        {dayCount(pf.started_at, pf.ended_at)}
+                      </p>
+                      <p className="font-mono text-[9px] uppercase tracking-widest mt-1" style={{ color: hexToRgba(accent, 0.5) }}>
+                        days
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
-          </div>
+          </section>
         )}
 
-        {/* Stats */}
-        <div
-          className="grid grid-cols-3 gap-px rounded-2xl overflow-hidden mb-10"
-          style={{ background: "rgba(244,244,244,0.07)" }}
-        >
-          {[
-            { label: "hyperfixations", value: allFixes.length },
-            { label: "total days", value: totalDays },
-            { label: "top category", value: mostObsessed ?? "—" },
-          ].map((stat) => (
-            <div
-              key={stat.label}
-              className="px-3 py-4 sm:px-6 sm:py-5 text-center"
-              style={{ background: "#111113" }}
-            >
-              <div className="text-2xl sm:text-3xl font-display font-medium mb-1 truncate">{stat.value}</div>
-              <div className="text-[9px] sm:text-xs font-mono uppercase tracking-widest" style={{ color: "#9A9A9A" }}>
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Graveyard link */}
-        {endedPublicCount > 0 && (
-          <Link
-            href={`/u/${typedProfile.username}/graveyard`}
-            className="group flex items-center justify-between gap-4 rounded-3xl p-5 mb-8 transition-all hover:border-[rgba(94,234,212,0.3)]"
-            style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
-          >
-            <div className="flex items-center gap-3">
-              <div
-                className="flex items-center justify-center rounded-xl shrink-0"
-                style={{
-                  width: 40,
-                  height: 40,
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  color: "rgba(255,255,255,0.5)",
-                }}
-              >
-                <TombstoneIcon size={20} />
-              </div>
-              <div>
-                <p className="font-display font-medium text-base leading-snug group-hover:text-[#5EEAD4] transition-colors">
-                  The graveyard
-                </p>
-                <p className="font-sans text-xs mt-0.5" style={{ color: "rgba(244,244,244,0.4)" }}>
-                  {endedPublicCount} ended {endedPublicCount === 1 ? "obsession" : "obsessions"} — mourned, archived, preserved
-                </p>
-              </div>
-            </div>
-            <span className="font-sans text-sm shrink-0" style={{ color: "#5EEAD4" }}>View →</span>
-          </Link>
-        )}
-
-        {/* Public fixes — vvault-style visual cards */}
-        <div>
-          <div className="flex items-baseline justify-between mb-5">
-            <h2 className="text-sm font-mono uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.6)" }}>
-              Active fixations
-            </h2>
-            {publicFixes.filter((f) => !f.ended_at).length > 4 && (
-              <span className="font-mono text-xs" style={{ color: "rgba(244,244,244,0.35)" }}>
-                {publicFixes.filter((f) => !f.ended_at).length} total
-              </span>
+        {/* Active fixations — list rows */}
+        <section className="mb-12 anim-fadeUp">
+          <div className="flex items-baseline justify-between mb-4">
+            <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.4)" }}>
+              active fixations
+            </p>
+            {publicFixes.filter((f) => !f.ended_at).length > 0 && (
+              <p className="font-mono text-[10px] tabular-nums" style={{ color: "rgba(244,244,244,0.3)" }}>
+                {publicFixes.filter((f) => !f.ended_at).length}
+              </p>
             )}
           </div>
 
           {publicFixes.filter((f) => !f.ended_at).length === 0 ? (
-            <div
-              className="rounded-3xl p-10 text-center"
-              style={{ background: "#0F1011", border: "1px solid rgba(244,244,244,0.06)" }}
-            >
-              <p className="font-display text-lg mb-2" style={{ color: "rgba(244,244,244,0.5)" }}>
-                {isSelf ? "Nothing public yet." : "No active fixations yet."}
-              </p>
-              <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>
-                {isSelf
-                  ? "Turn a fix public to show it here."
-                  : "This person keeps their obsessions private."}
-              </p>
-            </div>
+            <p className="font-sans text-sm py-6" style={{ color: "rgba(244,244,244,0.4)" }}>
+              {isSelf
+                ? "nothing public yet. turn a fix public in settings to show it here."
+                : "this person keeps their obsessions private."}
+            </p>
           ) : (
-            <div className="grid grid-cols-2 gap-3">
-              {publicFixes.filter((f) => !f.ended_at).map((fix) => {
+            <div className="flex flex-col">
+              {publicFixes.filter((f) => !f.ended_at).map((fix, i) => {
                 const days = dayCount(fix.started_at, fix.ended_at);
                 const catColor = CATEGORY_COLOR[fix.category.toLowerCase()] || "#5EEAD4";
                 return (
                   <Link
                     key={fix.id}
                     href={`/fix/${fix.id}`}
-                    className="group block rounded-3xl overflow-hidden transition-all duration-200 hover:-translate-y-1"
+                    className="group flex items-center gap-4 py-4 transition-colors"
                     style={{
-                      background: "#0F1011",
-                      border: "1px solid rgba(244,244,244,0.06)",
+                      borderTop: i === 0 ? "1px solid rgba(244,244,244,0.06)" : undefined,
+                      borderBottom: "1px solid rgba(244,244,244,0.06)",
                     }}
                   >
-                    {/* Cover area — banner_url or category gradient */}
-                    <div
-                      className="relative w-full aspect-square"
-                      style={{
-                        backgroundImage: fix.banner_url ? `url(${fix.banner_url})` : undefined,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        background: fix.banner_url
-                          ? undefined
-                          : `linear-gradient(135deg, ${catColor}40 0%, ${catColor}10 60%, #0F1011 100%)`,
-                      }}
+                    <span
+                      className="shrink-0 inline-flex"
+                      style={{ color: catColor }}
                     >
-                      <div
-                        aria-hidden
-                        className="absolute inset-0 pointer-events-none"
-                        style={{ background: "linear-gradient(180deg, transparent 0%, transparent 50%, rgba(15,16,17,0.92) 100%)" }}
-                      />
-                      {/* Day count badge top-left */}
-                      <div
-                        className="absolute top-3 left-3 inline-flex items-baseline gap-0.5 rounded-md px-2 py-1"
-                        style={{
-                          background: "rgba(15,16,17,0.7)",
-                          border: "1px solid rgba(244,244,244,0.08)",
-                          backdropFilter: "blur(8px)",
-                        }}
-                      >
-                        <span className="font-display tabular-nums" style={{ fontSize: 18, fontWeight: 700, color: "#F4F4F4", lineHeight: 1, letterSpacing: "-0.02em" }}>
-                          {days}
-                        </span>
-                        <span className="font-mono text-[9px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.55)" }}>
-                          d
-                        </span>
-                      </div>
-                      {/* Category chip bottom-left */}
-                      <div className="absolute bottom-3 left-3 right-3">
-                        <span
-                          className="inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-widest rounded-full px-2 py-0.5"
-                          style={{
-                            background: `${catColor}22`,
-                            border: `1px solid ${catColor}44`,
-                            color: catColor,
-                            backdropFilter: "blur(8px)",
-                          }}
-                        >
-                          <CategoryIcon category={fix.category} size={9} />
-                          {fix.category}
-                        </span>
-                      </div>
-                    </div>
-                    {/* Title */}
-                    <div className="p-4">
+                      <CategoryIcon category={fix.category} size={18} />
+                    </span>
+                    <div className="flex-1 min-w-0">
                       <h3
-                        className="font-display font-medium leading-snug group-hover:text-[#5EEAD4] transition-colors"
-                        style={{
-                          fontSize: 14,
-                          color: "#F4F4F4",
-                          display: "-webkit-box",
-                          WebkitLineClamp: 2,
-                          WebkitBoxOrient: "vertical",
-                          overflow: "hidden",
-                          letterSpacing: "-0.01em",
-                        }}
+                        className="font-display group-hover:text-[#5EEAD4] transition-colors truncate"
+                        style={{ fontSize: 16, fontWeight: 500, color: "#F4F4F4", letterSpacing: "-0.01em" }}
                       >
                         {fix.title}
                       </h3>
+                      <p className="font-mono text-[11px] mt-0.5" style={{ color: "rgba(244,244,244,0.4)" }}>
+                        {fix.category}
+                      </p>
+                    </div>
+                    <div className="shrink-0 text-right">
+                      <p
+                        className="font-display tabular-nums"
+                        style={{ fontSize: 20, fontWeight: 600, color: "#F4F4F4", lineHeight: 1, letterSpacing: "-0.02em" }}
+                      >
+                        {days}
+                      </p>
+                      <p className="font-mono text-[9px] uppercase tracking-widest mt-1" style={{ color: "rgba(244,244,244,0.35)" }}>
+                        days
+                      </p>
                     </div>
                   </Link>
                 );
               })}
             </div>
           )}
-        </div>
+        </section>
+
+        {/* Graveyard — minimal row */}
+        {endedPublicCount > 0 && (
+          <Link
+            href={`/u/${typedProfile.username}/graveyard`}
+            className="group flex items-center justify-between gap-4 py-4 transition-colors anim-fadeUp"
+            style={{ borderTop: "1px solid rgba(244,244,244,0.06)" }}
+          >
+            <div className="flex items-center gap-3 min-w-0">
+              <span style={{ color: "rgba(244,244,244,0.4)" }}>
+                <TombstoneIcon size={18} />
+              </span>
+              <div className="min-w-0">
+                <p className="font-display group-hover:text-[#5EEAD4] transition-colors" style={{ fontSize: 16, fontWeight: 500, color: "#F4F4F4" }}>
+                  the graveyard
+                </p>
+                <p className="font-mono text-[11px] mt-0.5" style={{ color: "rgba(244,244,244,0.4)" }}>
+                  {endedPublicCount} ended {endedPublicCount === 1 ? "obsession" : "obsessions"}
+                </p>
+              </div>
+            </div>
+            <span className="font-mono text-[11px] uppercase tracking-widest shrink-0" style={{ color: "rgba(94,234,212,0.7)" }}>
+              view →
+            </span>
+          </Link>
+        )}
       </main>
     </div>
   );
