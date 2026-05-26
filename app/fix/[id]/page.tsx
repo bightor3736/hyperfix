@@ -523,7 +523,43 @@ export default async function PublicFixPage({
         </div>
 
         {/* CTA */}
-        {typedProfile.username && (
+        {!user ? (
+          <div
+            className="relative overflow-hidden rounded-2xl anim-fadeUp"
+            style={{
+              background: "radial-gradient(ellipse 140% 160% at 50% 110%, rgba(94,234,212,0.22) 0%, transparent 55%), #0F1011",
+              border: "1px solid rgba(94,234,212,0.22)",
+              animationDelay: "200ms",
+            }}
+          >
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none mix-blend-overlay"
+              style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.22 }}
+            />
+            <div className="relative p-6 sm:p-8 flex flex-col items-center text-center gap-4">
+              <p
+                className="font-display"
+                style={{ fontSize: "clamp(20px, 3.5vw, 26px)", fontWeight: 600, color: "#F4F4F4", letterSpacing: "-0.02em", lineHeight: 1.1 }}
+              >
+                Track your own {typedFix.category} obsession.
+              </p>
+              <p className="font-sans text-sm max-w-xs" style={{ color: "rgba(244,244,244,0.55)" }}>
+                Log what you&apos;re fixated on, count every day, share it with the world. Free forever.
+              </p>
+              <Link
+                href={`/auth/signup?next=/fix/${id}`}
+                className="px-7 py-3.5 rounded-2xl font-sans text-base font-semibold transition-all hover:opacity-90 hover:-translate-y-px active:scale-[0.98]"
+                style={{ background: "#FFFFFF", color: "#0A0A0A", boxShadow: "0 8px 32px rgba(94,234,212,0.2)" }}
+              >
+                Join Hyperfix free →
+              </Link>
+              <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.3)" }}>
+                30 seconds · no credit card
+              </p>
+            </div>
+          </div>
+        ) : typedProfile.username && user.id !== typedFix.user_id ? (
           <div
             className="relative overflow-hidden rounded-2xl p-6 flex items-center justify-between gap-4 anim-fadeUp"
             style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, animationDelay: "200ms" }}
@@ -539,7 +575,7 @@ export default async function PublicFixPage({
                 <span style={{ color: TEAL }}>@{typedProfile.username}</span> on Hyperfix
               </p>
               <p className="font-sans text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
-                Track your own hyperfixations
+                See all their hyperfixations
               </p>
             </div>
             <Link
@@ -554,7 +590,7 @@ export default async function PublicFixPage({
               View profile →
             </Link>
           </div>
-        )}
+        ) : null}
       </main>
     </div>
   );
