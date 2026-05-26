@@ -391,8 +391,9 @@ export default async function PublicFixPage({
         {((titleCount ?? 0) > 0 || (categoryCount ?? 0) > 0) && (
           <div className="mb-8 flex flex-col gap-3 anim-fadeUp" style={{ animationDelay: "120ms" }}>
             {(titleCount ?? 0) > 0 && (
-              <div
-                className="relative overflow-hidden rounded-2xl px-5 py-4 flex items-center gap-3"
+              <Link
+                href={`/search?q=${encodeURIComponent(typedFix.title)}`}
+                className="relative overflow-hidden rounded-2xl px-5 py-4 flex items-center gap-3 transition-all hover:-translate-y-px group"
                 style={{
                   background: CARD_BG,
                   border: "1px solid rgba(94,234,212,0.18)",
@@ -405,17 +406,27 @@ export default async function PublicFixPage({
                 />
                 <span style={{ color: TEAL, display: "inline-flex" }}><FlameIcon size={20} /></span>
                 <p
-                  className="relative font-display"
+                  className="relative font-display flex-1"
                   style={{ color: TEAL, fontSize: 16, fontWeight: 600, lineHeight: 1.3 }}
                 >
                   {titleCount} other {titleCount === 1 ? "person is" : "people are"} also unwell about this
                 </p>
-              </div>
+                <span
+                  className="relative font-mono text-[11px] uppercase tracking-widest transition-transform group-hover:translate-x-0.5"
+                  style={{ color: TEAL }}
+                >
+                  find them →
+                </span>
+              </Link>
             )}
             {(categoryCount ?? 0) > 0 && (
-              <p className="font-sans text-xs" style={{ color: "rgba(255,255,255,0.35)", paddingLeft: 2 }}>
-                {categoryCount} {categoryCount === 1 ? "person is" : "people are"} currently tracking {typedFix.category}
-              </p>
+              <Link
+                href={`/explore?category=${encodeURIComponent(typedFix.category)}`}
+                className="font-sans text-xs hover:underline"
+                style={{ color: "rgba(255,255,255,0.45)", paddingLeft: 2 }}
+              >
+                {categoryCount} {categoryCount === 1 ? "person is" : "people are"} currently tracking {typedFix.category} →
+              </Link>
             )}
           </div>
         )}
