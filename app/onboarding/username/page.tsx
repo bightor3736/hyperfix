@@ -211,6 +211,18 @@ export default function OnboardingUsernamePage() {
         <p className="relative z-10 mt-6 font-sans text-xs text-center" style={{ color: "rgba(255,255,255,0.25)" }}>
           You can change this later in settings.
         </p>
+
+        <div
+          className="relative z-10 mt-4 px-5 py-3.5 rounded-2xl text-center max-w-[380px] w-full"
+          style={{ background: "rgba(94,234,212,0.06)", border: "1px solid rgba(94,234,212,0.14)" }}
+        >
+          <p className="font-mono text-[11px] uppercase tracking-widest mb-1" style={{ color: "rgba(94,234,212,0.7)" }}>
+            unlock Pro free
+          </p>
+          <p className="font-sans text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+            Refer 3 friends → get Hyperfix Pro forever. Your referral link is waiting on the dashboard.
+          </p>
+        </div>
       </div>
     </div>
   );

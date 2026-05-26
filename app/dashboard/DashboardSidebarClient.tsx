@@ -293,23 +293,21 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
 
         {/* Profile + sign out row */}
         <div className="flex gap-2">
-          {username && (
-            <Link
-              href={`/u/${username}`}
-              className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl font-sans text-xs font-medium transition-all duration-150 hover:opacity-80"
-              style={{
-                color: "rgba(244,244,244,0.5)",
-                background: "rgba(244,244,244,0.04)",
-                border: "1px solid rgba(244,244,244,0.06)",
-              }}
-            >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-              </svg>
-              My profile
-            </Link>
-          )}
+          <Link
+            href={username ? `/u/${username}` : "/onboarding/username"}
+            className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl font-sans text-xs font-medium transition-all duration-150 hover:opacity-80"
+            style={{
+              color: username ? "rgba(244,244,244,0.5)" : "#5EEAD4",
+              background: username ? "rgba(244,244,244,0.04)" : "rgba(94,234,212,0.07)",
+              border: username ? "1px solid rgba(244,244,244,0.06)" : "1px solid rgba(94,234,212,0.2)",
+            }}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+            </svg>
+            {username ? "My profile" : "Set up profile"}
+          </Link>
           <button
             onClick={handleSignOut}
             disabled={pending}

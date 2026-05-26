@@ -42,7 +42,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
   const [pending, startTransition] = useTransition();
   const { toast } = useToast();
 
-  // Pre-fill from a shared link (Web Share Target API → /dashboard/new?title=…&text=…&url=…)
+  // Pre-fill from a shared link or trending suggestion
   const shared = useMemo(() => {
     const rawTitle = searchParams.get("title") ?? "";
     const rawText = searchParams.get("text") ?? "";
@@ -56,17 +56,19 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
       }
     }
     const fixTitle = (rawTitle || textNoUrl).trim().slice(0, 200);
+    const preCategory = searchParams.get("category") ?? "";
     return {
       isShared: !!(fixTitle || url),
       title: fixTitle,
       note: url ? `Shared: ${url}` : "",
+      category: CATEGORIES.includes(preCategory as Category) ? (preCategory as Category) : null,
     };
   }, [searchParams]);
 
   const [welcomeDismissed, setWelcomeDismissed] = useState(false);
   const [sharedDismissed, setSharedDismissed] = useState(false);
   const [title, setTitle] = useState(shared.title);
-  const [category, setCategory] = useState<Category | null>(null);
+  const [category, setCategory] = useState<Category | null>(shared.category);
   const [intensity, setIntensity] = useState(5);
   const [note, setNote] = useState(shared.note);
   const [isPublic, setIsPublic] = useState(true);
@@ -127,7 +129,13 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
           return;
         }
 
-        toast({ message: "Fix logged. The counter starts now.", type: "success" });
+        const isFirstFix = activeFixCount === 0;
+        toast({
+          message: isFirstFix
+            ? "Day 1 starts now. Welcome to the count. 🎉"
+            : "Fix logged. The counter starts now.",
+          type: "success",
+        });
         router.push(`/dashboard/fix/${data.id}`);
         router.refresh();
       } catch (err) {
