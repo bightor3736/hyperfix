@@ -118,6 +118,19 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
       icon: (active: boolean) => <Chart set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
     },
     {
+      href: `/wrapped/${new Date().getFullYear()}`,
+      label: `Wrapped '${String(new Date().getFullYear()).slice(2)}`,
+      icon: (_active: boolean) => (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="8" width="18" height="13" rx="2" />
+          <path d="M3 12 L21 12" />
+          <path d="M12 8 L12 21" />
+          <path d="M7.5 8 C6 8 5 6.5 5.5 5 C6 3.5 8 3.5 9 5 C10 6.5 12 8 12 8" />
+          <path d="M16.5 8 C18 8 19 6.5 18.5 5 C18 3.5 16 3.5 15 5 C14 6.5 12 8 12 8" />
+        </svg>
+      ),
+    },
+    {
       href: "/dashboard/settings",
       label: "Settings",
       icon: (active: boolean) => <Setting set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,

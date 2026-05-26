@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
 import WaitlistForm from "@/components/WaitlistForm";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -89,7 +91,13 @@ const mockEras = [
   },
 ];
 
-export default function WrappedPage() {
+export default async function WrappedPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const currentYear = new Date().getFullYear();
+
   return (
     <>
       <script
@@ -103,8 +111,15 @@ export default function WrappedPage() {
         {/* HERO */}
         <section className="px-6 sm:px-10 pt-12 sm:pt-16 pb-16">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
-              coming soon · hyperfix wrapped · 2026
+            <span
+              className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 mb-8"
+              style={{
+                background: user ? "rgba(94,234,212,0.08)" : "rgba(244,244,244,0.06)",
+                color: user ? "#5EEAD4" : "rgba(244,244,244,0.4)",
+                border: user ? "1px solid rgba(94,234,212,0.22)" : undefined,
+              }}
+            >
+              {user ? `live now · your ${currentYear} wrapped` : `coming soon · hyperfix wrapped · ${currentYear}`}
             </span>
             <h1 className="font-display font-medium text-[2.8rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[0.92] tracking-crush text-ink text-balance">
               A year of obsessions.
@@ -125,6 +140,23 @@ export default function WrappedPage() {
                 end of the year — if you've been logging.
               </p>
             </div>
+
+            {user && (
+              <div className="mt-10">
+                <Link
+                  href={`/wrapped/${currentYear}`}
+                  className="inline-flex items-center gap-2 font-sans text-base font-semibold px-7 py-4 rounded-full transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
+                  style={{
+                    background: "#5EEAD4",
+                    color: "#070708",
+                    boxShadow: "0 12px 36px rgba(94,234,212,0.25)",
+                  }}
+                >
+                  View your {currentYear} Wrapped
+                  <span aria-hidden>→</span>
+                </Link>
+              </div>
+            )}
           </div>
         </section>
 
@@ -229,21 +261,46 @@ export default function WrappedPage() {
         <section className="px-6 sm:px-10 py-20 bg-[#0F1011]">
           <div className="max-w-4xl mx-auto">
             <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
-              join the waitlist
+              {user ? "your year, counted" : "join the waitlist"}
             </span>
             <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tightest max-w-2xl text-balance">
-              Start logging now.
-              <br />
-              <span className="italic text-accent">
-                Get your Wrapped in December.
-              </span>
+              {user ? (
+                <>
+                  Your {currentYear} Wrapped
+                  <br />
+                  <span className="italic text-accent">is ready.</span>
+                </>
+              ) : (
+                <>
+                  Start logging now.
+                  <br />
+                  <span className="italic text-accent">Get your Wrapped in December.</span>
+                </>
+              )}
             </h2>
             <p className="mt-6 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-xl leading-snug">
-              Wrapped only works if you've been logging. Join the waitlist —
-              early access goes out in waves, and early users get the best
-              usernames and a permanent Pro discount.
+              {user
+                ? `Every fix, every era, every day of ${currentYear} — stacked into one shareable page.`
+                : "Wrapped only works if you've been logging. Join the waitlist — early access goes out in waves, and early users get the best usernames and a permanent Pro discount."}
             </p>
-            <WaitlistForm variant="dark" />
+            {user ? (
+              <div className="mt-8">
+                <Link
+                  href={`/wrapped/${currentYear}`}
+                  className="inline-flex items-center gap-2 font-sans text-base font-semibold px-7 py-4 rounded-full transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
+                  style={{
+                    background: "#5EEAD4",
+                    color: "#070708",
+                    boxShadow: "0 12px 36px rgba(94,234,212,0.25)",
+                  }}
+                >
+                  See my Wrapped
+                  <span aria-hidden>→</span>
+                </Link>
+              </div>
+            ) : (
+              <WaitlistForm variant="dark" />
+            )}
           </div>
         </section>
 
