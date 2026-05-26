@@ -10,11 +10,64 @@ type Props = {
   searchParams: Promise<{ u?: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { year } = await params;
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+  const { year: yearParam } = await params;
+  const { u: username } = await searchParams;
+  const year = parseInt(yearParam, 10) || new Date().getFullYear();
+  const SITE_URL = "https://hyperfix.app";
+
+  const title = `Hyperfix Wrapped ${year} — a year of obsessions`;
+  const description = `Your ${year} in hyperfixations. Logged, counted, and a little unwell.`;
+
+  // Build OG image URL — public username gets a rich preview, otherwise generic
+  let ogImage = `${SITE_URL}/api/og?title=Hyperfix+Wrapped+${year}&sub=a+year+of+obsessions%2C+counted&accent=Wrapped`;
+
+  if (username) {
+    const supabase = await createClient();
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("id, is_public")
+      .eq("username", username)
+      .single();
+
+    if (profile?.is_public) {
+      const { data: fixesRaw } = await supabase
+        .from("fixes")
+        .select("id, title, category, intensity, started_at, ended_at")
+        .eq("user_id", profile.id);
+
+      const stats = computeStats((fixesRaw as Fix[]) ?? [], year);
+      if (stats) {
+        const params = new URLSearchParams({
+          year: String(year),
+          totalFixes: String(stats.totalFixes),
+          totalDays: String(stats.totalDays),
+          topCategory: stats.topCategory,
+          avgIntensity: String(stats.avgIntensity),
+          longestTitle: stats.longestFix.title,
+          longestDays: String(stats.getDuration(stats.longestFix)),
+          quote: generateQuote(stats),
+          name: username,
+        });
+        ogImage = `${SITE_URL}/api/wrapped/image?${params.toString()}`;
+      }
+    }
+  }
+
   return {
-    title: `Hyperfix Wrapped ${year} — a year of obsessions`,
-    description: `Your ${year} in hyperfixations. Logged, counted, and a little unwell.`,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [{ url: ogImage, width: 1080, height: 1920, alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
+    },
   };
 }
 
