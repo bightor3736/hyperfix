@@ -70,7 +70,10 @@ export async function getInbox(
     .or(`user_a.eq.${userId},user_b.eq.${userId}`)
     .order("last_message_at", { ascending: false });
 
-  if (error) throw error;
+  if (error) {
+    console.error("getInbox failed:", error.message);
+    return [];
+  }
   const rows = (convos ?? []) as Array<{
     id: string;
     user_a: string;
