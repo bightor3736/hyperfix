@@ -8,6 +8,7 @@ import { FixComments } from "@/components/FixComments";
 import { ShareFixationCard } from "@/components/ShareFixationCard";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { FlameIcon } from "@/components/LandingIcons";
+import { MessageButton } from "@/components/MessageButton";
 import type { Metadata } from "next";
 
 const TEAL = "#5EEAD4";
@@ -245,15 +246,18 @@ export default async function PublicFixPage({
         <Link href="/" aria-label="Hyperfix home" className="transition-transform hover:scale-[1.02]">
           <LogoLockup size="sm" />
         </Link>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {typedProfile.username && (
             <Link
               href={`/u/${typedProfile.username}`}
-              className="font-sans text-sm transition-colors"
+              className="font-sans text-sm transition-colors hidden sm:inline"
               style={{ color: "rgba(255,255,255,0.55)" }}
             >
-              ← @{typedProfile.username}
+              @{typedProfile.username}
             </Link>
+          )}
+          {user && user.id !== typedFix.user_id && (
+            <MessageButton targetUserId={typedFix.user_id} />
           )}
           <ShareButton fixId={id} isPublic={typedFix.is_public} />
         </div>
