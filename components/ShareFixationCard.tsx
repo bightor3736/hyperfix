@@ -12,6 +12,8 @@ type Props = {
   intensity: number;
 };
 
+const TEAL = "#5EEAD4";
+
 export function ShareFixationCard({ fixId, isPublic, title, days, intensity }: Props) {
   const [state, setState] = useState<State>("idle");
 
@@ -22,28 +24,35 @@ export function ShareFixationCard({ fixId, isPublic, title, days, intensity }: P
       const res = await fetch(`/api/share/${fixId}`);
       if (!res.ok) throw new Error("card generation failed");
       const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
       const filename = `hyperfix-${title.slice(0, 32).replace(/\s+/g, "-").toLowerCase()}.png`;
+      const file = new File([blob], filename, { type: "image/png" });
 
       if (
         typeof navigator !== "undefined" &&
         navigator.share &&
         navigator.canShare &&
-        navigator.canShare({ files: [new File([blob], filename, { type: "image/png" })] })
+        navigator.canShare({ files: [file] })
       ) {
-        await navigator.share({
-          files: [new File([blob], filename, { type: "image/png" })],
-          title: `Day ${days} of ${title}`,
-          text: `currently unwell about ${title} — day ${days}, intensity ${intensity}/10. tracked on hyperfix.app`,
-        });
+        try {
+          await navigator.share({
+            files: [file],
+            title: `Day ${days} of ${title}`,
+            text: `currently unwell about ${title} — day ${days}, intensity ${intensity}/10. tracked on hyperfix.app`,
+          });
+        } catch {
+          // user cancelled — silent
+          setState("idle");
+          return;
+        }
       } else {
+        const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
         a.download = filename;
         a.click();
+        URL.revokeObjectURL(url);
       }
 
-      URL.revokeObjectURL(url);
       setState("success");
       setTimeout(() => setState("idle"), 3000);
     } catch {
@@ -56,42 +65,49 @@ export function ShareFixationCard({ fixId, isPublic, title, days, intensity }: P
     <div
       className="relative overflow-hidden rounded-2xl p-5"
       style={{
-        background: "rgba(244,239,230,0.04)",
-        border: "1px solid rgba(244,239,230,0.1)",
+        background: "#0F1011",
+        border: "1px solid rgba(255,255,255,0.06)",
       }}
     >
       <div className="flex items-start gap-4">
-        {/* Mini card preview */}
+        {/* Mini card preview — dark Hyperfix style */}
         <div
-          className="shrink-0 rounded-xl overflow-hidden"
+          className="shrink-0 rounded-xl overflow-hidden relative"
           style={{
-            width: 52,
-            height: 92,
-            background: "#F4EFE6",
-            border: "1px solid rgba(244,239,230,0.2)",
+            width: 56,
+            height: 100,
+            background: "linear-gradient(180deg, #0F1011 0%, #07090A 100%)",
+            border: "1px solid rgba(94,234,212,0.18)",
+            boxShadow: "0 0 18px rgba(94,234,212,0.08)",
             display: "flex",
             flexDirection: "column",
-            position: "relative",
           }}
         >
-          <div style={{ height: 3, background: "#D72638", width: "100%", flexShrink: 0 }} />
-          <div style={{ flex: 1, padding: "4px 5px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-            <div style={{ width: "60%", height: 3, background: "rgba(17,17,17,0.15)", borderRadius: 2 }} />
+          {/* Bloom */}
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(60% 50% at 50% 110%, rgba(94,234,212,0.28) 0%, transparent 70%)",
+            }}
+          />
+          <div style={{ flex: 1, padding: "5px 6px", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative" }}>
+            <div style={{ width: "70%", height: 2, background: "rgba(244,244,244,0.18)", borderRadius: 2 }} />
             <div>
-              <div style={{ fontFamily: "Georgia, serif", fontSize: 9, fontWeight: 700, color: "#D72638", lineHeight: 1 }}>
+              <div style={{ fontFamily: "Georgia, serif", fontSize: 11, fontWeight: 700, color: TEAL, lineHeight: 1, letterSpacing: "-0.04em" }}>
                 {days > 999 ? "999+" : days}
               </div>
-              <div style={{ fontSize: 4, color: "rgba(17,17,17,0.4)", fontFamily: "monospace", marginTop: 1 }}>DAYS</div>
+              <div style={{ fontSize: 4, color: "rgba(244,244,244,0.4)", fontFamily: "monospace", marginTop: 1, letterSpacing: "0.15em" }}>DAYS</div>
             </div>
-            <div style={{ display: "flex", gap: 1 }}>
+            <div style={{ display: "flex", gap: 1.5 }}>
               {Array.from({ length: 5 }).map((_, i) => (
                 <div
                   key={i}
                   style={{
-                    width: 4,
+                    width: 5,
                     height: 2,
                     borderRadius: 1,
-                    background: i < Math.round(intensity / 2) ? "#0D9488" : "rgba(17,17,17,0.12)",
+                    background: i < Math.round(intensity / 2) ? TEAL : "rgba(244,244,244,0.12)",
                   }}
                 />
               ))}
@@ -100,48 +116,50 @@ export function ShareFixationCard({ fixId, isPublic, title, days, intensity }: P
         </div>
 
         {/* Text + CTA */}
-        <div style={{ flex: 1 }}>
-          <p className="font-mono text-xs font-bold uppercase tracking-widest mb-0.5" style={{ color: "rgba(244,239,230,0.45)" }}>
-            export card
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <p className="font-mono text-[10px] uppercase tracking-widest mb-1" style={{ color: "rgba(244,244,244,0.45)" }}>
+            share card
           </p>
           <p className="font-sans text-sm mb-3" style={{ color: "rgba(244,244,244,0.7)", lineHeight: 1.45 }}>
             {state === "success"
-              ? "Card exported — go post it."
+              ? "Card shared — go post it."
               : state === "error"
               ? "Something went wrong. Try again."
-              : "Download a 1080×1920 card to share on TikTok, Instagram, or anywhere."}
+              : "Share a 1080×1920 card to TikTok, Instagram, or anywhere."}
           </p>
           <button
             onClick={handleExport}
-            disabled={state === "generating"}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-mono text-sm font-bold transition-all duration-150"
+            disabled={state === "generating" || !isPublic}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-widest transition-all duration-150 hover:opacity-90 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
-              background: state === "success" ? "#0D9488" : state === "error" ? "rgba(215,38,56,0.8)" : "#D72638",
-              color: "#fff",
-              border: "none",
-              cursor: state === "generating" ? "wait" : "pointer",
-              opacity: state === "generating" ? 0.75 : 1,
+              background: state === "success" ? "rgba(94,234,212,0.15)" : state === "error" ? "rgba(225,29,72,0.15)" : TEAL,
+              color: state === "success" ? TEAL : state === "error" ? "#fda4af" : "#0A0A0A",
+              border: state === "success"
+                ? "1px solid rgba(94,234,212,0.3)"
+                : state === "error"
+                ? "1px solid rgba(225,29,72,0.3)"
+                : "1px solid transparent",
             }}
           >
             {state === "generating" && (
-              <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <svg className="animate-spin" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <circle cx="12" cy="12" r="10" strokeOpacity="0.25" />
                 <path d="M12 2a10 10 0 0 1 10 10" />
               </svg>
             )}
             {state === "idle" && (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
             )}
             {state === "success" && (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             )}
-            {state === "generating" ? "Generating…" : state === "success" ? "Exported!" : state === "error" ? "Try again" : "Export card"}
+            {state === "generating" ? "Generating…" : state === "success" ? "Shared" : state === "error" ? "Try again" : isPublic ? "Share card" : "Make public to share"}
           </button>
         </div>
       </div>
