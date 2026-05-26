@@ -147,11 +147,23 @@ export default async function PublicProfilePage({
     .eq("username", username)
     .single();
 
-  if (profileError || !profile || !profile.is_public) {
+  if (profileError || !profile) {
     notFound();
   }
 
   const typedProfile = profile as Profile;
+
+  // Check auth before deciding on visibility
+  const {
+    data: { user: currentUser },
+  } = await supabase.auth.getUser();
+
+  const isSelf = currentUser?.id === typedProfile.id;
+
+  // Non-public profiles are only visible to their owner
+  if (!typedProfile.is_public && !isSelf) {
+    notFound();
+  }
 
   const { data: fixes } = await supabase
     .from("fixes")
@@ -160,7 +172,8 @@ export default async function PublicProfilePage({
     .order("created_at", { ascending: false });
 
   const allFixes: Fix[] = (fixes ?? []) as Fix[];
-  const publicFixes = allFixes.filter((f) => f.is_public);
+  // Owner sees all their own fixes; visitors only see public ones
+  const publicFixes = isSelf ? allFixes : allFixes.filter((f) => f.is_public);
 
   // Pinned fixes — Pro users can pin multiple; fall back to legacy single pin
   const pinIds =
@@ -171,7 +184,7 @@ export default async function PublicProfilePage({
         : [];
   const pinnedFixes: Fix[] = pinIds
     .map((pid) => allFixes.find((f) => f.id === pid))
-    .filter((f): f is Fix => !!f && f.is_public);
+    .filter((f): f is Fix => !!f && (isSelf || f.is_public));
 
   const totalDays = allFixes.reduce((acc, fix) => acc + dayCount(fix.started_at, fix.ended_at), 0);
   const mostObsessed = getMostObsessedCategory(allFixes);
@@ -179,11 +192,6 @@ export default async function PublicProfilePage({
 
   const displayName = typedProfile.display_name ?? typedProfile.username ?? "Anonymous";
   const accent = resolveAccent(typedProfile.is_pro, typedProfile.accent_color);
-
-  // Follow state and counts
-  const {
-    data: { user: currentUser },
-  } = await supabase.auth.getUser();
 
   const { count: followerCount } = await supabase
     .from("follows")
@@ -196,7 +204,6 @@ export default async function PublicProfilePage({
     .eq("follower_id", typedProfile.id);
 
   let isFollowing = false;
-  const isSelf = currentUser?.id === typedProfile.id;
   if (currentUser && !isSelf) {
     const { data: followRow } = await supabase
       .from("follows")
@@ -241,6 +248,19 @@ export default async function PublicProfilePage({
       </nav>
 
       <main id="main-content" className="relative max-w-2xl mx-auto px-5 sm:px-8 pt-10 sm:pt-16 pb-20">
+        {/* Private profile notice — only shown to owner */}
+        {isSelf && !typedProfile.is_public && (
+          <div
+            className="flex items-center justify-between gap-4 rounded-2xl px-4 py-3 mb-6 font-sans text-sm"
+            style={{ background: "rgba(251,191,36,0.08)", border: "1px solid rgba(251,191,36,0.2)", color: "#FCD34D" }}
+          >
+            <span>Your profile is private — only you can see this.</span>
+            <Link href="/dashboard/settings" className="font-mono text-xs underline underline-offset-2 shrink-0" style={{ color: "#FCD34D" }}>
+              make public →
+            </Link>
+          </div>
+        )}
+
         {/* Optional banner — thin aesthetic strip if user set one */}
         {typedProfile.banner_url && (
           <div
