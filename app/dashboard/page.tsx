@@ -95,6 +95,7 @@ export default async function DashboardPage() {
   } = await supabase.auth.getUser();
 
   let displayName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "there";
+  let username: string | null = null;
   if (user) {
     const { data: profile } = await supabase
       .from("profiles")
@@ -103,6 +104,7 @@ export default async function DashboardPage() {
       .single();
     if (profile) {
       displayName = profile.display_name || profile.username || displayName;
+      username = profile.username ?? null;
     }
   }
 
@@ -223,7 +225,7 @@ export default async function DashboardPage() {
               good {greeting}
             </p>
             <h1
-              className="font-display text-ink mb-3"
+              className="font-display text-ink mb-2"
               style={{
                 fontSize: "clamp(32px, 5vw, 48px)",
                 lineHeight: 1.02,
@@ -233,6 +235,15 @@ export default async function DashboardPage() {
             >
               {firstName}.
             </h1>
+            {username && (
+              <Link
+                href={`/u/${username}`}
+                className="inline-flex items-center gap-1.5 font-mono text-[11px] mb-3 transition-colors hover:text-[#5EEAD4]"
+                style={{ color: "rgba(255,255,255,0.4)" }}
+              >
+                @{username} · view public profile →
+              </Link>
+            )}
             <p className="font-sans text-sm sm:text-base max-w-xl" style={{ color: "rgba(255,255,255,0.55)" }}>
               {subtext}
             </p>
