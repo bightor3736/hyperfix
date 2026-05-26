@@ -12,8 +12,19 @@ const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 export const metadata: Metadata = {
-  title: "Explore · Hyperfix",
-  description: "What everyone's obsessed with right now.",
+  title: "Explore Hyperfixations · Hyperfix",
+  description: "Browse what thousands of people are obsessed with right now — anime, music, shows, games, fanfic and more. Track your own hyperfixations free.",
+  keywords: ["hyperfixation tracker", "ADHD obsessions", "fandom tracker", "what to watch", "anime tracker", "music obsession"],
+  openGraph: {
+    title: "What everyone's hyperfixated on right now · Hyperfix",
+    description: "Browse thousands of live hyperfixations — anime, music, shows, games, fanfic and more.",
+    images: [{ url: "https://hyperfix.app/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "What everyone's hyperfixated on right now · Hyperfix",
+    description: "Browse thousands of live hyperfixations. Free to track your own.",
+  },
 };
 
 type Fix = {

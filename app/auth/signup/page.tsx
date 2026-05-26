@@ -1,8 +1,18 @@
-"use client";
-
+import { createClient } from "@/lib/supabase/server";
 import { OAuthButtons, OrDivider, SignupFormInner } from "@/components/AuthForm";
 
-export default function SignupPage() {
+export default async function SignupPage() {
+  const supabase = await createClient();
+  const { count } = await supabase
+    .from("profiles")
+    .select("id", { count: "exact", head: true });
+
+  const userCount = count ?? 0;
+  const displayCount =
+    userCount >= 1000
+      ? `${Math.floor(userCount / 100) / 10}k`
+      : String(userCount);
+
   return (
     <div className="flex flex-col gap-1">
       <span
@@ -27,11 +37,20 @@ export default function SignupPage() {
         Start counting.
       </h1>
       <p
-        className="font-sans text-base mb-6 anim-fadeUp delay-200"
+        className="font-sans text-base mb-1 anim-fadeUp delay-200"
         style={{ color: "rgba(255,255,255,0.55)" }}
       >
         30 seconds. Free forever. The number doesn&apos;t lie.
       </p>
+
+      {userCount > 0 && (
+        <p
+          className="font-mono text-[11px] uppercase tracking-widest mb-6 anim-fadeUp delay-200"
+          style={{ color: "rgba(94,234,212,0.7)" }}
+        >
+          join {displayCount} people already tracking
+        </p>
+      )}
 
       <div className="anim-fadeUp delay-300">
         <OAuthButtons mode="signup" />

@@ -7,8 +7,14 @@ import Footer from "@/components/Footer";
 import { CategoryIcon } from "@/components/CategoryIcon";
 
 export const metadata: Metadata = {
-  title: "Search · Hyperfix",
-  description: "Search fixes and people on Hyperfix.",
+  title: "Search Hyperfixations & People · Hyperfix",
+  description: "Search thousands of hyperfixations — anime, music, shows, games, fanfic, and more. Find people tracking the same obsessions as you.",
+  keywords: ["hyperfixation search", "ADHD obsession tracker", "fandom search", "anime tracker", "music obsession"],
+  openGraph: {
+    title: "Search Hyperfixations · Hyperfix",
+    description: "Find people tracking the same obsessions as you.",
+    images: [{ url: "https://hyperfix.app/opengraph-image", width: 1200, height: 630 }],
+  },
 };
 
 const TEAL = "#5EEAD4";
@@ -192,11 +198,15 @@ export default async function SearchPage({
   const { q } = await searchParams;
   const query = q?.trim() ?? "";
 
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const profiles: Profile[] = [];
   let fixes: FixResult[] = [];
 
   if (query) {
-    const supabase = await createClient();
 
     const [
       { data: byUsername },
@@ -340,6 +350,39 @@ export default async function SearchPage({
                 <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>
                   Start typing above.
                 </p>
+              </div>
+            </div>
+          )}
+
+          {/* Signup CTA for logged-out visitors */}
+          {!user && (
+            <div
+              className="relative overflow-hidden rounded-3xl p-8 sm:p-10 anim-fadeUp"
+              style={{
+                background: "radial-gradient(ellipse 120% 140% at 50% 120%, rgba(94,234,212,0.18) 0%, transparent 60%), #0F1011",
+                border: "1px solid rgba(94,234,212,0.18)",
+              }}
+            >
+              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
+              <div className="relative flex flex-col sm:flex-row items-center gap-6">
+                <div className="flex-1 text-center sm:text-left">
+                  <p
+                    className="font-display mb-1"
+                    style={{ fontSize: "clamp(20px, 3vw, 26px)", fontWeight: 600, color: "#F4F4F4", letterSpacing: "-0.02em" }}
+                  >
+                    Track your own obsessions.
+                  </p>
+                  <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.5)" }}>
+                    Free forever. Log what you&apos;re fixated on and watch the days pile up.
+                  </p>
+                </div>
+                <Link
+                  href="/auth/signup"
+                  className="shrink-0 px-6 py-3 rounded-2xl font-sans text-sm font-semibold transition-all hover:opacity-90 hover:-translate-y-px active:scale-[0.98]"
+                  style={{ background: "#FFFFFF", color: "#0A0A0A", boxShadow: "0 4px 24px rgba(94,234,212,0.2)" }}
+                >
+                  Join free →
+                </Link>
               </div>
             </div>
           )}
