@@ -83,6 +83,29 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
   const bannerFileInputRef = useRef<HTMLInputElement>(null);
   const usernameTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const isDirty =
+    displayName !== (profile?.display_name ?? "") ||
+    username !== (profile?.username ?? "") ||
+    bio !== (profile?.bio ?? "") ||
+    socialLink !== (profile?.social_link ?? "") ||
+    isPublic !== (profile?.is_public ?? false) ||
+    accentColor !== (profile?.accent_color ?? DEFAULT_ACCENT) ||
+    notifStreak !== (notifPrefs.streak_reminders !== false) ||
+    notifMilestones !== (notifPrefs.milestones !== false) ||
+    notifDigest !== (notifPrefs.weekly_digest !== false) ||
+    notifComments !== (notifPrefs.social_comments !== false) ||
+    notifReactions !== (notifPrefs.social_reactions !== false) ||
+    notifFollows !== (notifPrefs.social_follows !== false);
+
+  useEffect(() => {
+    if (!isDirty) return;
+    const handler = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+    };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [isDirty]);
+
   // Username validation
   const validateUsernameFormat = (u: string) => /^[a-zA-Z0-9_]{3,20}$/.test(u);
 
@@ -975,6 +998,14 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
       )}
 
       {/* Save button */}
+      {isDirty && !pending && (
+        <p
+          className="font-mono text-[10px] uppercase tracking-widest text-center"
+          style={{ color: "rgba(94,234,212,0.6)" }}
+        >
+          Unsaved changes
+        </p>
+      )}
       <button
         type="button"
         onClick={handleSave}

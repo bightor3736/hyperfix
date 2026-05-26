@@ -6,7 +6,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { LogoLockup } from "@/components/Logo";
 import { NotificationBell } from "@/components/NotificationBell";
-import { Home, Discovery, Search, Category, Star, Setting, Plus, Logout, Chart } from "react-iconly";
+import { Home, Discovery, Search, Category, Setting, Plus, Logout, Chart } from "react-iconly";
 
 function MessagesIcon({ active }: { active: boolean }) {
   return (
