@@ -69,7 +69,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
   const [category, setCategory] = useState<Category | null>(null);
   const [intensity, setIntensity] = useState(5);
   const [note, setNote] = useState(shared.note);
-  const [isPublic, setIsPublic] = useState(false);
+  const [isPublic, setIsPublic] = useState(true);
   const [tags, setTags] = useState<string[]>([]);
   const [bannerUrl, setBannerUrl] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
