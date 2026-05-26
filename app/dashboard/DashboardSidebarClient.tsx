@@ -113,11 +113,6 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
       badge: unreadMessages,
     },
     {
-      href: `/wrapped/${new Date().getFullYear()}`,
-      label: `Wrapped '${String(new Date().getFullYear()).slice(2)}`,
-      icon: (active: boolean) => <Star set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
-    },
-    {
       href: "/dashboard/analytics",
       label: "Analytics",
       icon: (active: boolean) => <Chart set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,

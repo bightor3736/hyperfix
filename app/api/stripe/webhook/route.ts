@@ -59,5 +59,32 @@ export async function POST(req: NextRequest) {
       .eq("stripe_customer_id", customerId);
   }
 
+  if (event.type === "customer.subscription.updated") {
+    const subscription = event.data.object as Stripe.Subscription;
+    const customerId = subscription.customer as string;
+    const isPro = subscription.status === "active";
+    const isInactive =
+      subscription.status === "canceled" ||
+      subscription.status === "incomplete_expired" ||
+      subscription.status === "past_due";
+
+    if (isPro || isInactive) {
+      await supabase
+        .from("profiles")
+        .update({ is_pro: isPro })
+        .eq("stripe_customer_id", customerId);
+    }
+  }
+
+  if (event.type === "invoice.payment_failed") {
+    const invoice = event.data.object as Stripe.Invoice;
+    const customerId = invoice.customer as string;
+
+    await supabase
+      .from("profiles")
+      .update({ is_pro: false })
+      .eq("stripe_customer_id", customerId);
+  }
+
   return NextResponse.json({ received: true });
 }
