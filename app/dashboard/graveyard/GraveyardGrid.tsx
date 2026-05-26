@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import Link from "next/link";
 import { CategoryIcon, CATEGORY_COLOR, categoryLabel } from "@/components/CategoryIcon";
 import { TombstoneIcon } from "@/components/MilestoneIcons";
@@ -153,9 +153,12 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
   );
 }
 
+const PAGE_SIZE = 24;
+
 export function GraveyardGrid({ fixes }: { fixes: GraveyardFix[] }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("all");
+  const [shown, setShown] = useState(PAGE_SIZE);
 
   const categories = useMemo(() => {
     const set = new Set(fixes.map((f) => f.category));
@@ -173,6 +176,18 @@ export function GraveyardGrid({ fixes }: { fixes: GraveyardFix[] }) {
       );
     });
   }, [fixes, query, category]);
+
+  // Reset pagination when filter changes
+  const prevQuery = useRef(query);
+  const prevCategory = useRef(category);
+  if (prevQuery.current !== query || prevCategory.current !== category) {
+    prevQuery.current = query;
+    prevCategory.current = category;
+    if (shown !== PAGE_SIZE) setShown(PAGE_SIZE);
+  }
+
+  const visible = filtered.slice(0, shown);
+  const hasMore = filtered.length > shown;
 
   return (
     <div>
@@ -230,11 +245,28 @@ export function GraveyardGrid({ fixes }: { fixes: GraveyardFix[] }) {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {filtered.map((fix, i) => (
-            <TombstoneCard key={fix.id} fix={fix} index={i} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {visible.map((fix, i) => (
+              <TombstoneCard key={fix.id} fix={fix} index={i} />
+            ))}
+          </div>
+          {hasMore && (
+            <div className="flex justify-center mt-8">
+              <button
+                onClick={() => setShown((s) => s + PAGE_SIZE)}
+                className="font-mono text-[11px] uppercase tracking-widest rounded-full px-6 py-2.5 transition-colors"
+                style={{
+                  background: "rgba(94,234,212,0.08)",
+                  border: "1px solid rgba(94,234,212,0.2)",
+                  color: TEAL,
+                }}
+              >
+                Load more · {filtered.length - shown} remaining
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
