@@ -6,7 +6,7 @@ import { Home, Discovery, Plus, User, Setting } from "react-iconly";
 
 export function MobileNavBar({ username }: { username?: string | null }) {
   const pathname = usePathname();
-  const profileHref = username ? `/u/${username}` : "/dashboard/settings";
+  const profileHref = username ? `/u/${username}` : "/onboarding/username";
 
   return (
     <nav

@@ -521,7 +521,7 @@ function EmptyState({ suggestions }: { suggestions: { id: string; title: string;
               {suggestions.map((s) => (
                 <Link
                   key={s.id}
-                  href={`/fix/${s.id}`}
+                  href={`/dashboard/new?title=${encodeURIComponent(s.title)}&category=${encodeURIComponent(s.category)}`}
                   className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-sans text-xs transition-all hover:scale-105 hover:opacity-90"
                   style={{
                     background: "rgba(15,16,17,0.8)",
