@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { FollowListView, type FollowProfile } from "@/components/FollowListView";
 
@@ -26,8 +26,22 @@ export default async function FollowersPage({
     .eq("username", username)
     .single();
 
-  if (error || !profile || !profile.is_public) {
+  if (error || !profile) {
     notFound();
+  }
+
+  const {
+    data: { user: currentUser },
+  } = await supabase.auth.getUser();
+
+  const isSelf = currentUser?.id === profile.id;
+
+  if (!profile.is_public && !isSelf) {
+    notFound();
+  }
+
+  if (!currentUser) {
+    redirect(`/auth/signup?next=/u/${username}/followers`);
   }
 
   const { data: followRows } = await supabase
@@ -39,11 +53,13 @@ export default async function FollowersPage({
 
   let profiles: FollowProfile[] = [];
   if (ids.length > 0) {
-    const { data } = await supabase
+    const query = supabase
       .from("profiles")
       .select("username, display_name, avatar_url, bio")
-      .in("id", ids)
-      .eq("is_public", true);
+      .in("id", ids);
+    // visitors only see public profiles; owner sees all followers
+    if (!isSelf) query.eq("is_public", true);
+    const { data } = await query;
     profiles = (data ?? []) as FollowProfile[];
   }
 

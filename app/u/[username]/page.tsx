@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { LogoLockup } from "@/components/Logo";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { FollowButton, FollowButtonLoggedIn } from "@/components/FollowButton";
 import { MessageButton } from "@/components/MessageButton";
@@ -163,6 +163,11 @@ export default async function PublicProfilePage({
   // Non-public profiles are only visible to their owner
   if (!typedProfile.is_public && !isSelf) {
     notFound();
+  }
+
+  // Logged-out visitors must sign up to see a profile
+  if (!currentUser) {
+    redirect(`/auth/signup?next=/u/${username}`);
   }
 
   const { data: fixes } = await supabase
