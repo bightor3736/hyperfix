@@ -434,24 +434,6 @@ export default async function DashboardPage() {
         )}
       </div>
 
-      {/* Mobile FAB */}
-      <Link
-        href="/dashboard/new"
-        className="lg:hidden fixed flex items-center justify-center rounded-full transition-all hover:opacity-95 active:scale-95 anim-glowPulse"
-        style={{
-          bottom: "calc(5rem + 1rem + env(safe-area-inset-bottom))",
-          right: "1rem",
-          width: 56,
-          height: 56,
-          background: TEAL,
-          color: "#0A1F1C",
-          zIndex: 40,
-          boxShadow: "0 4px 28px rgba(94,234,212,0.55)",
-        }}
-        aria-label="New fix"
-      >
-        <Plus set="bold" size={24} primaryColor="currentColor" />
-      </Link>
     </div>
   );
 }

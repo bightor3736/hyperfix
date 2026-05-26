@@ -313,6 +313,8 @@ export default async function FixDetailPage({
               tagsInitial={typedFix.tags ?? []}
               isPinned={isPinned}
               isPro={isPro}
+              bannerUrl={typedFix.banner_url}
+              userId={user.id}
             />
           </div>
         </div>

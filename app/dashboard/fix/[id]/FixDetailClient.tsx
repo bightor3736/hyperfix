@@ -9,6 +9,7 @@ import { AddToListButton } from "@/components/AddToListButton";
 import { useToast } from "@/components/Toast";
 import { TagsInput } from "@/components/TagsInput";
 import { CloseSquare, Star } from "react-iconly";
+import { FixBannerUpload } from "@/components/FixBannerUpload";
 import { FlameIcon, BoltIcon, SparkleIcon, PinIcon } from "@/components/LandingIcons";
 import { SkullIcon, TrophyIcon } from "@/components/MilestoneIcons";
 
@@ -57,9 +58,11 @@ type Props = {
   tagsInitial?: string[];
   isPinned?: boolean;
   isPro?: boolean;
+  bannerUrl?: string | null;
+  userId?: string;
 };
 
-export function FixDetailClient({ fixId, title: initialTitle, category: initialCategory, status: initialStatus, intensity: initialIntensity, days, ended: initialEnded, eulogyInitial, hasCheckedInToday: initialCheckedIn = false, isPublic: initialIsPublic = false, tagsInitial = [], isPinned: initialIsPinned = false, isPro = false }: Props) {
+export function FixDetailClient({ fixId, title: initialTitle, category: initialCategory, status: initialStatus, intensity: initialIntensity, days, ended: initialEnded, eulogyInitial, hasCheckedInToday: initialCheckedIn = false, isPublic: initialIsPublic = false, tagsInitial = [], isPinned: initialIsPinned = false, isPro = false, bannerUrl: initialBannerUrl = null, userId = "" }: Props) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const { toast } = useToast();
@@ -89,6 +92,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
 
   // Pin state
   const [isPinned, setIsPinned] = useState(initialIsPinned);
+
+  // Banner state
+  const [bannerUrl, setBannerUrl] = useState<string | null>(initialBannerUrl);
 
   // Check-in state
   const [checkedInToday, setCheckedInToday] = useState(initialCheckedIn);
@@ -650,6 +656,19 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
         ) : (
           <p className="font-mono text-[11px] italic" style={{ color: "rgba(244,244,244,0.25)" }}>No tags yet.</p>
         )}
+      </div>
+
+      {/* Banner */}
+      <div className="mt-5 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <FixBannerUpload
+          userId={userId}
+          fixId={fixId}
+          bannerUrl={bannerUrl}
+          onChange={(url) => {
+            setBannerUrl(url);
+            router.refresh();
+          }}
+        />
       </div>
 
       {/* Action buttons row */}
