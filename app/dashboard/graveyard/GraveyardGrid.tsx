@@ -54,7 +54,7 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
 
   return (
     <Link
-      href={`/fix/${fix.id}`}
+      href={`/dashboard/fix/${fix.id}`}
       className="motion-card group relative overflow-hidden rounded-3xl p-6 sm:p-7 flex flex-col gap-5 anim-fadeUp transition-colors"
       style={{
         background: CARD_BG,
