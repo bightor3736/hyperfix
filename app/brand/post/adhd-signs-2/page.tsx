@@ -536,7 +536,7 @@ function Slide({
       {/* Top text */}
       <div style={{
         position: "absolute", top: 72, left: 64, right: 64,
-        textAlign: "center",
+        textAlign: "center", zIndex: 10,
       }}>
         <p style={{
           fontSize: fs, fontWeight: 700, color: textColor,
@@ -550,7 +550,7 @@ function Slide({
       {/* Bottom text */}
       <div style={{
         position: "absolute", bottom: 64, left: 64, right: 64,
-        textAlign: "center",
+        textAlign: "center", zIndex: 10,
       }}>
         <p style={{
           fontSize: fs, fontWeight: 700, color: textColor,
@@ -564,7 +564,7 @@ function Slide({
       {/* Counter */}
       <p style={{
         position: "absolute", bottom: 26, right: 64,
-        fontSize: 15, fontWeight: 700, margin: 0,
+        fontSize: 15, fontWeight: 700, margin: 0, zIndex: 10,
         color: textColor, opacity: 0.3, letterSpacing: "0.04em",
       }}>
         {num} / {total}
