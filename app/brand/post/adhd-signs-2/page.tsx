@@ -522,7 +522,7 @@ function Slide({
   num:         number;
   total?:      number;
 }) {
-  const fs = 76;
+  const fs = 64;
   const lh = 1.18;
   return (
     <div style={{
@@ -535,7 +535,7 @@ function Slide({
 
       {/* Top text */}
       <div style={{
-        position: "absolute", top: 72, left: 64, right: 64,
+        position: "absolute", top: 110, left: 64, right: 64,
         textAlign: "center", zIndex: 10,
       }}>
         <p style={{
@@ -549,7 +549,7 @@ function Slide({
 
       {/* Bottom text */}
       <div style={{
-        position: "absolute", bottom: 64, left: 64, right: 64,
+        position: "absolute", bottom: 130, left: 64, right: 64,
         textAlign: "center", zIndex: 10,
       }}>
         <p style={{
@@ -563,7 +563,7 @@ function Slide({
 
       {/* Counter */}
       <p style={{
-        position: "absolute", bottom: 26, right: 64,
+        position: "absolute", bottom: 80, right: 64,
         fontSize: 15, fontWeight: 700, margin: 0, zIndex: 10,
         color: textColor, opacity: 0.3, letterSpacing: "0.04em",
       }}>
@@ -588,21 +588,21 @@ export default function AdhdSigns2() {
         bottomLine1="(not laziness, I promise)"
         num={1}>
         {/* Thought bubble top-right */}
-        <div style={{ position: "absolute", top: 220, right: -40, zIndex: 2, lineHeight: 0 }}>
+        <div style={{ position: "absolute", top: 300, right: -40, zIndex: 2, lineHeight: 0 }}>
           <BrainThoughtBubble />
         </div>
         {/* Guy left of center, looking toward bubble */}
         <div style={{
-          position: "absolute", bottom: 180, left: "50%",
+          position: "absolute", bottom: 320, left: "50%",
           transform: "translateX(-62%)", lineHeight: 0, zIndex: 3,
         }}>
-          <CartoonGuy shirtColor="#FFFFFF" pose="stand" mouth="smirk" size={580} />
+          <CartoonGuy shirtColor="#FFFFFF" pose="stand" mouth="smirk" size={520} />
         </div>
         {/* Ground shadow */}
         <div style={{
-          position: "absolute", bottom: 208,
+          position: "absolute", bottom: 348,
           left: "50%", transform: "translateX(-68%)",
-          width: 420, height: 36,
+          width: 380, height: 32,
           background: "rgba(0,0,0,0.12)",
           borderRadius: "50%", filter: "blur(10px)",
         }} />
@@ -615,7 +615,7 @@ export default function AdhdSigns2() {
         num={2}>
         {/* Browser in background */}
         <div style={{
-          position: "absolute", top: 230, left: "50%",
+          position: "absolute", top: 280, left: "50%",
           transform: "translateX(-50%) rotate(-3deg)",
           lineHeight: 0, zIndex: 1,
         }}>
@@ -623,15 +623,15 @@ export default function AdhdSigns2() {
         </div>
         {/* Guy in front */}
         <div style={{
-          position: "absolute", bottom: 160, left: "50%",
+          position: "absolute", bottom: 310, left: "50%",
           transform: "translateX(-54%)", lineHeight: 0, zIndex: 3,
         }}>
-          <CartoonGuy shirtColor="#FF7043" pose="shrug" mouth="open" size={560} />
+          <CartoonGuy shirtColor="#FF7043" pose="shrug" mouth="open" size={510} />
         </div>
         <div style={{
-          position: "absolute", bottom: 192,
+          position: "absolute", bottom: 338,
           left: "50%", transform: "translateX(-60%)",
-          width: 400, height: 36,
+          width: 380, height: 32,
           background: "rgba(0,0,0,0.15)",
           borderRadius: "50%", filter: "blur(10px)", zIndex: 2,
         }} />
@@ -645,7 +645,7 @@ export default function AdhdSigns2() {
         num={3}>
         {/* Todo list left side */}
         <div style={{
-          position: "absolute", top: 310, left: -30,
+          position: "absolute", top: 360, left: -30,
           lineHeight: 0, zIndex: 2,
           transform: "rotate(4deg)",
         }}>
@@ -653,22 +653,22 @@ export default function AdhdSigns2() {
         </div>
         {/* Clock right side */}
         <div style={{
-          position: "absolute", top: 520, right: 60,
+          position: "absolute", top: 560, right: 60,
           lineHeight: 0, zIndex: 2,
         }}>
           <ClockProp time="3:00" />
         </div>
         {/* Guy center */}
         <div style={{
-          position: "absolute", bottom: 160, left: "50%",
+          position: "absolute", bottom: 310, left: "50%",
           transform: "translateX(-46%)", lineHeight: 0, zIndex: 3,
         }}>
-          <CartoonGuy shirtColor="#FFDE59" pose="stand" mouth="flat" size={560} />
+          <CartoonGuy shirtColor="#FFDE59" pose="stand" mouth="flat" size={510} />
         </div>
         <div style={{
-          position: "absolute", bottom: 190,
+          position: "absolute", bottom: 338,
           left: "50%", transform: "translateX(-52%)",
-          width: 400, height: 36,
+          width: 380, height: 32,
           background: "rgba(0,0,0,0.20)",
           borderRadius: "50%", filter: "blur(10px)", zIndex: 2,
         }} />
@@ -681,22 +681,22 @@ export default function AdhdSigns2() {
         num={4}>
         {/* Phone right side */}
         <div style={{
-          position: "absolute", top: 290, right: 60,
+          position: "absolute", top: 340, right: 40,
           lineHeight: 0, zIndex: 2,
         }}>
           <PhoneProp />
         </div>
         {/* Guy left-ish */}
         <div style={{
-          position: "absolute", bottom: 160, left: "50%",
+          position: "absolute", bottom: 310, left: "50%",
           transform: "translateX(-70%)", lineHeight: 0, zIndex: 3,
         }}>
-          <CartoonGuy shirtColor="#9B59B6" pose="holdPhone" mouth="open" size={560} />
+          <CartoonGuy shirtColor="#9B59B6" pose="holdPhone" mouth="open" size={510} />
         </div>
         <div style={{
-          position: "absolute", bottom: 192,
+          position: "absolute", bottom: 338,
           left: "50%", transform: "translateX(-76%)",
-          width: 400, height: 36,
+          width: 380, height: 32,
           background: "rgba(0,0,0,0.12)",
           borderRadius: "50%", filter: "blur(10px)", zIndex: 2,
         }} />
@@ -709,22 +709,22 @@ export default function AdhdSigns2() {
         num={5}>
         {/* Moon scene fills background */}
         <div style={{
-          position: "absolute", top: 160, left: "50%",
+          position: "absolute", top: 240, left: "50%",
           transform: "translateX(-50%)", lineHeight: 0, zIndex: 1,
         }}>
           <MoonScene />
         </div>
         {/* Guy */}
         <div style={{
-          position: "absolute", bottom: 156, left: "50%",
+          position: "absolute", bottom: 310, left: "50%",
           transform: "translateX(-50%)", lineHeight: 0, zIndex: 3,
         }}>
-          <CartoonGuy shirtColor="#1A2840" pose="excited" mouth="open" size={560} />
+          <CartoonGuy shirtColor="#1A2840" pose="excited" mouth="open" size={510} />
         </div>
         <div style={{
-          position: "absolute", bottom: 188,
+          position: "absolute", bottom: 338,
           left: "50%", transform: "translateX(-50%)",
-          width: 420, height: 40,
+          width: 390, height: 36,
           background: "rgba(255,255,255,0.06)",
           borderRadius: "50%", filter: "blur(12px)", zIndex: 2,
         }} />
@@ -737,22 +737,22 @@ export default function AdhdSigns2() {
         num={6}>
         {/* Emotion cloud behind */}
         <div style={{
-          position: "absolute", top: 200, left: "50%",
+          position: "absolute", top: 290, left: "50%",
           transform: "translateX(-50%)", lineHeight: 0, zIndex: 1,
         }}>
           <EmotionCloud />
         </div>
         {/* Guy in front */}
         <div style={{
-          position: "absolute", bottom: 160, left: "50%",
+          position: "absolute", bottom: 310, left: "50%",
           transform: "translateX(-50%)", lineHeight: 0, zIndex: 3,
         }}>
-          <CartoonGuy shirtColor="#FF6B6B" pose="arms-out" mouth="open" size={560} />
+          <CartoonGuy shirtColor="#FF6B6B" pose="arms-out" mouth="open" size={510} />
         </div>
         <div style={{
-          position: "absolute", bottom: 192,
+          position: "absolute", bottom: 338,
           left: "50%", transform: "translateX(-50%)",
-          width: 420, height: 36,
+          width: 390, height: 32,
           background: "rgba(0,0,0,0.14)",
           borderRadius: "50%", filter: "blur(10px)", zIndex: 2,
         }} />
@@ -779,33 +779,33 @@ export default function AdhdSigns2() {
 
         {/* Top text */}
         <div style={{
-          position: "absolute", top: 90, left: 64, right: 64, textAlign: "center",
+          position: "absolute", top: 110, left: 64, right: 64, textAlign: "center", zIndex: 10,
         }}>
-          <p style={{ fontSize: 78, fontWeight: 700, color: "#111", lineHeight: 1.15, margin: 0 }}>
+          <p style={{ fontSize: 66, fontWeight: 700, color: "#111", lineHeight: 1.15, margin: 0 }}>
             Your brain isn't broken.
           </p>
         </div>
 
         {/* Guy */}
         <div style={{
-          position: "absolute", bottom: 350, left: "50%",
+          position: "absolute", bottom: 390, left: "50%",
           transform: "translateX(-50%)", lineHeight: 0, zIndex: 2,
         }}>
-          <CartoonGuy shirtColor="#FFFFFF" pose="excited" mouth="open" size={580} />
+          <CartoonGuy shirtColor="#FFFFFF" pose="excited" mouth="open" size={520} />
         </div>
         <div style={{
-          position: "absolute", bottom: 380,
+          position: "absolute", bottom: 418,
           left: "50%", transform: "translateX(-50%)",
-          width: 440, height: 40,
+          width: 400, height: 36,
           background: "rgba(0,0,0,0.14)",
           borderRadius: "50%", filter: "blur(12px)", zIndex: 1,
         }} />
 
         {/* CTA Block */}
         <div style={{
-          position: "absolute", bottom: 72, left: 64, right: 64, textAlign: "center",
+          position: "absolute", bottom: 110, left: 64, right: 64, textAlign: "center", zIndex: 10,
         }}>
-          <p style={{ fontSize: 72, fontWeight: 700, color: "#111", lineHeight: 1.15, margin: "0 0 40px" }}>
+          <p style={{ fontSize: 64, fontWeight: 700, color: "#111", lineHeight: 1.15, margin: "0 0 36px" }}>
             It just needs the right system.
           </p>
           <div style={{
