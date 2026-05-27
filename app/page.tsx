@@ -30,14 +30,26 @@ async function getPublicFixCount(): Promise<number> {
 }
 
 export const metadata: Metadata = {
-  title: "Hyperfix — Hyperfixation Tracker | Log Your Obsessions",
+  title: "Hyperfix — Hyperfixation Tracker for ADHD & Neurodivergent Brains",
   description:
-    "The #1 hyperfixation tracker. Log the song on loop, the fanfic you can't quit, the show that owns you. Count the days. Build streaks. Share cards. Free forever.",
+    "The hyperfixation tracker built for ADHD and neurodivergent brains. Log your special interest or obsession, count the days, build streaks, share cards, write the eulogy. Free forever.",
+  keywords: [
+    "hyperfixation tracker",
+    "ADHD hyperfixation",
+    "neurodivergent tracker",
+    "special interest tracker",
+    "ADHD app",
+    "hyperfixation journal",
+    "ADHD obsession log",
+    "track obsessions",
+    "ADHD tools",
+    "neurodivergent app",
+  ],
   alternates: { canonical: "https://hyperfix.app" },
   openGraph: {
-    title: "Hyperfix — Hyperfixation Tracker",
+    title: "Hyperfix — Hyperfixation Tracker for ADHD Brains",
     description:
-      "Log your current obsession. Count the days. Mourn it when it ends. Free hyperfixation tracker for songs, fanfic, shows, K-pop, anime, and more.",
+      "Log the obsession. Count the days. Mourn it when it ends. Built for ADHD and neurodivergent brains — free forever.",
     url: "https://hyperfix.app",
     type: "website",
   },
@@ -64,10 +76,11 @@ const features = [
 ];
 
 const faqs = [
+  { q: "Is this an ADHD app?", a: "Basically, yes. Hyperfixation is a core ADHD and neurodivergent experience — your brain locks onto something and won't let go. Hyperfix is built around that: log the fix, track the intensity, check in daily, write the eulogy when it fades. Whether you're diagnosed, self-identified, or just extremely down bad about something, you belong here." },
   { q: "What exactly is Hyperfix?", a: "A journal for your current obsession — the song on loop, the fic you can't quit, the character who rearranged your brain. You log the fix, count the days, check in daily, and when it fades, you write the eulogy." },
   { q: "Is it free?", a: "Yes. Logging, check-ins, streaks, share cards — free forever. Pro unlocks premium card templates, AI eulogies, and a custom profile URL. Cancel anytime." },
   { q: "Is my data private?", a: "Every fix has a privacy toggle. Public lives on your profile, private is yours alone. We never sell your data and we don't train AI on your content." },
-  { q: "What can I track?", a: "Anything. Songs, films, fanfics, shows, books, characters, ships, video essays, podcasts, video games, niche historical events. If you cannot shut up about it, it counts." },
+  { q: "What can I track?", a: "Anything. Songs, films, fanfics, shows, books, characters, ships, video essays, podcasts, video games, niche historical events — and yes, special interests too. If you cannot shut up about it, it counts." },
 ];
 
 const faqSchema = {
@@ -130,7 +143,7 @@ export default async function Page({
     name: "Hyperfix",
     url: "https://hyperfix.app",
     logo: "https://hyperfix.app/icon?size=512",
-    description: "The hyperfixation tracker for songs, shows, fanfic, K-pop, anime, and every obsession in between.",
+    description: "The hyperfixation tracker built for ADHD and neurodivergent brains. Log your special interest, count the days, write the eulogy.",
     sameAs: ["https://twitter.com/hyperfixapp"],
   };
 
@@ -247,16 +260,16 @@ export default async function Page({
             >
               The journal for
               <br />
-              your obsession.
+              your ADHD brain.
             </h1>
 
             <p
               className="mt-6 mx-auto font-sans text-base sm:text-lg max-w-xl leading-relaxed anim-fadeUp delay-300"
               style={{ color: "rgba(255,255,255,0.72)" }}
             >
-              Log it. Count the days. Share the card. Mourn it when it ends.
+              Log the hyperfixation. Count the days. Share the card. Mourn it when it ends.
               <br />
-              <span style={{ color: "rgba(255,255,255,0.5)" }}>Free forever. 30 seconds to your first day count.</span>
+              <span style={{ color: "rgba(255,255,255,0.5)" }}>Built for ADHD brains. Free forever. 30 seconds to day one.</span>
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center items-center anim-fadeUp delay-500">
@@ -299,15 +312,15 @@ export default async function Page({
           <GrainOverlay opacity={0.08} />
           <div className="relative max-w-5xl mx-auto">
             <div className="text-center max-w-2xl mx-auto">
-              <EyebrowPill>Built for the unwell</EyebrowPill>
+              <EyebrowPill>Built for ADHD brains</EyebrowPill>
               <h2
                 className="mt-6 font-display text-ink"
                 style={{ fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}
               >
-                Everything one obsession needs.
+                Everything one hyperfixation needs.
               </h2>
               <p className="mt-4 font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
-                Six tools, one journal. Powerful enough for the chronic. Simple enough for the casual.
+                Six tools, one journal. For the brain that can&apos;t half-ass a special interest.
               </p>
             </div>
 
@@ -435,7 +448,7 @@ export default async function Page({
                         </span>
                       </div>
                       <p className="font-sans text-base" style={{ color: "rgba(255,255,255,0.6)" }}>
-                        For the chronically unwell who want the full toolkit.
+                        For the ADHD brain that wants the full toolkit.
                       </p>
                       <div className="mt-6 flex items-baseline gap-3 flex-wrap">
                         <p className="font-display text-ink" style={{ fontSize: 52, fontWeight: 600, letterSpacing: "-0.02em" }}>
@@ -549,7 +562,9 @@ export default async function Page({
                   className="font-display text-ink mx-auto max-w-3xl"
                   style={{ fontSize: "clamp(36px, 6vw, 68px)", lineHeight: 1.03, letterSpacing: "-0.02em", fontWeight: 600 }}
                 >
-                  What are you obsessed with?
+                  Your brain hyperfixes.
+                  <br />
+                  <span style={{ color: "rgba(255,255,255,0.55)" }}>Let&apos;s log it properly.</span>
                 </h2>
               </RevealSection>
               <RevealSection delay={150}>
