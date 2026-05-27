@@ -23,7 +23,7 @@ export default function VerifyPage() {
           border: "1px solid rgba(94,234,212,0.22)",
         }}
       >
-        one more step
+        almost in
       </span>
       <h1
         className="font-display leading-tight mb-3 anim-fadeUp delay-200"
@@ -36,25 +36,56 @@ export default function VerifyPage() {
       >
         Check your email.
       </h1>
-      <p className="font-sans text-base leading-relaxed mb-8 max-w-xs anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.55)" }}>
-        We sent a confirmation link to your inbox. Click it to activate your
-        account, then come back to log in.
+      <p className="font-sans text-base leading-relaxed mb-6 max-w-xs anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.55)" }}>
+        Click the link we sent you — it logs you straight in, no password needed.
       </p>
 
-      <a
-        href="/auth/login"
-        className="inline-flex items-center font-sans text-sm font-semibold px-6 py-3.5 rounded-full transition-all hover:opacity-95 active:scale-[0.98] anim-fadeUp delay-500"
-        style={{
-          background: "#FFFFFF",
-          color: "#0A0A0A",
-          boxShadow: "0 1px 0 0 rgba(255,255,255,0.4) inset, 0 8px 28px rgba(94,234,212,0.25)",
-        }}
-      >
-        Back to log in
-      </a>
+      {/* Quick-open email provider buttons */}
+      <div className="flex flex-col gap-2 w-full max-w-[260px] mb-8 anim-fadeUp delay-400">
+        <a
+          href="https://mail.google.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 rounded-2xl py-3 font-sans text-sm font-medium transition-all hover:-translate-y-px active:scale-[0.98]"
+          style={{
+            background: "rgba(15,16,17,0.85)",
+            border: "1px solid rgba(255,255,255,0.10)",
+            color: "#F4F4F4",
+          }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden>
+            <path fill="#EA4335" d="M6 18V8.4L4.2 7.2C3.5 6.7 2.5 7.2 2.5 8v9c0 .8.7 1.5 1.5 1.5h2z"/>
+            <path fill="#FBBC05" d="M18 18V8.4l1.8-1.2c.7-.5 1.7 0 1.7.8v9c0 .8-.7 1.5-1.5 1.5H18z"/>
+            <path fill="#4285F4" d="M18 6.75 12 11 6 6.75V6c0-.83 1.01-1.3 1.65-.8L12 8.7l4.35-3.5c.64-.5 1.65-.03 1.65.8v.75z"/>
+            <path fill="#34A853" d="M6 18h12v-9.6L12 12.35 6 8.4V18z"/>
+          </svg>
+          Open Gmail
+        </a>
+        <a
+          href="https://outlook.live.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 rounded-2xl py-3 font-sans text-sm font-medium transition-all hover:-translate-y-px active:scale-[0.98]"
+          style={{
+            background: "rgba(15,16,17,0.85)",
+            border: "1px solid rgba(255,255,255,0.10)",
+            color: "#F4F4F4",
+          }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <rect x="2" y="4" width="20" height="16" rx="2" fill="#0078D4"/>
+            <path d="M2 7l10 7 10-7" stroke="white" strokeWidth="1.5" fill="none"/>
+          </svg>
+          Open Outlook
+        </a>
+      </div>
 
-      <p className="mt-8 font-sans text-sm anim-fadeUp delay-700" style={{ color: "rgba(255,255,255,0.35)" }}>
-        Didn&apos;t get it? Check your spam folder.
+      <p className="font-sans text-sm anim-fadeUp delay-500" style={{ color: "rgba(255,255,255,0.3)" }}>
+        Didn&apos;t get it? Check spam, or{" "}
+        <a href="/auth/signup" className="underline" style={{ color: "rgba(255,255,255,0.5)" }}>
+          try again
+        </a>
+        .
       </p>
     </div>
   );

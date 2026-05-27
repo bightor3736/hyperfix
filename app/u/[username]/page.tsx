@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { LogoLockup } from "@/components/Logo";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { FollowButton, FollowButtonLoggedIn } from "@/components/FollowButton";
 import { MessageButton } from "@/components/MessageButton";
@@ -163,11 +163,6 @@ export default async function PublicProfilePage({
   // Non-public profiles are only visible to their owner
   if (!typedProfile.is_public && !isSelf) {
     notFound();
-  }
-
-  // Logged-out visitors must sign up to see a profile
-  if (!currentUser) {
-    redirect(`/auth/signup?next=/u/${username}`);
   }
 
   const { data: fixes } = await supabase
@@ -588,6 +583,40 @@ export default async function PublicProfilePage({
           </Link>
         )}
       </main>
+
+      {/* Sticky signup bar for logged-out visitors */}
+      {!currentUser && (
+        <div
+          className="fixed bottom-0 inset-x-0 z-50 px-4 pb-safe"
+          style={{ paddingBottom: "max(16px, env(safe-area-inset-bottom))" }}
+        >
+          <div
+            className="max-w-lg mx-auto flex items-center justify-between gap-4 rounded-2xl px-5 py-4"
+            style={{
+              background: "rgba(10,10,10,0.92)",
+              backdropFilter: "blur(20px)",
+              border: "1px solid rgba(94,234,212,0.2)",
+              boxShadow: "0 8px 40px rgba(0,0,0,0.6)",
+            }}
+          >
+            <div className="min-w-0">
+              <p className="font-sans text-sm font-semibold truncate" style={{ color: "#F4F4F4" }}>
+                Track your own hyperfixations
+              </p>
+              <p className="font-mono text-[11px]" style={{ color: "rgba(244,244,244,0.45)" }}>
+                free · 30 seconds
+              </p>
+            </div>
+            <Link
+              href={`/auth/signup?next=/u/${typedProfile.username}`}
+              className="shrink-0 px-5 py-2.5 rounded-full font-sans text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.98]"
+              style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+            >
+              Join free →
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
