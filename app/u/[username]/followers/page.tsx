@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { FollowListView, type FollowProfile } from "@/components/FollowListView";
 
@@ -38,10 +38,6 @@ export default async function FollowersPage({
 
   if (!profile.is_public && !isSelf) {
     notFound();
-  }
-
-  if (!currentUser) {
-    redirect(`/auth/signup?next=/u/${username}/followers`);
   }
 
   const { data: followRows } = await supabase

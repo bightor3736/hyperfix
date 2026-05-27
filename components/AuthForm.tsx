@@ -94,9 +94,15 @@ export function OAuthButtons({ mode }: { mode: "login" | "signup" }) {
 
   const handleOAuth = (provider: "google" | "apple") => {
     startTransition(async () => {
+      const next = typeof window !== "undefined"
+        ? new URLSearchParams(window.location.search).get("next") ?? ""
+        : "";
+      const redirectTo = next
+        ? `${origin}/auth/callback?next=${encodeURIComponent(next)}`
+        : `${origin}/auth/callback`;
       await supabase.auth.signInWithOAuth({
         provider,
-        options: { redirectTo: `${origin}/auth/callback` },
+        options: { redirectTo },
       });
     });
   };
