@@ -384,6 +384,143 @@ function Slide({
   );
 }
 
+// ── CTA slide ─────────────────────────────────────────────────────────────────
+
+function CTASlide() {
+  return (
+    <div
+      style={{
+        width: 1080,
+        height: 1920,
+        position: "relative",
+        overflow: "hidden",
+        background: "#08140A",
+      }}
+    >
+      {/* Sky */}
+      <div style={{
+        position: "absolute", inset: 0,
+        background: "linear-gradient(180deg, #040C06 0%, #081408 55%, #0C1C0E 100%)",
+      }} />
+
+      {/* Lawn */}
+      <div style={{
+        position: "absolute",
+        bottom: -360,
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: 2400,
+        height: 1200,
+        borderRadius: "50%",
+        background:
+          "radial-gradient(ellipse at 50% 26%, #245228 0%, #1C3E1E 30%, #152E16 55%, #0F2210 80%, #0A1A0C 100%)",
+      }} />
+
+      {/* Teal spotlight glow */}
+      <div style={{
+        position: "absolute",
+        bottom: 240,
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: 900,
+        height: 560,
+        borderRadius: "50%",
+        background:
+          "radial-gradient(ellipse at 50% 75%, rgba(94,234,212,0.18) 0%, transparent 68%)",
+        filter: "blur(40px)",
+      }} />
+
+      {/* Character */}
+      <div style={{
+        position: "absolute",
+        bottom: 480,
+        left: "50%",
+        transform: "translateX(-50%)",
+        lineHeight: 0,
+      }}>
+        <Guy shirt="cream" mood="excited" size={540} />
+      </div>
+
+      {/* Top text */}
+      <div style={{
+        position: "absolute",
+        top: 82,
+        left: 72,
+        right: 72,
+        textAlign: "center",
+      }}>
+        <p style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: 80,
+          fontWeight: 700,
+          color: "#FFFFFF",
+          lineHeight: 1.14,
+          margin: 0,
+          textShadow: "0 2px 24px rgba(0,0,0,0.5)",
+        }}>
+          Your ADHD brain is built different.
+        </p>
+      </div>
+
+      {/* Bottom CTA block */}
+      <div style={{
+        position: "absolute",
+        bottom: 80,
+        left: 72,
+        right: 72,
+        textAlign: "center",
+      }}>
+        {/* Sub-line */}
+        <p style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: 76,
+          fontWeight: 700,
+          color: "#FFFFFF",
+          lineHeight: 1.14,
+          margin: "0 0 52px",
+          textShadow: "0 2px 24px rgba(0,0,0,0.5)",
+        }}>
+          Start tracking it.
+        </p>
+
+        {/* Teal pill */}
+        <div style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "#5EEAD4",
+          borderRadius: 72,
+          padding: "26px 80px",
+          marginBottom: 36,
+          boxShadow: "0 0 60px rgba(94,234,212,0.35)",
+        }}>
+          <span style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: 58,
+            fontWeight: 700,
+            color: "#081A10",
+            letterSpacing: "-0.01em",
+          }}>
+            hyperfix.app
+          </span>
+        </div>
+
+        {/* Fine print */}
+        <p style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: 34,
+          fontWeight: 700,
+          color: "rgba(255,255,255,0.35)",
+          margin: 0,
+          letterSpacing: "0.04em",
+        }}>
+          Free forever · No account needed
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 export default function AdhdV3() {
@@ -439,6 +576,9 @@ export default function AdhdV3() {
         shirt="green"
         mood="confident"
       />
+
+      {/* 7 — CTA */}
+      <CTASlide />
     </div>
   );
 }
