@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { name } = await req.json();
+  const { name, isPrivate } = await req.json();
   if (!name?.trim()) return NextResponse.json({ error: "Room name required" }, { status: 400 });
 
   // Generate a unique code
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
   const { data: room, error } = await supabase
     .from("focus_rooms")
-    .insert({ code, name: name.trim(), owner_id: user.id })
+    .insert({ code, name: name.trim(), owner_id: user.id, is_private: !!isPrivate })
     .select()
     .single();
 
