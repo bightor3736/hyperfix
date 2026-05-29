@@ -406,6 +406,41 @@ export default async function DashboardPage() {
           </div>
         )}
 
+        {/* Focus Rooms CTA */}
+        <Link
+          href="/room"
+          className="flex items-center justify-between gap-4 rounded-3xl px-5 py-4 mb-6 anim-fadeUp transition-all hover:scale-[1.01] active:scale-[0.99]"
+          style={{
+            background: "linear-gradient(135deg, rgba(94,234,212,0.10) 0%, rgba(94,234,212,0.04) 100%)",
+            border: "1px solid rgba(94,234,212,0.22)",
+          }}
+        >
+          <div className="flex items-center gap-4 min-w-0">
+            <div
+              className="shrink-0 flex items-center justify-center rounded-2xl"
+              style={{ width: 44, height: 44, background: "rgba(94,234,212,0.12)", border: "1px solid rgba(94,234,212,0.2)" }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5EEAD4" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="9" cy="8" r="3" />
+                <circle cx="17" cy="9" r="2.2" />
+                <path d="M3 19c0-3 2.7-5 6-5s6 2 6 5" />
+                <path d="M15.5 19c0-2 1-3.4 2.5-3.4 2 0 3 1.6 3 3.4" />
+              </svg>
+            </div>
+            <div className="min-w-0">
+              <p className="font-sans text-sm font-semibold" style={{ color: "#fff" }}>
+                Focus Rooms
+              </p>
+              <p className="font-mono text-[11px] truncate" style={{ color: "rgba(94,234,212,0.7)" }}>
+                Body-double with others · join a live session →
+              </p>
+            </div>
+          </div>
+          <svg className="shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(94,234,212,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </Link>
+
         {heatmapDates.length > 0 && (
           <div
             className="relative rounded-3xl p-5 mb-6 anim-fadeUp delay-500"
