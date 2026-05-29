@@ -32,7 +32,7 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Redirect unauthenticated users away from protected routes
-  if (!user && pathname.startsWith("/dashboard")) {
+  if (!user && (pathname.startsWith("/dashboard") || pathname.startsWith("/room"))) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
@@ -45,7 +45,7 @@ export async function middleware(request: NextRequest) {
   // (skip if already going to /onboarding or /api routes)
   if (
     user &&
-    (pathname.startsWith("/dashboard") || pathname === "/onboarding") &&
+    (pathname.startsWith("/dashboard") || pathname.startsWith("/room") || pathname === "/onboarding") &&
     !pathname.startsWith("/onboarding/username") &&
     !pathname.startsWith("/api/")
   ) {
@@ -64,5 +64,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/auth/:path*", "/onboarding/:path*", "/api/auth/me"],
+  matcher: ["/dashboard/:path*", "/auth/:path*", "/onboarding/:path*", "/room/:path*", "/room", "/api/auth/me"],
 };
