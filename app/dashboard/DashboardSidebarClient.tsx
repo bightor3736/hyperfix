@@ -107,6 +107,18 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
       ),
     },
     {
+      href: "/room",
+      label: "Focus Rooms",
+      icon: (_active: boolean) => (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="9" cy="8" r="3" />
+          <circle cx="17" cy="9" r="2.2" />
+          <path d="M3 19c0-3 2.7-5 6-5s6 2 6 5" />
+          <path d="M15.5 19c0-2 1-3.4 2.5-3.4 2 0 3 1.6 3 3.4" />
+        </svg>
+      ),
+    },
+    {
       href: "/dashboard/messages",
       label: "Messages",
       icon: (active: boolean) => <MessagesIcon active={active} />,
