@@ -2,8 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Landing page design tokens ─────────────────────────────── */
 :root {
+  --font-display: var(--font-fraunces);
+  --bg:           #f7f4ec;
+  --bg-soft:      #f0ebe0;
+  --bg-elevated:  #ffffff;
+  --ink:          #1b1a17;
+  --ink-muted:    #6b6659;
+  --ink-faint:    #b1aa9a;
+  --line:         #e2dccc;
+  --line-strong:  #c8c0ac;
+  --accent:       #6f8a63;
+  --accent-soft:  #dbe4d0;
+  --accent-ink:   #f7f4ec;
+  --invert-bg:    #1b1a17;
+  --invert-ink:   #f7f4ec;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg:           #242019;
+  --bg-soft:      #1e1c16;
+  --bg-elevated:  #2c2920;
+  --ink:          #f3eee0;
+  --ink-muted:    #a39d8c;
+  --ink-faint:    #6b6557;
+  --line:         #3a352e;
+  --line-strong:  #4c463c;
+  --accent:       #acc096;
+  --accent-soft:  #2f3a2b;
+  --accent-ink:   #18170f;
+  --invert-bg:    #f3eee0;
+  --invert-ink:   #1b1a17;
   color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg:           #242019;
+    --bg-soft:      #1e1c16;
+    --bg-elevated:  #2c2920;
+    --ink:          #f3eee0;
+    --ink-muted:    #a39d8c;
+    --ink-faint:    #6b6557;
+    --line:         #3a352e;
+    --line-strong:  #4c463c;
+    --accent:       #acc096;
+    --accent-soft:  #2f3a2b;
+    --accent-ink:   #18170f;
+    --invert-bg:    #f3eee0;
+    --invert-ink:   #1b1a17;
+    color-scheme: dark;
+  }
+}
+
+/* font-display-medium utility for Wordmark */
+.font-display-medium {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 500;
 }
 
 html,

@@ -5,26 +5,33 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Base
+        // App (dashboard) palette — hardcoded dark
         paper: "#080808",
         paperDeep: "#111113",
         paperMid: "#161618",
-        ink: "#F4F4F4",
         inkSoft: "#9A9A9A",
         muted: "#525252",
-        // Brand — mint
-        accent: "#5EEAD4",
-        accentDeep: "#2DD4BF",
-        accentLight: "#A7F3D0",
         mint: "#5EEAD4",
         mintDeep: "#2DD4BF",
         mintInk: "#0A1F1C",
-        // Intensity spectrum
-        hot: "#E63946",       // 9-10 — send help
-        warm: "#FB923C",      // 7-8  — deeply unwell
-        // Semantic
+        hot: "#E63946",
+        warm: "#FB923C",
         success: "#34D399",
         danger: "#E63946",
+        // Landing design tokens — CSS variable-based (light/dark aware)
+        bg:          "var(--bg)",
+        "bg-soft":   "var(--bg-soft)",
+        "bg-elevated": "var(--bg-elevated)",
+        ink:         "var(--ink)",
+        "ink-muted": "var(--ink-muted)",
+        "ink-faint": "var(--ink-faint)",
+        line:        "var(--line)",
+        "line-strong": "var(--line-strong)",
+        accent:      "var(--accent)",
+        "accent-soft": "var(--accent-soft)",
+        "accent-ink":  "var(--accent-ink)",
+        "invert-bg":   "var(--invert-bg)",
+        "invert-ink":  "var(--invert-ink)",
       },
       fontFamily: {
         display: ["var(--font-fraunces)", "Georgia", "serif"],
