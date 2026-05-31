@@ -30,6 +30,7 @@ import {
   Zap,
   Trophy,
   Sparkles,
+  Snowflake,
 } from "lucide-react";
 import { levelForPoints } from "@/lib/gamification/levels";
 
@@ -41,6 +42,7 @@ type Props = {
   username?: string | null;
   currentStreak?: number;
   totalPoints?: number;
+  streakFreezes?: number;
 };
 
 type NavSection = {
@@ -62,6 +64,7 @@ export function DashboardSidebarClient({
   username,
   currentStreak = 0,
   totalPoints = 0,
+  streakFreezes = 0,
 }: Props) {
   const { level, next } = levelForPoints(totalPoints);
   const levelFloor = level.points;
@@ -347,6 +350,38 @@ export function DashboardSidebarClient({
           />
         </div>
       )}
+
+      {/* Streak freezes — protects your run + Pro upsell when empty */}
+      <div className="px-3 pb-2 shrink-0">
+        {streakFreezes > 0 ? (
+          <div
+            className="flex items-center justify-between rounded-xl px-3 py-2"
+            style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
+          >
+            <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-ink-muted">
+              <Snowflake size={12} strokeWidth={1.5} className="text-accent" />
+              freezes
+            </span>
+            <span className="font-mono text-[11px] tabular-nums text-ink">
+              {streakFreezes}
+            </span>
+          </div>
+        ) : (
+          <Link
+            href="/pricing"
+            className="flex items-center justify-between rounded-xl px-3 py-2 transition-all hover:-translate-y-0.5"
+            style={{ background: "var(--accent-soft)", border: "1px solid var(--accent)" }}
+          >
+            <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-accent">
+              <Snowflake size={12} strokeWidth={1.5} />
+              0 freezes
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-widest text-accent">
+              Get more →
+            </span>
+          </Link>
+        )}
+      </div>
 
       {/* Pro upsell — free users only */}
       {!isPro && (

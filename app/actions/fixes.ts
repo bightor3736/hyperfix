@@ -3,7 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { awardPoints, evaluateAchievements } from "@/lib/gamification/award";
+import { awardPoints, evaluateAchievements, recordCheckin } from "@/lib/gamification/award";
 
 export type FixStatus =
   | "Day 1"
@@ -188,8 +188,11 @@ export async function checkInFix(fixId: string, intensity: number, note?: string
   }
 
   await awardPoints(user.id, "check_in", `${fixId}:${today}`, "Daily check-in");
+  // Advance the forgiving streak (once per day, regardless of how many fixes)
+  await recordCheckin(user.id);
 
   revalidatePath(`/dashboard/fix/${fixId}`);
+  revalidatePath("/dashboard");
   revalidatePath("/dashboard/points");
 }
 

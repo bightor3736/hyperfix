@@ -18,6 +18,16 @@ export type ProFeature = {
 
 export const PRO_FEATURES: ProFeature[] = [
   {
+    Icon: SparkleIcon,
+    name: "1.5× XP, always on",
+    desc: "Every check-in, log, and task earns 50% more points — climb the leaderboard faster.",
+  },
+  {
+    Icon: BrainIcon,
+    name: "5 streak freezes / month",
+    desc: "Miss a day? A freeze auto-covers it so your streak survives. Refills monthly. Free plan gets 2 total.",
+  },
+  {
     Icon: GiftIcon,
     name: "Custom accent color",
     desc: "Pick your profile's accent from a palette — it tints your hero, badge, and share card.",

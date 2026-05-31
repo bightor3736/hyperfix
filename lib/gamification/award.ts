@@ -25,6 +25,9 @@ async function activeMultiplier(
   return live?.multiplier ?? 1;
 }
 
+// Pro members earn at 1.5×.
+const PRO_MULTIPLIER = 1.5;
+
 /**
  * Award points for an action. Idempotent on (user, kind, ref).
  * Never throws — gamification must not break the underlying action.
@@ -38,7 +41,12 @@ export async function awardPoints(
   try {
     const admin = createAdminClient();
     const base = POINT_VALUES[kind];
-    const multiplier = await activeMultiplier(admin);
+
+    const [boostMult, { data: profile }] = await Promise.all([
+      activeMultiplier(admin),
+      admin.from("profiles").select("is_pro").eq("id", userId).single(),
+    ]);
+    const multiplier = boostMult * (profile?.is_pro ? PRO_MULTIPLIER : 1);
 
     await admin.rpc("award_points", {
       p_user: userId,
@@ -52,6 +60,28 @@ export async function awardPoints(
     await evaluateAchievements(userId);
   } catch (err) {
     console.error("[awardPoints]", err);
+  }
+}
+
+/**
+ * Record a forgiving daily check-in. Consumes streak freezes to cover
+ * missed days. Returns the new streak state (or null on failure).
+ */
+export async function recordCheckin(
+  userId: string
+): Promise<{ current_streak: number; longest_streak: number; freezes: number; froze: boolean } | null> {
+  try {
+    const admin = createAdminClient();
+    const today = new Date().toISOString().split("T")[0];
+    const { data, error } = await admin.rpc("record_checkin", {
+      p_user: userId,
+      p_today: today,
+    });
+    if (error || !data || !data[0]) return null;
+    return data[0];
+  } catch (err) {
+    console.error("[recordCheckin]", err);
+    return null;
   }
 }
 

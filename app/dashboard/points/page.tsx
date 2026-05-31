@@ -25,11 +25,15 @@ export default async function PointsPage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("total_points, username, display_name")
+    .select("total_points, username, display_name, current_streak, longest_streak, streak_freezes, is_pro")
     .eq("id", user.id)
     .single();
 
   const totalPoints = profile?.total_points ?? 0;
+  const currentStreak = profile?.current_streak ?? 0;
+  const longestStreak = profile?.longest_streak ?? 0;
+  const streakFreezes = profile?.streak_freezes ?? 0;
+  const isPro = profile?.is_pro ?? false;
   const { level, next } = levelForPoints(totalPoints);
   const pointsToNext = next ? next.points - totalPoints : 0;
 
@@ -141,6 +145,32 @@ export default async function PointsPage() {
             </Link>
           </div>
         </header>
+
+        {/* Streak + freezes */}
+        <div className="grid grid-cols-3 gap-3 anim-fadeUp delay-100">
+          <div className="rounded-2xl border border-line bg-bg-elevated p-4">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">streak</p>
+            <p className="font-display text-3xl text-ink tabular-nums mt-1">{currentStreak}</p>
+          </div>
+          <div className="rounded-2xl border border-line bg-bg-elevated p-4">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">longest</p>
+            <p className="font-display text-3xl text-ink tabular-nums mt-1">{longestStreak}</p>
+          </div>
+          <Link
+            href={streakFreezes > 0 || isPro ? "/dashboard/points" : "/pricing"}
+            className="rounded-2xl border p-4 block transition-all hover:-translate-y-0.5"
+            style={{
+              background: streakFreezes > 0 ? "var(--bg-elevated)" : "var(--accent-soft)",
+              borderColor: streakFreezes > 0 ? "var(--line)" : "var(--accent)",
+            }}
+          >
+            <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">freezes</p>
+            <p className="font-display text-3xl text-ink tabular-nums mt-1">{streakFreezes}</p>
+            {streakFreezes === 0 && !isPro && (
+              <p className="font-mono text-[9px] uppercase tracking-widest text-accent mt-1">Get more →</p>
+            )}
+          </Link>
+        </div>
 
         {/* Active boost */}
         {boost && (
