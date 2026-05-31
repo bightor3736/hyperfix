@@ -1,6 +1,11 @@
-import { Check, Flame, Sparkles, Timer, Users, Snowflake, Trophy, Inbox } from "lucide-react";
+import { Check, Flame, Sparkles, Timer, Users, Snowflake, Trophy, Inbox, Zap } from "lucide-react";
 
 const features = [
+  {
+    icon: <Zap size={20} strokeWidth={2.5} />,
+    title: "Dopamine on tap",
+    body: "Bored or understimulated? One tap gives you a real dopamine hit matched to your energy and time — move, create, connect, reset, treat. Reroll until one clicks. The anti-doomscroll.",
+  },
   {
     icon: <Check size={20} strokeWidth={2} />,
     title: "Daily Quests",
