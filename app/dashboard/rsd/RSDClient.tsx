@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 
-const PAGE_BG = "#070708";
-const CARD_BG = "#0F1011";
-const BORDER = "rgba(255,255,255,0.07)";
-const TEAL = "#5EEAD4";
-const TEAL_BG = "rgba(94,234,212,0.08)";
-const TEAL_BD = "rgba(94,234,212,0.20)";
-const MUTED = "rgba(255,255,255,0.45)";
+const PAGE_BG = "var(--bg)";
+const CARD_BG = "var(--bg)";
+const BORDER = "var(--line)";
+const TEAL = "var(--accent)";
+const TEAL_BG = "var(--accent-soft)";
+const TEAL_BD = "var(--accent)";
+const MUTED = "var(--ink-muted)";
 
 interface RSDEntry {
   id: string;
@@ -60,7 +60,7 @@ export function RSDClient({ initialEntries }: { initialEntries: RSDEntry[] }) {
     <div style={{ minHeight: "100vh", background: PAGE_BG, padding: "24px 16px 80px" }}>
       <div style={{ maxWidth: 680, margin: "0 auto" }}>
         <div style={{ marginBottom: 28 }}>
-          <h1 style={{ fontFamily: "var(--font-fraunces)", fontSize: 28, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
+          <h1 style={{ fontFamily: "var(--font-fraunces)", fontSize: 28, fontWeight: 700, color: "var(--ink)", marginBottom: 6 }}>
             RSD Journal
           </h1>
           <p style={{ fontFamily: "var(--font-instrument)", fontSize: 14, color: MUTED }}>
@@ -80,13 +80,13 @@ export function RSDClient({ initialEntries }: { initialEntries: RSDEntry[] }) {
               placeholder="e.g. Unanswered message, critical comment, being left out…"
               style={{
                 width: "100%",
-                background: "rgba(255,255,255,0.03)",
+                background: "transparent",
                 border: `1px solid ${BORDER}`,
                 borderRadius: 10,
                 padding: "10px 12px",
                 fontFamily: "var(--font-instrument)",
                 fontSize: 14,
-                color: "#fff",
+                color: "var(--ink)",
                 outline: "none",
                 boxSizing: "border-box",
               }}
@@ -104,13 +104,13 @@ export function RSDClient({ initialEntries }: { initialEntries: RSDEntry[] }) {
               rows={3}
               style={{
                 width: "100%",
-                background: "rgba(255,255,255,0.03)",
+                background: "transparent",
                 border: `1px solid ${BORDER}`,
                 borderRadius: 10,
                 padding: "10px 12px",
                 fontFamily: "var(--font-instrument)",
                 fontSize: 14,
-                color: "#fff",
+                color: "var(--ink)",
                 resize: "none",
                 outline: "none",
                 boxSizing: "border-box",
@@ -126,7 +126,7 @@ export function RSDClient({ initialEntries }: { initialEntries: RSDEntry[] }) {
                 {intensity}/10
               </span>
             </div>
-            <div style={{ position: "relative", height: 6, borderRadius: 99, background: "rgba(255,255,255,0.08)" }}>
+            <div style={{ position: "relative", height: 6, borderRadius: 99, background: "var(--line)" }}>
               <div
                 style={{
                   position: "absolute",
@@ -160,13 +160,13 @@ export function RSDClient({ initialEntries }: { initialEntries: RSDEntry[] }) {
               rows={2}
               style={{
                 width: "100%",
-                background: "rgba(255,255,255,0.03)",
+                background: "transparent",
                 border: `1px solid ${BORDER}`,
                 borderRadius: 10,
                 padding: "10px 12px",
                 fontFamily: "var(--font-instrument)",
                 fontSize: 14,
-                color: "#fff",
+                color: "var(--ink)",
                 resize: "none",
                 outline: "none",
                 boxSizing: "border-box",
@@ -182,8 +182,8 @@ export function RSDClient({ initialEntries }: { initialEntries: RSDEntry[] }) {
               padding: 12,
               borderRadius: 12,
               border: "none",
-              background: trigger.trim() && content.trim() ? TEAL : "rgba(255,255,255,0.06)",
-              color: trigger.trim() && content.trim() ? "#070708" : MUTED,
+              background: trigger.trim() && content.trim() ? TEAL : "var(--line)",
+              color: trigger.trim() && content.trim() ? "var(--accent-ink)" : MUTED,
               fontFamily: "var(--font-instrument)",
               fontSize: 14,
               fontWeight: 700,
@@ -226,7 +226,7 @@ export function RSDClient({ initialEntries }: { initialEntries: RSDEntry[] }) {
               >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: isOpen ? 12 : 0 }}>
                   <div>
-                    <div style={{ fontFamily: "var(--font-instrument)", fontSize: 14, fontWeight: 600, color: "#fff", marginBottom: 4 }}>
+                    <div style={{ fontFamily: "var(--font-instrument)", fontSize: 14, fontWeight: 600, color: "var(--ink)", marginBottom: 4 }}>
                       {entry.trigger}
                     </div>
                     <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: MUTED }}>
@@ -256,11 +256,11 @@ export function RSDClient({ initialEntries }: { initialEntries: RSDEntry[] }) {
                       style={{
                         fontFamily: "var(--font-instrument)",
                         fontSize: 13,
-                        color: "rgba(255,255,255,0.7)",
+                        color: "var(--ink-muted)",
                         lineHeight: 1.6,
                         marginBottom: entry.reframe ? 12 : 0,
                         padding: "10px 12px",
-                        background: "rgba(255,255,255,0.03)",
+                        background: "transparent",
                         borderRadius: 8,
                       }}
                     >

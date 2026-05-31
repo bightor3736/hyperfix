@@ -32,10 +32,10 @@ export function MobileNavBar({ username }: { username?: string | null }) {
     <nav
       className="lg:hidden fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around px-2 py-2"
       style={{
-        background: "rgba(10,10,10,0.92)",
+        background: "var(--bg)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
-        borderTop: "1px solid rgba(244,244,244,0.07)",
+        borderTop: "1px solid var(--line)",
         paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
@@ -75,7 +75,7 @@ function MobileNavLink({
       href={href}
       aria-current={isActive ? "page" : undefined}
       className="flex flex-col items-center gap-1 px-2 py-1 rounded-xl transition-colors"
-      style={{ color: isActive ? "#5EEAD4" : "rgba(244,244,244,0.45)" }}
+      style={{ color: isActive ? "var(--accent)" : "var(--ink-muted)" }}
     >
       {children}
       <span className="font-mono text-[10px] uppercase tracking-widest">{label}</span>
@@ -95,9 +95,9 @@ function MobileNavFab({ href, pathname }: { href: string; pathname: string }) {
         width: 44,
         height: 44,
         transform: "translateY(-8px)",
-        background: "#5EEAD4",
-        color: "#070708",
-        boxShadow: "0 4px 16px rgba(94,234,212,0.4)",
+        background: "var(--accent)",
+        color: "var(--accent-ink)",
+        boxShadow: "0 4px 16px rgba(111,138,99,0.35)",
       }}
     >
       <Plus set="bold" size={24} primaryColor="currentColor" />

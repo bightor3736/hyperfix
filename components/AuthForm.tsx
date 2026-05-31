@@ -39,10 +39,10 @@ export function AuthInput({
       <label
         htmlFor={id}
         className="font-sans text-[13px] font-medium"
-        style={{ color: "rgba(244,244,244,0.65)" }}
+        style={{ color: "var(--ink-muted)" }}
       >
         {label}
-        {required && <span style={{ color: "#5EEAD4", marginLeft: 2 }}>*</span>}
+        {required && <span style={{ color: "var(--accent)", marginLeft: 2 }}>*</span>}
       </label>
       <div className="relative">
         <input
@@ -55,12 +55,12 @@ export function AuthInput({
           minLength={minLength}
           value={value}
           onChange={onChange ? (e) => onChange(e.target.value) : undefined}
-          className="w-full rounded-2xl px-4 py-3 font-sans text-sm outline-none transition-all duration-200 placeholder:text-[rgba(244,244,244,0.22)] focus:ring-2 focus:ring-[#5EEAD4]/45 focus:border-[rgba(94,234,212,0.35)] focus:-translate-y-px"
+          className="w-full rounded-2xl px-4 py-3 font-sans text-sm outline-none transition-all duration-200 placeholder:text-ink-faint focus:ring-2 focus:ring-accent focus:border-accent focus:-translate-y-px"
           style={{
-            background: "rgba(15,16,17,0.85)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            color: "#F4F4F4",
-            boxShadow: "0 1px 0 0 rgba(255,255,255,0.02) inset",
+            background: "transparent",
+            border: "1px solid var(--line)",
+            color: "var(--ink)",
+            boxShadow: "0 1px 0 0 transparent inset",
           }}
         />
         {isPassword && (
@@ -68,7 +68,7 @@ export function AuthInput({
             type="button"
             onClick={() => setShowPw((v) => !v)}
             className="absolute right-3 top-1/2 -translate-y-1/2 p-1"
-            style={{ color: "rgba(244,244,244,0.35)" }}
+            style={{ color: "var(--ink-faint)" }}
             aria-label={showPw ? "Hide password" : "Show password"}
           >
             {showPw ? <EyeOff /> : <Eye />}
@@ -76,7 +76,7 @@ export function AuthInput({
         )}
       </div>
       {hint && (
-        <p className="font-sans text-[11px]" style={{ color: "rgba(244,244,244,0.3)" }}>
+        <p className="font-sans text-[11px]" style={{ color: "var(--ink-faint)" }}>
           {hint}
         </p>
       )}
@@ -113,11 +113,11 @@ export function OAuthButtons({ mode }: { mode: "login" | "signup" }) {
         type="button"
         disabled={pending}
         onClick={() => handleOAuth("google")}
-        className="flex-1 flex items-center justify-center gap-2 rounded-2xl py-3 font-sans text-sm font-medium transition-all duration-200 hover:-translate-y-px hover:border-[rgba(94,234,212,0.28)] hover:shadow-[0_8px_28px_rgba(94,234,212,0.10)] active:scale-[0.98] disabled:opacity-50"
+        className="flex-1 flex items-center justify-center gap-2 rounded-2xl py-3 font-sans text-sm font-medium transition-all duration-200 hover:-translate-y-px hover:border-accent hover:shadow-[0_8px_28px_rgba(111,138,99,0.18)] active:scale-[0.98] disabled:opacity-50"
         style={{
-          background: "rgba(15,16,17,0.85)",
-          border: "1px solid rgba(255,255,255,0.10)",
-          color: "#F4F4F4",
+          background: "transparent",
+          border: "1px solid var(--line)",
+          color: "var(--ink)",
         }}
       >
         <GoogleIcon />
@@ -127,11 +127,11 @@ export function OAuthButtons({ mode }: { mode: "login" | "signup" }) {
         type="button"
         disabled={pending}
         onClick={() => handleOAuth("apple")}
-        className="flex-1 flex items-center justify-center gap-2 rounded-2xl py-3 font-sans text-sm font-medium transition-all duration-200 hover:-translate-y-px hover:border-[rgba(94,234,212,0.28)] hover:shadow-[0_8px_28px_rgba(94,234,212,0.10)] active:scale-[0.98] disabled:opacity-50"
+        className="flex-1 flex items-center justify-center gap-2 rounded-2xl py-3 font-sans text-sm font-medium transition-all duration-200 hover:-translate-y-px hover:border-accent hover:shadow-[0_8px_28px_rgba(111,138,99,0.18)] active:scale-[0.98] disabled:opacity-50"
         style={{
-          background: "rgba(15,16,17,0.85)",
-          border: "1px solid rgba(255,255,255,0.10)",
-          color: "#F4F4F4",
+          background: "transparent",
+          border: "1px solid var(--line)",
+          color: "var(--ink)",
         }}
       >
         <AppleIcon />
@@ -146,14 +146,14 @@ export function OAuthButtons({ mode }: { mode: "login" | "signup" }) {
 export function OrDivider() {
   return (
     <div className="flex items-center gap-3">
-      <div className="flex-1 h-px" style={{ background: "rgba(244,244,244,0.08)" }} />
+      <div className="flex-1 h-px" style={{ background: "var(--line)" }} />
       <span
         className="font-mono text-[11px] uppercase tracking-widest"
-        style={{ color: "rgba(244,244,244,0.25)" }}
+        style={{ color: "var(--ink-faint)" }}
       >
         or
       </span>
-      <div className="flex-1 h-px" style={{ background: "rgba(244,244,244,0.08)" }} />
+      <div className="flex-1 h-px" style={{ background: "var(--line)" }} />
     </div>
   );
 }
@@ -167,9 +167,9 @@ export function SubmitButton({ label, pending }: { label: string; pending?: bool
       disabled={pending}
       className="w-full rounded-full py-3 font-sans text-sm font-semibold transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] disabled:opacity-60 relative overflow-hidden"
       style={{
-        background: "#FFFFFF",
-        color: "#0A0A0A",
-        boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 8px 28px rgba(94,234,212,0.30)",
+        background: "var(--accent)",
+        color: "var(--accent-ink)",
+        boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 8px 28px rgba(111,138,99,0.25)",
       }}
     >
       <span className="relative z-10">{pending ? "Please wait…" : label}</span>
@@ -201,9 +201,9 @@ export function FormSuccess({ message }: { message: string | null }) {
     <p
       className="text-sm font-sans rounded-xl px-4 py-3"
       style={{
-        background: "rgba(94,234,212,0.08)",
-        border: "1px solid rgba(94,234,212,0.25)",
-        color: "#a3e635",
+        background: "var(--accent-soft)",
+        border: "1px solid var(--accent)",
+        color: "var(--accent)",
       }}
     >
       {message}
@@ -261,7 +261,7 @@ export function LoginFormInner() {
         <a
           href="/auth/forgot"
           className="font-sans text-[12px] transition-colors hover:text-accent"
-          style={{ color: "rgba(244,244,244,0.35)" }}
+          style={{ color: "var(--ink-faint)" }}
         >
           Forgot password?
         </a>

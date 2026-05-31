@@ -2,13 +2,13 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 
-const PAGE_BG = "#070708";
-const CARD_BG = "#0F1011";
-const BORDER = "rgba(255,255,255,0.07)";
-const TEAL = "#5EEAD4";
-const TEAL_BG = "rgba(94,234,212,0.08)";
-const TEAL_BD = "rgba(94,234,212,0.20)";
-const MUTED = "rgba(255,255,255,0.45)";
+const PAGE_BG = "var(--bg)";
+const CARD_BG = "var(--bg)";
+const BORDER = "var(--line)";
+const TEAL = "var(--accent)";
+const TEAL_BG = "var(--accent-soft)";
+const TEAL_BD = "var(--accent)";
+const MUTED = "var(--ink-muted)";
 
 const MODES = [
   { id: "focus", label: "Focus", minutes: 25, desc: "Deep work sprint" },
@@ -35,7 +35,7 @@ function CircleTimer({
   return (
     <div style={{ position: "relative", width: size, height: size }}>
       <svg width={size} height={size} style={{ transform: "rotate(-90deg)" }}>
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth={8} />
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--line)" strokeWidth={8} />
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -138,7 +138,7 @@ export function TimerClient() {
     <div style={{ minHeight: "100vh", background: PAGE_BG, padding: "24px 16px 80px" }}>
       <div style={{ maxWidth: 560, margin: "0 auto" }}>
         <div style={{ marginBottom: 28 }}>
-          <h1 style={{ fontFamily: "var(--font-fraunces)", fontSize: 28, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
+          <h1 style={{ fontFamily: "var(--font-fraunces)", fontSize: 28, fontWeight: 700, color: "var(--ink)", marginBottom: 6 }}>
             Time Blindness Timer
           </h1>
           <p style={{ fontFamily: "var(--font-instrument)", fontSize: 14, color: MUTED }}>
@@ -169,7 +169,7 @@ export function TimerClient() {
                 transition: "all 0.15s",
               }}
             >
-              <div style={{ fontFamily: "var(--font-instrument)", fontSize: 14, fontWeight: 600, color: mode === m.id ? TEAL : "#fff", marginBottom: 2 }}>
+              <div style={{ fontFamily: "var(--font-instrument)", fontSize: 14, fontWeight: 600, color: mode === m.id ? TEAL : "var(--ink)", marginBottom: 2 }}>
                 {m.label}
               </div>
               <div style={{ fontFamily: "var(--font-instrument)", fontSize: 11, color: MUTED }}>
@@ -217,7 +217,7 @@ export function TimerClient() {
                 fontFamily: "var(--font-mono)",
                 fontSize: 42,
                 fontWeight: 700,
-                color: "#fff",
+                color: "var(--ink)",
                 letterSpacing: "-0.02em",
                 lineHeight: 1,
               }}
@@ -237,8 +237,8 @@ export function TimerClient() {
                 padding: "12px 36px",
                 borderRadius: 12,
                 border: running ? `1px solid ${TEAL_BD}` : "none",
-                background: running ? "rgba(94,234,212,0.12)" : TEAL,
-                color: running ? TEAL : "#070708",
+                background: running ? "var(--accent-soft)" : TEAL,
+                color: running ? TEAL : "var(--accent-ink)",
                 fontFamily: "var(--font-instrument)",
                 fontSize: 15,
                 fontWeight: 700,
@@ -295,7 +295,7 @@ export function TimerClient() {
             border: `1px solid ${TEAL_BD}`,
             fontFamily: "var(--font-instrument)",
             fontSize: 13,
-            color: "rgba(255,255,255,0.6)",
+            color: "var(--ink-muted)",
             lineHeight: 1.55,
           }}
         >

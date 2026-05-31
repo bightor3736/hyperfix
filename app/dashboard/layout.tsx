@@ -37,7 +37,7 @@ export default async function DashboardLayout({
 
   return (
     <ToastProvider>
-    <div className="min-h-screen flex" style={{ background: "#0A0A0A" }}>
+    <div className="min-h-screen flex" style={{ background: "var(--bg)" }}>
       {/* Desktop Sidebar */}
       <DashboardSidebarClient
         displayName={displayName}

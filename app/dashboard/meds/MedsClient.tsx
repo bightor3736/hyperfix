@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 
-const PAGE_BG = "#070708";
-const CARD_BG = "#0F1011";
-const BORDER = "rgba(255,255,255,0.07)";
-const TEAL = "#5EEAD4";
-const TEAL_BG = "rgba(94,234,212,0.08)";
-const TEAL_BD = "rgba(94,234,212,0.20)";
-const MUTED = "rgba(255,255,255,0.45)";
+const PAGE_BG = "var(--bg)";
+const CARD_BG = "var(--bg)";
+const BORDER = "var(--line)";
+const TEAL = "var(--accent)";
+const TEAL_BG = "var(--accent-soft)";
+const TEAL_BD = "var(--accent)";
+const MUTED = "var(--ink-muted)";
 
 interface MedLog {
   id: string;
@@ -86,7 +86,7 @@ export function MedsClient({ todayLogs, historyLogs }: { todayLogs: MedLog[]; hi
     <div style={{ minHeight: "100vh", background: PAGE_BG, padding: "24px 16px 80px" }}>
       <div style={{ maxWidth: 680, margin: "0 auto" }}>
         <div style={{ marginBottom: 28 }}>
-          <h1 style={{ fontFamily: "var(--font-fraunces)", fontSize: 28, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
+          <h1 style={{ fontFamily: "var(--font-fraunces)", fontSize: 28, fontWeight: 700, color: "var(--ink)", marginBottom: 6 }}>
             Medication Tracker
           </h1>
           <p style={{ fontFamily: "var(--font-instrument)", fontSize: 14, color: MUTED }}>
@@ -107,13 +107,13 @@ export function MedsClient({ todayLogs, historyLogs }: { todayLogs: MedLog[]; hi
                 placeholder="e.g. Adderall XR"
                 style={{
                   width: "100%",
-                  background: "rgba(255,255,255,0.03)",
+                  background: "transparent",
                   border: `1px solid ${BORDER}`,
                   borderRadius: 8,
                   padding: "9px 12px",
                   fontFamily: "var(--font-instrument)",
                   fontSize: 14,
-                  color: "#fff",
+                  color: "var(--ink)",
                   outline: "none",
                   boxSizing: "border-box",
                 }}
@@ -127,13 +127,13 @@ export function MedsClient({ todayLogs, historyLogs }: { todayLogs: MedLog[]; hi
                 placeholder="e.g. 20mg"
                 style={{
                   width: "100%",
-                  background: "rgba(255,255,255,0.03)",
+                  background: "transparent",
                   border: `1px solid ${BORDER}`,
                   borderRadius: 8,
                   padding: "9px 12px",
                   fontFamily: "var(--font-instrument)",
                   fontSize: 14,
-                  color: "#fff",
+                  color: "var(--ink)",
                   outline: "none",
                   boxSizing: "border-box",
                 }}
@@ -150,16 +150,16 @@ export function MedsClient({ todayLogs, historyLogs }: { todayLogs: MedLog[]; hi
                 onChange={(e) => setTakenAt(e.target.value)}
                 style={{
                   width: "100%",
-                  background: "rgba(255,255,255,0.03)",
+                  background: "transparent",
                   border: `1px solid ${BORDER}`,
                   borderRadius: 8,
                   padding: "9px 12px",
                   fontFamily: "var(--font-instrument)",
                   fontSize: 13,
-                  color: "#fff",
+                  color: "var(--ink)",
                   outline: "none",
                   boxSizing: "border-box",
-                  colorScheme: "dark",
+                  colorScheme: "light dark",
                 }}
               />
             </div>
@@ -168,7 +168,7 @@ export function MedsClient({ todayLogs, historyLogs }: { todayLogs: MedLog[]; hi
                 EFFECT {effectRating !== null ? `— ${effectRating}/10` : "(optional)"}
               </label>
               <div style={{ position: "relative", height: 40, display: "flex", alignItems: "center" }}>
-                <div style={{ position: "relative", height: 6, borderRadius: 99, background: "rgba(255,255,255,0.08)", flex: 1 }}>
+                <div style={{ position: "relative", height: 6, borderRadius: 99, background: "var(--line)", flex: 1 }}>
                   {effectRating !== null && (
                     <div
                       style={{
@@ -203,13 +203,13 @@ export function MedsClient({ todayLogs, historyLogs }: { todayLogs: MedLog[]; hi
             placeholder="Notes (optional)"
             style={{
               width: "100%",
-              background: "rgba(255,255,255,0.03)",
+              background: "transparent",
               border: `1px solid ${BORDER}`,
               borderRadius: 8,
               padding: "9px 12px",
               fontFamily: "var(--font-instrument)",
               fontSize: 14,
-              color: "#fff",
+              color: "var(--ink)",
               outline: "none",
               boxSizing: "border-box",
               marginBottom: 16,
@@ -224,8 +224,8 @@ export function MedsClient({ todayLogs, historyLogs }: { todayLogs: MedLog[]; hi
               padding: 11,
               borderRadius: 12,
               border: "none",
-              background: medication.trim() ? TEAL : "rgba(255,255,255,0.06)",
-              color: medication.trim() ? "#070708" : MUTED,
+              background: medication.trim() ? TEAL : "var(--line)",
+              color: medication.trim() ? "var(--accent-ink)" : MUTED,
               fontFamily: "var(--font-instrument)",
               fontSize: 14,
               fontWeight: 700,
@@ -254,7 +254,7 @@ export function MedsClient({ todayLogs, historyLogs }: { todayLogs: MedLog[]; hi
                     gap: 14,
                     padding: "10px 14px",
                     borderRadius: 10,
-                    background: "rgba(255,255,255,0.02)",
+                    background: "transparent",
                     border: `1px solid ${BORDER}`,
                   }}
                 >
@@ -273,7 +273,7 @@ export function MedsClient({ todayLogs, historyLogs }: { todayLogs: MedLog[]; hi
                     {formatTime(log.taken_at)}
                   </div>
                   <div style={{ flex: 1 }}>
-                    <span style={{ fontFamily: "var(--font-instrument)", fontSize: 14, fontWeight: 600, color: "#fff" }}>{log.medication}</span>
+                    <span style={{ fontFamily: "var(--font-instrument)", fontSize: 14, fontWeight: 600, color: "var(--ink)" }}>{log.medication}</span>
                     {log.dose && <span style={{ fontFamily: "var(--font-instrument)", fontSize: 13, color: MUTED, marginLeft: 6 }}>{log.dose}</span>}
                   </div>
                   {log.effect_rating !== null && (
@@ -305,7 +305,7 @@ export function MedsClient({ todayLogs, historyLogs }: { todayLogs: MedLog[]; hi
                     width: 36,
                     height: 36,
                     borderRadius: 8,
-                    background: dayLogs.length > 0 ? TEAL_BG : "rgba(255,255,255,0.04)",
+                    background: dayLogs.length > 0 ? TEAL_BG : "var(--line)",
                     border: `1px solid ${dayLogs.length > 0 ? TEAL_BD : BORDER}`,
                     display: "flex",
                     alignItems: "center",

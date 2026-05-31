@@ -26,13 +26,13 @@ type Fix = {
   banner_url: string | null;
 };
 
-const TEAL = "#5EEAD4";
-const TEAL_DEEP = "#2DD4BF";
-const TEAL_DARK_BG = "rgba(94,234,212,0.10)";
-const TEAL_DARK_BORDER = "rgba(94,234,212,0.22)";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
-const PAGE_BG = "#070708";
+const TEAL = "var(--accent)";
+const TEAL_DEEP = "var(--accent)";
+const TEAL_DARK_BG = "var(--accent-soft)";
+const TEAL_DARK_BORDER = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
+const PAGE_BG = "var(--bg)";
 
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
@@ -55,7 +55,7 @@ function EyebrowPill({ children }: { children: React.ReactNode }) {
         background: TEAL_DARK_BG,
         color: TEAL,
         border: `1px solid ${TEAL_DARK_BORDER}`,
-        boxShadow: "0 0 20px rgba(94,234,212,0.10)",
+        boxShadow: "0 0 20px var(--accent-soft)",
       }}
     >
       {children}
@@ -221,7 +221,7 @@ export default async function DashboardPage() {
         {/* Hero header — tight, restrained */}
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-8 anim-fadeUp">
           <div className="flex-1 min-w-0">
-            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(94,234,212,0.55)" }}>
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "var(--accent)" }}>
               good {greeting}
             </p>
             <h1
@@ -239,16 +239,16 @@ export default async function DashboardPage() {
               <div className="flex items-center gap-3 mb-3 flex-wrap">
                 <Link
                   href={`/u/${username}`}
-                  className="inline-flex items-center gap-1.5 font-mono text-[11px] transition-colors hover:text-[#5EEAD4]"
-                  style={{ color: "rgba(255,255,255,0.4)" }}
+                  className="inline-flex items-center gap-1.5 font-mono text-[11px] transition-colors hover:text-[var(--accent)]"
+                  style={{ color: "var(--ink-muted)" }}
                 >
                   @{username} · profile →
                 </Link>
-                <span style={{ color: "rgba(255,255,255,0.15)", fontSize: 10 }}>·</span>
+                <span style={{ color: "var(--ink-faint)", fontSize: 10 }}>·</span>
                 <Link
                   href={`/add/${username}`}
-                  className="inline-flex items-center gap-1 font-mono text-[11px] transition-colors hover:text-[#5EEAD4]"
-                  style={{ color: "rgba(94,234,212,0.55)" }}
+                  className="inline-flex items-center gap-1 font-mono text-[11px] transition-colors hover:text-[var(--accent)]"
+                  style={{ color: "var(--accent)" }}
                 >
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
@@ -258,14 +258,14 @@ export default async function DashboardPage() {
                 </Link>
               </div>
             )}
-            <p className="font-sans text-sm sm:text-base max-w-xl" style={{ color: "rgba(255,255,255,0.55)" }}>
+            <p className="font-sans text-sm sm:text-base max-w-xl" style={{ color: "var(--ink-muted)" }}>
               {subtext}
             </p>
             {fixes.length >= 3 && (
               <Link
                 href="/dashboard/pattern"
-                className="inline-flex items-center gap-1.5 font-mono text-xs mt-4 transition-colors hover:text-[#5EEAD4]"
-                style={{ color: "rgba(255,255,255,0.35)" }}
+                className="inline-flex items-center gap-1.5 font-mono text-xs mt-4 transition-colors hover:text-[var(--accent)]"
+                style={{ color: "var(--ink-faint)" }}
               >
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
@@ -279,8 +279,8 @@ export default async function DashboardPage() {
             href="/dashboard/new"
             className="hidden lg:inline-flex items-center gap-2.5 font-sans text-sm font-semibold px-5 py-3 transition-all hover:opacity-95 active:scale-[0.98]"
             style={{
-              background: "#FFFFFF",
-              color: "#0A0A0A",
+              background: "var(--accent)",
+              color: "var(--accent-ink)",
               borderRadius: 999,
             }}
           >
@@ -297,7 +297,7 @@ export default async function DashboardPage() {
               className="relative rounded-3xl p-5 anim-fadeUp delay-100"
               style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
             >
-              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
                 check-in run
               </p>
               <div className="flex items-baseline gap-1.5 mt-3">
@@ -307,17 +307,17 @@ export default async function DashboardPage() {
                     fontSize: "clamp(36px, 7vw, 52px)",
                     letterSpacing: "-0.04em",
                     fontWeight: 600,
-                    color: currentStreak > 0 ? TEAL : "rgba(255,255,255,0.2)",
-                    textShadow: currentStreak >= 7 ? "0 0 30px rgba(94,234,212,0.4)" : "none",
+                    color: currentStreak > 0 ? TEAL : "var(--ink-faint)",
+                    textShadow: currentStreak >= 7 ? "0 0 30px rgba(111,138,99,0.25)" : "none",
                   }}
                 >
                   {currentStreak > 0 ? currentStreak : "0"}
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>
+                <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-muted)" }}>
                   {currentStreak === 1 ? "day" : "days"}
                 </span>
               </div>
-              <p className="mt-2 font-sans text-xs leading-snug" style={{ color: "rgba(255,255,255,0.4)" }}>
+              <p className="mt-2 font-sans text-xs leading-snug" style={{ color: "var(--ink-muted)" }}>
                 {currentStreak === 0
                   ? "start your run today."
                   : currentStreak >= 30
@@ -333,7 +333,7 @@ export default async function DashboardPage() {
               className="relative rounded-3xl p-5 anim-fadeUp delay-200"
               style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
             >
-              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
                 active fixes
               </p>
               <div className="flex items-baseline gap-1.5 mt-3">
@@ -343,15 +343,15 @@ export default async function DashboardPage() {
                     fontSize: "clamp(36px, 7vw, 52px)",
                     letterSpacing: "-0.04em",
                     fontWeight: 600,
-                    color: "#FFFFFF",
+                    color: "var(--ink)",
                   }}
                 >
                   {totalActive}
                 </span>
               </div>
               {longestFix > 0 && (
-                <p className="mt-2 font-mono text-[10px]" style={{ color: "rgba(255,255,255,0.4)" }}>
-                  longest <span style={{ color: "rgba(255,255,255,0.65)" }}>{longestFix}d</span>
+                <p className="mt-2 font-mono text-[10px]" style={{ color: "var(--ink-muted)" }}>
+                  longest <span style={{ color: "var(--ink-muted)" }}>{longestFix}d</span>
                 </p>
               )}
             </div>
@@ -364,7 +364,7 @@ export default async function DashboardPage() {
                 border: highestIntensity >= 8 ? "1px solid rgba(230,57,70,0.20)" : `1px solid ${CARD_BORDER}`,
               }}
             >
-              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
                 peak intensity
               </p>
               <div className="flex items-baseline gap-1.5 mt-3">
@@ -374,19 +374,19 @@ export default async function DashboardPage() {
                     fontSize: "clamp(36px, 7vw, 52px)",
                     letterSpacing: "-0.04em",
                     fontWeight: 600,
-                    color: highestIntensity >= 8 ? "#E63946" : highestIntensity > 0 ? "#FFFFFF" : "rgba(255,255,255,0.2)",
+                    color: highestIntensity >= 8 ? "#E63946" : highestIntensity > 0 ? "var(--ink)" : "var(--ink-faint)",
                     textShadow: highestIntensity >= 8 ? "0 0 28px rgba(230,57,70,0.35)" : "none",
                   }}
                 >
                   {highestIntensity > 0 ? highestIntensity : "—"}
                 </span>
                 {highestIntensity > 0 && (
-                  <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>
+                  <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-muted)" }}>
                     /10
                   </span>
                 )}
               </div>
-              <p className="mt-2 font-mono text-[10px]" style={{ color: "rgba(255,255,255,0.4)" }}>
+              <p className="mt-2 font-mono text-[10px]" style={{ color: "var(--ink-muted)" }}>
                 {highestIntensity >= 9 ? "send help" : highestIntensity >= 7 ? "deeply unwell" : highestIntensity > 0 ? "tracking it" : "log a fix"}
               </p>
             </div>
@@ -396,7 +396,7 @@ export default async function DashboardPage() {
               className="relative rounded-3xl p-5 anim-fadeUp delay-400 col-span-2 lg:col-span-1"
               style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
             >
-              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
                 this week
               </p>
               <div className="mt-3">
@@ -411,16 +411,16 @@ export default async function DashboardPage() {
           href="/room"
           className="flex items-center justify-between gap-4 rounded-3xl px-5 py-4 mb-6 anim-fadeUp transition-all hover:scale-[1.01] active:scale-[0.99]"
           style={{
-            background: "linear-gradient(135deg, rgba(94,234,212,0.10) 0%, rgba(94,234,212,0.04) 100%)",
-            border: "1px solid rgba(94,234,212,0.22)",
+            background: "linear-gradient(135deg, var(--accent-soft) 0%, var(--accent-soft) 100%)",
+            border: "1px solid var(--accent)",
           }}
         >
           <div className="flex items-center gap-4 min-w-0">
             <div
               className="shrink-0 flex items-center justify-center rounded-2xl"
-              style={{ width: 44, height: 44, background: "rgba(94,234,212,0.12)", border: "1px solid rgba(94,234,212,0.2)" }}
+              style={{ width: 44, height: 44, background: "var(--accent-soft)", border: "1px solid var(--accent)" }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5EEAD4" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="9" cy="8" r="3" />
                 <circle cx="17" cy="9" r="2.2" />
                 <path d="M3 19c0-3 2.7-5 6-5s6 2 6 5" />
@@ -431,19 +431,19 @@ export default async function DashboardPage() {
               <p className="font-sans text-sm font-semibold" style={{ color: "#fff" }}>
                 Focus Rooms
               </p>
-              <p className="font-mono text-[11px] truncate" style={{ color: "rgba(94,234,212,0.7)" }}>
+              <p className="font-mono text-[11px] truncate" style={{ color: "var(--accent)" }}>
                 Body-double with others · join a live session →
               </p>
             </div>
           </div>
-          <svg className="shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(94,234,212,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </Link>
 
         {/* ADHD Toolkit quick-links */}
         <div className="mb-6 anim-fadeUp">
-          <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>
+          <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "var(--ink-faint)" }}>
             ADHD Toolkit
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -465,7 +465,7 @@ export default async function DashboardPage() {
                 <span style={{ fontSize: 22 }}>{item.icon}</span>
                 <div>
                   <p className="font-sans text-sm font-semibold" style={{ color: "#fff" }}>{item.label}</p>
-                  <p className="font-mono text-[10px]" style={{ color: "rgba(255,255,255,0.35)" }}>{item.sub}</p>
+                  <p className="font-mono text-[10px]" style={{ color: "var(--ink-faint)" }}>{item.sub}</p>
                 </div>
               </Link>
             ))}
@@ -478,10 +478,10 @@ export default async function DashboardPage() {
             style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
           >
             <div className="flex items-center justify-between mb-4">
-              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
                 check-in history
               </p>
-              <p className="font-mono text-[10px] tabular-nums" style={{ color: "rgba(255,255,255,0.45)" }}>
+              <p className="font-mono text-[10px] tabular-nums" style={{ color: "var(--ink-muted)" }}>
                 {heatmapDates.length} {heatmapDates.length === 1 ? "day" : "days"} logged
               </p>
             </div>
@@ -535,7 +535,7 @@ function EmptyState({ suggestions }: { suggestions: { id: string; title: string;
       className="relative overflow-hidden rounded-3xl p-10 sm:p-16 text-center anim-fadeUp"
       style={{
         background:
-          "radial-gradient(ellipse 80% 120% at 50% 130%, #2DD4BF 0%, #0E4F47 26%, #08231F 50%, #0F1011 80%)",
+          "radial-gradient(ellipse 80% 120% at 50% 130%, var(--accent) 0%, #0E4F47 26%, #08231F 50%, var(--bg) 80%)",
         border: `1px solid ${CARD_BORDER}`,
       }}
     >
@@ -560,7 +560,7 @@ function EmptyState({ suggestions }: { suggestions: { id: string; title: string;
             <br />
             your brain?
           </h2>
-          <p className="mt-4 font-sans text-base" style={{ color: "rgba(255,255,255,0.7)" }}>
+          <p className="mt-4 font-sans text-base" style={{ color: "var(--ink-muted)" }}>
             log it. count the days. mourn it when it ends.
           </p>
         </div>
@@ -569,7 +569,7 @@ function EmptyState({ suggestions }: { suggestions: { id: string; title: string;
           href="/dashboard/new"
           className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all hover:opacity-95 active:scale-[0.98]"
           style={{
-            background: "#FFFFFF",
+            background: "var(--ink)",
             color: "#0A0A0A",
             borderRadius: 999,
             boxShadow: "0 12px 36px rgba(0,0,0,0.4)",
@@ -580,7 +580,7 @@ function EmptyState({ suggestions }: { suggestions: { id: string; title: string;
 
         {suggestions.length > 0 && (
           <div className="w-full">
-            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "var(--ink-faint)" }}>
               others are currently tracking
             </p>
             <div className="flex flex-wrap gap-2 justify-center">
@@ -591,8 +591,8 @@ function EmptyState({ suggestions }: { suggestions: { id: string; title: string;
                   className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-sans text-xs transition-all hover:scale-105 hover:opacity-90"
                   style={{
                     background: "rgba(15,16,17,0.8)",
-                    border: "1px solid rgba(255,255,255,0.12)",
-                    color: "rgba(255,255,255,0.7)",
+                    border: "1px solid var(--line)",
+                    color: "var(--ink-muted)",
                   }}
                 >
                   <CategoryIcon category={s.category} size={12} />
@@ -620,7 +620,7 @@ function EmptyState({ suggestions }: { suggestions: { id: string; title: string;
               <p className="font-display text-base mt-2 text-ink" style={{ fontWeight: 600 }}>
                 {title}
               </p>
-              <p className="font-sans text-xs mt-1.5 leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+              <p className="font-sans text-xs mt-1.5 leading-relaxed" style={{ color: "var(--ink-muted)" }}>
                 {body}
               </p>
             </div>

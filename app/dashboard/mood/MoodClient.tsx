@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 
-const PAGE_BG = "#070708";
-const CARD_BG = "#0F1011";
-const BORDER = "rgba(255,255,255,0.07)";
-const TEAL = "#5EEAD4";
-const TEAL_BG = "rgba(94,234,212,0.08)";
-const TEAL_BD = "rgba(94,234,212,0.20)";
-const MUTED = "rgba(255,255,255,0.45)";
+const PAGE_BG = "var(--bg)";
+const CARD_BG = "var(--bg)";
+const BORDER = "var(--line)";
+const TEAL = "var(--accent)";
+const TEAL_BG = "var(--accent-soft)";
+const TEAL_BD = "var(--accent)";
+const MUTED = "var(--ink-muted)";
 
 interface MoodLog {
   id: string;
@@ -41,7 +41,7 @@ function SliderField({
   return (
     <div style={{ marginBottom: 20 }}>
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-        <span style={{ fontFamily: "var(--font-instrument)", fontSize: 14, color: "#fff" }}>
+        <span style={{ fontFamily: "var(--font-instrument)", fontSize: 14, color: "var(--ink)" }}>
           {emoji} {label}
         </span>
         <span
@@ -55,7 +55,7 @@ function SliderField({
           {value}/10
         </span>
       </div>
-      <div style={{ position: "relative", height: 6, borderRadius: 99, background: "rgba(255,255,255,0.08)" }}>
+      <div style={{ position: "relative", height: 6, borderRadius: 99, background: "var(--line)" }}>
         <div
           style={{
             position: "absolute",
@@ -90,12 +90,12 @@ function SliderField({
 }
 
 function heatColor(val: number | undefined) {
-  if (val === undefined) return "rgba(255,255,255,0.04)";
+  if (val === undefined) return "var(--line)";
   const pct = (val - 1) / 9;
   if (pct < 0.25) return "#EF4444";
   if (pct < 0.5) return "#F59E0B";
   if (pct < 0.75) return "#60A5FA";
-  return "#5EEAD4";
+  return "var(--accent)";
 }
 
 export function MoodClient({ today, history }: Props) {
@@ -133,7 +133,7 @@ export function MoodClient({ today, history }: Props) {
     <div style={{ minHeight: "100vh", background: PAGE_BG, padding: "24px 16px 80px" }}>
       <div style={{ maxWidth: 680, margin: "0 auto" }}>
         <div style={{ marginBottom: 28 }}>
-          <h1 style={{ fontFamily: "var(--font-fraunces)", fontSize: 28, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
+          <h1 style={{ fontFamily: "var(--font-fraunces)", fontSize: 28, fontWeight: 700, color: "var(--ink)", marginBottom: 6 }}>
             Mood Log
           </h1>
           <p style={{ fontFamily: "var(--font-instrument)", fontSize: 14, color: MUTED }}>
@@ -173,13 +173,13 @@ export function MoodClient({ today, history }: Props) {
             rows={2}
             style={{
               width: "100%",
-              background: "rgba(255,255,255,0.03)",
+              background: "transparent",
               border: `1px solid ${BORDER}`,
               borderRadius: 10,
               padding: "10px 12px",
               fontFamily: "var(--font-instrument)",
               fontSize: 13,
-              color: "#fff",
+              color: "var(--ink)",
               resize: "none",
               outline: "none",
               marginBottom: 16,
@@ -195,8 +195,8 @@ export function MoodClient({ today, history }: Props) {
               padding: "11px",
               borderRadius: 12,
               border: "none",
-              background: saved ? "rgba(94,234,212,0.15)" : TEAL,
-              color: saved ? TEAL : "#070708",
+              background: saved ? "var(--accent-soft)" : TEAL,
+              color: saved ? TEAL : "var(--accent-ink)",
               fontFamily: "var(--font-instrument)",
               fontSize: 14,
               fontWeight: 700,
@@ -230,9 +230,9 @@ export function MoodClient({ today, history }: Props) {
                     justifyContent: "center",
                     fontFamily: "var(--font-mono)",
                     fontSize: 9,
-                    color: avg ? "rgba(255,255,255,0.7)" : "transparent",
+                    color: avg ? "var(--ink-muted)" : "transparent",
                     cursor: "default",
-                    border: `1px solid rgba(255,255,255,0.04)`,
+                    border: `1px solid var(--line)`,
                   }}
                 >
                   {avg ?? ""}

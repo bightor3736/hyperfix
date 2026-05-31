@@ -6,6 +6,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { LogoLockup } from "@/components/Logo";
 import { NotificationBell } from "@/components/NotificationBell";
+import { ThemeToggle } from "@/components/landing/ThemeToggle";
 import { Home, Discovery, Search, Category, Setting, Plus, Logout, Chart } from "react-iconly";
 
 function MessagesIcon({ active }: { active: boolean }) {
@@ -207,8 +208,8 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
     <aside
       className="hidden lg:flex flex-col fixed left-0 top-0 bottom-0 w-60 z-30"
       style={{
-        background: "#0A0A0A",
-        borderRight: "1px solid rgba(244,244,244,0.07)",
+        background: "var(--bg)",
+        borderRight: "1px solid var(--line)",
       }}
     >
       {/* Logo */}
@@ -223,7 +224,7 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
         <Link
           href="/dashboard/new"
           className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
-          style={{ background: "#5EEAD4", color: "#F4F4F4" }}
+          style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
         >
           <Plus set="light" size={16} primaryColor="currentColor" />
           New fix
@@ -231,7 +232,7 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
       </div>
 
       {/* Divider */}
-      <div className="mx-4 mb-4" style={{ height: 1, background: "rgba(244,244,244,0.06)" }} />
+      <div className="mx-4 mb-4" style={{ height: 1, background: "var(--line)" }} />
 
       {/* Nav */}
       <nav className="flex-1 px-3 flex flex-col gap-1 overflow-y-auto min-h-0">
@@ -251,9 +252,9 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
               href={item.href}
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-sans text-sm font-medium transition-all duration-150"
               style={{
-                color: isActive ? "#5EEAD4" : "rgba(244,244,244,0.5)",
-                background: isActive ? "rgba(94,234,212,0.08)" : "transparent",
-                border: isActive ? "1px solid rgba(94,234,212,0.15)" : "1px solid transparent",
+                color: isActive ? "var(--accent)" : "var(--ink-muted)",
+                background: isActive ? "var(--accent-soft)" : "transparent",
+                border: isActive ? "1px solid var(--accent)" : "1px solid transparent",
               }}
             >
               {item.icon(isActive)}
@@ -262,8 +263,8 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
                 <span
                   className="inline-flex items-center justify-center font-mono text-[10px] font-semibold rounded-full px-1.5 min-w-[18px] h-[18px]"
                   style={{
-                    background: "#5EEAD4",
-                    color: "#0A0A0A",
+                    background: "var(--accent)",
+                    color: "var(--accent-ink)",
                     lineHeight: 1,
                   }}
                 >
@@ -282,25 +283,25 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
             href="/pricing"
             className="block relative overflow-hidden rounded-2xl p-3.5 transition-all hover:-translate-y-0.5 group"
             style={{
-              background: "linear-gradient(135deg, rgba(94,234,212,0.08) 0%, rgba(94,234,212,0.02) 100%)",
-              border: "1px solid rgba(94,234,212,0.2)",
+              background: "linear-gradient(135deg, var(--accent-soft) 0%, var(--accent-soft) 100%)",
+              border: "1px solid var(--accent)",
             }}
           >
             <div className="flex items-center gap-2 mb-1.5">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5EEAD4" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" />
                 <circle cx="12" cy="12" r="3" />
               </svg>
-              <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "#5EEAD4" }}>
+              <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--accent)" }}>
                 Hyperfix Pro
               </span>
             </div>
-            <p className="font-sans text-[12px] mb-2 leading-snug" style={{ color: "rgba(244,244,244,0.7)" }}>
+            <p className="font-sans text-[12px] mb-2 leading-snug" style={{ color: "var(--ink-muted)" }}>
               Unlimited fixes, custom theme, premium card templates.
             </p>
             <span
               className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-widest group-hover:gap-1.5 transition-all"
-              style={{ color: "#5EEAD4" }}
+              style={{ color: "var(--accent)" }}
             >
               See plans →
             </span>
@@ -309,16 +310,16 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
       )}
 
       {/* User section */}
-      <div className="p-4" style={{ borderTop: "1px solid rgba(244,244,244,0.06)" }}>
+      <div className="p-4" style={{ borderTop: "1px solid var(--line)" }}>
         {/* Avatar + name + bell */}
         <div className="flex items-center gap-2 mb-3">
           <div className="flex-1 flex items-center gap-3 min-w-0">
             <div
               className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
               style={{
-                background: avatarUrl ? "transparent" : "rgba(94,234,212,0.15)",
-                border: "1px solid rgba(94,234,212,0.2)",
-                color: "#5EEAD4",
+                background: avatarUrl ? "transparent" : "var(--accent-soft)",
+                border: "1px solid var(--accent)",
+                color: "var(--accent)",
                 overflow: "hidden",
               }}
             >
@@ -331,16 +332,16 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
-                <p className="font-sans text-sm font-medium truncate" style={{ color: "#F4F4F4" }}>
+                <p className="font-sans text-sm font-medium truncate" style={{ color: "var(--ink)" }}>
                   {displayName}
                 </p>
                 {isPro && (
                   <span
                     className="font-mono text-[9px] shrink-0 rounded px-1.5 py-0.5"
                     style={{
-                      background: "rgba(94,234,212,0.2)",
-                      color: "#5EEAD4",
-                      border: "1px solid rgba(94,234,212,0.3)",
+                      background: "var(--accent-soft)",
+                      color: "var(--accent)",
+                      border: "1px solid var(--accent)",
                     }}
                   >
                     PRO
@@ -348,7 +349,7 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
                 )}
               </div>
               {userEmail && (
-                <p className="font-mono text-[10px] truncate" style={{ color: "rgba(244,244,244,0.35)" }}>
+                <p className="font-mono text-[10px] truncate" style={{ color: "var(--ink-faint)" }}>
                   {userEmail}
                 </p>
               )}
@@ -357,15 +358,23 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
           <NotificationBell />
         </div>
 
+        {/* Theme toggle */}
+        <div className="flex items-center justify-between mb-3">
+          <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
+            Theme
+          </span>
+          <ThemeToggle />
+        </div>
+
         {/* Profile + sign out row */}
         <div className="flex gap-2">
           <Link
             href={username ? `/u/${username}` : "/onboarding/username"}
             className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl font-sans text-xs font-medium transition-all duration-150 hover:opacity-80"
             style={{
-              color: username ? "rgba(244,244,244,0.5)" : "#5EEAD4",
-              background: username ? "rgba(244,244,244,0.04)" : "rgba(94,234,212,0.07)",
-              border: username ? "1px solid rgba(244,244,244,0.06)" : "1px solid rgba(94,234,212,0.2)",
+              color: username ? "var(--ink-muted)" : "var(--accent)",
+              background: username ? "var(--line)" : "var(--accent-soft)",
+              border: username ? "1px solid var(--line)" : "1px solid var(--accent)",
             }}
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -379,9 +388,9 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
             disabled={pending}
             className={`${username ? "" : "w-full "}flex items-center justify-center gap-2 px-3 py-2 rounded-xl font-sans text-xs transition-all duration-150 hover:opacity-80 disabled:opacity-50`}
             style={{
-              color: "rgba(244,244,244,0.4)",
-              background: "rgba(244,244,244,0.04)",
-              border: "1px solid rgba(244,244,244,0.06)",
+              color: "var(--ink-muted)",
+              background: "var(--line)",
+              border: "1px solid var(--line)",
             }}
           >
             <Logout set="light" size={14} primaryColor="currentColor" />

@@ -2,13 +2,13 @@
 
 import { useState, useEffect, useRef } from "react";
 
-const PAGE_BG = "#070708";
-const CARD_BG = "#0F1011";
-const BORDER = "rgba(255,255,255,0.07)";
-const TEAL = "#5EEAD4";
-const TEAL_BG = "rgba(94,234,212,0.08)";
-const TEAL_BD = "rgba(94,234,212,0.20)";
-const MUTED = "rgba(255,255,255,0.45)";
+const PAGE_BG = "var(--bg)";
+const CARD_BG = "var(--bg)";
+const BORDER = "var(--line)";
+const TEAL = "var(--accent)";
+const TEAL_BG = "var(--accent-soft)";
+const TEAL_BD = "var(--accent)";
+const MUTED = "var(--ink-muted)";
 
 type Status = "inbox" | "doing" | "done" | "parked";
 type Energy = "low" | "medium" | "high" | "any";
@@ -95,7 +95,7 @@ export function BrainDumpClient({ initialTasks }: { initialTasks: Task[] }) {
       <div style={{ maxWidth: 780, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ marginBottom: 28 }}>
-          <h1 style={{ fontFamily: "var(--font-fraunces)", fontSize: 28, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
+          <h1 style={{ fontFamily: "var(--font-fraunces)", fontSize: 28, fontWeight: 700, color: "var(--ink)", marginBottom: 6 }}>
             Brain Dump
           </h1>
           <p style={{ fontFamily: "var(--font-instrument)", fontSize: 14, color: MUTED }}>
@@ -130,7 +130,7 @@ export function BrainDumpClient({ initialTasks }: { initialTasks: Task[] }) {
               resize: "none",
               fontFamily: "var(--font-instrument)",
               fontSize: 16,
-              color: "#fff",
+              color: "var(--ink)",
               lineHeight: 1.6,
               marginBottom: 14,
             }}
@@ -170,8 +170,8 @@ export function BrainDumpClient({ initialTasks }: { initialTasks: Task[] }) {
                 padding: "8px 20px",
                 borderRadius: 10,
                 border: "none",
-                background: input.trim() ? TEAL : "rgba(255,255,255,0.06)",
-                color: input.trim() ? "#070708" : MUTED,
+                background: input.trim() ? TEAL : "var(--line)",
+                color: input.trim() ? "var(--accent-ink)" : MUTED,
                 cursor: input.trim() ? "pointer" : "default",
                 transition: "all 0.15s",
               }}
@@ -204,7 +204,7 @@ export function BrainDumpClient({ initialTasks }: { initialTasks: Task[] }) {
                       fontSize: 11,
                       padding: "1px 7px",
                       borderRadius: 20,
-                      background: col.length > 0 ? TEAL_BG : "rgba(255,255,255,0.04)",
+                      background: col.length > 0 ? TEAL_BG : "var(--line)",
                       color: col.length > 0 ? TEAL : MUTED,
                       border: `1px solid ${col.length > 0 ? TEAL_BD : BORDER}`,
                     }}
@@ -223,7 +223,7 @@ export function BrainDumpClient({ initialTasks }: { initialTasks: Task[] }) {
                         textAlign: "center",
                         fontFamily: "var(--font-instrument)",
                         fontSize: 12,
-                        color: "rgba(255,255,255,0.2)",
+                        color: "var(--ink-faint)",
                       }}
                     >
                       Empty
@@ -280,7 +280,7 @@ function TaskCard({
         style={{
           fontFamily: "var(--font-instrument)",
           fontSize: 13,
-          color: task.status === "done" ? MUTED : "#fff",
+          color: task.status === "done" ? MUTED : "var(--ink)",
           lineHeight: 1.5,
           marginBottom: 8,
           textDecoration: task.status === "done" ? "line-through" : "none",

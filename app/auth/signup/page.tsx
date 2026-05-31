@@ -18,9 +18,9 @@ export default async function SignupPage() {
       <span
         className="self-start inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5 anim-fadeUp"
         style={{
-          background: "rgba(94,234,212,0.10)",
-          color: "#5EEAD4",
-          border: "1px solid rgba(94,234,212,0.22)",
+          background: "var(--accent-soft)",
+          color: "var(--accent)",
+          border: "1px solid var(--accent)",
         }}
       >
         sign up
@@ -28,7 +28,7 @@ export default async function SignupPage() {
       <h1
         className="font-display leading-tight mb-2 anim-fadeUp delay-100"
         style={{
-          color: "#FFFFFF",
+          color: "var(--ink)",
           letterSpacing: "-0.02em",
           fontSize: "clamp(28px, 4.5vw, 36px)",
           fontWeight: 600,
@@ -38,7 +38,7 @@ export default async function SignupPage() {
       </h1>
       <p
         className="font-sans text-base mb-1 anim-fadeUp delay-200"
-        style={{ color: "rgba(255,255,255,0.55)" }}
+        style={{ color: "var(--ink-muted)" }}
       >
         30 seconds. Free forever. The number doesn&apos;t lie.
       </p>
@@ -46,7 +46,7 @@ export default async function SignupPage() {
       {userCount > 0 && (
         <p
           className="font-mono text-[11px] uppercase tracking-widest mb-6 anim-fadeUp delay-200"
-          style={{ color: "rgba(94,234,212,0.7)" }}
+          style={{ color: "var(--accent)" }}
         >
           join {displayCount} people already tracking
         </p>
@@ -66,13 +66,13 @@ export default async function SignupPage() {
 
       <p
         className="mt-6 text-center font-sans text-sm anim-fadeUp delay-700"
-        style={{ color: "rgba(255,255,255,0.45)" }}
+        style={{ color: "var(--ink-muted)" }}
       >
         Already have an account?{" "}
         <a
           href="/auth/login"
           className="motion-link font-semibold transition-colors"
-          style={{ color: "#5EEAD4" }}
+          style={{ color: "var(--accent)" }}
         >
           Log in
         </a>
