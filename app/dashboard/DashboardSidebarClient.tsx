@@ -137,7 +137,7 @@ export function DashboardSidebarClient({
       ],
     },
     {
-      label: "Fixations",
+      label: "Projects",
       items: [
         {
           href: "/dashboard/graveyard",
@@ -249,7 +249,7 @@ export function DashboardSidebarClient({
           className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full font-sans text-[13px] font-medium transition-all hover:opacity-90 active:scale-[0.97] bg-invert-bg text-invert-ink"
         >
           <Plus size={14} strokeWidth={2} />
-          New fix
+          New project
         </Link>
       </div>
 

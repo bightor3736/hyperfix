@@ -9,18 +9,18 @@ import { CTA }       from "@/components/landing/CTA";
 import { Footer }    from "@/components/landing/Footer";
 
 export const metadata: Metadata = {
-  title: "Hyperfix — A journal for your obsession",
+  title: "Hyperfix — Built for your ADHD brain",
   description:
-    "Log the hyperfixation. Count the days. Mourn it when it ends. Built for ADHD and neurodivergent brains — free forever.",
+    "Daily quests. Forgiving streaks. Focus sessions. XP for everything. Hyperfix is the productivity game built for ADHD brains — free to start.",
   keywords: [
-    "hyperfixation tracker", "ADHD hyperfixation", "neurodivergent tracker",
-    "special interest tracker", "ADHD app", "hyperfixation journal",
-    "ADHD obsession log", "track obsessions",
+    "ADHD productivity app", "ADHD game", "ADHD focus app", "ADHD daily quests",
+    "ADHD streak app", "focus sessions ADHD", "ADHD leaderboard", "neurodivergent productivity",
+    "ADHD tools", "body doubling app",
   ],
   alternates: { canonical: "https://hyperfix.app" },
   openGraph: {
-    title: "Hyperfix — A journal for your obsession",
-    description: "Log it. Count the days. Mourn it when it ends.",
+    title: "Hyperfix — Built for your ADHD brain",
+    description: "Daily quests. Forgiving streaks. XP for everything. The productivity game for ADHD brains.",
     url: "https://hyperfix.app",
     type: "website",
   },

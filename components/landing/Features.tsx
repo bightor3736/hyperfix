@@ -1,45 +1,85 @@
-const pillars = [
+import { Check, Flame, Sparkles, Timer, Users, Snowflake, Trophy, Inbox } from "lucide-react";
+
+const features = [
   {
-    title: "Log it.",
-    body: "Name the obsession. Set today's intensity.",
+    icon: <Check size={20} strokeWidth={2} />,
+    title: "Daily Quests",
+    body: "3 small missions every day — designed to be achievable in under a minute. Tick them off, earn XP, keep your momentum alive.",
   },
   {
-    title: "Count it.",
-    body: "The counter starts the moment you commit.",
+    icon: <Timer size={20} strokeWidth={1.5} />,
+    title: "Focus Sessions",
+    body: "Start a distraction-proof timer. Body-double with others in live Focus Rooms. Get XP for every session you complete.",
   },
   {
-    title: "Share it.",
-    body: "Export a clean card. Drop it in a Story.",
+    icon: <Flame size={20} strokeWidth={2} />,
+    title: "Forgiving Streaks",
+    body: "Bad days happen. Streak freezes protect your run automatically. Pro users get 5 freezes a month — because ADHD is not linear.",
   },
   {
-    title: "Mourn it.",
-    body: "When it ends, write the eulogy.",
+    icon: <Sparkles size={20} strokeWidth={1.5} />,
+    title: "XP & Levels",
+    body: "Every action earns XP. Log a mood, complete a quest, do a focus session — it all counts. Level up through 7 tiers from Mildly Curious to Clinically Obsessed.",
+  },
+  {
+    icon: <Trophy size={20} strokeWidth={1.5} />,
+    title: "Leaderboard",
+    body: "Compete with others who get it. Weekly resets keep it fair. Your rank is based on actions taken, not perfect consistency.",
+  },
+  {
+    icon: <Inbox size={20} strokeWidth={1.5} />,
+    title: "Brain Dump",
+    body: "Hit ⌘K anywhere, dump what's in your head, sort it later. Capture the thought before your brain moves on to the next thing.",
+  },
+  {
+    icon: <Users size={20} strokeWidth={1.5} />,
+    title: "Focus Rooms",
+    body: "Join a live room and work alongside other ADHD brains. The accountability effect is real — show up, stay present, get things done.",
+  },
+  {
+    icon: <Snowflake size={20} strokeWidth={1.5} />,
+    title: "ADHD Toolkit",
+    body: "Mood tracking, RSD journal, medication log, pattern analytics. Everything your brain needs, designed for how you actually use apps.",
   },
 ];
 
 export function Features() {
   return (
-    <section id="features" className="bg-bg">
+    <section id="features" style={{ background: "var(--bg)" }}>
       <div className="mx-auto max-w-[1200px] px-6 py-24 sm:px-10 sm:py-28">
-        <div className="max-w-[640px]">
-          <h2 className="font-display text-[36px] leading-[1.05] tracking-tight text-ink sm:text-[44px]">
-            Four moves. That's the app.
+        <div className="max-w-[600px] mb-16">
+          <p className="font-mono text-[11px] uppercase tracking-widest mb-4" style={{ color: "var(--accent)" }}>
+            Everything you need
+          </p>
+          <h2
+            className="font-display leading-[1.05] tracking-tight text-ink"
+            style={{ fontSize: "clamp(32px,5vw,48px)" }}
+          >
+            Designed for the ADHD brain. Not against it.
           </h2>
-          <p className="mt-4 text-[15px] leading-[1.6] text-ink-muted">
-            No streaks for hydration. No coach. A small civilised place to
-            put the thing your brain refuses to let go of.
+          <p className="mt-4 text-[15px] leading-[1.65] text-ink-muted">
+            Most productivity apps assume you can maintain a routine, remember tasks without prompting,
+            and feel motivated by a blank todo list. We don&apos;t. Hyperfix works with how your brain actually functions.
           </p>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-y-10 sm:grid-cols-2 sm:gap-x-12 lg:grid-cols-4 lg:gap-x-10">
-          {pillars.map((p) => (
-            <article key={p.title}>
-              <h3 className="font-display text-[28px] leading-[1.1] tracking-tight text-ink">
-                {p.title}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {features.map((f) => (
+            <article
+              key={f.title}
+              className="rounded-2xl p-5"
+              style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
+            >
+              <div
+                className="inline-flex items-center justify-center w-9 h-9 rounded-xl mb-4"
+                style={{ background: "var(--accent-soft)", color: "var(--accent)" }}
+              >
+                {f.icon}
+              </div>
+              <h3 className="font-display text-[20px] leading-[1.1] tracking-tight text-ink mb-2">
+                {f.title}
               </h3>
-              <p className="mt-3 text-[14px] leading-[1.6] text-ink-muted">
-                {p.body}
-              </p>
+              <p className="text-[13px] leading-[1.65] text-ink-muted">{f.body}</p>
             </article>
           ))}
         </div>
