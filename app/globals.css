@@ -4,6 +4,7 @@
 
 /* ── Landing page design tokens ─────────────────────────────── */
 :root {
+  --font-display: var(--font-fraunces);
   --bg:           #f7f4ec;
   --bg-soft:      #f0ebe0;
   --bg-elevated:  #ffffff;

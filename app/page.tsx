@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import { Nav }       from "@/components/landing/Nav";
-import { Hero }      from "@/components/landing/Hero";
-import { Features }  from "@/components/landing/Features";
-import { Graveyard } from "@/components/landing/Graveyard";
-import { Pricing }   from "@/components/landing/Pricing";
-import { FAQ }       from "@/components/landing/FAQ";
-import { CTA }       from "@/components/landing/CTA";
-import { Footer }    from "@/components/landing/Footer";
+import { Suspense } from "react";
+import { Nav }         from "@/components/landing/Nav";
+import { Hero }        from "@/components/landing/Hero";
+import { Features }    from "@/components/landing/Features";
+import { Graveyard }   from "@/components/landing/Graveyard";
+import { FocusRooms }  from "@/components/landing/FocusRooms";
+import { Pricing }     from "@/components/landing/Pricing";
+import { FAQ }         from "@/components/landing/FAQ";
+import { CTA }         from "@/components/landing/CTA";
+import { Footer }      from "@/components/landing/Footer";
+import ActivityTicker  from "@/components/ActivityTicker";
 
 export const metadata: Metadata = {
   title: "Hyperfix — A journal for your obsession",
@@ -39,23 +42,29 @@ export default async function Page({
   }
 
   return (
-    <div style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}>
+    <>
       {/* Restore theme from localStorage before first paint */}
       <script
         dangerouslySetInnerHTML={{
           __html: `(function(){var t=localStorage.getItem('hyperfix-theme');if(t)document.documentElement.setAttribute('data-theme',t);else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.setAttribute('data-theme','dark');})();`,
         }}
       />
-      <Nav />
-      <main>
-        <Hero />
-        <Features />
-        <Graveyard />
-        <Pricing />
-        <FAQ />
-        <CTA />
-      </main>
-      <Footer />
-    </div>
+      <div style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}>
+        <Nav />
+        <main>
+          <Hero />
+          <Suspense fallback={null}>
+            <ActivityTicker />
+          </Suspense>
+          <Features />
+          <Graveyard />
+          <FocusRooms />
+          <Pricing />
+          <FAQ />
+          <CTA />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 }
