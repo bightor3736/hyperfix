@@ -20,11 +20,13 @@
   --invert-ink:   #f7f4ec;
   color-scheme: light;
   /* shadcn compatibility aliases */
+  --background:        var(--bg);
   --card:              var(--bg-elevated);
   --card-foreground:   var(--ink);
   --primary:           var(--accent);
   --primary-foreground: var(--accent-ink);
-  --muted:             var(--bg-soft);
+  /* --muted holds HSL *channels* (shadcn convention) so hsl(var(--muted)) resolves */
+  --muted:             42 35% 91%;
   --muted-foreground:  var(--ink-muted);
   --foreground:        var(--ink);
   --border:            var(--line);
@@ -44,6 +46,7 @@
   --accent-ink:   #18170f;
   --invert-bg:    #f3eee0;
   --invert-ink:   #1b1a17;
+  --muted:        45 15% 10%;
   color-scheme: dark;
 }
 
@@ -62,6 +65,7 @@
     --accent-ink:   #18170f;
     --invert-bg:    #f3eee0;
     --invert-ink:   #1b1a17;
+    --muted:        45 15% 10%;
     color-scheme: dark;
   }
 }

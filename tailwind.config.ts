@@ -10,7 +10,7 @@ const config: Config = {
         paperDeep: "#111113",
         paperMid: "#161618",
         inkSoft: "#9A9A9A",
-        muted: "var(--muted)",
+        muted: "hsl(var(--muted))",
         mint: "#5EEAD4",
         mintDeep: "#2DD4BF",
         mintInk: "#0A1F1C",
@@ -33,6 +33,7 @@ const config: Config = {
         "invert-bg":   "var(--invert-bg)",
         "invert-ink":  "var(--invert-ink)",
         // shadcn compatibility tokens
+        background:           "var(--background)",
         card:                "var(--card)",
         "card-foreground":   "var(--card-foreground)",
         primary:             "var(--primary)",
