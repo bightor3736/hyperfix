@@ -1,14 +1,14 @@
 import { LogoLockup } from "@/components/Logo";
 
-const NOISE_URL =
-  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
-
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex items-stretch" style={{ background: "var(--bg)", color: "var(--ink)" }}>
+    <div
+      className="min-h-screen flex items-stretch"
+      style={{ background: "var(--bg)", color: "var(--ink)" }}
+    >
       {/* LEFT PANEL — form, no card wrapper */}
       <div className="flex-1 lg:w-[52%] flex flex-col relative overflow-hidden">
-        {/* mobile sage bloom from top */}
+        {/* Mobile sage bloom from top */}
         <div
           aria-hidden
           className="lg:hidden absolute top-0 left-0 right-0 pointer-events-none"
@@ -20,14 +20,14 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
-        {/* desktop header */}
+        {/* Desktop header */}
         <div className="hidden lg:block relative z-10 px-10 pt-8">
           <a href="/" className="inline-block transition-transform hover:scale-[1.02]">
             <LogoLockup size="sm" />
           </a>
         </div>
 
-        {/* mobile header */}
+        {/* Mobile header */}
         <div className="lg:hidden relative z-10 flex items-center justify-center pt-10 pb-4">
           <a href="/" className="inline-block transition-transform hover:scale-[1.02]">
             <LogoLockup size="sm" />
@@ -41,37 +41,40 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           </div>
         </div>
 
-        {/* desktop footer */}
+        {/* Desktop footer */}
         <div className="hidden lg:block relative z-10 px-10 pb-6">
-          <p
-            className="font-mono text-[10px] uppercase tracking-[0.18em]"
-            style={{ color: "var(--ink-faint)" }}
-          >
+          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">
             hyperfix · the ADHD companion for your brain
           </p>
         </div>
       </div>
 
-      {/* RIGHT PANEL — sage showcase, desktop only */}
+      {/* RIGHT PANEL — editorial showcase, desktop only */}
       <div className="hidden lg:flex lg:w-[48%] xl:w-[46%] p-5">
         <div
           className="relative w-full rounded-3xl overflow-hidden flex flex-col justify-between anim-fadeUp"
           style={{
-            background:
-              "radial-gradient(ellipse 110% 90% at 50% 115%, var(--accent) 0%, var(--accent-soft) 42%, var(--bg) 88%)",
+            background: "var(--bg-soft)",
             border: "1px solid var(--line)",
           }}
         >
+          {/* Radial accent bloom top-left */}
           <div
             aria-hidden
-            className="absolute inset-0 pointer-events-none mix-blend-overlay"
-            style={{ backgroundImage: NOISE_URL, backgroundSize: "220px 220px", opacity: 0.3 }}
+            className="absolute top-0 left-0 pointer-events-none"
+            style={{
+              width: "70%",
+              height: "55%",
+              background:
+                "radial-gradient(ellipse 100% 100% at 0% 0%, var(--accent-soft) 0%, transparent 70%)",
+              opacity: 0.9,
+            }}
           />
 
-          {/* top tagline */}
+          {/* Top content */}
           <div className="relative z-10 p-10">
             <span
-              className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1"
+              className="inline-flex items-center font-mono text-[10px] uppercase tracking-[0.14em] rounded-full px-3 py-1"
               style={{
                 background: "var(--bg)",
                 color: "var(--accent)",
@@ -80,23 +83,105 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             >
               built for ADHD brains
             </span>
+
+            {/* Mock fix card preview */}
+            <div
+              className="mt-8 rounded-2xl p-6"
+              style={{
+                background: "var(--bg-elevated)",
+                border: "1px solid var(--line)",
+              }}
+            >
+              {/* Card header */}
+              <div className="flex items-center justify-between mb-4">
+                <span
+                  className="inline-flex items-center font-mono text-[9px] uppercase tracking-widest rounded-full px-2.5 py-1"
+                  style={{
+                    background: "var(--accent-soft)",
+                    color: "var(--accent)",
+                    border: "1px solid rgba(111,138,99,0.3)",
+                  }}
+                >
+                  Show
+                </span>
+                <span className="font-mono text-[10px] text-ink-faint">Obsessing</span>
+              </div>
+
+              {/* Day counter */}
+              <div className="flex items-baseline gap-2 mb-2">
+                <span
+                  className="font-display leading-none tracking-tight text-ink"
+                  style={{ fontSize: 52 }}
+                >
+                  47
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">
+                  days
+                </span>
+              </div>
+
+              {/* Title */}
+              <h3
+                className="font-display text-ink mb-4"
+                style={{ fontSize: 18, letterSpacing: "-0.01em", lineHeight: 1.2 }}
+              >
+                Severance, Season Two
+              </h3>
+
+              {/* Intensity bar */}
+              <div className="space-y-1.5 mb-4">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">
+                    Intensity
+                  </span>
+                  <span className="font-mono text-[11px] text-ink-muted">9/10</span>
+                </div>
+                <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
+                  <div
+                    className="h-full rounded-full"
+                    style={{ width: "90%", background: "var(--accent)" }}
+                  />
+                </div>
+              </div>
+
+              {/* Stat chips */}
+              <div className="flex gap-2">
+                <span
+                  className="inline-flex items-center font-mono text-[10px] rounded-full px-2.5 py-1"
+                  style={{
+                    background: "var(--accent-soft)",
+                    color: "var(--accent)",
+                    border: "1px solid rgba(111,138,99,0.25)",
+                  }}
+                >
+                  12-day streak
+                </span>
+                <span
+                  className="inline-flex items-center font-mono text-[10px] rounded-full px-2.5 py-1 text-ink-muted"
+                  style={{ background: "var(--bg-soft)", border: "1px solid var(--line)" }}
+                >
+                  94 fixations logged
+                </span>
+              </div>
+            </div>
           </div>
 
-          {/* bottom copy */}
+          {/* Bottom quote */}
           <div className="relative z-10 px-10 pb-10">
             <p
-              className="font-display leading-[1.04]"
-              style={{ color: "var(--ink)", letterSpacing: "-0.02em", fontSize: "clamp(32px, 3.4vw, 48px)" }}
+              className="font-display leading-[1.06]"
+              style={{
+                color: "var(--ink)",
+                letterSpacing: "-0.02em",
+                fontSize: "clamp(26px, 2.8vw, 38px)",
+              }}
             >
-              Your brain,
+              For the thing that
               <br />
-              finally organized.
+              rearranged your brain.
             </p>
-            <p
-              className="mt-4 font-sans text-base max-w-md"
-              style={{ color: "var(--ink-muted)" }}
-            >
-              Capture it. Track it. Focus. Repeat.
+            <p className="mt-3 font-sans text-sm text-ink-muted max-w-xs">
+              Log it. Count the days. Mourn it when it ends.
             </p>
           </div>
         </div>

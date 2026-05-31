@@ -2,27 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Discovery, Plus, User } from "react-iconly";
-
-function BrainDumpIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-4" />
-      <rect x="9" y="1" width="6" height="4" rx="1" />
-      <path d="M9 12h6M9 16h4" />
-    </svg>
-  );
-}
-
-function TimerIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="13" r="8" />
-      <path d="M12 9v4l2.5 2.5" />
-      <path d="M9 3h6M12 3v2" />
-    </svg>
-  );
-}
+import { LayoutDashboard, Inbox, Plus, Timer, User } from "lucide-react";
 
 export function MobileNavBar({ username }: { username?: string | null }) {
   const pathname = usePathname();
@@ -40,17 +20,17 @@ export function MobileNavBar({ username }: { username?: string | null }) {
       }}
     >
       <MobileNavLink href="/dashboard" label="Home" pathname={pathname} exact>
-        <Home set="light" size={22} primaryColor="currentColor" />
+        <LayoutDashboard size={22} strokeWidth={1.5} />
       </MobileNavLink>
       <MobileNavLink href="/dashboard/brain-dump" label="Dump" pathname={pathname}>
-        <BrainDumpIcon />
+        <Inbox size={22} strokeWidth={1.5} />
       </MobileNavLink>
       <MobileNavFab href="/dashboard/new" pathname={pathname} />
       <MobileNavLink href="/dashboard/timer" label="Timer" pathname={pathname}>
-        <TimerIcon />
+        <Timer size={22} strokeWidth={1.5} />
       </MobileNavLink>
       <MobileNavLink href={profileHref} label="Profile" pathname={pathname}>
-        <User set="light" size={22} primaryColor="currentColor" />
+        <User size={22} strokeWidth={1.5} />
       </MobileNavLink>
     </nav>
   );
@@ -69,12 +49,14 @@ function MobileNavLink({
   exact?: boolean;
   children: React.ReactNode;
 }) {
-  const isActive = exact ? pathname === href : pathname === href || pathname.startsWith(href + "/");
+  const isActive = exact
+    ? pathname === href
+    : pathname === href || pathname.startsWith(href + "/");
   return (
     <Link
       href={href}
       aria-current={isActive ? "page" : undefined}
-      className="flex flex-col items-center gap-1 px-2 py-1 rounded-xl transition-colors"
+      className="flex flex-col items-center gap-1 px-3 py-1 rounded-xl transition-colors"
       style={{ color: isActive ? "var(--accent)" : "var(--ink-muted)" }}
     >
       {children}
@@ -83,7 +65,13 @@ function MobileNavLink({
   );
 }
 
-function MobileNavFab({ href, pathname }: { href: string; pathname: string }) {
+function MobileNavFab({
+  href,
+  pathname,
+}: {
+  href: string;
+  pathname: string;
+}) {
   const isActive = pathname === href || pathname.startsWith(href + "/");
   return (
     <Link
@@ -92,15 +80,15 @@ function MobileNavFab({ href, pathname }: { href: string; pathname: string }) {
       aria-current={isActive ? "page" : undefined}
       className="flex items-center justify-center rounded-full transition-all active:scale-95"
       style={{
-        width: 44,
-        height: 44,
-        transform: "translateY(-8px)",
-        background: "var(--accent)",
-        color: "var(--accent-ink)",
-        boxShadow: "0 4px 16px rgba(111,138,99,0.35)",
+        width: 48,
+        height: 48,
+        transform: "translateY(-10px)",
+        background: "var(--invert-bg)",
+        color: "var(--invert-ink)",
+        boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
       }}
     >
-      <Plus set="bold" size={24} primaryColor="currentColor" />
+      <Plus size={22} strokeWidth={2} />
     </Link>
   );
 }

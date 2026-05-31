@@ -5,58 +5,39 @@ import { OAuthButtons, OrDivider, LoginFormInner } from "@/components/AuthForm";
 export default function LoginPage() {
   return (
     <div className="flex flex-col gap-1">
-      <span
-        className="self-start inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5 anim-fadeUp"
-        style={{
-          background: "var(--accent-soft)",
-          color: "var(--accent)",
-          border: "1px solid var(--accent)",
-        }}
-      >
-        log in
-      </span>
       <h1
-        className="font-display leading-tight mb-2 anim-fadeUp delay-100"
-        style={{ color: "var(--ink)", letterSpacing: "-0.02em", fontSize: "clamp(28px, 4.5vw, 40px)" }}
+        className="font-display text-[38px] leading-tight text-ink mb-2 anim-fadeUp"
+        style={{ letterSpacing: "-0.02em" }}
       >
         Welcome back.
       </h1>
-      <p
-        className="font-sans text-base mb-6 anim-fadeUp delay-200"
-        style={{ color: "var(--ink-muted)" }}
-      >
+      <p className="text-[15px] text-ink-muted mb-6 anim-fadeUp delay-100">
         Pick up the count where you left off.
       </p>
 
-      <div className="anim-fadeUp delay-300">
+      <div className="anim-fadeUp delay-200">
         <OAuthButtons mode="login" />
       </div>
 
-      <div className="mt-4 mb-4 anim-fadeUp delay-400">
+      <div className="mt-5 mb-5 anim-fadeUp delay-300">
         <OrDivider />
       </div>
 
-      <div className="anim-fadeUp delay-500">
+      <div className="anim-fadeUp delay-400">
         <LoginFormInner />
       </div>
 
-      <p
-        className="mt-6 text-center font-sans text-sm anim-fadeUp delay-700"
-        style={{ color: "var(--ink-muted)" }}
-      >
+      <p className="mt-6 text-center font-sans text-sm text-ink-muted anim-fadeUp delay-500">
         Don&apos;t have an account?{" "}
         <a
           href="/auth/signup"
-          className="motion-link font-semibold transition-colors"
+          className="font-semibold transition-colors hover:opacity-80"
           style={{ color: "var(--accent)" }}
         >
           Sign up
         </a>
       </p>
-      <p
-        className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.18em] anim-fadeUp delay-700"
-        style={{ color: "var(--ink-faint)" }}
-      >
+      <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint anim-fadeUp delay-600">
         or join the unwell at hyperfix.app
       </p>
     </div>

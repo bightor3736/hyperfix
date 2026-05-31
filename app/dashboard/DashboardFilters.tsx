@@ -5,9 +5,11 @@ import Link from "next/link";
 import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
 import { checkInFix, bulkCheckInFixes } from "@/app/actions/fixes";
 import { CountUp } from "@/components/CountUp";
-import { Search, TickSquare } from "react-iconly";
+import { Search, Check, Plus } from "lucide-react";
 import { CategoryIcon, CATEGORY_COLOR } from "@/components/CategoryIcon";
 import { useToast } from "@/components/Toast";
+
+// ── QuickExportButton ─────────────────────────────────────────────────────────
 
 function QuickExportButton({ fixId, title }: { fixId: string; title: string }) {
   const [state, setState] = useState<"idle" | "loading" | "done">("idle");
@@ -21,12 +23,19 @@ function QuickExportButton({ fixId, title }: { fixId: string; title: string }) {
       if (!res.ok) throw new Error();
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
-      const filename = `hyperfix-${title.slice(0, 32).replace(/\s+/g, "-").toLowerCase()}.png`;
+      const filename = `hyperfix-${title
+        .slice(0, 32)
+        .replace(/\s+/g, "-")
+        .toLowerCase()}.png`;
       if (
         navigator.share &&
-        navigator.canShare?.({ files: [new File([blob], filename, { type: "image/png" })] })
+        navigator.canShare?.({
+          files: [new File([blob], filename, { type: "image/png" })],
+        })
       ) {
-        await navigator.share({ files: [new File([blob], filename, { type: "image/png" })] });
+        await navigator.share({
+          files: [new File([blob], filename, { type: "image/png" })],
+        });
       } else {
         const a = document.createElement("a");
         a.href = url;
@@ -45,24 +54,58 @@ function QuickExportButton({ fixId, title }: { fixId: string; title: string }) {
     <button
       onClick={handleExport}
       title="Export card"
-      className="inline-flex items-center gap-1 font-sans text-xs rounded-full px-2.5 py-1 transition-all hover:opacity-90 active:scale-95"
-      style={{
-        background: state === "done" ? "rgba(13,148,136,0.12)" : "rgba(215,38,56,0.08)",
-        border: `1px solid ${state === "done" ? "rgba(13,148,136,0.30)" : "rgba(215,38,56,0.22)"}`,
-        color: state === "done" ? "#0D9488" : "#D72638",
-      }}
+      className="inline-flex items-center gap-1 font-sans text-[11px] rounded-full px-2.5 py-1 transition-all hover:opacity-90 active:scale-95"
+      style={
+        state === "done"
+          ? {
+              background: "var(--accent-soft)",
+              border: "1px solid rgba(111,138,99,0.3)",
+              color: "var(--accent)",
+            }
+          : {
+              background: "transparent",
+              border: "1px solid var(--line)",
+              color: "var(--ink-faint)",
+            }
+      }
     >
       {state === "loading" ? (
-        <svg className="animate-spin" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+        <svg
+          className="animate-spin"
+          width="11"
+          height="11"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+        >
           <circle cx="12" cy="12" r="10" strokeOpacity="0.25" />
           <path d="M12 2a10 10 0 0 1 10 10" />
         </svg>
       ) : state === "done" ? (
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="11"
+          height="11"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <polyline points="20 6 9 17 4 12" />
         </svg>
       ) : (
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="11"
+          height="11"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
           <polyline points="7 10 12 15 17 10" />
           <line x1="12" y1="15" x2="12" y2="3" />
@@ -72,6 +115,8 @@ function QuickExportButton({ fixId, title }: { fixId: string; title: string }) {
     </button>
   );
 }
+
+// ── Types ─────────────────────────────────────────────────────────────────────
 
 type Fix = {
   id: string;
@@ -88,22 +133,46 @@ type Fix = {
 };
 
 const VALID_STATUSES: FixStatus[] = [
-  "Day 1", "Obsessing", "On loop", "Fading", "Post-fix", "Ended", "Dormant", "Send help",
+  "Day 1",
+  "Obsessing",
+  "On loop",
+  "Fading",
+  "Post-fix",
+  "Ended",
+  "Dormant",
+  "Send help",
 ];
 
 function isValidStatus(s: string): s is FixStatus {
   return VALID_STATUSES.includes(s as FixStatus);
 }
 
-const STATUS_FILTERS = ["All", "Day 1", "Obsessing", "On loop", "Fading", "Post-fix", "Dormant", "Send help"] as const;
-const CATEGORY_FILTERS = ["All", "Song", "Fanfic", "Show", "Film", "Ship", "Game", "Book", "Other"] as const;
+const STATUS_FILTERS = [
+  "All",
+  "Day 1",
+  "Obsessing",
+  "On loop",
+  "Fading",
+  "Post-fix",
+  "Dormant",
+  "Send help",
+] as const;
+const CATEGORY_FILTERS = [
+  "All",
+  "Song",
+  "Fanfic",
+  "Show",
+  "Film",
+  "Ship",
+  "Game",
+  "Book",
+  "Other",
+] as const;
 type SortOrder = "newest" | "longest" | "intense" | "unchecked";
 
 const TEAL = "var(--accent)";
-const CARD_BG = "var(--bg)";
-const CARD_BORDER = "var(--line)";
-const NOISE_URL =
-  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
 
 function getDayCount(startedAt: string): number {
   const start = new Date(startedAt);
@@ -120,16 +189,18 @@ function intensityColor(intensity: number): string {
 function intensityRGB(intensity: number): string {
   if (intensity >= 8) return "230,57,70";
   if (intensity >= 6) return "251,146,60";
-  return "94,234,212";
+  return "111,138,99";
 }
 
-function getMilestone(days: number): { icon: string; label: string } | null {
-  if (days >= 365) return { icon: "★", label: "1 year" };
-  if (days >= 100) return { icon: "✦", label: "100 days" };
-  if (days >= 30) return { icon: "✦", label: "30 days" };
-  if (days >= 7) return { icon: "✦", label: "7 days" };
+function getMilestone(days: number): { label: string } | null {
+  if (days >= 365) return { label: "1 year" };
+  if (days >= 100) return { label: "100 days" };
+  if (days >= 30) return { label: "30 days" };
+  if (days >= 7) return { label: "7 days" };
   return null;
 }
+
+// ── FixGridCard ───────────────────────────────────────────────────────────────
 
 function FixGridCard({
   fix,
@@ -158,102 +229,84 @@ function FixGridCard({
   }
 
   const delay = `${Math.min(index, 6) * 60}ms`;
+  const catColor =
+    (CATEGORY_COLOR as Record<string, string>)[fix.category.toLowerCase()] ||
+    TEAL;
 
-  const catColor = CATEGORY_COLOR[fix.category.toLowerCase()] || TEAL;
-
-  return (
-    <div
-      className="relative rounded-3xl flex flex-col anim-fadeUp transition-all duration-200 hover:-translate-y-0.5 group/card"
-      style={{
-        background: CARD_BG,
-        border: `1px solid ${checkedInToday ? "var(--accent)" : CARD_BORDER}`,
-        animationDelay: delay,
-        overflow: "hidden",
-        boxShadow: checkedInToday ? "0 0 0 1px var(--accent-soft), 0 8px 32px var(--accent-soft)" : undefined,
-      }}
-    >
-      <Link href={`/dashboard/fix/${fix.id}`} className="block">
-        {/* Banner — uses uploaded banner_url or a subtle category-tinted gradient */}
-        <div
-          className="relative w-full"
-          style={{
-            height: 132,
-            backgroundImage: fix.banner_url ? `url(${fix.banner_url})` : undefined,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            background: fix.banner_url
-              ? undefined
-              : `linear-gradient(135deg, ${catColor}30 0%, ${catColor}0C 55%, ${CARD_BG} 100%)`,
-            borderBottom: `1px solid ${CARD_BORDER}`,
-          }}
-        >
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: fix.banner_url
-                ? "linear-gradient(180deg, transparent 0%, transparent 40%, rgba(10,10,10,0.7) 100%)"
-                : "none",
-            }}
+  if (fix.banner_url) {
+    // ── Banner card variant ──────────────────────────────────────────────────
+    return (
+      <div
+        className="rounded-2xl border border-line bg-bg-elevated flex flex-col anim-fadeUp transition-transform duration-200 hover:-translate-y-0.5 overflow-hidden"
+        style={{
+          animationDelay: delay,
+          borderColor: checkedInToday ? "var(--accent)" : "var(--line)",
+        }}
+      >
+        {/* Banner */}
+        <div className="relative h-28 overflow-hidden rounded-t-2xl">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={fix.banner_url}
+            alt=""
+            className="w-full h-full object-cover"
           />
-          {/* Day count overlay on banner top-left */}
-          <div className="absolute top-3 left-3 flex items-baseline gap-1">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          {/* Day count on banner */}
+          <div className="absolute bottom-2 left-3 flex items-baseline gap-1.5">
             <span
-              className="font-display tabular-nums"
-              style={{
-                fontSize: 28,
-                lineHeight: 1,
-                letterSpacing: "-0.04em",
-                color: fix.banner_url ? "#f3eee0" : "var(--ink)",
-              }}
+              className="font-display leading-none tracking-tight"
+              style={{ fontSize: 28, color: "#f3eee0" }}
             >
               {days}
             </span>
             <span
               className="font-mono uppercase tracking-widest"
-              style={{
-                fontSize: 9,
-                color: fix.banner_url ? "rgba(243,238,224,0.7)" : "var(--ink-muted)",
-              }}
+              style={{ fontSize: 9, color: "rgba(243,238,224,0.7)" }}
             >
               day{days !== 1 ? "s" : ""}
             </span>
           </div>
-          {/* Intensity chip bottom-right */}
+          {/* Intensity chip */}
           <div
             className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5"
             style={{
-              background: fix.banner_url ? "rgba(10,10,10,0.55)" : "var(--bg-elevated)",
+              background: "rgba(10,10,10,0.55)",
               border: `1px solid rgba(${rgb},0.4)`,
-              backdropFilter: fix.banner_url ? "blur(8px)" : undefined,
+              backdropFilter: "blur(8px)",
               color,
             }}
           >
             <span className="font-mono tabular-nums" style={{ fontSize: 10, fontWeight: 600 }}>
-              {fix.intensity}<span style={{ opacity: 0.55 }}>/10</span>
+              {fix.intensity}
+              <span style={{ opacity: 0.55 }}>/10</span>
             </span>
           </div>
-          {/* Checked in today indicator — top-right */}
+          {/* Checked indicator */}
           {checkedInToday && (
             <div
-              className="absolute top-3 right-3 w-5 h-5 rounded-full flex items-center justify-center"
-              style={{
-                background: TEAL,
-                color: "var(--bg)",
-                boxShadow: "0 0 12px var(--accent)",
-              }}
-              title="Checked in today"
+              className="absolute top-2 right-2 w-5 h-5 rounded-full flex items-center justify-center"
+              style={{ background: TEAL, color: "var(--bg)" }}
             >
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M20 6 9 17l-5-5" />
               </svg>
             </div>
           )}
         </div>
 
-        <div className="relative p-5 group">
-          {/* Category + status row */}
-          <div className="flex items-center gap-1.5 mb-4 flex-wrap">
+        {/* Content */}
+        <Link href={`/dashboard/fix/${fix.id}`} className="p-5 flex-1 block">
+          <div className="flex items-center gap-1.5 mb-3 flex-wrap">
             <span
               className="inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-widest rounded-full px-2 py-0.5"
               style={{
@@ -266,19 +319,6 @@ function FixGridCard({
               {fix.category}
             </span>
             <FixStatusPill status={status} size="sm" />
-            {fix.is_public && (
-              <span
-                className="inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-widest rounded-full px-2 py-0.5"
-                style={{
-                  background: "transparent",
-                  border: "1px solid var(--line)",
-                  color: "var(--ink-faint)",
-                }}
-                title="Public — visible to anyone"
-              >
-                public
-              </span>
-            )}
             {milestone && (
               <span
                 className="inline-flex items-center font-mono text-[9px] uppercase tracking-widest rounded-full px-2 py-0.5"
@@ -292,12 +332,10 @@ function FixGridCard({
               </span>
             )}
           </div>
-
-          {/* Title — serif */}
           <h3
-            className="font-display text-ink mb-4 transition-colors group-hover:text-[var(--accent)]"
+            className="font-display text-ink mb-3"
             style={{
-              fontSize: 19,
+              fontSize: 18,
               letterSpacing: "-0.01em",
               lineHeight: 1.18,
               display: "-webkit-box",
@@ -308,56 +346,194 @@ function FixGridCard({
           >
             {fix.title}
           </h3>
+          {/* Intensity bar */}
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">
+                Intensity
+              </span>
+              <span className="font-mono text-[11px] text-ink-muted">
+                {fix.intensity}/10
+              </span>
+            </div>
+            <div className="h-1.5 rounded-full overflow-hidden bg-line">
+              <div
+                className="h-full rounded-full transition-all"
+                style={{
+                  width: `${pct}%`,
+                  background: `linear-gradient(to right, rgba(${rgb},0.4), ${color})`,
+                }}
+              />
+            </div>
+          </div>
+        </Link>
 
-          {/* Day count */}
-          <div className="flex items-baseline gap-2 mb-3">
+        {/* Footer */}
+        <div className="px-5 py-3 border-t border-line flex items-center justify-between">
+          {checkedInToday || justCheckedIn ? (
             <span
-              className="font-display leading-none tabular-nums"
+              className="inline-flex items-center gap-1.5 font-sans text-xs"
+              style={{ color: justCheckedIn ? color : "var(--accent)" }}
+            >
+              <Check size={13} strokeWidth={2.5} />
+              {justCheckedIn ? "logged" : "checked in today"}
+            </span>
+          ) : (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                handleCheckIn(fix.id);
+              }}
+              className="inline-flex items-center gap-1.5 font-sans text-xs text-ink-muted hover:text-accent transition-colors active:scale-95"
+            >
+              <Plus size={12} strokeWidth={2.5} />
+              Check in today
+            </button>
+          )}
+          <div className="flex items-center gap-1.5">
+            <Link
+              href={`/dashboard/fix/${fix.id}/card`}
+              onClick={(e) => e.stopPropagation()}
+              className="text-[11px] text-ink-faint hover:text-ink border border-line rounded-full px-2.5 py-1 transition-colors"
+            >
+              Card
+            </Link>
+            <QuickExportButton fixId={fix.id} title={fix.title} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── No-banner card variant ─────────────────────────────────────────────────
+  return (
+    <div
+      className="rounded-2xl flex flex-col anim-fadeUp transition-transform duration-200 hover:-translate-y-0.5"
+      style={{
+        background: "var(--bg-elevated)",
+        border: `1px solid ${checkedInToday ? "var(--accent)" : "var(--line)"}`,
+        animationDelay: delay,
+        boxShadow: checkedInToday
+          ? "0 0 0 1px var(--accent-soft), 0 8px 32px var(--accent-soft)"
+          : undefined,
+      }}
+    >
+      <Link href={`/dashboard/fix/${fix.id}`} className="p-5 flex-1 block">
+        {/* Top row: category pill + checked indicator */}
+        <div className="flex items-center justify-between mb-4">
+          <span
+            className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest rounded-full px-2.5 py-1"
+            style={{
+              background: `${catColor}14`,
+              color: catColor,
+              border: `1px solid ${catColor}33`,
+            }}
+          >
+            <CategoryIcon category={fix.category} size={9} />
+            {fix.category}
+          </span>
+          <div className="flex items-center gap-1.5">
+            {fix.is_public && (
+              <span
+                className="font-mono text-[9px] uppercase tracking-widest rounded-full px-2 py-0.5 text-ink-faint"
+                style={{
+                  background: "transparent",
+                  border: "1px solid var(--line)",
+                }}
+              >
+                public
+              </span>
+            )}
+            {checkedInToday && (
+              <Check size={14} className="text-accent" strokeWidth={2.5} />
+            )}
+          </div>
+        </div>
+
+        {/* Milestone pill */}
+        {milestone && (
+          <div className="mb-3">
+            <span
+              className="inline-flex items-center font-mono text-[9px] uppercase tracking-widest rounded-full px-2 py-0.5"
               style={{
-                color: justCheckedIn ? color : "var(--ink)",
-                fontSize: 48,
-                letterSpacing: "-0.04em",
-                transition: "color 0.3s ease",
+                background: `rgba(${rgb},0.10)`,
+                border: `1px solid rgba(${rgb},0.28)`,
+                color,
               }}
             >
-              <CountUp to={days} duration={900} />
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-muted)" }}>
-              day{days !== 1 ? "s" : ""}
+              {milestone.label}
             </span>
           </div>
+        )}
 
-          {/* Intensity bar */}
-          <div
-            className="h-1 rounded-full overflow-hidden"
-            style={{ background: "var(--line)" }}
+        {/* Day counter — hero element */}
+        <div className="flex items-baseline gap-2 mb-3">
+          <span
+            className="font-display leading-none tracking-tight"
+            style={{
+              fontSize: 56,
+              color: justCheckedIn ? color : "var(--ink)",
+              transition: "color 0.3s ease",
+            }}
           >
+            <CountUp to={days} duration={900} />
+          </span>
+          <span className="font-mono text-[11px] uppercase tracking-widest text-ink-faint">
+            day{days !== 1 ? "s" : ""}
+          </span>
+        </div>
+
+        {/* Title */}
+        <h3
+          className="font-display text-ink mb-4 transition-colors hover:text-accent"
+          style={{
+            fontSize: 17,
+            letterSpacing: "-0.01em",
+            lineHeight: 1.25,
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+          }}
+        >
+          {fix.title}
+        </h3>
+
+        {/* Status + intensity row */}
+        <div className="flex items-center gap-2 mb-4">
+          <FixStatusPill status={status} size="sm" />
+        </div>
+
+        {/* Intensity bar */}
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">
+              Intensity
+            </span>
+            <span className="font-mono text-[11px] text-ink-muted">
+              {fix.intensity}/10
+            </span>
+          </div>
+          <div className="h-1.5 rounded-full overflow-hidden bg-line">
             <div
-              className="h-full rounded-full"
+              className="h-full rounded-full transition-all"
               style={{
                 width: `${pct}%`,
                 background: `linear-gradient(to right, rgba(${rgb},0.4), ${color})`,
-                transition: "width 0.4s ease",
               }}
             />
           </div>
         </div>
       </Link>
 
-      {/* Check-in row */}
-      <div
-        className="relative flex items-center justify-between gap-2 px-5 py-4"
-        style={{ borderTop: "1px solid var(--line)" }}
-      >
+      {/* Footer actions */}
+      <div className="px-5 py-3 border-t border-line flex items-center justify-between">
         {checkedInToday || justCheckedIn ? (
           <span
             className="inline-flex items-center gap-1.5 font-sans text-xs"
-            style={{
-              color: justCheckedIn ? color : "var(--accent)",
-              transition: "color 0.3s ease",
-            }}
+            style={{ color: justCheckedIn ? color : "var(--accent)" }}
           >
-            <TickSquare set="light" size={13} primaryColor="currentColor" />
+            <Check size={13} strokeWidth={2.5} />
             {justCheckedIn ? "logged" : "checked in today"}
           </span>
         ) : (
@@ -366,31 +542,19 @@ function FixGridCard({
               e.preventDefault();
               handleCheckIn(fix.id);
             }}
-            className="inline-flex items-center gap-1.5 font-sans text-xs transition-colors hover:text-[var(--accent)] active:scale-95"
-            style={{ color: "var(--ink-muted)" }}
+            className="inline-flex items-center gap-1.5 font-sans text-xs text-ink-muted hover:text-accent transition-colors active:scale-95"
           >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 5v14M5 12h14" />
-            </svg>
-            check in today
+            <Plus size={12} strokeWidth={2.5} />
+            Check in today
           </button>
         )}
-
         <div className="flex items-center gap-1.5">
           <Link
             href={`/dashboard/fix/${fix.id}/card`}
             onClick={(e) => e.stopPropagation()}
-            className="inline-flex items-center gap-1 font-sans text-xs rounded-full px-2.5 py-1 transition-all hover:opacity-90 active:scale-95"
-            style={{
-              background: "var(--accent-soft)",
-              border: "1px solid var(--accent)",
-              color: "var(--accent)",
-            }}
+            className="text-[11px] text-ink-faint hover:text-ink border border-line rounded-full px-2.5 py-1 transition-colors"
           >
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-            </svg>
-            card
+            Card
           </Link>
           <QuickExportButton fixId={fix.id} title={fix.title} />
         </div>
@@ -399,7 +563,17 @@ function FixGridCard({
   );
 }
 
-function PillButton({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
+// ── PillButton ────────────────────────────────────────────────────────────────
+
+function PillButton({
+  label,
+  active,
+  onClick,
+}: {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) {
   return (
     <button
       onClick={onClick}
@@ -407,9 +581,9 @@ function PillButton({ label, active, onClick }: { label: string; active: boolean
       style={
         active
           ? {
-              background: TEAL,
-              color: "var(--accent-ink)",
-              border: "1px solid transparent",
+              background: "var(--invert-bg)",
+              color: "var(--invert-ink)",
+              border: "1px solid var(--invert-bg)",
               fontWeight: 500,
             }
           : {
@@ -424,6 +598,8 @@ function PillButton({ label, active, onClick }: { label: string; active: boolean
   );
 }
 
+// ── Sort options ──────────────────────────────────────────────────────────────
+
 const SORT_OPTIONS: { key: SortOrder; label: string }[] = [
   { key: "newest", label: "Newest" },
   { key: "longest", label: "Longest" },
@@ -431,12 +607,22 @@ const SORT_OPTIONS: { key: SortOrder; label: string }[] = [
   { key: "unchecked", label: "Needs check-in" },
 ];
 
-export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; checkedInIds?: string[] }) {
+// ── DashboardFilters (main export) ────────────────────────────────────────────
+
+export function DashboardFilters({
+  fixes,
+  checkedInIds = [],
+}: {
+  fixes: Fix[];
+  checkedInIds?: string[];
+}) {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("All");
   const [categoryFilter, setCategoryFilter] = useState<string>("All");
   const [sortOrder, setSortOrder] = useState<SortOrder>("newest");
-  const [localCheckedIn, setLocalCheckedIn] = useState<Set<string>>(new Set(checkedInIds));
+  const [localCheckedIn, setLocalCheckedIn] = useState<Set<string>>(
+    new Set(checkedInIds)
+  );
   const [bulkPending, setBulkPending] = useState(false);
   const [_pending, startTransition] = useTransition();
   const { toast } = useToast();
@@ -445,7 +631,9 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
 
   async function handleBulkCheckIn() {
     if (bulkPending) return;
-    const uncheckedIds = fixes.filter((f) => !localCheckedIn.has(f.id)).map((f) => f.id);
+    const uncheckedIds = fixes
+      .filter((f) => !localCheckedIn.has(f.id))
+      .map((f) => f.id);
     if (uncheckedIds.length === 0) return;
     setBulkPending(true);
     setLocalCheckedIn((prev) => new Set([...prev, ...uncheckedIds]));
@@ -481,14 +669,21 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
 
   const filtered = useMemo(() => {
     let result = fixes.filter((fix) => {
-      const matchesSearch = search.trim() === "" || fix.title.toLowerCase().includes(search.toLowerCase());
-      const matchesStatus = statusFilter === "All" || fix.status === statusFilter;
-      const matchesCategory = categoryFilter === "All" || fix.category.toLowerCase() === categoryFilter.toLowerCase();
+      const matchesSearch =
+        search.trim() === "" ||
+        fix.title.toLowerCase().includes(search.toLowerCase());
+      const matchesStatus =
+        statusFilter === "All" || fix.status === statusFilter;
+      const matchesCategory =
+        categoryFilter === "All" ||
+        fix.category.toLowerCase() === categoryFilter.toLowerCase();
       return matchesSearch && matchesStatus && matchesCategory;
     });
 
     if (sortOrder === "longest") {
-      result = [...result].sort((a, b) => getDayCount(b.started_at) - getDayCount(a.started_at));
+      result = [...result].sort(
+        (a, b) => getDayCount(b.started_at) - getDayCount(a.started_at)
+      );
     } else if (sortOrder === "intense") {
       result = [...result].sort((a, b) => b.intensity - a.intensity);
     } else if (sortOrder === "unchecked") {
@@ -509,23 +704,15 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
       {/* Search + sort row */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4 items-start">
         <div className="relative w-full sm:w-[260px] shrink-0">
-          <div
-            className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"
-            style={{ color: "var(--ink-muted)" }}
-          >
-            <Search set="light" size={16} primaryColor="currentColor" />
+          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-ink-muted">
+            <Search size={15} strokeWidth={1.5} />
           </div>
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search your fixes…"
-            className="w-full rounded-full pl-10 pr-4 py-2.5 font-sans text-sm outline-none transition-all focus:ring-2 focus:ring-[var(--accent)]/35 placeholder:text-[var(--ink-faint)]"
-            style={{
-              background: CARD_BG,
-              border: "1px solid var(--line)",
-              color: "var(--ink)",
-            }}
+            className="w-full rounded-full pl-9 pr-4 py-2.5 font-sans text-sm outline-none transition-all focus:ring-2 focus:ring-accent/30 placeholder:text-ink-faint bg-bg-elevated border border-line text-ink"
           />
         </div>
         <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-0.5 w-full sm:w-auto">
@@ -542,14 +729,16 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
           <button
             onClick={handleBulkCheckIn}
             disabled={bulkPending}
-            className="shrink-0 px-4 py-2 rounded-full font-sans text-xs font-semibold transition-all hover:-translate-y-px active:scale-95 disabled:opacity-50 whitespace-nowrap"
+            className="shrink-0 px-4 py-2 rounded-full font-sans text-xs font-medium transition-all hover:-translate-y-px active:scale-95 disabled:opacity-50 whitespace-nowrap"
             style={{
               background: "var(--accent-soft)",
               border: "1px solid var(--accent)",
               color: "var(--accent)",
             }}
           >
-            {bulkPending ? "Checking in…" : `Check in all (${uncheckedCount})`}
+            {bulkPending
+              ? "Checking in…"
+              : `Check in all (${uncheckedCount})`}
           </button>
         )}
       </div>
@@ -557,14 +746,24 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
       {/* Status filter pills */}
       <div className="flex gap-2 overflow-x-auto scrollbar-hide mb-3 pb-1">
         {STATUS_FILTERS.map((s) => (
-          <PillButton key={s} label={s} active={statusFilter === s} onClick={() => setStatusFilter(s)} />
+          <PillButton
+            key={s}
+            label={s}
+            active={statusFilter === s}
+            onClick={() => setStatusFilter(s)}
+          />
         ))}
       </div>
 
       {/* Category filter pills */}
       <div className="flex gap-2 overflow-x-auto scrollbar-hide mb-6 pb-1">
         {CATEGORY_FILTERS.map((c) => (
-          <PillButton key={c} label={c} active={categoryFilter === c} onClick={() => setCategoryFilter(c)} />
+          <PillButton
+            key={c}
+            label={c}
+            active={categoryFilter === c}
+            onClick={() => setCategoryFilter(c)}
+          />
         ))}
       </div>
 
@@ -583,7 +782,7 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
         </div>
       ) : (
         <div className="py-16 text-center anim-fadeUp">
-          <p className="font-display" style={{ color: "var(--ink-muted)", fontSize: 22 }}>
+          <p className="font-display text-ink-muted" style={{ fontSize: 22 }}>
             No fixes match.
           </p>
         </div>

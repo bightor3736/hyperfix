@@ -7,25 +7,27 @@ import { createClient } from "@/lib/supabase/client";
 import { LogoLockup } from "@/components/Logo";
 import { NotificationBell } from "@/components/NotificationBell";
 import { ThemeToggle } from "@/components/landing/ThemeToggle";
-import { Home, Discovery, Search, Category, Setting, Plus, Logout, Chart } from "react-iconly";
-
-function MessagesIcon({ active }: { active: boolean }) {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={active ? 2 : 1.6}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M3 7l9 6 9-6" />
-      <rect x="3" y="5" width="18" height="14" rx="2" />
-    </svg>
-  );
-}
+import {
+  LayoutDashboard,
+  Compass,
+  Search,
+  BookMarked,
+  FolderOpen,
+  BarChart3,
+  Inbox,
+  Timer,
+  Activity,
+  BookOpen,
+  Pill,
+  MessageCircle,
+  Users,
+  Gift,
+  Settings,
+  Plus,
+  LogOut,
+  User,
+  Zap,
+} from "lucide-react";
 
 type Props = {
   displayName: string;
@@ -35,7 +37,24 @@ type Props = {
   username?: string | null;
 };
 
-export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPro, username }: Props) {
+type NavSection = {
+  label?: string;
+  items: Array<{
+    href: string;
+    label: string;
+    icon: React.ReactNode;
+    activeIcon?: React.ReactNode;
+    badge?: number;
+  }>;
+};
+
+export function DashboardSidebarClient({
+  displayName,
+  avatarUrl,
+  userEmail,
+  isPro,
+  username,
+}: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const [pending, startTransition] = useTransition();
@@ -70,239 +89,219 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
     });
   }
 
-  const navItems: Array<{
-    href: string;
-    label: string;
-    icon: (active: boolean) => React.ReactNode;
-    badge?: number;
-  }> = [
+  const navSections: NavSection[] = [
     {
-      href: "/dashboard",
-      label: "Dashboard",
-      icon: (active: boolean) => <Home set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
+      items: [
+        {
+          href: "/dashboard",
+          label: "Dashboard",
+          icon: <LayoutDashboard size={16} strokeWidth={1.5} />,
+        },
+        {
+          href: "/explore",
+          label: "Explore",
+          icon: <Compass size={16} strokeWidth={1.5} />,
+        },
+        {
+          href: "/search",
+          label: "Search",
+          icon: <Search size={16} strokeWidth={1.5} />,
+        },
+      ],
     },
     {
-      href: "/explore",
-      label: "Explore",
-      icon: (active: boolean) => <Discovery set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
+      label: "Fixations",
+      items: [
+        {
+          href: "/dashboard/graveyard",
+          label: "Graveyard",
+          icon: <BookMarked size={16} strokeWidth={1.5} />,
+        },
+        {
+          href: "/dashboard/lists",
+          label: "Lists",
+          icon: <FolderOpen size={16} strokeWidth={1.5} />,
+        },
+        {
+          href: "/dashboard/analytics",
+          label: "Analytics",
+          icon: <BarChart3 size={16} strokeWidth={1.5} />,
+        },
+      ],
     },
     {
-      href: "/search",
-      label: "Search",
-      icon: (active: boolean) => <Search set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
+      label: "ADHD Toolkit",
+      items: [
+        {
+          href: "/dashboard/brain-dump",
+          label: "Brain Dump",
+          icon: <Inbox size={16} strokeWidth={1.5} />,
+        },
+        {
+          href: "/dashboard/timer",
+          label: "Timer",
+          icon: <Timer size={16} strokeWidth={1.5} />,
+        },
+        {
+          href: "/dashboard/mood",
+          label: "Mood Log",
+          icon: <Activity size={16} strokeWidth={1.5} />,
+        },
+        {
+          href: "/dashboard/rsd",
+          label: "RSD Journal",
+          icon: <BookOpen size={16} strokeWidth={1.5} />,
+        },
+        {
+          href: "/dashboard/meds",
+          label: "Medications",
+          icon: <Pill size={16} strokeWidth={1.5} />,
+        },
+      ],
     },
     {
-      href: "/dashboard/lists",
-      label: "Lists",
-      icon: (active: boolean) => <Category set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
+      label: "Community",
+      items: [
+        {
+          href: "/dashboard/messages",
+          label: "Messages",
+          icon: <MessageCircle size={16} strokeWidth={1.5} />,
+          badge: unreadMessages,
+        },
+        {
+          href: "/room",
+          label: "Focus Rooms",
+          icon: <Users size={16} strokeWidth={1.5} />,
+        },
+      ],
     },
     {
-      href: "/dashboard/graveyard",
-      label: "Graveyard",
-      icon: (_active: boolean) => (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="6" y="2" width="12" height="14" rx="6" />
-          <path d="M6 16 L4 22 L20 22 L18 16" />
-          <path d="M10 10 L14 10 M12 8 L12 12" />
-        </svg>
-      ),
-    },
-    {
-      href: "/room",
-      label: "Focus Rooms",
-      icon: (_active: boolean) => (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="9" cy="8" r="3" />
-          <circle cx="17" cy="9" r="2.2" />
-          <path d="M3 19c0-3 2.7-5 6-5s6 2 6 5" />
-          <path d="M15.5 19c0-2 1-3.4 2.5-3.4 2 0 3 1.6 3 3.4" />
-        </svg>
-      ),
-    },
-    {
-      href: "/dashboard/brain-dump",
-      label: "Brain Dump",
-      icon: (_active: boolean) => (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-4" />
-          <rect x="9" y="1" width="6" height="4" rx="1" />
-          <path d="M9 12h6M9 16h4" />
-        </svg>
-      ),
-    },
-    {
-      href: "/dashboard/timer",
-      label: "Timer",
-      icon: (_active: boolean) => (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="13" r="8" />
-          <path d="M12 9v4l2.5 2.5" />
-          <path d="M9 3h6M12 3v2" />
-        </svg>
-      ),
-    },
-    {
-      href: "/dashboard/mood",
-      label: "Mood Log",
-      icon: (_active: boolean) => (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-        </svg>
-      ),
-    },
-    {
-      href: "/dashboard/rsd",
-      label: "RSD Journal",
-      icon: (_active: boolean) => (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-          <polyline points="14 2 14 8 20 8" />
-          <line x1="16" y1="13" x2="8" y2="13" />
-          <line x1="16" y1="17" x2="8" y2="17" />
-          <polyline points="10 9 9 9 8 9" />
-        </svg>
-      ),
-    },
-    {
-      href: "/dashboard/meds",
-      label: "Medications",
-      icon: (_active: boolean) => (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M10.5 2.3L2.3 10.5a5 5 0 0 0 7.07 7.07l8.2-8.2a5 5 0 0 0-7.07-7.07z" />
-          <line x1="7" y1="12" x2="12" y2="7" />
-        </svg>
-      ),
-    },
-    {
-      href: "/dashboard/messages",
-      label: "Messages",
-      icon: (active: boolean) => <MessagesIcon active={active} />,
-      badge: unreadMessages,
-    },
-    {
-      href: "/dashboard/analytics",
-      label: "Analytics",
-      icon: (active: boolean) => <Chart set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
-    },
-    {
-      href: `/wrapped/${new Date().getFullYear()}`,
-      label: `Wrapped '${String(new Date().getFullYear()).slice(2)}`,
-      icon: (_active: boolean) => (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="3" y="8" width="18" height="13" rx="2" />
-          <path d="M3 12 L21 12" />
-          <path d="M12 8 L12 21" />
-          <path d="M7.5 8 C6 8 5 6.5 5.5 5 C6 3.5 8 3.5 9 5 C10 6.5 12 8 12 8" />
-          <path d="M16.5 8 C18 8 19 6.5 18.5 5 C18 3.5 16 3.5 15 5 C14 6.5 12 8 12 8" />
-        </svg>
-      ),
-    },
-    {
-      href: "/dashboard/settings",
-      label: "Settings",
-      icon: (active: boolean) => <Setting set={active ? "bold" : "light"} size={18} primaryColor="currentColor" />,
+      label: "More",
+      items: [
+        {
+          href: `/wrapped/${new Date().getFullYear()}`,
+          label: `Wrapped '${String(new Date().getFullYear()).slice(2)}`,
+          icon: <Gift size={16} strokeWidth={1.5} />,
+        },
+        {
+          href: "/dashboard/settings",
+          label: "Settings",
+          icon: <Settings size={16} strokeWidth={1.5} />,
+        },
+      ],
     },
   ];
 
+  function isActive(href: string): boolean {
+    if (href === "/dashboard") return pathname === "/dashboard";
+    if (href === "/explore") return pathname === "/explore" || pathname.startsWith("/explore/");
+    if (href === "/search") return pathname === "/search";
+    if (href === "/room") return pathname === "/room" || pathname.startsWith("/room/");
+    return pathname.startsWith(href);
+  }
+
   return (
     <aside
-      className="hidden lg:flex flex-col fixed left-0 top-0 bottom-0 w-60 z-30"
+      className="hidden lg:flex flex-col fixed left-0 top-0 bottom-0 w-64 z-30"
       style={{
         background: "var(--bg)",
         borderRight: "1px solid var(--line)",
       }}
     >
       {/* Logo */}
-      <div className="px-5 pt-5 pb-4">
+      <div className="px-5 pt-5 pb-4 shrink-0">
         <Link href="/dashboard" className="inline-block transition-transform hover:scale-[1.02]">
           <LogoLockup size="sm" />
         </Link>
       </div>
 
       {/* New fix CTA */}
-      <div className="px-3 pb-3">
+      <div className="px-3 pb-3 shrink-0">
         <Link
           href="/dashboard/new"
-          className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full font-sans text-sm font-medium transition-all hover:opacity-90 active:scale-[0.97]"
-          style={{ background: "var(--invert-bg)", color: "var(--invert-ink)" }}
+          className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full font-sans text-[13px] font-medium transition-all hover:opacity-90 active:scale-[0.97] bg-invert-bg text-invert-ink"
         >
-          <Plus set="light" size={16} primaryColor="currentColor" />
+          <Plus size={14} strokeWidth={2} />
           New fix
         </Link>
       </div>
 
       {/* Divider */}
-      <div className="mx-4 mb-4" style={{ height: 1, background: "var(--line)" }} />
+      <div className="mx-4 mb-2 shrink-0" style={{ height: 1, background: "var(--line)" }} />
 
-      {/* Nav */}
-      <nav className="flex-1 px-3 flex flex-col gap-1 overflow-y-auto min-h-0">
-        {navItems.map((item) => {
-          const isActive =
-            item.href === "/dashboard"
-              ? pathname === "/dashboard"
-              : item.href === "/explore"
-              ? pathname === "/explore" || pathname.startsWith("/explore/")
-              : item.href === "/search"
-              ? pathname === "/search"
-              : pathname.startsWith(item.href);
-
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-sans text-sm font-medium transition-all duration-150"
-              style={{
-                color: isActive ? "var(--accent)" : "var(--ink-muted)",
-                background: isActive ? "var(--accent-soft)" : "transparent",
-                border: isActive ? "1px solid var(--accent)" : "1px solid transparent",
-              }}
-            >
-              {item.icon(isActive)}
-              <span className="flex-1">{item.label}</span>
-              {typeof item.badge === "number" && item.badge > 0 && (
-                <span
-                  className="inline-flex items-center justify-center font-mono text-[10px] font-semibold rounded-full px-1.5 min-w-[18px] h-[18px]"
+      {/* Nav — scrollable */}
+      <nav className="flex-1 px-3 flex flex-col overflow-y-auto min-h-0 pb-2">
+        {navSections.map((section, si) => (
+          <div key={si}>
+            {section.label && (
+              <p
+                className="px-3 mb-1 font-mono uppercase tracking-[0.12em] text-ink-faint"
+                style={{ fontSize: 10, marginTop: si === 0 ? 4 : 20 }}
+              >
+                {section.label}
+              </p>
+            )}
+            {section.items.map((item) => {
+              const active = isActive(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="flex items-center gap-3 px-3 py-2 rounded-xl font-sans transition-all duration-150 mb-0.5"
                   style={{
-                    background: "var(--accent)",
-                    color: "var(--accent-ink)",
-                    lineHeight: 1,
+                    fontSize: 13,
+                    color: active ? "var(--accent)" : "var(--ink-muted)",
+                    background: active ? "var(--accent-soft)" : "transparent",
+                    border: active ? "1px solid rgba(111,138,99,0.3)" : "1px solid transparent",
+                    fontWeight: active ? 500 : 400,
                   }}
                 >
-                  {item.badge > 99 ? "99+" : item.badge}
-                </span>
-              )}
-            </Link>
-          );
-        })}
+                  <span className="shrink-0">{item.icon}</span>
+                  <span className="flex-1 truncate">{item.label}</span>
+                  {typeof item.badge === "number" && item.badge > 0 && (
+                    <span
+                      className="inline-flex items-center justify-center font-mono rounded-full px-1.5 min-w-[18px] h-[18px] shrink-0"
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 600,
+                        background: "var(--accent)",
+                        color: "var(--accent-ink)",
+                        lineHeight: 1,
+                      }}
+                    >
+                      {item.badge > 99 ? "99+" : item.badge}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+        ))}
       </nav>
 
       {/* Pro upsell — free users only */}
       {!isPro && (
-        <div className="px-3 pb-3">
+        <div className="px-3 pb-2 shrink-0">
           <Link
             href="/pricing"
             className="block relative overflow-hidden rounded-2xl p-3.5 transition-all hover:-translate-y-0.5 group"
             style={{
-              background: "linear-gradient(135deg, var(--accent-soft) 0%, var(--accent-soft) 100%)",
+              background: "var(--accent-soft)",
               border: "1px solid var(--accent)",
             }}
           >
             <div className="flex items-center gap-2 mb-1.5">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" />
-                <circle cx="12" cy="12" r="3" />
-              </svg>
-              <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--accent)" }}>
+              <Zap size={12} strokeWidth={1.5} className="text-accent" />
+              <span
+                className="font-mono text-[10px] uppercase tracking-widest text-accent"
+              >
                 Hyperfix Pro
               </span>
             </div>
-            <p className="font-sans text-[12px] mb-2 leading-snug" style={{ color: "var(--ink-muted)" }}>
+            <p className="font-sans text-[12px] mb-2 leading-snug text-ink-muted">
               Unlimited fixes, custom theme, premium card templates.
             </p>
-            <span
-              className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-widest group-hover:gap-1.5 transition-all"
-              style={{ color: "var(--accent)" }}
-            >
+            <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-widest text-accent group-hover:gap-1.5 transition-all">
               See plans →
             </span>
           </Link>
@@ -310,17 +309,16 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
       )}
 
       {/* User section */}
-      <div className="p-4" style={{ borderTop: "1px solid var(--line)" }}>
+      <div className="px-4 py-3 shrink-0" style={{ borderTop: "1px solid var(--line)" }}>
         {/* Avatar + name + bell */}
         <div className="flex items-center gap-2 mb-3">
-          <div className="flex-1 flex items-center gap-3 min-w-0">
+          <div className="flex-1 flex items-center gap-2.5 min-w-0">
             <div
-              className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
+              className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 overflow-hidden"
               style={{
                 background: avatarUrl ? "transparent" : "var(--accent-soft)",
                 border: "1px solid var(--accent)",
                 color: "var(--accent)",
-                overflow: "hidden",
               }}
             >
               {avatarUrl ? (
@@ -330,9 +328,9 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
                 displayName[0]?.toUpperCase() || "?"
               )}
             </div>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5">
-                <p className="font-sans text-sm font-medium truncate" style={{ color: "var(--ink)" }}>
+                <p className="font-sans text-sm font-medium truncate text-ink">
                   {displayName}
                 </p>
                 {isPro && (
@@ -349,7 +347,7 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
                 )}
               </div>
               {userEmail && (
-                <p className="font-mono text-[10px] truncate" style={{ color: "var(--ink-faint)" }}>
+                <p className="font-mono text-[10px] truncate text-ink-faint">
                   {userEmail}
                 </p>
               )}
@@ -358,9 +356,9 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
           <NotificationBell />
         </div>
 
-        {/* Theme toggle */}
+        {/* Theme toggle row */}
         <div className="flex items-center justify-between mb-3">
-          <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
+          <span className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">
             Theme
           </span>
           <ThemeToggle />
@@ -377,23 +375,20 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
               border: username ? "1px solid var(--line)" : "1px solid var(--accent)",
             }}
           >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="8" r="4" />
-              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-            </svg>
+            <User size={12} strokeWidth={1.5} />
             {username ? "My profile" : "Set up profile"}
           </Link>
           <button
             onClick={handleSignOut}
             disabled={pending}
-            className={`${username ? "" : "w-full "}flex items-center justify-center gap-2 px-3 py-2 rounded-xl font-sans text-xs transition-all duration-150 hover:opacity-80 disabled:opacity-50`}
+            className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl font-sans text-xs transition-all duration-150 hover:opacity-80 disabled:opacity-50"
             style={{
               color: "var(--ink-muted)",
               background: "var(--line)",
               border: "1px solid var(--line)",
             }}
           >
-            <Logout set="light" size={14} primaryColor="currentColor" />
+            <LogOut size={12} strokeWidth={1.5} />
             {pending ? "…" : "Sign out"}
           </button>
         </div>
