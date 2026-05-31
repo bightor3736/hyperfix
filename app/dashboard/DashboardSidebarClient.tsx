@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { LogoLockup } from "@/components/Logo";
 import { NotificationBell } from "@/components/NotificationBell";
 import { ThemeToggle } from "@/components/landing/ThemeToggle";
+import { StreakBadge } from "@/components/ui/streak-badge";
 import {
   LayoutDashboard,
   Compass,
@@ -35,6 +36,7 @@ type Props = {
   userEmail: string;
   isPro?: boolean;
   username?: string | null;
+  currentStreak?: number;
 };
 
 type NavSection = {
@@ -54,6 +56,7 @@ export function DashboardSidebarClient({
   userEmail,
   isPro,
   username,
+  currentStreak = 0,
 }: Props) {
   const router = useRouter();
   const pathname = usePathname();
@@ -278,6 +281,19 @@ export function DashboardSidebarClient({
           </div>
         ))}
       </nav>
+
+      {/* Streak badge */}
+      {currentStreak > 0 && (
+        <div className="px-3 pb-2 shrink-0 flex justify-center">
+          <StreakBadge
+            size="sm"
+            length={currentStreak}
+            frequency="daily"
+            subtitle="check-in streak"
+            className="w-full"
+          />
+        </div>
+      )}
 
       {/* Pro upsell — free users only */}
       {!isPro && (

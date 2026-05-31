@@ -35,6 +35,45 @@ export default async function DashboardLayout({
 
   const avatarUrl = profile?.avatar_url || null;
 
+  // Current check-in streak for the sidebar badge
+  let currentStreak = 0;
+  if (user) {
+    const { data: entryDates } = await supabase
+      .from("fix_entries")
+      .select("date")
+      .eq("user_id", user.id)
+      .order("date", { ascending: false })
+      .limit(90);
+
+    if (entryDates && entryDates.length > 0) {
+      const uniqueDates = [
+        ...new Set(entryDates.map((e: { date: string }) => e.date)),
+      ]
+        .sort()
+        .reverse();
+      const today = new Date().toISOString().split("T")[0];
+      const yesterday = new Date(Date.now() - 86400000)
+        .toISOString()
+        .split("T")[0];
+      let cursor =
+        uniqueDates[0] === today || uniqueDates[0] === yesterday
+          ? uniqueDates[0]
+          : null;
+      if (cursor) {
+        for (const d of uniqueDates) {
+          if (d === cursor) {
+            currentStreak++;
+            cursor = new Date(new Date(cursor).getTime() - 86400000)
+              .toISOString()
+              .split("T")[0];
+          } else {
+            break;
+          }
+        }
+      }
+    }
+  }
+
   return (
     <ToastProvider>
     <div className="min-h-screen flex" style={{ background: "var(--bg)" }}>
@@ -45,6 +84,7 @@ export default async function DashboardLayout({
         userEmail={user?.email || ""}
         isPro={profile?.is_pro ?? false}
         username={profile?.username ?? null}
+        currentStreak={currentStreak}
       />
 
       {/* Main content */}
