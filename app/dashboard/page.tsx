@@ -7,10 +7,11 @@ import { OnboardingModal } from "@/components/OnboardingModal";
 import { WelcomeBackBanner } from "@/components/WelcomeBackBanner";
 import { MilestoneBanner } from "@/components/MilestoneBanner";
 import { DailyQuestsClient } from "@/components/DailyQuestsClient";
-import { DopamineButton } from "@/components/DopamineButton";
+import { DopamineMenu } from "@/components/game/DopamineMenu";
+import { XpHud } from "@/components/game/XpHud";
+import { StreakFlame } from "@/components/game/StreakFlame";
 import { getDailyQuests } from "@/lib/quests/generate";
-import { levelForPoints } from "@/lib/gamification/levels";
-import { Plus, Users, Inbox, Timer, Activity, Pill, BookOpen, Flame, Snowflake, Sparkles, Trophy } from "lucide-react";
+import { Plus, Users, Inbox, Timer, Activity, Pill, Snowflake, Trophy } from "lucide-react";
 
 type Fix = {
   id: string;
@@ -72,10 +73,6 @@ export default async function DashboardPage() {
   const totalPoints = profile?.total_points ?? 0;
   const currentStreak = profile?.current_streak ?? 0;
   const streakFreezes = profile?.streak_freezes ?? 0;
-  const { level, next } = levelForPoints(totalPoints);
-  const levelPct = next
-    ? Math.min(100, Math.max(0, ((totalPoints - level.points) / (next.points - level.points)) * 100))
-    : 100;
 
   let fixes: Fix[] = [];
   if (user) {
@@ -135,81 +132,52 @@ export default async function DashboardPage() {
       <OnboardingModal totalFixes={fixes.length} />
       <div className="max-w-5xl mx-auto space-y-6">
 
-        {/* Header: greeting + XP */}
-        <div className="anim-fadeUp">
-          <p className="font-mono text-[11px] uppercase tracking-widest text-accent mb-1">
-            {greeting}
-          </p>
-          <div className="flex items-end justify-between gap-4">
+        {/* Greeting row */}
+        <div className="flex items-center justify-between gap-4 anim-fadeUp">
+          <div className="min-w-0">
+            <p className="font-mono text-[11px] uppercase tracking-widest mb-0.5" style={{ color: "var(--energy)" }}>
+              {greeting}
+            </p>
             <h1
-              className="font-display text-ink leading-none tracking-tight"
-              style={{ fontSize: "clamp(30px,5vw,48px)" }}
+              className="font-display text-ink leading-none tracking-tight truncate"
+              style={{ fontSize: "clamp(26px,4.5vw,42px)" }}
             >
               {firstName}.
             </h1>
-            <div className="hidden lg:flex items-center gap-3 pb-1">
-              {currentStreak > 0 && (
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: "var(--accent-soft)", border: "1px solid var(--accent)" }}>
-                  <Flame size={13} strokeWidth={2} className="text-accent" />
-                  <span className="font-mono text-[11px] text-accent">{currentStreak}d streak</span>
-                </div>
-              )}
-              {streakFreezes > 0 && (
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}>
-                  <Snowflake size={13} strokeWidth={1.5} className="text-ink-muted" />
-                  <span className="font-mono text-[11px] text-ink-muted">{streakFreezes} freeze{streakFreezes !== 1 ? "s" : ""}</span>
-                </div>
-              )}
-            </div>
           </div>
-
-          {/* XP Progress bar */}
-          <Link href="/dashboard/points" className="block mt-4 group">
-            <div
-              className="rounded-2xl p-4 transition-all hover:-translate-y-0.5"
-              style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
-            >
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <Sparkles size={13} strokeWidth={1.5} className="text-accent" />
-                  <span className="font-mono text-[11px] uppercase tracking-widest text-accent">{level.name}</span>
-                </div>
-                <span className="font-mono text-[11px] tabular-nums text-ink-muted">
-                  {totalPoints.toLocaleString()} XP
-                  {next && <span className="text-ink-faint"> / {next.points.toLocaleString()}</span>}
-                </span>
+          <div className="flex items-center gap-2 shrink-0">
+            <StreakFlame days={currentStreak} size="md" />
+            {streakFreezes > 0 && (
+              <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}>
+                <Snowflake size={13} strokeWidth={1.5} className="text-ink-muted" />
+                <span className="font-mono text-[11px] text-ink-muted">{streakFreezes}</span>
               </div>
-              <div className="h-2 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
-                <div
-                  className="h-full rounded-full transition-all duration-700"
-                  style={{ width: `${levelPct}%`, background: "var(--accent)" }}
-                />
-              </div>
-              {next && (
-                <p className="mt-1.5 font-mono text-[10px] text-ink-faint">
-                  {(next.points - totalPoints).toLocaleString()} XP to {next.name}
-                </p>
-              )}
-            </div>
-          </Link>
-
-          {username && (
-            <div className="flex items-center gap-3 mt-3 flex-wrap">
-              <Link href={`/u/${username}`} className="font-mono text-[11px] text-ink-muted hover:text-accent transition-colors">
-                @{username} · profile →
-              </Link>
-              <Link href="/leaderboard" className="inline-flex items-center gap-1 font-mono text-[11px] text-ink-faint hover:text-accent transition-colors">
-                <Trophy size={10} strokeWidth={2} />
-                leaderboard →
-              </Link>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
-        {/* Dopamine button — the core daily loop */}
+        {/* Dopamine Menu — the hero, the core daily loop */}
         {user && (
           <section className="anim-fadeUp" style={{ animationDelay: "40ms" }}>
-            <DopamineButton todayCount={dopamineToday} />
+            <DopamineMenu todayCount={dopamineToday} />
+          </section>
+        )}
+
+        {/* XP HUD */}
+        {user && (
+          <section className="anim-fadeUp" style={{ animationDelay: "70ms" }}>
+            <XpHud totalPoints={totalPoints} />
+            {username && (
+              <div className="flex items-center gap-3 mt-3 flex-wrap px-1">
+                <Link href={`/u/${username}`} className="font-mono text-[11px] text-ink-muted hover:text-accent transition-colors">
+                  @{username} · profile →
+                </Link>
+                <Link href="/leaderboard" className="inline-flex items-center gap-1 font-mono text-[11px] text-ink-faint hover:text-accent transition-colors">
+                  <Trophy size={10} strokeWidth={2} />
+                  leaderboard →
+                </Link>
+              </div>
+            )}
           </section>
         )}
 
