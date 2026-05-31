@@ -227,10 +227,9 @@ export default async function DashboardPage() {
             <h1
               className="font-display text-ink mb-2"
               style={{
-                fontSize: "clamp(32px, 5vw, 48px)",
+                fontSize: "clamp(32px, 5vw, 52px)",
                 lineHeight: 1.02,
                 letterSpacing: "-0.02em",
-                fontWeight: 600,
               }}
             >
               {firstName}.
@@ -306,7 +305,6 @@ export default async function DashboardPage() {
                   style={{
                     fontSize: "clamp(36px, 7vw, 52px)",
                     letterSpacing: "-0.04em",
-                    fontWeight: 600,
                     color: currentStreak > 0 ? TEAL : "var(--ink-faint)",
                     textShadow: currentStreak >= 7 ? "0 0 30px rgba(111,138,99,0.25)" : "none",
                   }}
@@ -342,7 +340,6 @@ export default async function DashboardPage() {
                   style={{
                     fontSize: "clamp(36px, 7vw, 52px)",
                     letterSpacing: "-0.04em",
-                    fontWeight: 600,
                     color: "var(--ink)",
                   }}
                 >
@@ -373,7 +370,6 @@ export default async function DashboardPage() {
                   style={{
                     fontSize: "clamp(36px, 7vw, 52px)",
                     letterSpacing: "-0.04em",
-                    fontWeight: 600,
                     color: highestIntensity >= 8 ? "#E63946" : highestIntensity > 0 ? "var(--ink)" : "var(--ink-faint)",
                     textShadow: highestIntensity >= 8 ? "0 0 28px rgba(230,57,70,0.35)" : "none",
                   }}
@@ -532,55 +528,36 @@ export default async function DashboardPage() {
 function EmptyState({ suggestions }: { suggestions: { id: string; title: string; category: string }[] }) {
   return (
     <div
-      className="relative overflow-hidden rounded-3xl p-10 sm:p-16 text-center anim-fadeUp"
-      style={{
-        background:
-          "radial-gradient(ellipse 80% 120% at 50% 130%, var(--accent) 0%, #0E4F47 26%, #08231F 50%, var(--bg) 80%)",
-        border: `1px solid ${CARD_BORDER}`,
-      }}
+      className="rounded-[24px] p-10 sm:p-16 text-center anim-fadeUp"
+      style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
     >
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.45 }}
-      />
-      <div className="relative max-w-md mx-auto flex flex-col items-center gap-8">
+      <div className="max-w-md mx-auto flex flex-col items-center gap-8">
         <div>
           <EyebrowPill>your dashboard</EyebrowPill>
           <h2
             className="mt-5 font-display text-ink"
-            style={{
-              fontSize: "clamp(28px, 6vw, 44px)",
-              letterSpacing: "-0.02em",
-              lineHeight: 1.05,
-              fontWeight: 600,
-            }}
+            style={{ fontSize: "clamp(28px, 6vw, 44px)", letterSpacing: "-0.02em", lineHeight: 1.05 }}
           >
             What has taken over
             <br />
             your brain?
           </h2>
-          <p className="mt-4 font-sans text-base" style={{ color: "var(--ink-muted)" }}>
-            log it. count the days. mourn it when it ends.
+          <p className="mt-4 text-[15px] leading-[1.6] text-ink-muted">
+            Log it. Count the days. Mourn it when it ends.
           </p>
         </div>
 
         <Link
           href="/dashboard/new"
-          className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all hover:opacity-95 active:scale-[0.98]"
-          style={{
-            background: "var(--ink)",
-            color: "var(--bg)",
-            borderRadius: 999,
-            boxShadow: "0 12px 36px rgba(0,0,0,0.4)",
-          }}
+          className="inline-flex items-center gap-2 text-[14px] font-medium px-6 py-3 rounded-full transition-all hover:opacity-90 active:scale-[0.98]"
+          style={{ background: "var(--invert-bg)", color: "var(--invert-ink)" }}
         >
           + Log a fix
         </Link>
 
         {suggestions.length > 0 && (
           <div className="w-full">
-            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "var(--ink-faint)" }}>
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-3 text-ink-faint">
               others are currently tracking
             </p>
             <div className="flex flex-wrap gap-2 justify-center">
@@ -588,12 +565,7 @@ function EmptyState({ suggestions }: { suggestions: { id: string; title: string;
                 <Link
                   key={s.id}
                   href={`/dashboard/new?title=${encodeURIComponent(s.title)}&category=${encodeURIComponent(s.category)}`}
-                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-sans text-xs transition-all hover:scale-105 hover:opacity-90"
-                  style={{
-                    background: "rgba(15,16,17,0.8)",
-                    border: "1px solid var(--line)",
-                    color: "var(--ink-muted)",
-                  }}
+                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] border border-line text-ink-muted transition-all hover:border-ink-muted hover:text-ink"
                 >
                   <CategoryIcon category={s.category} size={12} />
                   <span className="truncate max-w-[120px]">{s.title}</span>
@@ -603,26 +575,20 @@ function EmptyState({ suggestions }: { suggestions: { id: string; title: string;
           </div>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
           {[
             { step: "01", title: "Name it", body: "Log whatever's taken over your brain." },
             { step: "02", title: "Count it", body: "The day counter starts. Check in daily." },
             { step: "03", title: "Mourn it", body: "When it fades, write the eulogy." },
-          ].map(({ step, title, body }, i) => (
+          ].map(({ step, title, body }) => (
             <div
               key={step}
-              className={`rounded-2xl p-4 text-left motion-card anim-fadeUp delay-${(i + 2) * 100}`}
-              style={{ background: "rgba(15,16,17,0.7)", border: `1px solid ${CARD_BORDER}` }}
+              className="rounded-[16px] p-5 text-left border border-line"
+              style={{ background: "var(--bg-elevated)" }}
             >
-              <span className="font-sans text-xs" style={{ color: TEAL }}>
-                {step}
-              </span>
-              <p className="font-display text-base mt-2 text-ink" style={{ fontWeight: 600 }}>
-                {title}
-              </p>
-              <p className="font-sans text-xs mt-1.5 leading-relaxed" style={{ color: "var(--ink-muted)" }}>
-                {body}
-              </p>
+              <span className="font-mono text-[10px] uppercase tracking-widest text-accent">{step}</span>
+              <p className="font-display text-[18px] mt-2 text-ink">{title}</p>
+              <p className="text-[13px] mt-1.5 leading-relaxed text-ink-muted">{body}</p>
             </div>
           ))}
         </div>

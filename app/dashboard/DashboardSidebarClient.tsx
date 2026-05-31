@@ -223,8 +223,8 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
       <div className="px-3 pb-3">
         <Link
           href="/dashboard/new"
-          className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
-          style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
+          className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full font-sans text-sm font-medium transition-all hover:opacity-90 active:scale-[0.97]"
+          style={{ background: "var(--invert-bg)", color: "var(--invert-ink)" }}
         >
           <Plus set="light" size={16} primaryColor="currentColor" />
           New fix

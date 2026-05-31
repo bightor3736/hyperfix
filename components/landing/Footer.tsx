@@ -16,7 +16,7 @@ const columns = [
     title: "Community",
     links: [
       { label: "Explore", href: "#explore" },
-      { label: "Manifesto", href: "#manifesto" },
+      { label: "Manifesto", href: "/manifesto" },
       { label: "Field notes", href: "#blog" },
     ],
   },
@@ -31,8 +31,8 @@ const columns = [
   {
     title: "Try it",
     links: [
-      { label: "Sign up", href: "#get-started" },
-      { label: "Log in", href: "#login" },
+      { label: "Sign up", href: "/auth/signup" },
+      { label: "Log in", href: "/auth/login" },
       { label: "iOS", href: "#ios" },
       { label: "Android", href: "#android" },
     ],
@@ -87,13 +87,10 @@ export function Footer() {
         <div className="mt-16 flex flex-col gap-4 border-t border-line pt-7 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[12px] text-ink-faint">© 2026 Hyperfix</p>
           <div className="flex items-center gap-5 text-[12px] text-ink-faint">
-            <a href="#twitter" className="hover:text-ink">
-              Twitter
-            </a>
-            <a href="#tiktok" className="hover:text-ink">
+            <a href="https://www.tiktok.com/@hyperfix.app" target="_blank" rel="noopener noreferrer" className="hover:text-ink">
               TikTok
             </a>
-            <a href="#instagram" className="hover:text-ink">
+            <a href="https://www.instagram.com/hyperfix.app" target="_blank" rel="noopener noreferrer" className="hover:text-ink">
               Instagram
             </a>
           </div>

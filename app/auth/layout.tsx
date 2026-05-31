@@ -86,12 +86,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <div className="relative z-10 px-10 pb-10">
             <p
               className="font-display leading-[1.04]"
-              style={{
-                color: "var(--ink)",
-                letterSpacing: "-0.02em",
-                fontSize: "clamp(32px, 3.4vw, 44px)",
-                fontWeight: 600,
-              }}
+              style={{ color: "var(--ink)", letterSpacing: "-0.02em", fontSize: "clamp(32px, 3.4vw, 48px)" }}
             >
               Your brain,
               <br />

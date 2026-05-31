@@ -27,12 +27,7 @@ export default async function SignupPage() {
       </span>
       <h1
         className="font-display leading-tight mb-2 anim-fadeUp delay-100"
-        style={{
-          color: "var(--ink)",
-          letterSpacing: "-0.02em",
-          fontSize: "clamp(28px, 4.5vw, 36px)",
-          fontWeight: 600,
-        }}
+        style={{ color: "var(--ink)", letterSpacing: "-0.02em", fontSize: "clamp(28px, 4.5vw, 40px)" }}
       >
         Start counting.
       </h1>
