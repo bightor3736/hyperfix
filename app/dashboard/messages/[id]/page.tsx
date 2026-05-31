@@ -132,7 +132,7 @@ export default async function MessageThreadPage({
               className="w-full h-full object-cover"
             />
           ) : (
-            <span className="font-display text-xs font-semibold">
+            <span className="font-display text-xs">
               {name[0]?.toUpperCase() || "?"}
             </span>
           )}

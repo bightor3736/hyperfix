@@ -27,35 +27,18 @@ type Fix = {
 };
 
 const TEAL = "var(--accent)";
-const TEAL_DEEP = "var(--accent)";
-const TEAL_DARK_BG = "var(--accent-soft)";
-const TEAL_DARK_BORDER = "var(--accent)";
 const CARD_BG = "var(--bg)";
 const CARD_BORDER = "var(--line)";
 const PAGE_BG = "var(--bg)";
 
-const NOISE_URL =
-  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
-
-function GrainOverlay({ opacity = 0.18 }: { opacity?: number }) {
-  return (
-    <div
-      aria-hidden
-      className="absolute inset-0 pointer-events-none mix-blend-overlay"
-      style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity }}
-    />
-  );
-}
-
 function EyebrowPill({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1"
+      className="inline-flex items-center text-[12px] rounded-full px-3 py-1"
       style={{
-        background: TEAL_DARK_BG,
-        color: TEAL,
-        border: `1px solid ${TEAL_DARK_BORDER}`,
-        boxShadow: "0 0 20px var(--accent-soft)",
+        background: "var(--accent-soft)",
+        color: "var(--accent)",
+        border: "1px solid var(--accent)",
       }}
     >
       {children}

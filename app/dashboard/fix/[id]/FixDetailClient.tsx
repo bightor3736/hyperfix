@@ -269,7 +269,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
             <milestone.Icon size={28} />
           </span>
           <div className="flex-1 min-w-0">
-            <p className="font-display font-bold text-base" style={{ color: "var(--ink)", letterSpacing: "-0.02em" }}>
+            <p className="font-display text-base" style={{ color: "var(--ink)", letterSpacing: "-0.02em" }}>
               {milestone.heading}
             </p>
             <p className="font-sans text-sm mt-0.5" style={{ color: "var(--ink-muted)" }}>
@@ -726,7 +726,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
       {showEditModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(0,0,0,0.7)" }}>
           <div className="w-full max-w-md rounded-3xl p-6" style={{ background: "var(--bg)", border: "1px solid var(--line)" }}>
-            <h2 className="font-display font-bold text-xl mb-4" style={{ color: "var(--ink)", letterSpacing: "-0.02em" }}>Edit fix</h2>
+            <h2 className="font-display text-xl mb-4" style={{ color: "var(--ink)", letterSpacing: "-0.02em" }}>Edit fix</h2>
             <input
               type="text"
               value={editTitle}
@@ -771,7 +771,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               border: "1px solid var(--line)",
             }}
           >
-            <h2 className="font-display font-bold text-xl mb-1" style={{ color: "var(--ink)", letterSpacing: "-0.02em" }}>
+            <h2 className="font-display text-xl mb-1" style={{ color: "var(--ink)", letterSpacing: "-0.02em" }}>
               Write a farewell
             </h2>
             <p className="font-sans text-sm mb-4" style={{ color: "var(--ink-muted)" }}>

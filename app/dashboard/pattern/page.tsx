@@ -99,7 +99,7 @@ export default async function PatternPage() {
             ← dashboard
           </Link>
         </div>
-        <h1 className="font-display text-3xl font-semibold mb-1" style={{ letterSpacing: "-0.03em" }}>your pattern</h1>
+        <h1 className="font-display text-3xl mb-1" style={{ letterSpacing: "-0.03em" }}>your pattern</h1>
         <p className="font-sans text-sm mb-8" style={{ color: "var(--ink-muted)" }}>
           this is how your brain cycles. not random — yours.
         </p>
@@ -144,7 +144,7 @@ export default async function PatternPage() {
                     <span className="flex-shrink-0 inline-flex" style={{ color: categoryColor(topCategory) }}>
                       <CategoryIcon category={topCategory} size={20} />
                     </span>
-                    <p className="font-display text-xl font-semibold" style={{ letterSpacing: "-0.02em" }}>{topCategory}</p>
+                    <p className="font-display text-xl" style={{ letterSpacing: "-0.02em" }}>{topCategory}</p>
                     <span className="font-mono text-xs" style={{ color: "var(--ink-faint)" }}>{catCounts[topCategory]}×</span>
                   </div>
                 </div>
@@ -154,7 +154,7 @@ export default async function PatternPage() {
                   <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "var(--ink-faint)" }}>
                     longest fixation ever
                   </p>
-                  <p className="font-display text-base font-semibold leading-snug mb-1 line-clamp-1" style={{ letterSpacing: "-0.01em" }}>
+                  <p className="font-display text-base leading-snug mb-1 line-clamp-1" style={{ letterSpacing: "-0.01em" }}>
                     {longest.title}
                   </p>
                   <p className="font-mono text-sm" style={{ color: TEAL }}>

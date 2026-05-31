@@ -276,7 +276,7 @@ export default async function ListDetailPage({
 
                     <Link
                       href={`/dashboard/fix/${fix.id}`}
-                      className="font-display font-semibold leading-snug hover:text-[var(--accent)] transition-colors block"
+                      className="font-display leading-snug hover:text-[var(--accent)] transition-colors block"
                       style={{
                         color: isEnded ? "var(--ink-muted)" : "var(--ink)",
                         fontSize: 16,

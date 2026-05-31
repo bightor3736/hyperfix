@@ -128,7 +128,7 @@ export default async function TrafficPage() {
         </div>
         <div className="flex items-center justify-between mb-8 flex-wrap gap-3">
           <div>
-            <h1 className="font-display text-3xl font-semibold mb-1" style={{ letterSpacing: "-0.03em" }}>Traffic</h1>
+            <h1 className="font-display text-3xl mb-1" style={{ letterSpacing: "-0.03em" }}>Traffic</h1>
             <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>Real numbers. No fluff.</p>
           </div>
           <a

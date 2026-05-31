@@ -439,7 +439,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               />
             ) : (
               <div
-                className="w-20 h-20 rounded-full flex items-center justify-center font-display font-bold text-xl select-none"
+                className="w-20 h-20 rounded-full flex items-center justify-center font-display text-xl select-none"
                 style={{
                   background: "var(--accent-soft)",
                   border: "2px solid var(--accent-soft)",
@@ -1020,7 +1020,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             }}
           >
             <h2
-              className="font-display font-bold text-xl mb-2"
+              className="font-display text-xl mb-2"
               style={{ color: "var(--ink)", letterSpacing: "-0.02em" }}
             >
               Delete your account?

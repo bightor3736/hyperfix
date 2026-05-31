@@ -63,7 +63,7 @@ export default async function AffiliatesPage() {
 
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="font-display text-3xl font-semibold mb-1" style={{ letterSpacing: "-0.03em" }}>Affiliates</h1>
+            <h1 className="font-display text-3xl mb-1" style={{ letterSpacing: "-0.03em" }}>Affiliates</h1>
             <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
               Track every link, click, and signup.
             </p>

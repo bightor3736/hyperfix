@@ -173,7 +173,7 @@ export default async function FixDetailPage({
       <nav
         className="sticky top-0 z-40 px-4 sm:px-8 py-3 flex items-center justify-between gap-3"
         style={{
-          background: "rgba(7,7,8,0.85)",
+          background: "var(--bg)",
           backdropFilter: "blur(20px)",
           borderBottom: `1px solid ${CARD_BORDER}`,
         }}
@@ -230,7 +230,7 @@ export default async function FixDetailPage({
             <div
               aria-hidden
               className="absolute inset-0 pointer-events-none"
-              style={{ background: "linear-gradient(180deg, transparent 0%, transparent 50%, rgba(7,7,8,0.65) 100%)" }}
+              style={{ background: "linear-gradient(180deg, transparent 0%, transparent 50%, rgba(10,10,10,0.65) 100%)" }}
             />
           </div>
         )}
@@ -433,7 +433,7 @@ export default async function FixDetailPage({
               style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.18 }}
             />
             <span className="relative inline-flex" style={{ color: TEAL }}><FlameIcon size={20} /></span>
-            <p className="relative flex-1 font-display font-semibold text-sm" style={{ color: TEAL }}>
+            <p className="relative flex-1 font-display text-sm" style={{ color: TEAL }}>
               {othersCount} other {othersCount === 1 ? "person is" : "people are"} also tracking &ldquo;{typedFix.title}&rdquo;
             </p>
             <span className="relative font-sans text-sm shrink-0 transition-transform group-hover:translate-x-0.5" style={{ color: TEAL }}>

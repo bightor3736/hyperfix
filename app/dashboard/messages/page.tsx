@@ -103,7 +103,7 @@ export default async function MessagesInboxPage() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <span className="font-display text-sm font-semibold">
+                    <span className="font-display text-sm">
                       {name[0]?.toUpperCase() || "?"}
                     </span>
                   )}

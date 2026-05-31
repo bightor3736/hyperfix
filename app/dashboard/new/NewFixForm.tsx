@@ -217,7 +217,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
             <Star set="bold" size={22} primaryColor="var(--accent)" />
           </div>
           <div>
-            <h3 className="font-display font-bold text-xl mb-1" style={{ color: "var(--ink)", letterSpacing: "-0.02em" }}>
+            <h3 className="font-display text-xl mb-1" style={{ color: "var(--ink)", letterSpacing: "-0.02em" }}>
               3-fix limit reached
             </h3>
             <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>

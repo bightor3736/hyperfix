@@ -190,19 +190,21 @@ function FixGridCard({
           <div
             aria-hidden
             className="absolute inset-0 pointer-events-none"
-            style={{ background: "linear-gradient(180deg, transparent 0%, transparent 50%, rgba(15,16,17,0.92) 100%)" }}
+            style={{
+              background: fix.banner_url
+                ? "linear-gradient(180deg, transparent 0%, transparent 40%, rgba(10,10,10,0.7) 100%)"
+                : "none",
+            }}
           />
-          {/* Day count overlay on banner top-left — big, screenshot-worthy */}
+          {/* Day count overlay on banner top-left */}
           <div className="absolute top-3 left-3 flex items-baseline gap-1">
             <span
               className="font-display tabular-nums"
               style={{
                 fontSize: 28,
-                fontWeight: 700,
-                color: "var(--ink)",
                 lineHeight: 1,
                 letterSpacing: "-0.04em",
-                textShadow: "0 2px 12px rgba(0,0,0,0.6)",
+                color: fix.banner_url ? "#f3eee0" : "var(--ink)",
               }}
             >
               {days}
@@ -211,8 +213,7 @@ function FixGridCard({
               className="font-mono uppercase tracking-widest"
               style={{
                 fontSize: 9,
-                color: "var(--ink-muted)",
-                textShadow: "0 1px 6px rgba(0,0,0,0.6)",
+                color: fix.banner_url ? "rgba(243,238,224,0.7)" : "var(--ink-muted)",
               }}
             >
               day{days !== 1 ? "s" : ""}
@@ -222,9 +223,9 @@ function FixGridCard({
           <div
             className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5"
             style={{
-              background: "rgba(7,7,8,0.65)",
+              background: fix.banner_url ? "rgba(10,10,10,0.55)" : "var(--bg-elevated)",
               border: `1px solid rgba(${rgb},0.4)`,
-              backdropFilter: "blur(8px)",
+              backdropFilter: fix.banner_url ? "blur(8px)" : undefined,
               color,
             }}
           >
@@ -297,7 +298,6 @@ function FixGridCard({
             className="font-display text-ink mb-4 transition-colors group-hover:text-[var(--accent)]"
             style={{
               fontSize: 19,
-              fontWeight: 600,
               letterSpacing: "-0.01em",
               lineHeight: 1.18,
               display: "-webkit-box",
@@ -316,10 +316,8 @@ function FixGridCard({
               style={{
                 color: justCheckedIn ? color : "var(--ink)",
                 fontSize: 48,
-                fontWeight: 600,
                 letterSpacing: "-0.04em",
-                textShadow: justCheckedIn ? `0 0 30px rgba(${rgb},0.45)` : "none",
-                transition: "color 0.3s ease, text-shadow 0.3s ease",
+                transition: "color 0.3s ease",
               }}
             >
               <CountUp to={days} duration={900} />
@@ -410,10 +408,9 @@ function PillButton({ label, active, onClick }: { label: string; active: boolean
         active
           ? {
               background: TEAL,
-              color: "#0A1F1C",
+              color: "var(--accent-ink)",
               border: "1px solid transparent",
-              boxShadow: "0 4px 16px rgba(111,138,99,0.2)",
-              fontWeight: 600,
+              fontWeight: 500,
             }
           : {
               background: "transparent",
@@ -548,9 +545,8 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
             className="shrink-0 px-4 py-2 rounded-full font-sans text-xs font-semibold transition-all hover:-translate-y-px active:scale-95 disabled:opacity-50 whitespace-nowrap"
             style={{
               background: "var(--accent-soft)",
-              border: "1px solid rgba(111,138,99,0.3)",
-              color: TEAL,
-              boxShadow: "0 0 20px var(--accent-soft)",
+              border: "1px solid var(--accent)",
+              color: "var(--accent)",
             }}
           >
             {bulkPending ? "Checking in…" : `Check in all (${uncheckedCount})`}
@@ -587,7 +583,7 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
         </div>
       ) : (
         <div className="py-16 text-center anim-fadeUp">
-          <p className="font-display" style={{ color: "var(--ink-muted)", fontSize: 22, fontWeight: 600 }}>
+          <p className="font-display" style={{ color: "var(--ink-muted)", fontSize: 22 }}>
             No fixes match.
           </p>
         </div>
