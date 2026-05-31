@@ -23,7 +23,7 @@ function AppleMark() {
   );
 }
 
-export function OAuthButtons({ size = "md" }: { size?: "md" | "lg" }) {
+export function OAuthButtons({ size = "lg" }: { size?: "md" | "lg" }) {
   const [pending, startTransition] = useTransition();
   const supabase = createClient();
 

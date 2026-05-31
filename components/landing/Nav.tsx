@@ -1,57 +1,68 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Wordmark } from "./Wordmark";
 
+const links = [
+  { label: "Features", href: "#features" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "Manifesto", href: "/manifesto" },
+];
+
 export function Nav() {
-  const [scrolled, setScrolled] = useState(false);
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setRevealed(window.scrollY > 120);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <header
-      className="sticky top-0 z-50 transition-all duration-300"
-      style={{
-        background: scrolled ? "var(--bg)" : "transparent",
-        borderBottom: scrolled ? "1px solid var(--line)" : "1px solid transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
-      }}
-    >
-      <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4 sm:px-10">
-        <Wordmark />
-
-        {/* Desktop nav links — appear after scroll */}
-        <nav
-          className="hidden md:flex items-center gap-8 nav-fade"
-          style={{ opacity: scrolled ? 1 : 0, transform: scrolled ? "translateY(0)" : "translateY(-4px)", pointerEvents: scrolled ? "auto" : "none" }}
-          aria-hidden={!scrolled}
+    <header className="sticky top-0 z-50 w-full bg-bg">
+      <div className="mx-auto flex h-24 max-w-[1200px] items-center justify-between px-6 sm:px-10">
+        <div className="flex items-center gap-12">
+          <Wordmark />
+          <nav
+            className={`nav-fade hidden items-center gap-8 md:flex ${
+              revealed
+                ? "translate-y-0 opacity-100"
+                : "pointer-events-none -translate-y-1 opacity-0"
+            }`}
+            aria-hidden={!revealed}
+          >
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-[15px] text-ink-muted hover:text-ink"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+        <div
+          className={`nav-fade flex items-center gap-2 ${
+            revealed
+              ? "translate-y-0 opacity-100"
+              : "pointer-events-none -translate-y-1 opacity-0"
+          }`}
+          aria-hidden={!revealed}
         >
-          <a href="#features" className="text-[14px] transition-opacity hover:opacity-70" style={{ color: "var(--ink-muted)" }}>Features</a>
-          <a href="#pricing"  className="text-[14px] transition-opacity hover:opacity-70" style={{ color: "var(--ink-muted)" }}>Pricing</a>
-          <a href="#faq"      className="text-[14px] transition-opacity hover:opacity-70" style={{ color: "var(--ink-muted)" }}>FAQ</a>
-        </nav>
-
-        {/* Right side — always visible */}
-        <div className="flex items-center gap-3">
-          <Link
+          <a
             href="/auth/login"
-            className="hidden sm:inline-flex text-[14px] transition-opacity hover:opacity-70"
-            style={{ color: "var(--ink-muted)" }}
+            className="hidden h-11 items-center rounded-full px-4 text-[15px] text-ink hover:text-ink-muted sm:inline-flex"
           >
             Log in
-          </Link>
-          <Link
-            href="/join"
-            className="inline-flex h-9 items-center rounded-full px-5 text-[14px] font-medium transition-opacity hover:opacity-80"
-            style={{ background: "var(--invert-bg)", color: "var(--invert-ink)" }}
+          </a>
+          <a
+            href="/auth/signup"
+            className="inline-flex h-11 items-center rounded-full bg-invert-bg px-5 text-[15px] text-invert-ink hover:opacity-90"
           >
             Get started
-          </Link>
+          </a>
         </div>
       </div>
     </header>

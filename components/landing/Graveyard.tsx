@@ -24,14 +24,15 @@ const eulogies = [
 
 export function Graveyard() {
   return (
-    <section id="graveyard" style={{ background: "var(--bg-soft)" }}>
+    <section id="graveyard" className="bg-bg-soft">
       <div className="mx-auto max-w-[1200px] px-6 py-24 sm:px-10 sm:py-28">
         <div className="max-w-[640px]">
-          <h2 className="font-display text-[36px] leading-[1.05] tracking-tight sm:text-[44px]" style={{ color: "var(--ink)" }}>
+          <h2 className="font-display text-[36px] leading-[1.05] tracking-tight text-ink sm:text-[44px]">
             Everything ends. Bury it properly.
           </h2>
-          <p className="mt-4 text-[15px] leading-[1.6]" style={{ color: "var(--ink-muted)" }}>
-            When a fix dies, you write the eulogy. It moves to a quiet room you can walk back into anytime.
+          <p className="mt-4 text-[15px] leading-[1.6] text-ink-muted">
+            When a fix dies, you write the eulogy. It moves to a quiet room
+            you can walk back into anytime.
           </p>
         </div>
 
@@ -39,18 +40,17 @@ export function Graveyard() {
           {eulogies.map((e) => (
             <article
               key={e.title}
-              className="flex flex-col rounded-[22px] p-7"
-              style={{ border: "1px solid var(--line)", background: "var(--bg)" }}
+              className="flex flex-col rounded-[22px] border border-line bg-bg p-7"
             >
-              <p className="text-[13px]" style={{ color: "var(--ink-muted)" }}>{e.category}</p>
-              <h3 className="mt-2 font-display text-[26px] leading-[1.1] tracking-tight" style={{ color: "var(--ink)" }}>
+              <p className="text-[13px] text-ink-muted">{e.category}</p>
+              <h3 className="mt-2 font-display text-[26px] leading-[1.1] tracking-tight text-ink">
                 {e.title}
               </h3>
-              <p className="mt-1.5 text-[13px]" style={{ color: "var(--ink-faint)" }}>{e.lived}</p>
-              <p className="mt-6 text-[14px] leading-[1.65]" style={{ color: "var(--ink)" }}>
+              <p className="mt-1.5 text-[13px] text-ink-faint">{e.lived}</p>
+              <p className="mt-6 text-[14px] leading-[1.65] text-ink">
                 &ldquo;{e.text}&rdquo;
               </p>
-              <p className="mt-auto pt-6 text-[12px]" style={{ color: "var(--ink-faint)" }}>
+              <p className="mt-auto pt-6 text-[12px] text-ink-faint">
                 {e.user}
               </p>
             </article>

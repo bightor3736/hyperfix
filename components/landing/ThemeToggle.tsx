@@ -1,50 +1,65 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
 
+function getInitial(): Theme {
+  if (typeof window === "undefined") return "light";
+  const stored = window.localStorage.getItem("hyperfix-theme");
+  if (stored === "light" || stored === "dark") return stored;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
 export function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>("light");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("hyperfix-theme") as Theme | null;
-    const sys = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    const t = stored ?? sys;
-    setTheme(t);
-    document.documentElement.setAttribute("data-theme", t);
+    setTheme(getInitial());
+    setMounted(true);
   }, []);
 
-  function toggle(t: Theme) {
-    setTheme(t);
-    localStorage.setItem("hyperfix-theme", t);
-    document.documentElement.setAttribute("data-theme", t);
-  }
+  useEffect(() => {
+    if (!mounted) return;
+    document.documentElement.setAttribute("data-theme", theme);
+    window.localStorage.setItem("hyperfix-theme", theme);
+  }, [theme, mounted]);
 
   return (
     <div
-      className="inline-flex h-9 items-center rounded-full border p-1 text-[13px]"
-      style={{ borderColor: "var(--line)" }}
+      className="inline-flex h-9 items-center rounded-full border border-line p-0.5 text-[12px] font-medium"
       role="radiogroup"
       aria-label="Theme"
     >
-      {(["light", "dark"] as Theme[]).map((t) => (
-        <button
-          key={t}
-          type="button"
-          role="radio"
-          aria-checked={theme === t}
-          onClick={() => toggle(t)}
-          className="h-7 rounded-full px-4 capitalize transition-colors"
-          style={
-            theme === t
-              ? { background: "var(--invert-bg)", color: "var(--invert-ink)" }
-              : { color: "var(--ink-muted)" }
-          }
-        >
-          {t}
-        </button>
-      ))}
+      <button
+        type="button"
+        role="radio"
+        aria-checked={theme === "light"}
+        onClick={() => setTheme("light")}
+        className={`h-8 rounded-full px-3 ${
+          theme === "light"
+            ? "bg-invert-bg text-invert-ink"
+            : "text-ink-muted hover:text-ink"
+        }`}
+      >
+        Light
+      </button>
+      <button
+        type="button"
+        role="radio"
+        aria-checked={theme === "dark"}
+        onClick={() => setTheme("dark")}
+        className={`h-8 rounded-full px-3 ${
+          theme === "dark"
+            ? "bg-invert-bg text-invert-ink"
+            : "text-ink-muted hover:text-ink"
+        }`}
+      >
+        Dark
+      </button>
     </div>
   );
 }
