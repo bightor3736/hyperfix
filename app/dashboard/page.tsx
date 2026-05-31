@@ -7,6 +7,7 @@ import { OnboardingModal } from "@/components/OnboardingModal";
 import { WelcomeBackBanner } from "@/components/WelcomeBackBanner";
 import { MilestoneBanner } from "@/components/MilestoneBanner";
 import { DailyQuestsClient } from "@/components/DailyQuestsClient";
+import { DopamineButton } from "@/components/DopamineButton";
 import { getDailyQuests } from "@/lib/quests/generate";
 import { levelForPoints } from "@/lib/gamification/levels";
 import { Plus, Users, Inbox, Timer, Activity, Pill, BookOpen, Flame, Snowflake, Sparkles, Trophy } from "lucide-react";
@@ -106,6 +107,19 @@ export default async function DashboardPage() {
   const quests = user ? await getDailyQuests(user.id) : [];
   const questsDone = quests.filter((q) => q.completed_at).length;
 
+  // Today's dopamine hits (the core loop)
+  let dopamineToday = 0;
+  if (user) {
+    const startOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0);
+    const { count } = await supabase
+      .from("dopamine_hits")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .gte("created_at", startOfDay.toISOString());
+    dopamineToday = count ?? 0;
+  }
+
   const greeting = getGreeting();
   const firstName = displayName.split(" ")[0];
 
@@ -191,6 +205,13 @@ export default async function DashboardPage() {
             </div>
           )}
         </div>
+
+        {/* Dopamine button — the core daily loop */}
+        {user && (
+          <section className="anim-fadeUp" style={{ animationDelay: "40ms" }}>
+            <DopamineButton todayCount={dopamineToday} />
+          </section>
+        )}
 
         {/* Daily Quests */}
         {user && (

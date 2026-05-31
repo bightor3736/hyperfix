@@ -36,11 +36,12 @@ export async function awardPoints(
   userId: string,
   kind: Exclude<PointKind, "achievement">,
   ref: string,
-  description?: string
+  description?: string,
+  pointsOverride?: number
 ): Promise<void> {
   try {
     const admin = createAdminClient();
-    const base = POINT_VALUES[kind];
+    const base = pointsOverride ?? POINT_VALUES[kind];
 
     const [boostMult, { data: profile }] = await Promise.all([
       activeMultiplier(admin),
