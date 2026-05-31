@@ -10,7 +10,9 @@ import { DailyQuestsClient } from "@/components/DailyQuestsClient";
 import { DopamineMenu } from "@/components/game/DopamineMenu";
 import { XpHud } from "@/components/game/XpHud";
 import { StreakFlame } from "@/components/game/StreakFlame";
+import { ShareStatsButton } from "@/components/game/ShareStatsButton";
 import { getDailyQuests } from "@/lib/quests/generate";
+import { levelForPoints } from "@/lib/gamification/levels";
 import { Plus, Users, Inbox, Timer, Activity, Pill, Snowflake, Trophy } from "lucide-react";
 
 type Fix = {
@@ -104,18 +106,28 @@ export default async function DashboardPage() {
   const quests = user ? await getDailyQuests(user.id) : [];
   const questsDone = quests.filter((q) => q.completed_at).length;
 
-  // Today's dopamine hits (the core loop)
+  // Dopamine hits — today (the core loop) + lifetime total (for the share card)
   let dopamineToday = 0;
+  let dopamineTotal = 0;
   if (user) {
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
-    const { count } = await supabase
-      .from("dopamine_hits")
-      .select("id", { count: "exact", head: true })
-      .eq("user_id", user.id)
-      .gte("created_at", startOfDay.toISOString());
-    dopamineToday = count ?? 0;
+    const [todayRes, totalRes] = await Promise.all([
+      supabase
+        .from("dopamine_hits")
+        .select("id", { count: "exact", head: true })
+        .eq("user_id", user.id)
+        .gte("created_at", startOfDay.toISOString()),
+      supabase
+        .from("dopamine_hits")
+        .select("id", { count: "exact", head: true })
+        .eq("user_id", user.id),
+    ]);
+    dopamineToday = todayRes.count ?? 0;
+    dopamineTotal = totalRes.count ?? 0;
   }
+
+  const levelName = levelForPoints(totalPoints).level.name;
 
   const greeting = getGreeting();
   const firstName = displayName.split(" ")[0];
@@ -167,17 +179,26 @@ export default async function DashboardPage() {
         {user && (
           <section className="anim-fadeUp" style={{ animationDelay: "70ms" }}>
             <XpHud totalPoints={totalPoints} />
-            {username && (
-              <div className="flex items-center gap-3 mt-3 flex-wrap px-1">
-                <Link href={`/u/${username}`} className="font-mono text-[11px] text-ink-muted hover:text-accent transition-colors">
-                  @{username} · profile →
-                </Link>
+            <div className="flex items-center justify-between gap-3 mt-3 flex-wrap px-1">
+              <div className="flex items-center gap-3 flex-wrap">
+                {username && (
+                  <Link href={`/u/${username}`} className="font-mono text-[11px] text-ink-muted hover:text-accent transition-colors">
+                    @{username} · profile →
+                  </Link>
+                )}
                 <Link href="/leaderboard" className="inline-flex items-center gap-1 font-mono text-[11px] text-ink-faint hover:text-accent transition-colors">
                   <Trophy size={10} strokeWidth={2} />
                   leaderboard →
                 </Link>
               </div>
-            )}
+              <ShareStatsButton
+                name={firstName}
+                streak={currentStreak}
+                level={levelName}
+                xp={totalPoints}
+                hits={dopamineTotal}
+              />
+            </div>
           </section>
         )}
 
