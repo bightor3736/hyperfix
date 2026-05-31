@@ -6,6 +6,7 @@ import { SkeletonGrid } from "@/components/FixCardSkeleton";
 import { OnboardingModal } from "@/components/OnboardingModal";
 import { StreakHeatmap } from "@/components/StreakHeatmap";
 import { WeekRings } from "@/components/WeekRings";
+import { StreakCard } from "@/components/ui/streak-card";
 import { ReferralCard } from "@/components/ReferralCard";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { MilestoneBanner } from "@/components/MilestoneBanner";
@@ -314,44 +315,13 @@ export default async function DashboardPage() {
 
         {/* Stats row */}
         {(totalActive > 0 || fetchError || currentStreak > 0) && (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            {/* Streak */}
-            <div
-              className="rounded-2xl border p-5 anim-fadeUp delay-100"
-              style={{ background: CARD_BG, borderColor: CARD_BORDER }}
-            >
-              <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">
-                check-in run
-              </p>
-              <div className="flex items-baseline gap-1.5 mt-3">
-                <span
-                  className="font-display leading-none tabular-nums"
-                  style={{
-                    fontSize: "clamp(36px,7vw,52px)",
-                    letterSpacing: "-0.04em",
-                    color: currentStreak > 0 ? TEAL : "var(--ink-faint)",
-                  }}
-                >
-                  {currentStreak > 0 ? currentStreak : "0"}
-                </span>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-ink-muted">
-                  {currentStreak === 1 ? "day" : "days"}
-                </span>
-              </div>
-              <p className="mt-2 font-sans text-xs leading-snug text-ink-muted">
-                {currentStreak === 0
-                  ? "start your run today."
-                  : currentStreak >= 30
-                  ? "legendary."
-                  : currentStreak >= 7
-                  ? "on a roll."
-                  : "it's building."}
-              </p>
-            </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 anim-fadeUp delay-100">
+            {/* Streak card — spans left column */}
+            <StreakCard dates={heatmapDates} className="lg:row-span-2" />
 
             {/* Active fixes */}
             <div
-              className="rounded-2xl border p-5 anim-fadeUp delay-200"
+              className="rounded-2xl border p-5"
               style={{ background: CARD_BG, borderColor: CARD_BORDER }}
             >
               <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">
@@ -378,7 +348,7 @@ export default async function DashboardPage() {
 
             {/* Peak intensity */}
             <div
-              className="rounded-2xl p-5 anim-fadeUp delay-300"
+              className="rounded-2xl p-5"
               style={{
                 background:
                   highestIntensity >= 8
@@ -426,15 +396,12 @@ export default async function DashboardPage() {
               </p>
             </div>
 
-            {/* Week rings */}
+            {/* Week rings — spans bottom two right columns */}
             <div
-              className="rounded-2xl border p-5 anim-fadeUp delay-400 col-span-2 lg:col-span-1"
+              className="rounded-2xl border p-5 lg:col-span-2"
               style={{ background: CARD_BG, borderColor: CARD_BORDER }}
             >
-              <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">
-                this week
-              </p>
-              <div className="mt-3">
+              <div className="mt-0">
                 <WeekRings checkedDates={heatmapDates} />
               </div>
             </div>
