@@ -28,7 +28,10 @@ import {
   LogOut,
   User,
   Zap,
+  Trophy,
+  Sparkles,
 } from "lucide-react";
+import { levelForPoints } from "@/lib/gamification/levels";
 
 type Props = {
   displayName: string;
@@ -37,6 +40,7 @@ type Props = {
   isPro?: boolean;
   username?: string | null;
   currentStreak?: number;
+  totalPoints?: number;
 };
 
 type NavSection = {
@@ -57,7 +61,14 @@ export function DashboardSidebarClient({
   isPro,
   username,
   currentStreak = 0,
+  totalPoints = 0,
 }: Props) {
+  const { level, next } = levelForPoints(totalPoints);
+  const levelFloor = level.points;
+  const levelCeil = next ? next.points : level.points;
+  const levelPct = next
+    ? Math.min(100, Math.max(0, ((totalPoints - levelFloor) / (levelCeil - levelFloor)) * 100))
+    : 100;
   const router = useRouter();
   const pathname = usePathname();
   const [pending, startTransition] = useTransition();
@@ -109,6 +120,16 @@ export function DashboardSidebarClient({
           href: "/search",
           label: "Search",
           icon: <Search size={16} strokeWidth={1.5} />,
+        },
+        {
+          href: "/dashboard/points",
+          label: "Points & Levels",
+          icon: <Sparkles size={16} strokeWidth={1.5} />,
+        },
+        {
+          href: "/leaderboard",
+          label: "Leaderboard",
+          icon: <Trophy size={16} strokeWidth={1.5} />,
         },
       ],
     },
@@ -281,6 +302,38 @@ export function DashboardSidebarClient({
           </div>
         ))}
       </nav>
+
+      {/* Level / XP progress */}
+      <div className="px-3 pb-2 shrink-0">
+        <Link
+          href="/dashboard/points"
+          className="block rounded-2xl p-3 transition-all hover:-translate-y-0.5"
+          style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
+        >
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <Sparkles size={12} strokeWidth={1.5} className="text-accent shrink-0" />
+              <span className="font-mono text-[10px] uppercase tracking-widest text-accent truncate">
+                {level.name}
+              </span>
+            </div>
+            <span className="font-mono text-[10px] tabular-nums text-ink-muted shrink-0">
+              {totalPoints.toLocaleString()} XP
+            </span>
+          </div>
+          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
+            <div
+              className="h-full rounded-full transition-all"
+              style={{ width: `${levelPct}%`, background: "var(--accent)" }}
+            />
+          </div>
+          {next && (
+            <p className="mt-1.5 font-mono text-[9px] text-ink-faint">
+              {(next.points - totalPoints).toLocaleString()} XP to {next.name}
+            </p>
+          )}
+        </Link>
+      </div>
 
       {/* Streak badge */}
       {currentStreak > 0 && (

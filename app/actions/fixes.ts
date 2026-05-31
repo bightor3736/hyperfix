@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { awardPoints, evaluateAchievements } from "@/lib/gamification/award";
 
 export type FixStatus =
   | "Day 1"
@@ -100,6 +101,8 @@ export async function createFix(formData: FormData) {
     throw new Error(`Failed to create fix: ${error.message}`);
   }
 
+  await awardPoints(user.id, "new_fix", data.id, "New fixation logged");
+
   revalidatePath("/dashboard");
   redirect(`/dashboard/fix/${data.id}`);
 }
@@ -157,6 +160,8 @@ export async function endFix(id: string, eulogy: string) {
     throw new Error(`Failed to end fix: ${error.message}`);
   }
 
+  await evaluateAchievements(user.id);
+
   revalidatePath("/dashboard");
   revalidatePath(`/dashboard/fix/${id}`);
 }
@@ -182,7 +187,10 @@ export async function checkInFix(fixId: string, intensity: number, note?: string
     throw new Error(`Failed to check in: ${error.message}`);
   }
 
+  await awardPoints(user.id, "check_in", `${fixId}:${today}`, "Daily check-in");
+
   revalidatePath(`/dashboard/fix/${fixId}`);
+  revalidatePath("/dashboard/points");
 }
 
 export async function updateFixPrivacy(id: string, isPublic: boolean) {
