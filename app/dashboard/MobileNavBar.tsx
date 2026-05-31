@@ -4,13 +4,22 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, Discovery, Plus, User } from "react-iconly";
 
-function RoomsIcon() {
+function BrainDumpIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="9" cy="8" r="3" />
-      <circle cx="17" cy="9" r="2.2" />
-      <path d="M3 19c0-3 2.7-5 6-5s6 2 6 5" />
-      <path d="M15.5 19c0-2 1-3.4 2.5-3.4 2 0 3 1.6 3 3.4" />
+      <path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-4" />
+      <rect x="9" y="1" width="6" height="4" rx="1" />
+      <path d="M9 12h6M9 16h4" />
+    </svg>
+  );
+}
+
+function TimerIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="13" r="8" />
+      <path d="M12 9v4l2.5 2.5" />
+      <path d="M9 3h6M12 3v2" />
     </svg>
   );
 }
@@ -33,15 +42,15 @@ export function MobileNavBar({ username }: { username?: string | null }) {
       <MobileNavLink href="/dashboard" label="Home" pathname={pathname} exact>
         <Home set="light" size={22} primaryColor="currentColor" />
       </MobileNavLink>
-      <MobileNavLink href="/explore" label="Explore" pathname={pathname}>
-        <Discovery set="light" size={22} primaryColor="currentColor" />
+      <MobileNavLink href="/dashboard/brain-dump" label="Dump" pathname={pathname}>
+        <BrainDumpIcon />
       </MobileNavLink>
       <MobileNavFab href="/dashboard/new" pathname={pathname} />
+      <MobileNavLink href="/dashboard/timer" label="Timer" pathname={pathname}>
+        <TimerIcon />
+      </MobileNavLink>
       <MobileNavLink href={profileHref} label="Profile" pathname={pathname}>
         <User set="light" size={22} primaryColor="currentColor" />
-      </MobileNavLink>
-      <MobileNavLink href="/room" label="Rooms" pathname={pathname}>
-        <RoomsIcon />
       </MobileNavLink>
     </nav>
   );

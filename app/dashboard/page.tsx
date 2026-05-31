@@ -441,6 +441,37 @@ export default async function DashboardPage() {
           </svg>
         </Link>
 
+        {/* ADHD Toolkit quick-links */}
+        <div className="mb-6 anim-fadeUp">
+          <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>
+            ADHD Toolkit
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {[
+              { href: "/dashboard/brain-dump", label: "Brain Dump", icon: "📥", sub: "Clear your head" },
+              { href: "/dashboard/timer", label: "Timer", icon: "⏱", sub: "Focus countdown" },
+              { href: "/dashboard/mood", label: "Mood Log", icon: "💚", sub: "Track patterns" },
+              { href: "/dashboard/meds", label: "Meds", icon: "💊", sub: "Log doses" },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="flex flex-col gap-2 p-4 rounded-2xl transition-all hover:scale-[1.02] active:scale-[0.98]"
+                style={{
+                  background: CARD_BG,
+                  border: `1px solid ${CARD_BORDER}`,
+                }}
+              >
+                <span style={{ fontSize: 22 }}>{item.icon}</span>
+                <div>
+                  <p className="font-sans text-sm font-semibold" style={{ color: "#fff" }}>{item.label}</p>
+                  <p className="font-mono text-[10px]" style={{ color: "rgba(255,255,255,0.35)" }}>{item.sub}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
         {heatmapDates.length > 0 && (
           <div
             className="relative rounded-3xl p-5 mb-6 anim-fadeUp delay-500"

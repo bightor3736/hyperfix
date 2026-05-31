@@ -119,6 +119,60 @@ export function DashboardSidebarClient({ displayName, avatarUrl, userEmail, isPr
       ),
     },
     {
+      href: "/dashboard/brain-dump",
+      label: "Brain Dump",
+      icon: (_active: boolean) => (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-4" />
+          <rect x="9" y="1" width="6" height="4" rx="1" />
+          <path d="M9 12h6M9 16h4" />
+        </svg>
+      ),
+    },
+    {
+      href: "/dashboard/timer",
+      label: "Timer",
+      icon: (_active: boolean) => (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="13" r="8" />
+          <path d="M12 9v4l2.5 2.5" />
+          <path d="M9 3h6M12 3v2" />
+        </svg>
+      ),
+    },
+    {
+      href: "/dashboard/mood",
+      label: "Mood Log",
+      icon: (_active: boolean) => (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        </svg>
+      ),
+    },
+    {
+      href: "/dashboard/rsd",
+      label: "RSD Journal",
+      icon: (_active: boolean) => (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+          <polyline points="10 9 9 9 8 9" />
+        </svg>
+      ),
+    },
+    {
+      href: "/dashboard/meds",
+      label: "Medications",
+      icon: (_active: boolean) => (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M10.5 2.3L2.3 10.5a5 5 0 0 0 7.07 7.07l8.2-8.2a5 5 0 0 0-7.07-7.07z" />
+          <line x1="7" y1="12" x2="12" y2="7" />
+        </svg>
+      ),
+    },
+    {
       href: "/dashboard/messages",
       label: "Messages",
       icon: (active: boolean) => <MessagesIcon active={active} />,

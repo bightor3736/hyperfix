@@ -27,9 +27,9 @@ const mono = JetBrains_Mono({
 const SITE_URL = "https://hyperfix.app";
 const SITE_NAME = "Hyperfix";
 const TITLE =
-  "Hyperfix — the hyperfixation tracker for people who can't shut up about their current obsession";
+  "Hyperfix — ADHD productivity app for hyperfixations, focus, and self-tracking";
 const DESCRIPTION =
-  "Log your current hyperfixation. Count the days. Mourn it when it ends. A diary for the song on loop, the fic you've re-read six times, and the character who rearranged your brain.";
+  "The ADHD productivity companion. Track hyperfixations, dump your brain, log your mood and meds, set focus timers, and process RSD. Built by and for ADHD brains.";
 
 export const viewport: Viewport = {
   themeColor: "#080808",
@@ -46,18 +46,20 @@ export const metadata: Metadata = {
   },
   description: DESCRIPTION,
   keywords: [
+    "ADHD app",
+    "ADHD productivity",
     "hyperfixation tracker",
-    "obsession tracker",
-    "hyperfixation app",
-    "fandom tracker",
-    "fanfic tracker",
-    "current obsession journal",
-    "BookTok tracker",
-    "rewatch tracker",
-    "K-pop bias tracker",
-    "hyperfixation log",
-    "ADHD hyperfixation",
-    "fanfiction reading log",
+    "ADHD focus timer",
+    "RSD journal",
+    "ADHD mood tracker",
+    "medication tracker ADHD",
+    "brain dump app",
+    "ADHD self-tracking",
+    "time blindness timer",
+    "dopamine tracking",
+    "ADHD tools",
+    "executive function app",
+    "ADHD diary",
   ],
   authors: [{ name: "Hyperfix" }],
   creator: "Hyperfix",
@@ -97,7 +99,7 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  category: "social",
+  category: "health",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
