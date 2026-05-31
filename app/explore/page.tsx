@@ -5,8 +5,8 @@ import { LogoLockup } from "@/components/Logo";
 import type { Metadata } from "next";
 import { ExploreTabSwitcher } from "./ExploreTabSwitcher";
 
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
@@ -242,7 +242,7 @@ export default async function ExplorePage() {
   }
 
   return (
-    <div className="min-h-screen relative" style={{ background: "#070708", color: "#F4F4F4" }}>
+    <div className="min-h-screen relative" style={{ background: "var(--bg)", color: "var(--ink)" }}>
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none mix-blend-overlay"
@@ -255,7 +255,7 @@ export default async function ExplorePage() {
         style={{
           background: "rgba(7,7,8,0.78)",
           backdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          borderBottom: "1px solid var(--line)",
         }}
       >
         <Link href="/" aria-label="Hyperfix home" className="transition-transform hover:scale-[1.02]">
@@ -265,10 +265,10 @@ export default async function ExplorePage() {
           href={user ? "/dashboard" : "/auth/login"}
           className="font-sans text-sm font-semibold px-5 py-2.5 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
           style={{
-            background: "#FFFFFF",
-            color: "#0A0A0A",
+            background: "var(--ink)",
+            color: "var(--bg)",
             borderRadius: 999,
-            boxShadow: "0 4px 16px rgba(94,234,212,0.18)",
+            boxShadow: "0 4px 16px var(--accent-soft)",
           }}
         >
           {user ? "My fixes" : "Log in"}
@@ -280,14 +280,14 @@ export default async function ExplorePage() {
         <header className="mb-10 sm:mb-12 anim-fadeUp">
           <p
             className="font-mono text-[10px] uppercase tracking-widest mb-4"
-            style={{ color: "rgba(255,255,255,0.35)" }}
+            style={{ color: "var(--ink-faint)" }}
           >
             explore
           </p>
           <h1
             className="font-display"
             style={{
-              color: "#FFFFFF",
+              color: "var(--ink)",
               fontSize: "clamp(32px, 5.5vw, 48px)",
               lineHeight: 1.02,
               letterSpacing: "-0.02em",
@@ -298,7 +298,7 @@ export default async function ExplorePage() {
           </h1>
           <p
             className="mt-4 font-sans max-w-xl"
-            style={{ color: "rgba(255,255,255,0.55)", fontSize: 16, lineHeight: 1.55 }}
+            style={{ color: "var(--ink-muted)", fontSize: 16, lineHeight: 1.55 }}
           >
             Browse public hyperfixations. Discover what owns other people&apos;s brains.
           </p>
@@ -309,17 +309,17 @@ export default async function ExplorePage() {
               name="q"
               placeholder="Search fixes, tags, people…"
               aria-label="Search"
-              className="font-sans text-sm flex-1 rounded-full px-4 py-2.5 outline-none transition-colors focus:border-[rgba(94,234,212,0.4)]"
+              className="font-sans text-sm flex-1 rounded-full px-4 py-2.5 outline-none transition-colors focus:border-[rgba(111,138,99,0.3)]"
               style={{
                 background: CARD_BG,
                 border: `1px solid ${CARD_BORDER}`,
-                color: "#F4F4F4",
+                color: "var(--ink)",
               }}
             />
             <button
               type="submit"
               className="font-sans text-sm font-semibold px-5 py-2.5 rounded-full transition-all hover:opacity-90 active:scale-[0.98]"
-              style={{ background: "#5EEAD4", color: "#070708" }}
+              style={{ background: "var(--accent)", color: "var(--bg)" }}
             >
               Search
             </button>
@@ -328,14 +328,14 @@ export default async function ExplorePage() {
           {!user && (
             <Link
               href="/auth/signup"
-              className="inline-flex items-center gap-2 mt-5 px-3.5 py-1.5 rounded-full font-mono text-[11px] transition-all hover:border-[rgba(94,234,212,0.35)]"
+              className="inline-flex items-center gap-2 mt-5 px-3.5 py-1.5 rounded-full font-mono text-[11px] transition-all hover:border-[rgba(111,138,99,0.25)]"
               style={{
-                background: "rgba(94,234,212,0.06)",
-                border: "1px solid rgba(94,234,212,0.18)",
-                color: "rgba(94,234,212,0.85)",
+                background: "var(--accent-soft)",
+                border: "1px solid var(--accent-soft)",
+                color: "var(--accent-soft)",
               }}
             >
-              <span style={{ color: "rgba(244,244,244,0.6)" }}>log in to follow people you&apos;d never meet IRL who are obsessed with the same thing</span>
+              <span style={{ color: "var(--ink-muted)" }}>log in to follow people you&apos;d never meet IRL who are obsessed with the same thing</span>
               <span aria-hidden>→</span>
             </Link>
           )}
@@ -355,7 +355,7 @@ export default async function ExplorePage() {
             >
               <p
                 className="font-mono text-[10px] uppercase tracking-widest"
-                style={{ color: "rgba(255,255,255,0.35)" }}
+                style={{ color: "var(--ink-faint)" }}
               >
                 {s.label}
               </p>
@@ -366,7 +366,7 @@ export default async function ExplorePage() {
                     fontSize: "clamp(28px, 5vw, 44px)",
                     letterSpacing: "-0.04em",
                     fontWeight: 600,
-                    color: "#FFFFFF",
+                    color: "var(--ink)",
                   }}
                 >
                   {s.value.toLocaleString()}

@@ -32,7 +32,7 @@ const DESCRIPTION =
   "The ADHD productivity companion. Track hyperfixations, dump your brain, log your mood and meds, set focus timers, and process RSD. Built by and for ADHD brains.";
 
 export const viewport: Viewport = {
-  themeColor: "#080808",
+  themeColor: "#f7f4ec",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",

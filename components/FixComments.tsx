@@ -69,15 +69,15 @@ function Avatar({
         width: 28,
         height: 28,
         borderRadius: "50%",
-        background: "rgba(94,234,212,0.15)",
-        border: "1px solid rgba(94,234,212,0.25)",
+        background: "var(--accent)",
+        border: "1px solid var(--accent)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         flexShrink: 0,
         fontSize: 10,
         fontFamily: "var(--font-mono, monospace)",
-        color: "#5EEAD4",
+        color: "var(--accent)",
         letterSpacing: "0.05em",
       }}
     >
@@ -192,7 +192,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
       {comments.length === 0 ? (
         <p
           className="font-sans text-sm italic"
-          style={{ color: "rgba(244,244,244,0.4)" }}
+          style={{ color: "var(--ink-muted)" }}
         >
           No comments yet. Be the first.
         </p>
@@ -202,7 +202,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
             <button
               onClick={() => setVisibleCount((c) => c + 20)}
               className="font-mono text-[11px] uppercase tracking-widest self-start transition-opacity hover:opacity-80"
-              style={{ color: "#5EEAD4", background: "none", border: "none", cursor: "pointer", padding: 0 }}
+              style={{ color: "var(--accent)", background: "none", border: "none", cursor: "pointer", padding: 0 }}
             >
               Show {comments.length - visibleCount} earlier{" "}
               {comments.length - visibleCount === 1 ? "comment" : "comments"}
@@ -227,16 +227,16 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
                       <Link
                         href={`/u/${username}`}
                         className="font-mono text-xs hover:underline"
-                        style={{ color: "#5EEAD4" }}
+                        style={{ color: "var(--accent)" }}
                       >
                         @{username}
                       </Link>
                     ) : (
-                      <span className="font-mono text-xs" style={{ color: "rgba(244,244,244,0.3)" }}>
+                      <span className="font-mono text-xs" style={{ color: "var(--ink-faint)" }}>
                         @unknown
                       </span>
                     )}
-                    <span className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.3)" }}>
+                    <span className="font-mono text-[10px]" style={{ color: "var(--ink-faint)" }}>
                       {timeAgo(comment.created_at)}
                     </span>
                   </div>
@@ -249,11 +249,11 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
                         autoFocus
                         className="font-sans text-sm w-full"
                         style={{
-                          background: "#111113",
-                          border: "1px solid rgba(244,244,244,0.2)",
+                          background: "var(--bg)",
+                          border: "1px solid var(--ink-faint)",
                           borderRadius: "0.75rem",
                           padding: "8px 12px",
-                          color: "#F4F4F4",
+                          color: "var(--ink)",
                           resize: "vertical",
                           outline: "none",
                           display: "block",
@@ -266,8 +266,8 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
                           disabled={!editInput.trim() || savingEdit}
                           className="font-mono text-[10px] uppercase tracking-widest"
                           style={{
-                            background: editInput.trim() && !savingEdit ? "#5EEAD4" : "rgba(94,234,212,0.3)",
-                            color: "#080808",
+                            background: editInput.trim() && !savingEdit ? "var(--accent)" : "var(--accent-soft)",
+                            color: "var(--bg)",
                             border: "none",
                             borderRadius: "9999px",
                             padding: "4px 12px",
@@ -283,7 +283,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
                             background: "none",
                             border: "none",
                             cursor: "pointer",
-                            color: "rgba(244,244,244,0.4)",
+                            color: "var(--ink-muted)",
                           }}
                         >
                           Cancel
@@ -293,7 +293,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
                   ) : (
                     <p
                       className="font-sans text-sm leading-relaxed"
-                      style={{ color: "rgba(244,244,244,0.8)", wordBreak: "break-word" }}
+                      style={{ color: "var(--ink)", wordBreak: "break-word" }}
                     >
                       {comment.content}
                     </p>
@@ -318,7 +318,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
                         border: "none",
                         cursor: "pointer",
                         padding: "2px 4px",
-                        color: "rgba(244,244,244,0.6)",
+                        color: "var(--ink-muted)",
                         fontSize: 11,
                         lineHeight: 1,
                       }}
@@ -333,7 +333,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
                         border: "none",
                         cursor: "pointer",
                         padding: "2px 4px",
-                        color: "rgba(244,244,244,0.6)",
+                        color: "var(--ink-muted)",
                         fontSize: 12,
                         lineHeight: 1,
                       }}
@@ -368,28 +368,28 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
             rows={3}
             className="font-sans text-sm w-full"
             style={{
-              background: "#111113",
-              border: "1px solid rgba(244,244,244,0.1)",
+              background: "var(--bg)",
+              border: "1px solid var(--line)",
               borderRadius: "0.75rem",
               minHeight: 72,
               padding: "10px 14px",
-              color: "#F4F4F4",
+              color: "var(--ink)",
               resize: "vertical",
               outline: "none",
               display: "block",
               marginBottom: 8,
             }}
             onFocus={(e) => {
-              e.currentTarget.style.borderColor = "rgba(244,244,244,0.2)";
+              e.currentTarget.style.borderColor = "var(--ink-faint)";
             }}
             onBlur={(e) => {
-              e.currentTarget.style.borderColor = "rgba(244,244,244,0.1)";
+              e.currentTarget.style.borderColor = "var(--line)";
             }}
           />
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span
               className="font-mono text-[10px]"
-              style={{ color: "rgba(244,244,244,0.3)" }}
+              style={{ color: "var(--ink-faint)" }}
             >
               {input.length}/500
             </span>
@@ -398,8 +398,8 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
               disabled={!input.trim() || submitting}
               className="font-mono text-[11px] uppercase tracking-widest"
               style={{
-                background: input.trim() && !submitting ? "#5EEAD4" : "rgba(94,234,212,0.3)",
-                color: "#080808",
+                background: input.trim() && !submitting ? "var(--accent)" : "var(--accent-soft)",
+                color: "var(--bg)",
                 border: "none",
                 borderRadius: "9999px",
                 padding: "6px 16px",
@@ -412,10 +412,10 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
           </div>
         </form>
       ) : (
-        <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.4)", marginTop: 12 }}>
+        <p className="font-sans text-sm" style={{ color: "var(--ink-muted)", marginTop: 12 }}>
           <Link
             href="/auth/login"
-            style={{ color: "#5EEAD4", textDecoration: "underline" }}
+            style={{ color: "var(--accent)", textDecoration: "underline" }}
           >
             Log in
           </Link>{" "}

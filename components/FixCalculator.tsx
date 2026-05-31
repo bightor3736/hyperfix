@@ -25,8 +25,8 @@ function StepPill({ n }: { n: string }) {
     <span
       className="font-mono text-[10px] font-bold shrink-0"
       style={{
-        background: "#5EEAD4",
-        color: "#0A0A0A",
+        background: "var(--accent)",
+        color: "var(--bg)",
         borderRadius: 999,
         padding: "3px 10px",
         letterSpacing: "0.06em",
@@ -64,8 +64,8 @@ export default function FixCalculator() {
     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
       {/* Controls */}
       <div
-        className="relative overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-6"
-        style={{ background: "#0F1011" }}
+        className="relative overflow-hidden rounded-[24px] border border-[var(--line)] p-6 sm:p-8 space-y-6"
+        style={{ background: "var(--bg)" }}
       >
         <div
           aria-hidden
@@ -76,7 +76,7 @@ export default function FixCalculator() {
         <div>
           <div className="flex items-center gap-3 mb-3">
             <StepPill n="01" />
-            <label htmlFor="fix-title" className="font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.4)]">
+            <label htmlFor="fix-title" className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-muted)]">
               what is it?
             </label>
           </div>
@@ -87,14 +87,14 @@ export default function FixCalculator() {
             onChange={(e) => setTitle(e.target.value)}
             placeholder="the marauders, sabrina carpenter, roman concrete…"
             maxLength={80}
-            className="w-full px-4 py-3.5 font-display text-lg text-[rgba(244,244,244,0.9)] placeholder:text-[rgba(244,244,244,0.25)] focus:outline-none focus:ring-1 focus:ring-accent/50 transition-colors"
+            className="w-full px-4 py-3.5 font-display text-lg text-[var(--ink)] placeholder:text-[var(--ink-faint)] focus:outline-none focus:ring-1 focus:ring-accent/50 transition-colors"
             style={{
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(244,244,244,0.08)",
+              background: "transparent",
+              border: "1px solid var(--line)",
               borderRadius: 12,
             }}
           />
-          <p className={`mt-1.5 text-right font-mono text-[9px] tracking-widest tabular ${charsLeft < 15 ? "text-accent" : "text-[rgba(244,244,244,0.25)]"}`}>
+          <p className={`mt-1.5 text-right font-mono text-[9px] tracking-widest tabular ${charsLeft < 15 ? "text-accent" : "text-[var(--ink-faint)]"}`}>
             {charsLeft}
           </p>
         </div>
@@ -103,18 +103,18 @@ export default function FixCalculator() {
         <div>
           <div className="flex items-center gap-3 mb-3">
             <StepPill n="02" />
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.4)]">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-muted)]">
               cover image
-              <span className="text-[rgba(244,244,244,0.2)] ml-1">(optional)</span>
+              <span className="text-[var(--ink-faint)] ml-1">(optional)</span>
             </span>
           </div>
           <div className="flex items-center gap-3">
             <label className="cursor-pointer">
               <div
-                className="hover:opacity-80 transition-opacity px-4 py-2.5 font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.5)] font-bold"
+                className="hover:opacity-80 transition-opacity px-4 py-2.5 font-mono text-[10px] uppercase tracking-widest text-[var(--ink-muted)] font-bold"
                 style={{
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(244,244,244,0.08)",
+                  background: "transparent",
+                  border: "1px solid var(--line)",
                   borderRadius: 999,
                 }}
               >
@@ -134,11 +134,11 @@ export default function FixCalculator() {
                   src={coverUrl}
                   alt="cover preview"
                   className="h-10 w-16 object-cover"
-                  style={{ borderRadius: 8, border: "1px solid rgba(244,244,244,0.1)" }}
+                  style={{ borderRadius: 8, border: "1px solid var(--line)" }}
                 />
                 <button
                   onClick={removeCover}
-                  className="font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] hover:text-accent transition-colors"
+                  className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-muted)] hover:text-accent transition-colors"
                 >
                   remove
                 </button>
@@ -146,7 +146,7 @@ export default function FixCalculator() {
             )}
           </div>
           {!coverUrl && (
-            <p className="mt-2 font-mono text-[9px] text-[rgba(244,244,244,0.25)]">
+            <p className="mt-2 font-mono text-[9px] text-[var(--ink-faint)]">
               becomes the card background
             </p>
           )}
@@ -157,7 +157,7 @@ export default function FixCalculator() {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
               <StepPill n="03" />
-              <label htmlFor="fix-days" className="font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.4)]">
+              <label htmlFor="fix-days" className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-muted)]">
                 how many days in?
               </label>
             </div>
@@ -172,7 +172,7 @@ export default function FixCalculator() {
             onChange={(e) => setDays(Number(e.target.value))}
             className="w-full hyperfix-range"
           />
-          <div className="flex justify-between mt-2 font-mono text-[9px] text-[rgba(244,244,244,0.25)]">
+          <div className="flex justify-between mt-2 font-mono text-[9px] text-[var(--ink-faint)]">
             <span>day 1</span>
             <span>day 365</span>
           </div>
@@ -183,11 +183,11 @@ export default function FixCalculator() {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
               <StepPill n="04" />
-              <label htmlFor="fix-intensity" className="font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.4)]">
+              <label htmlFor="fix-intensity" className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-muted)]">
                 intensity
               </label>
             </div>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.7)] tabular">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-muted)] tabular">
               {intensity}/10
             </span>
           </div>
@@ -200,14 +200,14 @@ export default function FixCalculator() {
             onChange={(e) => setIntensity(Number(e.target.value))}
             className="w-full hyperfix-range"
           />
-          <div className="flex justify-between mt-2 font-mono text-[9px] text-[rgba(244,244,244,0.25)]">
+          <div className="flex justify-between mt-2 font-mono text-[9px] text-[var(--ink-faint)]">
             <span>mild interest</span>
             <span>not okay</span>
           </div>
         </div>
 
         {/* status note */}
-        <p className="font-display italic text-[rgba(244,244,244,0.5)] text-sm leading-snug border-l-2 border-accent/40 pl-3">
+        <p className="font-display italic text-[var(--ink-muted)] text-sm leading-snug border-l-2 border-accent/40 pl-3">
           {NOTES[intensity]}
         </p>
       </div>
@@ -216,7 +216,7 @@ export default function FixCalculator() {
       <div className="flex flex-col items-center gap-5">
         <div className="flex items-center gap-2">
           <span className="text-accent pulse-dot text-[8px]">●</span>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.4)]">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-muted)]">
             live preview
           </span>
         </div>
@@ -234,7 +234,7 @@ export default function FixCalculator() {
             coverUrl={coverUrl ?? undefined}
           />
         </TiltCard>
-        <p className="font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.3)] text-center max-w-xs">
+        <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-faint)] text-center max-w-xs">
           this is what it looks like when you log it
         </p>
       </div>

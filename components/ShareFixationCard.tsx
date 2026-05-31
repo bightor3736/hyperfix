@@ -12,7 +12,7 @@ type Props = {
   intensity: number;
 };
 
-const TEAL = "#5EEAD4";
+const TEAL = "var(--accent)";
 
 export function ShareFixationCard({ fixId, isPublic, title, days, intensity }: Props) {
   const [state, setState] = useState<State>("idle");
@@ -65,8 +65,8 @@ export function ShareFixationCard({ fixId, isPublic, title, days, intensity }: P
     <div
       className="relative overflow-hidden rounded-2xl p-5"
       style={{
-        background: "#0F1011",
-        border: "1px solid rgba(255,255,255,0.06)",
+        background: "var(--bg)",
+        border: "1px solid var(--line)",
       }}
     >
       <div className="flex items-start gap-4">
@@ -76,9 +76,9 @@ export function ShareFixationCard({ fixId, isPublic, title, days, intensity }: P
           style={{
             width: 56,
             height: 100,
-            background: "linear-gradient(180deg, #0F1011 0%, #07090A 100%)",
-            border: "1px solid rgba(94,234,212,0.18)",
-            boxShadow: "0 0 18px rgba(94,234,212,0.08)",
+            background: "linear-gradient(180deg, var(--bg) 0%, #07090A 100%)",
+            border: "1px solid var(--accent-soft)",
+            boxShadow: "0 0 18px var(--accent-soft)",
             display: "flex",
             flexDirection: "column",
           }}
@@ -88,16 +88,16 @@ export function ShareFixationCard({ fixId, isPublic, title, days, intensity }: P
             aria-hidden
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: "radial-gradient(60% 50% at 50% 110%, rgba(94,234,212,0.28) 0%, transparent 70%)",
+              background: "radial-gradient(60% 50% at 50% 110%, var(--accent) 0%, transparent 70%)",
             }}
           />
           <div style={{ flex: 1, padding: "5px 6px", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative" }}>
-            <div style={{ width: "70%", height: 2, background: "rgba(244,244,244,0.18)", borderRadius: 2 }} />
+            <div style={{ width: "70%", height: 2, background: "var(--line)", borderRadius: 2 }} />
             <div>
               <div style={{ fontFamily: "Georgia, serif", fontSize: 11, fontWeight: 700, color: TEAL, lineHeight: 1, letterSpacing: "-0.04em" }}>
                 {days > 999 ? "999+" : days}
               </div>
-              <div style={{ fontSize: 4, color: "rgba(244,244,244,0.4)", fontFamily: "monospace", marginTop: 1, letterSpacing: "0.15em" }}>DAYS</div>
+              <div style={{ fontSize: 4, color: "var(--ink-muted)", fontFamily: "monospace", marginTop: 1, letterSpacing: "0.15em" }}>DAYS</div>
             </div>
             <div style={{ display: "flex", gap: 1.5 }}>
               {Array.from({ length: 5 }).map((_, i) => (
@@ -107,7 +107,7 @@ export function ShareFixationCard({ fixId, isPublic, title, days, intensity }: P
                     width: 5,
                     height: 2,
                     borderRadius: 1,
-                    background: i < Math.round(intensity / 2) ? TEAL : "rgba(244,244,244,0.12)",
+                    background: i < Math.round(intensity / 2) ? TEAL : "var(--line)",
                   }}
                 />
               ))}
@@ -117,10 +117,10 @@ export function ShareFixationCard({ fixId, isPublic, title, days, intensity }: P
 
         {/* Text + CTA */}
         <div style={{ flex: 1, minWidth: 0 }}>
-          <p className="font-mono text-[10px] uppercase tracking-widest mb-1" style={{ color: "rgba(244,244,244,0.45)" }}>
+          <p className="font-mono text-[10px] uppercase tracking-widest mb-1" style={{ color: "var(--ink-muted)" }}>
             share card
           </p>
-          <p className="font-sans text-sm mb-3" style={{ color: "rgba(244,244,244,0.7)", lineHeight: 1.45 }}>
+          <p className="font-sans text-sm mb-3" style={{ color: "var(--ink-muted)", lineHeight: 1.45 }}>
             {state === "success"
               ? "Card shared — go post it."
               : state === "error"
@@ -132,10 +132,10 @@ export function ShareFixationCard({ fixId, isPublic, title, days, intensity }: P
             disabled={state === "generating" || !isPublic}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-widest transition-all duration-150 hover:opacity-90 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
-              background: state === "success" ? "rgba(94,234,212,0.15)" : state === "error" ? "rgba(225,29,72,0.15)" : TEAL,
-              color: state === "success" ? TEAL : state === "error" ? "#fda4af" : "#0A0A0A",
+              background: state === "success" ? "var(--accent)" : state === "error" ? "rgba(225,29,72,0.15)" : TEAL,
+              color: state === "success" ? TEAL : state === "error" ? "#fda4af" : "var(--bg)",
               border: state === "success"
-                ? "1px solid rgba(94,234,212,0.3)"
+                ? "1px solid var(--accent-soft)"
                 : state === "error"
                 ? "1px solid rgba(225,29,72,0.3)"
                 : "1px solid transparent",

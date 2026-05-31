@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useState } from "react";
 
 const cardStyle: React.CSSProperties = {
-  background: "#111113",
-  border: "1px solid rgba(244,244,244,0.07)",
+  background: "var(--bg)",
+  border: "1px solid var(--line)",
 };
 
 function urlBase64ToUint8Array(base64String: string): Uint8Array {
@@ -136,24 +136,24 @@ export function PushToggle() {
 
   const buttonStyle: React.CSSProperties = enabled
     ? {
-        background: "rgba(94,234,212,0.15)",
-        border: "1px solid rgba(94,234,212,0.4)",
-        color: "#5EEAD4",
+        background: "var(--accent)",
+        border: "1px solid rgba(111,138,99,0.3)",
+        color: "var(--accent)",
       }
     : {
-        background: "rgba(244,244,244,0.07)",
-        border: "1px solid rgba(244,244,244,0.12)",
-        color: "rgba(244,244,244,0.7)",
+        background: "var(--line)",
+        border: "1px solid var(--line)",
+        color: "var(--ink-muted)",
       };
 
   return (
     <div className="flex flex-col gap-2 p-4 rounded-2xl mb-3" style={cardStyle}>
       <div className="flex items-center justify-between gap-4">
         <div>
-          <p className="font-sans text-sm font-medium" style={{ color: "#F4F4F4" }}>
+          <p className="font-sans text-sm font-medium" style={{ color: "var(--ink)" }}>
             Push notifications
           </p>
-          <p className="font-sans text-[12px] mt-0.5" style={{ color: "rgba(244,244,244,0.35)" }}>
+          <p className="font-sans text-[12px] mt-0.5" style={{ color: "var(--ink-faint)" }}>
             {missingVapid
               ? "Push notifications coming soon."
               : !supported

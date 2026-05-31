@@ -24,9 +24,9 @@ export function MarkAllReadButton({ hasUnread }: { hasUnread: boolean }) {
       disabled={pending}
       className="font-mono text-[11px] uppercase tracking-widest rounded-full px-3.5 py-1.5 transition-opacity hover:opacity-80 disabled:opacity-50"
       style={{
-        background: "rgba(94,234,212,0.12)",
-        border: "1px solid rgba(94,234,212,0.3)",
-        color: "#5EEAD4",
+        background: "var(--accent-soft)",
+        border: "1px solid var(--accent-soft)",
+        color: "var(--accent)",
       }}
     >
       {pending ? "…" : "Mark all read"}

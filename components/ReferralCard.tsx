@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { SparkleIcon } from "@/components/LandingIcons";
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
@@ -48,7 +48,7 @@ export function ReferralCard({
       style={{
         background: CARD_BG,
         border: isPro
-          ? `1px solid rgba(94,234,212,0.35)`
+          ? `1px solid rgba(111,138,99,0.25)`
           : `1px solid ${CARD_BORDER}`,
       }}
     >
@@ -64,7 +64,7 @@ export function ReferralCard({
           aria-hidden
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: "radial-gradient(ellipse 70% 60% at 50% 100%, rgba(94,234,212,0.08) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse 70% 60% at 50% 100%, var(--accent-soft) 0%, transparent 70%)",
           }}
         />
       )}
@@ -76,9 +76,9 @@ export function ReferralCard({
             <span
               className="inline-flex items-center gap-1.5 font-sans text-xs rounded-full px-3 py-1 mb-3"
               style={{
-                background: "rgba(94,234,212,0.10)",
+                background: "var(--accent-soft)",
                 color: TEAL,
-                border: "1px solid rgba(94,234,212,0.22)",
+                border: "1px solid var(--accent)",
               }}
             >
               {isPro && <SparkleIcon size={12} />}
@@ -87,7 +87,7 @@ export function ReferralCard({
             <h2
               className="font-display"
               style={{
-                color: "#FFFFFF",
+                color: "var(--ink)",
                 fontSize: 22,
                 fontWeight: 600,
                 letterSpacing: "-0.01em",
@@ -107,8 +107,8 @@ export function ReferralCard({
                   width: 12,
                   height: 12,
                   borderRadius: "50%",
-                  background: i < progress ? TEAL : "rgba(255,255,255,0.12)",
-                  boxShadow: i < progress ? "0 0 8px rgba(94,234,212,0.5)" : "none",
+                  background: i < progress ? TEAL : "var(--line)",
+                  boxShadow: i < progress ? "0 0 8px var(--accent)" : "none",
                   transition: "background 0.3s, box-shadow 0.3s",
                 }}
               />
@@ -117,7 +117,7 @@ export function ReferralCard({
         </div>
 
         {/* Progress text */}
-        <p className="font-sans text-sm mb-5" style={{ color: "rgba(255,255,255,0.5)" }}>
+        <p className="font-sans text-sm mb-5" style={{ color: "var(--ink-muted)" }}>
           {isPro
             ? "unlimited fixes, AI eulogies, Pro badge. you did it."
             : referralCount === 0
@@ -129,9 +129,9 @@ export function ReferralCard({
         <div
           className="flex items-center gap-2 rounded-2xl px-4 py-3 mb-4 font-mono text-xs truncate"
           style={{
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            color: "rgba(255,255,255,0.55)",
+            background: "transparent",
+            border: "1px solid var(--line)",
+            color: "var(--ink-muted)",
           }}
         >
           <span className="truncate flex-1">{referralUrl}</span>
@@ -143,8 +143,8 @@ export function ReferralCard({
             onClick={copyLink}
             className="flex-1 font-sans text-sm font-semibold py-3 rounded-full transition-all hover:opacity-90 active:scale-[0.98]"
             style={{
-              background: copied ? TEAL : "#FFFFFF",
-              color: "#0A0A0A",
+              background: copied ? TEAL : "var(--ink)",
+              color: "var(--bg)",
             }}
           >
             {copied ? "copied ✓" : "copy link"}
@@ -153,9 +153,9 @@ export function ReferralCard({
             onClick={share}
             className="flex-1 font-sans text-sm font-medium py-3 rounded-full transition-all hover:opacity-90 active:scale-[0.98]"
             style={{
-              background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.10)",
-              color: "rgba(255,255,255,0.75)",
+              background: "var(--line)",
+              border: "1px solid var(--line)",
+              color: "var(--ink-muted)",
             }}
           >
             share

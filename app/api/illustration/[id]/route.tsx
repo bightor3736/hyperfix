@@ -6,7 +6,7 @@ export const runtime = "edge";
 /* Square format — works as sticker, social post, icon */
 const SIZE = { width: 1080, height: 1080 };
 
-const PAPER = "#080808";
+const PAPER = "var(--bg)";
 const PAPER_DEEP = "#111113";
 const INK = "#F4F4F4";
 const INK_SOFT = "#9A9A9A";

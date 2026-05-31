@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function BlogCardCTA() {
   return (
-    <section className="px-6 sm:px-10 py-12 border-t border-[rgba(244,244,244,0.07)]">
+    <section className="px-6 sm:px-10 py-12 border-t border-[var(--line)]">
       <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center gap-8 sm:gap-12">
         {/* Card preview */}
         <div
@@ -10,7 +10,7 @@ export function BlogCardCTA() {
           style={{
             width: 140,
             height: 249,
-            border: "1px solid rgba(244,244,244,0.1)",
+            border: "1px solid var(--line)",
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -33,14 +33,14 @@ export function BlogCardCTA() {
           </p>
           <h3
             className="font-display text-2xl sm:text-3xl leading-tight tracking-tight mb-3 text-balance"
-            style={{ color: "#F4F4F4", fontWeight: 600 }}
+            style={{ color: "var(--ink)", fontWeight: 600 }}
           >
             Give your obsession
             a home.
           </h3>
           <p
             className="font-sans text-base mb-6 leading-relaxed"
-            style={{ color: "rgba(244,244,244,0.55)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             Log it. Count the days. Export a card and post it. Free forever.
           </p>
@@ -49,7 +49,7 @@ export function BlogCardCTA() {
             className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 rounded-full transition-all hover:opacity-95 active:scale-[0.98]"
             style={{
               background: "#D72638",
-              color: "#fff",
+              color: "var(--ink)",
               textDecoration: "none",
             }}
           >

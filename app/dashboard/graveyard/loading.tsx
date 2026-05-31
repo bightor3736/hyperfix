@@ -1,5 +1,5 @@
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 function TombstoneSkeleton() {
   return (
@@ -45,7 +45,7 @@ export default function GraveyardLoading() {
   return (
     <div
       className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16"
-      style={{ background: "#0A0A0A" }}
+      style={{ background: "var(--bg)" }}
     >
       <div className="max-w-3xl mx-auto">
         <div className="skeleton-shimmer rounded-xl mb-2" style={{ height: 34, width: 192 }} />

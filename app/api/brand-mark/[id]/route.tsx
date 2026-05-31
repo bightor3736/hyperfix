@@ -139,12 +139,12 @@ function HMark() {
           </radialGradient>
           <linearGradient id="h-leg-left" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#1A1A1A" />
-            <stop offset="60%" stopColor="#0A0A0A" />
+            <stop offset="60%" stopColor="var(--bg)" />
             <stop offset="100%" stopColor="#000000" />
           </linearGradient>
           <linearGradient id="h-leg-right" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#000000" />
-            <stop offset="40%" stopColor="#0A0A0A" />
+            <stop offset="40%" stopColor="var(--bg)" />
             <stop offset="100%" stopColor="#1F1F1F" />
           </linearGradient>
           <radialGradient id="h-leg-glow-l" cx="100%" cy="50%" r="50%">

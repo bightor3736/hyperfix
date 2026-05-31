@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const LIME = "#5EEAD4";
 const LIME_DEEP = "#7CB205";
-const INK = "#0A0A0A";
+const INK = "var(--bg)";
 const PAPER = "#F4F4F4";
 const DIM = "#9CA3AF";
 const FAINT_INK = "#1F1F22";

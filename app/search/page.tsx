@@ -17,9 +17,9 @@ export const metadata: Metadata = {
   },
 };
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
@@ -69,8 +69,8 @@ function ProfileCard({ profile }: { profile: Profile }) {
       <div
         className="relative shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-sans font-semibold overflow-hidden"
         style={{
-          background: "rgba(94,234,212,0.15)",
-          border: "1px solid rgba(94,234,212,0.22)",
+          background: "var(--accent)",
+          border: "1px solid var(--accent)",
           fontSize: 13,
           color: TEAL,
         }}
@@ -83,11 +83,11 @@ function ProfileCard({ profile }: { profile: Profile }) {
         )}
       </div>
       <div className="relative min-w-0 flex-1">
-        <p className="font-display truncate" style={{ fontSize: 15, color: "#FFFFFF", fontWeight: 600 }}>
+        <p className="font-display truncate" style={{ fontSize: 15, color: "var(--ink)", fontWeight: 600 }}>
           {profile.display_name ?? profile.username ?? "Unknown"}
         </p>
         {profile.username && (
-          <p className="font-sans" style={{ fontSize: 12, color: "rgba(255,255,255,0.45)" }}>
+          <p className="font-sans" style={{ fontSize: 12, color: "var(--ink-muted)" }}>
             @{profile.username}
           </p>
         )}
@@ -96,7 +96,7 @@ function ProfileCard({ profile }: { profile: Profile }) {
             className="font-sans mt-1"
             style={{
               fontSize: 12,
-              color: "rgba(255,255,255,0.4)",
+              color: "var(--ink-muted)",
               overflow: "hidden",
               display: "-webkit-box",
               WebkitLineClamp: 1,
@@ -131,8 +131,8 @@ function FixCard({ fix }: { fix: FixResult }) {
             className="inline-flex items-center gap-1.5 font-sans rounded-full px-2.5 py-0.5"
             style={{
               fontSize: 11,
-              background: "rgba(94,234,212,0.10)",
-              border: "1px solid rgba(94,234,212,0.22)",
+              background: "var(--accent-soft)",
+              border: "1px solid var(--accent)",
               color: TEAL,
             }}
           >
@@ -141,11 +141,11 @@ function FixCard({ fix }: { fix: FixResult }) {
           </span>
         </div>
         <h3
-          className="font-display mb-2 group-hover:text-[#5EEAD4] transition-colors"
+          className="font-display mb-2 group-hover:text-[var(--accent)] transition-colors"
           style={{
             fontSize: 16,
             lineHeight: 1.3,
-            color: "#FFFFFF",
+            color: "var(--ink)",
             fontWeight: 600,
             letterSpacing: "-0.01em",
             display: "-webkit-box",
@@ -166,8 +166,8 @@ function FixCard({ fix }: { fix: FixResult }) {
           <div
             className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center font-sans font-semibold overflow-hidden"
             style={{
-              background: "rgba(94,234,212,0.15)",
-              border: "1px solid rgba(94,234,212,0.22)",
+              background: "var(--accent)",
+              border: "1px solid var(--accent)",
               fontSize: 8,
               color: TEAL,
             }}
@@ -180,7 +180,7 @@ function FixCard({ fix }: { fix: FixResult }) {
             )}
           </div>
           {username && (
-            <span className="font-sans truncate" style={{ fontSize: 11, color: "rgba(255,255,255,0.45)" }}>
+            <span className="font-sans truncate" style={{ fontSize: 11, color: "var(--ink-muted)" }}>
               @{username}
             </span>
           )}
@@ -276,15 +276,15 @@ export default async function SearchPage({
   return (
     <>
       <Nav />
-      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
+      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "var(--bg)" }}>
         <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
 
         <main id="main-content" className="relative max-w-5xl mx-auto flex flex-col gap-6">
           {/* Hero — tight, restrained */}
           <div className="anim-fadeUp">
             <div className="relative">
-              <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(94,234,212,0.55)" }}>search</p>
-              <h1 className="font-display anim-fadeUp delay-100 mb-6" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 4.5vw, 40px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}>
+              <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "var(--accent)" }}>search</p>
+              <h1 className="font-display anim-fadeUp delay-100 mb-6" style={{ color: "var(--ink)", fontSize: "clamp(28px, 4.5vw, 40px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}>
                 What are you obsessed with?
               </h1>
               <div className="anim-fadeUp delay-200">
@@ -300,10 +300,10 @@ export default async function SearchPage({
                 <div className="motion-card relative overflow-hidden rounded-3xl p-10 sm:p-16 text-center" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
                   <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
                   <div className="relative">
-                    <p className="font-display mb-2" style={{ color: "rgba(255,255,255,0.85)", fontSize: 24, fontWeight: 600, letterSpacing: "-0.01em" }}>
+                    <p className="font-display mb-2" style={{ color: "var(--ink)", fontSize: 24, fontWeight: 600, letterSpacing: "-0.01em" }}>
                       No results for &ldquo;{query}&rdquo;
                     </p>
-                    <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>
+                    <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
                       Try a different search term.
                     </p>
                   </div>
@@ -344,10 +344,10 @@ export default async function SearchPage({
             <div className="motion-card relative overflow-hidden rounded-3xl p-10 sm:p-16 text-center" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
               <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
               <div className="relative">
-                <p className="font-display mb-2" style={{ color: "rgba(255,255,255,0.7)", fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em" }}>
+                <p className="font-display mb-2" style={{ color: "var(--ink-muted)", fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em" }}>
                   Search for fixes or people.
                 </p>
-                <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>
+                <p className="font-sans text-sm" style={{ color: "var(--ink-faint)" }}>
                   Start typing above.
                 </p>
               </div>
@@ -359,8 +359,8 @@ export default async function SearchPage({
             <div
               className="relative overflow-hidden rounded-3xl p-8 sm:p-10 anim-fadeUp"
               style={{
-                background: "radial-gradient(ellipse 120% 140% at 50% 120%, rgba(94,234,212,0.18) 0%, transparent 60%), #0F1011",
-                border: "1px solid rgba(94,234,212,0.18)",
+                background: "radial-gradient(ellipse 120% 140% at 50% 120%, var(--accent-soft) 0%, transparent 60%), var(--bg)",
+                border: "1px solid var(--accent-soft)",
               }}
             >
               <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
@@ -368,18 +368,18 @@ export default async function SearchPage({
                 <div className="flex-1 text-center sm:text-left">
                   <p
                     className="font-display mb-1"
-                    style={{ fontSize: "clamp(20px, 3vw, 26px)", fontWeight: 600, color: "#F4F4F4", letterSpacing: "-0.02em" }}
+                    style={{ fontSize: "clamp(20px, 3vw, 26px)", fontWeight: 600, color: "var(--ink)", letterSpacing: "-0.02em" }}
                   >
                     Track your own obsessions.
                   </p>
-                  <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.5)" }}>
+                  <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
                     Free forever. Log what you&apos;re fixated on and watch the days pile up.
                   </p>
                 </div>
                 <Link
                   href="/auth/signup"
                   className="shrink-0 px-6 py-3 rounded-2xl font-sans text-sm font-semibold transition-all hover:opacity-90 hover:-translate-y-px active:scale-[0.98]"
-                  style={{ background: "#FFFFFF", color: "#0A0A0A", boxShadow: "0 4px 24px rgba(94,234,212,0.2)" }}
+                  style={{ background: "var(--ink)", color: "var(--bg)", boxShadow: "0 4px 24px var(--accent)" }}
                 >
                   Join free →
                 </Link>

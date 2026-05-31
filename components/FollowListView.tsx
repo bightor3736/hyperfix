@@ -20,7 +20,7 @@ function Initials({ name }: { name: string }) {
   return (
     <div
       className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-display font-medium shrink-0"
-      style={{ background: "rgba(94,234,212,0.15)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.3)" }}
+      style={{ background: "var(--accent)", color: "var(--accent)", border: "1px solid var(--accent-soft)" }}
     >
       {letters.toUpperCase()}
     </div>
@@ -43,7 +43,7 @@ export function FollowListView({
       : "Not following anyone yet.";
 
   return (
-    <div className="min-h-screen relative" style={{ background: "#070708", color: "#F4F4F4" }}>
+    <div className="min-h-screen relative" style={{ background: "var(--bg)", color: "var(--ink)" }}>
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none mix-blend-overlay"
@@ -55,7 +55,7 @@ export function FollowListView({
         style={{
           background: "rgba(7,7,8,0.78)",
           backdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          borderBottom: "1px solid var(--line)",
         }}
       >
         <Link href="/" aria-label="Hyperfix home" className="transition-transform hover:scale-[1.02]">
@@ -64,7 +64,7 @@ export function FollowListView({
         <Link
           href={`/u/${username}`}
           className="motion-link font-sans text-sm transition-colors"
-          style={{ color: "rgba(255,255,255,0.6)" }}
+          style={{ color: "var(--ink-muted)" }}
         >
           ← @{username}
         </Link>
@@ -73,7 +73,7 @@ export function FollowListView({
       <main className="relative max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="flex items-baseline gap-3 mb-6">
           <h1 className="text-2xl font-display font-medium">{title}</h1>
-          <span className="font-mono text-sm" style={{ color: "rgba(244,244,244,0.4)" }}>
+          <span className="font-mono text-sm" style={{ color: "var(--ink-muted)" }}>
             {profiles.length}
           </span>
         </div>
@@ -87,8 +87,8 @@ export function FollowListView({
               className="font-mono text-[11px] uppercase tracking-widest rounded-full px-3.5 py-1.5 transition-colors"
               style={
                 tab === mode
-                  ? { background: "rgba(94,234,212,0.12)", border: "1px solid rgba(94,234,212,0.3)", color: "#5EEAD4" }
-                  : { background: "rgba(244,244,244,0.04)", border: "1px solid rgba(244,244,244,0.08)", color: "rgba(244,244,244,0.5)" }
+                  ? { background: "var(--accent-soft)", border: "1px solid var(--accent-soft)", color: "var(--accent)" }
+                  : { background: "transparent", border: "1px solid var(--line)", color: "var(--ink-muted)" }
               }
             >
               {tab}
@@ -99,9 +99,9 @@ export function FollowListView({
         {profiles.length === 0 ? (
           <div
             className="rounded-2xl p-10 text-center"
-            style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
+            style={{ background: "var(--bg)", border: "1px solid var(--line)" }}
           >
-            <p className="font-display text-lg" style={{ color: "rgba(244,244,244,0.5)" }}>
+            <p className="font-display text-lg" style={{ color: "var(--ink-muted)" }}>
               {emptyText}
             </p>
           </div>
@@ -117,13 +117,13 @@ export function FollowListView({
                       src={p.avatar_url}
                       alt={name}
                       className="w-11 h-11 rounded-full object-cover shrink-0"
-                      style={{ border: "1px solid rgba(244,244,244,0.1)" }}
+                      style={{ border: "1px solid var(--line)" }}
                     />
                   ) : (
                     <Initials name={name} />
                   )}
                   <div className="min-w-0 flex-1">
-                    <p className="font-display font-medium text-base truncate group-hover:text-[#5EEAD4] transition-colors">
+                    <p className="font-display font-medium text-base truncate group-hover:text-[var(--accent)] transition-colors">
                       {name}
                     </p>
                     {p.username && (
@@ -132,7 +132,7 @@ export function FollowListView({
                       </p>
                     )}
                     {p.bio && (
-                      <p className="font-sans text-xs mt-1 truncate" style={{ color: "rgba(244,244,244,0.4)" }}>
+                      <p className="font-sans text-xs mt-1 truncate" style={{ color: "var(--ink-muted)" }}>
                         {p.bio}
                       </p>
                     )}
@@ -143,8 +143,8 @@ export function FollowListView({
                 <Link
                   key={p.username}
                   href={`/u/${p.username}`}
-                  className="group flex items-center gap-3 rounded-2xl p-4 transition-all hover:border-[rgba(94,234,212,0.3)]"
-                  style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
+                  className="group flex items-center gap-3 rounded-2xl p-4 transition-all hover:border-accent"
+                  style={{ background: "var(--bg)", border: "1px solid var(--line)" }}
                 >
                   {inner}
                 </Link>
@@ -152,7 +152,7 @@ export function FollowListView({
                 <div
                   key={name}
                   className="flex items-center gap-3 rounded-2xl p-4"
-                  style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}
+                  style={{ background: "var(--bg)", border: "1px solid var(--line)" }}
                 >
                   {inner}
                 </div>

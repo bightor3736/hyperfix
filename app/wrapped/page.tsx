@@ -105,7 +105,7 @@ export default async function WrappedPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-ink bg-[#070708]">
+      <main id="main-content" className="relative z-10 text-ink bg-[var(--bg)]">
         <Nav />
 
         {/* HERO */}
@@ -114,9 +114,9 @@ export default async function WrappedPage() {
             <span
               className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 mb-8"
               style={{
-                background: user ? "rgba(94,234,212,0.08)" : "rgba(244,244,244,0.06)",
-                color: user ? "#5EEAD4" : "rgba(244,244,244,0.4)",
-                border: user ? "1px solid rgba(94,234,212,0.22)" : undefined,
+                background: user ? "var(--accent-soft)" : "var(--line)",
+                color: user ? "var(--accent)" : "var(--ink-muted)",
+                border: user ? "1px solid var(--accent)" : undefined,
               }}
             >
               {user ? `live now · your ${currentYear} wrapped` : `coming soon · hyperfix wrapped · ${currentYear}`}
@@ -127,13 +127,13 @@ export default async function WrappedPage() {
               <span className="italic text-accent">Counted.</span>
             </h1>
             <div className="mt-10 grid md:grid-cols-2 gap-8 max-w-4xl">
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[var(--ink-muted)] leading-snug">
                 Spotify Wrapped tells you what you listened to. Hyperfix Wrapped
                 tells you what ran your life. Every fix, every era, every day
                 counted — stacked into a shareable annual record of your
                 interior life.
               </p>
-              <p className="font-sans text-lg text-[rgba(244,244,244,0.5)] leading-snug">
+              <p className="font-sans text-lg text-[var(--ink-muted)] leading-snug">
                 Your longest hyperfixation. Your peak intensity moment. The fix
                 that arrived at exactly the right time and the one that ended
                 before you were ready. Wrapped generates automatically at the
@@ -147,9 +147,9 @@ export default async function WrappedPage() {
                   href={`/wrapped/${currentYear}`}
                   className="inline-flex items-center gap-2 font-sans text-base font-semibold px-7 py-4 rounded-full transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
                   style={{
-                    background: "#5EEAD4",
-                    color: "#070708",
-                    boxShadow: "0 12px 36px rgba(94,234,212,0.25)",
+                    background: "var(--accent)",
+                    color: "var(--bg)",
+                    boxShadow: "0 12px 36px var(--accent)",
                   }}
                 >
                   View your {currentYear} Wrapped
@@ -162,8 +162,8 @@ export default async function WrappedPage() {
 
         {/* MOCK STATS */}
         <section className="px-6 sm:px-10 py-16">
-          <div className="max-w-5xl mx-auto bg-[#0F1011] rounded-3xl border border-[rgba(255,255,255,0.06)] p-10 sm:p-14">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+          <div className="max-w-5xl mx-auto bg-[var(--bg)] rounded-3xl border border-[var(--line)] p-10 sm:p-14">
+            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[var(--line)] text-[var(--ink-muted)] mb-8">
               preview · example wrapped stats
             </span>
             <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-12 text-balance">
@@ -173,20 +173,20 @@ export default async function WrappedPage() {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mb-4">
               {mockStats.map((s) => (
-                <div key={s.label} className="border border-[rgba(244,244,244,0.07)] p-6">
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] mb-3">
+                <div key={s.label} className="border border-[var(--line)] p-6">
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-muted)] mb-3">
                     {s.label}
                   </p>
                   <p className="font-display text-4xl sm:text-5xl tracking-tightest text-accent leading-none mb-2">
                     {s.value}
                   </p>
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.3)]">
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-faint)]">
                     {s.sub}
                   </p>
                 </div>
               ))}
             </div>
-            <p className="font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.3)] mt-4">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-faint)] mt-4">
               example data — not real. yours will be worse.
             </p>
           </div>
@@ -195,7 +195,7 @@ export default async function WrappedPage() {
         {/* MOCK ERAS */}
         <section className="px-6 sm:px-10 py-16">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">the eras</span>
+            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[var(--line)] text-[var(--ink-muted)] mb-8">the eras</span>
             <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-12 text-balance">
               Every era your brain
               <br />
@@ -208,7 +208,7 @@ export default async function WrappedPage() {
                 </TiltCard>
               ))}
             </div>
-            <p className="font-mono text-[10px] uppercase tracking-widest text-[rgba(244,244,244,0.4)] mt-6">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-muted)] mt-6">
               example data — not real. yours will be worse and more embarrassing and more worth keeping.
             </p>
           </div>
@@ -217,7 +217,7 @@ export default async function WrappedPage() {
         {/* HOW IT WORKS */}
         <section className="px-6 sm:px-10 py-16">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">how it works</span>
+            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[var(--line)] text-[var(--ink-muted)] mb-8">how it works</span>
             <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tightest mb-12 max-w-3xl text-balance">
               Log now. Wrapped
               <br />
@@ -241,14 +241,14 @@ export default async function WrappedPage() {
                   p: "At the end of the year, Hyperfix generates your Wrapped automatically. Shareable. Exportable. Yours.",
                 },
               ].map((step) => (
-                <div key={step.n} className="border-t border-[rgba(244,244,244,0.07)] pt-6">
+                <div key={step.n} className="border-t border-[var(--line)] pt-6">
                   <span className="font-mono text-[11px] uppercase tracking-widest text-accent mb-3 block">
                     {step.n}
                   </span>
                   <h3 className="font-display text-xl tracking-tight text-ink mb-3">
                     {step.h}
                   </h3>
-                  <p className="font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
+                  <p className="font-sans text-base text-[var(--ink-muted)] leading-relaxed">
                     {step.p}
                   </p>
                 </div>
@@ -258,9 +258,9 @@ export default async function WrappedPage() {
         </section>
 
         {/* CTA */}
-        <section className="px-6 sm:px-10 py-20 bg-[#0F1011]">
+        <section className="px-6 sm:px-10 py-20 bg-[var(--bg)]">
           <div className="max-w-4xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[rgba(244,244,244,0.06)] text-[rgba(244,244,244,0.4)] mb-8">
+            <span className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 bg-[var(--line)] text-[var(--ink-muted)] mb-8">
               {user ? "your year, counted" : "join the waitlist"}
             </span>
             <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tightest max-w-2xl text-balance">
@@ -278,7 +278,7 @@ export default async function WrappedPage() {
                 </>
               )}
             </h2>
-            <p className="mt-6 font-sans text-lg text-[rgba(244,244,244,0.5)] max-w-xl leading-snug">
+            <p className="mt-6 font-sans text-lg text-[var(--ink-muted)] max-w-xl leading-snug">
               {user
                 ? `Every fix, every era, every day of ${currentYear} — stacked into one shareable page.`
                 : "Wrapped only works if you've been logging. Join the waitlist — early access goes out in waves, and early users get the best usernames and a permanent Pro discount."}
@@ -289,9 +289,9 @@ export default async function WrappedPage() {
                   href={`/wrapped/${currentYear}`}
                   className="inline-flex items-center gap-2 font-sans text-base font-semibold px-7 py-4 rounded-full transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
                   style={{
-                    background: "#5EEAD4",
-                    color: "#070708",
-                    boxShadow: "0 12px 36px rgba(94,234,212,0.25)",
+                    background: "var(--accent)",
+                    color: "var(--bg)",
+                    boxShadow: "0 12px 36px var(--accent)",
                   }}
                 >
                   See my Wrapped

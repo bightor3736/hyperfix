@@ -6,9 +6,9 @@ import type { Metadata } from "next";
 import { FixStatusPill } from "@/components/FixStatusPill";
 import { TombstoneIcon } from "@/components/MilestoneIcons";
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 type GraveyardFix = {
   id: string;
@@ -53,9 +53,9 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
         <span
           className="inline-flex items-center font-sans text-[11px] rounded-full px-2.5 py-0.5"
           style={{
-            background: "rgba(94,234,212,0.10)",
+            background: "var(--accent-soft)",
             color: TEAL,
-            border: "1px solid rgba(94,234,212,0.22)",
+            border: "1px solid var(--accent)",
           }}
         >
           {fix.category}
@@ -64,9 +64,9 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
       </div>
 
       <h3
-        className="relative font-display leading-snug group-hover:text-[#5EEAD4] transition-colors"
+        className="relative font-display leading-snug group-hover:text-[var(--accent)] transition-colors"
         style={{
-          color: "#FFFFFF",
+          color: "var(--ink)",
           fontSize: 19,
           fontWeight: 600,
           letterSpacing: "-0.01em",
@@ -88,11 +88,11 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
           >
             {days}
           </span>
-          <span className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+          <span className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
             days of their life
           </span>
         </div>
-        <p className="font-sans text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
+        <p className="font-sans text-xs" style={{ color: "var(--ink-faint)" }}>
           {formatDate(fix.started_at)} — {formatDate(fix.ended_at)}
         </p>
       </div>
@@ -100,7 +100,7 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
       {fix.eulogy && (
         <blockquote
           className="relative font-display text-[14px] leading-relaxed pl-4 m-0"
-          style={{ borderLeft: `2px solid ${TEAL}`, color: "rgba(255,255,255,0.7)", fontStyle: "italic" }}
+          style={{ borderLeft: `2px solid ${TEAL}`, color: "var(--ink-muted)", fontStyle: "italic" }}
         >
           &ldquo;{fix.eulogy}&rdquo;
         </blockquote>
@@ -118,17 +118,17 @@ function EmptyGraveyard() {
       <div className="relative max-w-md mx-auto">
         <span
           className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-6"
-          style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}
+          style={{ background: "var(--accent-soft)", color: TEAL, border: "1px solid var(--accent)" }}
         >
           empty
         </span>
         <p
           className="font-display"
-          style={{ color: "#FFFFFF", fontSize: "clamp(24px, 5vw, 32px)", letterSpacing: "-0.02em", fontWeight: 600 }}
+          style={{ color: "var(--ink)", fontSize: "clamp(24px, 5vw, 32px)", letterSpacing: "-0.02em", fontWeight: 600 }}
         >
           Nothing in the graveyard yet.
         </p>
-        <p className="mt-3 font-sans text-base" style={{ color: "rgba(255,255,255,0.55)" }}>
+        <p className="mt-3 font-sans text-base" style={{ color: "var(--ink-muted)" }}>
           No public ended fixes to show.
         </p>
       </div>
@@ -193,7 +193,7 @@ export default async function PublicGraveyardPage({
   }));
 
   return (
-    <div className="min-h-screen relative" style={{ background: "#070708", color: "#F4F4F4" }}>
+    <div className="min-h-screen relative" style={{ background: "var(--bg)", color: "var(--ink)" }}>
       <nav
         className="sticky top-0 z-40 px-6 sm:px-10 py-5 flex items-center justify-between"
         style={{
@@ -208,7 +208,7 @@ export default async function PublicGraveyardPage({
         <Link
           href={`/u/${username}`}
           className="motion-link font-sans text-sm transition-colors"
-          style={{ color: "rgba(255,255,255,0.6)" }}
+          style={{ color: "var(--ink-muted)" }}
         >
           ← @{username}
         </Link>
@@ -227,7 +227,7 @@ export default async function PublicGraveyardPage({
           <h1
             className="font-display"
             style={{
-              color: "#FFFFFF",
+              color: "var(--ink)",
               fontSize: "clamp(32px, 5.5vw, 48px)",
               lineHeight: 1.04,
               letterSpacing: "-0.02em",
@@ -238,7 +238,7 @@ export default async function PublicGraveyardPage({
           </h1>
           <p
             className="mt-4 font-sans text-base max-w-lg"
-            style={{ color: "rgba(255,255,255,0.6)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             Public ended fixations, with the eulogies they wrote.
           </p>

@@ -40,19 +40,19 @@ export function MessageButton({ targetUserId }: Props) {
       className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-sans text-sm font-semibold transition-all duration-150 disabled:opacity-60"
       style={{
         background: "transparent",
-        border: "1px solid rgba(244,244,244,0.15)",
-        color: "rgba(244,244,244,0.85)",
+        border: "1px solid var(--line-strong)",
+        color: "var(--ink)",
       }}
       onMouseEnter={(e) => {
         (e.currentTarget as HTMLButtonElement).style.borderColor =
-          "rgba(94,234,212,0.5)";
-        (e.currentTarget as HTMLButtonElement).style.color = "#5EEAD4";
+          "var(--accent)";
+        (e.currentTarget as HTMLButtonElement).style.color = "var(--accent)";
       }}
       onMouseLeave={(e) => {
         (e.currentTarget as HTMLButtonElement).style.borderColor =
-          "rgba(244,244,244,0.15)";
+          "var(--line-strong)";
         (e.currentTarget as HTMLButtonElement).style.color =
-          "rgba(244,244,244,0.85)";
+          "var(--ink)";
       }}
       aria-label="Send message"
     >

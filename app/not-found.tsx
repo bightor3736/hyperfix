@@ -6,29 +6,29 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const TEAL = "#5EEAD4";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BORDER = "var(--line)";
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative" style={{ background: "#070708" }}>
+    <main className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative" style={{ background: "var(--bg)" }}>
       <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.06 }} />
 
       <div className="relative max-w-xl w-full text-center anim-fadeUp">
-        <p className="font-mono text-[10px] uppercase tracking-widest mb-6" style={{ color: "rgba(94,234,212,0.6)" }}>
+        <p className="font-mono text-[10px] uppercase tracking-widest mb-6" style={{ color: "var(--accent)" }}>
           404
         </p>
         <h1
           className="font-display tabular-nums mb-3"
           style={{
-            color: "#F4F4F4",
+            color: "var(--ink)",
             fontSize: "clamp(80px, 18vw, 160px)",
             lineHeight: 0.9,
             letterSpacing: "-0.05em",
             fontWeight: 600,
-            textShadow: "0 0 60px rgba(94,234,212,0.2)",
+            textShadow: "0 0 60px var(--accent)",
           }}
         >
           404
@@ -36,7 +36,7 @@ export default function NotFound() {
         <h2
           className="font-display mt-6"
           style={{
-            color: "#F4F4F4",
+            color: "var(--ink)",
             fontSize: "clamp(28px, 5vw, 40px)",
             letterSpacing: "-0.02em",
             fontWeight: 600,
@@ -45,7 +45,7 @@ export default function NotFound() {
         >
           This fix doesn&apos;t exist.
         </h2>
-        <p className="mt-4 font-sans text-base max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.55)" }}>
+        <p className="mt-4 font-sans text-base max-w-md mx-auto" style={{ color: "var(--ink-muted)" }}>
           It may have ended. Or it never started. Or someone shared the wrong link.
         </p>
 
@@ -54,8 +54,8 @@ export default function NotFound() {
             href="/"
             className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3 transition-all hover:opacity-95 active:scale-[0.98]"
             style={{
-              background: "#FFFFFF",
-              color: "#0A0A0A",
+              background: "var(--ink)",
+              color: "var(--bg)",
               borderRadius: 999,
             }}
           >
@@ -65,8 +65,8 @@ export default function NotFound() {
             href="/explore"
             className="inline-flex items-center gap-2 font-sans text-sm font-medium px-6 py-3 transition-all hover:opacity-80"
             style={{
-              background: "rgba(94,234,212,0.08)",
-              border: "1px solid rgba(94,234,212,0.25)",
+              background: "var(--accent-soft)",
+              border: "1px solid var(--accent)",
               color: TEAL,
               borderRadius: 999,
             }}

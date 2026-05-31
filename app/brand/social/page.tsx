@@ -23,7 +23,7 @@ function AssetCard({
   return (
     <div
       className="flex flex-col gap-3 anim-fadeUp"
-      style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 24, padding: 20 }}
+      style={{ background: "var(--bg)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 24, padding: 20 }}
     >
       {/* Preview */}
       <div
@@ -31,7 +31,7 @@ function AssetCard({
         style={{
           borderRadius: aspect === "circle" ? "50%" : 14,
           aspectRatio: "1 / 1",
-          background: "#070708",
+          background: "var(--bg)",
           border: "1px solid rgba(255,255,255,0.06)",
         }}
       >
@@ -72,7 +72,7 @@ const SLIDES = [
 
 export default function SocialAssetsPage() {
   return (
-    <div className="min-h-screen" style={{ background: "#070708", color: "#F4F4F4" }}>
+    <div className="min-h-screen" style={{ background: "var(--bg)", color: "#F4F4F4" }}>
       <div aria-hidden className="fixed inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.07 }} />
 
       {/* Nav */}

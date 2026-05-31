@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 };
 
 const TEAL   = "#5EEAD4";
-const INK    = "#070708";
-const CARD   = "#0F1011";
+const INK    = "var(--bg)";
+const CARD   = "var(--bg)";
 const PAPER  = "#F4F4F4";
 const DIM    = "rgba(244,244,244,0.38)";
 const FAINT  = "rgba(244,244,244,0.06)";

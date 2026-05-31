@@ -6,15 +6,15 @@ import { useRouter } from "next/navigation";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 
 // ── Design tokens ─────────────────────────────────────────────────────────────
-const BG       = "#070708";
-const CARD     = "#0F1011";
+const BG       = "var(--bg)";
+const CARD     = "var(--bg)";
 const CARD2    = "#141516";
-const BORDER   = "rgba(255,255,255,0.07)";
-const TEAL     = "#5EEAD4";
-const TEAL_BG  = "rgba(94,234,212,0.08)";
-const TEAL_BD  = "rgba(94,234,212,0.22)";
-const MUTED    = "rgba(255,255,255,0.45)";
-const MUTED2   = "rgba(255,255,255,0.22)";
+const BORDER   = "var(--line)";
+const TEAL     = "var(--accent)";
+const TEAL_BG  = "var(--accent-soft)";
+const TEAL_BD  = "var(--accent)";
+const MUTED    = "var(--ink-muted)";
+const MUTED2   = "var(--line)";
 const RED_BG   = "rgba(248,113,113,0.10)";
 const RED_BD   = "rgba(248,113,113,0.28)";
 
@@ -522,7 +522,7 @@ export function RoomClient({ initialRoom, currentUser }: {
   // ── Render ─────────────────────────────────────────────────────────────────
 
   return (
-    <div style={{ minHeight: "100vh", background: BG, fontFamily: "inherit", color: "#fff" }}>
+    <div style={{ minHeight: "100vh", background: BG, fontFamily: "inherit", color: "var(--ink)" }}>
 
       {/* Floating reactions */}
       <div style={{ position: "fixed", top: 80, right: 24, zIndex: 100, display: "flex", flexDirection: "column", gap: 8, pointerEvents: "none" }}>
@@ -626,7 +626,7 @@ export function RoomClient({ initialRoom, currentUser }: {
                   position: "absolute", inset: 0, display: "flex",
                   flexDirection: "column", alignItems: "center", justifyContent: "center",
                 }}>
-                  <div style={{ fontSize: 40, fontWeight: 900, letterSpacing: "-0.02em", color: timer.isRunning ? "#fff" : MUTED }}>
+                  <div style={{ fontSize: 40, fontWeight: 900, letterSpacing: "-0.02em", color: timer.isRunning ? "var(--ink)" : MUTED }}>
                     {formatTime(timer.remaining)}
                   </div>
                   <div style={{ fontSize: 11, color: MUTED, marginTop: 2 }}>
@@ -763,8 +763,8 @@ export function RoomClient({ initialRoom, currentUser }: {
               onKeyDown={e => e.key === "Enter" && updateTask(myTask)}
               style={{
                 width: "100%", padding: "10px 12px", borderRadius: 8, fontSize: 14,
-                background: "rgba(255,255,255,0.04)", border: `1px solid ${BORDER}`,
-                color: "#fff", outline: "none", boxSizing: "border-box",
+                background: "transparent", border: `1px solid ${BORDER}`,
+                color: "var(--ink)", outline: "none", boxSizing: "border-box",
               }}
             />
             {/* Mic control */}
@@ -845,7 +845,7 @@ export function RoomClient({ initialRoom, currentUser }: {
                         {muted && <span style={{ fontSize: 16 }} title="Muted">🔇</span>}
                       </div>
                       {task && (
-                        <div style={{ fontSize: 12, color: MUTED, background: "rgba(255,255,255,0.03)", borderRadius: 6, padding: "5px 8px" }}>
+                        <div style={{ fontSize: 12, color: MUTED, background: "transparent", borderRadius: 6, padding: "5px 8px" }}>
                           {task}
                         </div>
                       )}
@@ -890,7 +890,7 @@ export function RoomClient({ initialRoom, currentUser }: {
                           border: `1px solid ${isMe ? TEAL_BD : BORDER}`,
                         }}>
                           {!isMe && <div style={{ fontSize: 11, color: TEAL, fontWeight: 700, marginBottom: 3 }}>{msg.profile?.username}</div>}
-                          <div style={{ fontSize: 14, color: "#fff", lineHeight: 1.4 }}>{msg.content}</div>
+                          <div style={{ fontSize: 14, color: "var(--ink)", lineHeight: 1.4 }}>{msg.content}</div>
                         </div>
                       </div>
                     );
@@ -905,8 +905,8 @@ export function RoomClient({ initialRoom, currentUser }: {
                     onKeyDown={e => e.key === "Enter" && sendChat()}
                     style={{
                       flex: 1, padding: "9px 12px", borderRadius: 8, fontSize: 14,
-                      background: "rgba(255,255,255,0.04)", border: `1px solid ${BORDER}`,
-                      color: "#fff", outline: "none",
+                      background: "transparent", border: `1px solid ${BORDER}`,
+                      color: "var(--ink)", outline: "none",
                     }}
                   />
                   <button onClick={sendChat} style={{

@@ -29,9 +29,9 @@ export const metadata: Metadata = {
   },
 };
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -98,7 +98,7 @@ export default function BlogIndexPage() {
       <Nav />
       <div
         className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16"
-        style={{ background: "#070708" }}
+        style={{ background: "var(--bg)" }}
       >
         <main id="main-content" className="relative max-w-5xl mx-auto">
           {/* Clean vvault header */}
@@ -107,7 +107,7 @@ export default function BlogIndexPage() {
               <BookIcon size={14} className="opacity-60" />
               <span
                 className="font-mono text-[11px] uppercase tracking-[0.18em]"
-                style={{ color: "rgba(255,255,255,0.5)" }}
+                style={{ color: "var(--ink-muted)" }}
               >
                 Journal · Hyperfix
               </span>
@@ -115,7 +115,7 @@ export default function BlogIndexPage() {
             <h1
               className="font-display"
               style={{
-                color: "#FFFFFF",
+                color: "var(--ink)",
                 fontSize: "clamp(32px, 5.5vw, 48px)",
                 lineHeight: 1.05,
                 letterSpacing: "-0.02em",
@@ -126,7 +126,7 @@ export default function BlogIndexPage() {
             </h1>
             <p
               className="mt-4 font-sans text-base sm:text-lg max-w-xl"
-              style={{ color: "rgba(255,255,255,0.6)" }}
+              style={{ color: "var(--ink-muted)" }}
             >
               Guides and honest writing for people who can&apos;t shut up about their current thing.
             </p>
@@ -145,7 +145,7 @@ export default function BlogIndexPage() {
               <div className="mb-4">
                 <span
                   className="font-mono text-[11px] uppercase tracking-[0.18em]"
-                  style={{ color: "rgba(255,255,255,0.4)" }}
+                  style={{ color: "var(--ink-muted)" }}
                 >
                   Latest
                 </span>
@@ -173,17 +173,17 @@ export default function BlogIndexPage() {
                       <span
                         className="inline-flex items-center font-mono text-[10px] uppercase tracking-[0.18em] rounded-full px-2.5 py-1 mb-4"
                         style={{
-                          background: "rgba(94,234,212,0.08)",
+                          background: "var(--accent-soft)",
                           color: TEAL,
-                          border: "1px solid rgba(94,234,212,0.18)",
+                          border: "1px solid var(--accent-soft)",
                         }}
                       >
                         {post.category}
                       </span>
                       <h2
-                        className="font-display group-hover:text-[#5EEAD4] transition-colors mb-3"
+                        className="font-display group-hover:text-[var(--accent)] transition-colors mb-3"
                         style={{
-                          color: "#FFFFFF",
+                          color: "var(--ink)",
                           fontSize: 22,
                           fontWeight: 500,
                           letterSpacing: "-0.01em",
@@ -195,7 +195,7 @@ export default function BlogIndexPage() {
                       <p
                         className="font-sans text-sm leading-relaxed mb-5"
                         style={{
-                          color: "rgba(255,255,255,0.55)",
+                          color: "var(--ink-muted)",
                           display: "-webkit-box",
                           WebkitLineClamp: 2,
                           WebkitBoxOrient: "vertical",
@@ -206,7 +206,7 @@ export default function BlogIndexPage() {
                       </p>
                       <p
                         className="font-mono text-[11px] tabular-nums"
-                        style={{ color: "rgba(255,255,255,0.35)" }}
+                        style={{ color: "var(--ink-faint)" }}
                       >
                         {post.readTime} read · {formattedDate}
                       </p>
@@ -222,7 +222,7 @@ export default function BlogIndexPage() {
             <div className="mb-4">
               <span
                 className="font-mono text-[11px] uppercase tracking-[0.18em]"
-                style={{ color: "rgba(255,255,255,0.4)" }}
+                style={{ color: "var(--ink-muted)" }}
               >
                 More reading
               </span>
@@ -245,17 +245,17 @@ export default function BlogIndexPage() {
                     <span
                       className="inline-flex items-center font-mono text-[10px] uppercase tracking-[0.18em] rounded-full px-2.5 py-1 self-start"
                       style={{
-                        background: "rgba(94,234,212,0.08)",
+                        background: "var(--accent-soft)",
                         color: TEAL,
-                        border: "1px solid rgba(94,234,212,0.18)",
+                        border: "1px solid var(--accent-soft)",
                       }}
                     >
                       {article.stamp}
                     </span>
                     <h2
-                      className="font-display group-hover:text-[#5EEAD4] transition-colors"
+                      className="font-display group-hover:text-[var(--accent)] transition-colors"
                       style={{
-                        color: "#FFFFFF",
+                        color: "var(--ink)",
                         fontSize: 20,
                         fontWeight: 500,
                         letterSpacing: "-0.01em",
@@ -267,7 +267,7 @@ export default function BlogIndexPage() {
                     <p
                       className="font-sans text-sm leading-relaxed flex-1"
                       style={{
-                        color: "rgba(255,255,255,0.55)",
+                        color: "var(--ink-muted)",
                         display: "-webkit-box",
                         WebkitLineClamp: 3,
                         WebkitBoxOrient: "vertical",

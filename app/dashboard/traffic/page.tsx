@@ -6,9 +6,9 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Traffic · Hyperfix" };
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 function adminSupabase() {
   return createAdmin(
@@ -118,25 +118,25 @@ export default async function TrafficPage() {
     .slice(0, 5);
 
   return (
-    <div className="min-h-screen" style={{ background: "#070708", color: "#F4F4F4" }}>
+    <div className="min-h-screen" style={{ background: "var(--bg)", color: "var(--ink)" }}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
 
         <div className="mb-2">
-          <Link href="/dashboard" className="font-mono text-xs hover:text-[#5EEAD4] transition-colors" style={{ color: "rgba(255,255,255,0.3)" }}>
+          <Link href="/dashboard" className="font-mono text-xs hover:text-[var(--accent)] transition-colors" style={{ color: "var(--ink-faint)" }}>
             ← dashboard
           </Link>
         </div>
         <div className="flex items-center justify-between mb-8 flex-wrap gap-3">
           <div>
             <h1 className="font-display text-3xl font-semibold mb-1" style={{ letterSpacing: "-0.03em" }}>Traffic</h1>
-            <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>Real numbers. No fluff.</p>
+            <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>Real numbers. No fluff.</p>
           </div>
           <a
             href="https://vercel.com"
             target="_blank"
             rel="noopener noreferrer"
             className="font-mono text-xs px-3 py-1.5 rounded-full transition-all hover:opacity-80"
-            style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, color: "rgba(255,255,255,0.4)" }}
+            style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, color: "var(--ink-muted)" }}
           >
             Vercel Analytics →
           </a>
@@ -153,7 +153,7 @@ export default async function TrafficPage() {
             <div key={s.label} className="rounded-2xl p-5" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
               <div
                 className="font-display text-3xl font-medium tabular-nums mb-1"
-                style={{ color: s.highlight ? TEAL : "#F4F4F4" }}
+                style={{ color: s.highlight ? TEAL : "var(--ink)" }}
               >
                 {s.value}
               </div>
@@ -167,7 +167,7 @@ export default async function TrafficPage() {
         {/* Signups chart — 30 days */}
         <div className="rounded-3xl p-5 sm:p-6 mb-6" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
           <div className="flex items-center justify-between mb-5">
-            <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>
+            <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
               signups · last 30 days
             </p>
             <span className="font-mono text-xs" style={{ color: TEAL }}>{newLast30} total</span>
@@ -182,7 +182,7 @@ export default async function TrafficPage() {
                     className="w-full rounded-t transition-all"
                     style={{
                       height: `${pct}%`,
-                      background: count > 0 ? TEAL : "rgba(255,255,255,0.05)",
+                      background: count > 0 ? TEAL : "var(--line)",
                       opacity: count > 0 ? 0.85 : 1,
                     }}
                   />
@@ -191,15 +191,15 @@ export default async function TrafficPage() {
             })}
           </div>
           <div className="flex justify-between mt-2">
-            <span className="font-mono text-[9px]" style={{ color: "rgba(255,255,255,0.2)" }}>{formatDay(days[0])}</span>
-            <span className="font-mono text-[9px]" style={{ color: "rgba(255,255,255,0.2)" }}>{formatDay(days[days.length - 1])}</span>
+            <span className="font-mono text-[9px]" style={{ color: "var(--ink-faint)" }}>{formatDay(days[0])}</span>
+            <span className="font-mono text-[9px]" style={{ color: "var(--ink-faint)" }}>{formatDay(days[days.length - 1])}</span>
           </div>
         </div>
 
         {/* Fixes created chart */}
         <div className="rounded-3xl p-5 sm:p-6 mb-6" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
           <div className="flex items-center justify-between mb-5">
-            <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>
+            <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
               fixes created · last 30 days
             </p>
           </div>
@@ -213,7 +213,7 @@ export default async function TrafficPage() {
                     className="w-full rounded-t"
                     style={{
                       height: `${pct}%`,
-                      background: count > 0 ? "rgba(94,234,212,0.4)" : "rgba(255,255,255,0.04)",
+                      background: count > 0 ? "rgba(111,138,99,0.3)" : "transparent",
                     }}
                   />
                 </div>
@@ -225,14 +225,14 @@ export default async function TrafficPage() {
         {/* Top signup days */}
         {topDays.length > 0 && (
           <div className="rounded-3xl p-5 sm:p-6 mb-6" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
-            <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "var(--ink-faint)" }}>
               best days (last 30)
             </p>
             <div className="flex flex-col gap-2">
               {topDays.map(({ d, count }) => (
                 <div key={d} className="flex items-center gap-3">
-                  <span className="font-mono text-xs w-20 shrink-0" style={{ color: "rgba(255,255,255,0.5)" }}>{formatDay(d)}</span>
-                  <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.05)" }}>
+                  <span className="font-mono text-xs w-20 shrink-0" style={{ color: "var(--ink-muted)" }}>{formatDay(d)}</span>
+                  <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
                     <div className="h-full rounded-full" style={{ width: `${(count / topDays[0].count) * 100}%`, background: TEAL }} />
                   </div>
                   <span className="font-mono text-xs tabular-nums w-6 text-right" style={{ color: TEAL }}>{count}</span>
@@ -246,10 +246,10 @@ export default async function TrafficPage() {
         {affRows.length > 0 && (
           <div className="rounded-3xl p-5 sm:p-6 mb-6" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
             <div className="flex items-center justify-between mb-4">
-              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
                 traffic by affiliate link
               </p>
-              <Link href="/dashboard/affiliates" className="font-mono text-[10px] transition-colors hover:text-[#5EEAD4]" style={{ color: "rgba(255,255,255,0.25)" }}>
+              <Link href="/dashboard/affiliates" className="font-mono text-[10px] transition-colors hover:text-[var(--accent)]" style={{ color: "var(--ink-faint)" }}>
                 manage →
               </Link>
             </div>
@@ -257,16 +257,16 @@ export default async function TrafficPage() {
               {affRows.map((row) => (
                 <div key={row.slug} className="flex items-center gap-4">
                   <div className="flex-1 min-w-0">
-                    <p className="font-sans text-sm truncate" style={{ color: "rgba(255,255,255,0.7)" }}>{row.label}</p>
-                    <p className="font-mono text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>/r/{row.slug}</p>
+                    <p className="font-sans text-sm truncate" style={{ color: "var(--ink-muted)" }}>{row.label}</p>
+                    <p className="font-mono text-[10px]" style={{ color: "var(--ink-faint)" }}>/r/{row.slug}</p>
                   </div>
                   <div className="flex gap-4 shrink-0 text-right">
                     <div>
-                      <div className="font-display text-lg tabular-nums" style={{ color: "#F4F4F4" }}>{row.clicks}</div>
+                      <div className="font-display text-lg tabular-nums" style={{ color: "var(--ink)" }}>{row.clicks}</div>
                       <div className="font-mono text-[9px] uppercase" style={{ color: "#9A9A9A" }}>clicks</div>
                     </div>
                     <div>
-                      <div className="font-display text-lg tabular-nums" style={{ color: row.signups > 0 ? TEAL : "#F4F4F4" }}>{row.signups}</div>
+                      <div className="font-display text-lg tabular-nums" style={{ color: row.signups > 0 ? TEAL : "var(--ink)" }}>{row.signups}</div>
                       <div className="font-mono text-[9px] uppercase" style={{ color: "#9A9A9A" }}>signups</div>
                     </div>
                   </div>
@@ -277,8 +277,8 @@ export default async function TrafficPage() {
         )}
 
         {/* Link to Vercel for page-level data */}
-        <div className="rounded-3xl p-5 text-center" style={{ background: "rgba(94,234,212,0.03)", border: "1px solid rgba(94,234,212,0.1)" }}>
-          <p className="font-sans text-sm mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>
+        <div className="rounded-3xl p-5 text-center" style={{ background: "var(--accent-soft)", border: "1px solid var(--accent-soft)" }}>
+          <p className="font-sans text-sm mb-2" style={{ color: "var(--ink-muted)" }}>
             For page views, bounce rate, countries, and devices —
           </p>
           <a

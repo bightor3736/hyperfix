@@ -2,13 +2,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
-const BG      = "#070708";
-const CARD    = "#0F1011";
-const BORDER  = "rgba(255,255,255,0.07)";
-const TEAL    = "#5EEAD4";
-const TEAL_BG = "rgba(94,234,212,0.08)";
-const TEAL_BD = "rgba(94,234,212,0.20)";
-const MUTED   = "rgba(255,255,255,0.45)";
+const BG      = "var(--bg)";
+const CARD    = "var(--bg)";
+const BORDER  = "var(--line)";
+const TEAL    = "var(--accent)";
+const TEAL_BG = "var(--accent-soft)";
+const TEAL_BD = "var(--accent)";
+const MUTED   = "var(--ink-muted)";
 
 type OpenRoom = {
   code: string;
@@ -92,7 +92,7 @@ export default function RoomLobbyPage() {
           <span style={{ fontSize: 18 }}>⚡</span>
           <span style={{ color: TEAL, fontSize: 13, fontWeight: 700, letterSpacing: "0.06em" }}>FOCUS ROOMS</span>
         </div>
-        <h1 style={{ fontSize: 40, fontWeight: 800, color: "#fff", margin: 0, lineHeight: 1.1 }}>
+        <h1 style={{ fontSize: 40, fontWeight: 800, color: "var(--ink)", margin: 0, lineHeight: 1.1 }}>
           Work better together
         </h1>
         <p style={{ color: MUTED, fontSize: 16, marginTop: 12, lineHeight: 1.6 }}>
@@ -105,7 +105,7 @@ export default function RoomLobbyPage() {
         <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
           {/* Create */}
           <div style={{ flex: "1 1 320px", background: CARD, border: `1px solid ${BORDER}`, borderRadius: 16, padding: 24 }}>
-            <h2 style={{ color: "#fff", fontSize: 18, fontWeight: 700, margin: "0 0 16px" }}>
+            <h2 style={{ color: "var(--ink)", fontSize: 18, fontWeight: 700, margin: "0 0 16px" }}>
               Create a room
             </h2>
             <input
@@ -115,8 +115,8 @@ export default function RoomLobbyPage() {
               onKeyDown={e => e.key === "Enter" && create()}
               style={{
                 width: "100%", padding: "12px 14px", borderRadius: 10, fontSize: 15,
-                background: "rgba(255,255,255,0.05)", border: `1px solid ${BORDER}`,
-                color: "#fff", outline: "none", marginBottom: 12, boxSizing: "border-box",
+                background: "var(--line)", border: `1px solid ${BORDER}`,
+                color: "var(--ink)", outline: "none", marginBottom: 12, boxSizing: "border-box",
               }}
             />
             <label style={{
@@ -136,7 +136,7 @@ export default function RoomLobbyPage() {
               disabled={loading === "create"}
               style={{
                 width: "100%", padding: "13px", borderRadius: 10, fontSize: 15, fontWeight: 700,
-                background: TEAL, color: "#071610", border: "none", cursor: "pointer",
+                background: TEAL, color: "var(--bg)", border: "none", cursor: "pointer",
                 opacity: loading === "create" ? 0.6 : 1,
               }}
             >
@@ -146,7 +146,7 @@ export default function RoomLobbyPage() {
 
           {/* Join by code */}
           <div style={{ flex: "1 1 280px", background: CARD, border: `1px solid ${BORDER}`, borderRadius: 16, padding: 24 }}>
-            <h2 style={{ color: "#fff", fontSize: 18, fontWeight: 700, margin: "0 0 16px" }}>
+            <h2 style={{ color: "var(--ink)", fontSize: 18, fontWeight: 700, margin: "0 0 16px" }}>
               Join by code
             </h2>
             <input
@@ -157,8 +157,8 @@ export default function RoomLobbyPage() {
               maxLength={6}
               style={{
                 width: "100%", padding: "12px 14px", borderRadius: 10, fontSize: 15,
-                background: "rgba(255,255,255,0.05)", border: `1px solid ${BORDER}`,
-                color: "#fff", outline: "none", marginBottom: 12, boxSizing: "border-box",
+                background: "var(--line)", border: `1px solid ${BORDER}`,
+                color: "var(--ink)", outline: "none", marginBottom: 12, boxSizing: "border-box",
                 letterSpacing: "0.12em", textTransform: "uppercase",
               }}
             />
@@ -167,7 +167,7 @@ export default function RoomLobbyPage() {
               disabled={loading === "join"}
               style={{
                 width: "100%", padding: "13px", borderRadius: 10, fontSize: 15, fontWeight: 700,
-                background: "rgba(255,255,255,0.08)", color: "#fff",
+                background: "var(--line)", color: "var(--ink)",
                 border: `1px solid ${BORDER}`, cursor: "pointer",
                 opacity: loading === "join" ? 0.6 : 1,
               }}
@@ -184,7 +184,7 @@ export default function RoomLobbyPage() {
         {/* Open rooms */}
         <div style={{ marginTop: 8 }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
-            <h2 style={{ color: "#fff", fontSize: 20, fontWeight: 800, margin: 0 }}>
+            <h2 style={{ color: "var(--ink)", fontSize: 20, fontWeight: 800, margin: 0 }}>
               Open rooms
             </h2>
             <span style={{ color: MUTED, fontSize: 13 }}>
@@ -209,7 +209,7 @@ export default function RoomLobbyPage() {
               }}>
                 <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
                   <div style={{ minWidth: 0 }}>
-                    <h3 style={{ color: "#fff", fontSize: 16, fontWeight: 700, margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    <h3 style={{ color: "var(--ink)", fontSize: 16, fontWeight: 700, margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                       {r.name}
                     </h3>
                     <p style={{ color: MUTED, fontSize: 12, margin: "2px 0 0" }}>
@@ -218,7 +218,7 @@ export default function RoomLobbyPage() {
                   </div>
                   <span style={{
                     flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 5,
-                    background: r.isFull ? "rgba(255,255,255,0.06)" : TEAL_BG,
+                    background: r.isFull ? "var(--line)" : TEAL_BG,
                     border: `1px solid ${r.isFull ? BORDER : TEAL_BD}`,
                     color: r.isFull ? MUTED : TEAL,
                     borderRadius: 999, padding: "4px 10px", fontSize: 12, fontWeight: 700,
@@ -237,7 +237,7 @@ export default function RoomLobbyPage() {
                     <div key={i} style={{
                       width: 28, height: 28, borderRadius: 999, marginLeft: i === 0 ? 0 : -8,
                       border: `2px solid ${CARD}`, overflow: "hidden", flexShrink: 0,
-                      background: "rgba(94,234,212,0.15)", color: TEAL,
+                      background: "var(--accent)", color: TEAL,
                       display: "flex", alignItems: "center", justifyContent: "center",
                       fontSize: 11, fontWeight: 700,
                     }}>
@@ -268,8 +268,8 @@ export default function RoomLobbyPage() {
                   disabled={(r.isFull && !r.alreadyIn) || loading === r.code}
                   style={{
                     width: "100%", padding: "11px", borderRadius: 10, fontSize: 14, fontWeight: 700,
-                    background: r.alreadyIn ? "rgba(255,255,255,0.08)" : TEAL,
-                    color: r.alreadyIn ? "#fff" : "#071610",
+                    background: r.alreadyIn ? "var(--line)" : TEAL,
+                    color: r.alreadyIn ? "var(--ink)" : "var(--bg)",
                     border: r.alreadyIn ? `1px solid ${BORDER}` : "none",
                     cursor: (r.isFull && !r.alreadyIn) ? "not-allowed" : "pointer",
                     opacity: (r.isFull && !r.alreadyIn) ? 0.5 : (loading === r.code ? 0.6 : 1),

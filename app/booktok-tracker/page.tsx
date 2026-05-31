@@ -89,24 +89,24 @@ export default function BooktokTrackerPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-ink" style={{ background: "#070708" }}>
+      <main id="main-content" className="relative z-10 text-ink" style={{ background: "var(--bg)" }}>
         <Nav />
 
         {/* HERO */}
         <section className="px-6 sm:px-8 pt-16 pb-16">
           <div className="max-w-5xl mx-auto grid lg:grid-cols-12 gap-12 items-end">
             <div className="lg:col-span-7">
-              <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-8" style={{ background: "rgba(94,234,212,0.08)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.20)" }}>
+              <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-8" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>
                 booktok hyperfixation tracker
               </span>
               <h1 className="font-display font-semibold text-[2.5rem] sm:text-[3.25rem] lg:text-[4rem] leading-[0.98] text-ink" style={{ letterSpacing: "-0.03em" }}>
                 BookTok{" "}
-                <span style={{ color: "#5EEAD4" }}>Tracker.</span>
+                <span style={{ color: "var(--accent)" }}>Tracker.</span>
               </h1>
-              <p className="mt-6 font-sans text-base sm:text-lg max-w-xl" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
+              <p className="mt-6 font-sans text-base sm:text-lg max-w-xl" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
                 For the book that broke you. Not the one you gave five stars on Goodreads — the one you&apos;ve been thinking about for three weeks, sent to four people, and referenced unprompted in two separate conversations.
               </p>
-              <p className="mt-4 font-sans text-base sm:text-lg max-w-xl" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
+              <p className="mt-4 font-sans text-base sm:text-lg max-w-xl" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
                 Goodreads tracks your reading. Hyperfix tracks your obsession. Use both.
               </p>
               <div className="mt-8 max-w-md">
@@ -116,7 +116,7 @@ export default function BooktokTrackerPage() {
             <div className="lg:col-span-5">
               <div className="relative">
                 <HyperfixCard {...sampleCard} />
-                <p className="mt-6 font-mono text-xs text-center max-w-xs mx-auto tabular-nums" style={{ color: "rgba(255,255,255,0.35)" }}>
+                <p className="mt-6 font-mono text-xs text-center max-w-xs mx-auto tabular-nums" style={{ color: "var(--ink-faint)" }}>
                   day 23 · intensity 9 · she has not recovered.
                 </p>
               </div>
@@ -126,16 +126,16 @@ export default function BooktokTrackerPage() {
 
         {/* BOOKTOK EXPLAINED */}
         <section className="px-6 sm:px-8 py-16">
-          <div className="max-w-5xl mx-auto rounded-3xl p-8 sm:p-12" style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}>
-            <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "rgba(94,234,212,0.08)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.20)" }}>
+          <div className="max-w-5xl mx-auto rounded-3xl p-8 sm:p-12" style={{ background: "var(--bg)", border: "1px solid var(--line)" }}>
+            <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>
               the experience
             </span>
-            <h2 className="font-display font-semibold" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}>
+            <h2 className="font-display font-semibold" style={{ color: "var(--ink)", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}>
               You finished the book.{" "}
-              <span style={{ color: "#5EEAD4" }}>The book hasn&apos;t finished with you.</span>
+              <span style={{ color: "var(--accent)" }}>The book hasn&apos;t finished with you.</span>
             </h2>
             <div className="grid md:grid-cols-2 gap-10 mt-10 max-w-4xl">
-              <div className="space-y-4 font-sans text-base sm:text-lg" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
+              <div className="space-y-4 font-sans text-base sm:text-lg" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
                 <p>
                   The book hangover is real. You closed the back cover three weeks ago and you still can&apos;t pick up anything new. You&apos;re posting about it. You&apos;re searching the hashtag. You&apos;re in a Discord server with thirty people who are equally unhinged about the same fictional couple.
                 </p>
@@ -143,7 +143,7 @@ export default function BooktokTrackerPage() {
                   Goodreads has you marked as &quot;read.&quot; But you&apos;re not done with it. The obsession has a life of its own after the last page.
                 </p>
               </div>
-              <div className="space-y-4 font-sans text-base sm:text-lg" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
+              <div className="space-y-4 font-sans text-base sm:text-lg" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
                 <p>
                   Hyperfix tracks the obsession, not the reading. You can log a book the moment you finish it and the counter starts from there — how many days since you closed it, how unwell you still are, what you wrote in the notes field at 2 a.m. on day 8.
                 </p>
@@ -158,17 +158,17 @@ export default function BooktokTrackerPage() {
         {/* HYPERFIX VS GOODREADS */}
         <section className="px-6 sm:px-8 py-16">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "rgba(94,234,212,0.08)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.20)" }}>the difference</span>
-            <h2 className="font-display font-semibold max-w-3xl" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}>
+            <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>the difference</span>
+            <h2 className="font-display font-semibold max-w-3xl" style={{ color: "var(--ink)", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}>
               Goodreads logs your library.{" "}
-              <span style={{ color: "#5EEAD4" }}>Hyperfix logs your damage.</span>
+              <span style={{ color: "var(--accent)" }}>Hyperfix logs your damage.</span>
             </h2>
             <div className="grid md:grid-cols-2 gap-8 mt-12 max-w-4xl">
-              <div className="rounded-3xl p-6 sm:p-8" style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}>
-                <h3 className="font-display font-semibold text-xl mb-4" style={{ color: "#FFFFFF", letterSpacing: "-0.01em" }}>
+              <div className="rounded-3xl p-6 sm:p-8" style={{ background: "var(--bg)", border: "1px solid var(--line)" }}>
+                <h3 className="font-display font-semibold text-xl mb-4" style={{ color: "var(--ink)", letterSpacing: "-0.01em" }}>
                   What Goodreads does
                 </h3>
-                <ul className="space-y-3 font-sans text-base" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
+                <ul className="space-y-3 font-sans text-base" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
                   {[
                     "Logs every book you've ever read",
                     "Tracks reading pace and yearly goals",
@@ -177,17 +177,17 @@ export default function BooktokTrackerPage() {
                     "Reading challenges and social comparisons",
                   ].map((item) => (
                     <li key={item} className="flex gap-3">
-                      <span className="shrink-0 mt-1" style={{ color: "rgba(255,255,255,0.35)" }}>—</span>
+                      <span className="shrink-0 mt-1" style={{ color: "var(--ink-faint)" }}>—</span>
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="rounded-3xl p-6 sm:p-8" style={{ background: "#0F1011", border: "1px solid rgba(94,234,212,0.25)" }}>
-                <h3 className="font-display font-semibold text-xl mb-4" style={{ color: "#5EEAD4", letterSpacing: "-0.01em" }}>
+              <div className="rounded-3xl p-6 sm:p-8" style={{ background: "var(--bg)", border: "1px solid var(--accent)" }}>
+                <h3 className="font-display font-semibold text-xl mb-4" style={{ color: "var(--accent)", letterSpacing: "-0.01em" }}>
                   What Hyperfix does
                 </h3>
-                <ul className="space-y-3 font-sans text-base" style={{ color: "rgba(255,255,255,0.65)", lineHeight: 1.6 }}>
+                <ul className="space-y-3 font-sans text-base" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
                   {[
                     "Tracks the one book currently consuming you",
                     "Running day counter from when the obsession started",
@@ -197,14 +197,14 @@ export default function BooktokTrackerPage() {
                     "Eulogy when the obsession ends",
                   ].map((item) => (
                     <li key={item} className="flex gap-3">
-                      <span className="shrink-0 mt-1" style={{ color: "#5EEAD4" }}>—</span>
+                      <span className="shrink-0 mt-1" style={{ color: "var(--accent)" }}>—</span>
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
-            <p className="mt-8 font-sans text-base max-w-xl" style={{ color: "rgba(255,255,255,0.4)", lineHeight: 1.6 }}>
+            <p className="mt-8 font-sans text-base max-w-xl" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
               Use Goodreads for the archive. Use Hyperfix for the current crisis. They&apos;re not competing.
             </p>
           </div>
@@ -214,31 +214,31 @@ export default function BooktokTrackerPage() {
         <section className="px-6 sm:px-8 py-16">
           <div className="max-w-4xl mx-auto">
             <div className="mb-10">
-              <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "rgba(94,234,212,0.08)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.20)" }}>
+              <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>
                 frequently asked
               </span>
-              <h2 className="font-display font-semibold" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}>
+              <h2 className="font-display font-semibold" style={{ color: "var(--ink)", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}>
                 The book questions.
               </h2>
             </div>
-            <div className="divide-y divide-[rgba(255,255,255,0.06)] border-y border-[rgba(255,255,255,0.06)]">
+            <div className="divide-y divide-[var(--line)] border-y border-[var(--line)]">
               {faqs.map((faq, i) => (
                 <details
                   key={i}
                   className="group py-5 [&_summary::-webkit-details-marker]:hidden"
                 >
                   <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
-                    <h3 className="font-display font-semibold text-base sm:text-lg leading-snug" style={{ color: "#FFFFFF", letterSpacing: "-0.01em" }}>
-                      <span className="font-mono text-xs mr-3 tabular-nums" style={{ color: "#5EEAD4" }}>
+                    <h3 className="font-display font-semibold text-base sm:text-lg leading-snug" style={{ color: "var(--ink)", letterSpacing: "-0.01em" }}>
+                      <span className="font-mono text-xs mr-3 tabular-nums" style={{ color: "var(--accent)" }}>
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       {faq.q}
                     </h3>
-                    <span aria-hidden="true" className="text-xl group-open:rotate-45 transition-transform shrink-0" style={{ color: "#5EEAD4" }}>
+                    <span aria-hidden="true" className="text-xl group-open:rotate-45 transition-transform shrink-0" style={{ color: "var(--accent)" }}>
                       +
                     </span>
                   </summary>
-                  <p className="mt-4 ml-9 font-sans text-base max-w-2xl" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
+                  <p className="mt-4 ml-9 font-sans text-base max-w-2xl" style={{ color: "var(--ink-muted)", lineHeight: 1.7 }}>
                     {faq.a}
                   </p>
                 </details>
@@ -249,15 +249,15 @@ export default function BooktokTrackerPage() {
 
         {/* FINAL CTA */}
         <section className="px-6 sm:px-8 py-16">
-          <div className="max-w-4xl mx-auto rounded-3xl p-8 sm:p-14 text-center" style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}>
-            <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "rgba(94,234,212,0.08)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.20)" }}>
+          <div className="max-w-4xl mx-auto rounded-3xl p-8 sm:p-14 text-center" style={{ background: "var(--bg)", border: "1px solid var(--line)" }}>
+            <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>
               join the waitlist
             </span>
-            <h2 className="font-display font-semibold" style={{ color: "#FFFFFF", fontSize: "clamp(30px, 5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}>
+            <h2 className="font-display font-semibold" style={{ color: "var(--ink)", fontSize: "clamp(30px, 5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}>
               The book hangover{" "}
-              <span style={{ color: "#5EEAD4" }}>has a home now.</span>
+              <span style={{ color: "var(--accent)" }}>has a home now.</span>
             </h2>
-            <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
+            <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
               Waitlist is open. Early users get a permanent Pro discount and the best usernames before they&apos;re taken.
             </p>
             <div className="mt-7 max-w-md mx-auto">

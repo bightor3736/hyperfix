@@ -98,28 +98,28 @@ export default function VsSpreadsheetPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-white" style={{ background: "#070708", minHeight: "100vh" }}>
+      <main id="main-content" className="relative z-10 text-white" style={{ background: "var(--bg)", minHeight: "100vh" }}>
 
         <Nav />
 
         <section className="px-4 sm:px-6 lg:px-8 pt-8 pb-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>
               comparison · hyperfix vs spreadsheets
             </span>
             <h1 className="font-display font-medium text-[2.8rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[0.92] tracking-tight text-white text-balance">
               You built the sheet.
               <br />
-              <span className="text-[#5EEAD4]">You updated it twice.</span>
+              <span className="text-[var(--accent)]">You updated it twice.</span>
             </h1>
             <div className="mt-10 grid md:grid-cols-2 gap-8 max-w-4xl">
-              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
+              <p className="font-sans text-lg text-[var(--ink-muted)] leading-snug">
                 The spreadsheet is an impressive object. You named the columns
                 yourself — "Title," "Type," "Start Date," "Rating," "Status,"
                 "Days Active." You added conditional formatting. You spent
                 forty-five minutes on the day counter formula. It almost worked.
               </p>
-              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
+              <p className="font-sans text-lg text-[var(--ink-muted)] leading-snug">
                 Then you updated it on day one. And day four. And then you
                 forgot, and when you came back the formula was broken because
                 you'd changed the date format, and the whole thing was just a
@@ -132,15 +132,15 @@ export default function VsSpreadsheetPage() {
 
         <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>
               the distinction
             </span>
             <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10 max-w-3xl text-balance">
               A spreadsheet stores the data.{" "}
-              <span className="text-[#5EEAD4]">Hyperfix runs itself.</span>
+              <span className="text-[var(--accent)]">Hyperfix runs itself.</span>
             </h2>
             <div className="grid md:grid-cols-2 gap-10 max-w-4xl">
-              <div className="space-y-6 font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
+              <div className="space-y-6 font-sans text-lg text-[var(--ink-muted)] leading-snug">
                 <p>
                   A spreadsheet is passive. It holds whatever you put in it and
                   nothing else. The day counter only works if you remembered the
@@ -149,7 +149,7 @@ export default function VsSpreadsheetPage() {
                   thing requires you to do something.
                 </p>
               </div>
-              <div className="space-y-6 font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
+              <div className="space-y-6 font-sans text-lg text-[var(--ink-muted)] leading-snug">
                 <p>
                   Hyperfix runs. The counter starts the moment you log — no
                   formula, no update required. The intensity is built in. When
@@ -164,7 +164,7 @@ export default function VsSpreadsheetPage() {
 
         <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>honest assessment</span>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>honest assessment</span>
             <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10 text-balance">
               What spreadsheets actually do well
             </h2>
@@ -183,11 +183,11 @@ export default function VsSpreadsheetPage() {
                   p: "A spreadsheet lives on your machine or in your Google Drive. No signup, no service going down, no company making product decisions you disagree with. For people who care about that, it's a real advantage.",
                 },
               ].map((item) => (
-                <div key={item.h} className="border-t border-[rgba(255,255,255,0.06)] pt-6">
+                <div key={item.h} className="border-t border-[var(--line)] pt-6">
                   <h3 className="font-display text-xl tracking-tight mb-3">
                     {item.h}
                   </h3>
-                  <p className="font-sans text-base text-[rgba(255,255,255,0.65)] leading-relaxed">
+                  <p className="font-sans text-base text-[var(--ink-muted)] leading-relaxed">
                     {item.p}
                   </p>
                 </div>
@@ -198,26 +198,26 @@ export default function VsSpreadsheetPage() {
 
         <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>side by side</span>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>side by side</span>
             <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-12 text-balance">
               The comparison
             </h2>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
-                  <tr className="border-b border-[rgba(255,255,255,0.12)]">
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
+                  <tr className="border-b border-[var(--line)]">
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[var(--ink-muted)] w-1/3">
                       Feature
                     </th>
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[var(--ink-muted)] w-1/3">
                       Spreadsheet
                     </th>
-                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
+                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[var(--ink-muted)] w-1/3">
                       Hyperfix
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[rgba(255,255,255,0.06)]">
+                <tbody className="divide-y divide-[var(--line)]">
                   {comparisonRows.map((row) => (
                     <tr key={row.feature} className="group">
                       <td className="py-4 pr-8 font-display text-base tracking-tight text-white align-top">
@@ -227,7 +227,7 @@ export default function VsSpreadsheetPage() {
                         className={`py-4 pr-8 font-sans text-sm leading-snug align-top ${
                           row.edge === "spreadsheet"
                             ? "text-white font-medium"
-                            : "text-[rgba(255,255,255,0.55)]"
+                            : "text-[var(--ink-muted)]"
                         }`}
                       >
                         {row.edge === "spreadsheet" && (
@@ -238,12 +238,12 @@ export default function VsSpreadsheetPage() {
                       <td
                         className={`py-4 font-sans text-sm leading-snug align-top ${
                           row.edge === "hyperfix"
-                            ? "text-[#5EEAD4] font-medium"
-                            : "text-[rgba(255,255,255,0.55)]"
+                            ? "text-[var(--accent)] font-medium"
+                            : "text-[var(--ink-muted)]"
                         }`}
                       >
                         {row.edge === "hyperfix" && (
-                          <span className="text-[#5EEAD4] mr-1">✓</span>
+                          <span className="text-[var(--accent)] mr-1">✓</span>
                         )}
                         {row.hyperfix}
                       </td>
@@ -252,7 +252,7 @@ export default function VsSpreadsheetPage() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-8 font-display text-[rgba(255,255,255,0.55)] text-base max-w-xl">
+            <p className="mt-8 font-display text-[var(--ink-muted)] text-base max-w-xl">
               Spreadsheets win on flexibility and ownership. Hyperfix wins on
               knowing what you came here for and doing it without being asked.
             </p>
@@ -266,10 +266,10 @@ export default function VsSpreadsheetPage() {
               <br />
               The sheet got archived.
               <br />
-              <span className="text-[#5EEAD4]">The fix kept going.</span>
+              <span className="text-[var(--accent)]">The fix kept going.</span>
             </h2>
             <div className="mt-10 max-w-2xl">
-              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
+              <p className="font-sans text-lg text-[var(--ink-muted)] leading-snug">
                 The spreadsheet you built is still in your Google Drive. It has
                 six rows. The "Days Active" column stopped calculating after you
                 changed the start date format on row three. You haven't opened
@@ -282,13 +282,13 @@ export default function VsSpreadsheetPage() {
 
         <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-4xl mx-auto">
-            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>join the waitlist</span>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>join the waitlist</span>
             <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tight max-w-2xl text-balance">
               Close the spreadsheet.
               <br />
-              <span className="text-[#5EEAD4]">Start the counter.</span>
+              <span className="text-[var(--accent)]">Start the counter.</span>
             </h2>
-            <p className="mt-6 font-sans text-lg text-[rgba(255,255,255,0.65)] max-w-xl leading-snug">
+            <p className="mt-6 font-sans text-lg text-[var(--ink-muted)] max-w-xl leading-snug">
               Waitlist is open. First access goes out in waves — early users get
               a permanent Pro discount and the best usernames before they're
               taken.

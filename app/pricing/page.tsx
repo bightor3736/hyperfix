@@ -18,13 +18,13 @@ export const metadata: Metadata = {
   },
 };
 
-const TEAL = "#5EEAD4";
-const TEAL_DEEP = "#2DD4BF";
-const TEAL_BG = "rgba(94,234,212,0.10)";
-const TEAL_BORDER = "rgba(94,234,212,0.22)";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
-const MUTED = "rgba(255,255,255,0.55)";
+const TEAL = "var(--accent)";
+const TEAL_DEEP = "var(--accent)";
+const TEAL_BG = "var(--accent-soft)";
+const TEAL_BORDER = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
+const MUTED = "var(--ink-muted)";
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
@@ -104,7 +104,7 @@ function Check({ color = TEAL, size = 18 }: { color?: string; size?: number }) {
 
 function Dash() {
   return (
-    <span aria-hidden className="font-mono text-sm" style={{ color: "rgba(255,255,255,0.25)" }}>
+    <span aria-hidden className="font-mono text-sm" style={{ color: "var(--ink-faint)" }}>
       —
     </span>
   );
@@ -114,7 +114,7 @@ function Cell({ value, isPro = false }: { value: string | boolean; isPro?: boole
   if (value === true) {
     return (
       <span className="inline-flex">
-        <Check color={isPro ? TEAL : "rgba(255,255,255,0.78)"} size={16} />
+        <Check color={isPro ? TEAL : "var(--line)"} size={16} />
       </span>
     );
   }
@@ -122,7 +122,7 @@ function Cell({ value, isPro = false }: { value: string | boolean; isPro?: boole
   return (
     <span
       className="font-mono text-sm tabular-nums"
-      style={{ color: isPro ? TEAL : "rgba(255,255,255,0.85)" }}
+      style={{ color: isPro ? TEAL : "var(--ink)" }}
     >
       {value}
     </span>
@@ -143,7 +143,7 @@ export default function PricingPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <div className="relative min-h-screen" style={{ background: "#070708" }}>
+      <div className="relative min-h-screen" style={{ background: "var(--bg)" }}>
         <Nav />
 
         <main id="main-content" className="relative text-ink" style={{ zIndex: 1 }}>
@@ -159,7 +159,7 @@ export default function PricingPage() {
               </h1>
               <p
                 className="mt-7 mx-auto font-sans text-base sm:text-lg max-w-xl leading-relaxed anim-fadeUp delay-300"
-                style={{ color: "rgba(255,255,255,0.72)" }}
+                style={{ color: "var(--line)" }}
               >
                 All the day counters and share cards are free. Pro unlocks
                 unlimited fixes, custom themes, and the toolkit for serious
@@ -188,16 +188,16 @@ export default function PricingPage() {
                       style={{ fontSize: 56, fontWeight: 600, letterSpacing: "-0.02em" }}
                     >
                       $0
-                      <span className="font-sans text-lg" style={{ color: "rgba(255,255,255,0.5)" }}>/mo</span>
+                      <span className="font-sans text-lg" style={{ color: "var(--ink-muted)" }}>/mo</span>
                     </p>
                     <ul className="mt-8 mb-10 space-y-3 flex-1">
                       {freeFeatures.map((line) => (
                         <li
                           key={line}
                           className="flex items-start gap-3 font-sans text-base leading-snug"
-                          style={{ color: "rgba(255,255,255,0.82)" }}
+                          style={{ color: "var(--ink)" }}
                         >
-                          <span className="mt-0.5"><Check color="rgba(255,255,255,0.7)" /></span>
+                          <span className="mt-0.5"><Check color="var(--ink-muted)" /></span>
                           <span>{line}</span>
                         </li>
                       ))}
@@ -206,8 +206,8 @@ export default function PricingPage() {
                       href="/join"
                       className="inline-flex w-full items-center justify-between font-sans text-base font-semibold px-6 py-4 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
                       style={{
-                        background: "rgba(255,255,255,0.06)",
-                        color: "#FFFFFF",
+                        background: "var(--line)",
+                        color: "var(--ink)",
                         borderRadius: 999,
                         border: `1px solid ${CARD_BORDER}`,
                       }}
@@ -229,7 +229,7 @@ export default function PricingPage() {
                     style={{
                       inset: "-40px -40px -40px -40px",
                       background:
-                        "radial-gradient(ellipse 80% 70% at 50% 50%, rgba(94,234,212,0.18) 0%, rgba(94,234,212,0.06) 35%, transparent 70%)",
+                        "radial-gradient(ellipse 80% 70% at 50% 50%, var(--accent-soft) 0%, var(--accent-soft) 35%, transparent 70%)",
                       filter: "blur(20px)",
                       zIndex: 0,
                     }}
@@ -239,7 +239,7 @@ export default function PricingPage() {
                     style={{
                       background: CARD_BG,
                       border: `1px solid ${TEAL_BORDER}`,
-                      boxShadow: "0 0 0 1px rgba(94,234,212,0.08), 0 20px 60px rgba(94,234,212,0.10)",
+                      boxShadow: "0 0 0 1px var(--accent-soft), 0 20px 60px var(--accent-soft)",
                     }}
                   >
                     <GrainOverlay opacity={0.18} />
@@ -260,12 +260,12 @@ export default function PricingPage() {
                         style={{ fontSize: 48, fontWeight: 600, letterSpacing: "-0.02em" }}
                       >
                         <span style={{ color: TEAL }}>$5</span>
-                        <span className="font-sans text-lg" style={{ color: "rgba(255,255,255,0.5)" }}> / month</span>
+                        <span className="font-sans text-lg" style={{ color: "var(--ink-muted)" }}> / month</span>
                       </p>
-                      <p className="mt-2 font-sans text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
+                      <p className="mt-2 font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
                         or <span style={{ color: TEAL }}>$39/year</span> — save 35%
                       </p>
-                      <p className="mt-2 font-sans text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
+                      <p className="mt-2 font-sans text-xs" style={{ color: "var(--ink-muted)" }}>
                         Cancel anytime. Pro unlocks unlimited fixes and the full toolkit.
                       </p>
                       <ul className="mt-8 mb-10 space-y-3 flex-1">
@@ -273,7 +273,7 @@ export default function PricingPage() {
                           <li
                             key={f.label}
                             className="flex items-start gap-3 font-sans text-base leading-snug"
-                            style={{ color: f.highlight ? "#FFFFFF" : "rgba(255,255,255,0.82)" }}
+                            style={{ color: f.highlight ? "var(--ink)" : "var(--ink)" }}
                           >
                             <span className="mt-0.5"><Check color={TEAL} /></span>
                             <span style={f.highlight ? { fontWeight: 600 } : undefined}>
@@ -329,13 +329,13 @@ export default function PricingPage() {
                         <tr style={{ borderBottom: `1px solid ${CARD_BORDER}` }}>
                           <th
                             className="text-left font-mono text-xs uppercase tracking-widest px-5 sm:px-7 py-4"
-                            style={{ color: "rgba(255,255,255,0.5)", fontWeight: 500 }}
+                            style={{ color: "var(--ink-muted)", fontWeight: 500 }}
                           >
                             Feature
                           </th>
                           <th
                             className="text-center font-mono text-xs uppercase tracking-widest px-4 py-4"
-                            style={{ color: "rgba(255,255,255,0.5)", width: "20%", fontWeight: 500 }}
+                            style={{ color: "var(--ink-muted)", width: "20%", fontWeight: 500 }}
                           >
                             Free
                           </th>
@@ -352,14 +352,14 @@ export default function PricingPage() {
                           <tr
                             key={row.feature}
                             style={{
-                              background: i % 2 === 1 ? "rgba(255,255,255,0.015)" : "transparent",
+                              background: i % 2 === 1 ? "var(--line)" : "transparent",
                               borderBottom:
                                 i === comparisonRows.length - 1 ? "none" : `1px solid ${CARD_BORDER}`,
                             }}
                           >
                             <td
                               className="font-sans text-sm sm:text-base px-5 sm:px-7 py-4"
-                              style={{ color: "rgba(255,255,255,0.82)" }}
+                              style={{ color: "var(--ink)" }}
                             >
                               {row.feature}
                             </td>
@@ -370,7 +370,7 @@ export default function PricingPage() {
                               className="text-center px-4 py-4"
                               style={
                                 row.free === false
-                                  ? { background: "rgba(94,234,212,0.04)" }
+                                  ? { background: "var(--accent-soft)" }
                                   : undefined
                               }
                             >
@@ -395,7 +395,7 @@ export default function PricingPage() {
               <RevealSection>
                 <span
                   className="font-mono text-xs uppercase tracking-widest"
-                  style={{ color: "rgba(255,255,255,0.45)" }}
+                  style={{ color: "var(--ink-muted)" }}
                 >
                   Ready when you are
                 </span>
@@ -418,7 +418,7 @@ export default function PricingPage() {
                 </div>
               </RevealSection>
               <RevealSection delay={300}>
-                <p className="mt-6 font-sans text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
+                <p className="mt-6 font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
                   <a href="/join" className="underline-offset-4 hover:underline transition-opacity hover:opacity-80">
                     Continue free
                   </a>
@@ -456,14 +456,14 @@ export default function PricingPage() {
                         <span
                           aria-hidden
                           className="shrink-0 flex items-center justify-center rounded-full transition-transform group-open:rotate-45"
-                          style={{ width: 32, height: 32, border: "1.5px solid rgba(94,234,212,0.30)", color: TEAL }}
+                          style={{ width: 32, height: 32, border: "1.5px solid rgba(111,138,99,0.2)", color: TEAL }}
                         >
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                             <path d="M12 5v14M5 12h14" />
                           </svg>
                         </span>
                       </summary>
-                      <p className="px-6 pb-6 font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>{a}</p>
+                      <p className="px-6 pb-6 font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>{a}</p>
                     </details>
                   </RevealSection>
                 ))}

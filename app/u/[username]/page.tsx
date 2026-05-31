@@ -82,7 +82,7 @@ function IntensityBar({ intensity }: { intensity: number }) {
             key={i}
             className="w-1.5 h-3 rounded-sm"
             style={{
-              background: i < intensity ? "#5EEAD4" : "rgba(244,244,244,0.08)",
+              background: i < intensity ? "var(--accent)" : "var(--line)",
             }}
           />
         ))}
@@ -215,7 +215,7 @@ export default async function PublicProfilePage({
   }
 
   return (
-    <div className="min-h-screen relative" style={{ background: "#070708", color: "#F4F4F4" }}>
+    <div className="min-h-screen relative" style={{ background: "var(--bg)", color: "var(--ink)" }}>
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none mix-blend-overlay"
@@ -228,7 +228,7 @@ export default async function PublicProfilePage({
         style={{
           background: "rgba(7,7,8,0.78)",
           backdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(255,255,255,0.05)",
+          borderBottom: "1px solid var(--line)",
         }}
       >
         <Link href="/" aria-label="Hyperfix home" className="transition-transform hover:scale-[1.02]">
@@ -238,9 +238,9 @@ export default async function PublicProfilePage({
           href={currentUser ? "/dashboard" : "/auth/login"}
           className="font-mono text-[11px] uppercase tracking-widest px-4 py-2 rounded-full transition-all hover:opacity-80"
           style={{
-            background: "rgba(244,244,244,0.05)",
-            border: "1px solid rgba(244,244,244,0.08)",
-            color: "rgba(244,244,244,0.7)",
+            background: "var(--line)",
+            border: "1px solid var(--line)",
+            color: "var(--ink-muted)",
           }}
         >
           {currentUser ? "my fixes" : "log in"}
@@ -286,14 +286,14 @@ export default async function PublicProfilePage({
                 src={typedProfile.avatar_url}
                 alt={displayName}
                 className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover"
-                style={{ border: "1px solid rgba(244,244,244,0.08)" }}
+                style={{ border: "1px solid var(--line)" }}
               />
             ) : (
               <div
                 className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center font-display font-semibold"
                 style={{
                   background: hexToRgba(accent, 0.14),
-                  border: "1px solid rgba(244,244,244,0.08)",
+                  border: "1px solid var(--line)",
                   color: accent,
                   fontSize: 28,
                 }}
@@ -309,7 +309,7 @@ export default async function PublicProfilePage({
               style={{
                 fontSize: "clamp(28px, 4.8vw, 40px)",
                 fontWeight: 600,
-                color: "#F4F4F4",
+                color: "var(--ink)",
                 letterSpacing: "-0.025em",
                 lineHeight: 1,
               }}
@@ -332,7 +332,7 @@ export default async function PublicProfilePage({
 
           <p
             className="font-mono text-[12px] mb-4"
-            style={{ color: "rgba(244,244,244,0.45)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             @{typedProfile.username}
           </p>
@@ -340,7 +340,7 @@ export default async function PublicProfilePage({
           {typedProfile.bio && (
             <p
               className="font-sans text-[15px] leading-relaxed max-w-md mb-5"
-              style={{ color: "rgba(244,244,244,0.7)" }}
+              style={{ color: "var(--ink-muted)" }}
             >
               {typedProfile.bio}
             </p>
@@ -353,19 +353,19 @@ export default async function PublicProfilePage({
           )}
 
           {/* Followers · Following */}
-          <p className="font-mono text-[11px] mb-5" style={{ color: "rgba(244,244,244,0.4)" }}>
+          <p className="font-mono text-[11px] mb-5" style={{ color: "var(--ink-muted)" }}>
             <Link
               href={`/u/${typedProfile.username}/followers`}
-              className="transition-colors hover:text-[#5EEAD4]"
+              className="transition-colors hover:text-[var(--accent)]"
             >
-              <span style={{ color: "rgba(244,244,244,0.85)" }}>{followerCount ?? 0}</span> followers
+              <span style={{ color: "var(--ink)" }}>{followerCount ?? 0}</span> followers
             </Link>
-            <span className="mx-2" style={{ color: "rgba(244,244,244,0.2)" }}>·</span>
+            <span className="mx-2" style={{ color: "var(--ink-faint)" }}>·</span>
             <Link
               href={`/u/${typedProfile.username}/following`}
-              className="transition-colors hover:text-[#5EEAD4]"
+              className="transition-colors hover:text-[var(--accent)]"
             >
-              <span style={{ color: "rgba(244,244,244,0.85)" }}>{followingCount ?? 0}</span> following
+              <span style={{ color: "var(--ink)" }}>{followingCount ?? 0}</span> following
             </Link>
           </p>
 
@@ -401,7 +401,7 @@ export default async function PublicProfilePage({
         {/* Stats — type as data, no boxes */}
         <section
           className="grid grid-cols-3 gap-6 sm:gap-8 mb-12 pb-10 anim-fadeUp"
-          style={{ borderBottom: "1px solid rgba(244,244,244,0.06)" }}
+          style={{ borderBottom: "1px solid var(--line)" }}
         >
           {[
             { label: "fixations", value: String(allFixes.length) },
@@ -416,14 +416,14 @@ export default async function PublicProfilePage({
                   fontWeight: 600,
                   letterSpacing: "-0.03em",
                   lineHeight: 1,
-                  color: "#F4F4F4",
+                  color: "var(--ink)",
                 }}
               >
                 {s.value}
               </p>
               <p
                 className="font-mono text-[10px] uppercase tracking-widest mt-2"
-                style={{ color: "rgba(244,244,244,0.4)" }}
+                style={{ color: "var(--ink-muted)" }}
               >
                 {s.label}
               </p>
@@ -436,7 +436,7 @@ export default async function PublicProfilePage({
           <section className="mb-12 anim-fadeUp">
             <div className="flex items-center gap-2 mb-4">
               <PinIcon size={11} />
-              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.4)" }}>
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-muted)" }}>
                 currently obsessed with
               </p>
             </div>
@@ -449,8 +449,8 @@ export default async function PublicProfilePage({
                     href={`/fix/${pf.id}`}
                     className="group flex items-center gap-4 py-4 transition-colors"
                     style={{
-                      borderTop: i === 0 ? "1px solid rgba(244,244,244,0.06)" : undefined,
-                      borderBottom: "1px solid rgba(244,244,244,0.06)",
+                      borderTop: i === 0 ? "1px solid var(--line)" : undefined,
+                      borderBottom: "1px solid var(--line)",
                     }}
                   >
                     <span
@@ -461,12 +461,12 @@ export default async function PublicProfilePage({
                     </span>
                     <div className="flex-1 min-w-0">
                       <h3
-                        className="font-display group-hover:text-[#5EEAD4] transition-colors truncate"
-                        style={{ fontSize: 16, fontWeight: 500, color: "#F4F4F4", letterSpacing: "-0.01em" }}
+                        className="font-display group-hover:text-[var(--accent)] transition-colors truncate"
+                        style={{ fontSize: 16, fontWeight: 500, color: "var(--ink)", letterSpacing: "-0.01em" }}
                       >
                         {pf.title}
                       </h3>
-                      <p className="font-mono text-[11px] mt-0.5" style={{ color: "rgba(244,244,244,0.4)" }}>
+                      <p className="font-mono text-[11px] mt-0.5" style={{ color: "var(--ink-muted)" }}>
                         {pf.category}
                       </p>
                     </div>
@@ -491,18 +491,18 @@ export default async function PublicProfilePage({
         {/* Active fixations — list rows */}
         <section className="mb-12 anim-fadeUp">
           <div className="flex items-baseline justify-between mb-4">
-            <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.4)" }}>
+            <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-muted)" }}>
               active fixations
             </p>
             {publicFixes.filter((f) => !f.ended_at).length > 0 && (
-              <p className="font-mono text-[10px] tabular-nums" style={{ color: "rgba(244,244,244,0.3)" }}>
+              <p className="font-mono text-[10px] tabular-nums" style={{ color: "var(--ink-faint)" }}>
                 {publicFixes.filter((f) => !f.ended_at).length}
               </p>
             )}
           </div>
 
           {publicFixes.filter((f) => !f.ended_at).length === 0 ? (
-            <p className="font-sans text-sm py-6" style={{ color: "rgba(244,244,244,0.4)" }}>
+            <p className="font-sans text-sm py-6" style={{ color: "var(--ink-muted)" }}>
               {isSelf
                 ? "nothing public yet. turn a fix public in settings to show it here."
                 : "this person keeps their obsessions private."}
@@ -511,15 +511,15 @@ export default async function PublicProfilePage({
             <div className="flex flex-col">
               {publicFixes.filter((f) => !f.ended_at).map((fix, i) => {
                 const days = dayCount(fix.started_at, fix.ended_at);
-                const catColor = CATEGORY_COLOR[fix.category.toLowerCase()] || "#5EEAD4";
+                const catColor = CATEGORY_COLOR[fix.category.toLowerCase()] || "var(--accent)";
                 return (
                   <Link
                     key={fix.id}
                     href={`/fix/${fix.id}`}
                     className="group flex items-center gap-4 py-4 transition-colors"
                     style={{
-                      borderTop: i === 0 ? "1px solid rgba(244,244,244,0.06)" : undefined,
-                      borderBottom: "1px solid rgba(244,244,244,0.06)",
+                      borderTop: i === 0 ? "1px solid var(--line)" : undefined,
+                      borderBottom: "1px solid var(--line)",
                     }}
                   >
                     <span
@@ -530,23 +530,23 @@ export default async function PublicProfilePage({
                     </span>
                     <div className="flex-1 min-w-0">
                       <h3
-                        className="font-display group-hover:text-[#5EEAD4] transition-colors truncate"
-                        style={{ fontSize: 16, fontWeight: 500, color: "#F4F4F4", letterSpacing: "-0.01em" }}
+                        className="font-display group-hover:text-[var(--accent)] transition-colors truncate"
+                        style={{ fontSize: 16, fontWeight: 500, color: "var(--ink)", letterSpacing: "-0.01em" }}
                       >
                         {fix.title}
                       </h3>
-                      <p className="font-mono text-[11px] mt-0.5" style={{ color: "rgba(244,244,244,0.4)" }}>
+                      <p className="font-mono text-[11px] mt-0.5" style={{ color: "var(--ink-muted)" }}>
                         {fix.category}
                       </p>
                     </div>
                     <div className="shrink-0 text-right">
                       <p
                         className="font-display tabular-nums"
-                        style={{ fontSize: 20, fontWeight: 600, color: "#F4F4F4", lineHeight: 1, letterSpacing: "-0.02em" }}
+                        style={{ fontSize: 20, fontWeight: 600, color: "var(--ink)", lineHeight: 1, letterSpacing: "-0.02em" }}
                       >
                         {days}
                       </p>
-                      <p className="font-mono text-[9px] uppercase tracking-widest mt-1" style={{ color: "rgba(244,244,244,0.35)" }}>
+                      <p className="font-mono text-[9px] uppercase tracking-widest mt-1" style={{ color: "var(--ink-faint)" }}>
                         days
                       </p>
                     </div>
@@ -562,22 +562,22 @@ export default async function PublicProfilePage({
           <Link
             href={`/u/${typedProfile.username}/graveyard`}
             className="group flex items-center justify-between gap-4 py-4 transition-colors anim-fadeUp"
-            style={{ borderTop: "1px solid rgba(244,244,244,0.06)" }}
+            style={{ borderTop: "1px solid var(--line)" }}
           >
             <div className="flex items-center gap-3 min-w-0">
-              <span style={{ color: "rgba(244,244,244,0.4)" }}>
+              <span style={{ color: "var(--ink-muted)" }}>
                 <TombstoneIcon size={18} />
               </span>
               <div className="min-w-0">
-                <p className="font-display group-hover:text-[#5EEAD4] transition-colors" style={{ fontSize: 16, fontWeight: 500, color: "#F4F4F4" }}>
+                <p className="font-display group-hover:text-[var(--accent)] transition-colors" style={{ fontSize: 16, fontWeight: 500, color: "var(--ink)" }}>
                   the graveyard
                 </p>
-                <p className="font-mono text-[11px] mt-0.5" style={{ color: "rgba(244,244,244,0.4)" }}>
+                <p className="font-mono text-[11px] mt-0.5" style={{ color: "var(--ink-muted)" }}>
                   {endedPublicCount} ended {endedPublicCount === 1 ? "obsession" : "obsessions"}
                 </p>
               </div>
             </div>
-            <span className="font-mono text-[11px] uppercase tracking-widest shrink-0" style={{ color: "rgba(94,234,212,0.7)" }}>
+            <span className="font-mono text-[11px] uppercase tracking-widest shrink-0" style={{ color: "var(--accent)" }}>
               view →
             </span>
           </Link>
@@ -595,22 +595,22 @@ export default async function PublicProfilePage({
             style={{
               background: "rgba(10,10,10,0.92)",
               backdropFilter: "blur(20px)",
-              border: "1px solid rgba(94,234,212,0.2)",
+              border: "1px solid var(--accent)",
               boxShadow: "0 8px 40px rgba(0,0,0,0.6)",
             }}
           >
             <div className="min-w-0">
-              <p className="font-sans text-sm font-semibold truncate" style={{ color: "#F4F4F4" }}>
+              <p className="font-sans text-sm font-semibold truncate" style={{ color: "var(--ink)" }}>
                 Track your own hyperfixations
               </p>
-              <p className="font-mono text-[11px]" style={{ color: "rgba(244,244,244,0.45)" }}>
+              <p className="font-mono text-[11px]" style={{ color: "var(--ink-muted)" }}>
                 free · 30 seconds
               </p>
             </div>
             <Link
               href={`/auth/signup?next=/u/${typedProfile.username}`}
               className="shrink-0 px-5 py-2.5 rounded-full font-sans text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.98]"
-              style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+              style={{ background: "var(--accent)", color: "var(--bg)" }}
             >
               Join free →
             </Link>

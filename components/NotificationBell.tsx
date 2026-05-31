@@ -139,9 +139,9 @@ export function NotificationBell() {
     <div ref={ref} className="relative">
       <button
         onClick={handleOpen}
-        className="relative flex items-center justify-center w-8 h-8 rounded-full transition-all duration-150 hover:bg-[rgba(244,244,244,0.06)]"
+        className="relative flex items-center justify-center w-8 h-8 rounded-full transition-all duration-150 hover:bg-[var(--line)]"
         aria-label="Notifications"
-        style={{ color: "rgba(244,244,244,0.5)" }}
+        style={{ color: "var(--ink-muted)" }}
       >
         <Notification set={unreadCount > 0 ? "bold" : "light"} size={18} primaryColor="currentColor" />
         {/* Red dot badge */}
@@ -150,7 +150,7 @@ export function NotificationBell() {
             className="absolute top-0.5 right-0.5 flex items-center justify-center rounded-full font-mono font-bold"
             style={{
               background: "#E63946",
-              color: "#fff",
+              color: "var(--ink)",
               fontSize: 8,
               minWidth: 14,
               height: 14,
@@ -167,24 +167,24 @@ export function NotificationBell() {
         <div
           className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-80 rounded-2xl overflow-hidden z-50"
           style={{
-            background: "#161618",
-            border: "1px solid rgba(244,244,244,0.1)",
+            background: "var(--bg)",
+            border: "1px solid var(--line)",
             boxShadow: "0 8px 32px rgba(0,0,0,0.6)",
           }}
         >
           {/* Header */}
           <div
             className="flex items-center justify-between px-4 py-3"
-            style={{ borderBottom: "1px solid rgba(244,244,244,0.07)" }}
+            style={{ borderBottom: "1px solid var(--line)" }}
           >
-            <span className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.5)" }}>
+            <span className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "var(--ink-muted)" }}>
               Notifications
             </span>
             {unreadCount > 0 && (
               <button
                 onClick={markAllRead}
                 className="font-mono text-[10px] uppercase tracking-widest transition-opacity hover:opacity-80"
-                style={{ color: "#5EEAD4" }}
+                style={{ color: "var(--accent)" }}
               >
                 Mark all read
               </button>
@@ -195,26 +195,26 @@ export function NotificationBell() {
           <div className="max-h-80 overflow-y-auto">
             {!loaded && loadError ? (
               <div className="px-4 py-6 text-center">
-                <p className="font-sans text-sm mb-2" style={{ color: "rgba(244,244,244,0.4)" }}>
+                <p className="font-sans text-sm mb-2" style={{ color: "var(--ink-muted)" }}>
                   Couldn&apos;t load notifications.
                 </p>
                 <button
                   onClick={loadNotifications}
                   className="font-mono text-[10px] uppercase tracking-widest transition-opacity hover:opacity-80"
-                  style={{ color: "#5EEAD4" }}
+                  style={{ color: "var(--accent)" }}
                 >
                   Retry
                 </button>
               </div>
             ) : !loaded ? (
               <div className="px-4 py-6 text-center">
-                <span className="font-mono text-xs" style={{ color: "rgba(244,244,244,0.3)" }}>
+                <span className="font-mono text-xs" style={{ color: "var(--ink-faint)" }}>
                   Loading…
                 </span>
               </div>
             ) : notifications.length === 0 ? (
               <div className="px-4 py-8 text-center">
-                <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.3)" }}>
+                <p className="font-sans text-sm" style={{ color: "var(--ink-faint)" }}>
                   No notifications yet.
                 </p>
               </div>
@@ -224,15 +224,15 @@ export function NotificationBell() {
                 if (!result) return null;
                 const { text, href } = result;
                 const sharedStyle = {
-                  background: n.read ? "transparent" : "rgba(94,234,212,0.04)",
-                  borderBottom: "1px solid rgba(244,244,244,0.04)",
+                  background: n.read ? "transparent" : "var(--accent-soft)",
+                  borderBottom: "1px solid transparent",
                 };
                 const inner = (
                   <>
-                    <p className="font-sans text-sm leading-snug" style={{ color: n.read ? "rgba(244,244,244,0.5)" : "#F4F4F4" }}>
+                    <p className="font-sans text-sm leading-snug" style={{ color: n.read ? "var(--ink-muted)" : "var(--ink)" }}>
                       {text}
                     </p>
-                    <p className="font-mono text-[10px] mt-1" style={{ color: "rgba(244,244,244,0.25)" }}>
+                    <p className="font-mono text-[10px] mt-1" style={{ color: "var(--ink-faint)" }}>
                       {new Date(n.created_at).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
@@ -247,7 +247,7 @@ export function NotificationBell() {
                     key={n.id}
                     href={href}
                     onClick={() => setOpen(false)}
-                    className="block px-4 py-3 transition-colors hover:bg-[rgba(244,244,244,0.04)]"
+                    className="block px-4 py-3 transition-colors hover:bg-[transparent]"
                     style={sharedStyle}
                   >
                     {inner}
@@ -270,7 +270,7 @@ export function NotificationBell() {
             href="/dashboard/notifications"
             onClick={() => setOpen(false)}
             className="block px-4 py-3 text-center font-mono text-[10px] uppercase tracking-widest transition-opacity hover:opacity-80"
-            style={{ borderTop: "1px solid rgba(244,244,244,0.07)", color: "#5EEAD4" }}
+            style={{ borderTop: "1px solid var(--line)", color: "var(--accent)" }}
           >
             See all notifications
           </a>

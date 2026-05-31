@@ -389,8 +389,8 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
   ).slice(0, 2).toUpperCase();
 
   const usernameHint = () => {
-    if (usernameStatus === "checking") return <span style={{ color: "rgba(244,244,244,0.4)" }}>Checking…</span>;
-    if (usernameStatus === "available") return <span style={{ color: "#5EEAD4" }}>✓ Available</span>;
+    if (usernameStatus === "checking") return <span style={{ color: "var(--ink-muted)" }}>Checking…</span>;
+    if (usernameStatus === "available") return <span style={{ color: "var(--accent)" }}>✓ Available</span>;
     if (usernameStatus === "taken") return <span style={{ color: "#fda4af" }}>✗ Taken</span>;
     if (usernameStatus === "invalid") return <span style={{ color: "#fda4af" }}>3–20 chars, letters/numbers/underscore only</span>;
     return null;
@@ -435,15 +435,15 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                 src={avatarUrl}
                 alt="Avatar"
                 className="w-20 h-20 rounded-full object-cover"
-                style={{ border: "2px solid rgba(244,244,244,0.1)" }}
+                style={{ border: "2px solid var(--line)" }}
               />
             ) : (
               <div
                 className="w-20 h-20 rounded-full flex items-center justify-center font-display font-bold text-xl select-none"
                 style={{
-                  background: "rgba(94,234,212,0.12)",
-                  border: "2px solid rgba(94,234,212,0.3)",
-                  color: "#5EEAD4",
+                  background: "var(--accent-soft)",
+                  border: "2px solid var(--accent-soft)",
+                  color: "var(--accent)",
                   letterSpacing: "-0.02em",
                 }}
               >
@@ -458,9 +458,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               onClick={() => fileInputRef.current?.click()}
               className="px-4 py-2 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80"
               style={{
-                background: "rgba(244,244,244,0.07)",
-                border: "1px solid rgba(244,244,244,0.12)",
-                color: "rgba(244,244,244,0.7)",
+                background: "var(--line)",
+                border: "1px solid var(--line)",
+                color: "var(--ink-muted)",
               }}
             >
               Upload photo
@@ -476,17 +476,17 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             {uploadProgress !== null && (
               <div className="w-40">
                 <div className="flex justify-between mb-1">
-                  <span className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.4)" }}>
+                  <span className="font-mono text-[10px]" style={{ color: "var(--ink-muted)" }}>
                     Uploading…
                   </span>
-                  <span className="font-mono text-[10px]" style={{ color: "#5EEAD4" }}>
+                  <span className="font-mono text-[10px]" style={{ color: "var(--accent)" }}>
                     {uploadProgress}%
                   </span>
                 </div>
-                <div className="h-1 rounded-full overflow-hidden" style={{ background: "rgba(244,244,244,0.08)" }}>
+                <div className="h-1 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
                   <div
                     className="h-full rounded-full transition-all duration-200"
-                    style={{ width: `${uploadProgress}%`, background: "#5EEAD4" }}
+                    style={{ width: `${uploadProgress}%`, background: "var(--accent)" }}
                   />
                 </div>
               </div>
@@ -503,7 +503,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
         {/* Banner */}
         <div className="mb-8">
             <div className="flex items-center gap-1.5 mb-3">
-              <span className="font-sans text-[11px] font-semibold uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.25)" }}>
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
                 Profile banner
               </span>
             </div>
@@ -511,16 +511,16 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               className="relative rounded-2xl overflow-hidden mb-3 flex items-end"
               style={{
                 height: 120,
-                background: bannerUrl ? undefined : "rgba(94,234,212,0.05)",
+                background: bannerUrl ? undefined : "var(--accent-soft)",
                 backgroundImage: bannerUrl ? `url(${bannerUrl})` : undefined,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                border: "1px solid rgba(94,234,212,0.15)",
+                border: "1px solid var(--accent)",
               }}
             >
               {!bannerUrl && (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <p className="font-mono text-xs" style={{ color: "rgba(94,234,212,0.35)" }}>No banner set</p>
+                  <p className="font-mono text-xs" style={{ color: "rgba(111,138,99,0.25)" }}>No banner set</p>
                 </div>
               )}
               <div className="absolute bottom-3 right-3 flex gap-2">
@@ -530,8 +530,8 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                   className="px-3 py-1.5 rounded-full font-sans text-xs font-medium transition-all hover:opacity-80"
                   style={{
                     background: "rgba(7,7,8,0.85)",
-                    border: "1px solid rgba(94,234,212,0.3)",
-                    color: "#5EEAD4",
+                    border: "1px solid var(--accent-soft)",
+                    color: "var(--accent)",
                     backdropFilter: "blur(8px)",
                   }}
                 >
@@ -548,8 +548,8 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                     className="px-3 py-1.5 rounded-full font-sans text-xs font-medium transition-all hover:opacity-80"
                     style={{
                       background: "rgba(7,7,8,0.85)",
-                      border: "1px solid rgba(244,244,244,0.15)",
-                      color: "rgba(244,244,244,0.5)",
+                      border: "1px solid var(--line-strong)",
+                      color: "var(--ink-muted)",
                       backdropFilter: "blur(8px)",
                     }}
                   >
@@ -568,13 +568,13 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             {bannerUploadProgress !== null && (
               <div className="w-48 mb-2">
                 <div className="flex justify-between mb-1">
-                  <span className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.4)" }}>Uploading…</span>
-                  <span className="font-mono text-[10px]" style={{ color: "#5EEAD4" }}>{bannerUploadProgress}%</span>
+                  <span className="font-mono text-[10px]" style={{ color: "var(--ink-muted)" }}>Uploading…</span>
+                  <span className="font-mono text-[10px]" style={{ color: "var(--accent)" }}>{bannerUploadProgress}%</span>
                 </div>
-                <div className="h-1 rounded-full overflow-hidden" style={{ background: "rgba(244,244,244,0.08)" }}>
+                <div className="h-1 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
                   <div
                     className="h-full rounded-full transition-all duration-200"
-                    style={{ width: `${bannerUploadProgress}%`, background: "#5EEAD4" }}
+                    style={{ width: `${bannerUploadProgress}%`, background: "var(--accent)" }}
                   />
                 </div>
               </div>
@@ -582,7 +582,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             {bannerUploadError && (
               <p className="font-sans text-[12px]" style={{ color: "#fda4af" }}>{bannerUploadError}</p>
             )}
-            <p className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.2)" }}>
+            <p className="font-mono text-[10px]" style={{ color: "var(--ink-faint)" }}>
               Recommended: 1500×500px · JPG or PNG · max 5MB
             </p>
         </div>
@@ -596,7 +596,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               className="flex items-center gap-1.5 mb-3"
               style={{ cursor: isPro ? "default" : "pointer" }}
             >
-              <span className="font-sans text-[11px] font-semibold uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.25)" }}>
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
                 Profile accent
               </span>
               <ProTag />
@@ -616,13 +616,13 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                       width: 34,
                       height: 34,
                       background: preset.hex,
-                      boxShadow: selected ? `0 0 0 2px #111113, 0 0 0 4px ${preset.hex}` : "none",
+                      boxShadow: selected ? `0 0 0 2px var(--bg), 0 0 0 4px ${preset.hex}` : "none",
                     }}
                   >
                     {selected && (
                       <span
                         className="absolute inset-0 flex items-center justify-center font-bold text-sm"
-                        style={{ color: "#0A0A0A" }}
+                        style={{ color: "var(--bg)" }}
                       >
                         ✓
                       </span>
@@ -631,7 +631,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                 );
               })}
             </div>
-            <p className="font-mono text-[10px] mt-3" style={{ color: "rgba(244,244,244,0.2)" }}>
+            <p className="font-mono text-[10px] mt-3" style={{ color: "var(--ink-faint)" }}>
               Tints your public profile hero, badge, and share card.
             </p>
         </div>
@@ -644,7 +644,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
               placeholder="Your name"
-              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40"
+              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[var(--line)] focus:ring-2 focus:ring-[var(--accent)]/40"
               style={inputStyle}
             />
           </FieldGroup>
@@ -655,7 +655,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               value={username}
               onChange={handleUsernameChange}
               placeholder="your_handle"
-              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40"
+              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[var(--line)] focus:ring-2 focus:ring-[var(--accent)]/40"
               style={inputStyle}
             />
           </FieldGroup>
@@ -663,7 +663,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           <FieldGroup
             label="Bio"
             hint={
-              <span style={{ color: bio.length > 150 ? "#fda4af" : "rgba(244,244,244,0.3)" }}>
+              <span style={{ color: bio.length > 150 ? "#fda4af" : "var(--ink-faint)" }}>
                 {bio.length}/160
               </span>
             }
@@ -674,7 +674,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               placeholder="A sentence about yourself"
               rows={3}
               maxLength={160}
-              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40 resize-none"
+              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[var(--line)] focus:ring-2 focus:ring-[var(--accent)]/40 resize-none"
               style={inputStyle}
             />
           </FieldGroup>
@@ -685,7 +685,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               value={socialLink}
               onChange={(e) => setSocialLink(e.target.value)}
               placeholder="https://tiktok.com/@you"
-              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40"
+              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[var(--line)] focus:ring-2 focus:ring-[var(--accent)]/40"
               style={inputStyle}
             />
           </FieldGroup>
@@ -698,20 +698,20 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
 
         <div className="flex items-center justify-between gap-4 p-4 rounded-2xl" style={cardStyle}>
           <div>
-            <p className="font-sans text-sm font-medium" style={{ color: "#F4F4F4" }}>
+            <p className="font-sans text-sm font-medium" style={{ color: "var(--ink)" }}>
               Public profile
             </p>
-            <p className="font-sans text-[12px] mt-0.5" style={{ color: "rgba(244,244,244,0.35)" }}>
+            <p className="font-sans text-[12px] mt-0.5" style={{ color: "var(--ink-faint)" }}>
               All profiles on Hyperfix are public
             </p>
           </div>
           <div
             className="w-11 h-6 rounded-full shrink-0"
-            style={{ background: "#5EEAD4", border: "1px solid rgba(94,234,212,0.5)" }}
+            style={{ background: "var(--accent)", border: "1px solid var(--accent)" }}
           >
             <div
               className="w-4 h-4 rounded-full mt-[3px]"
-              style={{ background: "#0A0A0A", transform: "translateX(23px)" }}
+              style={{ background: "var(--bg)", transform: "translateX(23px)" }}
             />
           </div>
         </div>
@@ -745,7 +745,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           />
         </div>
 
-        <p className="font-sans text-[11px] font-semibold uppercase tracking-widest mt-7 mb-3" style={{ color: "rgba(244,244,244,0.25)" }}>
+        <p className="font-sans text-[11px] font-semibold uppercase tracking-widest mt-7 mb-3" style={{ color: "var(--ink-faint)" }}>
           Activity on my fixes
         </p>
         <div className="flex flex-col gap-3">
@@ -787,7 +787,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
 
           {/* Change password */}
           <div className="flex flex-col gap-3 p-4 rounded-2xl" style={cardStyle}>
-            <p className="font-sans text-sm font-medium" style={{ color: "#F4F4F4" }}>
+            <p className="font-sans text-sm font-medium" style={{ color: "var(--ink)" }}>
               Change password
             </p>
             <FieldGroup label="New password">
@@ -797,7 +797,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Min. 8 characters"
                 autoComplete="new-password"
-                className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40"
+                className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[var(--line)] focus:ring-2 focus:ring-[var(--accent)]/40"
                 style={inputStyle}
               />
             </FieldGroup>
@@ -808,7 +808,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Repeat new password"
                 autoComplete="new-password"
-                className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40"
+                className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[var(--line)] focus:ring-2 focus:ring-[var(--accent)]/40"
                 style={inputStyle}
               />
             </FieldGroup>
@@ -818,7 +818,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               </p>
             )}
             {passwordSuccess && (
-              <p className="font-sans text-[12px]" style={{ color: "#5EEAD4" }}>
+              <p className="font-sans text-[12px]" style={{ color: "var(--accent)" }}>
                 ✓ Password updated
               </p>
             )}
@@ -828,9 +828,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               disabled={pending || !newPassword || !confirmPassword}
               className="self-start px-5 py-2.5 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80 disabled:opacity-40"
               style={{
-                background: "rgba(244,244,244,0.07)",
-                border: "1px solid rgba(244,244,244,0.12)",
-                color: "rgba(244,244,244,0.7)",
+                background: "var(--line)",
+                border: "1px solid var(--line)",
+                color: "var(--ink-muted)",
               }}
             >
               {pending ? "Updating…" : "Update password"}
@@ -840,12 +840,12 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           {/* Export data (Pro) */}
           <div className="flex flex-col gap-2 p-4 rounded-2xl" style={cardStyle}>
             <div className="flex items-center gap-1.5">
-              <p className="font-sans text-sm font-medium" style={{ color: "#F4F4F4" }}>
+              <p className="font-sans text-sm font-medium" style={{ color: "var(--ink)" }}>
                 Export your data
               </p>
               <ProTag />
             </div>
-            <p className="font-sans text-[12px]" style={{ color: "rgba(244,244,244,0.35)" }}>
+            <p className="font-sans text-[12px]" style={{ color: "var(--ink-faint)" }}>
               Download all your fixes, check-ins, and comments as a JSON file.
             </p>
             <button
@@ -854,9 +854,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               disabled={exporting}
               className="self-start mt-1 px-5 py-2.5 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80 disabled:opacity-50"
               style={{
-                background: "rgba(94,234,212,0.1)",
-                border: "1px solid rgba(94,234,212,0.25)",
-                color: "#5EEAD4",
+                background: "var(--accent-soft)",
+                border: "1px solid var(--accent)",
+                color: "var(--accent)",
               }}
             >
               {exporting ? "Preparing…" : "Download export"}
@@ -870,9 +870,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             disabled={pending}
             className="self-start px-5 py-2.5 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80 disabled:opacity-50"
             style={{
-              background: "rgba(244,244,244,0.07)",
-              border: "1px solid rgba(244,244,244,0.12)",
-              color: "rgba(244,244,244,0.7)",
+              background: "var(--line)",
+              border: "1px solid var(--line)",
+              color: "var(--ink-muted)",
             }}
           >
             Sign out
@@ -902,10 +902,10 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           style={cardStyle}
         >
           <div>
-            <p className="font-sans text-sm font-medium" style={{ color: "#F4F4F4" }}>
+            <p className="font-sans text-sm font-medium" style={{ color: "var(--ink)" }}>
               {profile?.is_pro ? "Pro" : "Free plan"}
             </p>
-            <p className="font-sans text-[12px] mt-0.5" style={{ color: "rgba(244,244,244,0.35)" }}>
+            <p className="font-sans text-[12px] mt-0.5" style={{ color: "var(--ink-faint)" }}>
               {profile?.is_pro
                 ? "You have access to all Pro features."
                 : "Upgrade to unlock unlimited fixes and more."}
@@ -915,9 +915,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             <span
               className="font-mono text-[9px] self-start sm:self-auto rounded px-2 py-1"
               style={{
-                background: "rgba(94,234,212,0.2)",
-                color: "#5EEAD4",
-                border: "1px solid rgba(94,234,212,0.3)",
+                background: "var(--accent)",
+                color: "var(--accent)",
+                border: "1px solid var(--accent-soft)",
               }}
             >
               PRO
@@ -926,7 +926,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             <a
               href="/pricing"
               className="self-start sm:self-auto px-4 py-2 rounded-full font-sans text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
-              style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+              style={{ background: "var(--accent)", color: "var(--bg)" }}
             >
               Upgrade to Pro →
             </a>
@@ -941,25 +941,25 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           {profile?.referral_code ? (
             <>
               <div>
-                <p className="font-sans text-[13px] font-medium mb-2" style={{ color: "rgba(244,244,244,0.6)" }}>
+                <p className="font-sans text-[13px] font-medium mb-2" style={{ color: "var(--ink-muted)" }}>
                   Your invite link
                 </p>
                 <ReferralCopyButton referralCode={profile.referral_code} />
               </div>
               <div className="flex items-center gap-2">
-                <span className="font-mono text-sm font-bold" style={{ color: "#5EEAD4" }}>
+                <span className="font-mono text-sm font-bold" style={{ color: "var(--accent)" }}>
                   {profile.referral_count ?? 0}
                 </span>
-                <span className="font-sans text-[13px]" style={{ color: "rgba(244,244,244,0.45)" }}>
+                <span className="font-sans text-[13px]" style={{ color: "var(--ink-muted)" }}>
                   {(profile.referral_count ?? 0) === 1 ? "friend joined" : "friends joined"}
                 </span>
               </div>
-              <p className="font-mono text-[11px]" style={{ color: "rgba(244,244,244,0.25)" }}>
+              <p className="font-mono text-[11px]" style={{ color: "var(--ink-faint)" }}>
                 Refer 3 friends → earn Pro access at launch
               </p>
             </>
           ) : (
-            <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.4)" }}>
+            <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
               Your referral code will appear here once your account is fully set up.
             </p>
           )}
@@ -984,7 +984,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
       {isDirty && !pending && (
         <p
           className="font-mono text-[10px] uppercase tracking-widest text-center"
-          style={{ color: "rgba(94,234,212,0.6)" }}
+          style={{ color: "var(--accent)" }}
         >
           Unsaved changes
         </p>
@@ -994,7 +994,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
         onClick={handleSave}
         disabled={pending}
         className="w-full py-4 rounded-2xl font-sans text-base font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-        style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+        style={{ background: "var(--accent)", color: "var(--bg)" }}
       >
         {pending ? "Saving…" : "Save changes"}
       </button>
@@ -1015,17 +1015,17 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           <div
             className="w-full max-w-md rounded-3xl p-6"
             style={{
-              background: "#111113",
-              border: "1px solid rgba(244,244,244,0.1)",
+              background: "var(--bg)",
+              border: "1px solid var(--line)",
             }}
           >
             <h2
               className="font-display font-bold text-xl mb-2"
-              style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}
+              style={{ color: "var(--ink)", letterSpacing: "-0.02em" }}
             >
               Delete your account?
             </h2>
-            <p className="font-sans text-sm mb-5" style={{ color: "rgba(244,244,244,0.45)" }}>
+            <p className="font-sans text-sm mb-5" style={{ color: "var(--ink-muted)" }}>
               This will permanently delete your account and all your fixes. There&apos;s no going back.
             </p>
 
@@ -1047,9 +1047,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                 onClick={() => { setShowDeleteModal(false); setDeleteError(null); }}
                 className="flex-1 py-2.5 rounded-xl font-sans text-sm font-medium transition-all hover:opacity-80"
                 style={{
-                  background: "rgba(244,244,244,0.06)",
-                  border: "1px solid rgba(244,244,244,0.1)",
-                  color: "rgba(244,244,244,0.6)",
+                  background: "var(--line)",
+                  border: "1px solid var(--line)",
+                  color: "var(--ink-muted)",
                 }}
               >
                 Cancel
@@ -1076,9 +1076,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
         <div
           className="fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 rounded-2xl font-sans text-sm font-bold z-50 pointer-events-none"
           style={{
-            background: "rgba(94,234,212,0.15)",
-            border: "1px solid rgba(94,234,212,0.4)",
-            color: "#5EEAD4",
+            background: "var(--accent)",
+            border: "1px solid rgba(111,138,99,0.3)",
+            color: "var(--accent)",
             boxShadow: "0 4px 24px rgba(0,0,0,0.5)",
           }}
         >
@@ -1092,14 +1092,14 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
 /* ── helpers ── */
 
 const inputStyle: React.CSSProperties = {
-  background: "#111113",
-  border: "1px solid rgba(244,244,244,0.1)",
-  color: "#F4F4F4",
+  background: "var(--bg)",
+  border: "1px solid var(--line)",
+  color: "var(--ink)",
 };
 
 const cardStyle: React.CSSProperties = {
-  background: "#111113",
-  border: "1px solid rgba(244,244,244,0.07)",
+  background: "var(--bg)",
+  border: "1px solid var(--line)",
 };
 
 function ProTag() {
@@ -1107,9 +1107,9 @@ function ProTag() {
     <span
       className="font-mono text-[8px] rounded px-1 py-0.5 leading-none"
       style={{
-        background: "rgba(94,234,212,0.16)",
-        color: "#5EEAD4",
-        border: "1px solid rgba(94,234,212,0.3)",
+        background: "var(--accent-soft)",
+        color: "var(--accent)",
+        border: "1px solid var(--accent-soft)",
       }}
     >
       PRO
@@ -1121,7 +1121,7 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
     <h2
       className="font-sans text-[11px] font-semibold uppercase tracking-widest mb-5"
-      style={{ color: "rgba(244,244,244,0.35)" }}
+      style={{ color: "var(--ink-faint)" }}
     >
       {children}
     </h2>
@@ -1140,7 +1140,7 @@ function FieldGroup({
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-center justify-between">
-        <label className="font-sans text-[13px] font-medium" style={{ color: "rgba(244,244,244,0.6)" }}>
+        <label className="font-sans text-[13px] font-medium" style={{ color: "var(--ink-muted)" }}>
           {label}
         </label>
         {hint && <span className="font-mono text-[11px]">{hint}</span>}
@@ -1164,22 +1164,22 @@ function NotifToggle({
   return (
     <label className="flex items-center justify-between gap-4 cursor-pointer p-4 rounded-2xl" style={cardStyle}>
       <div>
-        <p className="font-sans text-sm font-medium" style={{ color: "#F4F4F4" }}>{label}</p>
-        <p className="font-sans text-[12px] mt-0.5" style={{ color: "rgba(244,244,244,0.35)" }}>{description}</p>
+        <p className="font-sans text-sm font-medium" style={{ color: "var(--ink)" }}>{label}</p>
+        <p className="font-sans text-[12px] mt-0.5" style={{ color: "var(--ink-faint)" }}>{description}</p>
       </div>
       <div className="relative shrink-0">
         <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="sr-only" />
         <div
           className="w-11 h-6 rounded-full transition-all duration-200"
           style={{
-            background: checked ? "#5EEAD4" : "rgba(244,244,244,0.1)",
-            border: checked ? "1px solid rgba(94,234,212,0.5)" : "1px solid rgba(244,244,244,0.1)",
+            background: checked ? "var(--accent)" : "var(--line)",
+            border: checked ? "1px solid var(--accent)" : "1px solid var(--line)",
           }}
         >
           <div
             className="w-4 h-4 rounded-full mt-[3px] transition-all duration-200"
             style={{
-              background: checked ? "#0A0A0A" : "rgba(244,244,244,0.4)",
+              background: checked ? "var(--bg)" : "var(--ink-muted)",
               transform: checked ? "translateX(23px)" : "translateX(3px)",
             }}
           />
@@ -1224,9 +1224,9 @@ function ReferralCopyButton({ referralCode }: { referralCode: string }) {
         <div
           className="flex-1 rounded-xl px-3 py-2 font-mono text-xs truncate"
           style={{
-            background: "rgba(244,244,244,0.04)",
-            border: "1px solid rgba(244,244,244,0.1)",
-            color: "rgba(244,244,244,0.5)",
+            background: "transparent",
+            border: "1px solid var(--line)",
+            color: "var(--ink-muted)",
           }}
         >
           {link}
@@ -1236,9 +1236,9 @@ function ReferralCopyButton({ referralCode }: { referralCode: string }) {
           onClick={handleCopy}
           className="shrink-0 px-3 py-2 rounded-xl font-sans text-xs font-medium transition-all hover:opacity-80"
           style={{
-            background: copied ? "rgba(94,234,212,0.15)" : "rgba(244,244,244,0.07)",
-            border: copied ? "1px solid rgba(94,234,212,0.3)" : "1px solid rgba(244,244,244,0.12)",
-            color: copied ? "#5EEAD4" : "rgba(244,244,244,0.7)",
+            background: copied ? "var(--accent)" : "var(--line)",
+            border: copied ? "1px solid var(--accent-soft)" : "1px solid var(--line)",
+            color: copied ? "var(--accent)" : "var(--ink-muted)",
           }}
         >
           {copied ? "Copied ✓" : "Copy"}
@@ -1250,9 +1250,9 @@ function ReferralCopyButton({ referralCode }: { referralCode: string }) {
           onClick={shareOnTwitter}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-[11px] uppercase tracking-widest transition-all hover:opacity-80"
           style={{
-            background: "rgba(244,244,244,0.06)",
-            border: "1px solid rgba(244,244,244,0.1)",
-            color: "rgba(244,244,244,0.5)",
+            background: "var(--line)",
+            border: "1px solid var(--line)",
+            color: "var(--ink-muted)",
           }}
         >
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.736-8.849L1.254 2.25H8.08l4.261 5.632 5.903-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -1264,9 +1264,9 @@ function ReferralCopyButton({ referralCode }: { referralCode: string }) {
             onClick={shareNative}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-[11px] uppercase tracking-widest transition-all hover:opacity-80"
             style={{
-              background: "rgba(244,244,244,0.06)",
-              border: "1px solid rgba(244,244,244,0.1)",
-              color: "rgba(244,244,244,0.5)",
+              background: "var(--line)",
+              border: "1px solid var(--line)",
+              color: "var(--ink-muted)",
             }}
           >
             <Send set="light" size={13} primaryColor="currentColor" />

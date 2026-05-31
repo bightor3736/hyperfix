@@ -13,12 +13,12 @@ import {
 
 // ---- DESIGN TOKENS ---------------------------------------------------------
 
-const TEAL = "#5EEAD4";
-const TEAL_DARK_BG = "rgba(94,234,212,0.10)";
-const TEAL_DARK_BORDER = "rgba(94,234,212,0.22)";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
-const PAGE_BG = "#070708";
+const TEAL = "var(--accent)";
+const TEAL_DARK_BG = "var(--accent-soft)";
+const TEAL_DARK_BORDER = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
+const PAGE_BG = "var(--bg)";
 
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
@@ -197,26 +197,26 @@ export default async function TrackPage({
             <LogoLockup size="sm" />
           </a>
           <div className="hidden sm:flex items-center gap-9">
-            <a href="/#features" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.65)" }}>
+            <a href="/#features" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "var(--ink-muted)" }}>
               Features
             </a>
-            <a href="/explore" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.65)" }}>
+            <a href="/explore" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "var(--ink-muted)" }}>
               Explore
             </a>
-            <a href="/blog" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.65)" }}>
+            <a href="/blog" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "var(--ink-muted)" }}>
               Blog
             </a>
-            <a href="/adhd" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.65)" }}>
+            <a href="/adhd" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "var(--ink-muted)" }}>
               ADHD
             </a>
-            <a href="/#pricing" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.65)" }}>
+            <a href="/#pricing" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "var(--ink-muted)" }}>
               Pricing
             </a>
           </div>
           <a
             href="/join"
             className="font-sans text-sm font-semibold px-5 py-2.5 transition-all hover:opacity-90 active:scale-[0.98]"
-            style={{ background: "#FFFFFF", color: "#0A0A0A", borderRadius: 999 }}
+            style={{ background: "var(--ink)", color: "var(--bg)", borderRadius: 999 }}
           >
             Get started
           </a>
@@ -230,7 +230,7 @@ export default async function TrackPage({
             style={{
               inset: 0,
               background:
-                "radial-gradient(ellipse 80% 70% at 50% 100%, #5EEAD4 0%, #2DD4BF 18%, #0E4F47 38%, #08231F 58%, #070708 78%)",
+                "radial-gradient(ellipse 80% 70% at 50% 100%, var(--accent) 0%, var(--accent) 18%, #0E4F47 38%, #08231F 58%, var(--bg) 78%)",
               opacity: 0.95,
               zIndex: 0,
               transformOrigin: "50% 100%",
@@ -256,7 +256,7 @@ export default async function TrackPage({
               right: 0,
               height: "55%",
               background:
-                "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.85) 35%, transparent 100%)",
+                "linear-gradient(180deg, var(--bg) 0%, rgba(7,7,8,0.85) 35%, transparent 100%)",
               zIndex: 2,
             }}
           />
@@ -279,7 +279,7 @@ export default async function TrackPage({
 
             <p
               className="mt-7 mx-auto font-sans text-base sm:text-lg max-w-xl leading-relaxed anim-fadeUp delay-300"
-              style={{ color: "rgba(255,255,255,0.72)" }}
+              style={{ color: "var(--line)" }}
             >
               Count the days. Build the streak. Mourn it when it ends. Free hyperfixation tracker built for {categoryLabel}.
             </p>
@@ -289,11 +289,11 @@ export default async function TrackPage({
                 href={`/join?prefill=${encodeURIComponent(item.name)}`}
                 className="inline-flex items-center gap-3 font-sans text-base font-semibold px-7 py-4 transition-all duration-200 hover:opacity-95 hover:-translate-y-px hover:scale-[1.02] active:scale-[0.98]"
                 style={{
-                  background: "#FFFFFF",
-                  color: "#0A0A0A",
+                  background: "var(--ink)",
+                  color: "var(--bg)",
                   borderRadius: 999,
                   boxShadow:
-                    "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 60px rgba(94,234,212,0.25)",
+                    "0 1px 0 0 var(--ink-muted) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 60px var(--accent)",
                 }}
               >
                 Log Your First Fix
@@ -303,7 +303,7 @@ export default async function TrackPage({
               </a>
             </div>
 
-            <p className="mt-6 font-sans text-sm anim-fadeUp delay-700" style={{ color: "rgba(255,255,255,0.5)" }}>
+            <p className="mt-6 font-sans text-sm anim-fadeUp delay-700" style={{ color: "var(--ink-muted)" }}>
               free forever · no card · 30 seconds
             </p>
           </div>
@@ -333,7 +333,7 @@ export default async function TrackPage({
                     </p>
                     <p
                       className="mt-3 font-mono text-[11px] uppercase tracking-widest"
-                      style={{ color: "rgba(255,255,255,0.5)" }}
+                      style={{ color: "var(--ink-muted)" }}
                     >
                       {stat.label}
                     </p>
@@ -373,7 +373,7 @@ export default async function TrackPage({
                   <div className="relative flex flex-col h-full">
                     <div
                       className="rounded-2xl p-5 mb-4"
-                      style={{ background: "rgba(94,234,212,0.05)", border: `1px solid ${TEAL_DARK_BORDER}` }}
+                      style={{ background: "var(--accent-soft)", border: `1px solid ${TEAL_DARK_BORDER}` }}
                     >
                       <div className="flex items-baseline gap-3">
                         <span
@@ -382,24 +382,24 @@ export default async function TrackPage({
                         >
                           {item.avgDays}
                         </span>
-                        <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(94,234,212,0.6)" }}>
+                        <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--accent)" }}>
                           days
                         </span>
                       </div>
-                      <p className="font-sans text-sm mt-3" style={{ color: "rgba(255,255,255,0.75)" }}>
+                      <p className="font-sans text-sm mt-3" style={{ color: "var(--ink-muted)" }}>
                         {item.name.toLowerCase()}
                       </p>
-                      <div className="mt-3 h-1 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
+                      <div className="mt-3 h-1 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
                         <div className="h-full anim-glowPulse" style={{ width: "78%", background: TEAL, boxShadow: `0 0 8px ${TEAL}` }} />
                       </div>
-                      <p className="font-mono text-[10px] mt-2" style={{ color: "rgba(255,255,255,0.4)" }}>intensity 8/10</p>
+                      <p className="font-mono text-[10px] mt-2" style={{ color: "var(--ink-muted)" }}>intensity 8/10</p>
                     </div>
                     <div className="mt-auto">
                       <div style={{ color: TEAL }} className="mb-3">
                         <IconClock />
                       </div>
                       <h3 className="font-display text-ink" style={{ fontSize: 18, fontWeight: 600 }}>Day Counter</h3>
-                      <p className="mt-1.5 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+                      <p className="mt-1.5 font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
                         Your {item.name} era in real time. Day 1, day {item.avgDays}, day whenever it lifts.
                       </p>
                     </div>
@@ -417,7 +417,7 @@ export default async function TrackPage({
                   <div className="relative flex flex-col h-full">
                     <div
                       className="rounded-2xl p-5 mb-4"
-                      style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${CARD_BORDER}` }}
+                      style={{ background: "transparent", border: `1px solid ${CARD_BORDER}` }}
                     >
                       <div className="flex items-end gap-1.5 h-24">
                         {[3, 5, 6, 8, 7, 9, 10, 9, 8, 8, 7, 6].map((h, i) => (
@@ -426,14 +426,14 @@ export default async function TrackPage({
                             style={{
                               flex: 1,
                               height: `${h * 10}%`,
-                              background: i > 8 ? "rgba(94,234,212,0.4)" : TEAL,
+                              background: i > 8 ? "rgba(111,138,99,0.3)" : TEAL,
                               opacity: i > 8 ? 0.5 : 0.3 + i * 0.06,
                               borderRadius: 2,
                             }}
                           />
                         ))}
                       </div>
-                      <div className="flex items-center justify-between mt-3 font-mono text-[10px]" style={{ color: "rgba(255,255,255,0.4)" }}>
+                      <div className="flex items-center justify-between mt-3 font-mono text-[10px]" style={{ color: "var(--ink-muted)" }}>
                         <span>week 1</span>
                         <span style={{ color: TEAL }}>peak 10/10</span>
                         <span>now</span>
@@ -444,7 +444,7 @@ export default async function TrackPage({
                         <IconPulse />
                       </div>
                       <h3 className="font-display text-ink" style={{ fontSize: 18, fontWeight: 600 }}>Intensity Tracking</h3>
-                      <p className="mt-1.5 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+                      <p className="mt-1.5 font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
                         Log how bad it is, daily. Watch the {item.name} curve spike, plateau, fade.
                       </p>
                     </div>
@@ -487,7 +487,7 @@ export default async function TrackPage({
                         <IconShare />
                       </div>
                       <h3 className="font-display text-ink" style={{ fontSize: 18, fontWeight: 600 }}>Share Cards</h3>
-                      <p className="mt-1.5 font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+                      <p className="mt-1.5 font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
                         Every {item.name} fix renders to a card. Drop it in the chat. No explanation needed.
                       </p>
                     </div>
@@ -522,9 +522,9 @@ export default async function TrackPage({
                     href={`/track/${r.slug}`}
                     className="inline-flex items-center font-sans text-sm rounded-full px-4 py-2 transition-all hover:opacity-90 hover:-translate-y-px"
                     style={{
-                      background: "rgba(255,255,255,0.04)",
-                      border: "1px solid rgba(255,255,255,0.1)",
-                      color: "rgba(255,255,255,0.75)",
+                      background: "transparent",
+                      border: "1px solid var(--line)",
+                      color: "var(--ink-muted)",
                     }}
                   >
                     {r.name}
@@ -550,7 +550,7 @@ export default async function TrackPage({
                 The shape of a {item.name} hyperfixation.
               </h2>
             </RevealSection>
-            <div className="mt-8 space-y-6 font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>
+            <div className="mt-8 space-y-6 font-sans text-base sm:text-lg leading-relaxed" style={{ color: "var(--ink-muted)" }}>
               <p>
                 Most {item.name} fixations don&apos;t announce themselves. They start as one episode, one song, one playthrough,
                 one chapter — and then something quiet happens in your brain, and a week later you&apos;re three reddit threads
@@ -617,7 +617,7 @@ export default async function TrackPage({
                       +
                     </span>
                   </summary>
-                  <p className="mt-4 ml-9 font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  <p className="mt-4 ml-9 font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>
                     {faq.a}
                   </p>
                 </details>
@@ -634,7 +634,7 @@ export default async function TrackPage({
               className="relative overflow-hidden rounded-3xl p-10 sm:p-16 text-center"
               style={{
                 background:
-                  "radial-gradient(ellipse 80% 120% at 50% 130%, #2DD4BF 0%, #0E4F47 26%, #08231F 50%, #0F1011 80%)",
+                  "radial-gradient(ellipse 80% 120% at 50% 130%, var(--accent) 0%, #0E4F47 26%, #08231F 50%, var(--bg) 80%)",
                 border: `1px solid ${CARD_BORDER}`,
               }}
             >
@@ -646,7 +646,7 @@ export default async function TrackPage({
                 >
                   Day one of your <span style={{ color: TEAL }}>{item.name}</span> era starts now.
                 </h2>
-                <p className="mt-5 mx-auto font-sans text-base sm:text-lg max-w-xl" style={{ color: "rgba(255,255,255,0.72)" }}>
+                <p className="mt-5 mx-auto font-sans text-base sm:text-lg max-w-xl" style={{ color: "var(--line)" }}>
                   Log it before you forget what day one felt like. Free forever, no credit card, 30 seconds.
                 </p>
                 <div className="mt-8 flex justify-center">
@@ -654,11 +654,11 @@ export default async function TrackPage({
                     href={`/join?prefill=${encodeURIComponent(item.name)}`}
                     className="inline-flex items-center gap-3 font-sans text-base font-semibold px-7 py-4 transition-all duration-200 hover:opacity-95 hover:-translate-y-px hover:scale-[1.02] active:scale-[0.98]"
                     style={{
-                      background: "#FFFFFF",
-                      color: "#0A0A0A",
+                      background: "var(--ink)",
+                      color: "var(--bg)",
                       borderRadius: 999,
                       boxShadow:
-                        "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 60px rgba(94,234,212,0.25)",
+                        "0 1px 0 0 var(--ink-muted) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 60px var(--accent)",
                     }}
                   >
                     Start tracking {item.name}
@@ -672,7 +672,7 @@ export default async function TrackPage({
 
             {/* Quiet cross-link footer to other trackers */}
             <div className="mt-10 text-center">
-              <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>
+              <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "var(--ink-faint)" }}>
                 Track something else
               </p>
               <div className="flex flex-wrap justify-center gap-2">
@@ -684,9 +684,9 @@ export default async function TrackPage({
                       href={`/track/${t.slug}`}
                       className="inline-flex items-center font-mono text-xs rounded-full px-3 py-1.5 transition-all hover:opacity-80"
                       style={{
-                        background: "rgba(255,255,255,0.03)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        color: "rgba(255,255,255,0.5)",
+                        background: "transparent",
+                        border: "1px solid var(--line)",
+                        color: "var(--ink-muted)",
                       }}
                     >
                       {t.name}

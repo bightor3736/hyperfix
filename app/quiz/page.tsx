@@ -4,10 +4,10 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 
 // ---- TOKENS ---------------------------------------------------------------
-const PAGE_BG = "#070708";
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const PAGE_BG = "var(--bg)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 // ---- ARCHETYPES -----------------------------------------------------------
 type Letter = "A" | "B" | "C" | "D" | "E" | "F";
@@ -47,7 +47,7 @@ const ARCHETYPES: Record<Letter, Archetype> = {
     short: "Loop Witch",
     zinger:
       "One song. Forty-seven listens. You're not okay, but the bridge is doing something to you.",
-    color: "#5EEAD4",
+    color: "var(--accent)",
   },
   D: {
     letter: "D",
@@ -181,7 +181,7 @@ function ShareIcon({ size = 14 }: { size?: number }) {
 
 function Wordmark() {
   return (
-    <span className="font-display text-[20px] leading-none" style={{ letterSpacing: "-0.03em", color: "#F4F4F4" }}>
+    <span className="font-display text-[20px] leading-none" style={{ letterSpacing: "-0.03em", color: "var(--ink)" }}>
       hyper<span style={{ color: TEAL, fontStyle: "italic" }}>fix</span>
     </span>
   );
@@ -245,7 +245,7 @@ export default function QuizPage() {
           borderBottom: `1px solid ${CARD_BORDER}`,
         }}
       >
-        <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.65)" }}>
+        <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80" style={{ color: "var(--ink-muted)" }}>
           <ArrowLeft />
           <span className="font-sans text-sm">back to home</span>
         </Link>
@@ -256,7 +256,7 @@ export default function QuizPage() {
         <Link
           href="/join"
           className="sm:hidden font-sans text-xs font-semibold px-3 py-1.5"
-          style={{ background: "#FFFFFF", color: "#0A0A0A", borderRadius: 999 }}
+          style={{ background: "var(--ink)", color: "var(--bg)", borderRadius: 999 }}
         >
           Join
         </Link>
@@ -268,7 +268,7 @@ export default function QuizPage() {
         className="pointer-events-none absolute inset-x-0 top-0 h-[600px]"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 0%, rgba(94,234,212,0.08) 0%, rgba(94,234,212,0.02) 35%, transparent 70%)",
+            "radial-gradient(ellipse at 50% 0%, var(--accent-soft) 0%, var(--accent-soft) 35%, transparent 70%)",
         }}
       />
 
@@ -316,13 +316,13 @@ function QuizBody({
               width: i === step ? 22 : 8,
               height: 8,
               borderRadius: 999,
-              background: i <= step ? TEAL : "rgba(255,255,255,0.12)",
+              background: i <= step ? TEAL : "var(--line)",
             }}
           />
         ))}
       </div>
 
-      <div className="mb-3 font-mono text-[11px] tracking-[0.18em] uppercase" style={{ color: "rgba(255,255,255,0.45)" }}>
+      <div className="mb-3 font-mono text-[11px] tracking-[0.18em] uppercase" style={{ color: "var(--ink-muted)" }}>
         <span className="tabular-nums">
           {String(step + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </span>
@@ -361,11 +361,11 @@ function QuizBody({
             <div className="flex items-start gap-3">
               <span
                 className="font-mono text-[11px] tabular-nums mt-0.5 shrink-0"
-                style={{ color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em" }}
+                style={{ color: "var(--ink-faint)", letterSpacing: "0.08em" }}
               >
                 {String.fromCharCode(65 + i)}
               </span>
-              <span className="font-sans text-[15px] leading-snug" style={{ color: "rgba(244,244,244,0.92)" }}>
+              <span className="font-sans text-[15px] leading-snug" style={{ color: "var(--ink)" }}>
                 {opt.label}
               </span>
             </div>
@@ -378,7 +378,7 @@ function QuizBody({
           type="button"
           onClick={onBack}
           className="mt-10 flex items-center gap-2 font-sans text-sm transition-opacity hover:opacity-80"
-          style={{ color: "rgba(255,255,255,0.45)" }}
+          style={{ color: "var(--ink-muted)" }}
         >
           <ArrowLeft />
           previous question
@@ -429,7 +429,7 @@ function Results({
 
   return (
     <div className="flex flex-col items-center">
-      <div className="mb-3 font-mono text-[11px] tracking-[0.18em] uppercase" style={{ color: "rgba(255,255,255,0.45)" }}>
+      <div className="mb-3 font-mono text-[11px] tracking-[0.18em] uppercase" style={{ color: "var(--ink-muted)" }}>
         your result
       </div>
 
@@ -444,7 +444,7 @@ function Results({
         You&apos;re {archetype.name}
       </h1>
 
-      <p className="mt-5 max-w-xl text-center font-sans text-[16px] sm:text-[17px] leading-relaxed" style={{ color: "rgba(244,244,244,0.7)" }}>
+      <p className="mt-5 max-w-xl text-center font-sans text-[16px] sm:text-[17px] leading-relaxed" style={{ color: "var(--ink-muted)" }}>
         {archetype.zinger}
       </p>
 
@@ -530,7 +530,7 @@ function Results({
           type="button"
           onClick={saveAsImage}
           className="flex-1 flex items-center justify-center gap-2 px-5 py-3 font-sans text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.98]"
-          style={{ background: TEAL, color: "#0A0A0A", borderRadius: 999 }}
+          style={{ background: TEAL, color: "var(--bg)", borderRadius: 999 }}
         >
           <DownloadIcon />
           Save as image
@@ -541,7 +541,7 @@ function Results({
           className="flex-1 flex items-center justify-center gap-2 px-5 py-3 font-sans text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.98]"
           style={{
             background: "transparent",
-            color: "#F4F4F4",
+            color: "var(--ink)",
             border: `1px solid ${CARD_BORDER}`,
             borderRadius: 999,
           }}
@@ -555,7 +555,7 @@ function Results({
         type="button"
         onClick={onReset}
         className="mt-6 font-sans text-sm transition-opacity hover:opacity-80"
-        style={{ color: "rgba(255,255,255,0.5)" }}
+        style={{ color: "var(--ink-muted)" }}
       >
         take it again
       </button>

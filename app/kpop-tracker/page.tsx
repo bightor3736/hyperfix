@@ -21,9 +21,9 @@ export const metadata: Metadata = {
   },
 };
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 const faqs = [
   {
@@ -100,7 +100,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <span
       className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6"
-      style={{ background: "rgba(94,234,212,0.08)", color: TEAL, border: "1px solid rgba(94,234,212,0.20)" }}
+      style={{ background: "var(--accent-soft)", color: TEAL, border: "1px solid var(--accent)" }}
     >
       {children}
     </span>
@@ -109,7 +109,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 
 function SectionHeadline({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.02em", fontWeight: 600 }}>
+    <h2 className="font-display" style={{ color: "var(--ink)", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.02em", fontWeight: 600 }}>
       {children}
     </h2>
   );
@@ -130,19 +130,19 @@ export default function KPopTrackerPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <Nav />
-      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "#070708" }}>
+      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "var(--bg)" }}>
         <main id="main-content" className="max-w-5xl mx-auto flex flex-col gap-6">
           {/* HERO */}
           <section className="px-2 sm:px-6 pt-12 pb-10 anim-fadeUp">
             <Eyebrow>k-pop hyperfixation tracker</Eyebrow>
-            <h1 className="font-display anim-fadeUp delay-100" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 7vw, 64px)", lineHeight: 1.02, letterSpacing: "-0.03em", fontWeight: 600 }}>
+            <h1 className="font-display anim-fadeUp delay-100" style={{ color: "var(--ink)", fontSize: "clamp(36px, 7vw, 64px)", lineHeight: 1.02, letterSpacing: "-0.03em", fontWeight: 600 }}>
               The era. The bias.{" "}
               <span style={{ color: TEAL }}>The comeback spiral.</span>
             </h1>
-            <p className="mt-6 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
+            <p className="mt-6 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-200" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
               K-pop hyperfixation has a specific shape. The bias era that rewires your brain. The comeback you prestreamed at midnight. The album you&apos;ve listened to so many times you can&apos;t hear what other people hear when they play it for the first time. The deep-dive into discography that started as casual listening and ended with you having opinions about b-sides from 2019.
             </p>
-            <p className="mt-4 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
+            <p className="mt-4 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-300" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
               Hyperfix tracks all of it. The era, the days, the intensity. When a new comeback kicks off a new spiral, log it. When the bias wrecker overtakes your main bias — log that too. When it finally fades, the eulogy captures the whole run: how many days, peak intensity, the note you wrote at 3 a.m. after the fancam.
             </p>
             <div className="mt-8 anim-fadeUp delay-300 max-w-md"><WaitlistForm id="waitlist" variant="light" /></div>
@@ -153,10 +153,10 @@ export default function KPopTrackerPage() {
               <Eyebrow>the k-pop era</Eyebrow>
               <SectionHeadline>A bias era is a hyperfixation. Treat it like one.</SectionHeadline>
               <div className="grid md:grid-cols-2 gap-8 mt-8">
-                <p className="font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                <p className="font-sans text-base sm:text-lg leading-relaxed" style={{ color: "var(--line)" }}>
                   A K-pop hyperfixation isn&apos;t &quot;being a fan.&quot; Fans listen to the music. A hyperfixation is when you&apos;ve memorized every member&apos;s birthday, you have opinions about the choreography direction decisions, you&apos;re watching 4-year-old fancams at 2 a.m., and your Spotify Wrapped has one group in the top five spots with stream counts that concern your friends.
                 </p>
-                <p className="font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                <p className="font-sans text-base sm:text-lg leading-relaxed" style={{ color: "var(--line)" }}>
                   The bias wrecker spiral is its own phenomenon. You were solid. You had a main bias. And then one comeback happened and now your top three has completely reshuffled and you&apos;re not okay. Hyperfix gives every era its own counter — so when the wrecker becomes the bias and the bias becomes a wrecker, you have the receipts.
                 </p>
               </div>
@@ -176,8 +176,8 @@ export default function KPopTrackerPage() {
                   ].map((s) => (
                     <div key={s.n}>
                       <span className="font-sans text-xs mb-2 block" style={{ color: TEAL }}>step {s.n}</span>
-                      <h3 className="font-display mb-2" style={{ color: "#FFFFFF", fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em" }}>{s.h}</h3>
-                      <p className="font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{s.p}</p>
+                      <h3 className="font-display mb-2" style={{ color: "var(--ink)", fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em" }}>{s.h}</h3>
+                      <p className="font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>{s.p}</p>
                     </div>
                   ))}
                 </div>
@@ -198,14 +198,14 @@ export default function KPopTrackerPage() {
               <SectionHeadline>Not Twitter. Not your head.</SectionHeadline>
               <div className="grid md:grid-cols-2 gap-10 mt-10">
                 <div>
-                  <h3 className="font-display mb-4" style={{ color: "#FFFFFF", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>Hyperfix vs. Twitter / X</h3>
-                  <p className="font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  <h3 className="font-display mb-4" style={{ color: "var(--ink)", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>Hyperfix vs. Twitter / X</h3>
+                  <p className="font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>
                     Twitter is where K-pop happens — drops, comebacks, fancam wars. Hyperfix is where you record what it does to you. Twitter doesn&apos;t have a day counter for how long you&apos;ve been in a specific bias era. It doesn&apos;t write a eulogy when the era finally lifts. You need both: Twitter for the community, Hyperfix for the record.
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-display mb-4" style={{ color: "#FFFFFF", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>Hyperfix vs. keeping count in your head</h3>
-                  <p className="font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  <h3 className="font-display mb-4" style={{ color: "var(--ink)", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>Hyperfix vs. keeping count in your head</h3>
+                  <p className="font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>
                     Most K-pop fans track their eras mentally — &quot;I&apos;ve been in this era for like two months I think?&quot; The problem with mental tracking is that two months feels different at the start and the end. Day 67 of a bias era is not the same as day 12. The counter makes it real. Looking at the number does something. It gives the era a weight your memory can&apos;t.
                   </p>
                 </div>
@@ -219,15 +219,15 @@ export default function KPopTrackerPage() {
               <SectionHeadline>Everything you wanted to ask.</SectionHeadline>
               <div className="mt-8">
                 {faqs.map((faq, i) => (
-                  <details key={i} className="group py-5 [&_summary::-webkit-details-marker]:hidden" style={{ borderTop: i === 0 ? `1px solid rgba(255,255,255,0.06)` : undefined, borderBottom: `1px solid rgba(255,255,255,0.06)` }}>
+                  <details key={i} className="group py-5 [&_summary::-webkit-details-marker]:hidden" style={{ borderTop: i === 0 ? `1px solid var(--line)` : undefined, borderBottom: `1px solid var(--line)` }}>
                     <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
-                      <h3 className="font-display" style={{ color: "#FFFFFF", fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.3 }}>
+                      <h3 className="font-display" style={{ color: "var(--ink)", fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.3 }}>
                         <span className="mr-3 tabular-nums" style={{ color: TEAL, fontSize: 13 }}>{String(i + 1).padStart(2, "0")}</span>
                         {faq.q}
                       </h3>
                       <span aria-hidden="true" className="text-xl group-open:rotate-45 transition-transform shrink-0" style={{ color: TEAL }}>+</span>
                     </summary>
-                    <p className="mt-4 ml-9 font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>{faq.a}</p>
+                    <p className="mt-4 ml-9 font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>{faq.a}</p>
                   </details>
                 ))}
               </div>
@@ -237,11 +237,11 @@ export default function KPopTrackerPage() {
           <RevealSection>
             <div className="rounded-3xl p-8 sm:p-14 text-center" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
               <Eyebrow>join the waitlist</Eyebrow>
-              <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(30px, 5vw, 48px)", letterSpacing: "-0.03em", fontWeight: 600, lineHeight: 1.05 }}>
+              <h2 className="font-display" style={{ color: "var(--ink)", fontSize: "clamp(30px, 5vw, 48px)", letterSpacing: "-0.03em", fontWeight: 600, lineHeight: 1.05 }}>
                 The era started.{" "}
                 <span style={{ color: TEAL }}>Log it before you forget day one.</span>
               </h2>
-              <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
+              <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
                 The waitlist gets first access in waves. Early users get a permanent Pro discount and the most embarrassing usernames before they&apos;re gone.
               </p>
               <div className="mt-7 max-w-md mx-auto"><WaitlistForm variant="dark" /></div>

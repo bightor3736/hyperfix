@@ -5,7 +5,7 @@ export const runtime = "edge";
 
 const SIZE = { width: 1080, height: 1350 };
 
-const PAPER = "#080808";
+const PAPER = "var(--bg)";
 const PAPER_DEEP = "#111113";
 const INK = "#F4F4F4";
 const INK_SOFT = "#9A9A9A";

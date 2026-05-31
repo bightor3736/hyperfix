@@ -99,9 +99,9 @@ const STATUS_FILTERS = ["All", "Day 1", "Obsessing", "On loop", "Fading", "Post-
 const CATEGORY_FILTERS = ["All", "Song", "Fanfic", "Show", "Film", "Ship", "Game", "Book", "Other"] as const;
 type SortOrder = "newest" | "longest" | "intense" | "unchecked";
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
@@ -166,10 +166,10 @@ function FixGridCard({
       className="relative rounded-3xl flex flex-col anim-fadeUp transition-all duration-200 hover:-translate-y-0.5 group/card"
       style={{
         background: CARD_BG,
-        border: `1px solid ${checkedInToday ? "rgba(94,234,212,0.22)" : CARD_BORDER}`,
+        border: `1px solid ${checkedInToday ? "var(--accent)" : CARD_BORDER}`,
         animationDelay: delay,
         overflow: "hidden",
-        boxShadow: checkedInToday ? "0 0 0 1px rgba(94,234,212,0.08), 0 8px 32px rgba(94,234,212,0.06)" : undefined,
+        boxShadow: checkedInToday ? "0 0 0 1px var(--accent-soft), 0 8px 32px var(--accent-soft)" : undefined,
       }}
     >
       <Link href={`/dashboard/fix/${fix.id}`} className="block">
@@ -199,7 +199,7 @@ function FixGridCard({
               style={{
                 fontSize: 28,
                 fontWeight: 700,
-                color: "#F4F4F4",
+                color: "var(--ink)",
                 lineHeight: 1,
                 letterSpacing: "-0.04em",
                 textShadow: "0 2px 12px rgba(0,0,0,0.6)",
@@ -211,7 +211,7 @@ function FixGridCard({
               className="font-mono uppercase tracking-widest"
               style={{
                 fontSize: 9,
-                color: "rgba(244,244,244,0.7)",
+                color: "var(--ink-muted)",
                 textShadow: "0 1px 6px rgba(0,0,0,0.6)",
               }}
             >
@@ -238,8 +238,8 @@ function FixGridCard({
               className="absolute top-3 right-3 w-5 h-5 rounded-full flex items-center justify-center"
               style={{
                 background: TEAL,
-                color: "#070708",
-                boxShadow: "0 0 12px rgba(94,234,212,0.6)",
+                color: "var(--bg)",
+                boxShadow: "0 0 12px var(--accent)",
               }}
               title="Checked in today"
             >
@@ -269,9 +269,9 @@ function FixGridCard({
               <span
                 className="inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-widest rounded-full px-2 py-0.5"
                 style={{
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  color: "rgba(255,255,255,0.35)",
+                  background: "transparent",
+                  border: "1px solid var(--line)",
+                  color: "var(--ink-faint)",
                 }}
                 title="Public — visible to anyone"
               >
@@ -294,7 +294,7 @@ function FixGridCard({
 
           {/* Title — serif */}
           <h3
-            className="font-display text-ink mb-4 transition-colors group-hover:text-[#5EEAD4]"
+            className="font-display text-ink mb-4 transition-colors group-hover:text-[var(--accent)]"
             style={{
               fontSize: 19,
               fontWeight: 600,
@@ -314,7 +314,7 @@ function FixGridCard({
             <span
               className="font-display leading-none tabular-nums"
               style={{
-                color: justCheckedIn ? color : "#F4F4F4",
+                color: justCheckedIn ? color : "var(--ink)",
                 fontSize: 48,
                 fontWeight: 600,
                 letterSpacing: "-0.04em",
@@ -324,7 +324,7 @@ function FixGridCard({
             >
               <CountUp to={days} duration={900} />
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>
+            <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-muted)" }}>
               day{days !== 1 ? "s" : ""}
             </span>
           </div>
@@ -332,7 +332,7 @@ function FixGridCard({
           {/* Intensity bar */}
           <div
             className="h-1 rounded-full overflow-hidden"
-            style={{ background: "rgba(255,255,255,0.05)" }}
+            style={{ background: "var(--line)" }}
           >
             <div
               className="h-full rounded-full"
@@ -349,13 +349,13 @@ function FixGridCard({
       {/* Check-in row */}
       <div
         className="relative flex items-center justify-between gap-2 px-5 py-4"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        style={{ borderTop: "1px solid var(--line)" }}
       >
         {checkedInToday || justCheckedIn ? (
           <span
             className="inline-flex items-center gap-1.5 font-sans text-xs"
             style={{
-              color: justCheckedIn ? color : "rgba(94,234,212,0.7)",
+              color: justCheckedIn ? color : "var(--accent)",
               transition: "color 0.3s ease",
             }}
           >
@@ -368,8 +368,8 @@ function FixGridCard({
               e.preventDefault();
               handleCheckIn(fix.id);
             }}
-            className="inline-flex items-center gap-1.5 font-sans text-xs transition-colors hover:text-[#5EEAD4] active:scale-95"
-            style={{ color: "rgba(255,255,255,0.45)" }}
+            className="inline-flex items-center gap-1.5 font-sans text-xs transition-colors hover:text-[var(--accent)] active:scale-95"
+            style={{ color: "var(--ink-muted)" }}
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 5v14M5 12h14" />
@@ -384,9 +384,9 @@ function FixGridCard({
             onClick={(e) => e.stopPropagation()}
             className="inline-flex items-center gap-1 font-sans text-xs rounded-full px-2.5 py-1 transition-all hover:opacity-90 active:scale-95"
             style={{
-              background: "rgba(94,234,212,0.07)",
-              border: "1px solid rgba(94,234,212,0.20)",
-              color: "#5EEAD4",
+              background: "var(--accent-soft)",
+              border: "1px solid var(--accent)",
+              color: "var(--accent)",
             }}
           >
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -412,13 +412,13 @@ function PillButton({ label, active, onClick }: { label: string; active: boolean
               background: TEAL,
               color: "#0A1F1C",
               border: "1px solid transparent",
-              boxShadow: "0 4px 16px rgba(94,234,212,0.30)",
+              boxShadow: "0 4px 16px rgba(111,138,99,0.2)",
               fontWeight: 600,
             }
           : {
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              color: "rgba(255,255,255,0.55)",
+              background: "transparent",
+              border: "1px solid var(--line)",
+              color: "var(--ink-muted)",
             }
       }
     >
@@ -514,7 +514,7 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
         <div className="relative w-full sm:w-[260px] shrink-0">
           <div
             className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"
-            style={{ color: "rgba(255,255,255,0.4)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             <Search set="light" size={16} primaryColor="currentColor" />
           </div>
@@ -523,11 +523,11 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search your fixes…"
-            className="w-full rounded-full pl-10 pr-4 py-2.5 font-sans text-sm outline-none transition-all focus:ring-2 focus:ring-[#5EEAD4]/35 placeholder:text-[rgba(255,255,255,0.3)]"
+            className="w-full rounded-full pl-10 pr-4 py-2.5 font-sans text-sm outline-none transition-all focus:ring-2 focus:ring-[var(--accent)]/35 placeholder:text-[var(--ink-faint)]"
             style={{
               background: CARD_BG,
-              border: "1px solid rgba(255,255,255,0.14)",
-              color: "#F4F4F4",
+              border: "1px solid var(--line)",
+              color: "var(--ink)",
             }}
           />
         </div>
@@ -547,10 +547,10 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
             disabled={bulkPending}
             className="shrink-0 px-4 py-2 rounded-full font-sans text-xs font-semibold transition-all hover:-translate-y-px active:scale-95 disabled:opacity-50 whitespace-nowrap"
             style={{
-              background: "rgba(94,234,212,0.12)",
-              border: "1px solid rgba(94,234,212,0.40)",
+              background: "var(--accent-soft)",
+              border: "1px solid rgba(111,138,99,0.3)",
               color: TEAL,
-              boxShadow: "0 0 20px rgba(94,234,212,0.18)",
+              boxShadow: "0 0 20px var(--accent-soft)",
             }}
           >
             {bulkPending ? "Checking in…" : `Check in all (${uncheckedCount})`}
@@ -587,7 +587,7 @@ export function DashboardFilters({ fixes, checkedInIds = [] }: { fixes: Fix[]; c
         </div>
       ) : (
         <div className="py-16 text-center anim-fadeUp">
-          <p className="font-display" style={{ color: "rgba(255,255,255,0.55)", fontSize: 22, fontWeight: 600 }}>
+          <p className="font-display" style={{ color: "var(--ink-muted)", fontSize: 22, fontWeight: 600 }}>
             No fixes match.
           </p>
         </div>

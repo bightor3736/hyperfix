@@ -17,9 +17,9 @@ export const metadata: Metadata = {
   },
 };
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 const PAIN_POINTS = [
   {
@@ -118,12 +118,12 @@ export default async function ADHDPage() {
   const fixCount = (countData as unknown as { count: number } | null)?.count ?? 0;
 
   return (
-    <div className="min-h-screen" style={{ background: "#070708", color: "#F4F4F4" }}>
+    <div className="min-h-screen" style={{ background: "var(--bg)", color: "var(--ink)" }}>
       {/* Nav */}
       <nav className="sticky top-0 z-40 flex items-center justify-between px-5 sm:px-8 py-4 border-b" style={{ background: "rgba(7,7,8,0.85)", backdropFilter: "blur(12px)", borderColor: CARD_BORDER }}>
         <Link href="/" className="font-mono font-bold text-lg tracking-tight">
           <span style={{ color: TEAL }}>hyper</span>
-          <span style={{ color: "#F4F4F4" }}>fix</span>
+          <span style={{ color: "var(--ink)" }}>fix</span>
         </Link>
         <Link
           href="/auth/signup"
@@ -138,7 +138,7 @@ export default async function ADHDPage() {
       <section className="px-5 sm:px-8 pt-20 pb-16 max-w-3xl mx-auto text-center">
         <div
           className="inline-flex items-center gap-2 font-mono text-xs rounded-full px-3 py-1.5 mb-8"
-          style={{ background: "rgba(94,234,212,0.08)", border: "1px solid rgba(94,234,212,0.2)", color: TEAL }}
+          style={{ background: "var(--accent-soft)", border: "1px solid var(--accent)", color: TEAL }}
         >
           built for adhd brains
         </div>
@@ -151,7 +151,7 @@ export default async function ADHDPage() {
           <span style={{ color: TEAL }}>that&apos;s not a flaw.</span>
         </h1>
 
-        <p className="font-sans text-lg sm:text-xl mb-10 max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
+        <p className="font-sans text-lg sm:text-xl mb-10 max-w-xl mx-auto" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
           hyperfix tracks your hyperfixations, archives the ones that fade, and shows you your actual pattern over time. no streaks. no shame. no system to maintain.
         </p>
 
@@ -159,21 +159,21 @@ export default async function ADHDPage() {
           <Link
             href="/auth/signup"
             className="font-sans font-semibold px-8 py-3.5 rounded-full text-base transition-all hover:opacity-90 active:scale-95"
-            style={{ background: TEAL, color: "#0A1F1C", boxShadow: "0 0 32px rgba(94,234,212,0.25)" }}
+            style={{ background: TEAL, color: "#0A1F1C", boxShadow: "0 0 32px var(--accent)" }}
           >
             Start tracking — it&apos;s free
           </Link>
           <Link
             href="/explore"
             className="font-sans font-semibold px-8 py-3.5 rounded-full text-base transition-all hover:opacity-80"
-            style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, color: "rgba(255,255,255,0.7)" }}
+            style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}`, color: "var(--ink-muted)" }}
           >
             See what others track
           </Link>
         </div>
 
         {fixCount > 100 && (
-          <p className="mt-6 font-mono text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
+          <p className="mt-6 font-mono text-xs" style={{ color: "var(--ink-faint)" }}>
             {fixCount.toLocaleString()}+ fixations tracked so far
           </p>
         )}
@@ -181,7 +181,7 @@ export default async function ADHDPage() {
 
       {/* The cycle */}
       <section className="px-5 sm:px-8 py-16 max-w-3xl mx-auto">
-        <p className="font-mono text-xs uppercase tracking-widest mb-8 text-center" style={{ color: "rgba(255,255,255,0.3)" }}>
+        <p className="font-mono text-xs uppercase tracking-widest mb-8 text-center" style={{ color: "var(--ink-faint)" }}>
           the cycle you know too well
         </p>
         <div className="flex flex-col gap-4">
@@ -196,8 +196,8 @@ export default async function ADHDPage() {
                 style={{
                   width: 44,
                   height: 44,
-                  background: "rgba(94,234,212,0.06)",
-                  border: "1px solid rgba(94,234,212,0.18)",
+                  background: "var(--accent-soft)",
+                  border: "1px solid var(--accent-soft)",
                   color: TEAL,
                 }}
               >
@@ -205,7 +205,7 @@ export default async function ADHDPage() {
               </div>
               <div>
                 <p className="font-display font-semibold text-lg mb-1" style={{ letterSpacing: "-0.01em" }}>{p.title}</p>
-                <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>{p.sub}</p>
+                <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>{p.sub}</p>
               </div>
             </div>
           ))}
@@ -220,7 +220,7 @@ export default async function ADHDPage() {
 
       {/* Features */}
       <section className="px-5 sm:px-8 py-16 max-w-3xl mx-auto">
-        <p className="font-mono text-xs uppercase tracking-widest mb-8 text-center" style={{ color: "rgba(255,255,255,0.3)" }}>
+        <p className="font-mono text-xs uppercase tracking-widest mb-8 text-center" style={{ color: "var(--ink-faint)" }}>
           what&apos;s different
         </p>
         <div className="grid sm:grid-cols-2 gap-4">
@@ -235,15 +235,15 @@ export default async function ADHDPage() {
                 style={{
                   width: 40,
                   height: 40,
-                  background: "rgba(94,234,212,0.06)",
-                  border: "1px solid rgba(94,234,212,0.18)",
+                  background: "var(--accent-soft)",
+                  border: "1px solid var(--accent-soft)",
                   color: TEAL,
                 }}
               >
                 <f.Icon size={18} />
               </div>
               <p className="font-display font-semibold text-base mb-2" style={{ letterSpacing: "-0.01em" }}>{f.title}</p>
-              <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>{f.desc}</p>
+              <p className="font-sans text-sm" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>{f.desc}</p>
             </div>
           ))}
         </div>
@@ -251,7 +251,7 @@ export default async function ADHDPage() {
 
       {/* Real quotes from community */}
       <section className="px-5 sm:px-8 py-16 max-w-3xl mx-auto">
-        <p className="font-mono text-xs uppercase tracking-widest mb-8 text-center" style={{ color: "rgba(255,255,255,0.3)" }}>
+        <p className="font-mono text-xs uppercase tracking-widest mb-8 text-center" style={{ color: "var(--ink-faint)" }}>
           what the adhd community actually asked for
         </p>
         <div className="flex flex-col gap-4">
@@ -259,12 +259,12 @@ export default async function ADHDPage() {
             <div
               key={i}
               className="rounded-3xl p-6"
-              style={{ background: "rgba(94,234,212,0.03)", border: "1px solid rgba(94,234,212,0.12)" }}
+              style={{ background: "var(--accent-soft)", border: "1px solid var(--accent-soft)" }}
             >
-              <p className="font-display text-base sm:text-lg mb-3" style={{ color: "rgba(255,255,255,0.85)", lineHeight: 1.5, letterSpacing: "-0.01em" }}>
+              <p className="font-display text-base sm:text-lg mb-3" style={{ color: "var(--ink)", lineHeight: 1.5, letterSpacing: "-0.01em" }}>
                 {q.text}
               </p>
-              <p className="font-mono text-xs" style={{ color: "rgba(94,234,212,0.5)" }}>{q.source}</p>
+              <p className="font-mono text-xs" style={{ color: "var(--accent)" }}>{q.source}</p>
             </div>
           ))}
         </div>
@@ -272,7 +272,7 @@ export default async function ADHDPage() {
 
       {/* FAQ */}
       <section className="px-5 sm:px-8 py-16 max-w-3xl mx-auto">
-        <p className="font-mono text-xs uppercase tracking-widest mb-8 text-center" style={{ color: "rgba(255,255,255,0.3)" }}>
+        <p className="font-mono text-xs uppercase tracking-widest mb-8 text-center" style={{ color: "var(--ink-faint)" }}>
           questions
         </p>
         <div className="flex flex-col gap-4">
@@ -283,7 +283,7 @@ export default async function ADHDPage() {
               style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
             >
               <p className="font-display font-semibold text-base mb-3" style={{ letterSpacing: "-0.01em" }}>{item.q}</p>
-              <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.7 }}>{item.a}</p>
+              <p className="font-sans text-sm" style={{ color: "var(--ink-muted)", lineHeight: 1.7 }}>{item.a}</p>
             </div>
           ))}
         </div>
@@ -299,13 +299,13 @@ export default async function ADHDPage() {
           <br />
           <span style={{ color: TEAL }}>it&apos;s yours.</span>
         </h2>
-        <p className="font-sans mb-8" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
+        <p className="font-sans mb-8" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
           start logging today. when it fades, it goes to the graveyard — not the trash. come back whenever.
         </p>
         <Link
           href="/auth/signup"
           className="inline-flex font-sans font-semibold px-10 py-4 rounded-full text-base transition-all hover:opacity-90 active:scale-95"
-          style={{ background: TEAL, color: "#0A1F1C", boxShadow: "0 0 40px rgba(94,234,212,0.3)" }}
+          style={{ background: TEAL, color: "#0A1F1C", boxShadow: "0 0 40px var(--accent-soft)" }}
         >
           Start free — no streak required
         </Link>
@@ -313,12 +313,12 @@ export default async function ADHDPage() {
 
       {/* Footer */}
       <footer className="px-5 sm:px-8 py-8 text-center border-t" style={{ borderColor: CARD_BORDER }}>
-        <p className="font-mono text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>
-          <Link href="/" className="hover:text-[#5EEAD4] transition-colors">hyperfix.app</Link>
+        <p className="font-mono text-xs" style={{ color: "var(--ink-faint)" }}>
+          <Link href="/" className="hover:text-[var(--accent)] transition-colors">hyperfix.app</Link>
           {" · "}
-          <Link href="/explore" className="hover:text-[#5EEAD4] transition-colors">explore</Link>
+          <Link href="/explore" className="hover:text-[var(--accent)] transition-colors">explore</Link>
           {" · "}
-          <Link href="/blog" className="hover:text-[#5EEAD4] transition-colors">blog</Link>
+          <Link href="/blog" className="hover:text-[var(--accent)] transition-colors">blog</Link>
         </p>
       </footer>
     </div>

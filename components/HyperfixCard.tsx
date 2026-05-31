@@ -38,12 +38,12 @@ function Sparkline({ intensity }: { intensity: number }) {
     <svg width="100%" height={h} viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none">
       <defs>
         <linearGradient id="spark-fill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#5EEAD4" stopOpacity="0.2" />
-          <stop offset="100%" stopColor="#5EEAD4" stopOpacity="0" />
+          <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
         </linearGradient>
       </defs>
       <path d={`${d} L${w},${h} L0,${h} Z`} fill="url(#spark-fill)" />
-      <path d={d} fill="none" stroke="#5EEAD4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d={d} fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -66,27 +66,27 @@ export default function HyperfixCard({
     <div
       className={`${tilt} group relative max-w-sm w-full`}
       style={{
-        background: "#111113",
-        border: "1px solid rgba(244,244,244,0.08)",
+        background: "var(--bg)",
+        border: "1px solid var(--line)",
         borderRadius: 24,
         padding: 20,
         fontFamily: "'Helvetica Neue', system-ui, sans-serif",
-        boxShadow: "0 0 0 1px rgba(244,244,244,0.04), 0 8px 32px rgba(0,0,0,0.6)",
+        boxShadow: "0 0 0 1px transparent, 0 8px 32px rgba(0,0,0,0.6)",
       }}
     >
       {/* ── HEADER ── */}
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
         <div>
-          <div style={{ color: "rgba(244,244,244,0.9)", fontSize: 15, fontWeight: 700, lineHeight: 1.2 }}>
+          <div style={{ color: "var(--ink)", fontSize: 15, fontWeight: 700, lineHeight: 1.2 }}>
             {title}
           </div>
-          <div style={{ color: "rgba(244,244,244,0.4)", fontSize: 11, marginTop: 3, letterSpacing: "0.04em" }}>
+          <div style={{ color: "var(--ink-muted)", fontSize: 11, marginTop: 3, letterSpacing: "0.04em" }}>
             {type}
           </div>
         </div>
         <span style={{
-          background: "#5EEAD4",
-          color: "#0A0A0A",
+          background: "var(--accent)",
+          color: "var(--bg)",
           borderRadius: 999,
           padding: "3px 10px",
           fontSize: 11,
@@ -102,7 +102,7 @@ export default function HyperfixCard({
       {/* ── DAY COUNTER ── */}
       <div style={{ marginTop: 10, display: "flex", alignItems: "flex-end", gap: 6 }}>
         <span style={{
-          color: "#F4F4F4",
+          color: "var(--ink)",
           fontSize: 80,
           fontWeight: 900,
           lineHeight: 1,
@@ -112,10 +112,10 @@ export default function HyperfixCard({
           <CountUp to={day} duration={1200} />
         </span>
         <div style={{ paddingBottom: 10, display: "flex", flexDirection: "column", gap: 2 }}>
-          <span style={{ color: "rgba(244,244,244,0.35)", fontSize: 13, fontWeight: 600 }}>days</span>
+          <span style={{ color: "var(--ink-faint)", fontSize: 13, fontWeight: 600 }}>days</span>
           <span style={{
-            background: intensity >= 8 ? "#E63946" : intensity >= 6 ? "#FB923C" : "#5EEAD4",
-            color: "#0A0A0A",
+            background: intensity >= 8 ? "#E63946" : intensity >= 6 ? "#FB923C" : "var(--accent)",
+            color: "var(--bg)",
             borderRadius: 999,
             padding: "2px 8px",
             fontSize: 10,
@@ -130,15 +130,15 @@ export default function HyperfixCard({
       {/* ── INTENSITY BAR ── */}
       <div style={{ marginTop: 12 }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-          <span style={{ color: "rgba(244,244,244,0.35)", fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase" }}>
+          <span style={{ color: "var(--ink-faint)", fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase" }}>
             Intensity
           </span>
-          <span style={{ color: "#5EEAD4", fontSize: 10, fontWeight: 700 }}>
+          <span style={{ color: "var(--accent)", fontSize: 10, fontWeight: 700 }}>
             {intensity}/10
           </span>
         </div>
         <div style={{
-          background: "#5EEAD4",
+          background: "var(--accent)",
           borderRadius: 999,
           height: 32,
           position: "relative",
@@ -164,7 +164,7 @@ export default function HyperfixCard({
             width: 20,
             height: 20,
             borderRadius: 999,
-            background: "#fff",
+            background: "var(--ink)",
             boxShadow: "0 2px 6px rgba(0,0,0,0.35)",
           }} />
         </div>
@@ -178,9 +178,9 @@ export default function HyperfixCard({
       {/* ── NOTE ── */}
       <div style={{
         marginTop: 10,
-        borderLeft: "2px solid rgba(94,234,212,0.4)",
+        borderLeft: "2px solid rgba(111,138,99,0.3)",
         paddingLeft: 10,
-        color: "rgba(244,244,244,0.55)",
+        color: "var(--ink-muted)",
         fontSize: 13,
         fontStyle: "italic",
         lineHeight: 1.4,
@@ -192,19 +192,19 @@ export default function HyperfixCard({
       <div style={{
         marginTop: 14,
         paddingTop: 12,
-        borderTop: "1px solid rgba(244,244,244,0.07)",
+        borderTop: "1px solid var(--line)",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
       }}>
         <div>
-          <div style={{ color: "rgba(244,244,244,0.9)", fontSize: 12, fontWeight: 600 }}>{started}</div>
-          <div style={{ color: "rgba(244,244,244,0.35)", fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", marginTop: 2 }}>started</div>
+          <div style={{ color: "var(--ink)", fontSize: 12, fontWeight: 600 }}>{started}</div>
+          <div style={{ color: "var(--ink-faint)", fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", marginTop: 2 }}>started</div>
         </div>
         <div style={{ textAlign: "right" }}>
-          <div style={{ color: "rgba(244,244,244,0.5)", fontSize: 11, letterSpacing: "0.08em" }}>{user}</div>
+          <div style={{ color: "var(--ink-muted)", fontSize: 11, letterSpacing: "0.08em" }}>{user}</div>
           <div style={{
-            color: "#5EEAD4",
+            color: "var(--accent)",
             fontSize: 11,
             fontWeight: 700,
             marginTop: 2,

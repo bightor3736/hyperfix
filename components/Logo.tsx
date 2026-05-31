@@ -32,8 +32,8 @@ export function LogoMark({
           <stop offset="100%" stopColor="#0A0B0D" />
         </linearGradient>
         <linearGradient id="hf-fill" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#5EEAD4" />
-          <stop offset="100%" stopColor="#2DD4BF" />
+          <stop offset="0%" stopColor="var(--accent)" />
+          <stop offset="100%" stopColor="var(--accent)" />
         </linearGradient>
       </defs>
 
@@ -46,7 +46,7 @@ export function LogoMark({
         height="63"
         rx="14.5"
         fill="none"
-        stroke="rgba(255,255,255,0.06)"
+        stroke="var(--line)"
       />
 
       {/* Optional outer glow ring */}
@@ -56,7 +56,7 @@ export function LogoMark({
           height="64"
           rx="15"
           fill="none"
-          stroke="#5EEAD4"
+          stroke="var(--accent)"
           strokeWidth="1.5"
           strokeOpacity="0.45"
         />
@@ -66,7 +66,7 @@ export function LogoMark({
       <path d="M58,32 L50,14 L32,32 Z" fill="#3CCFBA" />
       <path d="M32,58 L14,50 L32,32 Z" fill="#3CCFBA" />
       <path d="M6,32 L14,14 L32,32 Z" fill="#3CCFBA" />
-      <path d="M32,6 L50,14 L32,32 Z" fill="#5EEAD4" />
+      <path d="M32,6 L50,14 L32,32 Z" fill="var(--accent)" />
 
       {/* Shadow facets */}
       <path d="M58,32 L50,50 L32,32 Z" fill="#0D9488" />
@@ -75,20 +75,20 @@ export function LogoMark({
       <path d="M14,14 L32,6 L32,32 Z" fill="#0A7A70" />
 
       {/* Outer octagon stroke */}
-      <path d="M58,32 L50,50 L32,58 L14,50 L6,32 L14,14 L32,6 L50,14 Z" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+      <path d="M58,32 L50,50 L32,58 L14,50 L6,32 L14,14 L32,6 L50,14 Z" fill="none" stroke="var(--line-strong)" strokeWidth="1" />
 
       {/* Inner table */}
-      <path d="M43,32 L39,39 L32,43 L25,39 L21,32 L25,25 L32,21 L39,25 Z" fill="rgba(255,255,255,0.18)" />
+      <path d="M43,32 L39,39 L32,43 L25,39 L21,32 L25,25 L32,21 L39,25 Z" fill="var(--line)" />
 
       {/* Facet lines outer → inner */}
-      <line x1="58" y1="32" x2="43" y2="32" stroke="rgba(255,255,255,0.12)" strokeWidth="0.8" />
-      <line x1="50" y1="50" x2="39" y2="39" stroke="rgba(255,255,255,0.12)" strokeWidth="0.8" />
-      <line x1="32" y1="58" x2="32" y2="43" stroke="rgba(255,255,255,0.12)" strokeWidth="0.8" />
-      <line x1="14" y1="50" x2="25" y2="39" stroke="rgba(255,255,255,0.12)" strokeWidth="0.8" />
-      <line x1="6" y1="32" x2="21" y2="32" stroke="rgba(255,255,255,0.12)" strokeWidth="0.8" />
-      <line x1="14" y1="14" x2="25" y2="25" stroke="rgba(255,255,255,0.12)" strokeWidth="0.8" />
-      <line x1="32" y1="6" x2="32" y2="21" stroke="rgba(255,255,255,0.12)" strokeWidth="0.8" />
-      <line x1="50" y1="14" x2="39" y2="25" stroke="rgba(255,255,255,0.12)" strokeWidth="0.8" />
+      <line x1="58" y1="32" x2="43" y2="32" stroke="var(--line)" strokeWidth="0.8" />
+      <line x1="50" y1="50" x2="39" y2="39" stroke="var(--line)" strokeWidth="0.8" />
+      <line x1="32" y1="58" x2="32" y2="43" stroke="var(--line)" strokeWidth="0.8" />
+      <line x1="14" y1="50" x2="25" y2="39" stroke="var(--line)" strokeWidth="0.8" />
+      <line x1="6" y1="32" x2="21" y2="32" stroke="var(--line)" strokeWidth="0.8" />
+      <line x1="14" y1="14" x2="25" y2="25" stroke="var(--line)" strokeWidth="0.8" />
+      <line x1="32" y1="6" x2="32" y2="21" stroke="var(--line)" strokeWidth="0.8" />
+      <line x1="50" y1="14" x2="39" y2="25" stroke="var(--line)" strokeWidth="0.8" />
     </svg>
   );
 }
@@ -156,13 +156,13 @@ export function SparkIcon({
       <path d="M58,32 L50,14 L32,32 Z" fill="#3CCFBA" />
       <path d="M32,58 L14,50 L32,32 Z" fill="#3CCFBA" />
       <path d="M6,32 L14,14 L32,32 Z" fill="#3CCFBA" />
-      <path d="M32,6 L50,14 L32,32 Z" fill="#5EEAD4" />
+      <path d="M32,6 L50,14 L32,32 Z" fill="var(--accent)" />
       <path d="M58,32 L50,50 L32,32 Z" fill="#0D9488" />
       <path d="M50,50 L32,58 L32,32 Z" fill="#0A7A70" />
       <path d="M14,50 L6,32 L32,32 Z" fill="#0D9488" />
       <path d="M14,14 L32,6 L32,32 Z" fill="#0A7A70" />
-      <path d="M58,32 L50,50 L32,58 L14,50 L6,32 L14,14 L32,6 L50,14 Z" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-      <path d="M43,32 L39,39 L32,43 L25,39 L21,32 L25,25 L32,21 L39,25 Z" fill="rgba(255,255,255,0.25)" />
+      <path d="M58,32 L50,50 L32,58 L14,50 L6,32 L14,14 L32,6 L50,14 Z" fill="none" stroke="var(--ink-faint)" strokeWidth="1" />
+      <path d="M43,32 L39,39 L32,43 L25,39 L21,32 L25,25 L32,21 L39,25 Z" fill="var(--ink-faint)" />
     </svg>
   );
 }

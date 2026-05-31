@@ -193,20 +193,20 @@ export default async function WrappedYearPage({ params, searchParams }: Props) {
 
   if (!userId) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative" style={{ background: "#070708" }}>
+      <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative" style={{ background: "var(--bg)" }}>
         <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
         <div className="relative max-w-2xl w-full">
-          <div className="relative overflow-hidden rounded-3xl p-8 sm:p-14 text-center anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)", border: "1px solid rgba(255,255,255,0.06)" }}>
+          <div className="relative overflow-hidden rounded-3xl p-8 sm:p-14 text-center anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, var(--accent) 0%, var(--accent) 14%, #0E4F47 34%, #08231F 55%, var(--bg) 78%)", border: "1px solid var(--line)" }}>
             <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
-            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
+            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, var(--bg) 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
             <div className="relative">
-              <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
+              <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>
                 hyperfix wrapped {year}
               </span>
-              <h1 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 6vw, 56px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}>
+              <h1 className="font-display" style={{ color: "var(--ink)", fontSize: "clamp(36px, 6vw, 56px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}>
                 Your year in obsessions.
               </h1>
-              <p className="mt-5 font-sans text-base sm:text-lg max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.72)" }}>
+              <p className="mt-5 font-sans text-base sm:text-lg max-w-md mx-auto" style={{ color: "var(--line)" }}>
                 Log in to see your Wrapped for {year}.
               </p>
               <div className="mt-7">
@@ -214,10 +214,10 @@ export default async function WrappedYearPage({ params, searchParams }: Props) {
                   href="/auth/login"
                   className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
                   style={{
-                    background: "#FFFFFF",
-                    color: "#0A0A0A",
+                    background: "var(--ink)",
+                    color: "var(--bg)",
                     borderRadius: 999,
-                    boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 40px rgba(94,234,212,0.25)",
+                    boxShadow: "0 1px 0 0 var(--ink-muted) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 40px var(--accent)",
                   }}
                 >
                   Log in →
@@ -242,20 +242,20 @@ export default async function WrappedYearPage({ params, searchParams }: Props) {
 
   if (!stats) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative" style={{ background: "#070708" }}>
+      <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative" style={{ background: "var(--bg)" }}>
         <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
         <div className="relative max-w-2xl w-full">
-          <div className="relative overflow-hidden rounded-3xl p-8 sm:p-14 text-center anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)", border: "1px solid rgba(255,255,255,0.06)" }}>
+          <div className="relative overflow-hidden rounded-3xl p-8 sm:p-14 text-center anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, var(--accent) 0%, var(--accent) 14%, #0E4F47 34%, #08231F 55%, var(--bg) 78%)", border: "1px solid var(--line)" }}>
             <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
-            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
+            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, var(--bg) 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
             <div className="relative">
-              <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
+              <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>
                 hyperfix wrapped {year}
               </span>
-              <h1 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 6vw, 56px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}>
+              <h1 className="font-display" style={{ color: "var(--ink)", fontSize: "clamp(36px, 6vw, 56px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}>
                 Nothing logged for {year}.
               </h1>
-              <p className="mt-5 font-sans text-base sm:text-lg max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.72)" }}>
+              <p className="mt-5 font-sans text-base sm:text-lg max-w-md mx-auto" style={{ color: "var(--line)" }}>
                 {isPublicProfile
                   ? `${viewerName} hasn't logged any fixes for ${year} yet.`
                   : `You haven't logged any fixes for ${year} yet. Start logging and come back.`}
@@ -266,10 +266,10 @@ export default async function WrappedYearPage({ params, searchParams }: Props) {
                     href="/dashboard"
                     className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
                     style={{
-                      background: "#FFFFFF",
-                      color: "#0A0A0A",
+                      background: "var(--ink)",
+                      color: "var(--bg)",
                       borderRadius: 999,
-                      boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 40px rgba(94,234,212,0.25)",
+                      boxShadow: "0 1px 0 0 var(--ink-muted) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 40px var(--accent)",
                     }}
                   >
                     Go to dashboard →

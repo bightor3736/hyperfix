@@ -72,8 +72,8 @@ export function ActivityTickerClient({ items }: { items: TickerItem[] }) {
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
           border: hovered
-            ? "1px solid rgba(94,234,212,0.4)"
-            : "1px solid rgba(94,234,212,0.2)",
+            ? "1px solid rgba(111,138,99,0.3)"
+            : "1px solid var(--accent)",
           boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
           width: 320,
         }}
@@ -85,9 +85,9 @@ export function ActivityTickerClient({ items }: { items: TickerItem[] }) {
             style={{
               width: 32,
               height: 32,
-              background: "rgba(94,234,212,0.10)",
-              border: "1px solid rgba(94,234,212,0.22)",
-              color: "#5EEAD4",
+              background: "var(--accent-soft)",
+              border: "1px solid var(--accent)",
+              color: "var(--accent)",
               fontSize: 12,
             }}
           >
@@ -100,13 +100,13 @@ export function ActivityTickerClient({ items }: { items: TickerItem[] }) {
             style={{ width: 8, height: 8 }}
           >
             <svg viewBox="0 0 8 8" width="8" height="8">
-              <circle cx="4" cy="4" r="3" fill="#5EEAD4" />
+              <circle cx="4" cy="4" r="3" fill="var(--accent)" />
               <circle
                 cx="4"
                 cy="4"
                 r="3.5"
                 fill="none"
-                stroke="#5EEAD4"
+                stroke="var(--accent)"
                 strokeOpacity="0.5"
                 strokeWidth="0.6"
               />
@@ -126,20 +126,20 @@ export function ActivityTickerClient({ items }: { items: TickerItem[] }) {
           >
             <p
               className="font-sans text-[12px] leading-tight"
-              style={{ color: "rgba(244,244,244,0.5)" }}
+              style={{ color: "var(--ink-muted)" }}
             >
-              <span style={{ color: "#F4F4F4" }}>{item.initial}</span> {verb}
+              <span style={{ color: "var(--ink)" }}>{item.initial}</span> {verb}
             </p>
             <p
               className="font-sans text-[13px] font-medium mt-0.5 truncate"
-              style={{ color: "#5EEAD4", letterSpacing: "-0.005em" }}
+              style={{ color: "var(--accent)", letterSpacing: "-0.005em" }}
               title={item.title}
             >
               &ldquo;{item.title}&rdquo;
             </p>
             <p
               className="font-mono text-[10px] mt-1"
-              style={{ color: "rgba(244,244,244,0.4)" }}
+              style={{ color: "var(--ink-muted)" }}
             >
               {item.timeAgo}
             </p>
@@ -156,9 +156,9 @@ export function ActivityTickerClient({ items }: { items: TickerItem[] }) {
             style={{
               width: 20,
               height: 20,
-              background: "#0F1011",
-              border: "1px solid rgba(94,234,212,0.4)",
-              color: "rgba(244,244,244,0.7)",
+              background: "var(--bg)",
+              border: "1px solid rgba(111,138,99,0.3)",
+              color: "var(--ink-muted)",
             }}
           >
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

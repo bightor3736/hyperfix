@@ -3,10 +3,10 @@
 import { useEffect } from "react";
 import { BANNER_PRESETS } from "@/lib/banner-presets";
 
-const TEAL = "#5EEAD4";
-const BG = "#070708";
-const CARD = "#0F1011";
-const BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const BG = "var(--bg)";
+const CARD = "var(--bg)";
+const BORDER = "var(--line)";
 
 type Props = {
   onSelect: (presetId: string) => void;
@@ -54,13 +54,13 @@ export function BannerGalleryPicker({ onSelect, onClose }: Props) {
           <div>
             <p
               className="font-sans text-[11px] font-semibold uppercase tracking-widest"
-              style={{ color: "rgba(244,244,244,0.4)" }}
+              style={{ color: "var(--ink-muted)" }}
             >
               Banner gallery
             </p>
             <p
               className="font-display text-lg mt-0.5"
-              style={{ color: "#F4F4F4", letterSpacing: "-0.01em" }}
+              style={{ color: "var(--ink)", letterSpacing: "-0.01em" }}
             >
               Pick a preset
             </p>
@@ -72,7 +72,7 @@ export function BannerGalleryPicker({ onSelect, onClose }: Props) {
             style={{
               background: CARD,
               border: `1px solid ${BORDER}`,
-              color: "rgba(244,244,244,0.6)",
+              color: "var(--ink-muted)",
             }}
             aria-label="Close"
           >
@@ -121,7 +121,7 @@ export function BannerGalleryPicker({ onSelect, onClose }: Props) {
                     className="font-sans text-xs font-medium transition-colors group-hover:text-[color:var(--teal)]"
                     style={
                       {
-                        color: "rgba(244,244,244,0.85)",
+                        color: "var(--ink)",
                         ["--teal" as string]: TEAL,
                       } as React.CSSProperties
                     }
@@ -153,7 +153,7 @@ export function BannerGalleryPicker({ onSelect, onClose }: Props) {
         >
           <p
             className="font-mono text-[10px]"
-            style={{ color: "rgba(244,244,244,0.3)" }}
+            style={{ color: "var(--ink-faint)" }}
           >
             {BANNER_PRESETS.length} presets · 1500×500 · click to apply
           </p>

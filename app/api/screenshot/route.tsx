@@ -4,7 +4,7 @@ export const runtime = "edge";
 
 const W = 1440;
 const H = 900;
-const INK = "#0A0A0A";
+const INK = "var(--bg)";
 const CARD = "#111113";
 const LIME = "#5EEAD4";
 const PAPER = "#F4F4F4";

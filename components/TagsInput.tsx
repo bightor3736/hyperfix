@@ -57,8 +57,8 @@ export function TagsInput({ value, onChange, maxTags = 5 }: Props) {
       onClick={() => inputRef.current?.focus()}
       className="flex flex-wrap gap-2 rounded-xl px-3 py-2.5 cursor-text"
       style={{
-        background: "#111113",
-        border: `1px solid ${focused ? "rgba(94,234,212,0.4)" : "rgba(244,244,244,0.1)"}`,
+        background: "var(--bg)",
+        border: `1px solid ${focused ? "rgba(111,138,99,0.3)" : "var(--line)"}`,
         minHeight: "44px",
         transition: "border-color 0.15s",
       }}
@@ -68,9 +68,9 @@ export function TagsInput({ value, onChange, maxTags = 5 }: Props) {
           key={tag}
           className="font-mono text-[11px] uppercase tracking-widest rounded-full px-2.5 py-1 flex items-center gap-1.5"
           style={{
-            background: "rgba(94,234,212,0.1)",
-            border: "1px solid rgba(94,234,212,0.2)",
-            color: "#5EEAD4",
+            background: "var(--accent-soft)",
+            border: "1px solid var(--accent)",
+            color: "var(--accent)",
           }}
         >
           {tag}
@@ -78,9 +78,9 @@ export function TagsInput({ value, onChange, maxTags = 5 }: Props) {
             type="button"
             onClick={(e) => { e.stopPropagation(); removeTag(tag); }}
             className="leading-none transition-colors"
-            style={{ color: "rgba(94,234,212,0.5)" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(94,234,212,1)")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(94,234,212,0.5)")}
+            style={{ color: "var(--accent)" }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent)")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--accent)")}
             aria-label={`Remove tag ${tag}`}
           >
             ✕
@@ -99,7 +99,7 @@ export function TagsInput({ value, onChange, maxTags = 5 }: Props) {
           placeholder={value.length === 0 ? "add tags…" : ""}
           className="bg-transparent outline-none font-mono text-sm flex-1 min-w-[80px]"
           style={{
-            color: "#F4F4F4",
+            color: "var(--ink)",
           }}
         />
       )}

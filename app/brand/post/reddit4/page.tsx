@@ -12,8 +12,8 @@ const sans = Instrument_Sans({ subsets: ["latin"], weight: ["400", "500", "600"]
 const TEAL        = "#5EEAD4";
 const RED         = "#E63946";
 const ORANGE      = "#FB923C";
-const PAGE_BG     = "#070708";
-const CARD_BG     = "#0F1011";
+const PAGE_BG     = "var(--bg)";
+const CARD_BG     = "var(--bg)";
 const CARD_BORDER = "rgba(255,255,255,0.06)";
 const FAINT       = "rgba(255,255,255,0.06)";
 const DIM         = "rgba(255,255,255,0.38)";
@@ -179,7 +179,7 @@ export default function RedditPost4() {
             </p>
           </div>
           <div className="rounded-full px-7 py-3.5" style={{ background: TEAL, boxShadow: `0 0 40px rgba(94,234,212,0.25)` }}>
-            <span style={{ fontFamily: "var(--font-sans)", fontSize: 16, fontWeight: 600, color: "#0A0A0A" }}>hyperfix.app</span>
+            <span style={{ fontFamily: "var(--font-sans)", fontSize: 16, fontWeight: 600, color: "var(--bg)" }}>hyperfix.app</span>
           </div>
         </div>
 

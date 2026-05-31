@@ -4,8 +4,8 @@ import Link from "next/link";
 import { CardEditor } from "@/components/CardEditor";
 import { LogoLockup } from "@/components/Logo";
 
-const TEAL = "#5EEAD4";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BORDER = "var(--line)";
 
 export default async function CustomizeCardPage({
   params,
@@ -43,7 +43,7 @@ export default async function CustomizeCardPage({
   }
 
   return (
-    <div className="min-h-screen" style={{ background: "#070708", color: "#F4F4F4" }}>
+    <div className="min-h-screen" style={{ background: "var(--bg)", color: "var(--ink)" }}>
       <nav
         className="sticky top-0 z-40 px-6 sm:px-10 py-5 flex items-center justify-between"
         style={{
@@ -58,7 +58,7 @@ export default async function CustomizeCardPage({
         <Link
           href={`/dashboard/fix/${id}`}
           className="font-sans text-sm transition-colors"
-          style={{ color: "rgba(255,255,255,0.55)" }}
+          style={{ color: "var(--ink-muted)" }}
         >
           ← back to fix
         </Link>
@@ -76,12 +76,12 @@ export default async function CustomizeCardPage({
               fontWeight: 600,
               letterSpacing: "-0.02em",
               lineHeight: 1.02,
-              color: "#F4F4F4",
+              color: "var(--ink)",
             }}
           >
             {fix.title}
           </h1>
-          <p className="font-sans text-sm mt-2 max-w-xl" style={{ color: "rgba(255,255,255,0.5)" }}>
+          <p className="font-sans text-sm mt-2 max-w-xl" style={{ color: "var(--ink-muted)" }}>
             Pick a template, drop in a banner image, download the 1080×1920 PNG. Post it to Stories.
           </p>
         </div>

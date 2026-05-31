@@ -48,12 +48,12 @@ export function Sparkline({ entries }: { entries: { date: string; intensity: num
     <svg width="100%" height={h} viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none">
       <defs>
         <linearGradient id={`spark-fill-${n}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#5EEAD4" stopOpacity="0.2" />
-          <stop offset="100%" stopColor="#5EEAD4" stopOpacity="0" />
+          <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
         </linearGradient>
       </defs>
       <path d={fillPath} fill={`url(#spark-fill-${n})`} />
-      <path d={linePath} fill="none" stroke="#5EEAD4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d={linePath} fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

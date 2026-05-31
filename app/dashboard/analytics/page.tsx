@@ -12,12 +12,12 @@ export const metadata: Metadata = {
   title: "Analytics · Hyperfix",
 };
 
-const BG = "#070708";
-const CARD = "#0F1011";
-const BORDER = "rgba(255,255,255,0.06)";
-const TEAL = "#5EEAD4";
-const MUTED = "rgba(244,244,244,0.45)";
-const DIM = "rgba(244,244,244,0.3)";
+const BG = "var(--bg)";
+const CARD = "var(--bg)";
+const BORDER = "var(--line)";
+const TEAL = "var(--accent)";
+const MUTED = "var(--ink-muted)";
+const DIM = "var(--ink-faint)";
 
 type FixRow = {
   id: string;
@@ -99,12 +99,12 @@ function StatCard({
       className="rounded-3xl p-5 sm:p-6 flex flex-col gap-5"
       style={{ background: CARD, border: `1px solid ${BORDER}` }}
     >
-      <div style={{ color: accent ? TEAL : "rgba(244,244,244,0.55)" }}>{icon}</div>
+      <div style={{ color: accent ? TEAL : "var(--ink-muted)" }}>{icon}</div>
       <div>
         <div
           className="font-display font-medium tabular-nums leading-none"
           style={{
-            color: accent ? TEAL : "#F4F4F4",
+            color: accent ? TEAL : "var(--ink)",
             fontSize: "clamp(28px, 4vw, 40px)",
           }}
         >
@@ -185,7 +185,7 @@ function IntensityChart({
           x2={W - PADX}
           y1={yFor(v)}
           y2={yFor(v)}
-          stroke="rgba(255,255,255,0.05)"
+          stroke="var(--line)"
           strokeWidth="1"
         />
       ))}
@@ -213,14 +213,14 @@ function IntensityChart({
       )}
       {minP && minP.i !== (maxP?.i ?? -1) && (
         <g>
-          <circle cx={xFor(minP.i)} cy={yFor(minP.p.avg)} r="3" fill="rgba(255,255,255,0.5)" />
+          <circle cx={xFor(minP.i)} cy={yFor(minP.p.avg)} r="3" fill="var(--ink-muted)" />
           <text
             x={xFor(minP.i)}
             y={yFor(minP.p.avg) + 14}
             textAnchor="middle"
             fontFamily="JetBrains Mono, monospace"
             fontSize="10"
-            fill="rgba(255,255,255,0.45)"
+            fill="var(--ink-muted)"
           >
             {minP.p.avg.toFixed(1)}
           </text>
@@ -300,7 +300,7 @@ function AnalyticsLockedBlock({ data, hasData }: { data: AnalyticsData; hasData:
         style={{ background: CARD, border: `1px solid ${BORDER}` }}
       >
         <Eyebrow color="#9A9A9A">Last 12 weeks</Eyebrow>
-        <h2 className="font-display text-xl font-medium mt-1.5 mb-6" style={{ color: "#F4F4F4" }}>
+        <h2 className="font-display text-xl font-medium mt-1.5 mb-6" style={{ color: "var(--ink)" }}>
           Activity
         </h2>
         <div className="overflow-x-auto">
@@ -314,7 +314,7 @@ function AnalyticsLockedBlock({ data, hasData }: { data: AnalyticsData; hasData:
         style={{ background: CARD, border: `1px solid ${BORDER}` }}
       >
         <Eyebrow color="#9A9A9A">Last 30 days</Eyebrow>
-        <h2 className="font-display text-xl font-medium mt-1.5 mb-6" style={{ color: "#F4F4F4" }}>
+        <h2 className="font-display text-xl font-medium mt-1.5 mb-6" style={{ color: "var(--ink)" }}>
           Intensity over time
         </h2>
         {hasData ? (
@@ -340,7 +340,7 @@ function AnalyticsLockedBlock({ data, hasData }: { data: AnalyticsData; hasData:
         style={{ background: CARD, border: `1px solid ${BORDER}` }}
       >
         <Eyebrow color="#9A9A9A">Distribution</Eyebrow>
-        <h2 className="font-display text-xl font-medium mt-1.5 mb-6" style={{ color: "#F4F4F4" }}>
+        <h2 className="font-display text-xl font-medium mt-1.5 mb-6" style={{ color: "var(--ink)" }}>
           By category
         </h2>
         {categories.length === 0 ? (
@@ -368,13 +368,13 @@ function AnalyticsLockedBlock({ data, hasData }: { data: AnalyticsData; hasData:
                   </span>
                   <span
                     className="font-sans text-sm w-24 sm:w-32 shrink-0 truncate"
-                    style={{ color: "rgba(244,244,244,0.75)" }}
+                    style={{ color: "var(--ink-muted)" }}
                   >
                     {categoryLabel(cat)}
                   </span>
                   <div
                     className="flex-1 h-2.5 rounded-full overflow-hidden"
-                    style={{ background: "rgba(255,255,255,0.04)" }}
+                    style={{ background: "transparent" }}
                   >
                     <div
                       className="h-full rounded-full"
@@ -387,7 +387,7 @@ function AnalyticsLockedBlock({ data, hasData }: { data: AnalyticsData; hasData:
                   </div>
                   <span
                     className="font-mono text-xs tabular-nums w-8 text-right"
-                    style={{ color: "rgba(244,244,244,0.6)" }}
+                    style={{ color: "var(--ink-muted)" }}
                   >
                     {count}
                   </span>
@@ -404,7 +404,7 @@ function AnalyticsLockedBlock({ data, hasData }: { data: AnalyticsData; hasData:
         style={{ background: CARD, border: `1px solid ${BORDER}` }}
       >
         <Eyebrow color="#9A9A9A">Top 5</Eyebrow>
-        <h2 className="font-display text-xl font-medium mt-1.5 mb-6" style={{ color: "#F4F4F4" }}>
+        <h2 className="font-display text-xl font-medium mt-1.5 mb-6" style={{ color: "var(--ink)" }}>
           Longest-running fixes
         </h2>
         {longestFixes.length === 0 ? (
@@ -439,8 +439,8 @@ function AnalyticsLockedBlock({ data, hasData }: { data: AnalyticsData; hasData:
                   </span>
                   <div className="min-w-0 flex-1">
                     <div
-                      className="font-sans text-[15px] truncate transition-colors group-hover:text-[#5EEAD4]"
-                      style={{ color: "#F4F4F4" }}
+                      className="font-sans text-[15px] truncate transition-colors group-hover:text-[var(--accent)]"
+                      style={{ color: "var(--ink)" }}
                     >
                       {fix.title}
                     </div>
@@ -472,23 +472,23 @@ function AnalyticsLockedBlock({ data, hasData }: { data: AnalyticsData; hasData:
         style={{ background: CARD, border: `1px solid ${BORDER}` }}
       >
         <Eyebrow color={TEAL}>Pattern</Eyebrow>
-        <h2 className="font-display text-xl font-medium mt-1.5 mb-4" style={{ color: "#F4F4F4" }}>
+        <h2 className="font-display text-xl font-medium mt-1.5 mb-4" style={{ color: "var(--ink)" }}>
           Your cycle
         </h2>
         <p
           className="font-sans leading-relaxed"
-          style={{ color: "rgba(244,244,244,0.75)", fontSize: "clamp(15px, 1.6vw, 17px)" }}
+          style={{ color: "var(--ink-muted)", fontSize: "clamp(15px, 1.6vw, 17px)" }}
         >
           On average, your obsessions last{" "}
           <span className="tabular-nums font-medium" style={{ color: TEAL }}>
             {avg.toFixed(1)} days
           </span>
           . Your shortest was{" "}
-          <span className="tabular-nums font-medium" style={{ color: "#F4F4F4" }}>
+          <span className="tabular-nums font-medium" style={{ color: "var(--ink)" }}>
             {shortest} {shortest === 1 ? "day" : "days"}
           </span>
           , your longest{" "}
-          <span className="tabular-nums font-medium" style={{ color: "#F4F4F4" }}>
+          <span className="tabular-nums font-medium" style={{ color: "var(--ink)" }}>
             {longest} {longest === 1 ? "day" : "days"}
           </span>
           .
@@ -526,7 +526,7 @@ function ProUpsellCard() {
         <Eyebrow>Hyperfix Pro</Eyebrow>
         <h3
           className="font-display font-medium mt-2 mb-3"
-          style={{ color: "#F4F4F4", fontSize: "clamp(22px, 3vw, 28px)" }}
+          style={{ color: "var(--ink)", fontSize: "clamp(22px, 3vw, 28px)" }}
         >
           Unlock the full picture
         </h3>
@@ -541,7 +541,7 @@ function ProUpsellCard() {
         <ProCheckoutButton
           label="Get Pro"
           className="inline-block w-full px-6 py-3.5 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98]"
-          style={{ background: TEAL, color: "#070708" }}
+          style={{ background: TEAL, color: "var(--bg)" }}
         />
         <Link
           href="/dashboard"
@@ -698,7 +698,7 @@ export default async function AnalyticsPage() {
   const demoData = buildDemoData();
 
   return (
-    <div className="min-h-screen" style={{ background: BG, color: "#F4F4F4" }}>
+    <div className="min-h-screen" style={{ background: BG, color: "var(--ink)" }}>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
         {/* Header */}
         <div className="mb-12 sm:mb-16">
@@ -706,7 +706,7 @@ export default async function AnalyticsPage() {
           <h1
             className="font-display font-medium mt-3"
             style={{
-              color: "#F4F4F4",
+              color: "var(--ink)",
               fontSize: "clamp(32px, 5.5vw, 48px)",
               letterSpacing: "-0.02em",
               lineHeight: 1.05,

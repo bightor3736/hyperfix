@@ -19,7 +19,7 @@ export default async function OG() {
           color: "#F4F4F4",
           position: "relative",
           background:
-            "radial-gradient(ellipse 80% 70% at 50% 110%, #5EEAD4 0%, #2DD4BF 18%, #0E4F47 38%, #08231F 58%, #070708 80%)",
+            "radial-gradient(ellipse 80% 70% at 50% 110%, #5EEAD4 0%, #2DD4BF 18%, #0E4F47 38%, #08231F 58%, var(--bg) 80%)",
         }}
       >
         {/* eyebrow pill */}

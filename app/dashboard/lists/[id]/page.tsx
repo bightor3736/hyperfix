@@ -49,7 +49,7 @@ function formatDate(iso: string): string {
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
-  song: "#5EEAD4",
+  song: "var(--accent)",
   fanfic: "#F472B6",
   show: "#60A5FA",
   film: "#818CF8",
@@ -58,12 +58,12 @@ const CATEGORY_COLORS: Record<string, string> = {
   "video essay": "#FBBF24",
   podcast: "#A7F3D0",
   book: "#F97316",
-  character: "#5EEAD4",
-  other: "rgba(244,244,244,0.4)",
+  character: "var(--accent)",
+  other: "var(--ink-muted)",
 };
 
 function getCategoryColor(category: string): string {
-  return CATEGORY_COLORS[category.toLowerCase()] ?? "rgba(244,244,244,0.4)";
+  return CATEGORY_COLORS[category.toLowerCase()] ?? "var(--ink-muted)";
 }
 
 export default async function ListDetailPage({
@@ -102,7 +102,7 @@ export default async function ListDetailPage({
   );
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-12" style={{ background: "#070708" }}>
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-12" style={{ background: "var(--bg)" }}>
       <div className="max-w-3xl mx-auto">
 
         {/* Back */}
@@ -110,7 +110,7 @@ export default async function ListDetailPage({
           <Link
             href="/dashboard/lists"
             className="inline-flex items-center gap-2 font-sans text-sm transition-colors hover:opacity-80"
-            style={{ color: "rgba(244,244,244,0.4)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             <ArrowLeft set="light" size={18} primaryColor="currentColor" />
             Your lists
@@ -127,14 +127,14 @@ export default async function ListDetailPage({
                 style={
                   list.is_public
                     ? {
-                        background: "rgba(94,234,212,0.08)",
-                        border: "1px solid rgba(94,234,212,0.2)",
-                        color: "rgba(94,234,212,0.7)",
+                        background: "var(--accent-soft)",
+                        border: "1px solid var(--accent)",
+                        color: "var(--accent)",
                       }
                     : {
-                        background: "rgba(244,244,244,0.05)",
-                        border: "1px solid rgba(244,244,244,0.1)",
-                        color: "rgba(244,244,244,0.35)",
+                        background: "var(--line)",
+                        border: "1px solid var(--line)",
+                        color: "var(--ink-faint)",
                       }
                 }
               >
@@ -143,9 +143,9 @@ export default async function ListDetailPage({
               <span
                 className="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full"
                 style={{
-                  background: "rgba(244,244,244,0.05)",
-                  border: "1px solid rgba(244,244,244,0.08)",
-                  color: "rgba(244,244,244,0.3)",
+                  background: "var(--line)",
+                  border: "1px solid var(--line)",
+                  color: "var(--ink-faint)",
                 }}
               >
                 {items.length} fix{items.length !== 1 ? "es" : ""}
@@ -154,13 +154,13 @@ export default async function ListDetailPage({
 
             <p
               className="font-mono text-[11px] uppercase tracking-[0.18em] mb-2"
-              style={{ color: "#5EEAD4" }}
+              style={{ color: "var(--accent)" }}
             >
               list
             </p>
             <h1
               className="font-display leading-tight"
-              style={{ color: "#F4F4F4", fontSize: "clamp(22px, 4vw, 34px)", letterSpacing: "-0.02em", fontWeight: 600 }}
+              style={{ color: "var(--ink)", fontSize: "clamp(22px, 4vw, 34px)", letterSpacing: "-0.02em", fontWeight: 600 }}
             >
               {list.name}
             </h1>
@@ -168,7 +168,7 @@ export default async function ListDetailPage({
             {list.description && (
               <p
                 className="font-sans text-sm mt-2 leading-relaxed"
-                style={{ color: "rgba(244,244,244,0.5)" }}
+                style={{ color: "var(--ink-muted)" }}
               >
                 {list.description}
               </p>
@@ -176,7 +176,7 @@ export default async function ListDetailPage({
 
             <p
               className="font-mono text-[10px] mt-3"
-              style={{ color: "rgba(244,244,244,0.25)" }}
+              style={{ color: "var(--ink-faint)" }}
             >
               Created {formatDate(list.created_at)}
               {list.updated_at !== list.created_at && (
@@ -192,9 +192,9 @@ export default async function ListDetailPage({
                 href={`/dashboard/lists/${id}/edit`}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-xl font-sans text-sm font-medium transition-all hover:opacity-80"
                 style={{
-                  background: "rgba(244,244,244,0.06)",
-                  border: "1px solid rgba(244,244,244,0.1)",
-                  color: "rgba(244,244,244,0.6)",
+                  background: "var(--line)",
+                  border: "1px solid var(--line)",
+                  color: "var(--ink-muted)",
                 }}
               >
                 <Edit set="light" size={15} primaryColor="currentColor" />
@@ -225,7 +225,7 @@ export default async function ListDetailPage({
         </div>
 
         {/* Divider */}
-        <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", marginBottom: 24 }} />
+        <div style={{ borderTop: "1px solid var(--line)", marginBottom: 24 }} />
 
         {/* Fix items */}
         {items.length > 0 ? (
@@ -243,8 +243,8 @@ export default async function ListDetailPage({
                   key={item.id}
                   className="rounded-2xl p-4 flex items-start gap-4"
                   style={{
-                    background: "#0F1011",
-                    border: "1px solid rgba(255,255,255,0.06)",
+                    background: "var(--bg)",
+                    border: "1px solid var(--line)",
                   }}
                 >
                   {/* Fix info */}
@@ -264,9 +264,9 @@ export default async function ListDetailPage({
                         <span
                           className="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full"
                           style={{
-                            background: "rgba(244,244,244,0.05)",
-                            border: "1px solid rgba(244,244,244,0.1)",
-                            color: "rgba(244,244,244,0.3)",
+                            background: "var(--line)",
+                            border: "1px solid var(--line)",
+                            color: "var(--ink-faint)",
                           }}
                         >
                           ended
@@ -276,9 +276,9 @@ export default async function ListDetailPage({
 
                     <Link
                       href={`/dashboard/fix/${fix.id}`}
-                      className="font-display font-semibold leading-snug hover:text-[#5EEAD4] transition-colors block"
+                      className="font-display font-semibold leading-snug hover:text-[var(--accent)] transition-colors block"
                       style={{
-                        color: isEnded ? "rgba(244,244,244,0.55)" : "#F4F4F4",
+                        color: isEnded ? "var(--ink-muted)" : "var(--ink)",
                         fontSize: 16,
                         letterSpacing: "-0.01em",
                       }}
@@ -289,7 +289,7 @@ export default async function ListDetailPage({
                     {item.note && (
                       <p
                         className="font-sans text-[12px] mt-1 leading-relaxed"
-                        style={{ color: "rgba(244,244,244,0.4)" }}
+                        style={{ color: "var(--ink-muted)" }}
                       >
                         {item.note}
                       </p>
@@ -297,9 +297,9 @@ export default async function ListDetailPage({
 
                     <p
                       className="font-mono text-[10px] mt-2"
-                      style={{ color: "rgba(244,244,244,0.25)" }}
+                      style={{ color: "var(--ink-faint)" }}
                     >
-                      <span style={{ color: isEnded ? "rgba(244,244,244,0.25)" : "rgba(94,234,212,0.6)" }}>
+                      <span style={{ color: isEnded ? "var(--ink-faint)" : "var(--accent)" }}>
                         {days}d
                       </span>
                       {" · "}added {formatDate(item.added_at)}
@@ -318,9 +318,9 @@ export default async function ListDetailPage({
                         type="submit"
                         className="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg transition-all hover:opacity-80"
                         style={{
-                          background: "rgba(244,244,244,0.04)",
-                          border: "1px solid rgba(244,244,244,0.08)",
-                          color: "rgba(244,244,244,0.3)",
+                          background: "transparent",
+                          border: "1px solid var(--line)",
+                          color: "var(--ink-faint)",
                         }}
                         aria-label={`Remove ${fix.title} from list`}
                       >
@@ -336,11 +336,11 @@ export default async function ListDetailPage({
           <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
             <p
               className="font-display italic mb-2"
-              style={{ color: "rgba(244,244,244,0.3)", fontSize: 24, letterSpacing: "-0.02em" }}
+              style={{ color: "var(--ink-faint)", fontSize: 24, letterSpacing: "-0.02em" }}
             >
               Empty list.
             </p>
-            <p className="font-sans text-sm mb-6" style={{ color: "rgba(244,244,244,0.2)" }}>
+            <p className="font-sans text-sm mb-6" style={{ color: "var(--ink-faint)" }}>
               {isOwner
                 ? "Add fixes to this list from any fix's detail page."
                 : "This list has no fixes yet."}
@@ -350,9 +350,9 @@ export default async function ListDetailPage({
                 href="/dashboard"
                 className="flex items-center gap-2 px-5 py-2.5 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
                 style={{
-                  background: "rgba(94,234,212,0.12)",
-                  border: "1px solid rgba(94,234,212,0.3)",
-                  color: "#5EEAD4",
+                  background: "var(--accent-soft)",
+                  border: "1px solid var(--accent-soft)",
+                  color: "var(--accent)",
                 }}
               >
                 Browse fixes →

@@ -34,7 +34,7 @@ export default function Nav() {
           ? {
               background: "rgba(7,7,8,0.78)",
               backdropFilter: "blur(20px)",
-              borderBottom: "1px solid rgba(255,255,255,0.06)",
+              borderBottom: "1px solid var(--line)",
             }
           : { background: "transparent", borderBottom: "1px solid transparent" }
       }
@@ -47,14 +47,14 @@ export default function Nav() {
         <a
           href="/blog"
           className="hidden sm:inline font-sans text-sm transition-opacity hover:opacity-80"
-          style={{ color: "rgba(255,255,255,0.65)" }}
+          style={{ color: "var(--ink-muted)" }}
         >
           Blog
         </a>
         <a
           href="/explore"
           className="hidden sm:inline font-sans text-sm transition-opacity hover:opacity-80"
-          style={{ color: "rgba(255,255,255,0.65)" }}
+          style={{ color: "var(--ink-muted)" }}
         >
           Explore
         </a>
@@ -62,7 +62,7 @@ export default function Nav() {
           href="/search"
           aria-label="Search"
           className="transition-opacity hover:opacity-80"
-          style={{ color: "rgba(255,255,255,0.65)" }}
+          style={{ color: "var(--ink-muted)" }}
         >
           <Search set="light" size={20} primaryColor="currentColor" />
         </a>
@@ -70,10 +70,10 @@ export default function Nav() {
           href={isLoggedIn ? "/dashboard" : "/auth/signup"}
           className="font-sans text-sm font-semibold px-5 py-2.5 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
           style={{
-            background: "#FFFFFF",
-            color: "#0A0A0A",
+            background: "var(--ink)",
+            color: "var(--bg)",
             borderRadius: 999,
-            boxShadow: "0 4px 16px rgba(94,234,212,0.18)",
+            boxShadow: "0 4px 16px var(--accent-soft)",
           }}
         >
           {isLoggedIn ? "Dashboard" : "Get started"}

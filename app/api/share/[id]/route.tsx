@@ -421,7 +421,7 @@ function ShareCardImageBg({
       style={{
         width: W,
         height: H,
-        background: "#070708",
+        background: "var(--bg)",
         display: "flex",
         flexDirection: "column",
         position: "relative",
@@ -680,7 +680,7 @@ function ShareCardDark({
       style={{
         width: W,
         height: H,
-        background: "#070708",
+        background: "var(--bg)",
         display: "flex",
         flexDirection: "column",
         padding: "120px 96px",

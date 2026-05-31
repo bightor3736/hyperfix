@@ -6,9 +6,9 @@ import { getInbox, formatRelativeTime } from "@/lib/conversations";
 
 export const metadata: Metadata = { title: "Messages · Hyperfix" };
 
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
-const TEAL = "#5EEAD4";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
+const TEAL = "var(--accent)";
 
 export default async function MessagesInboxPage() {
   const supabase = await createClient();
@@ -20,7 +20,7 @@ export default async function MessagesInboxPage() {
   const rows = await getInbox(supabase, user.id);
 
   return (
-    <div className="px-4 sm:px-8 py-8 sm:py-10 max-w-3xl mx-auto" style={{ color: "#F4F4F4" }}>
+    <div className="px-4 sm:px-8 py-8 sm:py-10 max-w-3xl mx-auto" style={{ color: "var(--ink)" }}>
       <div className="mb-8">
         <p
           className="font-mono text-[10px] uppercase tracking-widest mb-2"
@@ -46,7 +46,7 @@ export default async function MessagesInboxPage() {
           className="rounded-3xl p-10 text-center"
           style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
         >
-          <div className="flex justify-center mb-4" style={{ color: "rgba(244,244,244,0.4)" }}>
+          <div className="flex justify-center mb-4" style={{ color: "var(--ink-muted)" }}>
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M3 7l9 6 9-6" />
               <rect x="3" y="5" width="18" height="14" rx="2" />
@@ -54,13 +54,13 @@ export default async function MessagesInboxPage() {
           </div>
           <p
             className="font-display text-lg mb-2"
-            style={{ color: "rgba(244,244,244,0.6)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             No messages yet.
           </p>
           <p
             className="font-sans text-sm max-w-sm mx-auto"
-            style={{ color: "rgba(244,244,244,0.4)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             Follow people on their public profile and click &ldquo;Message&rdquo; to start a conversation.
           </p>
@@ -90,8 +90,8 @@ export default async function MessagesInboxPage() {
                   style={{
                     background: other.avatar_url
                       ? "transparent"
-                      : "rgba(94,234,212,0.15)",
-                    border: "1px solid rgba(94,234,212,0.2)",
+                      : "var(--accent)",
+                    border: "1px solid var(--accent)",
                     color: TEAL,
                   }}
                 >
@@ -112,14 +112,14 @@ export default async function MessagesInboxPage() {
                   <div className="flex items-baseline gap-2">
                     <p
                       className="font-display text-sm font-medium truncate"
-                      style={{ color: "#F4F4F4" }}
+                      style={{ color: "var(--ink)" }}
                     >
                       {name}
                     </p>
                     {handle && (
                       <p
                         className="font-mono text-[11px] truncate"
-                        style={{ color: "rgba(244,244,244,0.4)" }}
+                        style={{ color: "var(--ink-muted)" }}
                       >
                         {handle}
                       </p>
@@ -129,8 +129,8 @@ export default async function MessagesInboxPage() {
                     className="font-sans text-[13px] truncate mt-0.5"
                     style={{
                       color: unread
-                        ? "rgba(244,244,244,0.85)"
-                        : "rgba(244,244,244,0.45)",
+                        ? "var(--ink)"
+                        : "var(--ink-muted)",
                       fontWeight: unread ? 500 : 400,
                     }}
                   >
@@ -144,7 +144,7 @@ export default async function MessagesInboxPage() {
                 <div className="flex flex-col items-end gap-1.5 shrink-0">
                   <span
                     className="font-mono text-[10px]"
-                    style={{ color: "rgba(244,244,244,0.35)" }}
+                    style={{ color: "var(--ink-faint)" }}
                   >
                     {formatRelativeTime(row.last_message_at)}
                   </span>

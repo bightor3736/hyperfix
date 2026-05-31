@@ -148,7 +148,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
   const intensityColor =
     intensity >= 9 ? "#E63946" :
     intensity >= 7 ? "#FB923C" :
-    "#5EEAD4";
+    "var(--accent)";
 
   return (
     <div className="flex flex-col gap-8">
@@ -157,20 +157,20 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
         <div
           className="relative rounded-xl p-4"
           style={{
-            background: "rgba(94,234,212,0.08)",
-            border: "1px solid rgba(94,234,212,0.2)",
+            background: "var(--accent-soft)",
+            border: "1px solid var(--accent)",
           }}
         >
           <button
             type="button"
             onClick={() => setWelcomeDismissed(true)}
             className="absolute top-3 right-3 p-1 rounded-lg transition-colors hover:opacity-70"
-            style={{ color: "rgba(94,234,212,0.6)" }}
+            style={{ color: "var(--accent)" }}
             aria-label="Dismiss welcome banner"
           >
             <CloseSquare set="light" size={15} primaryColor="currentColor" />
           </button>
-          <p className="font-sans text-sm pr-6" style={{ color: "rgba(94,234,212,0.9)" }}>
+          <p className="font-sans text-sm pr-6" style={{ color: "var(--accent-soft)" }}>
             Welcome to Hyperfix. Log your first fix below — what are you obsessed with right now?
           </p>
         </div>
@@ -181,20 +181,20 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
         <div
           className="relative rounded-xl p-4"
           style={{
-            background: "rgba(94,234,212,0.08)",
-            border: "1px solid rgba(94,234,212,0.2)",
+            background: "var(--accent-soft)",
+            border: "1px solid var(--accent)",
           }}
         >
           <button
             type="button"
             onClick={() => setSharedDismissed(true)}
             className="absolute top-3 right-3 p-1 rounded-lg transition-colors hover:opacity-70"
-            style={{ color: "rgba(94,234,212,0.6)" }}
+            style={{ color: "var(--accent)" }}
             aria-label="Dismiss shared banner"
           >
             <CloseSquare set="light" size={15} primaryColor="currentColor" />
           </button>
-          <p className="font-sans text-sm pr-6" style={{ color: "rgba(94,234,212,0.9)" }}>
+          <p className="font-sans text-sm pr-6" style={{ color: "var(--accent-soft)" }}>
             Imported from a share. We pre-filled what we could — tweak it and start tracking.
           </p>
         </div>
@@ -205,22 +205,22 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
         <div
           className="rounded-2xl p-6 flex flex-col items-center text-center gap-5"
           style={{
-            background: "linear-gradient(135deg, rgba(94,234,212,0.07) 0%, rgba(45,212,191,0.04) 100%)",
-            border: "1px solid rgba(94,234,212,0.25)",
-            boxShadow: "0 0 40px rgba(94,234,212,0.08)",
+            background: "linear-gradient(135deg, var(--accent-soft) 0%, rgba(45,212,191,0.04) 100%)",
+            border: "1px solid var(--accent)",
+            boxShadow: "0 0 40px var(--accent-soft)",
           }}
         >
           <div
             className="w-12 h-12 rounded-2xl flex items-center justify-center"
-            style={{ background: "rgba(94,234,212,0.12)", border: "1px solid rgba(94,234,212,0.2)" }}
+            style={{ background: "var(--accent-soft)", border: "1px solid var(--accent)" }}
           >
-            <Star set="bold" size={22} primaryColor="#5EEAD4" />
+            <Star set="bold" size={22} primaryColor="var(--accent)" />
           </div>
           <div>
-            <h3 className="font-display font-bold text-xl mb-1" style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}>
+            <h3 className="font-display font-bold text-xl mb-1" style={{ color: "var(--ink)", letterSpacing: "-0.02em" }}>
               3-fix limit reached
             </h3>
-            <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.5)" }}>
+            <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
               Free accounts can track 3 active fixes. You&apos;re fully unwell. Upgrade to log more.
             </p>
           </div>
@@ -231,8 +231,8 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
               "Pro badge on your profile",
               "Priority support",
             ].map((feature) => (
-              <li key={feature} className="flex items-center gap-2.5 font-sans text-sm" style={{ color: "rgba(244,244,244,0.65)" }}>
-                <span style={{ color: "#5EEAD4", display: "inline-flex" }} aria-hidden>
+              <li key={feature} className="flex items-center gap-2.5 font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
+                <span style={{ color: "var(--accent)", display: "inline-flex" }} aria-hidden>
                   <SparkleIcon size={14} />
                 </span>
                 {feature}
@@ -243,7 +243,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
             <a
               href="/dashboard/settings"
               className="flex-1 py-3 rounded-xl font-sans text-sm font-bold text-center transition-all hover:opacity-90 active:scale-[0.97]"
-              style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+              style={{ background: "var(--accent)", color: "var(--bg)" }}
             >
               Upgrade to Pro →
             </a>
@@ -251,9 +251,9 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
               href="/dashboard"
               className="flex-1 py-3 rounded-xl font-sans text-sm font-medium text-center transition-all hover:opacity-80"
               style={{
-                background: "rgba(244,244,244,0.06)",
-                border: "1px solid rgba(244,244,244,0.1)",
-                color: "rgba(244,244,244,0.6)",
+                background: "var(--line)",
+                border: "1px solid var(--line)",
+                color: "var(--ink-muted)",
               }}
             >
               End a fix first
@@ -264,7 +264,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
 
     {/* Quick templates */}
     <div className="flex flex-col gap-3">
-      <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.3)" }}>Quick start</p>
+      <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>Quick start</p>
       <div className="flex flex-wrap gap-2">
         {[
           { label: "Song on loop", cat: "song" as Category, placeholder: "which song?" },
@@ -280,8 +280,8 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
             onClick={() => { setCategory(t.cat); setTitle(""); }}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-sans text-sm transition-all hover:opacity-90"
             style={category === t.cat
-              ? { background: "#5EEAD4", color: "#0A0A0A", fontWeight: 600 }
-              : { background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.6)" }
+              ? { background: "var(--accent)", color: "var(--bg)", fontWeight: 600 }
+              : { background: "var(--line)", border: "1px solid var(--line)", color: "var(--ink-muted)" }
             }
           >
             <CategoryIcon category={t.cat} size={14} />
@@ -295,19 +295,19 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
 
       {/* Title */}
       <div className="flex flex-col gap-2">
-        <label className="font-sans text-[13px] font-medium" style={{ color: "rgba(244,244,244,0.65)" }}>
-          Title <span style={{ color: "#5EEAD4" }}>*</span>
+        <label className="font-sans text-[13px] font-medium" style={{ color: "var(--ink-muted)" }}>
+          Title <span style={{ color: "var(--accent)" }}>*</span>
         </label>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="What are you obsessed with?"
-          className="w-full rounded-xl px-4 py-4 font-sans text-lg outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40"
+          className="w-full rounded-xl px-4 py-4 font-sans text-lg outline-none transition-all duration-150 placeholder:text-[var(--line)] focus:ring-2 focus:ring-[var(--accent)]/40"
           style={{
-            background: "#111113",
-            border: "1px solid rgba(244,244,244,0.1)",
-            color: "#F4F4F4",
+            background: "var(--bg)",
+            border: "1px solid var(--line)",
+            color: "var(--ink)",
             letterSpacing: "-0.01em",
           }}
           required
@@ -317,7 +317,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
 
       {/* Category */}
       <div className="flex flex-col gap-3">
-        <label className="font-sans text-[13px] font-medium" style={{ color: "rgba(244,244,244,0.65)" }}>
+        <label className="font-sans text-[13px] font-medium" style={{ color: "var(--ink-muted)" }}>
           Category
         </label>
         <div className="flex flex-wrap gap-2">
@@ -330,9 +330,9 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
                 onClick={() => setCategory(cat)}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150 hover:scale-105 active:scale-[0.97]"
                 style={{
-                  background: isSelected ? "rgba(94,234,212,0.15)" : "rgba(244,244,244,0.05)",
-                  border: isSelected ? "1px solid rgba(94,234,212,0.4)" : "1px solid rgba(244,244,244,0.1)",
-                  color: isSelected ? "#5EEAD4" : "rgba(244,244,244,0.5)",
+                  background: isSelected ? "var(--accent)" : "var(--line)",
+                  border: isSelected ? "1px solid rgba(111,138,99,0.3)" : "1px solid var(--line)",
+                  color: isSelected ? "var(--accent)" : "var(--ink-muted)",
                 }}
               >
                 <CategoryIcon category={cat} size={11} />
@@ -346,17 +346,17 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
       {/* Collapsible — optional details */}
       <details className="group">
         <summary
-          className="flex items-center justify-between gap-3 cursor-pointer list-none rounded-xl px-4 py-3 transition-colors hover:bg-[rgba(244,244,244,0.03)]"
+          className="flex items-center justify-between gap-3 cursor-pointer list-none rounded-xl px-4 py-3 transition-colors hover:bg-[transparent]"
           style={{
-            background: "rgba(244,244,244,0.02)",
-            border: "1px solid rgba(244,244,244,0.08)",
+            background: "transparent",
+            border: "1px solid var(--line)",
           }}
         >
           <div className="flex flex-col gap-0.5">
-            <span className="font-sans text-sm font-medium" style={{ color: "rgba(244,244,244,0.8)" }}>
+            <span className="font-sans text-sm font-medium" style={{ color: "var(--ink)" }}>
               More details
             </span>
-            <span className="font-sans text-[11px]" style={{ color: "rgba(244,244,244,0.4)" }}>
+            <span className="font-sans text-[11px]" style={{ color: "var(--ink-muted)" }}>
               Intensity, note, banner, tags, visibility
             </span>
           </div>
@@ -370,7 +370,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
-            style={{ color: "rgba(244,244,244,0.5)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             <polyline points="6 9 12 15 18 9" />
           </svg>
@@ -381,7 +381,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
       {/* Intensity slider */}
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between gap-2 flex-wrap">
-          <label className="font-sans text-[13px] font-medium" style={{ color: "rgba(244,244,244,0.65)" }}>
+          <label className="font-sans text-[13px] font-medium" style={{ color: "var(--ink-muted)" }}>
             Intensity
           </label>
           <div className="flex items-center gap-2">
@@ -408,13 +408,13 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
         <div className="relative py-3">
           <div
             className="h-3 rounded-full relative overflow-hidden"
-            style={{ background: "rgba(244,244,244,0.08)" }}
+            style={{ background: "var(--line)" }}
           >
             <div
               className="h-full rounded-full transition-all duration-150"
               style={{
                 width: `${(intensity / 10) * 100}%`,
-                background: `linear-gradient(to right, #5EEAD4, ${intensityColor})`,
+                background: `linear-gradient(to right, var(--accent), ${intensityColor})`,
               }}
             />
           </div>
@@ -432,7 +432,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
             className="absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full shadow-lg transition-all duration-150 pointer-events-none"
             style={{
               left: `calc(${((intensity - 1) / 9) * 100}% - 10px)`,
-              background: "#F4F4F4",
+              background: "var(--ink)",
               boxShadow: `0 0 12px ${intensityColor}80, 0 2px 6px rgba(0,0,0,0.4)`,
               border: `2px solid ${intensityColor}`,
             }}
@@ -441,27 +441,27 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
 
         {/* Scale labels */}
         <div className="flex justify-between">
-          <span className="font-mono text-[9px]" style={{ color: "rgba(244,244,244,0.25)" }}>1 · mild</span>
-          <span className="font-mono text-[9px]" style={{ color: "rgba(244,244,244,0.25)" }}>10 · send help</span>
+          <span className="font-mono text-[9px]" style={{ color: "var(--ink-faint)" }}>1 · mild</span>
+          <span className="font-mono text-[9px]" style={{ color: "var(--ink-faint)" }}>10 · send help</span>
         </div>
       </div>
 
       {/* Note */}
       <div className="flex flex-col gap-2">
-        <label className="font-sans text-[13px] font-medium" style={{ color: "rgba(244,244,244,0.65)" }}>
+        <label className="font-sans text-[13px] font-medium" style={{ color: "var(--ink-muted)" }}>
           Note{" "}
-          <span className="font-mono text-[11px]" style={{ color: "rgba(244,244,244,0.25)" }}>optional</span>
+          <span className="font-mono text-[11px]" style={{ color: "var(--ink-faint)" }}>optional</span>
         </label>
         <textarea
           value={note}
           onChange={(e) => setNote(e.target.value)}
           placeholder="One sentence about why you're in it"
           rows={3}
-          className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40 resize-none"
+          className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all duration-150 placeholder:text-[var(--line)] focus:ring-2 focus:ring-[var(--accent)]/40 resize-none"
           style={{
-            background: "#111113",
-            border: "1px solid rgba(244,244,244,0.1)",
-            color: "#F4F4F4",
+            background: "var(--bg)",
+            border: "1px solid var(--line)",
+            color: "var(--ink)",
           }}
         />
       </div>
@@ -475,11 +475,11 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
 
       {/* Tags */}
       <div className="flex flex-col gap-2">
-        <label className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.4)" }}>
+        <label className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-muted)" }}>
           Tags
         </label>
         <TagsInput value={tags} onChange={setTags} />
-        <p className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.25)" }}>
+        <p className="font-mono text-[10px]" style={{ color: "var(--ink-faint)" }}>
           Up to 5 tags. Press enter to add.
         </p>
       </div>
@@ -496,24 +496,24 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
           <div
             className="w-10 h-6 rounded-full transition-all duration-200"
             style={{
-              background: isPublic ? "#5EEAD4" : "rgba(244,244,244,0.1)",
-              border: isPublic ? "1px solid rgba(94,234,212,0.5)" : "1px solid rgba(244,244,244,0.1)",
+              background: isPublic ? "var(--accent)" : "var(--line)",
+              border: isPublic ? "1px solid var(--accent)" : "1px solid var(--line)",
             }}
           >
             <div
               className="w-4 h-4 rounded-full transition-all duration-200 mt-0.5"
               style={{
-                background: isPublic ? "#0A0A0A" : "rgba(244,244,244,0.4)",
+                background: isPublic ? "var(--bg)" : "var(--ink-muted)",
                 transform: isPublic ? "translateX(22px)" : "translateX(2px)",
               }}
             />
           </div>
         </div>
         <div>
-          <p className="font-sans text-sm font-medium" style={{ color: "#F4F4F4" }}>
+          <p className="font-sans text-sm font-medium" style={{ color: "var(--ink)" }}>
             Share publicly
           </p>
-          <p className="font-sans text-[12px]" style={{ color: "rgba(244,244,244,0.3)" }}>
+          <p className="font-sans text-[12px]" style={{ color: "var(--ink-faint)" }}>
             Others can see this fix on your profile
           </p>
         </div>
@@ -541,7 +541,7 @@ export function NewFixForm({ isPro = false, activeFixCount = 0 }: NewFixFormProp
         type="submit"
         disabled={pending}
         className="w-full py-4 rounded-2xl font-sans text-base font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-        style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+        style={{ background: "var(--accent)", color: "var(--bg)" }}
       >
         {pending ? "Saving…" : "Start tracking →"}
       </button>

@@ -82,14 +82,14 @@ export function MessageInput({ conversationId, onSent }: Props) {
       style={{
         background: "rgba(7,7,8,0.92)",
         backdropFilter: "blur(20px)",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
+        borderTop: "1px solid var(--line)",
       }}
     >
       <div
         className="flex-1 rounded-2xl px-3 py-2"
         style={{
-          background: "#0F1011",
-          border: "1px solid rgba(255,255,255,0.06)",
+          background: "var(--bg)",
+          border: "1px solid var(--line)",
         }}
       >
         <textarea
@@ -101,7 +101,7 @@ export function MessageInput({ conversationId, onSent }: Props) {
           rows={1}
           className="w-full bg-transparent resize-none outline-none font-sans text-sm leading-snug"
           style={{
-            color: "#F4F4F4",
+            color: "var(--ink)",
             maxHeight: 160,
           }}
         />
@@ -111,9 +111,9 @@ export function MessageInput({ conversationId, onSent }: Props) {
         disabled={sending || value.trim().length === 0}
         className="rounded-full px-4 h-10 font-sans text-sm font-semibold transition-all disabled:opacity-50"
         style={{
-          background: "#5EEAD4",
-          color: "#0A0A0A",
-          border: "1px solid #5EEAD4",
+          background: "var(--accent)",
+          color: "var(--bg)",
+          border: "1px solid var(--accent)",
         }}
         aria-label="Send message"
       >

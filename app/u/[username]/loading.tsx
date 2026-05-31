@@ -1,11 +1,11 @@
 import { FixCardSkeleton } from "@/components/FixCardSkeleton";
 
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 export default function ProfileLoading() {
   return (
-    <div className="min-h-screen" style={{ background: "#0A0A0A" }}>
+    <div className="min-h-screen" style={{ background: "var(--bg)" }}>
       {/* Banner skeleton */}
       <div
         className="w-full skeleton-shimmer"
@@ -23,7 +23,7 @@ export default function ProfileLoading() {
             style={{
               width: 96,
               height: 96,
-              border: "3px solid #0A0A0A",
+              border: "3px solid var(--bg)",
             }}
           />
           <div className="flex-1 pb-2">

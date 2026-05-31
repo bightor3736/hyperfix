@@ -10,8 +10,8 @@ const fraunces = Fraunces({ subsets: ["latin"], weight: ["400", "600", "700"], d
 const sans = Instrument_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], display: "swap", variable: "--font-sans" });
 
 const TEAL   = "#5EEAD4";
-const PAGE_BG     = "#070708";
-const CARD_BG     = "#0F1011";
+const PAGE_BG     = "var(--bg)";
+const CARD_BG     = "var(--bg)";
 const FAINT       = "rgba(255,255,255,0.06)";
 const DIM         = "rgba(244,244,244,0.35)";
 const DIMMER      = "rgba(244,244,244,0.22)";
@@ -206,7 +206,7 @@ export default function Reddit5() {
             </p>
           </div>
           <div style={{ borderRadius: 999, padding: "14px 28px", background: "#F472B6", boxShadow: "0 0 40px rgba(244,114,182,0.3)" }}>
-            <span style={{ fontFamily: "var(--font-sans)", fontSize: 15, fontWeight: 600, color: "#0A0A0A" }}>hyperfix.app</span>
+            <span style={{ fontFamily: "var(--font-sans)", fontSize: 15, fontWeight: 600, color: "var(--bg)" }}>hyperfix.app</span>
           </div>
         </div>
 

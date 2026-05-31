@@ -18,9 +18,9 @@ export const metadata: Metadata = {
   },
 };
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
@@ -122,16 +122,16 @@ export default function ManifestoPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
 
       <Nav />
-      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
+      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "var(--bg)" }}>
         <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
 
         <main id="main-content" className="relative max-w-3xl mx-auto flex flex-col gap-6">
           {/* Hero — tight, restrained */}
           <div className="anim-fadeUp mb-2">
-            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(94,234,212,0.55)" }}>
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "var(--accent)" }}>
               the manifesto
             </p>
-            <h1 className="font-display" style={{ color: "#F4F4F4", fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.02, letterSpacing: "-0.02em", fontWeight: 600 }}>
+            <h1 className="font-display" style={{ color: "var(--ink)", fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.02, letterSpacing: "-0.02em", fontWeight: 600 }}>
               On obsession, counting,
               <br />
               and the things that ran your life.
@@ -148,13 +148,13 @@ export default function ManifestoPage() {
                     <span className="font-display tabular-nums" style={{ color: TEAL, fontSize: 18, fontWeight: 600 }}>
                       {sec.n}
                     </span>
-                    <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 600, letterSpacing: "-0.02em", lineHeight: 1.15 }}>
+                    <h2 className="font-display" style={{ color: "var(--ink)", fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 600, letterSpacing: "-0.02em", lineHeight: 1.15 }}>
                       {sec.h}
                     </h2>
                   </div>
                   <div className="space-y-5 sm:pl-8">
                     {sec.body.map((para, i) => (
-                      <p key={i} className="font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                      <p key={i} className="font-sans text-base sm:text-lg leading-relaxed" style={{ color: "var(--line)" }}>
                         {para}
                       </p>
                     ))}
@@ -169,7 +169,7 @@ export default function ManifestoPage() {
             <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-10" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
               <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
               <div className="relative">
-                <p className="font-display text-xl sm:text-2xl leading-snug mb-6" style={{ color: "rgba(255,255,255,0.85)", fontWeight: 600, letterSpacing: "-0.01em" }}>
+                <p className="font-display text-xl sm:text-2xl leading-snug mb-6" style={{ color: "var(--ink)", fontWeight: 600, letterSpacing: "-0.01em" }}>
                   &ldquo;You were unwell about something. It ran your life for a while. That&apos;s worth counting.&rdquo;
                 </p>
                 <p className="font-sans text-xs" style={{ color: TEAL }}>
@@ -181,13 +181,13 @@ export default function ManifestoPage() {
 
           {/* CTA */}
           <RevealSection>
-            <div className="relative overflow-hidden rounded-3xl p-8 sm:p-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6" style={{ background: CARD_BG, border: `1px solid rgba(94,234,212,0.18)` }}>
+            <div className="relative overflow-hidden rounded-3xl p-8 sm:p-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6" style={{ background: CARD_BG, border: `1px solid var(--accent-soft)` }}>
               <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "220px 220px", opacity: 0.22 }} />
               <div className="relative">
-                <h2 className="font-display mb-2" style={{ color: "#FFFFFF", fontSize: "clamp(24px, 4vw, 32px)", fontWeight: 600, letterSpacing: "-0.02em" }}>
+                <h2 className="font-display mb-2" style={{ color: "var(--ink)", fontSize: "clamp(24px, 4vw, 32px)", fontWeight: 600, letterSpacing: "-0.02em" }}>
                   Start counting.
                 </h2>
-                <p className="font-sans text-sm max-w-sm" style={{ color: "rgba(255,255,255,0.65)" }}>
+                <p className="font-sans text-sm max-w-sm" style={{ color: "var(--ink-muted)" }}>
                   Log the fixation. Watch the day count climb. Keep the eulogy when it ends.
                 </p>
               </div>
@@ -195,10 +195,10 @@ export default function ManifestoPage() {
                 href="/auth/signup"
                 className="relative inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] shrink-0"
                 style={{
-                  background: "#FFFFFF",
-                  color: "#0A0A0A",
+                  background: "var(--ink)",
+                  color: "var(--bg)",
                   borderRadius: 999,
-                  boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 8px 28px rgba(94,234,212,0.22)",
+                  boxShadow: "0 1px 0 0 var(--ink-muted) inset, 0 8px 28px var(--accent)",
                 }}
               >
                 Start free →

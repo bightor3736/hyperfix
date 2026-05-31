@@ -33,25 +33,25 @@ export default function WaitlistForm({
     return (
       <div className="mt-10 max-w-md">
         <div
-          className="rounded-[20px] border border-[rgba(244,244,244,0.07)] p-6 sm:p-8"
+          className="rounded-[20px] border border-[var(--line)] p-6 sm:p-8"
           style={{ background: "#1C1C1E" }}
         >
           <span
             className="inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 mb-5"
-            style={{ background: "#5EEAD4", color: "#0A0A0A", fontWeight: 800 }}
+            style={{ background: "var(--accent)", color: "var(--bg)", fontWeight: 800 }}
           >
             waitlist confirmed
           </span>
-          <p className="font-display text-4xl sm:text-5xl leading-none tracking-tightest mb-2 text-[rgba(244,244,244,0.9)]">
+          <p className="font-display text-4xl sm:text-5xl leading-none tracking-tightest mb-2 text-[var(--ink)]">
             #{" "}
             <span className="text-accent tabular">
               {state.position.toLocaleString()}
             </span>
           </p>
-          <p className="font-mono text-[11px] uppercase tracking-widest mt-3 text-[rgba(244,244,244,0.4)]">
+          <p className="font-mono text-[11px] uppercase tracking-widest mt-3 text-[var(--ink-muted)]">
             in line · check your inbox
           </p>
-          <p className="mt-3 font-display italic text-sm leading-snug text-[rgba(244,244,244,0.5)]">
+          <p className="mt-3 font-display italic text-sm leading-snug text-[var(--ink-muted)]">
             first access goes out in waves. we'll email when it's your turn.
           </p>
         </div>
@@ -72,12 +72,12 @@ export default function WaitlistForm({
           placeholder="your@email.com"
           aria-label="Email address"
           disabled={pending}
-          className="flex-1 px-4 py-3.5 font-mono text-sm focus:outline-none transition-all duration-200 disabled:opacity-50 text-[rgba(244,244,244,0.9)] placeholder:text-[rgba(244,244,244,0.3)] focus:ring-2 focus:ring-[#5EEAD4]/40 focus:border-[rgba(94,234,212,0.4)] focus:-translate-y-px"
+          className="flex-1 px-4 py-3.5 font-mono text-sm focus:outline-none transition-all duration-200 disabled:opacity-50 text-[var(--ink)] placeholder:text-[var(--ink-faint)] focus:ring-2 focus:ring-[var(--accent)]/40 focus:border-[rgba(111,138,99,0.3)] focus:-translate-y-px"
           style={{
             background: "#1C1C1E",
-            border: "1px solid rgba(244,244,244,0.1)",
+            border: "1px solid var(--line)",
             borderRadius: 12,
-            boxShadow: "0 1px 0 0 rgba(255,255,255,0.02) inset",
+            boxShadow: "0 1px 0 0 transparent inset",
           }}
         />
         <button
@@ -85,11 +85,11 @@ export default function WaitlistForm({
           disabled={pending}
           className="shrink-0 px-6 py-3.5 font-mono text-[11px] uppercase tracking-widest font-bold transition-all duration-200 disabled:opacity-50 active:scale-[0.98] hover:opacity-95 hover:-translate-y-px"
           style={{
-            background: "#5EEAD4",
-            color: "#0A0A0A",
+            background: "var(--accent)",
+            color: "var(--bg)",
             borderRadius: 999,
             boxShadow:
-              "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 8px 28px rgba(94,234,212,0.30)",
+              "0 1px 0 0 var(--ink-muted) inset, 0 8px 28px rgba(111,138,99,0.2)",
           }}
         >
           {pending ? "adding you…" : "I'm obsessed, let me in →"}
@@ -103,7 +103,7 @@ export default function WaitlistForm({
       )}
 
       {!state && (
-        <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-[rgba(244,244,244,0.4)]">
+        <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-[var(--ink-muted)]">
           <span className="text-accent pulse-dot">●</span>{" "}
           <span className="tabular">
             {count !== null ? count.toLocaleString() : "1,247"}

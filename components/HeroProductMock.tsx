@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.08)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 export function HeroProductMock() {
   const [day, setDay] = useState(47);
@@ -38,7 +38,7 @@ export function HeroProductMock() {
         aria-hidden
         className="absolute inset-0 -z-10"
         style={{
-          background: "radial-gradient(ellipse 80% 60% at 50% 60%, rgba(94,234,212,0.18) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse 80% 60% at 50% 60%, var(--accent-soft) 0%, transparent 70%)",
           filter: "blur(30px)",
         }}
       />
@@ -50,20 +50,20 @@ export function HeroProductMock() {
           background: CARD_BG,
           border: `1px solid ${CARD_BORDER}`,
           boxShadow:
-            "0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(94,234,212,0.08), inset 0 1px 0 rgba(255,255,255,0.05)",
+            "0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px var(--accent-soft), inset 0 1px 0 var(--line)",
         }}
       >
         {/* Window chrome */}
         <div
           className="flex items-center justify-between px-4 py-3"
-          style={{ borderBottom: `1px solid ${CARD_BORDER}`, background: "rgba(255,255,255,0.02)" }}
+          style={{ borderBottom: `1px solid ${CARD_BORDER}`, background: "transparent" }}
         >
           <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(255,255,255,0.12)" }} />
-            <div className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(255,255,255,0.12)" }} />
-            <div className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(255,255,255,0.12)" }} />
+            <div className="w-2.5 h-2.5 rounded-full" style={{ background: "var(--line)" }} />
+            <div className="w-2.5 h-2.5 rounded-full" style={{ background: "var(--line)" }} />
+            <div className="w-2.5 h-2.5 rounded-full" style={{ background: "var(--line)" }} />
           </div>
-          <p className="font-mono text-[10px] tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.3)" }}>
+          <p className="font-mono text-[10px] tracking-widest uppercase" style={{ color: "var(--ink-faint)" }}>
             hyperfix.app
           </p>
           <div className="w-9" />
@@ -76,17 +76,17 @@ export function HeroProductMock() {
             <span
               className="inline-flex items-center font-mono text-[9px] uppercase tracking-widest rounded-full px-2 py-0.5"
               style={{
-                background: "rgba(94,234,212,0.08)",
-                border: "1px solid rgba(94,234,212,0.2)",
+                background: "var(--accent-soft)",
+                border: "1px solid var(--accent)",
                 color: TEAL,
               }}
             >
               show
             </span>
-            <span className="font-mono text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>
+            <span className="font-mono text-[10px]" style={{ color: "var(--ink-faint)" }}>
               · public
             </span>
-            <span className="font-mono text-[10px] ml-auto" style={{ color: "rgba(255,255,255,0.3)" }}>
+            <span className="font-mono text-[10px] ml-auto" style={{ color: "var(--ink-faint)" }}>
               started apr 12
             </span>
           </div>
@@ -98,7 +98,7 @@ export function HeroProductMock() {
               fontSize: "clamp(20px, 3.5vw, 28px)",
               fontWeight: 600,
               letterSpacing: "-0.02em",
-              color: "#F4F4F4",
+              color: "var(--ink)",
               lineHeight: 1.2,
             }}
           >
@@ -109,8 +109,8 @@ export function HeroProductMock() {
           <div
             className="mt-6 rounded-2xl p-5"
             style={{
-              background: "rgba(94,234,212,0.04)",
-              border: "1px solid rgba(94,234,212,0.18)",
+              background: "var(--accent-soft)",
+              border: "1px solid var(--accent-soft)",
             }}
           >
             <div className="flex items-baseline gap-3">
@@ -123,37 +123,37 @@ export function HeroProductMock() {
                   fontWeight: 700,
                   lineHeight: 1,
                   letterSpacing: "-0.04em",
-                  textShadow: "0 0 40px rgba(94,234,212,0.4)",
+                  textShadow: "0 0 40px rgba(111,138,99,0.3)",
                 }}
               >
                 {day}
               </span>
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(94,234,212,0.7)" }}>
+                <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--accent)" }}>
                   days
                 </p>
-                <p className="font-mono text-[9px] uppercase tracking-widest mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>
+                <p className="font-mono text-[9px] uppercase tracking-widest mt-0.5" style={{ color: "var(--ink-faint)" }}>
                   and counting
                 </p>
               </div>
               <div className="ml-auto text-right">
-                <p className="font-mono text-[9px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+                <p className="font-mono text-[9px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
                   intensity
                 </p>
-                <p className="font-display tabular-nums" style={{ fontSize: 28, color: "#F4F4F4", fontWeight: 600, lineHeight: 1, letterSpacing: "-0.02em" }}>
-                  {intensity}<span className="font-mono text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>/10</span>
+                <p className="font-display tabular-nums" style={{ fontSize: 28, color: "var(--ink)", fontWeight: 600, lineHeight: 1, letterSpacing: "-0.02em" }}>
+                  {intensity}<span className="font-mono text-sm" style={{ color: "var(--ink-faint)" }}>/10</span>
                 </p>
               </div>
             </div>
 
             {/* Intensity bar */}
-            <div className="mt-4 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
+            <div className="mt-4 h-1.5 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
               <div
                 className="h-full rounded-full transition-all duration-700 ease-out"
                 style={{
                   width: `${intensity * 10}%`,
-                  background: `linear-gradient(to right, rgba(94,234,212,0.4), ${TEAL})`,
-                  boxShadow: `0 0 12px rgba(94,234,212,0.6)`,
+                  background: `linear-gradient(to right, rgba(111,138,99,0.3), ${TEAL})`,
+                  boxShadow: `0 0 12px var(--accent)`,
                 }}
               />
             </div>
@@ -164,18 +164,18 @@ export function HeroProductMock() {
             <div
               className="rounded-2xl p-4"
               style={{
-                background: "rgba(255,255,255,0.02)",
+                background: "transparent",
                 border: `1px solid ${CARD_BORDER}`,
               }}
             >
-              <p className="font-mono text-[9px] uppercase tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>
+              <p className="font-mono text-[9px] uppercase tracking-widest mb-2" style={{ color: "var(--ink-faint)" }}>
                 check-in run
               </p>
               <div className="flex items-baseline gap-1.5">
                 <span className="font-display tabular-nums" style={{ fontSize: 24, color: TEAL, fontWeight: 700, letterSpacing: "-0.02em" }}>
                   12
                 </span>
-                <span className="font-mono text-[10px]" style={{ color: "rgba(255,255,255,0.45)" }}>
+                <span className="font-mono text-[10px]" style={{ color: "var(--ink-muted)" }}>
                   days
                 </span>
               </div>
@@ -198,11 +198,11 @@ export function HeroProductMock() {
             <div
               className="rounded-2xl p-4 flex flex-col justify-between transition-all duration-300"
               style={{
-                background: checkedIn ? "rgba(94,234,212,0.08)" : "rgba(255,255,255,0.02)",
-                border: `1px solid ${checkedIn ? "rgba(94,234,212,0.3)" : CARD_BORDER}`,
+                background: checkedIn ? "var(--accent-soft)" : "transparent",
+                border: `1px solid ${checkedIn ? "var(--accent-soft)" : CARD_BORDER}`,
               }}
             >
-              <p className="font-mono text-[9px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+              <p className="font-mono text-[9px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
                 today
               </p>
               <div className="flex items-center gap-2">
@@ -215,8 +215,8 @@ export function HeroProductMock() {
                   </>
                 ) : (
                   <>
-                    <div className="w-3.5 h-3.5 rounded-full" style={{ border: "1.5px solid rgba(255,255,255,0.3)" }} />
-                    <span className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>check in →</span>
+                    <div className="w-3.5 h-3.5 rounded-full" style={{ border: "1.5px solid var(--ink-faint)" }} />
+                    <span className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>check in →</span>
                   </>
                 )}
               </div>
@@ -229,16 +229,16 @@ export function HeroProductMock() {
       <div
         className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 hidden sm:flex items-center gap-2 rounded-full px-3 py-2"
         style={{
-          background: "#161618",
-          border: "1px solid rgba(94,234,212,0.3)",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(94,234,212,0.05)",
+          background: "var(--bg)",
+          border: "1px solid var(--accent-soft)",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px var(--accent-soft)",
         }}
       >
         <span className="relative flex h-2 w-2">
           <span className="anim-glowPulse absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: TEAL }} />
           <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: TEAL }} />
         </span>
-        <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.7)" }}>
+        <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-muted)" }}>
           someone is logging
         </span>
       </div>

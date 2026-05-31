@@ -6,7 +6,7 @@ export const runtime = "edge";
 const SIZE = { width: 1080, height: 1350 };
 const TOTAL = 6;
 
-const BG = "#080808";
+const BG = "var(--bg)";
 const INK = "#F4F4F4";
 const INK_DIM = "rgba(244,244,244,0.45)";
 const TEAL = "#5EEAD4";

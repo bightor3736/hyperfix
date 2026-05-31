@@ -42,7 +42,7 @@ function Safe({ children }: { children: React.ReactNode }) {
     <div style={{
       width: W, height: H,
       display: "flex", flexDirection: "column",
-      background: "#070708", fontFamily: "sans-serif", color: "#F4F4F4",
+      background: "var(--bg)", fontFamily: "sans-serif", color: "#F4F4F4",
       position: "relative",
     }}>
       {/* Safe zone content */}

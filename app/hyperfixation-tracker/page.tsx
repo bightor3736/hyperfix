@@ -20,9 +20,9 @@ export const metadata: Metadata = {
   },
 };
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 const faqs = [
   {
@@ -100,9 +100,9 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
     <span
       className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6"
       style={{
-        background: "rgba(94,234,212,0.08)",
+        background: "var(--accent-soft)",
         color: TEAL,
-        border: "1px solid rgba(94,234,212,0.20)",
+        border: "1px solid var(--accent)",
       }}
     >
       {children}
@@ -115,7 +115,7 @@ function SectionHeadline({ children }: { children: React.ReactNode }) {
     <h2
       className="font-display"
       style={{
-        color: "#FFFFFF",
+        color: "var(--ink)",
         fontSize: "clamp(28px, 5vw, 44px)",
         lineHeight: 1.08,
         letterSpacing: "-0.02em",
@@ -153,7 +153,7 @@ export default function HyperfixationTrackerPage() {
       <Nav />
       <div
         className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16"
-        style={{ background: "#070708" }}
+        style={{ background: "var(--bg)" }}
       >
         <main id="main-content" className="max-w-5xl mx-auto flex flex-col gap-6">
           {/* HERO */}
@@ -162,7 +162,7 @@ export default function HyperfixationTrackerPage() {
             <h1
               className="font-display anim-fadeUp delay-100"
               style={{
-                color: "#FFFFFF",
+                color: "var(--ink)",
                 fontSize: "clamp(36px, 7vw, 64px)",
                 lineHeight: 1.02,
                 letterSpacing: "-0.03em",
@@ -172,10 +172,10 @@ export default function HyperfixationTrackerPage() {
               Log it. Count it.{" "}
               <span style={{ color: TEAL }}>Mourn it when it ends.</span>
             </h1>
-            <p className="mt-6 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
+            <p className="mt-6 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-200" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
               A place to log your current obsession, count the days it&apos;s lasted, and mourn it when it ends. Built for fandom brains, BookTok readers, K-pop stans, and everyone whose Notes app is full of thoughts about fictional people.
             </p>
-            <p className="mt-4 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
+            <p className="mt-4 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-300" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
               Not a Notion template. Not a clinical tool. A hyperfixation tracker that actually understands what a hyperfixation is.
             </p>
             <div className="mt-8 anim-fadeUp delay-300 max-w-md">
@@ -189,7 +189,7 @@ export default function HyperfixationTrackerPage() {
               <Eyebrow>the definition</Eyebrow>
               <SectionHeadline>What is a hyperfixation, actually?</SectionHeadline>
               <div className="grid md:grid-cols-2 gap-8 mt-8">
-                <div className="space-y-5 font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                <div className="space-y-5 font-sans text-base sm:text-lg leading-relaxed" style={{ color: "var(--line)" }}>
                   <p>
                     It&apos;s not just liking something a lot. A hyperfixation is an involuntary, consuming focus on one specific thing — a song, a fic, a ship, a show, a character, a niche historical event — that takes over your brain for days or weeks at a time.
                   </p>
@@ -197,7 +197,7 @@ export default function HyperfixationTrackerPage() {
                     You didn&apos;t choose it. It arrived. And now you&apos;re reading every Dramione fic ever written, or explaining Genshin Impact lore to someone who has never played the game and did not ask.
                   </p>
                 </div>
-                <div className="space-y-5 font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                <div className="space-y-5 font-sans text-base sm:text-lg leading-relaxed" style={{ color: "var(--line)" }}>
                   <p>
                     The ADHD and autistic communities put language to this. But you don&apos;t need a diagnosis for it to be true. If you&apos;ve ever memorized the Hamilton soundtrack in a weekend, built a moodboard for a character with eleven lines of dialogue, or sent your friends a four-paragraph analysis of a bridge at 2 a.m. — you know exactly what this is.
                   </p>
@@ -238,11 +238,11 @@ export default function HyperfixationTrackerPage() {
                       </span>
                       <h3
                         className="font-display mb-2"
-                        style={{ color: "#FFFFFF", fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em" }}
+                        style={{ color: "var(--ink)", fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em" }}
                       >
                         {s.h}
                       </h3>
-                      <p className="font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                      <p className="font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>
                         {s.p}
                       </p>
                     </div>
@@ -266,10 +266,10 @@ export default function HyperfixationTrackerPage() {
 
               <div className="grid md:grid-cols-2 gap-10 mt-10">
                 <div>
-                  <h3 className="font-display mb-4" style={{ color: "#FFFFFF", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>
+                  <h3 className="font-display mb-4" style={{ color: "var(--ink)", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>
                     Hyperfix vs. Notion
                   </h3>
-                  <div className="space-y-4 font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  <div className="space-y-4 font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>
                     <p>
                       Notion is a tool. You design the schema, maintain it manually, and open it when you remember to. It&apos;ll do whatever you tell it. That&apos;s exactly the problem — a hyperfixation doesn&apos;t wait for you to open a database.
                     </p>
@@ -283,10 +283,10 @@ export default function HyperfixationTrackerPage() {
                 </div>
 
                 <div>
-                  <h3 className="font-display mb-4" style={{ color: "#FFFFFF", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>
+                  <h3 className="font-display mb-4" style={{ color: "var(--ink)", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>
                     Hyperfix vs. clinical trackers
                   </h3>
-                  <div className="space-y-4 font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  <div className="space-y-4 font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>
                     <p>
                       Clinical hyperfixation trackers are built for intervention — they&apos;re designed to help you identify patterns and reduce unwanted obsessive thoughts. They&apos;re medical tools and they&apos;re good at being medical tools.
                     </p>
@@ -307,17 +307,17 @@ export default function HyperfixationTrackerPage() {
             <Card>
               <Eyebrow>frequently asked</Eyebrow>
               <SectionHeadline>Everything you wanted to ask.</SectionHeadline>
-              <div className="mt-8 divide-y" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+              <div className="mt-8 divide-y" style={{ borderColor: "var(--line)" }}>
                 {faqs.map((faq, i) => (
                   <details
                     key={i}
                     className="group py-5 [&_summary::-webkit-details-marker]:hidden"
-                    style={{ borderTop: i === 0 ? `1px solid rgba(255,255,255,0.06)` : undefined, borderBottom: `1px solid rgba(255,255,255,0.06)` }}
+                    style={{ borderTop: i === 0 ? `1px solid var(--line)` : undefined, borderBottom: `1px solid var(--line)` }}
                   >
                     <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
                       <h3
                         className="font-display"
-                        style={{ color: "#FFFFFF", fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.3 }}
+                        style={{ color: "var(--ink)", fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.3 }}
                       >
                         <span className="mr-3 tabular-nums" style={{ color: TEAL, fontSize: 13 }}>
                           {String(i + 1).padStart(2, "0")}
@@ -328,7 +328,7 @@ export default function HyperfixationTrackerPage() {
                         +
                       </span>
                     </summary>
-                    <p className="mt-4 ml-9 font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                    <p className="mt-4 ml-9 font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>
                       {faq.a}
                     </p>
                   </details>
@@ -347,7 +347,7 @@ export default function HyperfixationTrackerPage() {
               <h2
                 className="font-display"
                 style={{
-                  color: "#FFFFFF",
+                  color: "var(--ink)",
                   fontSize: "clamp(30px, 5vw, 48px)",
                   letterSpacing: "-0.03em",
                   fontWeight: 600,
@@ -357,7 +357,7 @@ export default function HyperfixationTrackerPage() {
                 Your hyperfixation{" "}
                 <span style={{ color: TEAL }}>deserves a record.</span>
               </h2>
-              <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
+              <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
                 The waitlist gets first access in waves. Early users get a permanent Pro discount and the most embarrassing usernames before they&apos;re gone.
               </p>
               <div className="mt-7 max-w-md mx-auto">

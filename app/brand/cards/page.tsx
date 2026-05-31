@@ -32,11 +32,11 @@ const FAINT = "#525861";
 
 // Accent palette per card
 const ACCENTS = {
-  lime:   { base: "#5EEAD4", bright: "#C8FF3D", deep: "#65A30D", ink: "#0A0A0A" },
-  yellow: { base: "#FACC15", bright: "#FDE047", deep: "#A16207", ink: "#0A0A0A" },
-  orange: { base: "#FB923C", bright: "#FDBA74", deep: "#C2410C", ink: "#0A0A0A" },
-  pink:   { base: "#F472B6", bright: "#F9A8D4", deep: "#BE185D", ink: "#0A0A0A" },
-  red:    { base: "#EF4444", bright: "#F87171", deep: "#991B1B", ink: "#0A0A0A" },
+  lime:   { base: "#5EEAD4", bright: "#C8FF3D", deep: "#65A30D", ink: "var(--bg)" },
+  yellow: { base: "#FACC15", bright: "#FDE047", deep: "#A16207", ink: "var(--bg)" },
+  orange: { base: "#FB923C", bright: "#FDBA74", deep: "#C2410C", ink: "var(--bg)" },
+  pink:   { base: "#F472B6", bright: "#F9A8D4", deep: "#BE185D", ink: "var(--bg)" },
+  red:    { base: "#EF4444", bright: "#F87171", deep: "#991B1B", ink: "var(--bg)" },
 } as const;
 type AccentKey = keyof typeof ACCENTS;
 

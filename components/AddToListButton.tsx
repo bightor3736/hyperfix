@@ -101,9 +101,9 @@ export function AddToListButton({ fixId }: { fixId: string }) {
         onClick={handleOpen}
         className="flex items-center gap-1.5 px-3 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
         style={{
-          background: "rgba(244,244,244,0.05)",
-          border: "1px solid rgba(244,244,244,0.12)",
-          color: "rgba(244,244,244,0.5)",
+          background: "var(--line)",
+          border: "1px solid var(--line)",
+          color: "var(--ink-muted)",
         }}
       >
         <Plus set="light" size={13} primaryColor="currentColor" />
@@ -115,24 +115,24 @@ export function AddToListButton({ fixId }: { fixId: string }) {
           className="absolute z-50 mt-2 w-64 rounded-xl overflow-hidden"
           style={{
             background: "#1A1A1C",
-            border: "1px solid rgba(244,244,244,0.1)",
+            border: "1px solid var(--line)",
             boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
             right: 0,
           }}
         >
-          <div className="px-3 py-2.5" style={{ borderBottom: "1px solid rgba(244,244,244,0.07)" }}>
-            <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.4)" }}>
+          <div className="px-3 py-2.5" style={{ borderBottom: "1px solid var(--line)" }}>
+            <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-muted)" }}>
               Your lists
             </p>
           </div>
 
           <div className="max-h-52 overflow-y-auto">
             {loading ? (
-              <div className="px-3 py-4 font-mono text-[11px] text-center" style={{ color: "rgba(244,244,244,0.3)" }}>
+              <div className="px-3 py-4 font-mono text-[11px] text-center" style={{ color: "var(--ink-faint)" }}>
                 loading…
               </div>
             ) : lists.length === 0 ? (
-              <div className="px-3 py-4 font-mono text-[11px] text-center" style={{ color: "rgba(244,244,244,0.3)" }}>
+              <div className="px-3 py-4 font-mono text-[11px] text-center" style={{ color: "var(--ink-faint)" }}>
                 No lists yet
               </div>
             ) : (
@@ -141,20 +141,20 @@ export function AddToListButton({ fixId }: { fixId: string }) {
                   key={list.id}
                   onClick={() => toggleList(list)}
                   disabled={pending === list.id}
-                  className="w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors hover:bg-[rgba(244,244,244,0.05)]"
+                  className="w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors hover:bg-[var(--line)]"
                 >
-                  <span className="font-sans text-sm truncate" style={{ color: list.hasThisFix ? "#5EEAD4" : "rgba(244,244,244,0.8)" }}>
+                  <span className="font-sans text-sm truncate" style={{ color: list.hasThisFix ? "var(--accent)" : "var(--ink)" }}>
                     {list.name}
                   </span>
                   <span
                     className="shrink-0 w-4 h-4 rounded flex items-center justify-center ml-2"
                     style={{
-                      background: list.hasThisFix ? "#5EEAD4" : "rgba(244,244,244,0.08)",
-                      border: list.hasThisFix ? "none" : "1px solid rgba(244,244,244,0.15)",
+                      background: list.hasThisFix ? "var(--accent)" : "var(--line)",
+                      border: list.hasThisFix ? "none" : "1px solid var(--line-strong)",
                     }}
                   >
                     {list.hasThisFix && (
-                      <TickSquare set="bold" size={10} primaryColor="#0A0A0A" />
+                      <TickSquare set="bold" size={10} primaryColor="var(--bg)" />
                     )}
                   </span>
                 </button>
@@ -162,7 +162,7 @@ export function AddToListButton({ fixId }: { fixId: string }) {
             )}
           </div>
 
-          <div style={{ borderTop: "1px solid rgba(244,244,244,0.07)" }}>
+          <div style={{ borderTop: "1px solid var(--line)" }}>
             {creating ? (
               <div className="flex items-center gap-2 px-3 py-2">
                 <input
@@ -172,13 +172,13 @@ export function AddToListButton({ fixId }: { fixId: string }) {
                   onKeyDown={(e) => { if (e.key === "Enter") handleCreateList(); if (e.key === "Escape") setCreating(false); }}
                   placeholder="List name…"
                   className="flex-1 bg-transparent outline-none font-sans text-sm"
-                  style={{ color: "#F4F4F4" }}
+                  style={{ color: "var(--ink)" }}
                 />
                 <button
                   onClick={handleCreateList}
                   disabled={!newListName.trim() || pending === "new"}
                   className="font-mono text-[10px] px-2 py-1 rounded transition-opacity hover:opacity-90 disabled:opacity-40"
-                  style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+                  style={{ background: "var(--accent)", color: "var(--bg)" }}
                 >
                   Create
                 </button>
@@ -186,8 +186,8 @@ export function AddToListButton({ fixId }: { fixId: string }) {
             ) : (
               <button
                 onClick={() => setCreating(true)}
-                className="w-full flex items-center gap-2 px-3 py-2.5 font-mono text-[11px] transition-colors hover:bg-[rgba(244,244,244,0.05)]"
-                style={{ color: "rgba(244,244,244,0.4)" }}
+                className="w-full flex items-center gap-2 px-3 py-2.5 font-mono text-[11px] transition-colors hover:bg-[var(--line)]"
+                style={{ color: "var(--ink-muted)" }}
               >
                 <Plus set="light" size={13} primaryColor="currentColor" />
                 New list

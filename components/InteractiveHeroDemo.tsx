@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.08)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 const PLACEHOLDERS = [
   "severance — the door scene",
@@ -65,7 +65,7 @@ export function InteractiveHeroDemo() {
         aria-hidden
         className="absolute inset-0 -z-10"
         style={{
-          background: "radial-gradient(ellipse 80% 60% at 50% 60%, rgba(94,234,212,0.20) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse 80% 60% at 50% 60%, var(--accent) 0%, transparent 70%)",
           filter: "blur(30px)",
         }}
       />
@@ -76,17 +76,17 @@ export function InteractiveHeroDemo() {
         style={{
           background: CARD_BG,
           border: `1px solid ${CARD_BORDER}`,
-          boxShadow: "0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(94,234,212,0.08), inset 0 1px 0 rgba(255,255,255,0.05)",
+          boxShadow: "0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px var(--accent-soft), inset 0 1px 0 var(--line)",
         }}
       >
         {/* Window chrome */}
-        <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: `1px solid ${CARD_BORDER}`, background: "rgba(255,255,255,0.02)" }}>
+        <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: `1px solid ${CARD_BORDER}`, background: "transparent" }}>
           <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(255,255,255,0.12)" }} />
-            <div className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(255,255,255,0.12)" }} />
-            <div className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(255,255,255,0.12)" }} />
+            <div className="w-2.5 h-2.5 rounded-full" style={{ background: "var(--line)" }} />
+            <div className="w-2.5 h-2.5 rounded-full" style={{ background: "var(--line)" }} />
+            <div className="w-2.5 h-2.5 rounded-full" style={{ background: "var(--line)" }} />
           </div>
-          <p className="font-mono text-[10px] tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.3)" }}>
+          <p className="font-mono text-[10px] tracking-widest uppercase" style={{ color: "var(--ink-faint)" }}>
             try it · no signup
           </p>
           <div className="w-9" />
@@ -97,7 +97,7 @@ export function InteractiveHeroDemo() {
           {/* Form side */}
           <div className="flex flex-col gap-5">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "rgba(94,234,212,0.6)" }}>
+              <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "var(--accent)" }}>
                 step 1 — name it
               </p>
               <input
@@ -105,11 +105,11 @@ export function InteractiveHeroDemo() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder={PLACEHOLDERS[placeholderIdx]}
-                className="w-full rounded-2xl px-4 py-3 font-sans text-base outline-none transition-all focus:ring-2 focus:ring-[#5EEAD4]/40 placeholder:text-[rgba(255,255,255,0.25)]"
+                className="w-full rounded-2xl px-4 py-3 font-sans text-base outline-none transition-all focus:ring-2 focus:ring-[var(--accent)]/40 placeholder:text-[var(--ink-faint)]"
                 style={{
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,255,255,0.10)",
-                  color: "#F4F4F4",
+                  background: "transparent",
+                  border: "1px solid var(--line)",
+                  color: "var(--ink)",
                 }}
                 onFocus={() => setShowCard(true)}
               />
@@ -117,18 +117,18 @@ export function InteractiveHeroDemo() {
 
             <div>
               <div className="flex items-baseline justify-between mb-2">
-                <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(94,234,212,0.6)" }}>
+                <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--accent)" }}>
                   step 2 — how bad is it
                 </p>
                 <span
                   className="font-display tabular-nums"
                   style={{ fontSize: 22, color: intensityColor, fontWeight: 700, letterSpacing: "-0.02em" }}
                 >
-                  {intensity}<span className="font-mono text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>/10</span>
+                  {intensity}<span className="font-mono text-xs" style={{ color: "var(--ink-muted)" }}>/10</span>
                 </span>
               </div>
               <div className="relative py-2">
-                <div className="h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
+                <div className="h-2 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
                   <div
                     className="h-full rounded-full transition-all duration-300"
                     style={{
@@ -160,7 +160,7 @@ export function InteractiveHeroDemo() {
               {showCard ? "see it for real →" : "start counting →"}
             </button>
 
-            <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>
+            <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
               this is the demo. your real fix saves & counts daily.
             </p>
           </div>
@@ -173,11 +173,11 @@ export function InteractiveHeroDemo() {
                 width: 250,
                 aspectRatio: "9 / 14",
                 background:
-                  "radial-gradient(ellipse 110% 80% at 50% 120%, #5EEAD4 0%, #2DD4BF 12%, #0E4F47 32%, #08231F 56%, #070708 82%)",
+                  "radial-gradient(ellipse 110% 80% at 50% 120%, var(--accent) 0%, var(--accent) 12%, #0E4F47 32%, #08231F 56%, var(--bg) 82%)",
                 borderRadius: 18,
-                border: "1px solid rgba(94,234,212,0.18)",
+                border: "1px solid var(--accent-soft)",
                 boxShadow:
-                  "0 24px 60px -10px rgba(0,0,0,0.7), 0 8px 20px -6px rgba(94,234,212,0.18), 0 0 0 1px rgba(255,255,255,0.04)",
+                  "0 24px 60px -10px rgba(0,0,0,0.7), 0 8px 20px -6px var(--accent-soft), 0 0 0 1px transparent",
                 transform: showCard ? "rotate(-2deg)" : "rotate(-5deg) scale(0.94)",
                 opacity: showCard ? 1 : 0.75,
                 transition: "all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)",
@@ -208,7 +208,7 @@ export function InteractiveHeroDemo() {
                       fontSize: 8,
                       letterSpacing: "0.22em",
                       textTransform: "uppercase",
-                      color: "rgba(255,255,255,0.55)",
+                      color: "var(--ink-muted)",
                       fontWeight: 600,
                     }}
                   >
@@ -221,8 +221,8 @@ export function InteractiveHeroDemo() {
                       letterSpacing: "0.18em",
                       textTransform: "uppercase",
                       color: TEAL,
-                      background: "rgba(94,234,212,0.10)",
-                      border: "1px solid rgba(94,234,212,0.25)",
+                      background: "var(--accent-soft)",
+                      border: "1px solid var(--accent)",
                       fontWeight: 600,
                     }}
                   >
@@ -237,7 +237,7 @@ export function InteractiveHeroDemo() {
                     fontFamily: "var(--font-fraunces), Georgia, serif",
                     fontSize: 17,
                     lineHeight: 1.15,
-                    color: "#FFFFFF",
+                    color: "var(--ink)",
                     fontWeight: 600,
                     letterSpacing: "-0.02em",
                     display: "-webkit-box",
@@ -262,7 +262,7 @@ export function InteractiveHeroDemo() {
                         color: TEAL,
                         fontWeight: 600,
                         letterSpacing: "-0.05em",
-                        textShadow: "0 0 40px rgba(94,234,212,0.55)",
+                        textShadow: "0 0 40px var(--accent)",
                       }}
                     >
                       {day}
@@ -274,7 +274,7 @@ export function InteractiveHeroDemo() {
                           fontSize: 8,
                           letterSpacing: "0.22em",
                           textTransform: "uppercase",
-                          color: "rgba(94,234,212,0.7)",
+                          color: "var(--accent)",
                           fontWeight: 600,
                         }}
                       >
@@ -291,7 +291,7 @@ export function InteractiveHeroDemo() {
                         fontSize: 8,
                         letterSpacing: "0.22em",
                         textTransform: "uppercase",
-                        color: "rgba(255,255,255,0.45)",
+                        color: "var(--ink-muted)",
                         fontWeight: 600,
                       }}
                     >
@@ -309,12 +309,12 @@ export function InteractiveHeroDemo() {
                       {intensity}<span style={{ opacity: 0.55 }}>/10</span>
                     </span>
                   </div>
-                  <div className="mt-1.5 h-1 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
+                  <div className="mt-1.5 h-1 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
                     <div
                       className="h-full rounded-full transition-all duration-300"
                       style={{
                         width: `${intensity * 10}%`,
-                        background: `linear-gradient(to right, rgba(94,234,212,0.5), ${intensityColor})`,
+                        background: `linear-gradient(to right, var(--accent), ${intensityColor})`,
                         boxShadow: `0 0 8px ${intensityColor}80`,
                       }}
                     />
@@ -323,13 +323,13 @@ export function InteractiveHeroDemo() {
                   {/* Footer */}
                   <div
                     className="mt-4 pt-2.5 flex items-center justify-between"
-                    style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+                    style={{ borderTop: "1px solid var(--line)" }}
                   >
                     <span
                       style={{
                         fontFamily: "var(--font-jetbrains-mono), monospace",
                         fontSize: 7,
-                        color: "rgba(255,255,255,0.35)",
+                        color: "var(--ink-faint)",
                         letterSpacing: "0.18em",
                         textTransform: "uppercase",
                       }}
@@ -341,7 +341,7 @@ export function InteractiveHeroDemo() {
                         fontFamily: "var(--font-fraunces), Georgia, serif",
                         fontStyle: "italic",
                         fontSize: 10,
-                        color: "rgba(94,234,212,0.55)",
+                        color: "var(--accent)",
                       }}
                     >
                       still counting.
@@ -358,16 +358,16 @@ export function InteractiveHeroDemo() {
       <div
         className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 hidden sm:flex items-center gap-2 rounded-full px-3 py-2"
         style={{
-          background: "#161618",
-          border: "1px solid rgba(94,234,212,0.3)",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(94,234,212,0.05)",
+          background: "var(--bg)",
+          border: "1px solid var(--accent-soft)",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px var(--accent-soft)",
         }}
       >
         <span className="relative flex h-2 w-2">
           <span className="anim-glowPulse absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: TEAL }} />
           <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: TEAL }} />
         </span>
-        <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.7)" }}>
+        <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-muted)" }}>
           someone is logging
         </span>
       </div>

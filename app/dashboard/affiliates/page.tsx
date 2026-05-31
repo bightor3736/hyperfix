@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Affiliates · Hyperfix" };
 
-const TEAL = "#5EEAD4";
+const TEAL = "var(--accent)";
 
 function adminSupabase() {
   return createAdmin(
@@ -52,11 +52,11 @@ export default async function AffiliatesPage() {
   const totalSignups = Object.values(counts).reduce((s, c) => s + c.signups, 0);
 
   return (
-    <div className="min-h-screen" style={{ background: "#070708", color: "#F4F4F4" }}>
+    <div className="min-h-screen" style={{ background: "var(--bg)", color: "var(--ink)" }}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
 
         <div className="mb-2">
-          <Link href="/dashboard" className="font-mono text-xs hover:text-[#5EEAD4] transition-colors" style={{ color: "rgba(255,255,255,0.3)" }}>
+          <Link href="/dashboard" className="font-mono text-xs hover:text-[var(--accent)] transition-colors" style={{ color: "var(--ink-faint)" }}>
             ← dashboard
           </Link>
         </div>
@@ -64,7 +64,7 @@ export default async function AffiliatesPage() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="font-display text-3xl font-semibold mb-1" style={{ letterSpacing: "-0.03em" }}>Affiliates</h1>
-            <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>
+            <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
               Track every link, click, and signup.
             </p>
           </div>
@@ -77,8 +77,8 @@ export default async function AffiliatesPage() {
             { label: "total clicks", value: totalClicks },
             { label: "total signups", value: totalSignups },
           ].map((s) => (
-            <div key={s.label} className="rounded-2xl p-5" style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <div className="font-display text-3xl font-medium mb-1" style={{ color: "#F4F4F4" }}>{s.value}</div>
+            <div key={s.label} className="rounded-2xl p-5" style={{ background: "var(--bg)", border: "1px solid var(--line)" }}>
+              <div className="font-display text-3xl font-medium mb-1" style={{ color: "var(--ink)" }}>{s.value}</div>
               <div className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "#9A9A9A" }}>{s.label}</div>
             </div>
           ))}

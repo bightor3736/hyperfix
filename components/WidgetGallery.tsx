@@ -2,21 +2,21 @@
 
 // Six dark widgets styled like iOS system apps — each displaying hyperfixation data.
 
-const LIME = "#5EEAD4";
+const LIME = "var(--accent)";
 const ORANGE = "#FB923C";
 const PINK = "#F472B6";
 const GOLD = "#EAB308";
-const WHITE = "#F4F4F4";
-const DIM = "rgba(244,244,244,0.45)";
-const CARD = "#111113";
-const CARD_BORDER = "rgba(244,244,244,0.07)";
+const WHITE = "var(--ink)";
+const DIM = "var(--ink-muted)";
+const CARD = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 // ── shared primitives ──────────────────────────────────────────
 
 function Pill({
   children,
   color = LIME,
-  textColor = "#0A0A0A",
+  textColor = "var(--bg)",
   small = false,
 }: {
   children: React.ReactNode;
@@ -238,12 +238,12 @@ function WidgetTransit() {
         marginTop: 14,
       }}>
         <div>
-          <div style={{ color: "#0A0A0A", fontSize: 22, fontWeight: 900 }}>15:00</div>
+          <div style={{ color: "var(--bg)", fontSize: 22, fontWeight: 900 }}>15:00</div>
           <div style={{ color: "rgba(0,0,0,0.5)", fontSize: 10, fontWeight: 700 }}>START</div>
         </div>
-        <div style={{ color: "#0A0A0A", fontSize: 20 }}>▶</div>
+        <div style={{ color: "var(--bg)", fontSize: 20 }}>▶</div>
         <div style={{ textAlign: "right" }}>
-          <div style={{ color: "#0A0A0A", fontSize: 22, fontWeight: 900 }}>19:22</div>
+          <div style={{ color: "var(--bg)", fontSize: 22, fontWeight: 900 }}>19:22</div>
           <div style={{ color: "rgba(0,0,0,0.5)", fontSize: 10, fontWeight: 700 }}>NOW</div>
         </div>
       </div>
@@ -289,7 +289,7 @@ function WidgetFitness() {
           { t: "20:34", v: "1,340" },
         ].map((s) => (
           <div key={s.t} style={{ textAlign: "center" }}>
-            <div style={{ color: "#0A0A0A", fontSize: 13, fontWeight: 800 }}>{s.t}</div>
+            <div style={{ color: "var(--bg)", fontSize: 13, fontWeight: 800 }}>{s.t}</div>
             <div style={{ color: "rgba(0,0,0,0.5)", fontSize: 10 }}>{s.v}</div>
           </div>
         ))}
@@ -337,7 +337,7 @@ function WidgetStocks() {
           justifyContent: "center",
           fontWeight: 900,
           fontSize: 18,
-          color: "#0A0A0A",
+          color: "var(--bg)",
         }}>M</div>
         <div>
           <div style={{ color: WHITE, fontSize: 14, fontWeight: 700 }}>Marauders</div>
@@ -352,13 +352,13 @@ function WidgetStocks() {
       </div>
 
       <div style={{ ...row("space-between"), marginTop: 8 }}>
-        <Pill color={GOLD} textColor="#0A0A0A" small>+1 TODAY</Pill>
+        <Pill color={GOLD} textColor="var(--bg)" small>+1 TODAY</Pill>
         <span style={{ color: LIME, fontSize: 13, fontWeight: 800 }}>▲ +1.24%</span>
       </div>
 
       <div style={{ ...row("space-between"), marginTop: 10 }}>
         <span style={{ color: DIM, fontSize: 12 }}>Strong Buy <span style={{ color: WHITE, fontWeight: 700 }}>Rating</span></span>
-        <Pill color={GOLD} textColor="#0A0A0A" small>10 Sec</Pill>
+        <Pill color={GOLD} textColor="var(--bg)" small>10 Sec</Pill>
       </div>
 
       <div style={{ marginTop: 12, height: 72 }}>
@@ -425,7 +425,7 @@ function WidgetRadio() {
         </div>
         <div style={row("flex-end", 4)}>
           <span style={{ color: DIM, fontSize: 12, fontWeight: 700 }}>AM</span>
-          <Pill color={LIME} textColor="#0A0A0A" small>FM</Pill>
+          <Pill color={LIME} textColor="var(--bg)" small>FM</Pill>
         </div>
       </div>
 

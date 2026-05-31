@@ -42,7 +42,7 @@ function intensityRGB(intensity: number): string {
 function intensityColor(intensity: number): string {
   if (intensity >= 8) return "#E63946";
   if (intensity >= 6) return "#FB923C";
-  return "#5EEAD4";
+  return "var(--accent)";
 }
 
 type MilestoneIconComponent = (p: { size?: number; className?: string }) => React.JSX.Element;
@@ -89,9 +89,9 @@ function MiniReactions({ counts }: { counts: ReactionCounts }) {
             key={key}
             className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[11px] uppercase tracking-widest"
             style={{
-              background: "rgba(244,244,244,0.06)",
-              border: "1px solid rgba(244,244,244,0.1)",
-              color: "rgba(244,244,244,0.5)",
+              background: "var(--line)",
+              border: "1px solid var(--line)",
+              color: "var(--ink-muted)",
             }}
             aria-label={label}
           >
@@ -128,8 +128,8 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
       onMouseLeave={() => setHovered(false)}
       className="rounded-2xl p-4 mb-4 group"
       style={{
-        background: hovered ? "#141416" : "#111113",
-        border: `1px solid ${hovered ? `rgba(${rgb},0.28)` : "rgba(244,244,244,0.07)"}`,
+        background: hovered ? "var(--bg)" : "var(--bg)",
+        border: `1px solid ${hovered ? `rgba(${rgb},0.28)` : "var(--line)"}`,
         boxShadow: hovered
           ? `0 8px 28px rgba(${rgb},${hoverAlpha})`
           : `0 0 18px rgba(${rgb},${ambientAlpha})`,
@@ -171,11 +171,11 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
 
         {/* Title */}
         <h2
-          className="font-display font-medium mb-2 group-hover:text-[#5EEAD4] transition-colors"
+          className="font-display font-medium mb-2 group-hover:text-[var(--accent)] transition-colors"
           style={{
             fontSize: 15,
             lineHeight: 1.35,
-            color: "#F4F4F4",
+            color: "var(--ink)",
             display: "-webkit-box",
             WebkitLineClamp: 2,
             WebkitBoxOrient: "vertical",
@@ -190,13 +190,13 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
           <p className="font-mono text-sm font-bold" style={{ color }}>
             {days} {days === 1 ? "day" : "days"}
           </p>
-          <span className="font-mono text-[11px]" style={{ color: "rgba(244,244,244,0.35)" }}>
+          <span className="font-mono text-[11px]" style={{ color: "var(--ink-faint)" }}>
             {fix.intensity}/10
           </span>
         </div>
 
         {/* Intensity bar */}
-        <div className="h-1 rounded-full overflow-hidden mb-3" style={{ background: "rgba(244,244,244,0.07)" }}>
+        <div className="h-1 rounded-full overflow-hidden mb-3" style={{ background: "var(--line)" }}>
           <div
             className="h-full rounded-full"
             style={{
@@ -213,7 +213,7 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
             className="italic mb-3"
             style={{
               fontSize: 13,
-              color: "rgba(244,244,244,0.38)",
+              color: "var(--line)",
               display: "-webkit-box",
               WebkitLineClamp: 2,
               WebkitBoxOrient: "vertical",
@@ -228,16 +228,16 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
         {/* Footer */}
         <div
           className="flex items-center justify-between gap-3 mt-3 pt-3"
-          style={{ borderTop: "1px solid rgba(244,244,244,0.06)" }}
+          style={{ borderTop: "1px solid var(--line)" }}
         >
           <div className="flex items-center gap-2 min-w-0">
             <div
               className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center font-mono font-bold overflow-hidden"
               style={{
-                background: "rgba(94,234,212,0.12)",
-                border: "1px solid rgba(94,234,212,0.2)",
+                background: "var(--accent-soft)",
+                border: "1px solid var(--accent)",
                 fontSize: 9,
-                color: "#5EEAD4",
+                color: "var(--accent)",
               }}
             >
               {avatarUrl ? (
@@ -248,7 +248,7 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
               )}
             </div>
             {username && (
-              <span className="font-mono truncate" style={{ fontSize: 10, color: "rgba(244,244,244,0.38)" }}>
+              <span className="font-mono truncate" style={{ fontSize: 10, color: "var(--line)" }}>
                 @{username}
               </span>
             )}
@@ -269,9 +269,9 @@ function FixCard({ fix, reactions }: { fix: Fix; reactions: ReactionCounts }) {
           className="mt-2 w-full flex items-center justify-center gap-1.5 py-1.5 rounded-xl font-mono transition-all hover:opacity-80"
           style={{
             fontSize: 10,
-            background: "rgba(244,244,244,0.04)",
-            border: "1px solid rgba(244,244,244,0.08)",
-            color: "rgba(244,244,244,0.35)",
+            background: "transparent",
+            border: "1px solid var(--line)",
+            color: "var(--ink-faint)",
           }}
         >
           <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
@@ -302,15 +302,15 @@ function ActivityCard({ item }: { item: ActivityItem }) {
   return (
     <div
       className="flex items-start gap-3 py-4"
-      style={{ borderBottom: "1px solid rgba(244,244,244,0.06)" }}
+      style={{ borderBottom: "1px solid var(--line)" }}
     >
       <div
         className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-mono font-bold overflow-hidden"
         style={{
-          background: "rgba(94,234,212,0.12)",
-          border: "1px solid rgba(94,234,212,0.2)",
+          background: "var(--accent-soft)",
+          border: "1px solid var(--accent)",
           fontSize: 10,
-          color: "#5EEAD4",
+          color: "var(--accent)",
         }}
       >
         {item.avatarUrl ? (
@@ -322,25 +322,25 @@ function ActivityCard({ item }: { item: ActivityItem }) {
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-start justify-between gap-3">
-          <p className="text-sm leading-snug" style={{ color: "#F4F4F4" }}>
+          <p className="text-sm leading-snug" style={{ color: "var(--ink)" }}>
             {item.username ? (
-              <Link href={`/u/${item.username}`} className="font-medium hover:text-[#5EEAD4] transition-colors">
+              <Link href={`/u/${item.username}`} className="font-medium hover:text-[var(--accent)] transition-colors">
                 @{item.username}
               </Link>
             ) : (
               <span className="font-medium">someone</span>
             )}{" "}
-            <span style={{ color: "rgba(244,244,244,0.45)" }}>
+            <span style={{ color: "var(--ink-muted)" }}>
               {item.type === "started" ? "started tracking" : "finished their fixation on"}
             </span>{" "}
-            <Link href={`/fix/${item.fixId}`} className="font-display font-medium hover:text-[#5EEAD4] transition-colors">
+            <Link href={`/fix/${item.fixId}`} className="font-display font-medium hover:text-[var(--accent)] transition-colors">
               {item.fixTitle}
             </Link>
             {item.type === "ended" && item.daysCount > 0 && (
-              <span style={{ color: "rgba(244,244,244,0.35)" }}> after {item.daysCount} days</span>
+              <span style={{ color: "var(--ink-faint)" }}> after {item.daysCount} days</span>
             )}
           </p>
-          <span className="shrink-0 font-mono tabular-nums" style={{ fontSize: 10, color: "rgba(244,244,244,0.3)" }}>
+          <span className="shrink-0 font-mono tabular-nums" style={{ fontSize: 10, color: "var(--ink-faint)" }}>
             {timeAgo}
           </span>
         </div>
@@ -349,16 +349,16 @@ function ActivityCard({ item }: { item: ActivityItem }) {
             className="inline-flex items-center gap-1 font-mono uppercase tracking-widest rounded-full px-2 py-0.5"
             style={{
               fontSize: 9,
-              background: item.type === "ended" ? "rgba(244,244,244,0.05)" : "rgba(94,234,212,0.08)",
-              border: item.type === "ended" ? "1px solid rgba(244,244,244,0.1)" : "1px solid rgba(94,234,212,0.2)",
-              color: item.type === "ended" ? "rgba(244,244,244,0.4)" : "#5EEAD4",
+              background: item.type === "ended" ? "var(--line)" : "var(--accent-soft)",
+              border: item.type === "ended" ? "1px solid var(--line)" : "1px solid var(--accent)",
+              color: item.type === "ended" ? "var(--ink-muted)" : "var(--accent)",
             }}
           >
             <CategoryIcon category={item.fixCategory} size={9} />
             {item.fixCategory}
           </span>
           {item.type === "ended" && (
-            <span className="font-mono" style={{ fontSize: 9, color: "rgba(244,244,244,0.25)" }}>◼ ended</span>
+            <span className="font-mono" style={{ fontSize: 9, color: "var(--ink-faint)" }}>◼ ended</span>
           )}
         </div>
       </div>
@@ -424,12 +424,12 @@ function EmptyState({ kind, onClearFilter }: { kind: EmptyKind; onClearFilter?: 
   return (
     <div
       className="flex flex-col items-center justify-center text-center rounded-3xl py-20 px-6"
-      style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}
+      style={{ background: "var(--bg)", border: "1px solid var(--line)" }}
     >
       <p
         className="font-display mb-2"
         style={{
-          color: "rgba(255,255,255,0.85)",
+          color: "var(--ink)",
           fontSize: "clamp(22px, 3vw, 28px)",
           letterSpacing: "-0.02em",
           fontWeight: 600,
@@ -437,7 +437,7 @@ function EmptyState({ kind, onClearFilter }: { kind: EmptyKind; onClearFilter?: 
       >
         {title}
       </p>
-      <p className="font-sans text-sm max-w-sm" style={{ color: "rgba(244,244,244,0.45)", lineHeight: 1.55 }}>
+      <p className="font-sans text-sm max-w-sm" style={{ color: "var(--ink-muted)", lineHeight: 1.55 }}>
         {sub}
       </p>
       {kind === "filtered" && onClearFilter ? (
@@ -445,9 +445,9 @@ function EmptyState({ kind, onClearFilter }: { kind: EmptyKind; onClearFilter?: 
           onClick={onClearFilter}
           className="mt-6 font-mono text-[11px] uppercase tracking-widest px-4 py-2 rounded-full transition-all"
           style={{
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            color: "rgba(244,244,244,0.6)",
+            background: "transparent",
+            border: "1px solid var(--line)",
+            color: "var(--ink-muted)",
           }}
         >
           Clear filter
@@ -456,7 +456,7 @@ function EmptyState({ kind, onClearFilter }: { kind: EmptyKind; onClearFilter?: 
         <Link
           href={cta.href}
           className="mt-6 inline-flex items-center gap-2 font-sans text-sm font-semibold px-5 py-2.5 rounded-full transition-opacity hover:opacity-90"
-          style={{ background: "#5EEAD4", color: "#070708" }}
+          style={{ background: "var(--accent)", color: "var(--bg)" }}
         >
           {cta.label} <span aria-hidden>→</span>
         </Link>
@@ -483,15 +483,15 @@ function TabButton({
       style={
         active
           ? {
-              background: "#5EEAD4",
-              color: "#070708",
+              background: "var(--accent)",
+              color: "var(--bg)",
               border: "1px solid transparent",
               fontWeight: 600,
             }
           : {
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(255,255,255,0.06)",
-              color: "rgba(244,244,244,0.6)",
+              background: "transparent",
+              border: "1px solid var(--line)",
+              color: "var(--ink-muted)",
             }
       }
     >
@@ -501,8 +501,8 @@ function TabButton({
           className="font-mono tabular-nums rounded-full px-1.5 py-px"
           style={{
             fontSize: 9,
-            background: active ? "rgba(7,7,8,0.18)" : "rgba(255,255,255,0.06)",
-            color: active ? "rgba(7,7,8,0.7)" : "rgba(244,244,244,0.45)",
+            background: active ? "rgba(7,7,8,0.18)" : "var(--line)",
+            color: active ? "rgba(7,7,8,0.7)" : "var(--ink-muted)",
           }}
         >
           {count}
@@ -608,7 +608,7 @@ export function ExploreTabSwitcher({
                       key={fix.id}
                       href={`/fix/${fix.id}`}
                       className="group block rounded-2xl overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl"
-                      style={{ border: "1px solid rgba(244,244,244,0.08)" }}
+                      style={{ border: "1px solid var(--line)" }}
                     >
                       <div className="relative" style={{ aspectRatio: "9/16" }}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -622,13 +622,13 @@ export function ExploreTabSwitcher({
                           className="absolute inset-x-0 bottom-0 p-2.5"
                           style={{ background: "linear-gradient(to top, rgba(7,7,8,0.95) 0%, transparent 100%)" }}
                         >
-                          <p className="font-display text-xs font-semibold leading-snug" style={{ color: "#F4F4F4", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                          <p className="font-display text-xs font-semibold leading-snug" style={{ color: "var(--ink)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
                             {fix.title}
                           </p>
                           <div className="flex items-center justify-between mt-1">
-                            <p className="font-mono text-[10px]" style={{ color: "rgba(94,234,212,0.8)" }}>day {days}</p>
+                            <p className="font-mono text-[10px]" style={{ color: "var(--accent-soft)" }}>day {days}</p>
                             {fix.profiles?.username && (
-                              <p className="font-mono text-[9px] truncate ml-2" style={{ color: "rgba(244,244,244,0.35)" }}>@{fix.profiles.username}</p>
+                              <p className="font-mono text-[9px] truncate ml-2" style={{ color: "var(--ink-faint)" }}>@{fix.profiles.username}</p>
                             )}
                           </div>
                         </div>
@@ -643,7 +643,7 @@ export function ExploreTabSwitcher({
                     onClick={loadMore}
                     disabled={loadingMore}
                     className="px-8 py-3 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all hover:opacity-80 disabled:opacity-50"
-                    style={{ background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.12)", color: "rgba(244,244,244,0.6)" }}
+                    style={{ background: "var(--line)", border: "1px solid var(--line)", color: "var(--ink-muted)" }}
                   >
                     {loadingMore ? "Loading…" : "Load more"}
                   </button>
@@ -656,8 +656,8 @@ export function ExploreTabSwitcher({
 
       {/* Find your people */}
       {tab === "everyone" && !selectedCategory && trendingCategories.length > 0 && allEveryoneFixes.length > 0 && (
-        <div className="mb-8 rounded-3xl p-5 sm:p-6" style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}>
-          <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "rgba(244,244,244,0.3)" }}>
+        <div className="mb-8 rounded-3xl p-5 sm:p-6" style={{ background: "var(--bg)", border: "1px solid var(--line)" }}>
+          <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "var(--ink-faint)" }}>
             find your people
           </p>
           <div className="flex flex-col gap-3">
@@ -667,15 +667,15 @@ export function ExploreTabSwitcher({
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className="flex items-center gap-3 w-full text-left rounded-2xl p-3 transition-all hover:bg-[rgba(255,255,255,0.03)]"
-                  style={{ border: "1px solid rgba(255,255,255,0.06)" }}
+                  className="flex items-center gap-3 w-full text-left rounded-2xl p-3 transition-all hover:bg-[transparent]"
+                  style={{ border: "1px solid var(--line)" }}
                 >
-                  <span style={{ flexShrink: 0, color: "rgba(244,244,244,0.6)" }}>
+                  <span style={{ flexShrink: 0, color: "var(--ink-muted)" }}>
                     <CategoryIcon category={category} size={22} />
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="font-sans text-sm font-medium capitalize" style={{ color: "#F4F4F4" }}>{category}</p>
-                    <p className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.35)" }}>{count} {count === 1 ? "person" : "people"} tracking this right now</p>
+                    <p className="font-sans text-sm font-medium capitalize" style={{ color: "var(--ink)" }}>{category}</p>
+                    <p className="font-mono text-[10px]" style={{ color: "var(--ink-faint)" }}>{count} {count === 1 ? "person" : "people"} tracking this right now</p>
                   </div>
                   <div className="flex -space-x-2 shrink-0">
                     {sample.map((fix) => (
@@ -686,20 +686,20 @@ export function ExploreTabSwitcher({
                           src={fix.profiles.avatar_url}
                           alt={fix.profiles.display_name ?? ""}
                           className="w-7 h-7 rounded-full object-cover"
-                          style={{ border: "2px solid #0F1011" }}
+                          style={{ border: "2px solid var(--bg)" }}
                         />
                       ) : (
                         <div
                           key={fix.id}
                           className="w-7 h-7 rounded-full flex items-center justify-center font-mono text-[10px]"
-                          style={{ background: "rgba(94,234,212,0.15)", border: "2px solid #0F1011", color: "#5EEAD4" }}
+                          style={{ background: "var(--accent)", border: "2px solid var(--bg)", color: "var(--accent)" }}
                         >
                           {(fix.profiles?.display_name ?? fix.profiles?.username ?? "?").slice(0, 1).toUpperCase()}
                         </div>
                       )
                     ))}
                   </div>
-                  <span className="font-mono text-[10px] shrink-0" style={{ color: "rgba(94,234,212,0.6)" }}>see all →</span>
+                  <span className="font-mono text-[10px] shrink-0" style={{ color: "var(--accent)" }}>see all →</span>
                 </button>
               );
             })}
@@ -731,13 +731,13 @@ export function ExploreTabSwitcher({
                   className="shrink-0 flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest transition-all duration-150"
                   style={
                     isSelected
-                      ? { background: "#5EEAD4", color: "#070708", border: "1px solid transparent", fontWeight: 600 }
-                      : { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", color: "rgba(244,244,244,0.55)" }
+                      ? { background: "var(--accent)", color: "var(--bg)", border: "1px solid transparent", fontWeight: 600 }
+                      : { background: "transparent", border: "1px solid var(--line)", color: "var(--ink-muted)" }
                   }
                 >
                   <CategoryIcon category={category} size={11} />
                   <span>{category}</span>
-                  <span className="font-mono tabular-nums" style={{ color: isSelected ? "rgba(7,7,8,0.55)" : "rgba(244,244,244,0.3)", fontSize: 10 }}>
+                  <span className="font-mono tabular-nums" style={{ color: isSelected ? "rgba(7,7,8,0.55)" : "var(--ink-faint)", fontSize: 10 }}>
                     · {count}
                   </span>
                 </button>
@@ -775,7 +775,7 @@ export function ExploreTabSwitcher({
                   onClick={loadMore}
                   disabled={loadingMore}
                   className="px-8 py-3 rounded-full font-mono text-[11px] uppercase tracking-widest transition-all hover:opacity-80 disabled:opacity-50"
-                  style={{ background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.12)", color: "rgba(244,244,244,0.6)" }}
+                  style={{ background: "var(--line)", border: "1px solid var(--line)", color: "var(--ink-muted)" }}
                 >
                   {loadingMore ? "Loading…" : "Load more"}
                 </button>

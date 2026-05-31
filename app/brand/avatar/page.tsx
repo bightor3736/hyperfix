@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const LIME = "#0A0A0A";
+const LIME = "var(--bg)";
 const FG = "#5EEAD4";
 const FG_2 = "#7CB205";
 

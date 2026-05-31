@@ -11,9 +11,9 @@ import { LogoLockup as _LogoLockup } from "@/components/Logo";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { FlameIcon } from "@/components/LandingIcons";
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
@@ -162,7 +162,7 @@ export default async function FixDetailPage({
   }
 
   return (
-    <div className="min-h-screen relative" style={{ background: "#070708", color: "#F4F4F4" }}>
+    <div className="min-h-screen relative" style={{ background: "var(--bg)", color: "var(--ink)" }}>
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none mix-blend-overlay"
@@ -178,7 +178,7 @@ export default async function FixDetailPage({
           borderBottom: `1px solid ${CARD_BORDER}`,
         }}
       >
-        <Link href="/dashboard" className="font-mono text-xs shrink-0 transition-opacity hover:opacity-60" style={{ color: "rgba(255,255,255,0.4)" }}>
+        <Link href="/dashboard" className="font-mono text-xs shrink-0 transition-opacity hover:opacity-60" style={{ color: "var(--ink-muted)" }}>
           ← my fixes
         </Link>
         <div className="flex items-center gap-2">
@@ -187,9 +187,9 @@ export default async function FixDetailPage({
               href={`/fix/${id}`}
               className="hidden sm:inline-flex items-center gap-1.5 font-sans text-xs font-medium px-3 py-1.5 rounded-full transition-all hover:opacity-80"
               style={{
-                background: "rgba(244,244,244,0.05)",
-                border: "1px solid rgba(244,244,244,0.10)",
-                color: "rgba(244,244,244,0.55)",
+                background: "var(--line)",
+                border: "1px solid var(--line)",
+                color: "var(--ink-muted)",
               }}
             >
               Public page
@@ -199,9 +199,9 @@ export default async function FixDetailPage({
             href={`/dashboard/fix/${id}/card`}
             className="inline-flex items-center gap-1.5 font-sans text-xs font-medium px-3 py-1.5 rounded-full transition-all hover:opacity-80"
             style={{
-              background: "rgba(244,244,244,0.05)",
-              border: "1px solid rgba(244,244,244,0.10)",
-              color: "rgba(244,244,244,0.55)",
+              background: "var(--line)",
+              border: "1px solid var(--line)",
+              color: "var(--ink-muted)",
             }}
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -250,7 +250,7 @@ export default async function FixDetailPage({
               className="absolute top-0 left-0 right-0 pointer-events-none"
               style={{
                 height: 2,
-                background: "linear-gradient(90deg, transparent 0%, rgba(94,234,212,0.5) 50%, transparent 100%)",
+                background: "linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%)",
               }}
             />
           )}
@@ -264,7 +264,7 @@ export default async function FixDetailPage({
                 right: -80,
                 width: 240,
                 height: 240,
-                background: "radial-gradient(circle, rgba(94,234,212,0.12) 0%, transparent 70%)",
+                background: "radial-gradient(circle, var(--accent-soft) 0%, transparent 70%)",
               }}
             />
           )}
@@ -274,9 +274,9 @@ export default async function FixDetailPage({
               <span
                 className="inline-flex items-center gap-1.5 font-sans text-xs rounded-full px-3 py-1"
                 style={{
-                  background: "rgba(94,234,212,0.12)",
+                  background: "var(--accent-soft)",
                   color: TEAL,
-                  border: "1px solid rgba(94,234,212,0.25)",
+                  border: "1px solid var(--accent)",
                 }}
               >
                 <CategoryIcon category={typedFix.category} size={12} />
@@ -288,7 +288,7 @@ export default async function FixDetailPage({
             <h1
               className="font-display leading-tight mb-5"
               style={{
-                color: "#FFFFFF",
+                color: "var(--ink)",
                 fontSize: "clamp(28px, 6vw, 48px)",
                 fontWeight: 600,
                 letterSpacing: "-0.025em",
@@ -337,7 +337,7 @@ export default async function FixDetailPage({
           <div
             aria-hidden
             className="absolute inset-0 pointer-events-none"
-            style={{ background: "radial-gradient(ellipse 55% 60% at 10% 50%, rgba(94,234,212,0.10), transparent 70%)" }}
+            style={{ background: "radial-gradient(ellipse 55% 60% at 10% 50%, var(--accent-soft), transparent 70%)" }}
           />
           <div className="relative">
             <div className="flex items-baseline gap-3 mb-1">
@@ -352,11 +352,11 @@ export default async function FixDetailPage({
               >
                 {days}
               </span>
-              <span className="font-sans" style={{ color: "rgba(255,255,255,0.4)", fontSize: "clamp(18px,4vw,28px)" }}>
+              <span className="font-sans" style={{ color: "var(--ink-muted)", fontSize: "clamp(18px,4vw,28px)" }}>
                 day{days !== 1 ? "s" : ""}
               </span>
             </div>
-            <p className="font-sans text-sm mb-5" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <p className="font-sans text-sm mb-5" style={{ color: "var(--ink-faint)" }}>
               Since {formatDate(typedFix.started_at)}
               {typedFix.ended_at && <> · Ended {formatDate(typedFix.ended_at)}</>}
             </p>
@@ -375,15 +375,15 @@ export default async function FixDetailPage({
               className="absolute inset-0 pointer-events-none mix-blend-overlay"
               style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
             />
-            <p className="relative font-sans text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <p className="relative font-sans text-[10px] uppercase tracking-widest mb-3" style={{ color: "var(--ink-faint)" }}>
               Note
             </p>
             <p
               className="relative font-display italic leading-relaxed"
               style={{
-                color: "rgba(244,244,244,0.75)",
+                color: "var(--ink-muted)",
                 fontSize: 17,
-                borderLeft: "2px solid rgba(94,234,212,0.35)",
+                borderLeft: "2px solid rgba(111,138,99,0.25)",
                 paddingLeft: 16,
               }}
             >
@@ -403,7 +403,7 @@ export default async function FixDetailPage({
               className="absolute inset-0 pointer-events-none mix-blend-overlay"
               style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
             />
-            <p className="relative font-sans text-[10px] uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <p className="relative font-sans text-[10px] uppercase tracking-widest mb-4" style={{ color: "var(--ink-faint)" }}>
               Reactions
             </p>
             <div className="relative">
@@ -420,10 +420,10 @@ export default async function FixDetailPage({
         {(othersCount ?? 0) > 0 && (
           <Link
             href={`/search?q=${encodeURIComponent(typedFix.title)}`}
-            className="group relative overflow-hidden rounded-3xl px-6 py-5 mb-4 flex items-center gap-3 anim-fadeUp transition-all hover:border-[rgba(94,234,212,0.4)]"
+            className="group relative overflow-hidden rounded-3xl px-6 py-5 mb-4 flex items-center gap-3 anim-fadeUp transition-all hover:border-[rgba(111,138,99,0.3)]"
             style={{
               background: CARD_BG,
-              border: "1px solid rgba(94,234,212,0.18)",
+              border: "1px solid var(--accent-soft)",
               animationDelay: "120ms",
             }}
           >
@@ -453,7 +453,7 @@ export default async function FixDetailPage({
               className="absolute inset-0 pointer-events-none mix-blend-overlay"
               style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
             />
-            <p className="relative font-sans text-[10px] uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <p className="relative font-sans text-[10px] uppercase tracking-widest mb-4" style={{ color: "var(--ink-faint)" }}>
               Others also tracking {typedFix.category}
             </p>
             <div className="relative flex flex-col gap-2">
@@ -466,14 +466,14 @@ export default async function FixDetailPage({
                     href={`/fix/${f.id}`}
                     className="flex items-center justify-between gap-3 rounded-2xl px-4 py-3 transition-all hover:opacity-80"
                     style={{
-                      background: "rgba(255,255,255,0.03)",
+                      background: "transparent",
                       border: `1px solid ${CARD_BORDER}`,
                     }}
                   >
                     <span
                       className="font-display text-sm leading-snug"
                       style={{
-                        color: "rgba(244,244,244,0.7)",
+                        color: "var(--ink-muted)",
                         display: "-webkit-box",
                         WebkitLineClamp: 1,
                         WebkitBoxOrient: "vertical",
@@ -482,7 +482,7 @@ export default async function FixDetailPage({
                     >
                       {f.title}
                     </span>
-                    <span className="font-sans text-[10px] shrink-0" style={{ color: "rgba(255,255,255,0.3)" }}>
+                    <span className="font-sans text-[10px] shrink-0" style={{ color: "var(--ink-faint)" }}>
                       {prof?.username ? `@${prof.username} · ` : ""}{fDays}d
                     </span>
                   </Link>
@@ -503,7 +503,7 @@ export default async function FixDetailPage({
               className="absolute inset-0 pointer-events-none mix-blend-overlay"
               style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }}
             />
-            <p className="relative font-sans text-[10px] uppercase tracking-widest mb-5" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <p className="relative font-sans text-[10px] uppercase tracking-widest mb-5" style={{ color: "var(--ink-faint)" }}>
               Check-in history
             </p>
             <div className="relative flex flex-col gap-3">
@@ -513,7 +513,7 @@ export default async function FixDetailPage({
                   <div key={e.id ?? e.date} className="flex items-start gap-4">
                     <span
                       className="font-sans text-[10px] uppercase tracking-widest mt-0.5 shrink-0 w-14 text-right"
-                      style={{ color: "rgba(255,255,255,0.25)" }}
+                      style={{ color: "var(--ink-faint)" }}
                     >
                       {new Date(e.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                     </span>
@@ -526,7 +526,7 @@ export default async function FixDetailPage({
                     {e.note && (
                       <p
                         className="font-display italic text-[13px] leading-snug flex-1"
-                        style={{ color: "rgba(244,244,244,0.5)" }}
+                        style={{ color: "var(--ink-muted)" }}
                       >
                         {e.note}
                       </p>
@@ -544,7 +544,7 @@ export default async function FixDetailPage({
             className="relative overflow-hidden rounded-3xl p-6 mb-4 anim-fadeUp"
             style={{
               background: CARD_BG,
-              border: "1px solid rgba(94,234,212,0.15)",
+              border: "1px solid var(--accent)",
               animationDelay: "180ms",
             }}
           >
@@ -559,9 +559,9 @@ export default async function FixDetailPage({
             <p
               className="relative font-display italic leading-relaxed"
               style={{
-                color: "rgba(244,244,244,0.65)",
+                color: "var(--ink-muted)",
                 fontSize: 17,
-                borderLeft: `2px solid rgba(94,234,212,0.25)`,
+                borderLeft: `2px solid var(--accent)`,
                 paddingLeft: 16,
               }}
             >

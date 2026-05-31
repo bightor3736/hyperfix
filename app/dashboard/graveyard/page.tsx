@@ -4,9 +4,9 @@ import Link from "next/link";
 import { GraveyardExportButton } from "@/components/GraveyardExportButton";
 import { GraveyardGrid, type GraveyardFix } from "./GraveyardGrid";
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 function getDayCount(startedAt: string, endedAt: string): number {
   const start = new Date(startedAt);
@@ -22,14 +22,14 @@ function StatCard({ label, value, sub }: { label: string; value: string; sub?: s
     >
       <p
         className="font-mono text-[10px] uppercase tracking-widest mb-3"
-        style={{ color: "rgba(255,255,255,0.4)" }}
+        style={{ color: "var(--ink-muted)" }}
       >
         {label}
       </p>
       <p
         className="font-display tabular-nums"
         style={{
-          color: "#FFFFFF",
+          color: "var(--ink)",
           fontSize: 32,
           fontWeight: 600,
           letterSpacing: "-0.02em",
@@ -41,7 +41,7 @@ function StatCard({ label, value, sub }: { label: string; value: string; sub?: s
       {sub && (
         <p
           className="font-sans text-xs mt-2"
-          style={{ color: "rgba(255,255,255,0.4)" }}
+          style={{ color: "var(--ink-muted)" }}
         >
           {sub}
         </p>
@@ -59,7 +59,7 @@ function EmptyGraveyard() {
       <h2
         className="font-display"
         style={{
-          color: "#FFFFFF",
+          color: "var(--ink)",
           fontSize: "clamp(24px, 4vw, 32px)",
           letterSpacing: "-0.02em",
           fontWeight: 600,
@@ -70,7 +70,7 @@ function EmptyGraveyard() {
       </h2>
       <p
         className="mt-3 font-sans text-base max-w-md mx-auto"
-        style={{ color: "rgba(255,255,255,0.55)" }}
+        style={{ color: "var(--ink-muted)" }}
       >
         When a fixation fades, this is where it goes.
       </p>
@@ -128,7 +128,7 @@ export default async function GraveyardPage() {
   return (
     <div
       className="min-h-screen px-4 sm:px-6 lg:px-8 pt-10 pb-16"
-      style={{ background: "#070708" }}
+      style={{ background: "var(--bg)" }}
     >
       <div className="max-w-5xl mx-auto">
         {/* Hero */}
@@ -144,7 +144,7 @@ export default async function GraveyardPage() {
               <h1
                 className="font-display"
                 style={{
-                  color: "#FFFFFF",
+                  color: "var(--ink)",
                   fontSize: "clamp(32px, 5.5vw, 48px)",
                   lineHeight: 1.04,
                   letterSpacing: "-0.02em",
@@ -155,7 +155,7 @@ export default async function GraveyardPage() {
               </h1>
               <p
                 className="mt-4 font-sans text-base max-w-lg"
-                style={{ color: "rgba(255,255,255,0.6)" }}
+                style={{ color: "var(--ink-muted)" }}
               >
                 Every obsession that ran its course. Click any to read the eulogy you wrote.
               </p>

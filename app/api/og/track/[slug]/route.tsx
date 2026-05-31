@@ -5,7 +5,7 @@ export const runtime = "edge";
 
 const SIZE = { width: 1200, height: 630 };
 
-const BG = "#070708";
+const BG = "var(--bg)";
 const INK = "#F4F4F4";
 const MUTED = "#525252";
 const ACCENT = "#5EEAD4";

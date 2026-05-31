@@ -79,12 +79,12 @@ export default function OnboardingUsernamePage() {
   }
 
   const borderColor =
-    validation === "available" ? "rgba(94,234,212,0.5)"
+    validation === "available" ? "var(--accent)"
     : validation === "taken" || validation === "invalid" ? "rgba(248,113,113,0.4)"
-    : "rgba(255,255,255,0.08)";
+    : "var(--line)";
 
   const feedbackColor =
-    validation === "available" ? "#5EEAD4"
+    validation === "available" ? "var(--accent)"
     : validation === "taken" ? "#f87171"
     : "#fcd34d";
 
@@ -97,7 +97,7 @@ export default function OnboardingUsernamePage() {
   const canSubmit = validation === "available" && !submitting;
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#070708", color: "#F4F4F4" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "var(--bg)", color: "var(--ink)" }}>
       {/* Grain */}
       <div aria-hidden className="fixed inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
 
@@ -116,32 +116,32 @@ export default function OnboardingUsernamePage() {
         <div
           className="w-full max-w-[380px] rounded-3xl p-8 anim-fadeUp"
           style={{
-            background: "#0F1011",
-            border: "1px solid rgba(255,255,255,0.07)",
-            boxShadow: "0 32px 80px rgba(0,0,0,0.45), 0 0 60px rgba(94,234,212,0.04)",
+            background: "var(--bg)",
+            border: "1px solid var(--line)",
+            boxShadow: "0 32px 80px rgba(0,0,0,0.45), 0 0 60px var(--accent-soft)",
           }}
         >
           {/* Step indicator */}
           <div className="flex items-center gap-2 mb-7">
-            <div className="h-1 w-8 rounded-full" style={{ background: "#5EEAD4" }} />
-            <div className="h-1 w-8 rounded-full" style={{ background: "#5EEAD4" }} />
-            <span className="ml-auto font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.25)" }}>step 2 of 2</span>
+            <div className="h-1 w-8 rounded-full" style={{ background: "var(--accent)" }} />
+            <div className="h-1 w-8 rounded-full" style={{ background: "var(--accent)" }} />
+            <span className="ml-auto font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>step 2 of 2</span>
           </div>
 
           {/* Heading */}
           <span
             className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-4"
-            style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}
+            style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}
           >
             almost there
           </span>
           <h1
             className="font-display mb-1"
-            style={{ color: "#FFFFFF", fontSize: "clamp(24px, 5vw, 30px)", fontWeight: 600, letterSpacing: "-0.02em", lineHeight: 1.1 }}
+            style={{ color: "var(--ink)", fontSize: "clamp(24px, 5vw, 30px)", fontWeight: 600, letterSpacing: "-0.02em", lineHeight: 1.1 }}
           >
             Pick your username.
           </h1>
-          <p className="font-sans text-sm mb-7" style={{ color: "rgba(255,255,255,0.45)" }}>
+          <p className="font-sans text-sm mb-7" style={{ color: "var(--ink-muted)" }}>
             This is how people find you on Hyperfix.
           </p>
 
@@ -151,12 +151,12 @@ export default function OnboardingUsernamePage() {
               <div
                 className="flex items-center rounded-2xl overflow-hidden transition-all duration-200"
                 style={{
-                  background: "rgba(255,255,255,0.04)",
+                  background: "transparent",
                   border: `1px solid ${borderColor}`,
-                  boxShadow: validation === "available" ? "0 0 0 3px rgba(94,234,212,0.08)" : "none",
+                  boxShadow: validation === "available" ? "0 0 0 3px var(--accent-soft)" : "none",
                 }}
               >
-                <span className="pl-4 font-mono text-sm select-none" style={{ color: "rgba(255,255,255,0.35)" }}>@</span>
+                <span className="pl-4 font-mono text-sm select-none" style={{ color: "var(--ink-faint)" }}>@</span>
                 <input
                   type="text"
                   value={username}
@@ -166,10 +166,10 @@ export default function OnboardingUsernamePage() {
                   autoFocus
                   autoComplete="username"
                   className="flex-1 bg-transparent px-2 py-3.5 text-sm font-mono outline-none"
-                  style={{ color: "#F4F4F4" }}
+                  style={{ color: "var(--ink)" }}
                 />
                 {validation === "checking" && (
-                  <span className="pr-4 font-mono text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>…</span>
+                  <span className="pr-4 font-mono text-xs" style={{ color: "var(--ink-faint)" }}>…</span>
                 )}
               </div>
 
@@ -198,9 +198,9 @@ export default function OnboardingUsernamePage() {
               disabled={!canSubmit}
               className="w-full py-3 rounded-full font-sans text-sm font-semibold transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] disabled:cursor-not-allowed"
               style={{
-                background: canSubmit ? "#FFFFFF" : "rgba(255,255,255,0.1)",
-                color: canSubmit ? "#070708" : "rgba(255,255,255,0.25)",
-                boxShadow: canSubmit ? "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 8px 28px rgba(94,234,212,0.25)" : "none",
+                background: canSubmit ? "var(--ink)" : "var(--line)",
+                color: canSubmit ? "var(--bg)" : "var(--ink-faint)",
+                boxShadow: canSubmit ? "0 1px 0 0 var(--ink-muted) inset, 0 8px 28px var(--accent)" : "none",
               }}
             >
               {submitting ? "Setting up…" : "Claim username →"}
@@ -208,18 +208,18 @@ export default function OnboardingUsernamePage() {
           </form>
         </div>
 
-        <p className="relative z-10 mt-6 font-sans text-xs text-center" style={{ color: "rgba(255,255,255,0.25)" }}>
+        <p className="relative z-10 mt-6 font-sans text-xs text-center" style={{ color: "var(--ink-faint)" }}>
           You can change this later in settings.
         </p>
 
         <div
           className="relative z-10 mt-4 px-5 py-3.5 rounded-2xl text-center max-w-[380px] w-full"
-          style={{ background: "rgba(94,234,212,0.06)", border: "1px solid rgba(94,234,212,0.14)" }}
+          style={{ background: "var(--accent-soft)", border: "1px solid var(--accent-soft)" }}
         >
-          <p className="font-mono text-[11px] uppercase tracking-widest mb-1" style={{ color: "rgba(94,234,212,0.7)" }}>
+          <p className="font-mono text-[11px] uppercase tracking-widest mb-1" style={{ color: "var(--accent)" }}>
             unlock Pro free
           </p>
-          <p className="font-sans text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+          <p className="font-sans text-xs" style={{ color: "var(--ink-muted)" }}>
             Refer 3 friends → get Hyperfix Pro forever. Your referral link is waiting on the dashboard.
           </p>
         </div>

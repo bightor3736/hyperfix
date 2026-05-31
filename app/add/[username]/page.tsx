@@ -95,20 +95,20 @@ export default async function AddFriendPage({
   const NOISE_URL = "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#070708", color: "#F4F4F4" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "var(--bg)", color: "var(--ink)" }}>
       <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.07 }} />
 
       {/* nav */}
-      <nav className="relative z-10 flex items-center justify-between px-5 sm:px-8 py-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+      <nav className="relative z-10 flex items-center justify-between px-5 sm:px-8 py-4" style={{ borderBottom: "1px solid var(--line)" }}>
         <Link href="/">
           <LogoLockup size="sm" />
         </Link>
         {currentUser ? (
-          <Link href="/dashboard" className="font-mono text-[11px] uppercase tracking-widest px-4 py-2 rounded-full" style={{ background: "rgba(244,244,244,0.05)", border: "1px solid rgba(244,244,244,0.08)", color: "rgba(244,244,244,0.7)" }}>
+          <Link href="/dashboard" className="font-mono text-[11px] uppercase tracking-widest px-4 py-2 rounded-full" style={{ background: "var(--line)", border: "1px solid var(--line)", color: "var(--ink-muted)" }}>
             my fixes
           </Link>
         ) : (
-          <Link href="/auth/login" className="font-mono text-[11px] uppercase tracking-widest px-4 py-2 rounded-full" style={{ background: "rgba(244,244,244,0.05)", border: "1px solid rgba(244,244,244,0.08)", color: "rgba(244,244,244,0.7)" }}>
+          <Link href="/auth/login" className="font-mono text-[11px] uppercase tracking-widest px-4 py-2 rounded-full" style={{ background: "var(--line)", border: "1px solid var(--line)", color: "var(--ink-muted)" }}>
             log in
           </Link>
         )}
@@ -161,16 +161,16 @@ export default async function AddFriendPage({
           >
             {displayName}
           </h1>
-          <p className="font-mono text-[12px] mb-2" style={{ color: "rgba(244,244,244,0.4)" }}>
+          <p className="font-mono text-[12px] mb-2" style={{ color: "var(--ink-muted)" }}>
             @{profile.username}
           </p>
-          <p className="font-mono text-[11px] mb-6" style={{ color: "rgba(244,244,244,0.3)" }}>
+          <p className="font-mono text-[11px] mb-6" style={{ color: "var(--ink-faint)" }}>
             {followerCount ?? 0} {followerCount === 1 ? "follower" : "followers"} on Hyperfix
           </p>
 
           {/* bio */}
           {profile.bio && (
-            <p className="font-sans text-[15px] leading-relaxed mb-6 max-w-xs" style={{ color: "rgba(244,244,244,0.6)" }}>
+            <p className="font-sans text-[15px] leading-relaxed mb-6 max-w-xs" style={{ color: "var(--ink-muted)" }}>
               {profile.bio}
             </p>
           )}
@@ -178,10 +178,10 @@ export default async function AddFriendPage({
           {/* active fixes preview */}
           {activeFixes.length > 0 && (
             <div className="w-full mb-8">
-              <p className="font-mono text-[10px] uppercase tracking-widest mb-3 text-left" style={{ color: "rgba(244,244,244,0.3)" }}>
+              <p className="font-mono text-[10px] uppercase tracking-widest mb-3 text-left" style={{ color: "var(--ink-faint)" }}>
                 currently fixated on
               </p>
-              <div className="flex flex-col gap-0" style={{ border: "1px solid rgba(255,255,255,0.06)", borderRadius: 16, overflow: "hidden" }}>
+              <div className="flex flex-col gap-0" style={{ border: "1px solid var(--line)", borderRadius: 16, overflow: "hidden" }}>
                 {activeFixes.map((fix, i) => {
                   const catColor = CATEGORY_COLOR[fix.category.toLowerCase()] ?? accent;
                   const days = dayCount(fix.started_at);
@@ -190,17 +190,17 @@ export default async function AddFriendPage({
                       key={fix.id}
                       className="flex items-center gap-3 px-4 py-3.5"
                       style={{
-                        background: "#0F1011",
-                        borderBottom: i < activeFixes.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none",
+                        background: "var(--bg)",
+                        borderBottom: i < activeFixes.length - 1 ? "1px solid var(--line)" : "none",
                       }}
                     >
                       <span style={{ color: catColor, flexShrink: 0 }}>
                         <CategoryIcon category={fix.category} size={16} />
                       </span>
-                      <p className="font-sans text-sm flex-1 min-w-0 truncate text-left" style={{ color: "rgba(244,244,244,0.75)", fontWeight: 500 }}>
+                      <p className="font-sans text-sm flex-1 min-w-0 truncate text-left" style={{ color: "var(--ink-muted)", fontWeight: 500 }}>
                         {fix.title}
                       </p>
-                      <p className="font-mono text-[11px] shrink-0 tabular-nums" style={{ color: "rgba(244,244,244,0.3)" }}>
+                      <p className="font-mono text-[11px] shrink-0 tabular-nums" style={{ color: "var(--ink-faint)" }}>
                         {days}d
                       </p>
                     </div>
@@ -213,12 +213,12 @@ export default async function AddFriendPage({
           {/* CTA */}
           {isSelf ? (
             <div className="w-full">
-              <p className="font-sans text-sm mb-3" style={{ color: "rgba(244,244,244,0.4)" }}>
+              <p className="font-sans text-sm mb-3" style={{ color: "var(--ink-muted)" }}>
                 This is your link — share it so people can follow you.
               </p>
               <div
                 className="w-full rounded-2xl px-4 py-3 font-mono text-sm text-center select-all"
-                style={{ background: "rgba(94,234,212,0.07)", border: "1px solid rgba(94,234,212,0.2)", color: "#5EEAD4" }}
+                style={{ background: "var(--accent-soft)", border: "1px solid var(--accent)", color: "var(--accent)" }}
               >
                 hyperfix.app/add/{profile.username}
               </div>
@@ -234,7 +234,7 @@ export default async function AddFriendPage({
               <Link
                 href={`/u/${profile.username}`}
                 className="font-mono text-[12px] uppercase tracking-widest text-center"
-                style={{ color: "rgba(244,244,244,0.35)" }}
+                style={{ color: "var(--ink-faint)" }}
               >
                 view full profile →
               </Link>
@@ -244,22 +244,22 @@ export default async function AddFriendPage({
               <Link
                 href={`/auth/signup?next=/add/${username}`}
                 className="w-full flex items-center justify-center gap-2 font-sans text-base font-semibold py-4 rounded-2xl transition-all active:scale-[0.98]"
-                style={{ background: "#FFFFFF", color: "#0A0A0A", boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}
+                style={{ background: "var(--ink)", color: "var(--bg)", boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}
               >
                 join Hyperfix + follow {displayName.split(" ")[0]}
               </Link>
-              <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.35)" }}>
+              <p className="font-sans text-sm" style={{ color: "var(--ink-faint)" }}>
                 free forever · takes 30 seconds
               </p>
               <div className="flex items-center gap-3 mt-1">
-                <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.06)" }} />
-                <span className="font-mono text-[11px]" style={{ color: "rgba(244,244,244,0.25)" }}>or</span>
-                <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.06)" }} />
+                <div style={{ flex: 1, height: 1, background: "var(--line)" }} />
+                <span className="font-mono text-[11px]" style={{ color: "var(--ink-faint)" }}>or</span>
+                <div style={{ flex: 1, height: 1, background: "var(--line)" }} />
               </div>
               <Link
                 href={`/auth/login?next=/add/${username}`}
                 className="font-mono text-[12px] uppercase tracking-widest text-center"
-                style={{ color: "rgba(244,244,244,0.35)" }}
+                style={{ color: "var(--ink-faint)" }}
               >
                 already have an account →
               </Link>

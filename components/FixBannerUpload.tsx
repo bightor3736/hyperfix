@@ -13,7 +13,7 @@ type Props = {
   onChange: (url: string | null) => void;
 };
 
-const TEAL = "#5EEAD4";
+const TEAL = "var(--accent)";
 
 export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -108,7 +108,7 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
     <div>
       <span
         className="font-sans text-[11px] font-semibold uppercase tracking-widest block mb-3"
-        style={{ color: "rgba(244,244,244,0.25)" }}
+        style={{ color: "var(--ink-faint)" }}
       >
         Fixation banner
       </span>
@@ -118,11 +118,11 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
           height: 120,
           background: bannerUrl
             ? undefined
-            : "radial-gradient(ellipse 120% 160% at 50% 130%, #5EEAD4 0%, #2DD4BF 12%, #0E4F47 30%, #08231F 52%, #070708 75%)",
+            : "radial-gradient(ellipse 120% 160% at 50% 130%, var(--accent) 0%, var(--accent) 12%, #0E4F47 30%, #08231F 52%, var(--bg) 75%)",
           backgroundImage: bannerUrl ? `url(${bannerUrl})` : undefined,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          border: "1px solid rgba(94,234,212,0.15)",
+          border: "1px solid var(--accent)",
         }}
       >
         {!bannerUrl && (
@@ -138,7 +138,7 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
               }}
             />
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
                 Hyperfix default · upload or pick a preset to customise
               </p>
             </div>
@@ -151,7 +151,7 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
             className="px-3 py-1.5 rounded-full font-sans text-xs font-medium transition-all hover:opacity-80"
             style={{
               background: "rgba(7,7,8,0.85)",
-              border: "1px solid rgba(94,234,212,0.3)",
+              border: "1px solid var(--accent-soft)",
               color: TEAL,
               backdropFilter: "blur(8px)",
             }}
@@ -165,8 +165,8 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
               className="px-3 py-1.5 rounded-full font-sans text-xs font-medium transition-all hover:opacity-80"
               style={{
                 background: "rgba(7,7,8,0.85)",
-                border: "1px solid rgba(244,244,244,0.15)",
-                color: "rgba(244,244,244,0.5)",
+                border: "1px solid var(--line-strong)",
+                color: "var(--ink-muted)",
                 backdropFilter: "blur(8px)",
               }}
             >
@@ -182,8 +182,8 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
           onClick={() => setPickerOpen(true)}
           className="px-3 py-1.5 rounded-full font-sans text-xs font-medium transition-all hover:opacity-80"
           style={{
-            background: "#0F1011",
-            border: "1px solid rgba(255,255,255,0.06)",
+            background: "var(--bg)",
+            border: "1px solid var(--line)",
             color: TEAL,
           }}
         >
@@ -199,14 +199,14 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
       {progress !== null && (
         <div className="w-48 mb-2">
           <div className="flex justify-between mb-1">
-            <span className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.4)" }}>
+            <span className="font-mono text-[10px]" style={{ color: "var(--ink-muted)" }}>
               Uploading…
             </span>
             <span className="font-mono text-[10px]" style={{ color: TEAL }}>
               {progress}%
             </span>
           </div>
-          <div className="h-1 rounded-full overflow-hidden" style={{ background: "rgba(244,244,244,0.08)" }}>
+          <div className="h-1 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
             <div
               className="h-full rounded-full transition-all duration-200"
               style={{ width: `${progress}%`, background: TEAL }}
@@ -215,7 +215,7 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
         </div>
       )}
       {error && <p className="font-sans text-[12px]" style={{ color: "#fda4af" }}>{error}</p>}
-      <p className="font-mono text-[10px]" style={{ color: "rgba(244,244,244,0.2)" }}>
+      <p className="font-mono text-[10px]" style={{ color: "var(--ink-faint)" }}>
         1500×500px recommended · JPG or PNG · max 5MB
       </p>
     </div>

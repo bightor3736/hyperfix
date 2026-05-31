@@ -76,7 +76,7 @@ export async function GET(
         style={{
           width: 1200,
           height: 630,
-          background: "#070708",
+          background: "var(--bg)",
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",

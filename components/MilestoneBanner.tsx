@@ -101,19 +101,19 @@ export function MilestoneBanner({ milestones }: Props) {
             style={{
               background:
                 fix.days >= 100
-                  ? "radial-gradient(ellipse 100% 200% at 50% 120%, rgba(215,38,56,0.22) 0%, rgba(215,38,56,0.06) 40%, #0F1011 80%)"
-                  : "radial-gradient(ellipse 100% 200% at 50% 120%, rgba(94,234,212,0.20) 0%, rgba(94,234,212,0.05) 40%, #0F1011 80%)",
+                  ? "radial-gradient(ellipse 100% 200% at 50% 120%, rgba(215,38,56,0.22) 0%, rgba(215,38,56,0.06) 40%, var(--bg) 80%)"
+                  : "radial-gradient(ellipse 100% 200% at 50% 120%, var(--accent) 0%, var(--accent-soft) 40%, var(--bg) 80%)",
               border:
                 fix.days >= 100
                   ? "1px solid rgba(215,38,56,0.28)"
-                  : "1px solid rgba(94,234,212,0.22)",
+                  : "1px solid var(--accent)",
             }}
           >
             {/* dismiss */}
             <button
               onClick={() => dismiss(fix)}
               className="absolute top-3 right-3 p-1.5 rounded-lg transition-opacity hover:opacity-70"
-              style={{ color: "rgba(255,255,255,0.3)" }}
+              style={{ color: "var(--ink-faint)" }}
               aria-label="Dismiss"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -124,7 +124,7 @@ export function MilestoneBanner({ milestones }: Props) {
             <div className="flex items-start gap-4 pr-6">
               <span
                 style={{
-                  color: fix.days >= 100 ? "#D72638" : "#5EEAD4",
+                  color: fix.days >= 100 ? "#D72638" : "var(--accent)",
                   display: "inline-flex",
                   flexShrink: 0,
                 }}
@@ -137,17 +137,17 @@ export function MilestoneBanner({ milestones }: Props) {
                 <p
                   className="font-display font-semibold leading-tight mb-0.5"
                   style={{
-                    color: "#FFFFFF",
+                    color: "var(--ink)",
                     fontSize: "clamp(20px, 4vw, 26px)",
                     letterSpacing: "-0.02em",
                   }}
                 >
                   {copy.headline}
                 </p>
-                <p className="font-sans text-sm mb-1 truncate" style={{ color: "rgba(255,255,255,0.5)" }}>
+                <p className="font-sans text-sm mb-1 truncate" style={{ color: "var(--ink-muted)" }}>
                   {fix.title}
                 </p>
-                <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
+                <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
                   {copy.sub}
                 </p>
               </div>
@@ -163,8 +163,8 @@ export function MilestoneBanner({ milestones }: Props) {
                     ? "rgba(13,148,136,0.15)"
                     : fix.days >= 100
                     ? "#D72638"
-                    : "#5EEAD4",
-                  color: isDone ? "#0D9488" : fix.days >= 100 ? "#fff" : "#0A1F1C",
+                    : "var(--accent)",
+                  color: isDone ? "#0D9488" : fix.days >= 100 ? "var(--ink)" : "#0A1F1C",
                   border: isDone ? "1px solid rgba(13,148,136,0.3)" : "none",
                   cursor: exporting ? "wait" : "pointer",
                   opacity: exporting && exporting !== fix.id ? 0.5 : 1,
@@ -192,9 +192,9 @@ export function MilestoneBanner({ milestones }: Props) {
                 onClick={() => dismiss(fix)}
                 className="px-4 py-2.5 rounded-xl font-mono text-sm transition-all hover:opacity-80"
                 style={{
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  color: "rgba(255,255,255,0.4)",
+                  background: "transparent",
+                  border: "1px solid var(--line)",
+                  color: "var(--ink-muted)",
                 }}
               >
                 Later

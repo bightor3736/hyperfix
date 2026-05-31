@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const LIME = "#5EEAD4";
 const LIME_DEEP = "#7CB205";
 const LIME_DARK = "#4D7C0F";
-const INK = "#0A0A0A";
+const INK = "var(--bg)";
 const INK_2 = "#16161A";
 const INK_3 = "#1F1F22";
 const PAPER = "#F4F4F4";
@@ -329,7 +329,7 @@ function PaletteSection() {
     {
       name: "Ink",
       role: "Surface",
-      hex: "#0A0A0A",
+      hex: "var(--bg)",
       rgb: "10, 10, 10",
       cmyk: "0, 0, 0, 96",
       pantone: "Black 6 C",

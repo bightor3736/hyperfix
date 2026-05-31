@@ -41,9 +41,9 @@ function ColumnHeading({ children }: { children: React.ReactNode }) {
     <span
       className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5"
       style={{
-        background: "rgba(94,234,212,0.10)",
-        color: "#5EEAD4",
-        border: "1px solid rgba(94,234,212,0.22)",
+        background: "var(--accent-soft)",
+        color: "var(--accent)",
+        border: "1px solid var(--accent)",
       }}
     >
       {children}
@@ -57,7 +57,7 @@ function FooterLink({ href, label }: { href: string; label: string }) {
       <a
         href={href}
         className="motion-link font-sans text-sm transition-colors"
-        style={{ color: "rgba(255,255,255,0.55)" }}
+        style={{ color: "var(--ink-muted)" }}
       >
         {label}
       </a>
@@ -67,12 +67,12 @@ function FooterLink({ href, label }: { href: string; label: string }) {
 
 export default function Footer() {
   return (
-    <footer className="px-6 sm:px-10 pt-10 pb-8" style={{ background: "#070708" }}>
+    <footer className="px-6 sm:px-10 pt-10 pb-8" style={{ background: "var(--bg)" }}>
       <div
         className="relative overflow-hidden max-w-6xl mx-auto rounded-3xl p-8 sm:p-12 mb-6"
         style={{
-          background: "#0F1011",
-          border: "1px solid rgba(255,255,255,0.06)",
+          background: "var(--bg)",
+          border: "1px solid var(--line)",
         }}
       >
         <div
@@ -89,7 +89,7 @@ export default function Footer() {
             right: "-20%",
             width: "60%",
             height: "120%",
-            background: "radial-gradient(circle, rgba(94,234,212,0.10) 0%, transparent 65%)",
+            background: "radial-gradient(circle, var(--accent-soft) 0%, transparent 65%)",
           }}
         />
 
@@ -98,7 +98,7 @@ export default function Footer() {
             <a href="/" className="inline-block mb-4 transition-transform hover:scale-[1.02]">
               <LogoLockup size="sm" />
             </a>
-            <p className="font-sans text-sm leading-relaxed max-w-xs" style={{ color: "rgba(255,255,255,0.55)" }}>
+            <p className="font-sans text-sm leading-relaxed max-w-xs" style={{ color: "var(--ink-muted)" }}>
               A journal for the things that are quietly running your life.
             </p>
             <div className="mt-6">
@@ -106,10 +106,10 @@ export default function Footer() {
                 href="/auth/signup"
                 className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-5 py-3 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
                 style={{
-                  background: "#FFFFFF",
-                  color: "#0A0A0A",
+                  background: "var(--ink)",
+                  color: "var(--bg)",
                   borderRadius: 999,
-                  boxShadow: "0 4px 16px rgba(94,234,212,0.20)",
+                  boxShadow: "0 4px 16px var(--accent)",
                 }}
               >
                 Get started →
@@ -151,7 +151,7 @@ export default function Footer() {
 
         <div
           className="relative pt-6 flex items-center justify-between flex-wrap gap-4"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+          style={{ borderTop: "1px solid var(--line)" }}
         >
           <div className="flex items-center gap-4">
             <a
@@ -159,8 +159,8 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Hyperfix on TikTok"
-              className="transition-colors hover:text-[#5EEAD4]"
-              style={{ color: "rgba(255,255,255,0.4)" }}
+              className="transition-colors hover:text-[var(--accent)]"
+              style={{ color: "var(--ink-muted)" }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.28 6.28 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.78a4.85 4.85 0 0 1-1.01-.09z" />
@@ -171,8 +171,8 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Hyperfix on Instagram"
-              className="transition-colors hover:text-[#5EEAD4]"
-              style={{ color: "rgba(255,255,255,0.4)" }}
+              className="transition-colors hover:text-[var(--accent)]"
+              style={{ color: "var(--ink-muted)" }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
@@ -181,7 +181,7 @@ export default function Footer() {
               </svg>
             </a>
           </div>
-          <div className="flex items-center gap-4 font-sans text-xs flex-wrap" style={{ color: "rgba(255,255,255,0.35)" }}>
+          <div className="flex items-center gap-4 font-sans text-xs flex-wrap" style={{ color: "var(--ink-faint)" }}>
             <span>© 2026 hyperfix</span>
             <span>·</span>
             <span>we do not train ai on your obsessions</span>

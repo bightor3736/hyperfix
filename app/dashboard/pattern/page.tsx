@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   title: "Your Pattern · Hyperfix",
 };
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 const CATEGORY_COLORS: Record<string, string> = {
   song: "#F59E0B",
@@ -90,24 +90,24 @@ export default async function PatternPage() {
   const maxDays = Math.max(1, ...fixes.map((f) => daysBetween(f.started_at, f.ended_at)));
 
   return (
-    <div className="min-h-screen" style={{ background: "#070708", color: "#F4F4F4" }}>
+    <div className="min-h-screen" style={{ background: "var(--bg)", color: "var(--ink)" }}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
 
         {/* Header */}
         <div className="mb-2">
-          <Link href="/dashboard" className="font-mono text-xs hover:text-[#5EEAD4] transition-colors" style={{ color: "rgba(255,255,255,0.3)" }}>
+          <Link href="/dashboard" className="font-mono text-xs hover:text-[var(--accent)] transition-colors" style={{ color: "var(--ink-faint)" }}>
             ← dashboard
           </Link>
         </div>
         <h1 className="font-display text-3xl font-semibold mb-1" style={{ letterSpacing: "-0.03em" }}>your pattern</h1>
-        <p className="font-sans text-sm mb-8" style={{ color: "rgba(255,255,255,0.4)" }}>
+        <p className="font-sans text-sm mb-8" style={{ color: "var(--ink-muted)" }}>
           this is how your brain cycles. not random — yours.
         </p>
 
         {fixes.length === 0 ? (
           <div className="rounded-3xl p-10 text-center" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
-            <p className="font-display text-xl mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>no fixations logged yet.</p>
-            <p className="font-sans text-sm mb-6" style={{ color: "rgba(255,255,255,0.25)" }}>start tracking and come back here to see your pattern.</p>
+            <p className="font-display text-xl mb-2" style={{ color: "var(--ink-muted)" }}>no fixations logged yet.</p>
+            <p className="font-sans text-sm mb-6" style={{ color: "var(--ink-faint)" }}>start tracking and come back here to see your pattern.</p>
             <Link href="/dashboard/new" className="font-sans text-sm font-semibold px-5 py-2.5 rounded-full transition-all hover:opacity-90" style={{ background: TEAL, color: "#0A1F1C" }}>
               Log your first fixation
             </Link>
@@ -123,7 +123,7 @@ export default async function PatternPage() {
                 { label: "avg intensity", value: avgIntensity ? `${avgIntensity}/10` : "—" },
               ].map((s) => (
                 <div key={s.label} className="rounded-2xl p-4 sm:p-5" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
-                  <div className="font-display text-2xl sm:text-3xl font-medium tabular-nums mb-1" style={{ color: "#F4F4F4" }}>
+                  <div className="font-display text-2xl sm:text-3xl font-medium tabular-nums mb-1" style={{ color: "var(--ink)" }}>
                     {s.value}
                   </div>
                   <div className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "#9A9A9A" }}>
@@ -137,7 +137,7 @@ export default async function PatternPage() {
             <div className="grid sm:grid-cols-2 gap-3 mb-8">
               {topCategory && (
                 <div className="rounded-3xl p-5" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
-                  <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>
+                  <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "var(--ink-faint)" }}>
                     your main obsession type
                   </p>
                   <div className="flex items-center gap-3">
@@ -145,13 +145,13 @@ export default async function PatternPage() {
                       <CategoryIcon category={topCategory} size={20} />
                     </span>
                     <p className="font-display text-xl font-semibold" style={{ letterSpacing: "-0.02em" }}>{topCategory}</p>
-                    <span className="font-mono text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>{catCounts[topCategory]}×</span>
+                    <span className="font-mono text-xs" style={{ color: "var(--ink-faint)" }}>{catCounts[topCategory]}×</span>
                   </div>
                 </div>
               )}
               {longest && (
                 <div className="rounded-3xl p-5" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
-                  <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>
+                  <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "var(--ink-faint)" }}>
                     longest fixation ever
                   </p>
                   <p className="font-display text-base font-semibold leading-snug mb-1 line-clamp-1" style={{ letterSpacing: "-0.01em" }}>
@@ -163,11 +163,11 @@ export default async function PatternPage() {
                 </div>
               )}
               {avgDuration && (
-                <div className="rounded-3xl p-5 sm:col-span-2" style={{ background: "rgba(94,234,212,0.04)", border: "1px solid rgba(94,234,212,0.14)" }}>
-                  <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "rgba(94,234,212,0.5)" }}>
+                <div className="rounded-3xl p-5 sm:col-span-2" style={{ background: "var(--accent-soft)", border: "1px solid var(--accent-soft)" }}>
+                  <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "var(--accent)" }}>
                     your cycle insight
                   </p>
-                  <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}>
+                  <p className="font-sans text-sm" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
                     Your fixations last an average of <span style={{ color: TEAL, fontWeight: 600 }}>{avgDuration} days</span>.
                     {avgDuration < 14 && " Short, intense phases — your brain moves fast."}
                     {avgDuration >= 14 && avgDuration < 45 && " A couple of weeks deep is your sweet spot."}
@@ -181,7 +181,7 @@ export default async function PatternPage() {
             {/* Category breakdown */}
             {Object.keys(catCounts).length > 1 && (
               <div className="rounded-3xl p-5 sm:p-6 mb-6" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
-                <p className="font-mono text-[10px] uppercase tracking-widest mb-5" style={{ color: "rgba(255,255,255,0.3)" }}>
+                <p className="font-mono text-[10px] uppercase tracking-widest mb-5" style={{ color: "var(--ink-faint)" }}>
                   obsession breakdown
                 </p>
                 <div className="flex flex-col gap-3">
@@ -193,8 +193,8 @@ export default async function PatternPage() {
                         <span className="flex-shrink-0 inline-flex" style={{ color }}>
                           <CategoryIcon category={cat} size={14} />
                         </span>
-                        <span className="font-sans text-xs w-20 shrink-0 capitalize" style={{ color: "rgba(255,255,255,0.55)" }}>{cat}</span>
-                        <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
+                        <span className="font-sans text-xs w-20 shrink-0 capitalize" style={{ color: "var(--ink-muted)" }}>{cat}</span>
+                        <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
                           <div className="h-full rounded-full transition-all" style={{ width: `${(count / max) * 100}%`, background: color }} />
                         </div>
                         <span className="font-mono text-xs tabular-nums w-5 text-right" style={{ color: "#9A9A9A" }}>{count}</span>
@@ -207,7 +207,7 @@ export default async function PatternPage() {
 
             {/* Timeline */}
             <div className="rounded-3xl p-5 sm:p-6 mb-6" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
-              <p className="font-mono text-[10px] uppercase tracking-widest mb-6" style={{ color: "rgba(255,255,255,0.3)" }}>
+              <p className="font-mono text-[10px] uppercase tracking-widest mb-6" style={{ color: "var(--ink-faint)" }}>
                 fixation timeline
               </p>
               <div className="flex flex-col gap-4">
@@ -219,24 +219,24 @@ export default async function PatternPage() {
                   return (
                     <Link key={fix.id} href={`/dashboard/fix/${fix.id}`} className="group flex items-start gap-4 hover:opacity-80 transition-opacity">
                       <div className="flex-shrink-0 text-right w-20">
-                        <p className="font-mono text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>
+                        <p className="font-mono text-[10px]" style={{ color: "var(--ink-faint)" }}>
                           {formatDate(fix.started_at)}
                         </p>
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1.5">
                           <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: color, boxShadow: isActive ? `0 0 6px ${color}` : "none" }} />
-                          <p className="font-sans text-sm font-medium truncate group-hover:text-[#5EEAD4] transition-colors" style={{ color: "rgba(255,255,255,0.85)" }}>
+                          <p className="font-sans text-sm font-medium truncate group-hover:text-[var(--accent)] transition-colors" style={{ color: "var(--ink)" }}>
                             {fix.title}
                           </p>
                           {isActive && (
-                            <span className="font-mono text-[9px] px-1.5 py-0.5 rounded-full flex-shrink-0" style={{ background: "rgba(94,234,212,0.1)", color: TEAL, border: "1px solid rgba(94,234,212,0.2)" }}>
+                            <span className="font-mono text-[9px] px-1.5 py-0.5 rounded-full flex-shrink-0" style={{ background: "var(--accent-soft)", color: TEAL, border: "1px solid var(--accent)" }}>
                               active
                             </span>
                           )}
                         </div>
                         <div className="flex items-center gap-3">
-                          <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.05)" }}>
+                          <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
                             <div
                               className="h-full rounded-full"
                               style={{
@@ -246,7 +246,7 @@ export default async function PatternPage() {
                               }}
                             />
                           </div>
-                          <span className="font-mono text-[10px] tabular-nums flex-shrink-0" style={{ color: "rgba(255,255,255,0.3)" }}>
+                          <span className="font-mono text-[10px] tabular-nums flex-shrink-0" style={{ color: "var(--ink-faint)" }}>
                             {days}d
                           </span>
                         </div>
@@ -261,8 +261,8 @@ export default async function PatternPage() {
               <div className="text-center">
                 <Link
                   href="/dashboard/graveyard"
-                  className="inline-flex items-center gap-2 font-sans text-sm transition-colors hover:text-[#5EEAD4]"
-                  style={{ color: "rgba(255,255,255,0.3)" }}
+                  className="inline-flex items-center gap-2 font-sans text-sm transition-colors hover:text-[var(--accent)]"
+                  style={{ color: "var(--ink-faint)" }}
                 >
                   <TombstoneIcon size={14} />
                   view the graveyard →

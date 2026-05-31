@@ -105,29 +105,29 @@ export default function VsObsidianPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main id="main-content" className="relative z-10 text-white" style={{ background: "#070708", minHeight: "100vh" }}>
+      <main id="main-content" className="relative z-10 text-white" style={{ background: "var(--bg)", minHeight: "100vh" }}>
 
         <Nav />
 
         {/* HERO */}
         <section className="px-4 sm:px-6 lg:px-8 pt-8 pb-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>
               comparison · hyperfix vs obsidian
             </span>
             <h1 className="font-display font-medium text-[2.8rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[0.92] tracking-tight text-white text-balance">
               You built the vault.
               <br />
-              <span className="text-[#5EEAD4]">You opened it twice.</span>
+              <span className="text-[var(--accent)]">You opened it twice.</span>
             </h1>
             <div className="mt-10 grid md:grid-cols-2 gap-8 max-w-4xl">
-              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
+              <p className="font-sans text-lg text-[var(--ink-muted)] leading-snug">
                 Obsidian is extraordinary software. If you want a second brain —
                 interconnected notes, local-first storage, a PKM system you
                 actually own — it's one of the best tools available. The plugin
                 ecosystem alone has people running their entire lives out of it.
               </p>
-              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
+              <p className="font-sans text-lg text-[var(--ink-muted)] leading-snug">
                 But the Obsidian hyperfixation template you found at midnight,
                 the one with the Dataview query that counts days since the start
                 date and the rating property you had to configure manually — you
@@ -142,22 +142,22 @@ export default function VsObsidianPage() {
         {/* DISTINCTION */}
         <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>
               the distinction
             </span>
             <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10 max-w-3xl text-balance">
               A vault stores your obsession.{" "}
-              <span className="text-[#5EEAD4]">Hyperfix holds it.</span>
+              <span className="text-[var(--accent)]">Hyperfix holds it.</span>
             </h2>
             <div className="grid md:grid-cols-2 gap-10 max-w-4xl">
-              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
+              <p className="font-sans text-lg text-[var(--ink-muted)] leading-snug">
                 Obsidian is a tool you build. That's both its power and its
                 cost. Every tracker, every database, every Dataview query — you
                 built it. You maintain it. When the schema breaks or the date
                 formula stops working, that's on you, at whatever hour the fix
                 arrived.
               </p>
-              <p className="font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug">
+              <p className="font-sans text-lg text-[var(--ink-muted)] leading-snug">
                 Hyperfix is opinionated by design. The day counter is automatic.
                 The intensity meter is built in. The eulogy writes itself when
                 you close the fix. You don't configure it. You don't maintain
@@ -170,10 +170,10 @@ export default function VsObsidianPage() {
         {/* WHAT OBSIDIAN DOES WELL */}
         <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>honest assessment</span>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>honest assessment</span>
             <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-10 text-balance">
               What Obsidian{" "}
-              <span className="text-[#5EEAD4]">actually does well</span>
+              <span className="text-[var(--accent)]">actually does well</span>
             </h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl">
               {[
@@ -190,11 +190,11 @@ export default function VsObsidianPage() {
                   p: "Obsidian is exceptional for notes that grow over time — interconnected thoughts, research, backlinks, graph view. If you want to write 6,000 words about the internal logic of a character arc, Obsidian holds that better than Hyperfix ever will.",
                 },
               ].map((item) => (
-                <div key={item.h} className="border-t border-[rgba(255,255,255,0.06)] pt-6">
+                <div key={item.h} className="border-t border-[var(--line)] pt-6">
                   <h3 className="font-display text-xl tracking-tight mb-3">
                     {item.h}
                   </h3>
-                  <p className="font-sans text-base text-[rgba(255,255,255,0.65)] leading-relaxed">
+                  <p className="font-sans text-base text-[var(--ink-muted)] leading-relaxed">
                     {item.p}
                   </p>
                 </div>
@@ -206,26 +206,26 @@ export default function VsObsidianPage() {
         {/* COMPARISON TABLE */}
         <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-5xl mx-auto">
-            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>side by side</span>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>side by side</span>
             <h2 className="font-display text-4xl sm:text-5xl leading-[0.98] tracking-tight mb-12 text-balance">
               The comparison
             </h2>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
-                  <tr className="border-b border-[rgba(255,255,255,0.12)]">
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
+                  <tr className="border-b border-[var(--line)]">
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[var(--ink-muted)] w-1/3">
                       Feature
                     </th>
-                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
+                    <th className="text-left py-4 pr-8 font-mono text-[11px] uppercase tracking-widest text-[var(--ink-muted)] w-1/3">
                       Obsidian
                     </th>
-                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[rgba(255,255,255,0.55)] w-1/3">
+                    <th className="text-left py-4 font-mono text-[11px] uppercase tracking-widest text-[var(--ink-muted)] w-1/3">
                       Hyperfix
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[rgba(255,255,255,0.06)]">
+                <tbody className="divide-y divide-[var(--line)]">
                   {comparisonRows.map((row) => (
                     <tr key={row.feature} className="group">
                       <td className="py-4 pr-8 font-display text-base tracking-tight text-white align-top">
@@ -235,7 +235,7 @@ export default function VsObsidianPage() {
                         className={`py-4 pr-8 font-sans text-sm leading-snug align-top ${
                           row.edge === "obsidian"
                             ? "text-white font-medium"
-                            : "text-[rgba(255,255,255,0.55)]"
+                            : "text-[var(--ink-muted)]"
                         }`}
                       >
                         {row.edge === "obsidian" && (
@@ -246,12 +246,12 @@ export default function VsObsidianPage() {
                       <td
                         className={`py-4 font-sans text-sm leading-snug align-top ${
                           row.edge === "hyperfix"
-                            ? "text-[#5EEAD4] font-medium"
-                            : "text-[rgba(255,255,255,0.55)]"
+                            ? "text-[var(--accent)] font-medium"
+                            : "text-[var(--ink-muted)]"
                         }`}
                       >
                         {row.edge === "hyperfix" && (
-                          <span className="text-[#5EEAD4] mr-1">✓</span>
+                          <span className="text-[var(--accent)] mr-1">✓</span>
                         )}
                         {row.hyperfix}
                       </td>
@@ -260,7 +260,7 @@ export default function VsObsidianPage() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-8 font-display text-[rgba(255,255,255,0.55)] text-base max-w-xl">
+            <p className="mt-8 font-display text-[var(--ink-muted)] text-base max-w-xl">
               Obsidian wins on ownership and flexibility. Hyperfix wins on
               knowing what you actually came here for.
             </p>
@@ -273,9 +273,9 @@ export default function VsObsidianPage() {
             <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight text-balance">
               A blank canvas doesn't know what you're building.
               <br />
-              <span className="text-[#5EEAD4]">Hyperfix does.</span>
+              <span className="text-[var(--accent)]">Hyperfix does.</span>
             </h2>
-            <p className="mt-10 font-sans text-lg text-[rgba(255,255,255,0.65)] leading-snug max-w-3xl">
+            <p className="mt-10 font-sans text-lg text-[var(--ink-muted)] leading-snug max-w-3xl">
               The Obsidian vault you built for hyperfixation tracking is still
               there. The Dataview table with the broken "days active" formula.
               The four properties you defined at midnight. The three notes you
@@ -288,13 +288,13 @@ export default function VsObsidianPage() {
         {/* FINAL CTA */}
         <section className="px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-4xl mx-auto">
-            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "rgba(94,234,212,0.10)", color: "#5EEAD4", border: "1px solid rgba(94,234,212,0.22)" }}>join the waitlist</span>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-8" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>join the waitlist</span>
             <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] tracking-tight max-w-2xl text-balance">
               Keep the vault for thinking.
               <br />
-              <span className="text-[#5EEAD4]">Use Hyperfix for the crisis.</span>
+              <span className="text-[var(--accent)]">Use Hyperfix for the crisis.</span>
             </h2>
-            <p className="mt-6 font-sans text-lg text-[rgba(255,255,255,0.65)] max-w-xl leading-snug">
+            <p className="mt-6 font-sans text-lg text-[var(--ink-muted)] max-w-xl leading-snug">
               Waitlist is open. First access goes out in waves — early users get
               a permanent Pro discount and the best usernames.
             </p>

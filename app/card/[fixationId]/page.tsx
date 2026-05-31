@@ -85,7 +85,7 @@ export default async function CardPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main
         className="min-h-screen flex flex-col items-center justify-center px-4 py-12"
-        style={{ background: "#070708" }}
+        style={{ background: "var(--bg)" }}
       >
         {/* Card preview */}
         <div
@@ -93,7 +93,7 @@ export default async function CardPage({
           style={{
             width: "min(360px, 90vw)",
             aspectRatio: "9/16",
-            border: "1px solid rgba(255,255,255,0.06)",
+            border: "1px solid var(--line)",
             boxShadow: "0 32px 80px rgba(0,0,0,0.45)",
           }}
         >
@@ -108,17 +108,17 @@ export default async function CardPage({
         {/* Meta text */}
         <p
           className="font-mono text-[10px] uppercase tracking-widest mb-3 text-center"
-          style={{ color: "rgba(94,234,212,0.55)" }}
+          style={{ color: "var(--accent)" }}
         >
           {fix.category}
         </p>
         <h1
           className="font-display text-2xl text-center mb-2"
-          style={{ color: "#F4F4F4", letterSpacing: "-0.02em", fontWeight: 600, maxWidth: 400 }}
+          style={{ color: "var(--ink)", letterSpacing: "-0.02em", fontWeight: 600, maxWidth: 400 }}
         >
           {fix.title}
         </h1>
-        <p className="font-mono text-xs text-center mb-8 tabular-nums" style={{ color: "rgba(244,244,244,0.45)" }}>
+        <p className="font-mono text-xs text-center mb-8 tabular-nums" style={{ color: "var(--ink-muted)" }}>
           day {days} · intensity {fix.intensity}/10
         </p>
 
@@ -128,10 +128,10 @@ export default async function CardPage({
             href="/"
             className="w-full flex items-center justify-center gap-2 rounded-full py-3.5 font-sans text-sm font-semibold transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
             style={{
-              background: "#FFFFFF",
-              color: "#070708",
+              background: "var(--ink)",
+              color: "var(--bg)",
               textDecoration: "none",
-              boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 8px 28px rgba(94,234,212,0.22)",
+              boxShadow: "0 1px 0 0 var(--ink-muted) inset, 0 8px 28px var(--accent)",
             }}
           >
             Track your own fixation →
@@ -141,9 +141,9 @@ export default async function CardPage({
             download={`hyperfix-${fix.title.slice(0, 32).replace(/\s+/g, "-").toLowerCase()}.png`}
             className="w-full flex items-center justify-center gap-2 rounded-full py-3 font-sans text-sm transition-all duration-150"
             style={{
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              color: "rgba(244,244,244,0.6)",
+              background: "transparent",
+              border: "1px solid var(--line)",
+              color: "var(--ink-muted)",
               textDecoration: "none",
             }}
           >
@@ -160,7 +160,7 @@ export default async function CardPage({
         <Link
           href="/"
           className="mt-10 font-mono text-xs"
-          style={{ color: "rgba(244,244,244,0.25)", textDecoration: "none" }}
+          style={{ color: "var(--ink-faint)", textDecoration: "none" }}
         >
           hyperfix.app
         </Link>

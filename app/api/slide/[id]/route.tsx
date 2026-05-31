@@ -5,7 +5,7 @@ export const runtime = "edge";
 
 const SIZE = { width: 1080, height: 1350 };
 
-const PAPER = "#080808";
+const PAPER = "var(--bg)";
 const PAPER_DEEP = "#111113";
 const INK = "#F4F4F4";
 const INK_SOFT = "#9A9A9A";
@@ -194,7 +194,7 @@ function PhotoSignSlide({ index }: { index: number }) {
   const sign = signs[index - 1];
 
   return (
-    <div style={{ width: "100%", height: "100%", background: "#070708", position: "relative", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+    <div style={{ width: "100%", height: "100%", background: "var(--bg)", position: "relative", display: "flex", flexDirection: "column", overflow: "hidden" }}>
       {/* Hyperfix teal glow — bottom-left */}
       <div style={{ position: "absolute", bottom: -300, left: -200, width: 900, height: 900, borderRadius: "50%", background: "radial-gradient(circle, rgba(94,234,212,0.18) 0%, rgba(94,234,212,0.06) 40%, transparent 70%)", display: "flex" }} />
       {/* Hyperfix teal glow — top-right echo */}

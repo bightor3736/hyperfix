@@ -9,9 +9,9 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 export async function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
@@ -61,14 +61,14 @@ export default async function BlogPostPage({ params }: Props) {
       <Nav />
       <div
         className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16"
-        style={{ background: "#070708" }}
+        style={{ background: "var(--bg)" }}
       >
         <main id="main-content" className="relative max-w-3xl mx-auto">
           {/* Back link */}
           <a
             href="/blog"
             className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] mb-10 transition-colors anim-fadeUp"
-            style={{ color: "rgba(255,255,255,0.5)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             <ArrowLeft set="light" size={14} primaryColor="currentColor" />
             Blog
@@ -80,16 +80,16 @@ export default async function BlogPostPage({ params }: Props) {
               <span
                 className="inline-flex items-center font-mono text-[10px] uppercase tracking-[0.18em] rounded-full px-2.5 py-1"
                 style={{
-                  background: "rgba(94,234,212,0.08)",
+                  background: "var(--accent-soft)",
                   color: TEAL,
-                  border: "1px solid rgba(94,234,212,0.18)",
+                  border: "1px solid var(--accent-soft)",
                 }}
               >
                 {post.category}
               </span>
               <span
                 className="font-mono text-[11px] tabular-nums"
-                style={{ color: "rgba(255,255,255,0.45)" }}
+                style={{ color: "var(--ink-muted)" }}
               >
                 {formattedDate} · {post.readTime} read
               </span>
@@ -97,7 +97,7 @@ export default async function BlogPostPage({ params }: Props) {
             <h1
               className="font-display anim-fadeUp delay-100"
               style={{
-                color: "#FFFFFF",
+                color: "var(--ink)",
                 fontSize: "clamp(32px, 5.5vw, 48px)",
                 lineHeight: 1.05,
                 letterSpacing: "-0.02em",
@@ -109,7 +109,7 @@ export default async function BlogPostPage({ params }: Props) {
             {post.excerpt && (
               <p
                 className="mt-5 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-200"
-                style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}
+                style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}
               >
                 {post.excerpt}
               </p>
@@ -126,7 +126,7 @@ export default async function BlogPostPage({ params }: Props) {
                       key={i}
                       className="font-display mt-6"
                       style={{
-                        color: "#FFFFFF",
+                        color: "var(--ink)",
                         fontSize: 24,
                         fontWeight: 500,
                         letterSpacing: "-0.01em",
@@ -142,12 +142,12 @@ export default async function BlogPostPage({ params }: Props) {
                   <p
                     key={i}
                     className="font-sans text-base sm:text-[17px]"
-                    style={{ color: "rgba(255,255,255,0.72)", lineHeight: 1.75 }}
+                    style={{ color: "var(--line)", lineHeight: 1.75 }}
                   >
                     {parts.map((part, j) => {
                       if (part.startsWith("**") && part.endsWith("**")) {
                         return (
-                          <strong key={j} style={{ color: "#FFFFFF", fontWeight: 600 }}>
+                          <strong key={j} style={{ color: "var(--ink)", fontWeight: 600 }}>
                             {part.replace(/\*\*/g, "")}
                           </strong>
                         );
@@ -169,7 +169,7 @@ export default async function BlogPostPage({ params }: Props) {
               <p
                 className="font-display mb-1"
                 style={{
-                  color: "#FFFFFF",
+                  color: "var(--ink)",
                   fontSize: 20,
                   fontWeight: 500,
                   letterSpacing: "-0.01em",
@@ -177,7 +177,7 @@ export default async function BlogPostPage({ params }: Props) {
               >
                 Track your current hyperfixation.
               </p>
-              <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
+              <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
                 Log it, count the days, build your graveyard.
               </p>
             </div>
@@ -186,7 +186,7 @@ export default async function BlogPostPage({ params }: Props) {
               className="shrink-0 inline-flex items-center gap-2 font-sans text-sm font-medium px-5 py-2.5 transition-all duration-200 hover:-translate-y-px active:scale-[0.98]"
               style={{
                 background: TEAL,
-                color: "#0A0A0A",
+                color: "var(--bg)",
                 borderRadius: 999,
               }}
             >

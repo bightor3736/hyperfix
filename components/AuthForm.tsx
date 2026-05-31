@@ -169,7 +169,7 @@ export function SubmitButton({ label, pending }: { label: string; pending?: bool
       style={{
         background: "var(--accent)",
         color: "var(--accent-ink)",
-        boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 8px 28px rgba(111,138,99,0.25)",
+        boxShadow: "0 1px 0 0 var(--ink-muted) inset, 0 8px 28px rgba(111,138,99,0.25)",
       }}
     >
       <span className="relative z-10">{pending ? "Please wait…" : label}</span>

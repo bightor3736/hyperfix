@@ -8,7 +8,7 @@ type FontEntry = NonNullable<SatoriOptions["fonts"]>[number];
 
 const W = 1080;
 const H = 1920;
-const BG = "#080808";
+const BG = "var(--bg)";
 const TEAL = "#5EEAD4";
 const INK = "#F4F4F4";
 const DIM = "rgba(244,244,244,0.42)";

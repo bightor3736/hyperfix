@@ -49,7 +49,7 @@ export async function GET(
         style={{
           width: 1200,
           height: 630,
-          background: "#0A0A0A",
+          background: "var(--bg)",
           display: "flex",
           fontFamily: "ui-sans-serif, system-ui, sans-serif",
           overflow: "hidden",

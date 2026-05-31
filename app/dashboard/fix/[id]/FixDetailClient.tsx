@@ -245,12 +245,12 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
   const intensityColor =
     intensity >= 9 ? "#E63946" :
     intensity >= 7 ? "#FB923C" :
-    "#5EEAD4";
+    "var(--accent)";
 
   const checkInColor =
     checkInIntensity >= 9 ? "#E63946" :
     checkInIntensity >= 7 ? "#FB923C" :
-    "#5EEAD4";
+    "var(--accent)";
 
   return (
     <div className="flex flex-col gap-4">
@@ -260,26 +260,26 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
         <div
           className="rounded-2xl px-5 py-4 flex items-start gap-4 relative"
           style={{
-            background: "rgba(94,234,212,0.08)",
-            border: "1px solid rgba(94,234,212,0.3)",
-            boxShadow: "0 0 32px rgba(94,234,212,0.12)",
+            background: "var(--accent-soft)",
+            border: "1px solid var(--accent-soft)",
+            boxShadow: "0 0 32px var(--accent-soft)",
           }}
         >
-          <span style={{ color: "#5EEAD4", display: "inline-flex" }} aria-hidden>
+          <span style={{ color: "var(--accent)", display: "inline-flex" }} aria-hidden>
             <milestone.Icon size={28} />
           </span>
           <div className="flex-1 min-w-0">
-            <p className="font-display font-bold text-base" style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}>
+            <p className="font-display font-bold text-base" style={{ color: "var(--ink)", letterSpacing: "-0.02em" }}>
               {milestone.heading}
             </p>
-            <p className="font-sans text-sm mt-0.5" style={{ color: "rgba(244,244,244,0.5)" }}>
+            <p className="font-sans text-sm mt-0.5" style={{ color: "var(--ink-muted)" }}>
               {milestone.sub}
             </p>
           </div>
           <button
             onClick={() => setMilestoneDismissed(true)}
             className="shrink-0 p-1 rounded-lg transition-opacity hover:opacity-60"
-            style={{ color: "rgba(244,244,244,0.3)" }}
+            style={{ color: "var(--ink-faint)" }}
             aria-label="Dismiss"
           >
             <CloseSquare set="light" size={15} primaryColor="currentColor" />
@@ -293,7 +293,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
           <button
             onClick={() => setShowCheckIn(true)}
             className="inline-flex items-center gap-2 w-full sm:w-auto justify-center px-6 py-3 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.97]"
-            style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+            style={{ background: "var(--accent)", color: "var(--bg)" }}
           >
             <SparkleIcon size={14} />
             Check in today
@@ -317,7 +317,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
             className="w-full max-w-sm rounded-3xl overflow-hidden relative flex flex-col"
             style={{
               background: "#0D0D0F",
-              border: "1px solid rgba(244,244,244,0.08)",
+              border: "1px solid var(--line)",
               boxShadow: `0 32px 80px rgba(0,0,0,0.8), 0 0 60px ${checkInColor}18`,
               animation: "checkInSlideUp 0.3s cubic-bezier(0.2,0.8,0.2,1) both",
             }}
@@ -342,7 +342,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               <button
                 onClick={() => setShowCheckIn(false)}
                 className="absolute top-4 right-4 p-2 rounded-full transition-opacity hover:opacity-60"
-                style={{ background: "rgba(244,244,244,0.08)", color: "rgba(244,244,244,0.45)" }}
+                style={{ background: "var(--line)", color: "var(--ink-muted)" }}
                 aria-label="Cancel"
               >
                 <CloseSquare set="light" size={15} primaryColor="currentColor" />
@@ -365,9 +365,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                   style={{
                     fontSize: 80,
                     fontWeight: 600,
-                    color: "#0A0A0A",
+                    color: "var(--bg)",
                     letterSpacing: "-0.04em",
-                    textShadow: "0 2px 12px rgba(255,255,255,0.4)",
+                    textShadow: "0 2px 12px var(--ink-muted)",
                   }}
                 >
                   {checkInIntensity}
@@ -381,13 +381,13 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               <div className="text-center">
                 <h2
                   className="font-display font-black leading-none uppercase"
-                  style={{ color: "#F4F4F4", fontSize: "clamp(26px, 7vw, 36px)", letterSpacing: "-0.02em" }}
+                  style={{ color: "var(--ink)", fontSize: "clamp(26px, 7vw, 36px)", letterSpacing: "-0.02em" }}
                 >
                   how bad is it
                   <br />
                   <span style={{ color: checkInColor }}>today?</span>
                 </h2>
-                <p className="font-mono text-[10px] mt-2 uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.3)" }}>
+                <p className="font-mono text-[10px] mt-2 uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
                   {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
                 </p>
               </div>
@@ -396,7 +396,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               <div>
                 <div className="grid grid-cols-5 gap-2">
                   {[1,2,3,4,5,6,7,8,9,10].map((n) => {
-                    const chipColor = n >= 9 ? "#E63946" : n >= 7 ? "#FB923C" : "#5EEAD4";
+                    const chipColor = n >= 9 ? "#E63946" : n >= 7 ? "#FB923C" : "var(--accent)";
                     const selected = n === checkInIntensity;
                     return (
                       <button
@@ -404,9 +404,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                         onClick={() => setCheckInIntensity(n)}
                         className="py-3 rounded-2xl font-display font-black text-sm transition-all active:scale-95"
                         style={{
-                          background: selected ? chipColor : "rgba(244,244,244,0.06)",
-                          color: selected ? "#0A0A0A" : "rgba(244,244,244,0.45)",
-                          border: selected ? "none" : "1px solid rgba(244,244,244,0.07)",
+                          background: selected ? chipColor : "var(--line)",
+                          color: selected ? "var(--bg)" : "var(--ink-muted)",
+                          border: selected ? "none" : "1px solid var(--line)",
                           boxShadow: selected ? `0 0 20px ${chipColor}55` : "none",
                         }}
                       >
@@ -431,9 +431,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 rows={2}
                 className="w-full rounded-2xl px-4 py-3 font-sans text-sm outline-none resize-none transition-colors"
                 style={{
-                  background: "rgba(244,244,244,0.05)",
-                  border: "1px solid rgba(244,244,244,0.08)",
-                  color: "#F4F4F4",
+                  background: "var(--line)",
+                  border: "1px solid var(--line)",
+                  color: "var(--ink)",
                 }}
               />
 
@@ -442,7 +442,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 onClick={handleCheckIn}
                 disabled={pending}
                 className="w-full py-4 rounded-2xl font-display font-black text-base uppercase tracking-wide transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-                style={{ background: checkInColor, color: "#0A0A0A", letterSpacing: "-0.01em" }}
+                style={{ background: checkInColor, color: "var(--bg)", letterSpacing: "-0.01em" }}
               >
                 {pending ? "Logging…" : "Log it →"}
               </button>
@@ -455,12 +455,12 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
         <div
           className="rounded-2xl px-4 py-3 flex items-center gap-3"
           style={{
-            background: "rgba(94,234,212,0.06)",
-            border: "1px solid rgba(94,234,212,0.2)",
+            background: "var(--accent-soft)",
+            border: "1px solid var(--accent)",
           }}
         >
           <span style={{ fontSize: 16 }}>✓</span>
-          <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "rgba(94,234,212,0.7)" }}>
+          <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "var(--accent)" }}>
             Checked in today
           </p>
         </div>
@@ -477,7 +477,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
           <FixStatusPill status={status} size="lg" />
         </button>
         {!ended && (
-          <span className="ml-2 font-mono text-[10px] self-center" style={{ color: "rgba(244,244,244,0.3)" }}>
+          <span className="ml-2 font-mono text-[10px] self-center" style={{ color: "var(--ink-faint)" }}>
             tap to change
           </span>
         )}
@@ -489,8 +489,8 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
             <div
               className="absolute top-full left-0 mt-2 rounded-2xl p-2 z-20 flex flex-col gap-1 min-w-[180px]"
               style={{
-                background: "#161618",
-                border: "1px solid rgba(244,244,244,0.1)",
+                background: "var(--bg)",
+                border: "1px solid var(--line)",
                 boxShadow: "0 8px 32px rgba(0,0,0,0.6)",
               }}
             >
@@ -500,7 +500,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                   onClick={() => handleStatusChange(s)}
                   className="flex items-center px-3 py-2 rounded-xl transition-colors text-left"
                   style={{
-                    background: s === status ? "rgba(94,234,212,0.08)" : "transparent",
+                    background: s === status ? "var(--accent-soft)" : "transparent",
                   }}
                 >
                   <FixStatusPill status={s} size="sm" />
@@ -515,18 +515,18 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
       <div
         className="rounded-2xl p-5"
         style={{
-          background: intensity >= 9 ? "rgba(230,57,70,0.04)" : "#111113",
+          background: intensity >= 9 ? "rgba(230,57,70,0.04)" : "var(--bg)",
           border: intensity >= 9
             ? "1px solid rgba(230,57,70,0.25)"
             : intensity >= 7
             ? "1px solid rgba(251,146,60,0.15)"
-            : "1px solid rgba(244,244,244,0.07)",
+            : "1px solid var(--line)",
           boxShadow: intensity >= 9 ? "0 0 24px rgba(230,57,70,0.1)" : "none",
         }}
       >
         <div className="flex items-center justify-between mb-3">
           <div>
-            <p className="font-sans text-[13px] uppercase tracking-widest font-medium" style={{ color: "rgba(244,244,244,0.3)" }}>
+            <p className="font-sans text-[13px] uppercase tracking-widest font-medium" style={{ color: "var(--ink-faint)" }}>
               Intensity
             </p>
             <div className="flex items-baseline gap-2 mt-1">
@@ -536,7 +536,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               >
                 {intensity}
               </span>
-              <span className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.4)" }}>
+              <span className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
                 / 10 · {INTENSITY_LABELS[intensity]}
               </span>
             </div>
@@ -546,9 +546,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               onClick={() => setShowIntensitySlider((v) => !v)}
               className="px-3 py-1.5 rounded-full font-sans text-xs font-medium transition-all hover:opacity-80"
               style={{
-                background: "rgba(94,234,212,0.08)",
-                border: "1px solid rgba(94,234,212,0.2)",
-                color: "#5EEAD4",
+                background: "var(--accent-soft)",
+                border: "1px solid var(--accent)",
+                color: "var(--accent)",
               }}
             >
               {showIntensitySlider ? "Cancel" : "Update intensity"}
@@ -558,12 +558,12 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
 
         {/* Intensity bar (static) */}
         {!showIntensitySlider && (
-          <div className="h-2 rounded-full overflow-hidden" style={{ background: "rgba(244,244,244,0.08)" }}>
+          <div className="h-2 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
             <div
               className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${(intensity / 10) * 100}%`,
-                background: `linear-gradient(to right, #5EEAD4, ${intensityColor})`,
+                background: `linear-gradient(to right, var(--accent), ${intensityColor})`,
               }}
             />
           </div>
@@ -573,12 +573,12 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
         {showIntensitySlider && (
           <div className="flex flex-col gap-3">
             <div className="relative py-3">
-              <div className="h-3 rounded-full overflow-hidden" style={{ background: "rgba(244,244,244,0.08)" }}>
+              <div className="h-3 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
                 <div
                   className="h-full rounded-full transition-all duration-100"
                   style={{
                     width: `${(intensity / 10) * 100}%`,
-                    background: `linear-gradient(to right, #5EEAD4, ${intensityColor})`,
+                    background: `linear-gradient(to right, var(--accent), ${intensityColor})`,
                   }}
                 />
               </div>
@@ -594,7 +594,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 className="absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full shadow-lg pointer-events-none transition-all duration-100"
                 style={{
                   left: `calc(${((intensity - 1) / 9) * 100}% - 10px)`,
-                  background: "#F4F4F4",
+                  background: "var(--ink)",
                   border: `2px solid ${intensityColor}`,
                   boxShadow: `0 0 12px ${intensityColor}80`,
                 }}
@@ -604,7 +604,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               onClick={handleIntensitySave}
               disabled={pending}
               className="self-end px-4 py-2 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 disabled:opacity-60"
-              style={{ background: "#5EEAD4", color: "#0A0A0A" }}
+              style={{ background: "var(--accent)", color: "var(--bg)" }}
             >
               {pending ? "Saving…" : "Save"}
             </button>
@@ -628,12 +628,12 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
       )}
 
       {/* Tags */}
-      <div className="rounded-2xl p-5" style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.07)" }}>
+      <div className="rounded-2xl p-5" style={{ background: "var(--bg)", border: "1px solid var(--line)" }}>
         <div className="flex items-center justify-between mb-3">
-          <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.4)" }}>Tags</p>
+          <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-muted)" }}>Tags</p>
           {!ended && (
             <button onClick={() => setEditingTags(v => !v)} className="font-mono text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full transition-all"
-              style={{ background: "rgba(94,234,212,0.08)", border: "1px solid rgba(94,234,212,0.2)", color: "#5EEAD4" }}>
+              style={{ background: "var(--accent-soft)", border: "1px solid var(--accent)", color: "var(--accent)" }}>
               {editingTags ? "Cancel" : "Edit"}
             </button>
           )}
@@ -642,24 +642,24 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
           <div className="flex flex-col gap-3">
             <TagsInput value={tags} onChange={setTags} />
             <button onClick={() => handleTagsSave(tags)} className="self-end px-4 py-2 rounded-full font-sans text-sm font-bold"
-              style={{ background: "#5EEAD4", color: "#0A0A0A" }}>Save tags</button>
+              style={{ background: "var(--accent)", color: "var(--bg)" }}>Save tags</button>
           </div>
         ) : tags.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {tags.map(tag => (
               <span key={tag} className="font-mono text-[11px] uppercase tracking-widest rounded-full px-2.5 py-1"
-                style={{ background: "rgba(94,234,212,0.08)", border: "1px solid rgba(94,234,212,0.2)", color: "#5EEAD4" }}>
+                style={{ background: "var(--accent-soft)", border: "1px solid var(--accent)", color: "var(--accent)" }}>
                 #{tag}
               </span>
             ))}
           </div>
         ) : (
-          <p className="font-mono text-[11px] italic" style={{ color: "rgba(244,244,244,0.25)" }}>No tags yet.</p>
+          <p className="font-mono text-[11px] italic" style={{ color: "var(--ink-faint)" }}>No tags yet.</p>
         )}
       </div>
 
       {/* Banner */}
-      <div className="mt-5 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <div className="mt-5 pt-5" style={{ borderTop: "1px solid var(--line)" }}>
         <FixBannerUpload
           userId={userId}
           fixId={fixId}
@@ -689,8 +689,8 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
           }}
           className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80"
           style={isPinned
-            ? { background: "rgba(94,234,212,0.12)", border: "1px solid rgba(94,234,212,0.3)", color: "#5EEAD4" }
-            : { background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.12)", color: "rgba(244,244,244,0.6)" }
+            ? { background: "var(--accent-soft)", border: "1px solid var(--accent-soft)", color: "var(--accent)" }
+            : { background: "var(--line)", border: "1px solid var(--line)", color: "var(--ink-muted)" }
           }
         >
           <PinIcon size={14} />
@@ -700,9 +700,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
           onClick={() => setShowEditModal(true)}
           className="px-4 py-2 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80"
           style={{
-            background: "rgba(244,244,244,0.06)",
-            border: "1px solid rgba(244,244,244,0.12)",
-            color: "rgba(244,244,244,0.6)",
+            background: "var(--line)",
+            border: "1px solid var(--line)",
+            color: "var(--ink-muted)",
           }}
         >
           Edit title
@@ -725,14 +725,14 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
       {/* Edit modal */}
       {showEditModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(0,0,0,0.7)" }}>
-          <div className="w-full max-w-md rounded-3xl p-6" style={{ background: "#111113", border: "1px solid rgba(244,244,244,0.1)" }}>
-            <h2 className="font-display font-bold text-xl mb-4" style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}>Edit fix</h2>
+          <div className="w-full max-w-md rounded-3xl p-6" style={{ background: "var(--bg)", border: "1px solid var(--line)" }}>
+            <h2 className="font-display font-bold text-xl mb-4" style={{ color: "var(--ink)", letterSpacing: "-0.02em" }}>Edit fix</h2>
             <input
               type="text"
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
-              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none focus:ring-2 focus:ring-[#5EEAD4]/40 mb-3"
-              style={{ background: "#161618", border: "1px solid rgba(244,244,244,0.1)", color: "#F4F4F4" }}
+              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none focus:ring-2 focus:ring-[var(--accent)]/40 mb-3"
+              style={{ background: "var(--bg)", border: "1px solid var(--line)", color: "var(--ink)" }}
               placeholder="Title"
             />
             <div className="flex flex-wrap gap-2 mb-4">
@@ -743,8 +743,8 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                   onClick={() => setEditCategory(cat)}
                   className="px-3 py-1 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all"
                   style={editCategory === cat
-                    ? { background: "#5EEAD4", color: "#0A0A0A" }
-                    : { background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.5)" }
+                    ? { background: "var(--accent)", color: "var(--bg)" }
+                    : { background: "var(--line)", border: "1px solid var(--line)", color: "var(--ink-muted)" }
                   }
                 >
                   {cat}
@@ -752,8 +752,8 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               ))}
             </div>
             <div className="flex gap-3">
-              <button onClick={() => setShowEditModal(false)} className="flex-1 py-2.5 rounded-xl font-sans text-sm font-medium" style={{ background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.6)" }}>Cancel</button>
-              <button onClick={handleEditSave} disabled={pending || !editTitle.trim()} className="flex-1 py-2.5 rounded-xl font-sans text-sm font-bold disabled:opacity-60" style={{ background: "#5EEAD4", color: "#0A0A0A" }}>
+              <button onClick={() => setShowEditModal(false)} className="flex-1 py-2.5 rounded-xl font-sans text-sm font-medium" style={{ background: "var(--line)", border: "1px solid var(--line)", color: "var(--ink-muted)" }}>Cancel</button>
+              <button onClick={handleEditSave} disabled={pending || !editTitle.trim()} className="flex-1 py-2.5 rounded-xl font-sans text-sm font-bold disabled:opacity-60" style={{ background: "var(--accent)", color: "var(--bg)" }}>
                 {pending ? "Saving…" : "Save"}
               </button>
             </div>
@@ -767,14 +767,14 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
           <div
             className="w-full max-w-md rounded-3xl p-6"
             style={{
-              background: "#111113",
-              border: "1px solid rgba(244,244,244,0.1)",
+              background: "var(--bg)",
+              border: "1px solid var(--line)",
             }}
           >
-            <h2 className="font-display font-bold text-xl mb-1" style={{ color: "#F4F4F4", letterSpacing: "-0.02em" }}>
+            <h2 className="font-display font-bold text-xl mb-1" style={{ color: "var(--ink)", letterSpacing: "-0.02em" }}>
               Write a farewell
             </h2>
-            <p className="font-sans text-sm mb-4" style={{ color: "rgba(244,244,244,0.4)" }}>
+            <p className="font-sans text-sm mb-4" style={{ color: "var(--ink-muted)" }}>
               Optional — say goodbye to this fix.
             </p>
             <div className="relative mb-2">
@@ -783,16 +783,16 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 onChange={(e) => setEulogyText(e.target.value)}
                 placeholder="It was good while it lasted…"
                 rows={4}
-                className="w-full rounded-xl px-4 py-3 font-display italic text-sm outline-none transition-all duration-150 placeholder:text-[rgba(244,244,244,0.18)] focus:ring-2 focus:ring-[#5EEAD4]/40 resize-none"
+                className="w-full rounded-xl px-4 py-3 font-display italic text-sm outline-none transition-all duration-150 placeholder:text-[var(--line)] focus:ring-2 focus:ring-[var(--accent)]/40 resize-none"
                 style={{
-                  background: "#161618",
-                  border: "1px solid rgba(244,244,244,0.1)",
-                  color: "#F4F4F4",
+                  background: "var(--bg)",
+                  border: "1px solid var(--line)",
+                  color: "var(--ink)",
                 }}
               />
               {generatingEulogy && (
                 <div className="absolute bottom-3 right-3 flex items-center gap-1.5">
-                  <span className="font-mono text-[9px] uppercase tracking-widest animate-pulse" style={{ color: "#5EEAD4" }}>
+                  <span className="font-mono text-[9px] uppercase tracking-widest animate-pulse" style={{ color: "var(--accent)" }}>
                     writing…
                   </span>
                 </div>
@@ -805,9 +805,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 disabled={generatingEulogy || pending}
                 className="w-full mb-3 py-2 rounded-xl font-sans text-sm font-medium transition-all hover:opacity-80 disabled:opacity-50 flex items-center justify-center gap-2"
                 style={{
-                  background: "rgba(94,234,212,0.08)",
-                  border: "1px solid rgba(94,234,212,0.2)",
-                  color: "#5EEAD4",
+                  background: "var(--accent-soft)",
+                  border: "1px solid var(--accent)",
+                  color: "var(--accent)",
                 }}
               >
                 <Star set="bold" size={15} primaryColor="currentColor" />
@@ -818,9 +818,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 href="/dashboard/settings"
                 className="w-full mb-3 py-2 rounded-xl font-sans text-sm font-medium transition-all hover:opacity-80 flex items-center justify-center gap-2"
                 style={{
-                  background: "rgba(94,234,212,0.05)",
-                  border: "1px dashed rgba(94,234,212,0.25)",
-                  color: "rgba(94,234,212,0.6)",
+                  background: "var(--accent-soft)",
+                  border: "1px dashed var(--accent)",
+                  color: "var(--accent)",
                   textDecoration: "none",
                 }}
               >
@@ -833,9 +833,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 onClick={() => setShowEndModal(false)}
                 className="flex-1 py-2.5 rounded-xl font-sans text-sm font-medium transition-all hover:opacity-80"
                 style={{
-                  background: "rgba(244,244,244,0.06)",
-                  border: "1px solid rgba(244,244,244,0.1)",
-                  color: "rgba(244,244,244,0.6)",
+                  background: "var(--line)",
+                  border: "1px solid var(--line)",
+                  color: "var(--ink-muted)",
                 }}
               >
                 Cancel
@@ -844,7 +844,7 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 onClick={handleEndFix}
                 disabled={pending}
                 className="flex-1 py-2.5 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 disabled:opacity-60"
-                style={{ background: "#fcd34d", color: "#0A0A0A" }}
+                style={{ background: "#fcd34d", color: "var(--bg)" }}
               >
                 {pending ? "Ending…" : "End this fix"}
               </button>
@@ -857,8 +857,8 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
       <div
         className="rounded-2xl p-5"
         style={{
-          background: "#111113",
-          border: "1px solid rgba(244,244,244,0.07)",
+          background: "var(--bg)",
+          border: "1px solid var(--line)",
         }}
       >
         <div className="flex items-center justify-between">
@@ -869,14 +869,14 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               style={
                 isPublic
                   ? {
-                      background: "rgba(94,234,212,0.12)",
-                      border: "1px solid rgba(94,234,212,0.35)",
-                      color: "#5EEAD4",
+                      background: "var(--accent-soft)",
+                      border: "1px solid rgba(111,138,99,0.25)",
+                      color: "var(--accent)",
                     }
                   : {
-                      background: "rgba(244,244,244,0.06)",
-                      border: "1px solid rgba(244,244,244,0.12)",
-                      color: "rgba(244,244,244,0.4)",
+                      background: "var(--line)",
+                      border: "1px solid var(--line)",
+                      color: "var(--ink-muted)",
                     }
               }
             >
@@ -895,14 +895,14 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
               <div
                 className="w-10 h-6 rounded-full transition-all duration-200"
                 style={{
-                  background: isPublic ? "#5EEAD4" : "rgba(244,244,244,0.1)",
-                  border: isPublic ? "1px solid rgba(94,234,212,0.5)" : "1px solid rgba(244,244,244,0.1)",
+                  background: isPublic ? "var(--accent)" : "var(--line)",
+                  border: isPublic ? "1px solid var(--accent)" : "1px solid var(--line)",
                 }}
               >
                 <div
                   className="w-4 h-4 rounded-full transition-all duration-200 mt-0.5"
                   style={{
-                    background: isPublic ? "#0A0A0A" : "rgba(244,244,244,0.4)",
+                    background: isPublic ? "var(--bg)" : "var(--ink-muted)",
                     transform: isPublic ? "translateX(22px)" : "translateX(2px)",
                   }}
                 />
@@ -910,24 +910,24 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
             </button>
           </div>
         </div>
-        <p className="mt-2 font-sans text-[12px]" style={{ color: "rgba(244,244,244,0.3)" }}>
+        <p className="mt-2 font-sans text-[12px]" style={{ color: "var(--ink-faint)" }}>
           Public fixes can be shared and appear on your profile
         </p>
       </div>
 
       {/* Delete button */}
-      <div className="mt-8 pt-6" style={{ borderTop: "1px solid rgba(244,244,244,0.06)" }}>
+      <div className="mt-8 pt-6" style={{ borderTop: "1px solid var(--line)" }}>
         {!showDeleteConfirm ? (
           <button
             onClick={() => setShowDeleteConfirm(true)}
             className="font-sans text-sm transition-colors hover:opacity-80"
-            style={{ color: "rgba(244,244,244,0.2)" }}
+            style={{ color: "var(--ink-faint)" }}
           >
             Delete this fix
           </button>
         ) : (
           <div className="flex flex-col gap-2">
-            <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.5)" }}>
+            <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
               Are you sure? This can&apos;t be undone.
             </p>
             <div className="flex gap-3">
@@ -935,9 +935,9 @@ export function FixDetailClient({ fixId, title: initialTitle, category: initialC
                 onClick={() => setShowDeleteConfirm(false)}
                 className="px-4 py-2 rounded-xl font-sans text-sm font-medium transition-all"
                 style={{
-                  background: "rgba(244,244,244,0.06)",
-                  border: "1px solid rgba(244,244,244,0.1)",
-                  color: "rgba(244,244,244,0.6)",
+                  background: "var(--line)",
+                  border: "1px solid var(--line)",
+                  color: "var(--ink-muted)",
                 }}
               >
                 Cancel

@@ -29,15 +29,15 @@ export function useToast() {
 }
 
 function ToastIcon({ type }: { type: ToastType }) {
-  if (type === "success") return <TickSquare set="bold" size={16} primaryColor="#5EEAD4" />;
+  if (type === "success") return <TickSquare set="bold" size={16} primaryColor="var(--accent)" />;
   if (type === "error") return <CloseSquare set="bold" size={16} primaryColor="#f87171" />;
-  return <InfoCircle set="light" size={16} primaryColor="rgba(244,244,244,0.7)" />;
+  return <InfoCircle set="light" size={16} primaryColor="var(--ink-muted)" />;
 }
 
 function ToastBorderColor(type: ToastType) {
-  if (type === "success") return "rgba(94,234,212,0.4)";
+  if (type === "success") return "rgba(111,138,99,0.3)";
   if (type === "error") return "rgba(248,113,113,0.4)";
-  return "rgba(244,244,244,0.15)";
+  return "var(--line-strong)";
 }
 
 function SingleToast({ item, onDismiss }: { item: ToastItem; onDismiss: (id: string) => void }) {
@@ -59,7 +59,7 @@ function SingleToast({ item, onDismiss }: { item: ToastItem; onDismiss: (id: str
       }}
     >
       <ToastIcon type={item.type} />
-      <span className="font-sans text-sm" style={{ color: "#F4F4F4" }}>
+      <span className="font-sans text-sm" style={{ color: "var(--ink)" }}>
         {item.message}
       </span>
     </div>

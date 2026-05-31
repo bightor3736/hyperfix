@@ -4,9 +4,9 @@ export default function VerifyPage() {
       <div
         className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 anim-scaleIn anim-glowPulse"
         style={{
-          background: "rgba(94,234,212,0.12)",
-          border: "1px solid rgba(94,234,212,0.25)",
-          color: "#5EEAD4",
+          background: "var(--accent-soft)",
+          border: "1px solid var(--accent)",
+          color: "var(--accent)",
         }}
       >
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -18,9 +18,9 @@ export default function VerifyPage() {
       <span
         className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5 anim-fadeUp delay-100"
         style={{
-          background: "rgba(94,234,212,0.10)",
-          color: "#5EEAD4",
-          border: "1px solid rgba(94,234,212,0.22)",
+          background: "var(--accent-soft)",
+          color: "var(--accent)",
+          border: "1px solid var(--accent)",
         }}
       >
         almost in
@@ -28,7 +28,7 @@ export default function VerifyPage() {
       <h1
         className="font-display leading-tight mb-3 anim-fadeUp delay-200"
         style={{
-          color: "#FFFFFF",
+          color: "var(--ink)",
           letterSpacing: "-0.02em",
           fontSize: "clamp(28px, 4.5vw, 36px)",
           fontWeight: 600,
@@ -36,7 +36,7 @@ export default function VerifyPage() {
       >
         Check your email.
       </h1>
-      <p className="font-sans text-base leading-relaxed mb-6 max-w-xs anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.55)" }}>
+      <p className="font-sans text-base leading-relaxed mb-6 max-w-xs anim-fadeUp delay-300" style={{ color: "var(--ink-muted)" }}>
         Click the link we sent you — it logs you straight in, no password needed.
       </p>
 
@@ -49,8 +49,8 @@ export default function VerifyPage() {
           className="flex items-center justify-center gap-2 rounded-2xl py-3 font-sans text-sm font-medium transition-all hover:-translate-y-px active:scale-[0.98]"
           style={{
             background: "rgba(15,16,17,0.85)",
-            border: "1px solid rgba(255,255,255,0.10)",
-            color: "#F4F4F4",
+            border: "1px solid var(--line)",
+            color: "var(--ink)",
           }}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden>
@@ -68,8 +68,8 @@ export default function VerifyPage() {
           className="flex items-center justify-center gap-2 rounded-2xl py-3 font-sans text-sm font-medium transition-all hover:-translate-y-px active:scale-[0.98]"
           style={{
             background: "rgba(15,16,17,0.85)",
-            border: "1px solid rgba(255,255,255,0.10)",
-            color: "#F4F4F4",
+            border: "1px solid var(--line)",
+            color: "var(--ink)",
           }}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -80,9 +80,9 @@ export default function VerifyPage() {
         </a>
       </div>
 
-      <p className="font-sans text-sm anim-fadeUp delay-500" style={{ color: "rgba(255,255,255,0.3)" }}>
+      <p className="font-sans text-sm anim-fadeUp delay-500" style={{ color: "var(--ink-faint)" }}>
         Didn&apos;t get it? Check spam, or{" "}
-        <a href="/auth/signup" className="underline" style={{ color: "rgba(255,255,255,0.5)" }}>
+        <a href="/auth/signup" className="underline" style={{ color: "var(--ink-muted)" }}>
           try again
         </a>
         .

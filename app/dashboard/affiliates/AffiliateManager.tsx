@@ -3,9 +3,9 @@
 import { useState, useTransition } from "react";
 import { createClient } from "@/lib/supabase/client";
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 type Row = {
   id: string;
@@ -68,16 +68,16 @@ export function AffiliateManager({ initialRows }: { initialRows: Row[] }) {
   }
 
   const inputStyle = {
-    background: "rgba(255,255,255,0.04)",
-    border: "1px solid rgba(255,255,255,0.12)",
-    color: "#F4F4F4",
+    background: "transparent",
+    border: "1px solid var(--line)",
+    color: "var(--ink)",
   };
 
   return (
     <div className="flex flex-col gap-6">
       {/* Create form */}
       <div className="rounded-3xl p-5 sm:p-6" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
-        <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>
+        <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "var(--ink-faint)" }}>
           create new link
         </p>
         <form onSubmit={handleCreate} className="flex flex-col sm:flex-row gap-3">
@@ -85,7 +85,7 @@ export function AffiliateManager({ initialRows }: { initialRows: Row[] }) {
             value={label}
             onChange={(e) => setLabel(e.target.value)}
             placeholder="Label (e.g. TikTok creator @sarah)"
-            className="flex-1 rounded-xl px-4 py-2.5 font-sans text-sm outline-none focus:ring-2 focus:ring-[#5EEAD4]/35 placeholder:text-[rgba(255,255,255,0.2)]"
+            className="flex-1 rounded-xl px-4 py-2.5 font-sans text-sm outline-none focus:ring-2 focus:ring-[var(--accent)]/35 placeholder:text-[var(--ink-faint)]"
             style={inputStyle}
             required
           />
@@ -93,7 +93,7 @@ export function AffiliateManager({ initialRows }: { initialRows: Row[] }) {
             value={slug}
             onChange={(e) => setSlug(e.target.value)}
             placeholder="slug (e.g. tiktok-sarah)"
-            className="w-full sm:w-44 rounded-xl px-4 py-2.5 font-sans text-sm outline-none focus:ring-2 focus:ring-[#5EEAD4]/35 placeholder:text-[rgba(255,255,255,0.2)] font-mono"
+            className="w-full sm:w-44 rounded-xl px-4 py-2.5 font-sans text-sm outline-none focus:ring-2 focus:ring-[var(--accent)]/35 placeholder:text-[var(--ink-faint)] font-mono"
             style={inputStyle}
             required
           />
@@ -101,7 +101,7 @@ export function AffiliateManager({ initialRows }: { initialRows: Row[] }) {
             value={redirectUrl}
             onChange={(e) => setRedirectUrl(e.target.value)}
             placeholder="Redirect (default: /)"
-            className="w-full sm:w-40 rounded-xl px-4 py-2.5 font-sans text-sm outline-none focus:ring-2 focus:ring-[#5EEAD4]/35 placeholder:text-[rgba(255,255,255,0.2)]"
+            className="w-full sm:w-40 rounded-xl px-4 py-2.5 font-sans text-sm outline-none focus:ring-2 focus:ring-[var(--accent)]/35 placeholder:text-[var(--ink-faint)]"
             style={inputStyle}
           />
           <button
@@ -119,7 +119,7 @@ export function AffiliateManager({ initialRows }: { initialRows: Row[] }) {
       {/* Links table */}
       {rows.length === 0 ? (
         <div className="rounded-3xl p-10 text-center" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
-          <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>No links yet. Create one above.</p>
+          <p className="font-sans text-sm" style={{ color: "var(--ink-faint)" }}>No links yet. Create one above.</p>
         </div>
       ) : (
         <div className="flex flex-col gap-3">
@@ -131,11 +131,11 @@ export function AffiliateManager({ initialRows }: { initialRows: Row[] }) {
             >
               <div className="flex items-start justify-between gap-4 mb-3">
                 <div className="flex-1 min-w-0">
-                  <p className="font-sans text-sm font-semibold mb-0.5" style={{ color: "#F4F4F4" }}>{row.label}</p>
+                  <p className="font-sans text-sm font-semibold mb-0.5" style={{ color: "var(--ink)" }}>{row.label}</p>
                   <button
                     onClick={() => handleCopy(row.slug)}
-                    className="font-mono text-xs transition-colors hover:text-[#5EEAD4]"
-                    style={{ color: copied === row.slug ? TEAL : "rgba(255,255,255,0.4)" }}
+                    className="font-mono text-xs transition-colors hover:text-[var(--accent)]"
+                    style={{ color: copied === row.slug ? TEAL : "var(--ink-muted)" }}
                   >
                     {origin}/r/{row.slug} {copied === row.slug ? "✓ copied" : "— click to copy"}
                   </button>
@@ -143,7 +143,7 @@ export function AffiliateManager({ initialRows }: { initialRows: Row[] }) {
                 <button
                   onClick={() => handleDelete(row.id, row.slug)}
                   className="shrink-0 p-1.5 rounded-lg transition-opacity hover:opacity-70"
-                  style={{ color: "rgba(255,255,255,0.25)" }}
+                  style={{ color: "var(--ink-faint)" }}
                   aria-label="Delete"
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -158,8 +158,8 @@ export function AffiliateManager({ initialRows }: { initialRows: Row[] }) {
                   { label: "signups", value: row.signups },
                   { label: "conversion", value: conversionRate(row.clicks, row.signups) },
                 ].map((s) => (
-                  <div key={s.label} className="rounded-xl p-3 text-center" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                    <div className="font-display text-xl font-medium tabular-nums" style={{ color: s.label === "signups" && row.signups > 0 ? TEAL : "#F4F4F4" }}>
+                  <div key={s.label} className="rounded-xl p-3 text-center" style={{ background: "transparent", border: "1px solid var(--line)" }}>
+                    <div className="font-display text-xl font-medium tabular-nums" style={{ color: s.label === "signups" && row.signups > 0 ? TEAL : "var(--ink)" }}>
                       {s.value}
                     </div>
                     <div className="font-mono text-[9px] uppercase tracking-widest mt-0.5" style={{ color: "#9A9A9A" }}>
@@ -169,7 +169,7 @@ export function AffiliateManager({ initialRows }: { initialRows: Row[] }) {
                 ))}
               </div>
 
-              <p className="font-mono text-[10px] mt-3" style={{ color: "rgba(255,255,255,0.2)" }}>
+              <p className="font-mono text-[10px] mt-3" style={{ color: "var(--ink-faint)" }}>
                 → redirects to {row.redirect_url ?? "/"} · created {new Date(row.created_at).toLocaleDateString()}
               </p>
             </div>

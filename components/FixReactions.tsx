@@ -131,9 +131,9 @@ export function FixReactions({ fixId, initialReactions, userReactions = [] }: Pr
             aria-label={label}
             className="inline-flex flex-col items-center gap-1 rounded-xl px-3 py-2 transition-all duration-150 hover:scale-105 active:scale-95"
             style={{
-              background: isActive ? "rgba(94,234,212,0.1)" : "rgba(255,255,255,0.03)",
-              border: `1px solid ${isActive ? "rgba(94,234,212,0.3)" : "rgba(255,255,255,0.08)"}`,
-              color: isActive ? "#5EEAD4" : "rgba(255,255,255,0.6)",
+              background: isActive ? "var(--accent-soft)" : "transparent",
+              border: `1px solid ${isActive ? "var(--accent-soft)" : "var(--line)"}`,
+              color: isActive ? "var(--accent)" : "var(--ink-muted)",
             }}
           >
             <Icon size={18} />
@@ -143,7 +143,7 @@ export function FixReactions({ fixId, initialReactions, userReactions = [] }: Pr
             {count > 0 && (
               <span
                 className="font-mono text-[9px] tabular-nums"
-                style={{ color: "rgba(94,234,212,0.7)" }}
+                style={{ color: "var(--accent)" }}
               >
                 {count}
               </span>

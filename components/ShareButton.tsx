@@ -171,7 +171,7 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
       <button
         onClick={handleCopyLink}
         className="flex items-center gap-3 px-4 py-3 sm:py-2.5 rounded-xl font-mono text-sm sm:text-xs transition-colors text-left w-full"
-        style={{ color: copied ? "#5EEAD4" : "rgba(244,244,244,0.85)" }}
+        style={{ color: copied ? "var(--accent)" : "var(--ink)" }}
       >
         {copied ? (
           <>
@@ -189,7 +189,7 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
       <button
         onClick={handleTwitterShare}
         className="flex items-center gap-3 px-4 py-3 sm:py-2.5 rounded-xl font-mono text-sm sm:text-xs transition-colors text-left w-full"
-        style={{ color: "rgba(244,244,244,0.85)" }}
+        style={{ color: "var(--ink)" }}
       >
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -201,7 +201,7 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
         onClick={handleDownloadCard}
         disabled={!!downloading}
         className="flex items-center gap-3 px-4 py-3 sm:py-2.5 rounded-xl font-mono text-sm sm:text-xs transition-colors text-left w-full disabled:opacity-50"
-        style={{ color: downloading === "card" ? "#5EEAD4" : "rgba(244,244,244,0.85)" }}
+        style={{ color: downloading === "card" ? "var(--accent)" : "var(--ink)" }}
       >
         {downloading === "card" ? <Spinner size={16} /> : <Download set="light" size={16} primaryColor="currentColor" />}
         Download card
@@ -211,7 +211,7 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
         onClick={handleDownloadStory}
         disabled={!!downloading}
         className="flex items-center gap-3 px-4 py-3 sm:py-2.5 rounded-xl font-mono text-sm sm:text-xs transition-colors text-left w-full disabled:opacity-50"
-        style={{ color: downloading === "story" ? "#5EEAD4" : "rgba(244,244,244,0.85)" }}
+        style={{ color: downloading === "story" ? "var(--accent)" : "var(--ink)" }}
       >
         {downloading === "story" ? <Spinner size={16} /> : <InstagramIcon size={15} />}
         Share as Story (9:16)
@@ -226,9 +226,9 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
         disabled={!!downloading}
         className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-mono text-xs font-medium transition-all duration-150"
         style={{
-          background: "rgba(244,244,244,0.05)",
-          border: "1px solid rgba(244,244,244,0.12)",
-          color: downloading ? "rgba(244,244,244,0.4)" : "rgba(244,244,244,0.7)",
+          background: "var(--line)",
+          border: "1px solid var(--line)",
+          color: downloading ? "var(--ink-muted)" : "var(--ink-muted)",
           cursor: downloading ? "not-allowed" : undefined,
         }}
       >
@@ -241,9 +241,9 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
         <div
           className="absolute top-full right-0 mt-2 px-3 py-2 rounded-xl text-xs font-mono whitespace-nowrap z-50"
           style={{
-            background: "#161618",
-            border: "1px solid rgba(244,244,244,0.12)",
-            color: "rgba(244,244,244,0.7)",
+            background: "var(--bg)",
+            border: "1px solid var(--line)",
+            color: "var(--ink-muted)",
             boxShadow: "0 4px 16px rgba(0,0,0,0.5)",
           }}
         >
@@ -256,8 +256,8 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
         <div
           className="hidden sm:flex absolute top-full right-0 mt-2 rounded-2xl p-2 z-50 flex-col gap-1 min-w-[220px]"
           style={{
-            background: "#161618",
-            border: "1px solid rgba(244,244,244,0.1)",
+            background: "var(--bg)",
+            border: "1px solid var(--line)",
             boxShadow: "0 8px 32px rgba(0,0,0,0.6)",
           }}
         >
@@ -277,15 +277,15 @@ export function ShareButton({ fixId, isPublic, fixTitle, days, intensity }: Prop
               onClick={(e) => e.stopPropagation()}
               className="rounded-t-3xl p-3 pb-[calc(env(safe-area-inset-bottom)+1rem)] flex flex-col gap-1 anim-slideUp"
               style={{
-                background: "#161618",
-                borderTop: "1px solid rgba(244,244,244,0.1)",
+                background: "var(--bg)",
+                borderTop: "1px solid var(--line)",
                 boxShadow: "0 -8px 32px rgba(0,0,0,0.6)",
               }}
             >
               <div className="flex justify-center pt-2 pb-3">
-                <div className="w-10 h-1 rounded-full" style={{ background: "rgba(244,244,244,0.2)" }} />
+                <div className="w-10 h-1 rounded-full" style={{ background: "var(--ink-faint)" }} />
               </div>
-              <p className="font-mono text-[10px] uppercase tracking-widest px-4 pb-2" style={{ color: "rgba(244,244,244,0.4)" }}>
+              <p className="font-mono text-[10px] uppercase tracking-widest px-4 pb-2" style={{ color: "var(--ink-muted)" }}>
                 Share this fix
               </p>
               {menuItems}

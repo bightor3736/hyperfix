@@ -22,7 +22,7 @@ const sans = Instrument_Sans({
 const TEAL = "#5EEAD4";
 const PINK = "#F472B6";
 const ORANGE = "#FB923C";
-const BG = "#070708";
+const BG = "var(--bg)";
 const PHONE_BG = "#0D0F10";
 const CARD = "#141618";
 
@@ -31,7 +31,7 @@ const CARD = "#141618";
 function LogoMark({ size = 28 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64">
-      <rect width="64" height="64" rx="14" fill="#0F1011" />
+      <rect width="64" height="64" rx="14" fill="var(--bg)" />
       <path d="M14 40 L32 20 L50 40 L42 40 L32 28 L22 40 Z" fill={TEAL} />
       <path d="M14 50 L32 30 L50 50 L42 50 L32 38 L22 50 Z" fill="#2DD4BF" opacity="0.7" />
     </svg>
@@ -185,11 +185,11 @@ function Brain({
 
       {/* Eyes */}
       <circle cx="110" cy="170" r="15" fill="white" />
-      <circle cx={mood === "chill" ? 113 : 112} cy="172" r="9.5" fill="#070708" />
+      <circle cx={mood === "chill" ? 113 : 112} cy="172" r="9.5" fill="var(--bg)" />
       <circle cx={mood === "chill" ? 115 : 114} cy="169" r="3.5" fill="white" />
 
       <circle cx="170" cy="170" r="15" fill="white" />
-      <circle cx={mood === "chill" ? 173 : 172} cy="172" r="9.5" fill="#070708" />
+      <circle cx={mood === "chill" ? 173 : 172} cy="172" r="9.5" fill="var(--bg)" />
       <circle cx={mood === "chill" ? 175 : 174} cy="169" r="3.5" fill="white" />
 
       {/* Chill squint overlay */}
@@ -213,7 +213,7 @@ function Brain({
       {mood === "excited" && (
         <>
           <ellipse cx="140" cy="204" rx="21" ry="14" fill="white" opacity="0.95" />
-          <ellipse cx="140" cy="207" rx="14" ry="9" fill="#070708" />
+          <ellipse cx="140" cy="207" rx="14" ry="9" fill="var(--bg)" />
           <text x="224" y="88" fontSize="30" fill={accent}>
             ✦
           </text>
@@ -829,7 +829,7 @@ function EulogyScreen() {
         </div>
         <div
           style={{
-            background: "#0F1011",
+            background: "var(--bg)",
             borderRadius: 12,
             padding: "14px 16px",
             marginBottom: 14,
@@ -855,7 +855,7 @@ function EulogyScreen() {
             textAlign: "center",
           }}
         >
-          <span style={{ fontSize: 14, fontWeight: 700, color: "#0A0A0A" }}>
+          <span style={{ fontSize: 14, fontWeight: 700, color: "var(--bg)" }}>
             End the fixation
           </span>
         </div>

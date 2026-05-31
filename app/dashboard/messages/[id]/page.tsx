@@ -93,7 +93,7 @@ export default async function MessageThreadPage({
   return (
     <div
       className="flex flex-col h-[calc(100vh-0px)] lg:h-screen"
-      style={{ background: "#070708", color: "#F4F4F4" }}
+      style={{ background: "var(--bg)", color: "var(--ink)" }}
     >
       {/* Header */}
       <div
@@ -101,14 +101,14 @@ export default async function MessageThreadPage({
         style={{
           background: "rgba(7,7,8,0.78)",
           backdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          borderBottom: "1px solid var(--line)",
         }}
       >
         <Link
           href="/dashboard/messages"
-          className="p-2 rounded-lg transition-colors hover:bg-[rgba(255,255,255,0.04)]"
+          className="p-2 rounded-lg transition-colors hover:bg-[transparent]"
           aria-label="Back to inbox"
-          style={{ color: "rgba(244,244,244,0.6)" }}
+          style={{ color: "var(--ink-muted)" }}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M15 18l-6-6 6-6" />
@@ -119,9 +119,9 @@ export default async function MessageThreadPage({
           style={{
             background: otherProfile.avatar_url
               ? "transparent"
-              : "rgba(94,234,212,0.15)",
-            border: "1px solid rgba(94,234,212,0.2)",
-            color: "#5EEAD4",
+              : "var(--accent)",
+            border: "1px solid var(--accent)",
+            color: "var(--accent)",
           }}
         >
           {otherProfile.avatar_url ? (
@@ -144,14 +144,14 @@ export default async function MessageThreadPage({
               className="block group"
             >
               <p
-                className="font-display text-sm font-medium truncate group-hover:text-[#5EEAD4] transition-colors"
-                style={{ color: "#F4F4F4" }}
+                className="font-display text-sm font-medium truncate group-hover:text-[var(--accent)] transition-colors"
+                style={{ color: "var(--ink)" }}
               >
                 {name}
               </p>
               <p
                 className="font-mono text-[11px] truncate"
-                style={{ color: "rgba(244,244,244,0.4)" }}
+                style={{ color: "var(--ink-muted)" }}
               >
                 @{otherProfile.username}
               </p>
@@ -159,7 +159,7 @@ export default async function MessageThreadPage({
           ) : (
             <p
               className="font-display text-sm font-medium truncate"
-              style={{ color: "#F4F4F4" }}
+              style={{ color: "var(--ink)" }}
             >
               {name}
             </p>

@@ -1,9 +1,9 @@
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 export default function PublicFixLoading() {
   return (
-    <div className="min-h-screen" style={{ background: "#0A0A0A" }}>
+    <div className="min-h-screen" style={{ background: "var(--bg)" }}>
       <div className="max-w-2xl mx-auto px-4 sm:px-6 pt-8 pb-24">
         {/* Header row (logo / back link placeholder) */}
         <div className="skeleton-shimmer rounded-lg mb-6" style={{ height: 18, width: 120 }} />

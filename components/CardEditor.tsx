@@ -15,9 +15,9 @@ const STYLES: { key: Style; label: string; desc: string }[] = [
   { key: "photo", label: "Photo", desc: "Your banner image as the full background." },
 ];
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 type Props = {
   fixId: string;
@@ -83,7 +83,7 @@ export function CardEditor({ fixId, userId, initialBannerUrl, initialCardStyle, 
     <div className="grid lg:grid-cols-[1fr,360px] gap-6 lg:gap-8">
       {/* Preview area */}
       <div>
-        <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(244,244,244,0.35)" }}>
+        <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "var(--ink-faint)" }}>
           live preview
         </p>
         <div
@@ -91,7 +91,7 @@ export function CardEditor({ fixId, userId, initialBannerUrl, initialCardStyle, 
           style={{
             maxWidth: 380,
             aspectRatio: "9 / 16",
-            background: "#0F1011",
+            background: "var(--bg)",
             border: `1px solid ${CARD_BORDER}`,
             boxShadow: "0 24px 80px rgba(0,0,0,0.5)",
           }}
@@ -132,9 +132,9 @@ export function CardEditor({ fixId, userId, initialBannerUrl, initialCardStyle, 
             href={`/dashboard/fix/${fixId}`}
             className="inline-flex items-center px-5 py-3 rounded-full font-sans text-sm transition-all hover:opacity-80"
             style={{
-              background: "rgba(244,244,244,0.04)",
-              border: "1px solid rgba(244,244,244,0.08)",
-              color: "rgba(244,244,244,0.55)",
+              background: "transparent",
+              border: "1px solid var(--line)",
+              color: "var(--ink-muted)",
             }}
           >
             Back
@@ -147,7 +147,7 @@ export function CardEditor({ fixId, userId, initialBannerUrl, initialCardStyle, 
         {/* Style picker */}
         <div>
           <div className="flex items-center justify-between mb-3">
-            <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.35)" }}>
+            <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
               template
             </p>
             {savedToast && (
@@ -174,20 +174,20 @@ export function CardEditor({ fixId, userId, initialBannerUrl, initialCardStyle, 
                   disabled={disabled}
                   className="text-left rounded-2xl p-3 transition-all disabled:opacity-40"
                   style={{
-                    background: isActive ? "rgba(94,234,212,0.08)" : CARD_BG,
-                    border: `1px solid ${isActive ? "rgba(94,234,212,0.4)" : CARD_BORDER}`,
+                    background: isActive ? "var(--accent-soft)" : CARD_BG,
+                    border: `1px solid ${isActive ? "rgba(111,138,99,0.3)" : CARD_BORDER}`,
                     cursor: disabled ? "not-allowed" : "pointer",
                   }}
                 >
                   <p
                     className="font-sans text-sm font-semibold"
-                    style={{ color: isActive ? TEAL : "#F4F4F4" }}
+                    style={{ color: isActive ? TEAL : "var(--ink)" }}
                   >
                     {s.label}
                   </p>
                   <p
                     className="font-sans text-[11px] mt-1 leading-snug"
-                    style={{ color: "rgba(244,244,244,0.4)" }}
+                    style={{ color: "var(--ink-muted)" }}
                   >
                     {disabled ? "upload a banner first" : s.desc}
                   </p>
@@ -211,14 +211,14 @@ export function CardEditor({ fixId, userId, initialBannerUrl, initialCardStyle, 
         <div
           className="rounded-2xl p-4"
           style={{
-            background: "rgba(94,234,212,0.04)",
-            border: "1px solid rgba(94,234,212,0.15)",
+            background: "var(--accent-soft)",
+            border: "1px solid var(--accent)",
           }}
         >
           <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: TEAL }}>
             tip
           </p>
-          <p className="font-sans text-sm leading-relaxed" style={{ color: "rgba(244,244,244,0.65)" }}>
+          <p className="font-sans text-sm leading-relaxed" style={{ color: "var(--ink-muted)" }}>
             Upload a banner that captures the vibe (album art, scene from the show, character art). The Photo template uses it as the full background — most viral on TikTok &amp; IG stories.
           </p>
         </div>

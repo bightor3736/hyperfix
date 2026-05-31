@@ -90,7 +90,7 @@ export function StreakHeatmap({ dates }: { dates: string[] }) {
             key={label + col}
             className="font-mono text-[9px] uppercase tracking-widest absolute"
             style={{
-              color: "rgba(244,244,244,0.25)",
+              color: "var(--ink-faint)",
               left: DAY_LABEL_WIDTH + col * (CELL_SIZE + CELL_GAP),
             }}
           >
@@ -116,7 +116,7 @@ export function StreakHeatmap({ dates }: { dates: string[] }) {
               key={i}
               className="font-mono text-[9px]"
               style={{
-                color: "rgba(244,244,244,0.25)",
+                color: "var(--ink-faint)",
                 height: CELL_SIZE,
                 lineHeight: `${CELL_SIZE}px`,
                 textAlign: "right",
@@ -149,14 +149,14 @@ export function StreakHeatmap({ dates }: { dates: string[] }) {
                       height: CELL_SIZE,
                       borderRadius: 4,
                       background: checkedIn
-                        ? "#5EEAD4"
+                        ? "var(--accent)"
                         : inRange
-                          ? "rgba(244,244,244,0.07)"
-                          : "rgba(244,244,244,0.02)",
+                          ? "var(--line)"
+                          : "transparent",
                       boxShadow: checkedIn
-                        ? "0 0 8px rgba(94,234,212,0.5)"
+                        ? "0 0 8px var(--accent)"
                         : isToday
-                          ? "0 0 0 1.5px rgba(94,234,212,0.5)"
+                          ? "0 0 0 1.5px var(--accent)"
                           : "none",
                       transition: "background 0.15s ease",
                       flexShrink: 0,
@@ -183,8 +183,8 @@ export function StreakHeatmap({ dates }: { dates: string[] }) {
             className="font-mono text-[10px] whitespace-nowrap px-2.5 py-1.5 rounded-lg"
             style={{
               background: "#1C1C1E",
-              border: "1px solid rgba(244,244,244,0.12)",
-              color: tooltip.checkedIn ? "#5EEAD4" : "rgba(244,244,244,0.45)",
+              border: "1px solid var(--line)",
+              color: tooltip.checkedIn ? "var(--accent)" : "var(--ink-muted)",
               boxShadow: "0 4px 16px rgba(0,0,0,0.5)",
             }}
           >

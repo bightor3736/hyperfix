@@ -15,9 +15,9 @@ export type GraveyardFix = {
   eulogy: string | null;
 };
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 function formatDate(dateStr: string): string {
   return new Date(dateStr).toLocaleDateString("en-US", {
@@ -67,7 +67,7 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
       <div
         aria-hidden
         className="absolute top-5 right-5 opacity-30 transition-opacity group-hover:opacity-60"
-        style={{ color: "rgba(255,255,255,0.7)" }}
+        style={{ color: "var(--ink-muted)" }}
       >
         <TombstoneIcon size={22} />
       </div>
@@ -91,7 +91,7 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
       <h3
         className="font-display"
         style={{
-          color: "#F4F4F4",
+          color: "var(--ink)",
           fontSize: "clamp(22px, 2.6vw, 26px)",
           fontWeight: 600,
           fontStyle: "italic",
@@ -109,10 +109,10 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
       {/* Date range · days */}
       <p
         className="font-sans text-[13px] tabular-nums"
-        style={{ color: "rgba(255,255,255,0.5)" }}
+        style={{ color: "var(--ink-muted)" }}
       >
         {formatDate(fix.started_at)} – {formatDate(fix.ended_at)}{" "}
-        <span style={{ color: "rgba(255,255,255,0.3)" }}>·</span>{" "}
+        <span style={{ color: "var(--ink-faint)" }}>·</span>{" "}
         <span style={{ color: TEAL }}>{days} day{days === 1 ? "" : "s"}</span>
       </p>
 
@@ -122,7 +122,7 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
           className="font-display m-0 pl-4"
           style={{
             borderLeft: `2px solid ${accent}66`,
-            color: "rgba(255,255,255,0.7)",
+            color: "var(--ink-muted)",
             fontStyle: "italic",
             fontSize: 15,
             lineHeight: 1.5,
@@ -137,7 +137,7 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
       ) : (
         <p
           className="font-sans text-sm"
-          style={{ color: "rgba(255,255,255,0.35)", fontStyle: "italic" }}
+          style={{ color: "var(--ink-faint)", fontStyle: "italic" }}
         >
           No eulogy. Click to write one.
         </p>
@@ -145,7 +145,7 @@ function TombstoneCard({ fix, index }: { fix: GraveyardFix; index: number }) {
 
       <p
         className="font-mono text-[10px] uppercase tracking-widest mt-auto"
-        style={{ color: "rgba(255,255,255,0.3)" }}
+        style={{ color: "var(--ink-faint)" }}
       >
         buried {writtenAgo(fix.ended_at)}
       </p>
@@ -197,11 +197,11 @@ export function GraveyardGrid({ fixes }: { fixes: GraveyardFix[] }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search the graveyard…"
-          className="font-sans text-sm flex-1 rounded-2xl px-4 py-2.5 outline-none transition-colors focus:border-[rgba(94,234,212,0.4)]"
+          className="font-sans text-sm flex-1 rounded-2xl px-4 py-2.5 outline-none transition-colors focus:border-[rgba(111,138,99,0.3)]"
           style={{
             background: CARD_BG,
             border: `1px solid ${CARD_BORDER}`,
-            color: "#F4F4F4",
+            color: "var(--ink)",
           }}
         />
         {categories.length > 2 && (
@@ -214,14 +214,14 @@ export function GraveyardGrid({ fixes }: { fixes: GraveyardFix[] }) {
                 style={
                   c === category
                     ? {
-                        background: "rgba(94,234,212,0.12)",
-                        border: "1px solid rgba(94,234,212,0.3)",
+                        background: "var(--accent-soft)",
+                        border: "1px solid var(--accent-soft)",
                         color: TEAL,
                       }
                     : {
-                        background: "rgba(244,244,244,0.04)",
-                        border: "1px solid rgba(244,244,244,0.08)",
-                        color: "rgba(244,244,244,0.5)",
+                        background: "transparent",
+                        border: "1px solid var(--line)",
+                        color: "var(--ink-muted)",
                       }
                 }
               >
@@ -239,7 +239,7 @@ export function GraveyardGrid({ fixes }: { fixes: GraveyardFix[] }) {
         >
           <p
             className="font-display text-lg"
-            style={{ color: "rgba(244,244,244,0.5)", fontStyle: "italic" }}
+            style={{ color: "var(--ink-muted)", fontStyle: "italic" }}
           >
             No matches.
           </p>
@@ -257,8 +257,8 @@ export function GraveyardGrid({ fixes }: { fixes: GraveyardFix[] }) {
                 onClick={() => setShown((s) => s + PAGE_SIZE)}
                 className="font-mono text-[11px] uppercase tracking-widest rounded-full px-6 py-2.5 transition-colors"
                 style={{
-                  background: "rgba(94,234,212,0.08)",
-                  border: "1px solid rgba(94,234,212,0.2)",
+                  background: "var(--accent-soft)",
+                  border: "1px solid var(--accent)",
                   color: TEAL,
                 }}
               >

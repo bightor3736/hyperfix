@@ -54,41 +54,41 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "#070708" }}>
-        <div className="animate-pulse rounded-full h-6 w-6" style={{ background: "rgba(94,234,212,0.3)" }} />
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "var(--bg)" }}>
+        <div className="animate-pulse rounded-full h-6 w-6" style={{ background: "var(--accent-soft)" }} />
       </div>
     );
   }
 
   if (notFound) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4" style={{ background: "#070708" }}>
-        <p className="font-display text-2xl" style={{ color: "rgba(244,244,244,0.4)" }}>List not found.</p>
-        <Link href="/dashboard/lists" className="font-mono text-sm underline" style={{ color: "#5EEAD4" }}>← Back to lists</Link>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4" style={{ background: "var(--bg)" }}>
+        <p className="font-display text-2xl" style={{ color: "var(--ink-muted)" }}>List not found.</p>
+        <Link href="/dashboard/lists" className="font-mono text-sm underline" style={{ color: "var(--accent)" }}>← Back to lists</Link>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "#070708" }}>
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "var(--bg)" }}>
       <div className="max-w-xl mx-auto">
         <div className="mb-8">
           <Link
             href={`/dashboard/lists/${id}`}
             className="inline-flex items-center gap-2 font-sans text-sm transition-opacity hover:opacity-70"
-            style={{ color: "rgba(244,244,244,0.4)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             <ArrowLeft set="light" size={18} primaryColor="currentColor" />
             Back to list
           </Link>
         </div>
 
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] mb-3" style={{ color: "#5EEAD4" }}>
+        <p className="font-mono text-[11px] uppercase tracking-[0.18em] mb-3" style={{ color: "var(--accent)" }}>
           list
         </p>
         <h1
           className="font-display mb-8"
-          style={{ color: "#F4F4F4", fontSize: "clamp(24px, 4vw, 36px)", letterSpacing: "-0.02em", fontWeight: 600 }}
+          style={{ color: "var(--ink)", fontSize: "clamp(24px, 4vw, 36px)", letterSpacing: "-0.02em", fontWeight: 600 }}
         >
           Edit list
         </h1>
@@ -96,7 +96,7 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
         <div className="flex flex-col gap-4">
           {/* Name */}
           <div>
-            <label className="block font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "rgba(244,244,244,0.4)" }}>
+            <label className="block font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "var(--ink-muted)" }}>
               Name *
             </label>
             <input
@@ -105,14 +105,14 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
               onChange={(e) => setName(e.target.value)}
               placeholder="My list name"
               maxLength={80}
-              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none focus:ring-2 focus:ring-[#5EEAD4]/40 transition-all"
-              style={{ background: "#0F1011", border: "1px solid rgba(244,244,244,0.1)", color: "#F4F4F4" }}
+              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none focus:ring-2 focus:ring-[var(--accent)]/40 transition-all"
+              style={{ background: "var(--bg)", border: "1px solid var(--line)", color: "var(--ink)" }}
             />
           </div>
 
           {/* Description */}
           <div>
-            <label className="block font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "rgba(244,244,244,0.4)" }}>
+            <label className="block font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "var(--ink-muted)" }}>
               Description
             </label>
             <textarea
@@ -121,21 +121,21 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
               placeholder="What's this list for?"
               rows={3}
               maxLength={300}
-              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none focus:ring-2 focus:ring-[#5EEAD4]/40 resize-none transition-all"
-              style={{ background: "#0F1011", border: "1px solid rgba(244,244,244,0.1)", color: "#F4F4F4" }}
+              className="w-full rounded-xl px-4 py-3 font-sans text-sm outline-none focus:ring-2 focus:ring-[var(--accent)]/40 resize-none transition-all"
+              style={{ background: "var(--bg)", border: "1px solid var(--line)", color: "var(--ink)" }}
             />
           </div>
 
           {/* Visibility toggle */}
           <div
             className="rounded-xl p-4 flex items-center justify-between"
-            style={{ background: "#0F1011", border: "1px solid rgba(255,255,255,0.06)" }}
+            style={{ background: "var(--bg)", border: "1px solid var(--line)" }}
           >
             <div>
-              <p className="font-sans text-sm font-medium" style={{ color: "#F4F4F4" }}>
+              <p className="font-sans text-sm font-medium" style={{ color: "var(--ink)" }}>
                 {isPublic ? "Public" : "Private"}
               </p>
-              <p className="font-sans text-xs mt-0.5" style={{ color: "rgba(244,244,244,0.35)" }}>
+              <p className="font-sans text-xs mt-0.5" style={{ color: "var(--ink-faint)" }}>
                 {isPublic ? "Anyone can see this list" : "Only you can see this list"}
               </p>
             </div>
@@ -149,14 +149,14 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
               <div
                 className="w-10 h-6 rounded-full transition-all duration-200"
                 style={{
-                  background: isPublic ? "#5EEAD4" : "rgba(244,244,244,0.1)",
-                  border: isPublic ? "1px solid rgba(94,234,212,0.5)" : "1px solid rgba(244,244,244,0.1)",
+                  background: isPublic ? "var(--accent)" : "var(--line)",
+                  border: isPublic ? "1px solid var(--accent)" : "1px solid var(--line)",
                 }}
               >
                 <div
                   className="w-4 h-4 rounded-full transition-all duration-200 mt-0.5"
                   style={{
-                    background: isPublic ? "#070708" : "rgba(244,244,244,0.4)",
+                    background: isPublic ? "var(--bg)" : "var(--ink-muted)",
                     transform: isPublic ? "translateX(22px)" : "translateX(2px)",
                   }}
                 />
@@ -174,7 +174,7 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
             <Link
               href={`/dashboard/lists/${id}`}
               className="flex-1 py-3 rounded-xl font-sans text-sm font-medium text-center transition-opacity hover:opacity-80"
-              style={{ background: "rgba(244,244,244,0.06)", border: "1px solid rgba(244,244,244,0.1)", color: "rgba(244,244,244,0.6)" }}
+              style={{ background: "var(--line)", border: "1px solid var(--line)", color: "var(--ink-muted)" }}
             >
               Cancel
             </Link>
@@ -182,7 +182,7 @@ export default function EditListPage({ params }: { params: Promise<{ id: string 
               onClick={handleSave}
               disabled={pending || !name.trim()}
               className="flex-1 py-3 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 disabled:opacity-50"
-              style={{ background: "#5EEAD4", color: "#070708" }}
+              style={{ background: "var(--accent)", color: "var(--bg)" }}
             >
               {pending ? "Saving…" : "Save changes"}
             </button>

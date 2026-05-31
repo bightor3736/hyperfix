@@ -30,7 +30,7 @@ export function WeekRings({ checkedDates }: { checkedDates: string[] }) {
     <div>
       <p
         className="font-mono text-[10px] uppercase tracking-widest mb-4"
-        style={{ color: "rgba(244,244,244,0.3)" }}
+        style={{ color: "var(--ink-faint)" }}
       >
         This week
       </p>
@@ -53,19 +53,19 @@ export function WeekRings({ checkedDates }: { checkedDates: string[] }) {
                   alignItems: "center",
                   justifyContent: "center",
                   background: checkedIn
-                    ? "#5EEAD4"
+                    ? "var(--accent)"
                     : "transparent",
                   border: checkedIn
                     ? "none"
                     : isFuture
-                      ? "1.5px dashed rgba(244,244,244,0.1)"
+                      ? "1.5px dashed var(--line)"
                       : isPast
-                        ? "2px solid rgba(244,244,244,0.15)"
-                        : "2px solid rgba(94,234,212,0.5)",
+                        ? "2px solid var(--line-strong)"
+                        : "2px solid var(--accent)",
                   boxShadow: checkedIn
-                    ? "0 0 18px rgba(94,234,212,0.5), inset 0 1px 0 rgba(255,255,255,0.15)"
+                    ? "0 0 18px var(--accent), inset 0 1px 0 var(--line-strong)"
                     : isToday
-                      ? "0 0 12px rgba(94,234,212,0.2)"
+                      ? "0 0 12px var(--accent)"
                       : "none",
                   transition: "all 0.2s ease",
                 }}
@@ -73,17 +73,17 @@ export function WeekRings({ checkedDates }: { checkedDates: string[] }) {
                 {checkedIn ? (
                   <SparkIcon size={18} color="white" />
                 ) : isToday ? (
-                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#5EEAD4" }} />
+                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--accent)" }} />
                 ) : null}
               </div>
               <span
                 className="font-mono text-[10px] uppercase tracking-widest"
                 style={{
                   color: isToday
-                    ? "#5EEAD4"
+                    ? "var(--accent)"
                     : checkedIn
-                      ? "rgba(244,244,244,0.6)"
-                      : "rgba(244,244,244,0.2)",
+                      ? "var(--ink-muted)"
+                      : "var(--ink-faint)",
                   fontWeight: isToday ? 700 : 400,
                 }}
               >

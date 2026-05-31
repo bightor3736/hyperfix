@@ -428,7 +428,7 @@ export default async function DashboardPage() {
               </svg>
             </div>
             <div className="min-w-0">
-              <p className="font-sans text-sm font-semibold" style={{ color: "#fff" }}>
+              <p className="font-sans text-sm font-semibold" style={{ color: "var(--ink)" }}>
                 Focus Rooms
               </p>
               <p className="font-mono text-[11px] truncate" style={{ color: "var(--accent)" }}>
@@ -464,7 +464,7 @@ export default async function DashboardPage() {
               >
                 <span style={{ fontSize: 22 }}>{item.icon}</span>
                 <div>
-                  <p className="font-sans text-sm font-semibold" style={{ color: "#fff" }}>{item.label}</p>
+                  <p className="font-sans text-sm font-semibold" style={{ color: "var(--ink)" }}>{item.label}</p>
                   <p className="font-mono text-[10px]" style={{ color: "var(--ink-faint)" }}>{item.sub}</p>
                 </div>
               </Link>
@@ -570,7 +570,7 @@ function EmptyState({ suggestions }: { suggestions: { id: string; title: string;
           className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all hover:opacity-95 active:scale-[0.98]"
           style={{
             background: "var(--ink)",
-            color: "#0A0A0A",
+            color: "var(--bg)",
             borderRadius: 999,
             boxShadow: "0 12px 36px rgba(0,0,0,0.4)",
           }}

@@ -6,7 +6,7 @@ export const runtime = "edge";
 const W = 1080;
 const H = 1920;
 const LIME = "#5EEAD4";
-const INK = "#0A0A0A";
+const INK = "var(--bg)";
 const PAPER = "#F4F4F4";
 const DIM = "rgba(244,244,244,0.35)";
 const SOFT = "rgba(244,244,244,0.55)";
@@ -372,7 +372,7 @@ function GradSlide({ slide, index }: { slide: typeof gradSlides[0]; index: numbe
 
         {/* Outro CTA */}
         {isOutro && (
-          <div style={{ display: "flex", background: LIME, color: "#0A0A0A", fontSize: 34, fontWeight: 900, padding: "20px 52px", borderRadius: 999, alignSelf: "flex-start", letterSpacing: "0.01em" }}>
+          <div style={{ display: "flex", background: LIME, color: "var(--bg)", fontSize: 34, fontWeight: 900, padding: "20px 52px", borderRadius: 999, alignSelf: "flex-start", letterSpacing: "0.01em" }}>
             hyperfix.app — free ↗
           </div>
         )}

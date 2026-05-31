@@ -48,9 +48,9 @@ function Avatar({
         height: size,
         background: profile.avatar_url
           ? "transparent"
-          : "rgba(94,234,212,0.15)",
-        border: "1px solid rgba(94,234,212,0.2)",
-        color: "#5EEAD4",
+          : "var(--accent)",
+        border: "1px solid var(--accent)",
+        color: "var(--accent)",
       }}
     >
       {profile.avatar_url ? (
@@ -131,7 +131,7 @@ export function MessageThread({
           <div className="h-full flex items-center justify-center">
             <p
               className="font-sans text-sm"
-              style={{ color: "rgba(244,244,244,0.4)" }}
+              style={{ color: "var(--ink-muted)" }}
             >
               Say hi to start the conversation.
             </p>
@@ -167,14 +167,14 @@ export function MessageThread({
                       style={
                         mine
                           ? {
-                              background: "#5EEAD4",
-                              color: "#0A0A0A",
-                              border: "1px solid #5EEAD4",
+                              background: "var(--accent)",
+                              color: "var(--bg)",
+                              border: "1px solid var(--accent)",
                             }
                           : {
-                              background: "#0F1011",
-                              color: "#F4F4F4",
-                              border: "1px solid rgba(255,255,255,0.06)",
+                              background: "var(--bg)",
+                              color: "var(--ink)",
+                              border: "1px solid var(--line)",
                             }
                       }
                     >
@@ -182,7 +182,7 @@ export function MessageThread({
                     </div>
                     <span
                       className="font-mono text-[10px] mt-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                      style={{ color: "rgba(244,244,244,0.35)" }}
+                      style={{ color: "var(--ink-faint)" }}
                     >
                       {formatTime(m.created_at)}
                     </span>

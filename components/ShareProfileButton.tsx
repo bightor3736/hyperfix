@@ -46,8 +46,8 @@ export function ShareProfileButton({
         onClick={copyLink}
         className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold px-4 py-2 rounded-full transition-all hover:opacity-90 active:scale-[0.98]"
         style={{
-          background: copied ? "#5EEAD4" : "#FFFFFF",
-          color: "#0A0A0A",
+          background: copied ? "var(--accent)" : "var(--ink)",
+          color: "var(--bg)",
         }}
       >
         {copied ? (
@@ -66,9 +66,9 @@ export function ShareProfileButton({
         onClick={shareToX}
         className="inline-flex items-center gap-1.5 font-sans text-xs font-medium px-4 py-2 rounded-full transition-all hover:opacity-90 active:scale-[0.98]"
         style={{
-          background: "rgba(255,255,255,0.08)",
-          border: "1px solid rgba(255,255,255,0.12)",
-          color: "rgba(255,255,255,0.8)",
+          background: "var(--line)",
+          border: "1px solid var(--line)",
+          color: "var(--ink)",
         }}
       >
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -78,9 +78,9 @@ export function ShareProfileButton({
         onClick={nativeShare}
         className="inline-flex items-center gap-1.5 font-sans text-xs font-medium px-4 py-2 rounded-full transition-all hover:opacity-90 active:scale-[0.98]"
         style={{
-          background: "rgba(255,255,255,0.08)",
-          border: "1px solid rgba(255,255,255,0.12)",
-          color: "rgba(255,255,255,0.8)",
+          background: "var(--line)",
+          border: "1px solid var(--line)",
+          color: "var(--ink)",
         }}
       >
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>

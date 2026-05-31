@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ["latin"], weight: ["500", "700", "900"], display
 
 const TEAL    = "#5EEAD4";
 const TEAL_DIM = "#2DD4BF";
-const INK     = "#070708";
-const CARD    = "#0F1011";
+const INK     = "var(--bg)";
+const CARD    = "var(--bg)";
 const CARD_HI = "#161719";
 const PAPER   = "#F4F4F4";
 const DIM     = "#6B7280";

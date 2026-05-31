@@ -6,7 +6,7 @@ export const runtime = "edge";
 const W = 1080;
 const H = 1080;
 
-const BG = "#080808";
+const BG = "var(--bg)";
 const BG2 = "#0C0C0E";
 const INK = "#F4F4F4";
 const DIM = "rgba(244,244,244,0.4)";

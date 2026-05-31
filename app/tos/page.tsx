@@ -10,9 +10,9 @@ export const metadata: Metadata = {
   robots: { index: true, follow: false },
 };
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
@@ -65,19 +65,19 @@ export default function TosPage() {
   return (
     <>
       <Nav />
-      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
+      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "var(--bg)" }}>
         <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
 
         <main id="main-content" className="relative max-w-3xl mx-auto flex flex-col gap-6">
           {/* Hero — tight, restrained */}
           <div className="anim-fadeUp">
-            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(94,234,212,0.55)" }}>
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "var(--accent)" }}>
               legal
             </p>
-            <h1 className="font-display" style={{ color: "#F4F4F4", fontSize: "clamp(32px, 5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}>
+            <h1 className="font-display" style={{ color: "var(--ink)", fontSize: "clamp(32px, 5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}>
               Terms of Service
             </h1>
-            <p className="mt-3 font-mono text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+            <p className="mt-3 font-mono text-xs" style={{ color: "var(--ink-muted)" }}>
               Effective {EFFECTIVE}
             </p>
           </div>
@@ -91,17 +91,17 @@ export default function TosPage() {
                     <h2 className="font-display mb-3" style={{ color: TEAL, fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em" }}>
                       {s.h}
                     </h2>
-                    <p className="font-sans leading-relaxed" style={{ color: "rgba(255,255,255,0.72)", fontSize: 15, lineHeight: 1.7 }}>
+                    <p className="font-sans leading-relaxed" style={{ color: "var(--line)", fontSize: 15, lineHeight: 1.7 }}>
                       {s.body}
                     </p>
                   </div>
                 ))}
 
-                <div className="mt-4 pt-8 flex flex-col sm:flex-row gap-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                <div className="mt-4 pt-8 flex flex-col sm:flex-row gap-4" style={{ borderTop: "1px solid var(--line)" }}>
                   <a href="/privacy" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: TEAL }}>
                     Privacy Policy →
                   </a>
-                  <a href="/" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.5)" }}>
+                  <a href="/" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "var(--ink-muted)" }}>
                     ← Back to Hyperfix
                   </a>
                 </div>

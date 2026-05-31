@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 export const runtime = "edge";
 
 const SIZE = { width: 512, height: 512 };
-const PAPER = "#080808";
+const PAPER = "var(--bg)";
 const INK = "#F4F4F4";
 const ACCENT = "#5EEAD4";
 const MUTED = "#525252";

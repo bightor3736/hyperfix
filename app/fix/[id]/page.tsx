@@ -11,9 +11,9 @@ import { FlameIcon } from "@/components/LandingIcons";
 import { MessageButton } from "@/components/MessageButton";
 import type { Metadata } from "next";
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
@@ -67,7 +67,7 @@ function IntensityBar({ intensity }: { intensity: number }) {
             key={i}
             className="w-2 h-4 rounded-sm"
             style={{
-              background: i < intensity ? "#5EEAD4" : "rgba(244,244,244,0.08)",
+              background: i < intensity ? "var(--accent)" : "var(--line)",
             }}
           />
         ))}
@@ -227,7 +227,7 @@ export default async function PublicFixPage({
   })) as Comment[];
 
   return (
-    <div className="min-h-screen relative" style={{ background: "#070708", color: "#F4F4F4" }}>
+    <div className="min-h-screen relative" style={{ background: "var(--bg)", color: "var(--ink)" }}>
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none mix-blend-overlay"
@@ -251,7 +251,7 @@ export default async function PublicFixPage({
             <Link
               href={`/u/${typedProfile.username}`}
               className="font-sans text-sm transition-colors hidden sm:inline"
-              style={{ color: "rgba(255,255,255,0.55)" }}
+              style={{ color: "var(--ink-muted)" }}
             >
               @{typedProfile.username}
             </Link>
@@ -290,7 +290,7 @@ export default async function PublicFixPage({
           style={{
             background: typedFix.banner_url
               ? CARD_BG
-              : "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)",
+              : "radial-gradient(ellipse 80% 120% at 50% 130%, var(--accent) 0%, var(--accent) 14%, #0E4F47 34%, #08231F 55%, var(--bg) 78%)",
             border: `1px solid ${CARD_BORDER}`,
           }}
         >
@@ -302,7 +302,7 @@ export default async function PublicFixPage({
           <div
             aria-hidden
             className="absolute inset-0 pointer-events-none"
-            style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }}
+            style={{ background: "linear-gradient(180deg, var(--bg) 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }}
           />
           <div className="relative">
             {/* Category + status row */}
@@ -310,9 +310,9 @@ export default async function PublicFixPage({
               <span
                 className="inline-flex items-center gap-1.5 font-sans text-xs rounded-full px-3 py-1"
                 style={{
-                  background: "rgba(94,234,212,0.12)",
+                  background: "var(--accent-soft)",
                   color: TEAL,
-                  border: "1px solid rgba(94,234,212,0.25)",
+                  border: "1px solid var(--accent)",
                 }}
               >
                 <CategoryIcon category={typedFix.category} size={12} />
@@ -321,9 +321,9 @@ export default async function PublicFixPage({
               <span
                 className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1"
                 style={{
-                  background: "rgba(244,244,244,0.07)",
-                  border: "1px solid rgba(244,244,244,0.12)",
-                  color: "rgba(244,244,244,0.6)",
+                  background: "var(--line)",
+                  border: "1px solid var(--line)",
+                  color: "var(--ink-muted)",
                 }}
               >
                 {typedFix.status}
@@ -334,7 +334,7 @@ export default async function PublicFixPage({
             <h1
               className="font-display leading-tight mb-6"
               style={{
-                color: "#FFFFFF",
+                color: "var(--ink)",
                 fontSize: "clamp(28px, 6vw, 44px)",
                 fontWeight: 600,
                 letterSpacing: "-0.02em",
@@ -353,12 +353,12 @@ export default async function PublicFixPage({
                 >
                   {days}
                 </span>
-                <span className="font-sans text-sm ml-2" style={{ color: "rgba(255,255,255,0.5)" }}>
+                <span className="font-sans text-sm ml-2" style={{ color: "var(--ink-muted)" }}>
                   {days === 1 ? "day" : "days"}
                 </span>
               </div>
               <div className="flex-1 min-w-[160px] pb-1">
-                <p className="font-sans text-[10px] uppercase tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>
+                <p className="font-sans text-[10px] uppercase tracking-widest mb-2" style={{ color: "var(--ink-muted)" }}>
                   intensity
                 </p>
                 <IntensityBar intensity={typedFix.intensity} />
@@ -396,7 +396,7 @@ export default async function PublicFixPage({
                 className="relative overflow-hidden rounded-2xl px-5 py-4 flex items-center gap-3 transition-all hover:-translate-y-px group"
                 style={{
                   background: CARD_BG,
-                  border: "1px solid rgba(94,234,212,0.18)",
+                  border: "1px solid var(--accent-soft)",
                 }}
               >
                 <div
@@ -423,7 +423,7 @@ export default async function PublicFixPage({
               <Link
                 href={`/explore?category=${encodeURIComponent(typedFix.category)}`}
                 className="font-sans text-xs hover:underline"
-                style={{ color: "rgba(255,255,255,0.45)", paddingLeft: 2 }}
+                style={{ color: "var(--ink-muted)", paddingLeft: 2 }}
               >
                 {categoryCount} {categoryCount === 1 ? "person is" : "people are"} currently tracking {typedFix.category} →
               </Link>
@@ -442,10 +442,10 @@ export default async function PublicFixPage({
               className="absolute inset-0 pointer-events-none mix-blend-overlay"
               style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.18 }}
             />
-            <p className="relative font-sans text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <p className="relative font-sans text-[10px] uppercase tracking-widest mb-3" style={{ color: "var(--ink-faint)" }}>
               note
             </p>
-            <p className="relative font-sans text-sm leading-relaxed" style={{ color: "rgba(244,244,244,0.8)" }}>
+            <p className="relative font-sans text-sm leading-relaxed" style={{ color: "var(--ink)" }}>
               {typedFix.note}
             </p>
           </div>
@@ -457,7 +457,7 @@ export default async function PublicFixPage({
             className="relative overflow-hidden rounded-2xl p-6 mb-5 anim-fadeUp motion-card"
             style={{
               background: CARD_BG,
-              border: "1px solid rgba(94,234,212,0.15)",
+              border: "1px solid var(--accent)",
               animationDelay: "160ms",
             }}
           >
@@ -471,7 +471,7 @@ export default async function PublicFixPage({
             </p>
             <p
               className="relative font-display italic"
-              style={{ color: "rgba(244,244,244,0.8)", fontSize: 15, lineHeight: 1.55 }}
+              style={{ color: "var(--ink)", fontSize: 15, lineHeight: 1.55 }}
             >
               {typedFix.eulogy}
             </p>
@@ -486,9 +486,9 @@ export default async function PublicFixPage({
                 key={tag}
                 className="font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1"
                 style={{
-                  background: "rgba(94,234,212,0.08)",
-                  border: "1px solid rgba(94,234,212,0.18)",
-                  color: "#5EEAD4",
+                  background: "var(--accent-soft)",
+                  border: "1px solid var(--accent-soft)",
+                  color: "var(--accent)",
                 }}
               >
                 #{tag}
@@ -509,7 +509,7 @@ export default async function PublicFixPage({
           />
           <h2
             className="relative font-sans text-[10px] uppercase tracking-widest mb-5"
-            style={{ color: "rgba(255,255,255,0.4)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             Comments
           </h2>
@@ -527,8 +527,8 @@ export default async function PublicFixPage({
           <div
             className="relative overflow-hidden rounded-2xl anim-fadeUp"
             style={{
-              background: "radial-gradient(ellipse 140% 160% at 50% 110%, rgba(94,234,212,0.22) 0%, transparent 55%), #0F1011",
-              border: "1px solid rgba(94,234,212,0.22)",
+              background: "radial-gradient(ellipse 140% 160% at 50% 110%, var(--accent) 0%, transparent 55%), var(--bg)",
+              border: "1px solid var(--accent)",
               animationDelay: "200ms",
             }}
           >
@@ -540,21 +540,21 @@ export default async function PublicFixPage({
             <div className="relative p-6 sm:p-8 flex flex-col items-center text-center gap-4">
               <p
                 className="font-display"
-                style={{ fontSize: "clamp(20px, 3.5vw, 26px)", fontWeight: 600, color: "#F4F4F4", letterSpacing: "-0.02em", lineHeight: 1.1 }}
+                style={{ fontSize: "clamp(20px, 3.5vw, 26px)", fontWeight: 600, color: "var(--ink)", letterSpacing: "-0.02em", lineHeight: 1.1 }}
               >
                 Track your own {typedFix.category} obsession.
               </p>
-              <p className="font-sans text-sm max-w-xs" style={{ color: "rgba(244,244,244,0.55)" }}>
+              <p className="font-sans text-sm max-w-xs" style={{ color: "var(--ink-muted)" }}>
                 Log what you&apos;re fixated on, count every day, share it with the world. Free forever.
               </p>
               <Link
                 href={`/auth/signup?next=/fix/${id}`}
                 className="px-7 py-3.5 rounded-2xl font-sans text-base font-semibold transition-all hover:opacity-90 hover:-translate-y-px active:scale-[0.98]"
-                style={{ background: "#FFFFFF", color: "#0A0A0A", boxShadow: "0 8px 32px rgba(94,234,212,0.2)" }}
+                style={{ background: "var(--ink)", color: "var(--bg)", boxShadow: "0 8px 32px var(--accent)" }}
               >
                 Join Hyperfix free →
               </Link>
-              <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "rgba(244,244,244,0.3)" }}>
+              <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
                 30 seconds · no credit card
               </p>
             </div>
@@ -570,11 +570,11 @@ export default async function PublicFixPage({
               style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.18 }}
             />
             <div className="relative">
-              <p className="font-sans text-sm font-medium mb-0.5" style={{ color: "#F4F4F4" }}>
+              <p className="font-sans text-sm font-medium mb-0.5" style={{ color: "var(--ink)" }}>
                 Follow{" "}
                 <span style={{ color: TEAL }}>@{typedProfile.username}</span> on Hyperfix
               </p>
-              <p className="font-sans text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+              <p className="font-sans text-xs" style={{ color: "var(--ink-muted)" }}>
                 See all their hyperfixations
               </p>
             </div>
@@ -582,9 +582,9 @@ export default async function PublicFixPage({
               href={`/u/${typedProfile.username}`}
               className="relative shrink-0 px-5 py-2.5 rounded-full font-sans text-sm font-semibold transition-all hover:opacity-90 hover:-translate-y-px"
               style={{
-                background: "#FFFFFF",
-                color: "#070708",
-                boxShadow: "0 0 0 1px rgba(255,255,255,0.15), 0 4px 16px rgba(94,234,212,0.25)",
+                background: "var(--ink)",
+                color: "var(--bg)",
+                boxShadow: "0 0 0 1px var(--line-strong), 0 4px 16px var(--accent)",
               }}
             >
               View profile →

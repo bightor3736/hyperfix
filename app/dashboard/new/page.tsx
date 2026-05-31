@@ -30,7 +30,7 @@ export default async function NewFixPage() {
   }
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "var(--bg)" }}>
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none mix-blend-overlay"
@@ -40,7 +40,7 @@ export default async function NewFixPage() {
         <Link
           href="/dashboard"
           className="motion-link inline-flex items-center gap-2 font-sans text-sm mb-8 transition-colors anim-fadeUp"
-          style={{ color: "rgba(255,255,255,0.55)" }}
+          style={{ color: "var(--ink-muted)" }}
         >
           <ArrowLeft set="light" size={18} primaryColor="currentColor" />
           My fixes
@@ -49,9 +49,9 @@ export default async function NewFixPage() {
         <span
           className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5 anim-fadeUp delay-100"
           style={{
-            background: "rgba(94,234,212,0.10)",
-            color: "#5EEAD4",
-            border: "1px solid rgba(94,234,212,0.22)",
+            background: "var(--accent-soft)",
+            color: "var(--accent)",
+            border: "1px solid var(--accent)",
           }}
         >
           new fix
@@ -59,7 +59,7 @@ export default async function NewFixPage() {
         <h1
           className="font-display mb-3 anim-fadeUp delay-200"
           style={{
-            color: "#FFFFFF",
+            color: "var(--ink)",
             fontSize: "clamp(36px, 6vw, 56px)",
             letterSpacing: "-0.02em",
             fontWeight: 600,
@@ -72,7 +72,7 @@ export default async function NewFixPage() {
         </h1>
         <p
           className="font-sans text-base mb-10 anim-fadeUp delay-300"
-          style={{ color: "rgba(255,255,255,0.6)" }}
+          style={{ color: "var(--ink-muted)" }}
         >
           Name it. Pick a category. Set the intensity. The counter starts the moment you hit save.
         </p>

@@ -35,10 +35,10 @@ export function UnsubscribeForm({ email: prefillEmail }: { email?: string }) {
     return (
       <div
         className="rounded-2xl px-6 py-5 text-left"
-        style={{ background: "rgba(94,234,212,0.07)", border: "1px solid rgba(94,234,212,0.2)" }}
+        style={{ background: "var(--accent-soft)", border: "1px solid var(--accent)" }}
       >
-        <p className="font-mono text-[11px] uppercase tracking-widest mb-1" style={{ color: "#5EEAD4" }}>done</p>
-        <p className="font-sans text-sm" style={{ color: "rgba(244,244,244,0.6)" }}>
+        <p className="font-mono text-[11px] uppercase tracking-widest mb-1" style={{ color: "var(--accent)" }}>done</p>
+        <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
           You&apos;ve been unsubscribed ✓. If you signed up with an account, you can manage notification preferences in settings.
         </p>
       </div>
@@ -63,9 +63,9 @@ export function UnsubscribeForm({ email: prefillEmail }: { email?: string }) {
         className="w-full px-4 py-3.5 font-mono text-sm focus:outline-none focus:ring-1 transition-colors disabled:opacity-60"
         style={{
           background: "#1C1C1E",
-          border: "1px solid rgba(244,244,244,0.1)",
+          border: "1px solid var(--line)",
           borderRadius: 12,
-          color: "rgba(244,244,244,0.9)",
+          color: "var(--ink)",
         }}
       />
       <button
@@ -73,10 +73,10 @@ export function UnsubscribeForm({ email: prefillEmail }: { email?: string }) {
         disabled={status === "pending"}
         className="w-full px-6 py-3.5 font-mono text-[11px] uppercase tracking-widest font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
         style={{
-          background: "rgba(244,244,244,0.08)",
-          border: "1px solid rgba(244,244,244,0.15)",
+          background: "var(--line)",
+          border: "1px solid var(--line-strong)",
           borderRadius: 999,
-          color: "rgba(244,244,244,0.7)",
+          color: "var(--ink-muted)",
         }}
       >
         {status === "pending" ? "Unsubscribing…" : "Unsubscribe from all emails"}

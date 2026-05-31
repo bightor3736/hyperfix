@@ -7,7 +7,7 @@ import { hexToRgba } from "@/lib/accent";
 import { BannerGalleryPicker } from "@/components/BannerGalleryPicker";
 import { bannerPresetUrl } from "@/lib/banner-presets";
 
-const TEAL = "#5EEAD4";
+const TEAL = "var(--accent)";
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
@@ -102,7 +102,7 @@ export function LiveProfileEditor({
 
   return (
     <div>
-      <p className="font-sans text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ color: "rgba(244,244,244,0.25)" }}>
+      <p className="font-sans text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ color: "var(--ink-faint)" }}>
         Live preview — click anything to edit
       </p>
 
@@ -118,9 +118,9 @@ export function LiveProfileEditor({
                 backgroundPosition: "center",
               }
             : {
-                background: `radial-gradient(ellipse 90% 100% at 50% 110%, ${accent} 0%, ${hexToRgba(accent, 0.55)} 18%, ${hexToRgba(accent, 0.16)} 38%, ${hexToRgba(accent, 0.04)} 58%, #070708 80%)`,
+                background: `radial-gradient(ellipse 90% 100% at 50% 110%, ${accent} 0%, ${hexToRgba(accent, 0.55)} 18%, ${hexToRgba(accent, 0.16)} 38%, ${hexToRgba(accent, 0.04)} 58%, var(--bg) 80%)`,
               }),
-          border: "1px solid rgba(255,255,255,0.06)",
+          border: "1px solid var(--line)",
         }}
         onClick={() => bannerInputRef.current?.click()}
       >
@@ -146,8 +146,8 @@ export function LiveProfileEditor({
             className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-all hover:opacity-80"
             style={{
               background: "rgba(7,7,8,0.7)",
-              border: "1px solid rgba(255,255,255,0.06)",
-              color: "rgba(244,244,244,0.85)",
+              border: "1px solid var(--line)",
+              color: "var(--ink)",
               backdropFilter: "blur(8px)",
             }}
           >
@@ -157,7 +157,7 @@ export function LiveProfileEditor({
             className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest"
             style={{
               background: "rgba(7,7,8,0.7)",
-              border: "1px solid rgba(94,234,212,0.3)",
+              border: "1px solid var(--accent-soft)",
               color: TEAL,
               backdropFilter: "blur(8px)",
             }}
@@ -193,7 +193,7 @@ export function LiveProfileEditor({
                 alt={displayName}
                 className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover"
                 style={{
-                  border: `3px solid #070708`,
+                  border: `3px solid var(--bg)`,
                   boxShadow: `0 4px 16px rgba(0,0,0,0.6)`,
                 }}
               />
@@ -202,7 +202,7 @@ export function LiveProfileEditor({
                 className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center font-display font-semibold"
                 style={{
                   background: `${accent}22`,
-                  border: `3px solid #070708`,
+                  border: `3px solid var(--bg)`,
                   boxShadow: `0 4px 16px rgba(0,0,0,0.6)`,
                   color: accent,
                   fontSize: 24,
@@ -216,8 +216,8 @@ export function LiveProfileEditor({
               className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full flex items-center justify-center transition-all opacity-100 group-hover/avatar:scale-110"
               style={{
                 background: TEAL,
-                color: "#070708",
-                border: "2px solid #070708",
+                color: "var(--bg)",
+                border: "2px solid var(--bg)",
                 boxShadow: "0 2px 8px rgba(0,0,0,0.5)",
               }}
               aria-label="Change avatar"
@@ -241,7 +241,7 @@ export function LiveProfileEditor({
                 style={{
                   fontSize: "clamp(24px, 5vw, 36px)",
                   fontWeight: 600,
-                  color: "#F4F4F4",
+                  color: "var(--ink)",
                   letterSpacing: "-0.02em",
                   lineHeight: 1,
                   borderColor: TEAL,
@@ -252,17 +252,17 @@ export function LiveProfileEditor({
               <button
                 type="button"
                 onClick={() => setEditing("displayName")}
-                className="group/name relative font-display text-left transition-colors hover:text-[#5EEAD4]"
+                className="group/name relative font-display text-left transition-colors hover:text-[var(--accent)]"
                 style={{
                   fontSize: "clamp(24px, 5vw, 36px)",
                   fontWeight: 600,
-                  color: "#F4F4F4",
+                  color: "var(--ink)",
                   letterSpacing: "-0.02em",
                   lineHeight: 1,
                   textShadow: "0 2px 16px rgba(0,0,0,0.5)",
                 }}
               >
-                {displayName || <span style={{ color: "rgba(255,255,255,0.4)" }}>your name</span>}
+                {displayName || <span style={{ color: "var(--ink-muted)" }}>your name</span>}
                 <span
                   className="ml-2 inline-flex items-center opacity-0 group-hover/name:opacity-100 transition-opacity"
                   style={{ color: TEAL, verticalAlign: "middle" }}
@@ -297,7 +297,7 @@ export function LiveProfileEditor({
                 className="font-mono mt-1 inline-flex items-center gap-1.5 transition-colors hover:opacity-80 group/handle"
                 style={{
                   fontSize: 13,
-                  color: isPro ? accent : "rgba(94,234,212,0.7)",
+                  color: isPro ? accent : "var(--accent)",
                   textShadow: "0 1px 8px rgba(0,0,0,0.5)",
                 }}
               >
@@ -354,9 +354,9 @@ export function LiveProfileEditor({
             rows={3}
             className="w-full text-sm font-sans rounded-2xl px-4 py-3 outline-none resize-none"
             style={{
-              background: "rgba(255,255,255,0.04)",
+              background: "transparent",
               border: `1px solid ${TEAL}`,
-              color: "rgba(255,255,255,0.85)",
+              color: "var(--ink)",
               lineHeight: 1.6,
               caretColor: TEAL,
             }}
@@ -366,13 +366,13 @@ export function LiveProfileEditor({
           <button
             type="button"
             onClick={() => setEditing("bio")}
-            className="group/bio relative w-full text-left rounded-2xl px-4 py-3 transition-all hover:bg-[rgba(255,255,255,0.03)]"
+            className="group/bio relative w-full text-left rounded-2xl px-4 py-3 transition-all hover:bg-[transparent]"
             style={{
-              background: bio ? "transparent" : "rgba(255,255,255,0.02)",
-              border: bio ? "1px solid transparent" : "1px dashed rgba(255,255,255,0.1)",
+              background: bio ? "transparent" : "transparent",
+              border: bio ? "1px solid transparent" : "1px dashed var(--line)",
             }}
           >
-            <p className="text-sm font-sans leading-relaxed" style={{ color: bio ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.35)" }}>
+            <p className="text-sm font-sans leading-relaxed" style={{ color: bio ? "var(--ink-muted)" : "var(--ink-faint)" }}>
               {bio || "add a short bio…"}
             </p>
             <span
@@ -399,9 +399,9 @@ export function LiveProfileEditor({
             placeholder="https://instagram.com/you, https://tiktok.com/@you, …"
             className="w-full text-sm font-sans rounded-2xl px-4 py-3 outline-none"
             style={{
-              background: "rgba(255,255,255,0.04)",
+              background: "transparent",
               border: `1px solid ${TEAL}`,
-              color: "rgba(255,255,255,0.85)",
+              color: "var(--ink)",
               caretColor: TEAL,
             }}
           />
@@ -423,20 +423,20 @@ export function LiveProfileEditor({
           <button
             type="button"
             onClick={() => setEditing("socialLink")}
-            className="group/social w-full text-left rounded-2xl px-4 py-3 transition-all hover:bg-[rgba(255,255,255,0.03)]"
+            className="group/social w-full text-left rounded-2xl px-4 py-3 transition-all hover:bg-[transparent]"
             style={{
-              background: "rgba(255,255,255,0.02)",
-              border: "1px dashed rgba(255,255,255,0.1)",
+              background: "transparent",
+              border: "1px dashed var(--line)",
             }}
           >
-            <p className="text-sm font-sans" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <p className="text-sm font-sans" style={{ color: "var(--ink-faint)" }}>
               add your socials — instagram, tiktok, youtube, x… (comma-separated)
             </p>
           </button>
         )}
       </div>
 
-      <p className="font-mono text-[10px] mt-4" style={{ color: "rgba(244,244,244,0.25)" }}>
+      <p className="font-mono text-[10px] mt-4" style={{ color: "var(--ink-faint)" }}>
         changes save when you hit save below
       </p>
     </div>

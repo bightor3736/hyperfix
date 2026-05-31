@@ -6,7 +6,7 @@ export const runtime = "edge";
 
 const W = 1080;
 const H = 1920;
-const INK      = "#070708";
+const INK      = "var(--bg)";
 const PAPER    = "#F4F4F4";
 const TEAL     = "#5EEAD4";
 const DIM      = "rgba(244,244,244,0.35)";
@@ -17,7 +17,7 @@ function Logo() {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
       <svg width="40" height="40" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <rect width="64" height="64" rx="12" fill="#0F1011" />
+        <rect width="64" height="64" rx="12" fill="var(--bg)" />
         <path d="M14 40 L32 20 L50 40 L42 40 L32 28 L22 40 Z" fill={TEAL} />
         <path d="M14 50 L32 30 L50 50 L42 50 L32 38 L22 50 Z" fill="#2DD4BF" opacity="0.7" />
       </svg>

@@ -98,7 +98,7 @@ export function TiltCard({
               top: `${spotlightPos.y}%`,
               transform: "translate(-50%, -50%)",
               background:
-                "radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 40%)",
+                "radial-gradient(circle, var(--line-strong) 0%, transparent 40%)",
             }}
           />
         </div>

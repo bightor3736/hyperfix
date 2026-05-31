@@ -28,9 +28,9 @@ type Props = {
   quote: string;
 };
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
@@ -106,20 +106,20 @@ export function WrappedClient({
   }
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "#070708" }}>
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "var(--bg)" }}>
       <main className="relative max-w-3xl mx-auto flex flex-col gap-6">
         {/* HERO with big year */}
-        <div className="relative overflow-hidden rounded-3xl p-6 sm:p-12 anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, #5EEAD4 0%, #2DD4BF 14%, #0E4F47 34%, #08231F 55%, #070708 78%)", border: `1px solid ${CARD_BORDER}` }}>
+        <div className="relative overflow-hidden rounded-3xl p-6 sm:p-12 anim-fadeUp" style={{ background: "radial-gradient(ellipse 80% 120% at 50% 130%, var(--accent) 0%, var(--accent) 14%, #0E4F47 34%, #08231F 55%, var(--bg) 78%)", border: `1px solid ${CARD_BORDER}` }}>
           <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.55 }} />
-          <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #070708 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
+          <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, var(--bg) 0%, rgba(7,7,8,0.45) 30%, transparent 100%)" }} />
           <div className="relative">
-            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5" style={{ background: "var(--accent-soft)", color: TEAL, border: "1px solid var(--accent)" }}>
               hyperfix wrapped
             </span>
-            <h1 className="font-display leading-none" style={{ fontSize: "clamp(80px, 22vw, 180px)", letterSpacing: "-0.04em", color: "transparent", WebkitTextStroke: "1px rgba(255,255,255,0.35)", fontWeight: 600 }}>
+            <h1 className="font-display leading-none" style={{ fontSize: "clamp(80px, 22vw, 180px)", letterSpacing: "-0.04em", color: "transparent", WebkitTextStroke: "1px var(--ink-faint)", fontWeight: 600 }}>
               {year}
             </h1>
-            <p className="mt-2 font-display anim-fadeUp delay-200" style={{ color: "#FFFFFF", fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 600, letterSpacing: "-0.02em" }}>
+            <p className="mt-2 font-display anim-fadeUp delay-200" style={{ color: "var(--ink)", fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 600, letterSpacing: "-0.02em" }}>
               {viewerName === "you" ? "Your" : `${viewerName}'s`} year in obsessions.
             </p>
           </div>
@@ -136,7 +136,7 @@ export function WrappedClient({
               <span className="relative font-display leading-none tabular-nums" style={{ fontSize: "clamp(2rem, 7vw, 3.5rem)", color: TEAL, fontWeight: 600, letterSpacing: "-0.03em" }}>
                 {card.value}
               </span>
-              <span className="relative font-sans text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
+              <span className="relative font-sans text-xs" style={{ color: "var(--ink-muted)" }}>
                 {card.label}
               </span>
             </div>
@@ -162,12 +162,12 @@ export function WrappedClient({
         />
 
         {/* Quote */}
-        <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-10 flex flex-col gap-3" style={{ background: "rgba(94,234,212,0.06)", border: "1px solid rgba(94,234,212,0.18)" }}>
+        <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-10 flex flex-col gap-3" style={{ background: "var(--accent-soft)", border: "1px solid var(--accent-soft)" }}>
           <div className="relative">
-            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-3" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>
+            <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-3" style={{ background: "var(--accent-soft)", color: TEAL, border: "1px solid var(--accent)" }}>
               hyperfix says
             </span>
-            <p className="font-display text-xl sm:text-2xl leading-snug" style={{ color: "#FFFFFF", fontWeight: 600, letterSpacing: "-0.01em" }}>
+            <p className="font-display text-xl sm:text-2xl leading-snug" style={{ color: "var(--ink)", fontWeight: 600, letterSpacing: "-0.01em" }}>
               &ldquo;{quote}&rdquo;
             </p>
           </div>
@@ -179,10 +179,10 @@ export function WrappedClient({
             onClick={handleShare}
             className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
             style={{
-              background: "#FFFFFF",
-              color: "#0A0A0A",
+              background: "var(--ink)",
+              color: "var(--bg)",
               borderRadius: 999,
-              boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 40px rgba(94,234,212,0.25)",
+              boxShadow: "0 1px 0 0 var(--ink-muted) inset, 0 12px 36px rgba(0,0,0,0.4), 0 0 40px var(--accent)",
             }}
           >
             {copied ? "Copied!" : "Share my Wrapped →"}
@@ -191,8 +191,8 @@ export function WrappedClient({
             onClick={handleTweet}
             className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all duration-200 hover:opacity-90"
             style={{
-              background: "rgba(94,234,212,0.08)",
-              border: "1px solid rgba(94,234,212,0.25)",
+              background: "var(--accent-soft)",
+              border: "1px solid var(--accent)",
               color: TEAL,
               borderRadius: 999,
             }}
@@ -207,9 +207,9 @@ export function WrappedClient({
             disabled={downloading}
             className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all duration-200 hover:opacity-90 disabled:opacity-50"
             style={{
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid rgba(255,255,255,0.10)",
-              color: "rgba(255,255,255,0.7)",
+              background: "var(--line)",
+              border: "1px solid var(--line)",
+              color: "var(--ink-muted)",
               borderRadius: 999,
             }}
           >
@@ -242,21 +242,21 @@ function FixHighlightCard({
   return (
     <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-8 flex flex-col gap-4" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
       <div className="relative">
-        <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-4" style={{ background: "rgba(94,234,212,0.10)", color: TEAL, border: "1px solid rgba(94,234,212,0.22)" }}>
+        <span className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-4" style={{ background: "var(--accent-soft)", color: TEAL, border: "1px solid var(--accent)" }}>
           {badge}
         </span>
-        <h2 className="font-display leading-tight mb-4" style={{ fontSize: "clamp(22px, 4.5vw, 32px)", color: "#FFFFFF", fontWeight: 600, letterSpacing: "-0.01em" }}>
+        <h2 className="font-display leading-tight mb-4" style={{ fontSize: "clamp(22px, 4.5vw, 32px)", color: "var(--ink)", fontWeight: 600, letterSpacing: "-0.01em" }}>
           {title}
         </h2>
         <div className="flex items-center gap-3 flex-wrap mb-2">
-          <span className="font-sans text-xs px-3 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.55)" }}>
+          <span className="font-sans text-xs px-3 py-1 rounded-full" style={{ background: "var(--line)", border: "1px solid var(--line)", color: "var(--ink-muted)" }}>
             {category}
           </span>
           <span className="font-sans text-sm tabular-nums" style={{ color: TEAL }}>
             {meta}
           </span>
         </div>
-        <span className="font-sans text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+        <span className="font-sans text-xs" style={{ color: "var(--ink-muted)" }}>
           {dateRange}
         </span>
       </div>

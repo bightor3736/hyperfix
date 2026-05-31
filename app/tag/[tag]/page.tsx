@@ -22,9 +22,9 @@ function getDayCount(startedAt: string): number {
   return Math.max(1, Math.ceil(diff / (1000 * 60 * 60 * 24)));
 }
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 export default async function TagPage({ params }: Props) {
   const { tag } = await params;
@@ -47,21 +47,21 @@ export default async function TagPage({ params }: Props) {
   const results = fixes ?? [];
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "#070708" }}>
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "var(--bg)" }}>
       <div className="max-w-5xl mx-auto">
         {/* Nav */}
         <nav className="flex items-center justify-between mb-12">
           <Link
             href="/"
             className="font-display text-lg"
-            style={{ color: "#F4F4F4", letterSpacing: "-0.02em", fontWeight: 500 }}
+            style={{ color: "var(--ink)", letterSpacing: "-0.02em", fontWeight: 500 }}
           >
             Hyperfix
           </Link>
           <Link
             href="/explore"
             className="font-mono text-[11px] uppercase tracking-[0.18em] transition-opacity hover:opacity-70"
-            style={{ color: "rgba(244,244,244,0.5)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             Explore →
           </Link>
@@ -71,14 +71,14 @@ export default async function TagPage({ params }: Props) {
         <header className="mb-10">
           <span
             className="font-mono text-[11px] uppercase tracking-[0.18em]"
-            style={{ color: "rgba(255,255,255,0.5)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             Tag
           </span>
           <h1
             className="font-display mt-3 mb-3"
             style={{
-              color: "#FFFFFF",
+              color: "var(--ink)",
               fontSize: "clamp(32px, 5.5vw, 48px)",
               lineHeight: 1.05,
               letterSpacing: "-0.02em",
@@ -89,7 +89,7 @@ export default async function TagPage({ params }: Props) {
           </h1>
           <p
             className="font-sans text-base"
-            style={{ color: "rgba(255,255,255,0.55)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             {results.length} public hyperfixation{results.length !== 1 ? "s" : ""} tagged with this.
           </p>
@@ -103,7 +103,7 @@ export default async function TagPage({ params }: Props) {
           >
             <p
               className="font-display text-lg mb-2"
-              style={{ color: "rgba(255,255,255,0.7)", letterSpacing: "-0.01em" }}
+              style={{ color: "var(--ink-muted)", letterSpacing: "-0.01em" }}
             >
               Nothing tagged with #{tag} yet.
             </p>
@@ -140,7 +140,7 @@ export default async function TagPage({ params }: Props) {
                       backgroundPosition: "center",
                       background: banner
                         ? undefined
-                        : `linear-gradient(135deg, ${catColor}40 0%, ${catColor}10 60%, #0F1011 100%)`,
+                        : `linear-gradient(135deg, ${catColor}40 0%, ${catColor}10 60%, var(--bg) 100%)`,
                     }}
                   >
                     <div
@@ -156,7 +156,7 @@ export default async function TagPage({ params }: Props) {
                       className="absolute top-3 left-3 inline-flex items-baseline gap-0.5 rounded-md px-2 py-1"
                       style={{
                         background: "rgba(15,16,17,0.7)",
-                        border: "1px solid rgba(244,244,244,0.08)",
+                        border: "1px solid var(--line)",
                         backdropFilter: "blur(8px)",
                       }}
                     >
@@ -165,7 +165,7 @@ export default async function TagPage({ params }: Props) {
                         style={{
                           fontSize: 18,
                           fontWeight: 700,
-                          color: "#F4F4F4",
+                          color: "var(--ink)",
                           lineHeight: 1,
                           letterSpacing: "-0.02em",
                         }}
@@ -174,7 +174,7 @@ export default async function TagPage({ params }: Props) {
                       </span>
                       <span
                         className="font-mono text-[9px] uppercase tracking-widest"
-                        style={{ color: "rgba(244,244,244,0.55)" }}
+                        style={{ color: "var(--ink-muted)" }}
                       >
                         d
                       </span>
@@ -198,11 +198,11 @@ export default async function TagPage({ params }: Props) {
                   {/* Title */}
                   <div className="p-4">
                     <h2
-                      className="font-display group-hover:text-[#5EEAD4] transition-colors"
+                      className="font-display group-hover:text-[var(--accent)] transition-colors"
                       style={{
                         fontSize: 14,
                         fontWeight: 500,
-                        color: "#F4F4F4",
+                        color: "var(--ink)",
                         display: "-webkit-box",
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: "vertical",

@@ -2,7 +2,7 @@ import { FixCardSkeleton } from "@/components/FixCardSkeleton";
 
 export default function ExploreLoading() {
   return (
-    <div className="min-h-screen px-4 sm:px-6 pt-8 pb-24" style={{ background: "#0A0A0A" }}>
+    <div className="min-h-screen px-4 sm:px-6 pt-8 pb-24" style={{ background: "var(--bg)" }}>
       <div className="max-w-6xl mx-auto">
         {/* Heading placeholder */}
         <div className="skeleton-shimmer rounded-xl mb-3" style={{ height: 32, width: 192 }} />

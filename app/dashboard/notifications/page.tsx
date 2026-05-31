@@ -15,9 +15,9 @@ import { legacyEmojiToType, getReactionMeta } from "@/lib/reactions";
 
 export const metadata: Metadata = { title: "Notifications · Hyperfix" };
 
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
-const TEAL = "#5EEAD4";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
+const TEAL = "var(--accent)";
 
 type NotifActor = {
   username: string | null;
@@ -62,15 +62,15 @@ function renderNotif(n: Notif): Rendered | null {
       iconColor: "#F472B6",
       text: (
         <>
-          <span style={{ color: "#F4F4F4" }}>{name}</span>
-          <span style={{ color: "rgba(244,244,244,0.55)" }}> reacted </span>
+          <span style={{ color: "var(--ink)" }}>{name}</span>
+          <span style={{ color: "var(--ink-muted)" }}> reacted </span>
           {meta && (
             <span
               className="inline-flex items-center gap-1 align-middle rounded-full px-1.5 py-0.5 mx-0.5"
               style={{
-                background: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                color: "rgba(244,244,244,0.85)",
+                background: "var(--line)",
+                border: "1px solid var(--line)",
+                color: "var(--ink)",
                 fontSize: 11,
               }}
             >
@@ -78,8 +78,8 @@ function renderNotif(n: Notif): Rendered | null {
               {meta.label}
             </span>
           )}
-          <span style={{ color: "rgba(244,244,244,0.55)" }}> to </span>
-          <span style={{ color: "#F4F4F4" }}>&ldquo;{fixTitle}&rdquo;</span>
+          <span style={{ color: "var(--ink-muted)" }}> to </span>
+          <span style={{ color: "var(--ink)" }}>&ldquo;{fixTitle}&rdquo;</span>
         </>
       ),
       href: n.fix_id ? `/fix/${n.fix_id}` : null,
@@ -91,8 +91,8 @@ function renderNotif(n: Notif): Rendered | null {
       iconColor: "#06B6D4",
       text: (
         <>
-          <span style={{ color: "#F4F4F4" }}>{name}</span>
-          <span style={{ color: "rgba(244,244,244,0.55)" }}> started following you</span>
+          <span style={{ color: "var(--ink)" }}>{name}</span>
+          <span style={{ color: "var(--ink-muted)" }}> started following you</span>
         </>
       ),
       href: actor?.username ? `/u/${actor.username}` : null,
@@ -104,9 +104,9 @@ function renderNotif(n: Notif): Rendered | null {
       iconColor: "#A78BFA",
       text: (
         <>
-          <span style={{ color: "#F4F4F4" }}>{name}</span>
-          <span style={{ color: "rgba(244,244,244,0.55)" }}> commented on </span>
-          <span style={{ color: "#F4F4F4" }}>&ldquo;{fixTitle}&rdquo;</span>
+          <span style={{ color: "var(--ink)" }}>{name}</span>
+          <span style={{ color: "var(--ink-muted)" }}> commented on </span>
+          <span style={{ color: "var(--ink)" }}>&ldquo;{fixTitle}&rdquo;</span>
         </>
       ),
       href: n.fix_id ? `/fix/${n.fix_id}` : null,
@@ -117,8 +117,8 @@ function renderNotif(n: Notif): Rendered | null {
       Icon: SparkleIcon,
       iconColor: TEAL,
       text: (
-        <span style={{ color: "#F4F4F4" }}>
-          You hit a milestone on <span style={{ color: "#F4F4F4" }}>&ldquo;{fixTitle}&rdquo;</span>
+        <span style={{ color: "var(--ink)" }}>
+          You hit a milestone on <span style={{ color: "var(--ink)" }}>&ldquo;{fixTitle}&rdquo;</span>
         </span>
       ),
       href: n.fix_id ? `/dashboard/fix/${n.fix_id}` : null,
@@ -129,7 +129,7 @@ function renderNotif(n: Notif): Rendered | null {
       Icon: FlameIcon,
       iconColor: "#F59E0B",
       text: (
-        <span style={{ color: "#F4F4F4" }}>
+        <span style={{ color: "var(--ink)" }}>
           Your streak on <span>&ldquo;{fixTitle}&rdquo;</span> is still going. Don&apos;t break the chain.
         </span>
       ),
@@ -139,11 +139,11 @@ function renderNotif(n: Notif): Rendered | null {
   if (n.type === "message") {
     return {
       Icon: ChatIcon,
-      iconColor: "#5EEAD4",
+      iconColor: "var(--accent)",
       text: (
         <>
-          <span style={{ color: "#F4F4F4" }}>{name}</span>
-          <span style={{ color: "rgba(244,244,244,0.55)" }}> sent you a message</span>
+          <span style={{ color: "var(--ink)" }}>{name}</span>
+          <span style={{ color: "var(--ink-muted)" }}> sent you a message</span>
         </>
       ),
       href: "/dashboard/messages",
@@ -274,7 +274,7 @@ export default async function NotificationsPage() {
           </p>
           <p
             className="font-mono text-[10px] uppercase tracking-widest mt-1.5 tabular-nums"
-            style={{ color: "rgba(244,244,244,0.3)" }}
+            style={{ color: "var(--ink-faint)" }}
           >
             {relTime(n.created_at)}
           </p>
@@ -282,13 +282,13 @@ export default async function NotificationsPage() {
       </div>
     );
     const baseClass =
-      "block rounded-2xl px-4 py-3.5 transition-colors hover:bg-[rgba(255,255,255,0.02)]";
+      "block rounded-2xl px-4 py-3.5 transition-colors hover:bg-[transparent]";
     return href ? (
       <Link key={n.id} href={href} className={baseClass}>
         {inner}
       </Link>
     ) : (
-      <div key={n.id} className={baseClass.replace("hover:bg-[rgba(255,255,255,0.02)]", "")}>
+      <div key={n.id} className={baseClass.replace("hover:bg-[transparent]", "")}>
         {inner}
       </div>
     );
@@ -297,7 +297,7 @@ export default async function NotificationsPage() {
   return (
     <div
       className="min-h-screen px-4 sm:px-6 lg:px-8 pt-10 pb-16"
-      style={{ background: "#070708" }}
+      style={{ background: "var(--bg)" }}
     >
       <div className="max-w-2xl mx-auto">
         {/* Header */}
@@ -312,7 +312,7 @@ export default async function NotificationsPage() {
             <h1
               className="font-display"
               style={{
-                color: "#FFFFFF",
+                color: "var(--ink)",
                 fontSize: "clamp(28px, 4.5vw, 40px)",
                 lineHeight: 1.05,
                 letterSpacing: "-0.02em",
@@ -323,7 +323,7 @@ export default async function NotificationsPage() {
             </h1>
             <p
               className="mt-3 font-sans text-base"
-              style={{ color: "rgba(255,255,255,0.6)" }}
+              style={{ color: "var(--ink-muted)" }}
             >
               Reactions, follows, comments — all the signs you&apos;re not alone in this.
             </p>
@@ -339,7 +339,7 @@ export default async function NotificationsPage() {
             <h2
               className="font-display"
               style={{
-                color: "#FFFFFF",
+                color: "var(--ink)",
                 fontSize: "clamp(22px, 3vw, 28px)",
                 letterSpacing: "-0.02em",
                 fontWeight: 600,
@@ -350,7 +350,7 @@ export default async function NotificationsPage() {
             </h2>
             <p
               className="mt-3 font-sans text-sm max-w-sm mx-auto"
-              style={{ color: "rgba(244,244,244,0.45)" }}
+              style={{ color: "var(--ink-muted)" }}
             >
               When people react, follow, or comment, you&apos;ll see it here.
             </p>
@@ -370,7 +370,7 @@ export default async function NotificationsPage() {
                       <div className="px-5 pt-4 pb-2">
                         <p
                           className="font-mono text-[10px] uppercase tracking-widest"
-                          style={{ color: "rgba(244,244,244,0.4)" }}
+                          style={{ color: "var(--ink-muted)" }}
                         >
                           {BUCKET_LABEL[bucket]}
                         </p>

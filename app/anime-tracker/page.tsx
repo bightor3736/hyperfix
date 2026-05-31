@@ -21,9 +21,9 @@ export const metadata: Metadata = {
   },
 };
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 const faqs = [
   {
@@ -98,11 +98,11 @@ const sampleCards = [
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "rgba(94,234,212,0.08)", color: TEAL, border: "1px solid rgba(94,234,212,0.20)" }}>{children}</span>
+    <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "var(--accent-soft)", color: TEAL, border: "1px solid var(--accent)" }}>{children}</span>
   );
 }
 function SectionHeadline({ children }: { children: React.ReactNode }) {
-  return <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.02em", fontWeight: 600 }}>{children}</h2>;
+  return <h2 className="font-display" style={{ color: "var(--ink)", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.02em", fontWeight: 600 }}>{children}</h2>;
 }
 function Card({ children }: { children: React.ReactNode }) {
   return (
@@ -119,18 +119,18 @@ export default function AnimeTrackerPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <Nav />
-      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "#070708" }}>
+      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "var(--bg)" }}>
         <main id="main-content" className="max-w-5xl mx-auto flex flex-col gap-6">
           <section className="px-2 sm:px-6 pt-12 pb-10 anim-fadeUp">
             <Eyebrow>anime hyperfixation tracker</Eyebrow>
-            <h1 className="font-display anim-fadeUp delay-100" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 7vw, 64px)", lineHeight: 1.02, letterSpacing: "-0.03em", fontWeight: 600 }}>
+            <h1 className="font-display anim-fadeUp delay-100" style={{ color: "var(--ink)", fontSize: "clamp(36px, 7vw, 64px)", lineHeight: 1.02, letterSpacing: "-0.03em", fontWeight: 600 }}>
               The series. The ship.{" "}
               <span style={{ color: TEAL }}>The character who broke you.</span>
             </h1>
-            <p className="mt-6 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
+            <p className="mt-6 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-200" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
               MAL tracks what you&apos;ve watched. Hyperfix tracks what it did to you. There&apos;s a meaningful gap between &ldquo;completed — 9/10&rdquo; and &ldquo;I watched this entire series in 36 hours and I haven&apos;t been the same since.&rdquo; The character who rearranged your brain. The ship that has you reading fanfic at midnight. The arc that broke you in a way that a star rating doesn&apos;t capture.
             </p>
-            <p className="mt-4 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
+            <p className="mt-4 font-sans text-base sm:text-lg max-w-2xl anim-fadeUp delay-300" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
               Hyperfix is for that gap. Log the series, the character, the ship, the specific episode — whatever the actual object of the fixation is. The day counter starts immediately. The intensity meter tracks the arc. And when it finally lifts, the eulogy captures the whole run: how long, how intense, what you wrote at 2 a.m. after that episode.
             </p>
             <div className="mt-8 anim-fadeUp delay-300 max-w-md"><WaitlistForm id="waitlist" variant="light" /></div>
@@ -141,10 +141,10 @@ export default function AnimeTrackerPage() {
               <Eyebrow>the obsession, not the log</Eyebrow>
               <SectionHeadline>A completed series is not a closed fixation.</SectionHeadline>
               <div className="grid md:grid-cols-2 gap-8 mt-8">
-                <p className="font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                <p className="font-sans text-base sm:text-lg leading-relaxed" style={{ color: "var(--line)" }}>
                   MAL tells you when you finished watching. It doesn&apos;t know that you finished watching Evangelion four days ago and you&apos;re still not okay. It doesn&apos;t know that you&apos;ve re-read every Gojo Satoru character analysis you can find. It doesn&apos;t know that you started reading the manga because the anime isn&apos;t enough and you&apos;ve been going to bed at 3 a.m. for two weeks.
                 </p>
-                <p className="font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                <p className="font-sans text-base sm:text-lg leading-relaxed" style={{ color: "var(--line)" }}>
                   That&apos;s a hyperfixation. It started when you hit play on episode one, or maybe episode eight when the thing happened, or maybe when you found the fanfic. It&apos;s still running. Hyperfix gives it a counter from the moment it starts — not from when you completed the series, but from when it got you.
                 </p>
               </div>
@@ -164,8 +164,8 @@ export default function AnimeTrackerPage() {
                   ].map((s) => (
                     <div key={s.n}>
                       <span className="font-sans text-xs mb-2 block" style={{ color: TEAL }}>step {s.n}</span>
-                      <h3 className="font-display mb-2" style={{ color: "#FFFFFF", fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em" }}>{s.h}</h3>
-                      <p className="font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{s.p}</p>
+                      <h3 className="font-display mb-2" style={{ color: "var(--ink)", fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em" }}>{s.h}</h3>
+                      <p className="font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>{s.p}</p>
                     </div>
                   ))}
                 </div>
@@ -186,14 +186,14 @@ export default function AnimeTrackerPage() {
               <SectionHeadline>Not MAL. Not your memory.</SectionHeadline>
               <div className="grid md:grid-cols-2 gap-10 mt-10">
                 <div>
-                  <h3 className="font-display mb-4" style={{ color: "#FFFFFF", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>Hyperfix vs. MyAnimeList / AniList</h3>
-                  <p className="font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  <h3 className="font-display mb-4" style={{ color: "var(--ink)", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>Hyperfix vs. MyAnimeList / AniList</h3>
+                  <p className="font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>
                     MAL and AniList are completion trackers. They&apos;re excellent at what they do — logging what you&apos;ve watched, rating it, finding recommendations. Hyperfix isn&apos;t trying to replace them. Hyperfix is for the thing that happens after &ldquo;completed.&rdquo; The obsession that outlasts the series by weeks. The character who keeps living in your brain long after the credits rolled.
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-display mb-4" style={{ color: "#FFFFFF", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>Hyperfix vs. keeping it in your head</h3>
-                  <p className="font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  <h3 className="font-display mb-4" style={{ color: "var(--ink)", fontSize: 20, fontWeight: 600, letterSpacing: "-0.01em" }}>Hyperfix vs. keeping it in your head</h3>
+                  <p className="font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>
                     Anime hyperfixations are easy to undercount mentally. &ldquo;I was into JJK for like two months&rdquo; — but was it two months of casual enjoyment or two months of thinking about Gojo Satoru&apos;s backstory every single day? The counter makes it concrete. Day 41 of a character fixation is a different thing than day 12. The record exists so you can look back and know.
                   </p>
                 </div>
@@ -207,15 +207,15 @@ export default function AnimeTrackerPage() {
               <SectionHeadline>Everything you wanted to ask.</SectionHeadline>
               <div className="mt-8">
                 {faqs.map((faq, i) => (
-                  <details key={i} className="group py-5 [&_summary::-webkit-details-marker]:hidden" style={{ borderTop: i === 0 ? `1px solid rgba(255,255,255,0.06)` : undefined, borderBottom: `1px solid rgba(255,255,255,0.06)` }}>
+                  <details key={i} className="group py-5 [&_summary::-webkit-details-marker]:hidden" style={{ borderTop: i === 0 ? `1px solid var(--line)` : undefined, borderBottom: `1px solid var(--line)` }}>
                     <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
-                      <h3 className="font-display" style={{ color: "#FFFFFF", fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.3 }}>
+                      <h3 className="font-display" style={{ color: "var(--ink)", fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.3 }}>
                         <span className="mr-3 tabular-nums" style={{ color: TEAL, fontSize: 13 }}>{String(i + 1).padStart(2, "0")}</span>
                         {faq.q}
                       </h3>
                       <span aria-hidden="true" className="text-xl group-open:rotate-45 transition-transform shrink-0" style={{ color: TEAL }}>+</span>
                     </summary>
-                    <p className="mt-4 ml-9 font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>{faq.a}</p>
+                    <p className="mt-4 ml-9 font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>{faq.a}</p>
                   </details>
                 ))}
               </div>
@@ -225,11 +225,11 @@ export default function AnimeTrackerPage() {
           <RevealSection>
             <div className="rounded-3xl p-8 sm:p-14 text-center" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
               <Eyebrow>join the waitlist</Eyebrow>
-              <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(30px, 5vw, 48px)", letterSpacing: "-0.03em", fontWeight: 600, lineHeight: 1.05 }}>
+              <h2 className="font-display" style={{ color: "var(--ink)", fontSize: "clamp(30px, 5vw, 48px)", letterSpacing: "-0.03em", fontWeight: 600, lineHeight: 1.05 }}>
                 The series got you.{" "}
                 <span style={{ color: TEAL }}>Log it before day one becomes a memory.</span>
               </h2>
-              <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
+              <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
                 The waitlist gets first access in waves. Early users get a permanent Pro discount and the most embarrassing usernames before they&apos;re gone.
               </p>
               <div className="mt-7 max-w-md mx-auto"><WaitlistForm variant="dark" /></div>

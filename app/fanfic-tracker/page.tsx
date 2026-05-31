@@ -20,9 +20,9 @@ export const metadata: Metadata = {
   },
 };
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -83,10 +83,10 @@ const sampleCard = {
 };
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
-  return <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "rgba(94,234,212,0.08)", color: TEAL, border: "1px solid rgba(94,234,212,0.20)" }}>{children}</span>;
+  return <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-widest rounded-full px-3 py-1.5 mb-6" style={{ background: "var(--accent-soft)", color: TEAL, border: "1px solid var(--accent)" }}>{children}</span>;
 }
 function SectionHeadline({ children }: { children: React.ReactNode }) {
-  return <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.02em", fontWeight: 600 }}>{children}</h2>;
+  return <h2 className="font-display" style={{ color: "var(--ink)", fontSize: "clamp(28px, 5vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.02em", fontWeight: 600 }}>{children}</h2>;
 }
 function Card({ children }: { children: React.ReactNode }) {
   return (
@@ -103,21 +103,21 @@ export default function FanficTrackerPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <Nav />
-      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "#070708" }}>
+      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16" style={{ background: "var(--bg)" }}>
         <main id="main-content" className="max-w-5xl mx-auto flex flex-col gap-6">
           {/* HERO */}
           <section className="px-2 sm:px-6 pt-12 pb-10 anim-fadeUp">
             <div className="grid lg:grid-cols-12 gap-10 items-end">
               <div className="lg:col-span-7">
                 <Eyebrow>fanfic hyperfixation tracker</Eyebrow>
-                <h1 className="font-display anim-fadeUp delay-100" style={{ color: "#FFFFFF", fontSize: "clamp(36px, 7vw, 64px)", lineHeight: 1.02, letterSpacing: "-0.03em", fontWeight: 600 }}>
+                <h1 className="font-display anim-fadeUp delay-100" style={{ color: "var(--ink)", fontSize: "clamp(36px, 7vw, 64px)", lineHeight: 1.02, letterSpacing: "-0.03em", fontWeight: 600 }}>
                   Log the fic.{" "}
                   <span style={{ color: TEAL }}>Count the re-reads.</span>
                 </h1>
-                <p className="mt-6 font-sans text-base sm:text-lg max-w-xl anim-fadeUp delay-200" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}>
+                <p className="mt-6 font-sans text-base sm:text-lg max-w-xl anim-fadeUp delay-200" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
                   For the fic you&apos;ve re-read three times. The WIP you refresh every day. The 500k-word slowburn that consumed your entire March. Log it. Count the days. Show your friends how unwell you are.
                 </p>
-                <p className="mt-4 font-sans text-base sm:text-lg max-w-xl anim-fadeUp delay-300" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
+                <p className="mt-4 font-sans text-base sm:text-lg max-w-xl anim-fadeUp delay-300" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
                   Ao3, FanFiction.net, Wattpad, Google Docs — Hyperfix doesn&apos;t care where the fic lives. Just that it&apos;s currently living in your brain.
                 </p>
                 <div className="mt-8 anim-fadeUp delay-300 max-w-md"><WaitlistForm id="waitlist" variant="light" /></div>
@@ -133,7 +133,7 @@ export default function FanficTrackerPage() {
               <Eyebrow>the situation</Eyebrow>
               <SectionHeadline>You have fourteen tabs open. One of them is the fic.</SectionHeadline>
               <div className="grid md:grid-cols-2 gap-8 mt-8">
-                <div className="space-y-5 font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                <div className="space-y-5 font-sans text-base sm:text-lg leading-relaxed" style={{ color: "var(--line)" }}>
                   <p>
                     You told yourself you&apos;d just check the update. That was three hours ago. You&apos;re now on chapter 17 again — the same chapter you annotated in your Notes app at 1 a.m. last Tuesday.
                   </p>
@@ -141,7 +141,7 @@ export default function FanficTrackerPage() {
                     The fic has a hold on you that a reading list can&apos;t capture. A Goodreads shelf doesn&apos;t have a &quot;re-read count&quot; field. A spreadsheet doesn&apos;t have an intensity meter. Nothing currently exists for this specific experience.
                   </p>
                 </div>
-                <div className="space-y-5 font-sans text-base sm:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                <div className="space-y-5 font-sans text-base sm:text-lg leading-relaxed" style={{ color: "var(--line)" }}>
                   <p>
                     Hyperfix does. Log the fic. Add the fandom tag. Set an intensity rating. Write the note you&apos;d never say out loud. Watch the counter tick. Share the card when you want someone to understand what&apos;s happening to you.
                   </p>
@@ -168,8 +168,8 @@ export default function FanficTrackerPage() {
                 ].map((item) => (
                   <div key={item.n}>
                     <span className="font-sans text-xs mb-2 block" style={{ color: TEAL }}>{item.n}</span>
-                    <h3 className="font-display mb-2" style={{ color: "#FFFFFF", fontSize: 19, fontWeight: 600, letterSpacing: "-0.01em" }}>{item.h}</h3>
-                    <p className="font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{item.p}</p>
+                    <h3 className="font-display mb-2" style={{ color: "var(--ink)", fontSize: 19, fontWeight: 600, letterSpacing: "-0.01em" }}>{item.h}</h3>
+                    <p className="font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>{item.p}</p>
                   </div>
                 ))}
               </div>
@@ -182,15 +182,15 @@ export default function FanficTrackerPage() {
               <SectionHeadline>The fic questions.</SectionHeadline>
               <div className="mt-8">
                 {faqs.map((faq, i) => (
-                  <details key={i} className="group py-5 [&_summary::-webkit-details-marker]:hidden" style={{ borderTop: i === 0 ? `1px solid rgba(255,255,255,0.06)` : undefined, borderBottom: `1px solid rgba(255,255,255,0.06)` }}>
+                  <details key={i} className="group py-5 [&_summary::-webkit-details-marker]:hidden" style={{ borderTop: i === 0 ? `1px solid var(--line)` : undefined, borderBottom: `1px solid var(--line)` }}>
                     <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
-                      <h3 className="font-display" style={{ color: "#FFFFFF", fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.3 }}>
+                      <h3 className="font-display" style={{ color: "var(--ink)", fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.3 }}>
                         <span className="mr-3 tabular-nums" style={{ color: TEAL, fontSize: 13 }}>{String(i + 1).padStart(2, "0")}</span>
                         {faq.q}
                       </h3>
                       <span aria-hidden="true" className="text-xl group-open:rotate-45 transition-transform shrink-0" style={{ color: TEAL }}>+</span>
                     </summary>
-                    <p className="mt-4 ml-9 font-sans text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>{faq.a}</p>
+                    <p className="mt-4 ml-9 font-sans text-base leading-relaxed" style={{ color: "var(--ink-muted)" }}>{faq.a}</p>
                   </details>
                 ))}
               </div>
@@ -200,11 +200,11 @@ export default function FanficTrackerPage() {
           <RevealSection>
             <div className="rounded-3xl p-8 sm:p-14 text-center" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
               <Eyebrow>join the waitlist</Eyebrow>
-              <h2 className="font-display" style={{ color: "#FFFFFF", fontSize: "clamp(30px, 5vw, 48px)", letterSpacing: "-0.03em", fontWeight: 600, lineHeight: 1.05 }}>
+              <h2 className="font-display" style={{ color: "var(--ink)", fontSize: "clamp(30px, 5vw, 48px)", letterSpacing: "-0.03em", fontWeight: 600, lineHeight: 1.05 }}>
                 The fic{" "}
                 <span style={{ color: TEAL }}>deserves a proper record.</span>
               </h2>
-              <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
+              <p className="mt-5 font-sans text-base sm:text-lg max-w-xl mx-auto" style={{ color: "var(--ink-muted)", lineHeight: 1.6 }}>
                 First access goes out in waves. Early users get a permanent Pro discount — and the most embarrassing usernames before they&apos;re taken.
               </p>
               <div className="mt-7 max-w-md mx-auto"><WaitlistForm variant="dark" /></div>

@@ -3,7 +3,7 @@
 
 import { XIcon } from "@/components/LandingIcons";
 
-const TEAL = "#5EEAD4";
+const TEAL = "var(--accent)";
 
 type Platform = {
   name: string;
@@ -96,7 +96,7 @@ export function SocialChips({ socialLink }: { socialLink: string | null | undefi
             className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-all hover:opacity-80"
             style={{
               background: "rgba(7,7,8,0.6)",
-              border: "1px solid rgba(94,234,212,0.2)",
+              border: "1px solid var(--accent)",
               color: TEAL,
               backdropFilter: "blur(8px)",
             }}

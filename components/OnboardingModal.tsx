@@ -40,17 +40,17 @@ export function OnboardingModal({ totalFixes }: { totalFixes: number }) {
       <div
         className="relative w-full max-w-md rounded-3xl p-8 flex flex-col gap-7 anim-scaleIn"
         style={{
-          background: "#0F1011",
-          border: "1px solid rgba(94,234,212,0.15)",
+          background: "var(--bg)",
+          border: "1px solid var(--accent)",
           boxShadow:
-            "0 32px 80px rgba(0,0,0,0.7), 0 0 60px rgba(94,234,212,0.12)",
+            "0 32px 80px rgba(0,0,0,0.7), 0 0 60px var(--accent-soft)",
         }}
       >
         <div>
           <h2
             className="font-display"
             style={{
-              color: "#FFFFFF",
+              color: "var(--ink)",
               fontSize: "clamp(28px, 5vw, 36px)",
               letterSpacing: "-0.02em",
               fontWeight: 600,
@@ -61,7 +61,7 @@ export function OnboardingModal({ totalFixes }: { totalFixes: number }) {
           </h2>
           <p
             className="mt-3 font-sans text-base leading-relaxed"
-            style={{ color: "rgba(255,255,255,0.6)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             Three steps to your first viral share card.
           </p>
@@ -94,8 +94,8 @@ export function OnboardingModal({ totalFixes }: { totalFixes: number }) {
             onClick={dismiss}
             className="w-full py-3.5 rounded-full font-sans text-sm font-semibold text-center transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
             style={{
-              background: "#FFFFFF",
-              color: "#0A0A0A",
+              background: "var(--ink)",
+              color: "var(--bg)",
             }}
           >
             Log my first fix
@@ -104,7 +104,7 @@ export function OnboardingModal({ totalFixes }: { totalFixes: number }) {
             type="button"
             onClick={dismiss}
             className="w-full font-sans text-sm text-center transition-colors hover:text-white"
-            style={{ color: "rgba(255,255,255,0.45)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             Skip
           </button>
@@ -132,9 +132,9 @@ function Step({
         style={{
           width: 24,
           height: 24,
-          background: "rgba(94,234,212,0.12)",
-          color: "#5EEAD4",
-          border: "1px solid rgba(94,234,212,0.35)",
+          background: "var(--accent-soft)",
+          color: "var(--accent)",
+          border: "1px solid rgba(111,138,99,0.25)",
         }}
       >
         {n}
@@ -143,21 +143,21 @@ function Step({
         <div className="flex items-center gap-2">
           <span
             className="flex-shrink-0"
-            style={{ color: "rgba(94,234,212,0.7)" }}
+            style={{ color: "var(--accent)" }}
             aria-hidden
           >
             {icon}
           </span>
           <h3
             className="font-sans text-sm font-semibold"
-            style={{ color: "#FFFFFF", letterSpacing: "-0.01em" }}
+            style={{ color: "var(--ink)", letterSpacing: "-0.01em" }}
           >
             {title}
           </h3>
         </div>
         <p
           className="mt-1 font-sans text-[13px] leading-relaxed"
-          style={{ color: "rgba(255,255,255,0.55)" }}
+          style={{ color: "var(--ink-muted)" }}
         >
           {desc}
         </p>

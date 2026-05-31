@@ -120,7 +120,7 @@ function ZineSlide({ slide, n, total }: { slide: Slide; n: number; total: number
 
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 0 }}>
-        <span style={{ color: isCta ? "#010201" : "#0A0A0A", fontSize: 32, fontWeight: 900, letterSpacing: "-0.02em" }}>hyperfix</span>
+        <span style={{ color: isCta ? "#010201" : "var(--bg)", fontSize: 32, fontWeight: 900, letterSpacing: "-0.02em" }}>hyperfix</span>
         <span style={{ color: isCta ? "rgba(0,0,0,0.4)" : "rgba(0,0,0,0.25)", fontSize: 26, fontFamily: "monospace" }}>{n}/{total}</span>
       </div>
 
@@ -134,7 +134,7 @@ function ZineSlide({ slide, n, total }: { slide: Slide; n: number; total: number
             {slide.eyebrow}
           </span>
         )}
-        <span style={{ color: isCta ? "#010201" : "#0A0A0A", fontSize: fs, fontWeight: 900, lineHeight: 1.04, letterSpacing: "-0.03em" }}>
+        <span style={{ color: isCta ? "#010201" : "var(--bg)", fontSize: fs, fontWeight: 900, lineHeight: 1.04, letterSpacing: "-0.03em" }}>
           {slide.headline}
         </span>
         {slide.sub && (
@@ -564,7 +564,7 @@ function PhotoSlide({
   return (
     <div style={{
       width: "100%", height: "100%",
-      background: "#070708",
+      background: "var(--bg)",
       display: "flex", flexDirection: "column",
       position: "relative",
       overflow: "hidden",

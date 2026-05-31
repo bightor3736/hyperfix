@@ -46,31 +46,31 @@ const sections = [
 
 export default function PrivacyPage() {
   return (
-    <main id="main-content" className="relative z-10 text-ink" style={{ background: "#070708" }}>
+    <main id="main-content" className="relative z-10 text-ink" style={{ background: "var(--bg)" }}>
       <Nav />
 
-      <section className="px-6 sm:px-10 pt-16 sm:pt-20 pb-6 border-b" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+      <section className="px-6 sm:px-10 pt-16 sm:pt-20 pb-6 border-b" style={{ borderColor: "var(--line)" }}>
         <div className="max-w-3xl mx-auto">
-          <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "rgba(94,234,212,0.55)" }}>
+          <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "var(--accent)" }}>
             legal
           </p>
-          <h1 className="font-display" style={{ color: "#F4F4F4", fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.02, letterSpacing: "-0.02em", fontWeight: 600 }}>
+          <h1 className="font-display" style={{ color: "var(--ink)", fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.02, letterSpacing: "-0.02em", fontWeight: 600 }}>
             Privacy Policy
           </h1>
-          <p className="mt-5 font-mono text-[11px] uppercase tracking-widest tabular-nums" style={{ color: "rgba(244,244,244,0.4)" }}>
+          <p className="mt-5 font-mono text-[11px] uppercase tracking-widest tabular-nums" style={{ color: "var(--ink-muted)" }}>
             Effective: May 2026
           </p>
         </div>
       </section>
 
       <section className="px-6 sm:px-10 py-16 sm:py-20">
-        <div className="max-w-3xl mx-auto divide-y divide-[rgba(255,255,255,0.06)]">
+        <div className="max-w-3xl mx-auto divide-y divide-[var(--line)]">
           {sections.map((s) => (
             <div key={s.h} className="py-8 grid sm:grid-cols-3 gap-4 sm:gap-10">
               <h2 className="font-display text-lg tracking-tight text-ink sm:pt-1">
                 {s.h}
               </h2>
-              <p className="sm:col-span-2 font-sans text-base text-[rgba(244,244,244,0.5)] leading-relaxed">
+              <p className="sm:col-span-2 font-sans text-base text-[var(--ink-muted)] leading-relaxed">
                 {s.body}
               </p>
             </div>

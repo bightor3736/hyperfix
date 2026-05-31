@@ -12,9 +12,9 @@ type FixListWithCount = {
   fix_list_items: { count: number }[];
 };
 
-const TEAL = "#5EEAD4";
-const CARD_BG = "#0F1011";
-const CARD_BORDER = "rgba(255,255,255,0.06)";
+const TEAL = "var(--accent)";
+const CARD_BG = "var(--bg)";
+const CARD_BORDER = "var(--line)";
 const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
@@ -39,7 +39,7 @@ export default async function ListsPage() {
   const lists = (data ?? []) as FixListWithCount[];
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-12 relative" style={{ background: "#070708" }}>
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-12 relative" style={{ background: "var(--bg)" }}>
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none mix-blend-overlay"
@@ -51,14 +51,14 @@ export default async function ListsPage() {
             <div className="flex-1 min-w-0">
               <p
                 className="font-mono text-[10px] uppercase tracking-widest mb-3"
-                style={{ color: "rgba(94,234,212,0.55)" }}
+                style={{ color: "var(--accent)" }}
               >
                 your lists
               </p>
               <h1
                 className="font-display"
                 style={{
-                  color: "#F4F4F4",
+                  color: "var(--ink)",
                   fontSize: "clamp(32px, 5vw, 48px)",
                   lineHeight: 1.02,
                   letterSpacing: "-0.02em",
@@ -69,7 +69,7 @@ export default async function ListsPage() {
                 <br />
                 fixations.
               </h1>
-              <p className="mt-4 font-sans text-base" style={{ color: "rgba(255,255,255,0.72)" }}>
+              <p className="mt-4 font-sans text-base" style={{ color: "var(--line)" }}>
                 {lists.length === 0
                   ? "Create your first list to start grouping the obsessions."
                   : `${lists.length} list${lists.length !== 1 ? "s" : ""} · ready to share or keep to yourself.`}
@@ -80,10 +80,10 @@ export default async function ListsPage() {
               href="/dashboard/lists/new"
               className="hidden lg:inline-flex items-center gap-2.5 font-sans text-sm font-semibold px-6 py-3.5 transition-all hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
               style={{
-                background: "#FFFFFF",
-                color: "#0A0A0A",
+                background: "var(--ink)",
+                color: "var(--bg)",
                 borderRadius: 999,
-                boxShadow: "0 1px 0 0 rgba(255,255,255,0.5) inset, 0 12px 36px rgba(0,0,0,0.4)",
+                boxShadow: "0 1px 0 0 var(--ink-muted) inset, 0 12px 36px rgba(0,0,0,0.4)",
               }}
             >
               <Plus set="light" size={16} primaryColor="currentColor" />
@@ -130,7 +130,7 @@ export default async function ListsPage() {
                     aria-hidden
                     className="absolute inset-0 pointer-events-none"
                     style={{
-                      background: "radial-gradient(ellipse 60% 50% at 50% 110%, rgba(94,234,212,0.08), transparent 70%)",
+                      background: "radial-gradient(ellipse 60% 50% at 50% 110%, var(--accent-soft), transparent 70%)",
                     }}
                   />
 
@@ -140,14 +140,14 @@ export default async function ListsPage() {
                       style={
                         list.is_public
                           ? {
-                              background: "rgba(94,234,212,0.10)",
+                              background: "var(--accent-soft)",
                               color: TEAL,
-                              border: "1px solid rgba(94,234,212,0.22)",
+                              border: "1px solid var(--accent)",
                             }
                           : {
-                              background: "rgba(255,255,255,0.05)",
-                              border: "1px solid rgba(255,255,255,0.10)",
-                              color: "rgba(255,255,255,0.4)",
+                              background: "var(--line)",
+                              border: "1px solid var(--line)",
+                              color: "var(--ink-muted)",
                             }
                       }
                     >
@@ -156,9 +156,9 @@ export default async function ListsPage() {
                     <span
                       className="inline-flex items-center font-sans text-[11px] rounded-full px-2.5 py-0.5"
                       style={{
-                        background: "rgba(255,255,255,0.05)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        color: "rgba(255,255,255,0.4)",
+                        background: "var(--line)",
+                        border: "1px solid var(--line)",
+                        color: "var(--ink-muted)",
                       }}
                     >
                       {itemCount} fix{itemCount !== 1 ? "es" : ""}
@@ -166,9 +166,9 @@ export default async function ListsPage() {
                   </div>
 
                   <h2
-                    className="relative font-display group-hover:text-[#5EEAD4] transition-colors"
+                    className="relative font-display group-hover:text-[var(--accent)] transition-colors"
                     style={{
-                      color: "#FFFFFF",
+                      color: "var(--ink)",
                       fontSize: 20,
                       fontWeight: 600,
                       letterSpacing: "-0.01em",
@@ -182,7 +182,7 @@ export default async function ListsPage() {
                     <p
                       className="relative font-sans text-sm leading-relaxed"
                       style={{
-                        color: "rgba(255,255,255,0.55)",
+                        color: "var(--ink-muted)",
                         display: "-webkit-box",
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: "vertical",
@@ -193,7 +193,7 @@ export default async function ListsPage() {
                     </p>
                   )}
 
-                  <p className="relative font-sans text-xs mt-auto" style={{ color: "rgba(255,255,255,0.35)" }}>
+                  <p className="relative font-sans text-xs mt-auto" style={{ color: "var(--ink-faint)" }}>
                     Created {formatDate(list.created_at)}
                   </p>
                 </Link>
@@ -217,9 +217,9 @@ export default async function ListsPage() {
               <span
                 className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-6"
                 style={{
-                  background: "rgba(94,234,212,0.10)",
+                  background: "var(--accent-soft)",
                   color: TEAL,
-                  border: "1px solid rgba(94,234,212,0.22)",
+                  border: "1px solid var(--accent)",
                 }}
               >
                 empty
@@ -227,7 +227,7 @@ export default async function ListsPage() {
               <h2
                 className="font-display"
                 style={{
-                  color: "#FFFFFF",
+                  color: "var(--ink)",
                   fontSize: "clamp(24px, 5vw, 32px)",
                   letterSpacing: "-0.02em",
                   fontWeight: 600,
@@ -235,17 +235,17 @@ export default async function ListsPage() {
               >
                 No lists yet.
               </h2>
-              <p className="mt-3 mb-7 font-sans text-base" style={{ color: "rgba(255,255,255,0.55)" }}>
+              <p className="mt-3 mb-7 font-sans text-base" style={{ color: "var(--ink-muted)" }}>
                 Create one to start curating your fixations.
               </p>
               <Link
                 href="/dashboard/lists/new"
                 className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 transition-all hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
                 style={{
-                  background: "#FFFFFF",
-                  color: "#0A0A0A",
+                  background: "var(--ink)",
+                  color: "var(--bg)",
                   borderRadius: 999,
-                  boxShadow: "0 8px 28px rgba(94,234,212,0.25)",
+                  boxShadow: "0 8px 28px var(--accent)",
                 }}
               >
                 + New list
@@ -267,7 +267,7 @@ export default async function ListsPage() {
           background: TEAL,
           color: "#0A1F1C",
           zIndex: 40,
-          boxShadow: "0 4px 28px rgba(94,234,212,0.55)",
+          boxShadow: "0 4px 28px var(--accent)",
         }}
         aria-label="New list"
       >
