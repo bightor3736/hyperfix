@@ -36,6 +36,8 @@ const config: Config = {
         background:           "var(--background)",
         card:                "var(--card)",
         "card-foreground":   "var(--card-foreground)",
+        popover:             "var(--popover)",
+        "popover-foreground": "var(--popover-foreground)",
         primary:             "var(--primary)",
         "primary-foreground": "var(--primary-foreground)",
         "muted-foreground":  "var(--muted-foreground)",

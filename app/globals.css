@@ -23,6 +23,8 @@
   --background:        var(--bg);
   --card:              var(--bg-elevated);
   --card-foreground:   var(--ink);
+  --popover:           var(--bg-elevated);
+  --popover-foreground: var(--ink);
   --primary:           var(--accent);
   --primary-foreground: var(--accent-ink);
   /* --muted holds HSL *channels* (shadcn convention) so hsl(var(--muted)) resolves */
