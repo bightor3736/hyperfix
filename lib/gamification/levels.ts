@@ -6,6 +6,7 @@ export const POINT_VALUES = {
   task_done: 12,
   med_log: 5,
   rsd_entry: 8,
+  dopamine_hit: 12, // base; the route overrides per activity energy
   user_creation: 50,
 } as const;
 
@@ -19,6 +20,7 @@ export const KIND_LABELS: Record<string, string> = {
   task_done: "Brain-dump task done",
   med_log: "Medication logged",
   rsd_entry: "RSD entry",
+  dopamine_hit: "Dopamine hit",
   user_creation: "Joined Hyperfix",
   achievement: "Achievement unlocked",
 };

@@ -28,6 +28,9 @@ export const ACHIEVEMENT_DEFS: AchievementDef[] = [
   { id: "mood_10",      name: "Self-Aware",         description: "Log your mood 10 times.",            trigger: "metric", bonus: 35,  rarity: 30, stat: "moodLogs",      threshold: 10 },
   { id: "task_25",      name: "Brain Emptied",      description: "Complete 25 brain-dump tasks.",      trigger: "metric", bonus: 45,  rarity: 18, stat: "tasksDone",     threshold: 25 },
   { id: "points_1000",  name: "Clinically Obsessed",description: "Reach 1,000 XP.",                    trigger: "metric", bonus: 100, rarity: 10, stat: "totalPoints",   threshold: 1000 },
+  { id: "dopamine_first",name: "First Hit",          description: "Take your first dopamine hit instead of doomscrolling.", trigger: "metric", bonus: 15,  rarity: 70, stat: "dopamineHits", threshold: 1 },
+  { id: "dopamine_25",  name: "Better Than The Feed",description: "Choose 25 healthy dopamine hits.",   trigger: "metric", bonus: 50,  rarity: 30, stat: "dopamineHits",  threshold: 25 },
+  { id: "dopamine_100", name: "Rewired",            description: "Choose 100 dopamine hits.",          trigger: "metric", bonus: 150, rarity: 12, stat: "dopamineHits",  threshold: 100 },
 ];
 
 export interface UserStats {
@@ -38,6 +41,7 @@ export interface UserStats {
   currentStreak: number;
   moodLogs: number;
   tasksDone: number;
+  dopamineHits: number;
   totalPoints: number;
 }
 
@@ -72,6 +76,7 @@ export async function computeUserStats(
     entriesRes,
     moodRes,
     tasksRes,
+    dopamineRes,
   ] = await Promise.all([
     supabase.from("fixes").select("id", { count: "exact", head: true }).eq("user_id", userId).neq("status", "Ended"),
     supabase.from("fixes").select("id", { count: "exact", head: true }).eq("user_id", userId).eq("status", "Ended"),
@@ -79,6 +84,7 @@ export async function computeUserStats(
     supabase.from("fix_entries").select("date").eq("user_id", userId).order("date", { ascending: false }).limit(400),
     supabase.from("mood_logs").select("id", { count: "exact", head: true }).eq("user_id", userId),
     supabase.from("brain_dump").select("id", { count: "exact", head: true }).eq("user_id", userId).eq("status", "done"),
+    supabase.from("dopamine_hits").select("id", { count: "exact", head: true }).eq("user_id", userId),
   ]);
 
   const dates = (entriesRes.data ?? []).map((e: { date: string }) => e.date);
@@ -92,6 +98,7 @@ export async function computeUserStats(
     currentStreak: computeStreak(dates),
     moodLogs: moodRes.count ?? 0,
     tasksDone: tasksRes.count ?? 0,
+    dopamineHits: dopamineRes.count ?? 0,
     totalPoints,
   };
 }
