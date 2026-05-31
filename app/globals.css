@@ -19,6 +19,15 @@
   --invert-bg:    #1b1a17;
   --invert-ink:   #f7f4ec;
   color-scheme: light;
+  /* shadcn compatibility aliases */
+  --card:              var(--bg-elevated);
+  --card-foreground:   var(--ink);
+  --primary:           var(--accent);
+  --primary-foreground: var(--accent-ink);
+  --muted:             var(--bg-soft);
+  --muted-foreground:  var(--ink-muted);
+  --foreground:        var(--ink);
+  --border:            var(--line);
 }
 
 :root[data-theme="dark"] {

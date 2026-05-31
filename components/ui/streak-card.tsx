@@ -1,192 +1,180 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { ChevronLeft, ChevronRight, Flame, Zap } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { StreakCalendar } from "@/components/ui/streak-calendar";
+import * as React from "react"
+import {
+  CheckCircle2,
+  ChevronDown,
+  ChevronRight,
+  Flame,
+  RefreshCcw,
+} from "lucide-react"
 
-function computeStreak(dates: string[]): { current: number; best: number } {
-  if (dates.length === 0) return { current: 0, best: 0 };
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import {
+  StreakCalendar,
+  type StreakPeriod,
+} from "@/components/ui/streak-calendar"
 
-  const sorted = [...new Set(dates)].sort().reverse();
-  const today = new Date().toISOString().split("T")[0];
-  const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
-
-  // Current streak
-  let current = 0;
-  let cursor =
-    sorted[0] === today || sorted[0] === yesterday ? sorted[0] : null;
-  if (cursor) {
-    for (const d of sorted) {
-      if (d === cursor) {
-        current++;
-        cursor = new Date(new Date(cursor).getTime() - 86400000)
-          .toISOString()
-          .split("T")[0];
-      } else {
-        break;
-      }
-    }
-  }
-
-  // Best streak (brute force over all consecutive runs)
-  let best = 0;
-  let run = 1;
-  const asc = [...new Set(dates)].sort();
-  for (let i = 1; i < asc.length; i++) {
-    const prev = new Date(asc[i - 1]);
-    const curr = new Date(asc[i]);
-    const diff = (curr.getTime() - prev.getTime()) / 86400000;
-    if (diff === 1) {
-      run++;
-      if (run > best) best = run;
-    } else {
-      run = 1;
-    }
-  }
-  if (asc.length > 0 && best === 0) best = 1;
-
-  return { current, best };
+interface StreakCardProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Streak periods passed through to StreakCalendar */
+  streak: StreakPeriod[]
+  /** Current streak value in days */
+  currentStreak: number
+  /** Longest streak value in days */
+  longestStreak: number
+  /** Secondary total metric value */
+  total: number
+  /** Optional heading text */
+  title?: string
+  /** Label for the action button */
+  actionLabel?: string
+  /** Callback for action click */
+  onActionClick?: () => void
+  /** Show "How streaks work" dropdown section */
+  showHowItWorks?: boolean
+  /** Title for the dropdown trigger */
+  howItWorksTitle?: string
+  /** Content rows shown when the dropdown is expanded */
+  howItWorksItems?: string[]
+  /** Initial expanded state for dropdown */
+  defaultHowItWorksOpen?: boolean
 }
 
-function getStreakStatus(streak: number): string {
-  if (streak === 0) return "check in today to start your run";
-  if (streak >= 365) return "a full year. unreal.";
-  if (streak >= 100) return "triple digits. you are not okay. we love it.";
-  if (streak >= 30) return "monthly milestone. legendary.";
-  if (streak >= 14) return "two weeks straight. deeply committed.";
-  if (streak >= 7) return "one week in. on a roll.";
-  if (streak >= 3) return "momentum building.";
-  return "it's starting.";
-}
+const StreakCard = React.forwardRef<HTMLDivElement, StreakCardProps>(
+  (
+    {
+      className,
+      streak,
+      currentStreak,
+      longestStreak,
+      total,
+      title = "Streak",
+      actionLabel = "View Details",
+      onActionClick,
+      showHowItWorks = true,
+      howItWorksTitle = "How do streaks work?",
+      howItWorksItems = [
+        "Complete at least one activity each day to build your streak.",
+        "Each day you do an activity, your streak increases.",
+        "Missing a day will reset your streak to 0.",
+      ],
+      defaultHowItWorksOpen = false,
+      ...props
+    },
+    ref
+  ) => {
+    const [isHowItWorksOpen, setIsHowItWorksOpen] = React.useState(
+      defaultHowItWorksOpen
+    )
+    const howItWorksContentId = React.useId()
 
-interface StreakCardProps {
-  /** ISO date strings for all check-in dates */
-  dates: string[];
-  className?: string;
-}
-
-export function StreakCard({ dates, className }: StreakCardProps) {
-  const now = new Date();
-  const [viewYear, setViewYear] = useState(now.getFullYear());
-  const [viewMonth, setViewMonth] = useState(now.getMonth());
-
-  const { current, best } = computeStreak(dates);
-  const status = getStreakStatus(current);
-
-  function prevMonth() {
-    if (viewMonth === 0) {
-      setViewMonth(11);
-      setViewYear((y) => y - 1);
-    } else {
-      setViewMonth((m) => m - 1);
-    }
-  }
-
-  function nextMonth() {
-    const isCurrentMonth =
-      viewMonth === now.getMonth() && viewYear === now.getFullYear();
-    if (isCurrentMonth) return;
-    if (viewMonth === 11) {
-      setViewMonth(0);
-      setViewYear((y) => y + 1);
-    } else {
-      setViewMonth((m) => m + 1);
-    }
-  }
-
-  const isCurrentMonth =
-    viewMonth === now.getMonth() && viewYear === now.getFullYear();
-
-  return (
-    <div
-      className={cn(
-        "rounded-2xl border border-line bg-bg-elevated p-5 flex flex-col gap-5",
-        className
-      )}
-    >
-      {/* Top: streak count + best */}
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint mb-2">
-            check-in run
-          </p>
-          <div className="flex items-baseline gap-2">
-            <span
-              className="font-display leading-none tabular-nums"
-              style={{
-                fontSize: "clamp(44px,8vw,60px)",
-                letterSpacing: "-0.04em",
-                color: current > 0 ? "var(--accent)" : "var(--ink-faint)",
-              }}
-            >
-              {current}
-            </span>
-            <span className="font-mono text-[11px] uppercase tracking-widest text-ink-muted">
-              {current === 1 ? "day" : "days"}
-            </span>
+    return (
+      <section
+        ref={ref}
+        aria-label="Streak summary card"
+        className={cn("bg-card rounded-2xl border p-6 shadow-sm", className)}
+        {...props}
+      >
+        <header className="mb-3 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <Flame className="text-primary h-6 w-6" aria-hidden="true" />
+            <h3 className="text-2xl leading-none font-semibold">{title}</h3>
           </div>
-          <p className="mt-1.5 font-sans text-xs text-ink-muted leading-snug">
-            {status}
-          </p>
+          <Button
+            variant="link"
+            size="sm"
+            onClick={onActionClick}
+            aria-label={actionLabel}
+            className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
+          >
+            {actionLabel}
+          </Button>
+        </header>
+
+        <p className="mb-4 text-5xl leading-none font-semibold tracking-tight">
+          {currentStreak}
+          <span className="text-muted-foreground ml-2 text-2xl font-medium">
+            days
+          </span>
+        </p>
+
+        <StreakCalendar
+          streak={streak}
+          view="week"
+          startOfWeek={1}
+          className="max-w-none"
+        />
+
+        <div
+          className="mt-4 grid grid-cols-2 gap-4 border-t border-dashed pt-4"
+          aria-label="Streak stats"
+        >
+          <div>
+            <p className="text-muted-foreground text-sm">Longest Streak</p>
+            <p className="text-3xl leading-tight font-semibold">
+              {longestStreak}
+              <span className="ml-1 text-2xl font-medium">days</span>
+            </p>
+          </div>
+          <div className="text-right">
+            <p className="text-muted-foreground text-sm">Total</p>
+            <p className="text-3xl leading-tight font-semibold">{total}</p>
+          </div>
         </div>
 
-        {/* Best streak badge */}
-        {best > 0 && (
-          <div
-            className="flex flex-col items-end gap-1 shrink-0"
-          >
-            <div
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full"
-              style={{
-                background: "var(--accent-soft)",
-                border: "1px solid var(--accent)",
-              }}
+        {showHowItWorks && (
+          <div className="mt-4 border-t pt-4">
+            <button
+              type="button"
+              className="bg-muted flex w-full items-center justify-between rounded-xl px-4 py-3 text-left"
+              onClick={() => setIsHowItWorksOpen((prev) => !prev)}
+              aria-expanded={isHowItWorksOpen}
+              aria-controls={howItWorksContentId}
             >
-              {best >= current && current > 0 ? (
-                <Flame size={11} strokeWidth={1.5} className="text-accent" />
-              ) : (
-                <Zap size={11} strokeWidth={1.5} className="text-accent" />
-              )}
-              <span className="font-mono text-[10px] uppercase tracking-widest text-accent">
-                best {best}d
-              </span>
-            </div>
+              <span className="text-lg font-semibold">{howItWorksTitle}</span>
+              <ChevronDown
+                className={cn(
+                  "text-muted-foreground h-5 w-5 transition-transform",
+                  isHowItWorksOpen && "rotate-180"
+                )}
+                aria-hidden="true"
+              />
+            </button>
+
+            {isHowItWorksOpen && (
+              <div id={howItWorksContentId} className="space-y-4 px-2 pt-4">
+                {howItWorksItems.map((item, index) => {
+                  const Icon =
+                    index === 0
+                      ? CheckCircle2
+                      : index === 1
+                        ? Flame
+                        : RefreshCcw
+                  return (
+                    <div
+                      key={`${item}-${index}`}
+                      className="flex items-start gap-3"
+                    >
+                      <Icon
+                        className="text-primary mt-0.5 h-5 w-5 shrink-0"
+                        aria-hidden="true"
+                      />
+                      <p className="text-muted-foreground text-lg leading-snug">
+                        {item}
+                      </p>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </div>
         )}
-      </div>
+      </section>
+    )
+  }
+)
+StreakCard.displayName = "StreakCard"
 
-      {/* Divider */}
-      <div className="h-px bg-line" />
-
-      {/* Calendar navigation */}
-      <div className="flex items-center justify-between">
-        <Button variant="ghost" size="icon" onClick={prevMonth}>
-          <ChevronLeft size={14} strokeWidth={1.5} />
-        </Button>
-        <span className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">
-          {new Date(viewYear, viewMonth, 1).toLocaleDateString("en-US", {
-            month: "long",
-            year: "numeric",
-          })}
-        </span>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={nextMonth}
-          disabled={isCurrentMonth}
-        >
-          <ChevronRight size={14} strokeWidth={1.5} />
-        </Button>
-      </div>
-
-      {/* Calendar */}
-      <StreakCalendar
-        dates={dates}
-        year={viewYear}
-        month={viewMonth}
-      />
-    </div>
-  );
-}
+export { StreakCard }
+export type { StreakCardProps }

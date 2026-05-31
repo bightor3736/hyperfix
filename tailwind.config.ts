@@ -10,7 +10,7 @@ const config: Config = {
         paperDeep: "#111113",
         paperMid: "#161618",
         inkSoft: "#9A9A9A",
-        muted: "#525252",
+        muted: "var(--muted)",
         mint: "#5EEAD4",
         mintDeep: "#2DD4BF",
         mintInk: "#0A1F1C",
@@ -32,6 +32,14 @@ const config: Config = {
         "accent-ink":  "var(--accent-ink)",
         "invert-bg":   "var(--invert-bg)",
         "invert-ink":  "var(--invert-ink)",
+        // shadcn compatibility tokens
+        card:                "var(--card)",
+        "card-foreground":   "var(--card-foreground)",
+        primary:             "var(--primary)",
+        "primary-foreground": "var(--primary-foreground)",
+        "muted-foreground":  "var(--muted-foreground)",
+        foreground:          "var(--foreground)",
+        border:              "var(--border)",
       },
       fontFamily: {
         display: ["var(--font-fraunces)", "Georgia", "serif"],

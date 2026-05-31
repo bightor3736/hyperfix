@@ -133,6 +133,7 @@ export default async function DashboardPage() {
   }
 
   let currentStreak = 0;
+  let longestStreak = 0;
   let heatmapDates: string[] = [];
   if (user) {
     const { data: entryDates } = await supabase
@@ -168,6 +169,22 @@ export default async function DashboardPage() {
           } else {
             break;
           }
+        }
+      }
+
+      // Compute longest streak from ascending sorted dates
+      const asc = [...uniqueDates].reverse();
+      let run = 1;
+      longestStreak = asc.length > 0 ? 1 : 0;
+      for (let i = 1; i < asc.length; i++) {
+        const diff =
+          (new Date(asc[i]).getTime() - new Date(asc[i - 1]).getTime()) /
+          86400000;
+        if (diff === 1) {
+          run++;
+          if (run > longestStreak) longestStreak = run;
+        } else {
+          run = 1;
         }
       }
     }
@@ -317,7 +334,17 @@ export default async function DashboardPage() {
         {(totalActive > 0 || fetchError || currentStreak > 0) && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 anim-fadeUp delay-100">
             {/* Streak card — spans left column */}
-            <StreakCard dates={heatmapDates} className="lg:row-span-2" />
+            <StreakCard
+              streak={heatmapDates.map((d) => ({ date: d }))}
+              currentStreak={currentStreak}
+              longestStreak={longestStreak}
+              total={heatmapDates.length}
+              title="Streak"
+              actionLabel="Full history"
+              onActionClick={undefined}
+              showHowItWorks={false}
+              className="lg:row-span-2"
+            />
 
             {/* Active fixes */}
             <div

@@ -1,120 +1,105 @@
 "use client";
 
+import * as React from "react";
 import { cn } from "@/lib/utils";
 
-const DAY_HEADERS = ["M", "T", "W", "T", "F", "S", "S"];
-
-function getISODateString(date: Date): string {
-  return date.toISOString().split("T")[0];
+export interface StreakPeriod {
+  /** ISO date string e.g. "2025-05-31" */
+  date: string;
 }
 
-function getDaysInMonth(year: number, month: number): Date[] {
-  const days: Date[] = [];
-  const date = new Date(year, month, 1);
-  while (date.getMonth() === month) {
-    days.push(new Date(date));
-    date.setDate(date.getDate() + 1);
-  }
-  return days;
+interface StreakCalendarProps extends React.HTMLAttributes<HTMLDivElement> {
+  streak: StreakPeriod[];
+  view?: "week" | "month";
+  /** 0 = Sunday first, 1 = Monday first */
+  startOfWeek?: 0 | 1;
 }
 
-// Monday = 0 offset
-function getMondayOffset(date: Date): number {
-  const day = date.getDay(); // 0=Sun
-  return day === 0 ? 6 : day - 1;
-}
+const MON_LABELS = ["M", "T", "W", "T", "F", "S", "S"];
+const SUN_LABELS = ["S", "M", "T", "W", "T", "F", "S"];
 
-interface StreakCalendarProps {
-  /** ISO date strings that are checked-in */
-  dates: string[];
-  /** Year to display (default: current year) */
-  year?: number;
-  /** Month to display 0-11 (default: current month) */
-  month?: number;
-  className?: string;
+function buildWeekDates(startOfWeek: 0 | 1): string[] {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const day = today.getDay(); // 0=Sun
+  const offset = startOfWeek === 1 ? (day === 0 ? -6 : 1 - day) : -day;
+  const weekStart = new Date(today);
+  weekStart.setDate(today.getDate() + offset);
+  return Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(weekStart);
+    d.setDate(weekStart.getDate() + i);
+    return d.toISOString().split("T")[0];
+  });
 }
 
 export function StreakCalendar({
-  dates,
-  year,
-  month,
+  streak,
+  view = "week",
+  startOfWeek = 1,
   className,
+  ...props
 }: StreakCalendarProps) {
-  const now = new Date();
-  const displayYear = year ?? now.getFullYear();
-  const displayMonth = month ?? now.getMonth();
-
-  const todayStr = getISODateString(now);
-  const dateSet = new Set(dates);
-
-  const days = getDaysInMonth(displayYear, displayMonth);
-  const firstDay = days[0];
-  const offset = getMondayOffset(firstDay);
-
-  // Build 6-row grid (6*7 = 42 cells)
-  const cells: (Date | null)[] = [
-    ...Array(offset).fill(null),
-    ...days,
-  ];
-  // Pad to full weeks
-  while (cells.length % 7 !== 0) cells.push(null);
-
-  const monthLabel = firstDay.toLocaleDateString("en-US", {
-    month: "long",
-    year: "numeric",
-  });
+  const dateSet = new Set(streak.map((p) => p.date));
+  const todayStr = new Date().toISOString().split("T")[0];
+  const weekDates = buildWeekDates(startOfWeek);
+  const labels = startOfWeek === 1 ? MON_LABELS : SUN_LABELS;
 
   return (
-    <div className={cn("select-none", className)}>
-      {/* Month label */}
-      <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint mb-3">
-        {monthLabel}
-      </p>
-
-      {/* Day headers */}
-      <div className="grid grid-cols-7 mb-1">
-        {DAY_HEADERS.map((d, i) => (
-          <div
-            key={i}
-            className="flex items-center justify-center font-mono text-[9px] uppercase tracking-widest text-ink-faint"
-            style={{ height: 20 }}
-          >
-            {d}
-          </div>
-        ))}
-      </div>
-
-      {/* Day cells */}
-      <div className="grid grid-cols-7 gap-y-1">
-        {cells.map((date, i) => {
-          if (!date) {
-            return <div key={`empty-${i}`} className="h-7" />;
-          }
-
-          const iso = getISODateString(date);
-          const isToday = iso === todayStr;
-          const checkedIn = dateSet.has(iso);
-          const isFuture = iso > todayStr;
+    <div className={cn("", className)} {...props}>
+      <div className="grid grid-cols-7 gap-1">
+        {weekDates.map((date, i) => {
+          const completed = dateSet.has(date);
+          const isToday = date === todayStr;
+          const isFuture = date > todayStr;
 
           return (
-            <div key={iso} className="flex items-center justify-center h-7">
+            <div key={date} className="flex flex-col items-center gap-1.5">
+              <span
+                className="font-mono text-[10px] uppercase tracking-widest"
+                style={{ color: "var(--ink-faint)" }}
+              >
+                {labels[i]}
+              </span>
               <div
                 className={cn(
-                  "w-7 h-7 rounded-full flex items-center justify-center font-mono text-[11px] transition-all duration-150",
-                  {
-                    "bg-accent text-accent-ink font-medium": checkedIn,
-                    "ring-1 ring-accent text-accent": isToday && !checkedIn,
-                    "text-ink-faint": isFuture && !isToday,
-                    "text-ink-muted": !isFuture && !checkedIn && !isToday,
-                  }
+                  "w-8 h-8 rounded-full flex items-center justify-center transition-all duration-150",
+                  completed
+                    ? "bg-primary text-primary-foreground"
+                    : isToday
+                    ? "border-2 border-primary"
+                    : isFuture
+                    ? "border border-dashed border-line"
+                    : "border-2 border-line"
                 )}
                 style={
-                  checkedIn
-                    ? { boxShadow: "0 0 8px var(--accent)" }
+                  completed
+                    ? { boxShadow: "0 0 10px var(--accent)" }
                     : undefined
                 }
               >
-                {date.getDate()}
+                {completed && (
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M2 6l3 3 5-5"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                )}
+                {isToday && !completed && (
+                  <div
+                    className="w-1.5 h-1.5 rounded-full"
+                    style={{ background: "var(--accent)" }}
+                  />
+                )}
               </div>
             </div>
           );

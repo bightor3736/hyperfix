@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "default" | "outline" | "ghost" | "accent" | "invert";
+  variant?: "default" | "outline" | "ghost" | "accent" | "invert" | "link";
   size?: "sm" | "md" | "lg" | "icon";
 }
 
@@ -26,6 +26,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               variant === "accent",
             "bg-invert-bg text-invert-ink hover:opacity-90 active:scale-[0.97]":
               variant === "invert",
+            "text-primary underline-offset-4 hover:underline bg-transparent border-0 p-0 h-auto rounded-none":
+              variant === "link",
             // sizes
             "text-[11px] px-3 py-1.5": size === "sm",
             "text-[13px] px-4 py-2": size === "md",
