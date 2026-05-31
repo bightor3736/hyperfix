@@ -71,7 +71,7 @@ export function WeekRings({ checkedDates }: { checkedDates: string[] }) {
                 }}
               >
                 {checkedIn ? (
-                  <SparkIcon size={18} color="white" />
+                  <SparkIcon size={18} color="var(--accent-ink)" />
                 ) : isToday ? (
                   <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--accent)" }} />
                 ) : null}

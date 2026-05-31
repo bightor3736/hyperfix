@@ -10,9 +10,11 @@
 export function LogoMark({
   size = 28,
   className = "",
+  color = "var(--accent)",
 }: {
   size?: number;
   className?: string;
+  color?: string;
 }) {
   // Six-pointed asterisk: three lines crossing at (14,14) with radius 10.
   // Spokes at 90°, 30°, and 150° from the positive x-axis.
@@ -27,11 +29,11 @@ export function LogoMark({
       aria-hidden="true"
     >
       {/* vertical */}
-      <line x1="14" y1="4"    x2="14" y2="24"   stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
+      <line x1="14" y1="4"    x2="14" y2="24"   stroke={color} strokeWidth="2" strokeLinecap="round" />
       {/* upper-right → lower-left */}
-      <line x1="22.66" y1="9"  x2="5.34" y2="19"  stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
+      <line x1="22.66" y1="9"  x2="5.34" y2="19"  stroke={color} strokeWidth="2" strokeLinecap="round" />
       {/* upper-left → lower-right */}
-      <line x1="5.34"  y1="9"  x2="22.66" y2="19" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
+      <line x1="5.34"  y1="9"  x2="22.66" y2="19" stroke={color} strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
@@ -79,9 +81,11 @@ export function LogoLockup({
 export function SparkIcon({
   size = 20,
   className = "",
+  color = "var(--accent)",
 }: {
   size?: number;
   className?: string;
+  color?: string;
 }) {
-  return <LogoMark size={size} className={className} />;
+  return <LogoMark size={size} className={className} color={color} />;
 }
