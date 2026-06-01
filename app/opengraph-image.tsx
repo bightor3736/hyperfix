@@ -6,9 +6,9 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function OG() {
-  const BG = "#f6f8fb";
-  const INK = "#1f2937";
-  const MUTED = "#5b6472";
+  const BG = "#f9f8f7";
+  const INK = "#1a1615";
+  const MUTED = "#453f3d";
   const ENERGY = "#14b8a6";
 
   return new ImageResponse(

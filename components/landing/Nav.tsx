@@ -25,8 +25,9 @@ export function Nav() {
         <div
           className={`flex h-16 items-center justify-between rounded-full px-4 sm:px-5 transition-all ${scrolled ? "glass" : ""}`}
           style={{
-            border: `1px solid ${scrolled ? "var(--glass-border)" : "transparent"}`,
-            boxShadow: scrolled ? "0 8px 30px -16px rgba(0,0,0,0.6)" : "none",
+            border: `1px solid ${scrolled ? "rgba(97,74,68,0.14)" : "transparent"}`,
+            boxShadow: scrolled ? "0 4px 24px -8px rgba(26,22,21,0.10)" : "none",
+            background: scrolled ? "rgba(249,248,247,0.85)" : "transparent",
           }}
         >
           <Wordmark />

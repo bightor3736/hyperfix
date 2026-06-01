@@ -31,15 +31,15 @@ const columns = [
 // Footer keeps its own calm-slate palette regardless of theme — a soft deep
 // slate (not harsh black) that grounds the page without high-stress contrast.
 const footerVars = {
-  "--ink": "#f3f5f9",
-  "--ink-muted": "#aab3c2",
-  "--ink-faint": "#6b7689",
-  "--line": "#2c3645",
-  "--invert-bg": "#f3f5f9",
-  "--invert-ink": "#1f2937",
+  "--ink": "#f4f0eb",
+  "--ink-muted": "#a09690",
+  "--ink-faint": "#6b6460",
+  "--line": "#2e2724",
+  "--invert-bg": "#f4f0eb",
+  "--invert-ink": "#1a1615",
   "--energy": "#2dd4bf",
   "--accent": "#2dd4bf",
-  background: "#1f2937",
+  background: "#1a1615",
   borderTop: "1px solid rgba(255,255,255,0.06)",
 } as CSSProperties;
 

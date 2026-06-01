@@ -2,33 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Design tokens — Calm Gamified Minimalism (ADHD-first) ────────────
-   A soft-cool light canvas (low visual stress, no harsh black/white),
-   indigo-purple primary, and bright "reward" accents (mint / amber /
-   coral) reserved for dopamine moments. Linear's structural polish and
-   Tiimo's warmth, tuned to the ADHD design guide. Light is the default;
-   a dark variant lives on the toggle. Everything reads these tokens. */
+/* ── Design tokens — Warm Organic (Dreelio-inspired) ──────────────────
+   Warm near-white canvas, deep warm-brown ink, earthy hairlines.
+   Teal accent from the "green" direction the user chose. Clean, open,
+   generous whitespace — not glassmorphic, not cool-grey techie. */
 :root {
   --font-display: var(--font-fraunces);
 
-  --bg:           #f6f8fb;   /* soft cool canvas */
-  --bg-soft:      #eef1f7;   /* slightly deeper, for alternating sections */
-  --bg-elevated:  #ffffff;   /* white surface */
-  --ink:          #1f2937;   /* cool dark gray — not harsh black */
-  --ink-muted:    #5b6472;
-  --ink-faint:    #98a1b1;
-  --line:         #e4e9f1;   /* soft cool hairline */
-  --line-strong:  #d2dae6;
-  --accent:       #14b8a6;   /* teal primary — focus, calm, grounded */
-  --accent-soft:  #ccfbf1;   /* light teal wash */
+  --bg:           #f9f8f7;   /* warm near-white canvas */
+  --bg-soft:      #f4f0eb;   /* warm cream — alternating sections */
+  --bg-elevated:  #ffffff;   /* card surfaces */
+  --ink:          #1a1615;   /* warm dark brown — not harsh black */
+  --ink-muted:    #453f3d;   /* warm medium brown */
+  --ink-faint:    #757170;   /* warm gray */
+  --line:         rgba(97,74,68,0.14);   /* earthy hairline */
+  --line-strong:  rgba(97,74,68,0.26);
+  --accent:       #14b8a6;   /* teal primary */
+  --accent-soft:  #e4f7f5;   /* warm teal wash */
   --accent-ink:   #ffffff;
-  --invert-bg:    #1f2937;
+  --invert-bg:    #1a1615;
   --invert-ink:   #ffffff;
   color-scheme: light;
 
-  /* glass surfaces */
-  --glass-bg:     rgba(31,41,55,0.035);
-  --glass-border: rgba(31,41,55,0.08);
+  /* glass surfaces — warm-toned */
+  --glass-bg:     rgba(26,22,21,0.035);
+  --glass-border: rgba(97,74,68,0.12);
 
   /* shadcn compatibility aliases */
   --background:        var(--bg);
@@ -38,38 +36,37 @@
   --popover-foreground: var(--ink);
   --primary:           var(--accent);
   --primary-foreground: var(--accent-ink);
-  /* --muted holds HSL *channels* (shadcn convention) so hsl(var(--muted)) resolves */
-  --muted:             216 30% 96%;
+  --muted:             30 20% 95%;
   --muted-foreground:  var(--ink-muted);
   --foreground:        var(--ink);
   --border:            var(--line);
 
   /* ---- Branded accent tokens ---- */
-  --xp:          #14b8a6;    /* teal */
-  --xp-soft:     #ccfbf1;
-  --flame:       #ff7a59;    /* coral — warm reward/streak */
-  --flame-soft:  #ffe8e1;
-  --energy:      #14b8a6;    /* teal — the primary action color */
-  --energy-soft: #ccfbf1;
+  --xp:          #14b8a6;
+  --xp-soft:     #e4f7f5;
+  --flame:       #c9502e;    /* warm coral-red — streak / reward */
+  --flame-soft:  #fbe9e4;
+  --energy:      #14b8a6;
+  --energy-soft: #e4f7f5;
 
-  /* ---- Reward accents (dopamine moments only — used sparingly) ---- */
-  --reward-mint:  #34d399;
-  --reward-mint-soft: #d6f7ec;
-  --reward-amber: #ffc857;
-  --reward-amber-soft: #fff1cf;
-  --reward-coral: #ff7a59;
-  --reward-coral-soft: #ffe3da;
+  /* ---- Reward accents ---- */
+  --reward-mint:       #1cb87c;
+  --reward-mint-soft:  #d6f7ec;
+  --reward-amber:      #d6a314;
+  --reward-amber-soft: #fdf2d0;
+  --reward-coral:      #c9502e;
+  --reward-coral-soft: #fbe9e4;
 
-  /* ---- Soft-vibrant pastel tints (color-coding, low stress) ---- */
-  --pastel-purple: #e7e9ff;
-  --pastel-pink:   #ffe3f1;
-  --pastel-blue:   #e1ecff;
+  /* ---- Warm pastel tints ---- */
+  --pastel-purple: #ede9ff;
+  --pastel-pink:   #fde8ee;
+  --pastel-blue:   #e2ecf7;
   --pastel-green:  #d8f3e8;
-  --pastel-orange: #ffe8d6;
-  --pastel-yellow: #fff1cf;
+  --pastel-orange: #fde8da;
+  --pastel-yellow: #fdf2d0;
 
-  --radius-lg:   16px;
-  --radius-xl:   24px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
 }
 
 /* Explicit light — same as root (light is the default). */
@@ -450,7 +447,7 @@ details > summary::-webkit-details-marker {
 .motion-card:hover {
   transform: translateY(-3px);
   border-color: var(--line-strong);
-  box-shadow: 0 12px 30px -14px rgba(31,41,55,0.20);
+  box-shadow: 0 12px 30px -14px rgba(26,22,21,0.18);
 }
 :root[data-theme="dark"] .motion-card:hover {
   border-color: rgba(45,212,191,0.35);
@@ -512,12 +509,12 @@ details > summary::-webkit-details-marker {
   animation: shimmer 1.6s ease-in-out infinite;
 }
 
-/* Card depth — soft, calm shadow on the light canvas */
+/* Card depth — warm shadow on the warm canvas */
 .soft-card {
-  box-shadow: 0 1px 2px rgba(31,41,55,0.04), 0 10px 30px -14px rgba(31,41,55,0.14);
+  box-shadow: 0 1px 2px rgba(26,22,21,0.05), 0 10px 30px -14px rgba(26,22,21,0.12);
 }
 .soft-card-lg {
-  box-shadow: 0 2px 4px rgba(31,41,55,0.04), 0 24px 60px -20px rgba(31,41,55,0.18);
+  box-shadow: 0 2px 4px rgba(26,22,21,0.05), 0 24px 60px -20px rgba(26,22,21,0.16);
 }
 :root[data-theme="dark"] .soft-card {
   box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.04), 0 8px 24px -12px rgba(0,0,0,0.6);
@@ -613,9 +610,9 @@ details > summary::-webkit-details-marker {
   color: var(--ink);
 }
 
-/* Headline accent — teal gradient text. */
+/* Headline accent — warm teal gradient text. */
 .text-game-gradient {
-  background: linear-gradient(95deg, #2dd4bf 0%, #14b8a6 50%, #0d9488 100%);
+  background: linear-gradient(95deg, #1bc8b4 0%, #14b8a6 40%, #0d9e8f 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
