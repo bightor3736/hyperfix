@@ -107,7 +107,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       {/* RIGHT PANEL — landing hero treatment (blob + headline), desktop only */}
       <div className="hidden lg:flex lg:w-[48%] xl:w-[46%] p-5">
         <div
-          className="relative w-full rounded-3xl overflow-hidden flex flex-col justify-between anim-fadeUp"
+          className="relative w-full rounded-3xl overflow-hidden flex flex-col justify-end anim-fadeUp"
           style={{ background: "#ffffff", border: "1px solid var(--line)" }}
         >
           {/* The landing's blue/purple hero blob */}
@@ -125,25 +125,10 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             }}
           />
 
-          {/* Top pill */}
-          <div className="relative z-10 p-10">
-            <span
-              className="inline-flex items-center font-mono text-[10px] uppercase tracking-[0.14em] rounded-full px-3 py-1"
-              style={{
-                background: "rgba(255,255,255,0.75)",
-                color: "var(--ink)",
-                border: "1px solid var(--ink)",
-                backdropFilter: "blur(6px)",
-              }}
-            >
-              the anti-doomscroll game
-            </span>
-          </div>
-
-          {/* Bottom headline — landing hero */}
+          {/* Bottom headline */}
           <div className="relative z-10 px-10 pb-10">
             <p
-              className="leading-[1.0]"
+              className="leading-[1.02]"
               style={{
                 color: "var(--ink)",
                 fontFamily: "var(--font-landing-sans), Inter, sans-serif",
@@ -152,18 +137,16 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                 fontSize: "clamp(30px, 3.4vw, 50px)",
               }}
             >
-              Your daily{" "}
+              Small wins that{" "}
               <span
                 style={{
                   fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif",
                   fontStyle: "italic",
                 }}
               >
-                dopamine
-              </span>
-              ,
-              <br />
-              hyperfix on tap.
+                actually
+              </span>{" "}
+              stick.
             </p>
             <p
               className="mt-4 text-[15px] text-ink-muted max-w-sm"
