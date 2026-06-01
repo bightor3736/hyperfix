@@ -535,18 +535,10 @@
     // This fires on DOMContentLoaded, before the Framer rAF callback, so WAAPI never starts.
     window.MotionIsMounted = true;
 
-    // 1) Appear-id elements via Framer's own config
-    var cfgEl=document.getElementById('__framer__appearAnimationsContent'),cfg=null;
-    if(cfgEl){try{cfg=JSON.parse(cfgEl.text||cfgEl.textContent);}catch(e){}}
-    if(cfg)Object.keys(cfg).forEach(function(id){
-      var v=cfg[id]&&(cfg[id]['default']||cfg[id][Object.keys(cfg[id])[0]]);if(!v||!v.initial||!v.animate)return;
-      var el=document.querySelector('[data-framer-appear-id="'+id+'"]');if(!el)return;
-      var tr=v.animate.transition||{};
-      try{el.style.opacity=(v.initial.opacity!=null?v.initial.opacity:1);el.style.transform=tf(v.initial);
-        var a=el.animate([{opacity:el.style.opacity,transform:el.style.transform},{opacity:1,transform:tf(v.animate)}],{duration:(tr.duration||0.6)*1000,delay:(tr.delay||0)*1000,easing:EASE,fill:'both'});
-        a.onfinish=function(){el.style.opacity=1;el.style.transform='none';};
-      }catch(e){el.style.opacity=1;el.style.transform='none';}
-    });
+    // 1) Appear-id elements are handled by hyperfix-appear-fix below.
+    //    We must NOT re-create Framer's WAAPI here — doing so reset opacity to
+    //    0.001 and reintroduced the original 2.5-5s reveal delays, which left
+    //    the whole hero blank. The appear-fix reveals them immediately instead.
 
     // 2) Reveal everything Framer pre-hid. Resting state via class toggle; a
     //    failsafe guarantees nothing stays invisible even if IO misses it.
@@ -601,23 +593,21 @@
   var BLOB_IDS = {h2d1oe:true,'1f5zhhw':true}; // blobs that stay at rotate(-75deg)
   function fixAppear(){
     document.querySelectorAll('[data-framer-appear-id]').forEach(function(el){
-      if(el.dataset.hfAppear) return; el.dataset.hfAppear='1';
       var id = el.getAttribute('data-framer-appear-id');
-      // No WAAPI to cancel (MotionIsMounted=true in runtime prevents them).
-      // Just reveal with a quick CSS transition.
-      el.style.transition='opacity .5s ease .1s, transform .5s ease .1s';
-      if(BLOB_IDS[id]){
-        el.style.opacity='1'; el.style.transform='rotate(-75deg)';
-      } else {
-        el.style.opacity='1'; el.style.transform='none';
-      }
+      // Kill any Framer WAAPI appear animation holding the element hidden.
+      if(el.getAnimations) el.getAnimations().forEach(function(a){try{a.cancel();}catch(e){}});
+      if(!el.dataset.hfAppear){ el.dataset.hfAppear='1';
+        el.style.transition='opacity .6s ease, transform .6s ease'; }
+      el.style.setProperty('opacity','1','important');
+      el.style.setProperty('transform', BLOB_IDS[id]?'rotate(-75deg)':'none','important');
     });
   }
-  // Run immediately and again at DOMContentLoaded to catch all elements
   function tryFix(){
     if(document.querySelectorAll('[data-framer-appear-id]').length) fixAppear();
   }
   tryFix();
+  // Re-assert for the first few seconds in case Framer creates a late WAAPI.
+  var ticks=0, iv=setInterval(function(){ fixAppear(); if(++ticks>20) clearInterval(iv); }, 250);
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', function(){ tryFix(); });
   else tryFix();
 })();
@@ -625,9 +615,18 @@
 <script id="hyperfix-batch-a">
 (function(){
   function run(){
-    // 1) Hero pill: hide the stray avatar photo, keep the green dot + text
+    // 1) Hero pill: hide the stray avatar photo, keep the green dot + text.
+    //    Only hide SMALL images that live inside the pill and are NOT the
+    //    decorative hero blob (which lives under a data-framer-appear-id).
     var pill=[].slice.call(document.querySelectorAll('*')).filter(function(e){return e.children.length<8 && /no card needed/i.test(e.textContent);})[0];
-    if(pill){var c=pill; for(var i=0;i<5&&c;i++){var im=c.querySelectorAll('img'); if(im.length){[].forEach.call(im,function(x){x.classList.add('hf-pill-avatar');}); break;} c=c.parentElement;}}
+    if(pill){var c=pill; for(var i=0;i<5&&c;i++){
+      var im=[].slice.call(c.querySelectorAll('img')).filter(function(x){
+        if(x.closest('[data-framer-appear-id]'))return false;        // never the blob
+        var r=x.getBoundingClientRect(); return r.width<=80&&r.height<=80; // avatars only
+      });
+      if(im.length){im.forEach(function(x){x.classList.add('hf-pill-avatar');}); break;}
+      c=c.parentElement;
+    }}
 
     // 2) Menu button -> real nav links + Start free CTA
     var menu=[].slice.call(document.querySelectorAll('*')).filter(function(e){return e.children.length<3 && e.textContent.trim()==='Menu';})[0];
