@@ -101,7 +101,7 @@ export default async function LeaderboardPage() {
             const { level } = levelForPoints(row.total_points);
             const name = row.display_name || row.username || "anonymous";
             const medalColor =
-              rank === 1 ? "#d4af37" : rank === 2 ? "#a8a29e" : "#b87333";
+              rank === 1 ? "#0a0a0a" : rank === 2 ? "#737373" : "#a3a3a3";
 
             return (
               <Link

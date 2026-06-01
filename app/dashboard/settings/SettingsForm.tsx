@@ -391,8 +391,8 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
   const usernameHint = () => {
     if (usernameStatus === "checking") return <span style={{ color: "var(--ink-muted)" }}>Checking…</span>;
     if (usernameStatus === "available") return <span style={{ color: "var(--accent)" }}>✓ Available</span>;
-    if (usernameStatus === "taken") return <span style={{ color: "#fda4af" }}>✗ Taken</span>;
-    if (usernameStatus === "invalid") return <span style={{ color: "#fda4af" }}>3–20 chars, letters/numbers/underscore only</span>;
+    if (usernameStatus === "taken") return <span style={{ color: "#737373" }}>✗ Taken</span>;
+    if (usernameStatus === "invalid") return <span style={{ color: "#737373" }}>3–20 chars, letters/numbers/underscore only</span>;
     return null;
   };
 
@@ -493,7 +493,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             )}
 
             {uploadError && (
-              <p className="font-sans text-[12px]" style={{ color: "#fda4af" }}>
+              <p className="font-sans text-[12px]" style={{ color: "#737373" }}>
                 {uploadError}
               </p>
             )}
@@ -520,7 +520,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             >
               {!bannerUrl && (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <p className="font-mono text-xs" style={{ color: "rgba(111,138,99,0.25)" }}>No banner set</p>
+                  <p className="font-mono text-xs" style={{ color: "rgba(10,10,10,0.25)" }}>No banner set</p>
                 </div>
               )}
               <div className="absolute bottom-3 right-3 flex gap-2">
@@ -580,7 +580,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               </div>
             )}
             {bannerUploadError && (
-              <p className="font-sans text-[12px]" style={{ color: "#fda4af" }}>{bannerUploadError}</p>
+              <p className="font-sans text-[12px]" style={{ color: "#737373" }}>{bannerUploadError}</p>
             )}
             <p className="font-mono text-[10px]" style={{ color: "var(--ink-faint)" }}>
               Recommended: 1500×500px · JPG or PNG · max 5MB
@@ -663,7 +663,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           <FieldGroup
             label="Bio"
             hint={
-              <span style={{ color: bio.length > 150 ? "#fda4af" : "var(--ink-faint)" }}>
+              <span style={{ color: bio.length > 150 ? "#737373" : "var(--ink-faint)" }}>
                 {bio.length}/160
               </span>
             }
@@ -813,7 +813,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               />
             </FieldGroup>
             {passwordError && (
-              <p className="font-sans text-[12px]" style={{ color: "#fda4af" }}>
+              <p className="font-sans text-[12px]" style={{ color: "#737373" }}>
                 {passwordError}
               </p>
             )}
@@ -884,9 +884,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             onClick={() => setShowDeleteModal(true)}
             className="self-start px-5 py-2.5 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80 opacity-50 hover:opacity-70"
             style={{
-              background: "rgba(225,29,72,0.08)",
-              border: "1px solid rgba(225,29,72,0.2)",
-              color: "#fda4af",
+              background: "rgba(10,10,10,0.08)",
+              border: "1px solid rgba(10,10,10,0.2)",
+              color: "#737373",
             }}
           >
             Delete account
@@ -971,9 +971,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
         <p
           className="font-sans text-sm rounded-xl px-4 py-3"
           style={{
-            background: "rgba(225,29,72,0.08)",
-            border: "1px solid rgba(225,29,72,0.2)",
-            color: "#fda4af",
+            background: "rgba(10,10,10,0.08)",
+            border: "1px solid rgba(10,10,10,0.2)",
+            color: "#737373",
           }}
         >
           {saveError}
@@ -1033,9 +1033,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               <p
                 className="font-sans text-sm rounded-xl px-3 py-2 mb-4"
                 style={{
-                  background: "rgba(225,29,72,0.08)",
-                  border: "1px solid rgba(225,29,72,0.2)",
-                  color: "#fda4af",
+                  background: "rgba(10,10,10,0.08)",
+                  border: "1px solid rgba(10,10,10,0.2)",
+                  color: "#737373",
                 }}
               >
                 {deleteError}
@@ -1059,9 +1059,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                 disabled={pending}
                 className="flex-1 py-2.5 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 disabled:opacity-60"
                 style={{
-                  background: "rgba(225,29,72,0.15)",
-                  border: "1px solid rgba(225,29,72,0.3)",
-                  color: "#fda4af",
+                  background: "rgba(10,10,10,0.15)",
+                  border: "1px solid rgba(10,10,10,0.3)",
+                  color: "#737373",
                 }}
               >
                 {pending ? "Deleting…" : "Yes, delete everything"}
@@ -1077,7 +1077,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           className="fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 rounded-2xl font-sans text-sm font-bold z-50 pointer-events-none"
           style={{
             background: "var(--accent)",
-            border: "1px solid rgba(111,138,99,0.3)",
+            border: "1px solid rgba(10,10,10,0.3)",
             color: "var(--accent)",
             boxShadow: "0 4px 24px rgba(0,0,0,0.5)",
           }}

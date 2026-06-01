@@ -59,7 +59,7 @@ function renderNotif(n: Notif): Rendered | null {
     const meta = type ? getReactionMeta(type) : null;
     return {
       Icon: HeartIcon,
-      iconColor: "#F472B6",
+      iconColor: "#0a0a0a",
       text: (
         <>
           <span style={{ color: "var(--ink)" }}>{name}</span>
@@ -88,7 +88,7 @@ function renderNotif(n: Notif): Rendered | null {
   if (n.type === "follow") {
     return {
       Icon: PinIcon,
-      iconColor: "#06B6D4",
+      iconColor: "#0a0a0a",
       text: (
         <>
           <span style={{ color: "var(--ink)" }}>{name}</span>
@@ -101,7 +101,7 @@ function renderNotif(n: Notif): Rendered | null {
   if (n.type === "comment") {
     return {
       Icon: ChatIcon,
-      iconColor: "#A78BFA",
+      iconColor: "#0a0a0a",
       text: (
         <>
           <span style={{ color: "var(--ink)" }}>{name}</span>
@@ -127,7 +127,7 @@ function renderNotif(n: Notif): Rendered | null {
   if (n.type === "streak") {
     return {
       Icon: FlameIcon,
-      iconColor: "#F59E0B",
+      iconColor: "#0a0a0a",
       text: (
         <span style={{ color: "var(--ink)" }}>
           Your streak on <span>&ldquo;{fixTitle}&rdquo;</span> is still going. Don&apos;t break the chain.

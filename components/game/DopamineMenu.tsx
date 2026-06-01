@@ -177,7 +177,7 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
       <div className="mt-6 h-1.5 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
         <div
           className="h-full rounded-full transition-all duration-500"
-          style={{ width: `${goalPct}%`, background: "linear-gradient(90deg, var(--energy), var(--flame))" }}
+          style={{ width: `${goalPct}%`, background: "linear-gradient(90deg, var(--ink-faint), var(--ink))" }}
         />
       </div>
     </div>
