@@ -13,11 +13,11 @@ export function Hero() {
         <div className="grid-bg absolute inset-0" />
         <div
           className="absolute -top-40 left-1/2 h-[520px] w-[760px] -translate-x-1/2 rounded-full blur-[130px] opacity-40"
-          style={{ background: "radial-gradient(circle, rgba(91,127,255,0.40), transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, rgba(20,184,166,0.40), transparent 70%)" }}
         />
         <div
           className="absolute inset-x-0 top-0 h-px"
-          style={{ background: "linear-gradient(90deg, transparent, rgba(91,127,255,0.4), transparent)" }}
+          style={{ background: "linear-gradient(90deg, transparent, rgba(20,184,166,0.4), transparent)" }}
         />
       </div>
 

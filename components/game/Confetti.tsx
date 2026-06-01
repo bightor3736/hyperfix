@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 // Celebratory reward palette — blue, mint, amber, coral, pink.
-const COLORS = ["#5b7fff", "#34d399", "#ffc857", "#ff7a59", "#ffb2da"];
+const COLORS = ["#14b8a6", "#34d399", "#ffc857", "#ff7a59", "#ffb2da"];
 
 /**
  * Lightweight confetti burst. Bump `fireKey` to re-trigger (e.g. a counter).

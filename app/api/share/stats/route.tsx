@@ -21,8 +21,8 @@ export async function GET(req: Request) {
   const FAINT = "#98a1b1";
   const LINE = "#e4e9f1";
   const CARD = "#ffffff";
-  const ENERGY = "#5b7fff";
-  const XP = "#5b7fff";
+  const ENERGY = "#14b8a6";
+  const XP = "#14b8a6";
   const FLAME = "#ff7a59";
 
   return new ImageResponse(

@@ -37,8 +37,8 @@ const footerVars = {
   "--line": "#2c3645",
   "--invert-bg": "#f3f5f9",
   "--invert-ink": "#1f2937",
-  "--energy": "#93a8ff",
-  "--accent": "#93a8ff",
+  "--energy": "#2dd4bf",
+  "--accent": "#2dd4bf",
   background: "#1f2937",
   borderTop: "1px solid rgba(255,255,255,0.06)",
 } as CSSProperties;

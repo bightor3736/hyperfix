@@ -19,8 +19,8 @@
   --ink-faint:    #98a1b1;
   --line:         #e4e9f1;   /* soft cool hairline */
   --line-strong:  #d2dae6;
-  --accent:       #5b7fff;   /* soft blue primary — focus, calm, trust */
-  --accent-soft:  #e7edff;   /* light blue wash */
+  --accent:       #14b8a6;   /* teal primary — focus, calm, grounded */
+  --accent-soft:  #ccfbf1;   /* light teal wash */
   --accent-ink:   #ffffff;
   --invert-bg:    #1f2937;
   --invert-ink:   #ffffff;
@@ -45,12 +45,12 @@
   --border:            var(--line);
 
   /* ---- Branded accent tokens ---- */
-  --xp:          #5b7fff;    /* blue */
-  --xp-soft:     #e7edff;
+  --xp:          #14b8a6;    /* teal */
+  --xp-soft:     #ccfbf1;
   --flame:       #ff7a59;    /* coral — warm reward/streak */
   --flame-soft:  #ffe8e1;
-  --energy:      #5b7fff;    /* blue — the primary action color */
-  --energy-soft: #e7edff;
+  --energy:      #14b8a6;    /* teal — the primary action color */
+  --energy-soft: #ccfbf1;
 
   /* ---- Reward accents (dopamine moments only — used sparingly) ---- */
   --reward-mint:  #34d399;
@@ -87,20 +87,20 @@
   --ink-faint:    #63666e;
   --line:         #222329;
   --line-strong:  #2e3038;
-  --accent:       #7d97ff;
-  --accent-soft:  #18203a;
+  --accent:       #2dd4bf;
+  --accent-soft:  #0d2926;
   --accent-ink:   #ffffff;
   --invert-bg:    #f7f8f8;
   --invert-ink:   #0c0c0f;
   --glass-bg:     rgba(255,255,255,0.045);
   --glass-border: rgba(255,255,255,0.08);
   --muted:        240 6% 12%;
-  --xp:          #7d97ff;
-  --xp-soft:     #18203a;
+  --xp:          #2dd4bf;
+  --xp-soft:     #0d2926;
   --flame:       #ff7a59;
   --flame-soft:  #2a1d15;
-  --energy:      #7d97ff;
-  --energy-soft: #18203a;
+  --energy:      #2dd4bf;
+  --energy-soft: #0d2926;
   --reward-mint:  #34d399;
   --reward-mint-soft: #14271f;
   --reward-amber: #ffc857;
@@ -380,8 +380,8 @@ details > summary::-webkit-details-marker {
   to   { transform: translateY(0); }
 }
 @keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 24px rgba(94,234,212,0.18); }
-  50%      { box-shadow: 0 0 40px rgba(94,234,212,0.40); }
+  0%, 100% { box-shadow: 0 0 24px rgba(20,184,166,0.18); }
+  50%      { box-shadow: 0 0 40px rgba(20,184,166,0.40); }
 }
 @keyframes floatY {
   0%, 100% { transform: translateY(0px); }
@@ -453,8 +453,8 @@ details > summary::-webkit-details-marker {
   box-shadow: 0 12px 30px -14px rgba(31,41,55,0.20);
 }
 :root[data-theme="dark"] .motion-card:hover {
-  border-color: rgba(125,151,255,0.35);
-  box-shadow: 0 0 30px -10px rgba(125,151,255,0.22), 0 18px 40px -20px rgba(0,0,0,0.6);
+  border-color: rgba(45,212,191,0.35);
+  box-shadow: 0 0 30px -10px rgba(45,212,191,0.22), 0 18px 40px -20px rgba(0,0,0,0.6);
 }
 
 /* Animated underline on text links */
@@ -479,7 +479,7 @@ details > summary::-webkit-details-marker {
 
 /* Reusable shimmer sweep — for live counters / accents */
 .shimmer-sweep {
-  background: linear-gradient(110deg, transparent 30%, rgba(94,234,212,0.18) 50%, transparent 70%);
+  background: linear-gradient(110deg, transparent 30%, rgba(20,184,166,0.18) 50%, transparent 70%);
   background-size: 220% 100%;
   animation: shimmerLine 3.5s ease-in-out infinite;
 }
@@ -537,7 +537,7 @@ details > summary::-webkit-details-marker {
 /* Linear-style radial accent glow behind hero / sections */
 .accent-glow {
   background:
-    radial-gradient(60% 50% at 20% 0%, rgba(91,127,255,0.20) 0%, transparent 60%),
+    radial-gradient(60% 50% at 20% 0%, rgba(20,184,166,0.20) 0%, transparent 60%),
     radial-gradient(50% 45% at 85% 10%, rgba(52,211,153,0.10) 0%, transparent 55%);
 }
 
@@ -580,8 +580,8 @@ details > summary::-webkit-details-marker {
 }
 
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(91,127,255,0.30); }
-  50%      { box-shadow: 0 0 0 10px rgba(91,127,255,0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(20,184,166,0.30); }
+  50%      { box-shadow: 0 0 0 10px rgba(20,184,166,0); }
 }
 .anim-pulseGlow { animation: pulseGlow 2.2s ease-in-out infinite; }
 
@@ -613,9 +613,9 @@ details > summary::-webkit-details-marker {
   color: var(--ink);
 }
 
-/* Headline accent — soft blue→indigo gradient text. */
+/* Headline accent — teal gradient text. */
 .text-game-gradient {
-  background: linear-gradient(95deg, #6f93ff 0%, #5b7fff 50%, #4a5fd0 100%);
+  background: linear-gradient(95deg, #2dd4bf 0%, #14b8a6 50%, #0d9488 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -629,12 +629,12 @@ details > summary::-webkit-details-marker {
 }
 .reveal-up.is-in { opacity: 1; transform: translateY(0); }
 
-/* Featured-card emphasis — soft blue ring + gentle glow */
+/* Featured-card emphasis — teal ring + gentle glow */
 .anim-neon {
-  box-shadow: 0 0 0 1px rgba(91,127,255,0.30), 0 0 36px -10px rgba(91,127,255,0.22), 0 14px 40px -22px rgba(31,41,55,0.22);
+  box-shadow: 0 0 0 1px rgba(20,184,166,0.30), 0 0 36px -10px rgba(20,184,166,0.22), 0 14px 40px -22px rgba(31,41,55,0.22);
 }
 :root[data-theme="dark"] .anim-neon {
-  box-shadow: 0 0 0 1px rgba(125,151,255,0.35), 0 0 40px -8px rgba(125,151,255,0.30), 0 18px 50px -20px rgba(0,0,0,0.7);
+  box-shadow: 0 0 0 1px rgba(45,212,191,0.35), 0 0 40px -8px rgba(45,212,191,0.30), 0 18px 50px -20px rgba(0,0,0,0.7);
 }
 
 @media (prefers-reduced-motion: reduce) {

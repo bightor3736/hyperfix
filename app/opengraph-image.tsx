@@ -9,7 +9,7 @@ export default async function OG() {
   const BG = "#f6f8fb";
   const INK = "#1f2937";
   const MUTED = "#5b6472";
-  const ENERGY = "#5b7fff";
+  const ENERGY = "#14b8a6";
 
   return new ImageResponse(
     (
@@ -22,7 +22,7 @@ export default async function OG() {
           padding: "64px 72px",
           fontFamily: "serif",
           background: BG,
-          backgroundImage: `radial-gradient(720px 480px at 18% 0%, rgba(91,127,255,0.18) 0%, ${BG} 60%), radial-gradient(560px 380px at 100% 100%, rgba(52,211,153,0.12) 0%, transparent 58%)`,
+          backgroundImage: `radial-gradient(720px 480px at 18% 0%, rgba(20,184,166,0.18) 0%, ${BG} 60%), radial-gradient(560px 380px at 100% 100%, rgba(52,211,153,0.12) 0%, transparent 58%)`,
           color: INK,
           position: "relative",
         }}
