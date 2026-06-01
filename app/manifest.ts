@@ -4,37 +4,28 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Hyperfix",
     short_name: "Hyperfix",
-    description: "What are you unwell about?",
+    description: "Your daily dopamine, on tap. The anti-doomscroll game for ADHD brains.",
     start_url: "/dashboard",
     display: "standalone",
-    background_color: "#080808",
-    theme_color: "#5EEAD4",
+    background_color: "#0c0a16",
+    theme_color: "#7c5cff",
     orientation: "portrait",
     icons: [
       { src: "/icon?size=192", sizes: "192x192", type: "image/png", purpose: "maskable" },
       { src: "/icon?size=512", sizes: "512x512", type: "image/png", purpose: "any" },
     ],
-    categories: ["lifestyle", "social"],
-    share_target: {
-      action: "/dashboard/new",
-      method: "GET",
-      params: {
-        title: "title",
-        text: "text",
-        url: "url",
-      },
-    },
+    categories: ["lifestyle", "health", "games"],
     shortcuts: [
       {
-        name: "New fix",
-        short_name: "New fix",
-        description: "Log a new hyperfixation",
-        url: "/dashboard/new",
+        name: "Roll a dopamine hit",
+        short_name: "Play",
+        description: "Get a dopamine hit right now",
+        url: "/dashboard",
       },
       {
-        name: "Dashboard",
-        short_name: "Dashboard",
-        url: "/dashboard",
+        name: "Leaderboard",
+        short_name: "Ranks",
+        url: "/leaderboard",
       },
     ],
   };

@@ -1,8 +1,5 @@
-<svg viewBox="0 0 280 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="hyperfix">
-  <rect width="64" height="64" rx="14" fill="#0A0A0A"/>
-  <path d="M14 12 L44 12 L50 26 L20 26 Z" fill="#A3E635"/>
-  <path d="M20 30 L50 30 L44 52 L14 52 Z" fill="#A3E635"/>
-  <path d="M20 26 L50 26 L50 30 L20 30 Z" fill="#7CB205"/>
-  <text x="78" y="44" font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" letter-spacing="-2.5" fill="#F4F4F4">hyper</text>
-  <text x="198" y="44" font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" font-style="italic" letter-spacing="-2.5" fill="#A3E635">fix</text>
+<svg viewBox="0 0 300 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="hyperfix">
+  <rect width="64" height="64" rx="18" fill="#7c5cff"/>
+  <path d="M32 8 C 34.5 26.1, 43 34.6, 61 37 C 43 39.4, 34.5 47.9, 32 66 C 29.5 47.9, 21 39.4, 3 37 C 21 34.6, 29.5 26.1, 32 8 Z" transform="translate(0,-5)" fill="#ffffff"/>
+  <text x="84" y="44" font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="500" letter-spacing="-1.5" fill="#1b1a17">hyperfix</text>
 </svg>

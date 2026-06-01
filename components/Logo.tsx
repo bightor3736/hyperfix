@@ -1,23 +1,27 @@
 /**
- * Hyperfix brand — editorial mark
+ * Hyperfix brand — the dopamine game
  *
- * LogoMark     — a six-pointed asterisk spark in var(--accent). No tile.
- *                Reads from 16px favicon up to hero sizes.
- * LogoWordmark — "hyperfix" in Fraunces medium (matching the landing Wordmark).
- * LogoLockup   — mark + wordmark, same visual language as the landing.
+ * LogoMark     — a bold four-point "spark" (the dopamine hit). Energy purple
+ *                by default, single colour, reads from 16px favicon to hero.
+ * LogoWordmark — "hyperfix" in Fraunces medium.
+ * LogoLockup   — mark + wordmark.
+ * LogoTile     — the spark on a rounded app-icon tile (for icons / avatars).
  */
+
+// The spark: one clean four-point sparkle, vertical axis slightly longer
+// so it reads as a burst rather than a generic AI sparkle.
+const SPARK_PATH =
+  "M14 1 C 15.1 9.2, 18.8 12.9, 27 14 C 18.8 15.1, 15.1 18.8, 14 27 C 12.9 18.8, 9.2 15.1, 1 14 C 9.2 12.9, 12.9 9.2, 14 1 Z";
 
 export function LogoMark({
   size = 28,
   className = "",
-  color = "var(--accent)",
+  color = "var(--energy)",
 }: {
   size?: number;
   className?: string;
   color?: string;
 }) {
-  // Six-pointed asterisk: three lines crossing at (14,14) with radius 10.
-  // Spokes at 90°, 30°, and 150° from the positive x-axis.
   return (
     <svg
       width={size}
@@ -28,13 +32,32 @@ export function LogoMark({
       className={className}
       aria-hidden="true"
     >
-      {/* vertical */}
-      <line x1="14" y1="4"    x2="14" y2="24"   stroke={color} strokeWidth="2" strokeLinecap="round" />
-      {/* upper-right → lower-left */}
-      <line x1="22.66" y1="9"  x2="5.34" y2="19"  stroke={color} strokeWidth="2" strokeLinecap="round" />
-      {/* upper-left → lower-right */}
-      <line x1="5.34"  y1="9"  x2="22.66" y2="19" stroke={color} strokeWidth="2" strokeLinecap="round" />
+      <path d={SPARK_PATH} fill={color} />
     </svg>
+  );
+}
+
+/** The spark on a rounded tile — app icon, avatars, favicons. */
+export function LogoTile({
+  size = 40,
+  className = "",
+  tile = "var(--energy)",
+  mark = "#ffffff",
+}: {
+  size?: number;
+  className?: string;
+  tile?: string;
+  mark?: string;
+}) {
+  const radius = Math.round(size * 0.28);
+  return (
+    <span
+      className={`inline-flex items-center justify-center ${className}`}
+      style={{ width: size, height: size, background: tile, borderRadius: radius }}
+      aria-hidden="true"
+    >
+      <LogoMark size={Math.round(size * 0.62)} color={mark} />
+    </span>
   );
 }
 
@@ -81,7 +104,7 @@ export function LogoLockup({
 export function SparkIcon({
   size = 20,
   className = "",
-  color = "var(--accent)",
+  color = "var(--energy)",
 }: {
   size?: number;
   className?: string;

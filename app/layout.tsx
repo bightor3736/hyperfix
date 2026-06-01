@@ -27,12 +27,12 @@ const mono = JetBrains_Mono({
 const SITE_URL = "https://hyperfix.app";
 const SITE_NAME = "Hyperfix";
 const TITLE =
-  "Hyperfix — ADHD productivity app for hyperfixations, focus, and self-tracking";
+  "Hyperfix — Your daily dopamine, on tap";
 const DESCRIPTION =
-  "The ADHD productivity companion. Track hyperfixations, dump your brain, log your mood and meds, set focus timers, and process RSD. Built by and for ADHD brains.";
+  "The anti-doomscroll game for ADHD brains. One tap hands you a real dopamine hit that isn't your phone. Earn XP, build a streak, level up — free to start.";
 
 export const viewport: Viewport = {
-  themeColor: "#f7f4ec",
+  themeColor: "#0c0a16",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -46,20 +46,16 @@ export const metadata: Metadata = {
   },
   description: DESCRIPTION,
   keywords: [
-    "ADHD app",
-    "ADHD productivity",
-    "hyperfixation tracker",
-    "ADHD focus timer",
-    "RSD journal",
-    "ADHD mood tracker",
-    "medication tracker ADHD",
-    "brain dump app",
-    "ADHD self-tracking",
-    "time blindness timer",
-    "dopamine tracking",
-    "ADHD tools",
-    "executive function app",
-    "ADHD diary",
+    "ADHD dopamine app",
+    "dopamine menu app",
+    "anti doomscroll app",
+    "ADHD game",
+    "ADHD focus app",
+    "ADHD productivity app",
+    "ADHD streak app",
+    "understimulation ADHD",
+    "neurodivergent productivity",
+    "dopamine on tap",
   ],
   authors: [{ name: "Hyperfix" }],
   creator: "Hyperfix",
@@ -78,7 +74,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Hyperfix — what are you obsessed with?",
+        alt: "Hyperfix — your daily dopamine, on tap",
       },
     ],
   },

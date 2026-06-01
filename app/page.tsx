@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Nav }       from "@/components/landing/Nav";
 import { Hero }      from "@/components/landing/Hero";
+import { SocialProof } from "@/components/landing/SocialProof";
 import { Journey }   from "@/components/landing/Journey";
 import { Features }  from "@/components/landing/Features";
 import { ProfileShowcase } from "@/components/landing/ProfileShowcase";
@@ -44,6 +45,7 @@ export default async function Page({
       <Nav />
       <main>
         <Hero />
+        <SocialProof />
         <Journey />
         <Features />
         <ProfileShowcase />
