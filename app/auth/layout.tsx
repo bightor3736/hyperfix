@@ -1,4 +1,34 @@
-import { LogoLockup } from "@/components/Logo";
+// Wordmark matching the landing / whenevr template logo: "hyperfix" in
+// Source Serif 4 italic with a small ® superscript.
+function Wordmark({ size = 26 }: { size?: number }) {
+  return (
+    <span
+      style={{
+        fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif",
+        fontStyle: "italic",
+        fontWeight: 600,
+        fontSize: size,
+        lineHeight: 1,
+        letterSpacing: "-0.08em",
+        color: "var(--ink)",
+        display: "inline-block",
+      }}
+    >
+      hyperfix
+      <span
+        style={{
+          fontSize: "0.42em",
+          verticalAlign: "super",
+          fontStyle: "normal",
+          letterSpacing: 0,
+          marginLeft: "0.06em",
+        }}
+      >
+        ®
+      </span>
+    </span>
+  );
+}
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -6,10 +36,21 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       className="min-h-screen flex items-stretch"
       style={
         {
-          background: "var(--bg)",
-          color: "var(--ink)",
-          // Match the landing page's green accent so sign-up / log-in feel
-          // continuous with the marketing site (scoped to auth only).
+          // Mirror the landing page palette + typography (scoped to auth) so
+          // sign-up / log-in feel like the marketing site.
+          background: "#f0f0f0",
+          color: "#0a0a0a",
+          fontFamily: "var(--font-landing-sans), Inter, system-ui, sans-serif",
+          letterSpacing: "-0.01em",
+          "--bg": "#f0f0f0",
+          "--bg-soft": "#eae9e7",
+          "--bg-elevated": "#ffffff",
+          "--ink": "#0a0a0a",
+          "--ink-muted": "#7c7c7c",
+          "--ink-faint": "#a4a4a4",
+          "--line": "rgba(0,0,0,0.10)",
+          "--line-strong": "rgba(0,0,0,0.18)",
+          // landing green accent
           "--accent": "#1dcc5d",
           "--accent-soft": "#e3f9ec",
           "--accent-ink": "#04130a",
@@ -37,14 +78,14 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         {/* Desktop header */}
         <div className="hidden lg:block relative z-10 px-10 pt-8">
           <a href="/" className="inline-block transition-transform hover:scale-[1.02]">
-            <LogoLockup size="sm" />
+            <Wordmark size={26} />
           </a>
         </div>
 
         {/* Mobile header */}
         <div className="lg:hidden relative z-10 flex items-center justify-center pt-10 pb-4">
           <a href="/" className="inline-block transition-transform hover:scale-[1.02]">
-            <LogoLockup size="sm" />
+            <Wordmark size={26} />
           </a>
         </div>
 
@@ -63,110 +104,71 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         </div>
       </div>
 
-      {/* RIGHT PANEL — editorial showcase, desktop only */}
+      {/* RIGHT PANEL — landing hero treatment (blob + headline), desktop only */}
       <div className="hidden lg:flex lg:w-[48%] xl:w-[46%] p-5">
         <div
           className="relative w-full rounded-3xl overflow-hidden flex flex-col justify-between anim-fadeUp"
-          style={{
-            background: "var(--bg-soft)",
-            border: "1px solid var(--line)",
-          }}
+          style={{ background: "#ffffff", border: "1px solid var(--line)" }}
         >
-          {/* Radial accent bloom top-left */}
-          <div
-            aria-hidden
-            className="absolute top-0 left-0 pointer-events-none"
+          {/* The landing's blue/purple hero blob */}
+          <img
+            src="/site/images/922LPrLT3JS7JXQbJxraBeoo8I_1.png"
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none select-none absolute"
             style={{
-              width: "70%",
-              height: "55%",
-              background:
-                "radial-gradient(ellipse 100% 100% at 0% 0%, var(--accent-soft) 0%, transparent 70%)",
-              opacity: 0.9,
+              top: "-8%",
+              right: "-22%",
+              width: "135%",
+              maxWidth: "none",
+              transform: "rotate(-12deg)",
             }}
           />
 
-          {/* Top content */}
+          {/* Top pill */}
           <div className="relative z-10 p-10">
             <span
               className="inline-flex items-center font-mono text-[10px] uppercase tracking-[0.14em] rounded-full px-3 py-1"
               style={{
-                background: "var(--bg)",
+                background: "rgba(255,255,255,0.75)",
                 color: "var(--ink)",
                 border: "1px solid var(--ink)",
+                backdropFilter: "blur(6px)",
               }}
             >
               the anti-doomscroll game
             </span>
-
-            {/* Mock player card preview */}
-            <div
-              className="mt-8 rounded-2xl p-6"
-              style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
-            >
-              {/* Card header */}
-              <div className="flex items-center justify-between mb-4">
-                <span
-                  className="inline-flex items-center font-mono text-[9px] uppercase tracking-widest rounded-full px-2.5 py-1"
-                  style={{ background: "var(--accent-soft)", color: "var(--ink)", border: "1px solid var(--line)" }}
-                >
-                  Level 4 · Hooked
-                </span>
-                <span className="font-mono text-[10px] text-ink-faint">14-day streak</span>
-              </div>
-
-              {/* XP number */}
-              <div className="flex items-baseline gap-2 mb-2">
-                <span className="font-display leading-none tracking-tight text-ink" style={{ fontSize: 52 }}>
-                  520
-                </span>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">XP</span>
-              </div>
-
-              {/* Title */}
-              <h3 className="font-display text-ink mb-4" style={{ fontSize: 18, letterSpacing: "-0.01em", lineHeight: 1.2 }}>
-                Today&apos;s dopamine: do 10 wall push-ups.
-              </h3>
-
-              {/* XP bar */}
-              <div className="space-y-1.5 mb-4">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">Next level</span>
-                  <span className="font-mono text-[11px] text-ink-muted">520 / 900</span>
-                </div>
-                <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
-                  <div className="h-full rounded-full" style={{ width: "62%", background: "linear-gradient(90deg, var(--accent), var(--xp))" }} />
-                </div>
-              </div>
-
-              {/* Stat chips */}
-              <div className="flex gap-2">
-                <span
-                  className="inline-flex items-center font-mono text-[10px] rounded-full px-2.5 py-1"
-                  style={{ background: "var(--accent-soft)", color: "var(--ink)", border: "1px solid var(--line)" }}
-                >
-                  63 dopamine hits
-                </span>
-                <span
-                  className="inline-flex items-center font-mono text-[10px] rounded-full px-2.5 py-1 text-ink-muted"
-                  style={{ background: "var(--bg-soft)", border: "1px solid var(--line)" }}
-                >
-                  4 badges
-                </span>
-              </div>
-            </div>
           </div>
 
-          {/* Bottom quote */}
+          {/* Bottom headline — landing hero */}
           <div className="relative z-10 px-10 pb-10">
             <p
-              className="font-display leading-[1.06]"
-              style={{ color: "var(--ink)", letterSpacing: "-0.02em", fontSize: "clamp(26px, 2.8vw, 38px)" }}
+              className="leading-[1.0]"
+              style={{
+                color: "var(--ink)",
+                fontFamily: "var(--font-landing-sans), Inter, sans-serif",
+                fontWeight: 600,
+                letterSpacing: "-0.05em",
+                fontSize: "clamp(30px, 3.4vw, 50px)",
+              }}
             >
-              Your daily dopamine.
+              Your daily{" "}
+              <span
+                style={{
+                  fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif",
+                  fontStyle: "italic",
+                }}
+              >
+                dopamine
+              </span>
+              ,
               <br />
-              On tap.
+              hyperfix on tap.
             </p>
-            <p className="mt-3 font-sans text-sm text-ink-muted max-w-xs">
+            <p
+              className="mt-4 text-[15px] text-ink-muted max-w-sm"
+              style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", letterSpacing: "-0.01em" }}
+            >
               One tap, a real hit that isn&apos;t your phone. Earn XP, build a streak, level up.
             </p>
           </div>

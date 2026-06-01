@@ -6,12 +6,29 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col gap-1">
       <h1
-        className="font-display text-[38px] leading-tight text-ink mb-2 anim-fadeUp"
-        style={{ letterSpacing: "-0.02em" }}
+        className="text-[40px] leading-[1.04] text-ink mb-2 anim-fadeUp"
+        style={{
+          fontFamily: "var(--font-landing-sans), Inter, sans-serif",
+          fontWeight: 600,
+          letterSpacing: "-0.045em",
+        }}
       >
-        Welcome back.
+        Welcome{" "}
+        <span
+          style={{
+            fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif",
+            fontStyle: "italic",
+            fontWeight: 600,
+          }}
+        >
+          back
+        </span>
+        .
       </h1>
-      <p className="text-[15px] text-ink-muted mb-6 anim-fadeUp delay-100">
+      <p
+        className="text-[16px] text-ink-muted mb-6 anim-fadeUp delay-100"
+        style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", letterSpacing: "-0.01em" }}
+      >
         Your streak&apos;s waiting. Pick up where you left off.
       </p>
 

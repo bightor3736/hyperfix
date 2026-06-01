@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Lexend, JetBrains_Mono } from "next/font/google";
+import { Fraunces, Lexend, JetBrains_Mono, Inter, Source_Serif_4 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Suspense } from "react";
 import { AffTracker } from "@/components/AffTracker";
@@ -25,6 +25,22 @@ const mono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-mono",
+});
+
+// Landing-page typefaces — used to keep the auth screens visually continuous
+// with the marketing site (Inter for headings/body, Source Serif 4 for the
+// italic accent words and the "F" mark).
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-landing-sans",
+});
+
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  display: "swap",
+  style: ["italic", "normal"],
+  variable: "--font-landing-serif",
 });
 
 const SITE_URL = "https://hyperfix.app";
@@ -138,7 +154,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${instrument.variable} ${mono.variable}`}
+      className={`${fraunces.variable} ${instrument.variable} ${mono.variable} ${inter.variable} ${sourceSerif.variable}`}
       suppressHydrationWarning
     >
       <head>
