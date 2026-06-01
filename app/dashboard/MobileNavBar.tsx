@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Inbox, Plus, Timer, User } from "lucide-react";
+import { LayoutDashboard, Trophy, MessageCircle, User } from "lucide-react";
 
 export function MobileNavBar({ username }: { username?: string | null }) {
   const pathname = usePathname();
@@ -19,15 +19,14 @@ export function MobileNavBar({ username }: { username?: string | null }) {
         paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
-      <MobileNavLink href="/dashboard" label="Home" pathname={pathname} exact>
+      <MobileNavLink href="/dashboard" label="Play" pathname={pathname} exact>
         <LayoutDashboard size={22} strokeWidth={1.5} />
       </MobileNavLink>
-      <MobileNavLink href="/dashboard/brain-dump" label="Dump" pathname={pathname}>
-        <Inbox size={22} strokeWidth={1.5} />
+      <MobileNavLink href="/leaderboard" label="Ranks" pathname={pathname}>
+        <Trophy size={22} strokeWidth={1.5} />
       </MobileNavLink>
-      <MobileNavFab href="/dashboard/new" pathname={pathname} />
-      <MobileNavLink href="/dashboard/timer" label="Timer" pathname={pathname}>
-        <Timer size={22} strokeWidth={1.5} />
+      <MobileNavLink href="/dashboard/messages" label="Inbox" pathname={pathname}>
+        <MessageCircle size={22} strokeWidth={1.5} />
       </MobileNavLink>
       <MobileNavLink href={profileHref} label="Profile" pathname={pathname}>
         <User size={22} strokeWidth={1.5} />
@@ -65,30 +64,3 @@ function MobileNavLink({
   );
 }
 
-function MobileNavFab({
-  href,
-  pathname,
-}: {
-  href: string;
-  pathname: string;
-}) {
-  const isActive = pathname === href || pathname.startsWith(href + "/");
-  return (
-    <Link
-      href={href}
-      aria-label="New fix"
-      aria-current={isActive ? "page" : undefined}
-      className="flex items-center justify-center rounded-full transition-all active:scale-95"
-      style={{
-        width: 48,
-        height: 48,
-        transform: "translateY(-10px)",
-        background: "var(--invert-bg)",
-        color: "var(--invert-ink)",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
-      }}
-    >
-      <Plus size={22} strokeWidth={2} />
-    </Link>
-  );
-}

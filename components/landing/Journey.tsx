@@ -9,7 +9,6 @@ const STEPS = [
   {
     n: "01",
     icon: Dice5,
-    tint: "var(--energy)",
     title: "Roll the dice",
     body: "Bored or stuck? One tap deals you a real dopamine hit matched to your energy. Don't like it? Reroll. No thinking required.",
     preview: <RollPreview />,
@@ -17,7 +16,6 @@ const STEPS = [
   {
     n: "02",
     icon: Zap,
-    tint: "var(--xp)",
     title: "Collect XP",
     body: "Every hit pays out XP — and roughly 1 in 8 hits a jackpot for 3×. Watch the bar fill and level up through 7 tiers.",
     preview: <XpPreview />,
@@ -25,7 +23,6 @@ const STEPS = [
   {
     n: "03",
     icon: Trophy,
-    tint: "var(--flame)",
     title: "Climb the leaderboard",
     body: "Stack up against others who get it. Weekly resets keep it fair — your rank is based on showing up, not being perfect.",
     preview: <LeaderboardPreview />,
@@ -33,7 +30,6 @@ const STEPS = [
   {
     n: "04",
     icon: Flame,
-    tint: "var(--flame)",
     title: "Build your streak",
     body: "Every day you play, your streak grows. Miss a day? Freezes protect your run automatically — because ADHD isn't linear.",
     preview: <StreakPreview />,
@@ -61,7 +57,7 @@ export function Journey() {
           <div
             aria-hidden
             className="absolute left-[27px] top-4 bottom-4 w-px hidden sm:block"
-            style={{ background: "linear-gradient(var(--energy), var(--flame), var(--xp))", opacity: 0.4 }}
+            style={{ background: "var(--line-strong)" }}
           />
 
           <div className="flex flex-col gap-12 sm:gap-16">
@@ -73,8 +69,8 @@ export function Journey() {
                     {/* node */}
                     <div className="relative z-10 flex sm:justify-center">
                       <span
-                        className="inline-flex h-14 w-14 items-center justify-center rounded-2xl anim-pulseGlow"
-                        style={{ background: "var(--bg-elevated)", border: `1px solid var(--line)`, color: s.tint }}
+                        className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
+                        style={{ background: "var(--bg-elevated)", border: `1px solid var(--line)`, color: "var(--energy)" }}
                       >
                         <Icon size={24} strokeWidth={2} />
                       </span>
@@ -82,7 +78,7 @@ export function Journey() {
 
                     {/* copy */}
                     <div>
-                      <p className="font-mono text-[12px] tracking-widest mb-2" style={{ color: s.tint }}>
+                      <p className="font-mono text-[12px] tracking-widest mb-2 text-ink-faint">
                         {s.n}
                       </p>
                       <h3 className="font-display text-ink leading-tight" style={{ fontSize: "clamp(24px,3.2vw,32px)" }}>

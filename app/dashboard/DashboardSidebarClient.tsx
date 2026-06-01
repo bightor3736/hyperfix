@@ -10,21 +10,8 @@ import { ThemeToggle } from "@/components/landing/ThemeToggle";
 import { StreakBadge } from "@/components/ui/streak-badge";
 import {
   LayoutDashboard,
-  Compass,
-  Search,
-  BookMarked,
-  FolderOpen,
-  BarChart3,
-  Inbox,
-  Timer,
-  Activity,
-  BookOpen,
-  Pill,
   MessageCircle,
-  Users,
-  Gift,
   Settings,
-  Plus,
   LogOut,
   User,
   Zap,
@@ -111,18 +98,8 @@ export function DashboardSidebarClient({
       items: [
         {
           href: "/dashboard",
-          label: "Dashboard",
+          label: "Play",
           icon: <LayoutDashboard size={16} strokeWidth={1.5} />,
-        },
-        {
-          href: "/explore",
-          label: "Explore",
-          icon: <Compass size={16} strokeWidth={1.5} />,
-        },
-        {
-          href: "/search",
-          label: "Search",
-          icon: <Search size={16} strokeWidth={1.5} />,
         },
         {
           href: "/dashboard/points",
@@ -137,56 +114,6 @@ export function DashboardSidebarClient({
       ],
     },
     {
-      label: "Projects",
-      items: [
-        {
-          href: "/dashboard/graveyard",
-          label: "Graveyard",
-          icon: <BookMarked size={16} strokeWidth={1.5} />,
-        },
-        {
-          href: "/dashboard/lists",
-          label: "Lists",
-          icon: <FolderOpen size={16} strokeWidth={1.5} />,
-        },
-        {
-          href: "/dashboard/analytics",
-          label: "Analytics",
-          icon: <BarChart3 size={16} strokeWidth={1.5} />,
-        },
-      ],
-    },
-    {
-      label: "ADHD Toolkit",
-      items: [
-        {
-          href: "/dashboard/brain-dump",
-          label: "Brain Dump",
-          icon: <Inbox size={16} strokeWidth={1.5} />,
-        },
-        {
-          href: "/dashboard/timer",
-          label: "Timer",
-          icon: <Timer size={16} strokeWidth={1.5} />,
-        },
-        {
-          href: "/dashboard/mood",
-          label: "Mood Log",
-          icon: <Activity size={16} strokeWidth={1.5} />,
-        },
-        {
-          href: "/dashboard/rsd",
-          label: "RSD Journal",
-          icon: <BookOpen size={16} strokeWidth={1.5} />,
-        },
-        {
-          href: "/dashboard/meds",
-          label: "Medications",
-          icon: <Pill size={16} strokeWidth={1.5} />,
-        },
-      ],
-    },
-    {
       label: "Community",
       items: [
         {
@@ -195,21 +122,11 @@ export function DashboardSidebarClient({
           icon: <MessageCircle size={16} strokeWidth={1.5} />,
           badge: unreadMessages,
         },
-        {
-          href: "/room",
-          label: "Focus Rooms",
-          icon: <Users size={16} strokeWidth={1.5} />,
-        },
       ],
     },
     {
       label: "More",
       items: [
-        {
-          href: `/wrapped/${new Date().getFullYear()}`,
-          label: `Wrapped '${String(new Date().getFullYear()).slice(2)}`,
-          icon: <Gift size={16} strokeWidth={1.5} />,
-        },
         {
           href: "/dashboard/settings",
           label: "Settings",
@@ -221,9 +138,6 @@ export function DashboardSidebarClient({
 
   function isActive(href: string): boolean {
     if (href === "/dashboard") return pathname === "/dashboard";
-    if (href === "/explore") return pathname === "/explore" || pathname.startsWith("/explore/");
-    if (href === "/search") return pathname === "/search";
-    if (href === "/room") return pathname === "/room" || pathname.startsWith("/room/");
     return pathname.startsWith(href);
   }
 
@@ -242,19 +156,8 @@ export function DashboardSidebarClient({
         </Link>
       </div>
 
-      {/* New fix CTA */}
-      <div className="px-3 pb-3 shrink-0">
-        <Link
-          href="/dashboard/new"
-          className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full font-sans text-[13px] font-medium transition-all hover:opacity-90 active:scale-[0.97] bg-invert-bg text-invert-ink"
-        >
-          <Plus size={14} strokeWidth={2} />
-          New project
-        </Link>
-      </div>
-
       {/* Divider */}
-      <div className="mx-4 mb-2 shrink-0" style={{ height: 1, background: "var(--line)" }} />
+      <div className="mx-4 mt-1 mb-2 shrink-0" style={{ height: 1, background: "var(--line)" }} />
 
       {/* Nav — scrollable */}
       <nav className="flex-1 px-3 flex flex-col overflow-y-auto min-h-0 pb-2">
@@ -399,11 +302,11 @@ export function DashboardSidebarClient({
               <span
                 className="font-mono text-[10px] uppercase tracking-widest text-accent"
               >
-                Hyperfix Pro
+                Power-Up
               </span>
             </div>
             <p className="font-sans text-[12px] mb-2 leading-snug text-ink-muted">
-              Unlimited fixes, custom theme, premium card templates.
+              More freezes, boosted jackpot odds, XP multipliers.
             </p>
             <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-widest text-accent group-hover:gap-1.5 transition-all">
               See plans →

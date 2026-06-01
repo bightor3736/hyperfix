@@ -581,12 +581,9 @@ details > summary::-webkit-details-marker {
   color: var(--ink);
 }
 
-/* Gradient game headline text */
+/* Game headline accent — single clean colour, no rainbow */
 .text-game-gradient {
-  background: linear-gradient(100deg, var(--energy), var(--flame) 60%, var(--xp));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--energy);
 }
 
 /* Scroll-reveal: fades/rises in when .is-in is added */

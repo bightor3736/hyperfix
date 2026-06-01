@@ -62,7 +62,7 @@ export function ProfileShowcase() {
               <div className="flex items-center gap-4">
                 <div
                   className="flex h-16 w-16 items-center justify-center rounded-2xl font-display text-[26px] text-white"
-                  style={{ background: "linear-gradient(135deg, var(--energy), var(--flame))" }}
+                  style={{ background: "var(--energy)" }}
                 >
                   M
                 </div>
