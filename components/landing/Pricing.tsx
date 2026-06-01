@@ -18,10 +18,10 @@ const tiers = [
     summary: "What's included:",
     features: [
       "Unlimited dopamine rolls",
+      "Hyperfixation log + proof of action",
       "Daily quests, XP & 7 levels",
       "1 streak freeze a month",
-      "Public player card + leaderboard",
-      "Standard share cards",
+      "Standard stats card",
       "Jackpot rewards (base odds)",
     ],
   },
@@ -52,8 +52,8 @@ const comparison: { label: string; free: string | boolean; pro: string | boolean
   { label: "Streak freezes / month", free: "1", pro: "5" },
   { label: "Jackpot odds", free: "Base", pro: "Boosted" },
   { label: "XP multipliers & boosts", free: false, pro: true },
-  { label: "Leaderboard + player card", free: true, pro: true },
-  { label: "Share cards", free: "Standard", pro: "Premium" },
+  { label: "Hyperfixation log + proof", free: true, pro: true },
+  { label: "Stats cards", free: "Standard", pro: "Premium" },
   { label: "Full stats & insights", free: false, pro: true },
   { label: "Custom profile accent", free: false, pro: true },
 ];

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Nav }       from "@/components/landing/Nav";
 import { Hero }      from "@/components/landing/Hero";
 import { SocialProof } from "@/components/landing/SocialProof";
-import { Journey }   from "@/components/landing/Journey";
+import { Modules }   from "@/components/landing/Modules";
 import { Features }  from "@/components/landing/Features";
 import { ProfileShowcase } from "@/components/landing/ProfileShowcase";
 import { Testimonials } from "@/components/landing/Testimonials";
@@ -51,7 +51,7 @@ export default async function Page({
       <main>
         <Hero />
         <SocialProof />
-        <Journey />
+        <Modules />
         <Features />
         <ProfileShowcase />
         <Testimonials />

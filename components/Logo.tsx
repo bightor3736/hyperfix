@@ -1,18 +1,16 @@
 /**
- * Hyperfix brand — the dopamine game
+ * Hyperfix brand — warm, friendly, a little obsessive
  *
- * LogoMark     — a bold four-point "spark" (the dopamine hit). Energy purple
- *                by default, single colour, reads from 16px favicon to hero.
+ * LogoMark     — a soft "bloom" (a rounded quatrefoil). Reads as warmth and
+ *                energy rather than a generic sparkle. Purple by default,
+ *                single colour, legible from 16px favicon to hero.
  * LogoWordmark — "hyperfix" in Fraunces medium.
  * LogoLockup   — mark + wordmark.
- * LogoTile     — the spark on a rounded app-icon tile (for icons / avatars).
+ * LogoTile     — the bloom on a rounded app-icon tile (for icons / avatars).
  */
 
-// The spark: one clean four-point sparkle, vertical axis slightly longer
-// so it reads as a burst rather than a generic AI sparkle.
-const SPARK_PATH =
-  "M14 1 C 15.1 9.2, 18.8 12.9, 27 14 C 18.8 15.1, 15.1 18.8, 14 27 C 12.9 18.8, 9.2 15.1, 1 14 C 9.2 12.9, 12.9 9.2, 14 1 Z";
-
+// The bloom: four overlapping rounded lobes around a center — a friendly,
+// organic burst. Built from circles so it stays crisp at any size.
 export function LogoMark({
   size = 28,
   className = "",
@@ -32,7 +30,13 @@ export function LogoMark({
       className={className}
       aria-hidden="true"
     >
-      <path d={SPARK_PATH} fill={color} />
+      <g fill={color}>
+        <circle cx="14" cy="7.4" r="6.6" />
+        <circle cx="14" cy="20.6" r="6.6" />
+        <circle cx="7.4" cy="14" r="6.6" />
+        <circle cx="20.6" cy="14" r="6.6" />
+        <circle cx="14" cy="14" r="6.6" />
+      </g>
     </svg>
   );
 }

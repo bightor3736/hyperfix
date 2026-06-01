@@ -4,10 +4,10 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Hyperfix",
     short_name: "Hyperfix",
-    description: "Your daily dopamine, on tap. The anti-doomscroll game for ADHD brains.",
+    description: "ADHD accountability that actually works. Track hyperfixations, earn real XP, beat the wall.",
     start_url: "/dashboard",
     display: "standalone",
-    background_color: "#0c0a16",
+    background_color: "#f8f7f3",
     theme_color: "#7c5cff",
     orientation: "portrait",
     icons: [

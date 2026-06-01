@@ -17,7 +17,7 @@ const columns = [
     links: [
       { label: "Sign up", href: "/auth/signup" },
       { label: "Log in", href: "/auth/login" },
-      { label: "Leaderboard", href: "/leaderboard" },
+      { label: "Hyperfixations", href: "/dashboard/fixations" },
     ],
   },
   {
@@ -29,17 +29,18 @@ const columns = [
   },
 ];
 
-// Footer keeps its own always-dark (pure black) palette regardless of theme.
+// Footer keeps its own warm-dark palette regardless of theme — a deep cocoa,
+// not a stark black, to stay on-brand with the warm canvas above it.
 const footerVars = {
-  "--ink": "#ffffff",
-  "--ink-muted": "#a3a3a3",
-  "--ink-faint": "#6b6b6b",
-  "--line": "#262626",
-  "--invert-bg": "#ffffff",
-  "--invert-ink": "#0a0a0a",
-  "--energy": "#ffffff",
-  "--accent": "#ffffff",
-  background: "#0a0a0a",
+  "--ink": "#faf8f3",
+  "--ink-muted": "#b8b2a6",
+  "--ink-faint": "#857f73",
+  "--line": "#352f28",
+  "--invert-bg": "#faf8f3",
+  "--invert-ink": "#1f1b16",
+  "--energy": "#a08cff",
+  "--accent": "#a08cff",
+  background: "#1f1b16",
 } as CSSProperties;
 
 export function Footer() {
@@ -50,7 +51,7 @@ export function Footer() {
           <div className="col-span-2 sm:col-span-3 md:col-span-2">
             <Wordmark />
             <p className="mt-4 max-w-[260px] text-[13px] leading-relaxed text-ink-muted">
-              Your daily dopamine, on tap. The anti-doomscroll game for ADHD brains.
+              ADHD accountability that actually works. Track your hyperfixations, earn real XP, beat the wall.
             </p>
             <div className="mt-6">
               <ThemeToggle />

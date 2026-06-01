@@ -27,12 +27,12 @@ const mono = JetBrains_Mono({
 const SITE_URL = "https://hyperfix.app";
 const SITE_NAME = "Hyperfix";
 const TITLE =
-  "Hyperfix — Your daily dopamine, on tap";
+  "Hyperfix — ADHD accountability that actually works";
 const DESCRIPTION =
-  "The anti-doomscroll game for ADHD brains. One tap hands you a real dopamine hit that isn't your phone. Earn XP, build a streak, level up — free to start.";
+  "Track your hyperfixations, earn XP for real actions, and beat the tasks your brain avoids. A warm, forgiving game built for ADHD — no leaderboards, just yours. Free to start.";
 
 export const viewport: Viewport = {
-  themeColor: "#0c0a16",
+  themeColor: "#f8f7f3",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",

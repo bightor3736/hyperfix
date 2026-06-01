@@ -2,23 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Landing page design tokens ─────────────────────────────── */
+/* ── Design tokens — warm, soft, friendly (Hyperfix × Tiimo) ──────────
+   A warm cream canvas, near-black warm ink, and a branded purple accent,
+   plus a set of pastel "module" colors used for color-coded sections.
+   Everything in the app reads these tokens, so the whole product shares
+   one palette. */
 :root {
   --font-display: var(--font-fraunces);
-  --bg:           #ffffff;
-  --bg-soft:      #f6f6f6;
-  --bg-elevated:  #ffffff;
-  --ink:          #0a0a0a;
-  --ink-muted:    #595959;
-  --ink-faint:    #9a9a9a;
-  --line:         #e6e6e6;
-  --line-strong:  #d4d4d4;
-  --accent:       #0a0a0a;
-  --accent-soft:  #f2f2f2;
+
+  --bg:           #f8f7f3;   /* warm cream canvas */
+  --bg-soft:      #f1efe8;   /* deeper cream for alternating sections */
+  --bg-elevated:  #fffefb;   /* cards — warm near-white */
+  --ink:          #181613;   /* warm near-black */
+  --ink-muted:    #57544d;   /* warm gray */
+  --ink-faint:    #99958c;
+  --line:         #e7e2d9;   /* warm hairline */
+  --line-strong:  #d8d2c6;
+  --accent:       #7c5cff;   /* our purple — a touch bolder than Tiimo's */
+  --accent-soft:  #ece6ff;   /* light purple wash */
   --accent-ink:   #ffffff;
-  --invert-bg:    #0a0a0a;
-  --invert-ink:   #ffffff;
+  --invert-bg:    #181613;
+  --invert-ink:   #faf9f5;
   color-scheme: light;
+
   /* shadcn compatibility aliases */
   --background:        var(--bg);
   --card:              var(--bg-elevated);
@@ -28,70 +34,59 @@
   --primary:           var(--accent);
   --primary-foreground: var(--accent-ink);
   /* --muted holds HSL *channels* (shadcn convention) so hsl(var(--muted)) resolves */
-  --muted:             0 0% 96%;
+  --muted:             40 14% 94%;
   --muted-foreground:  var(--ink-muted);
   --foreground:        var(--ink);
   --border:            var(--line);
 
-  /* ---- Monochrome accent tokens (no extra colours) ---- */
-  --xp:          #0a0a0a;
-  --xp-soft:     #f2f2f2;
-  --flame:       #0a0a0a;
-  --flame-soft:  #f2f2f2;
-  --energy:      #0a0a0a;
-  --energy-soft: #f2f2f2;
-  --radius-lg:   18px;
-  --radius-xl:   24px;
+  /* ---- Branded accent tokens ---- */
+  --xp:          #7c5cff;    /* purple */
+  --xp-soft:     #ece6ff;
+  --flame:       #ff7e49;    /* warm orange — flames feel warm */
+  --flame-soft:  #ffe8dd;
+  --energy:      #7c5cff;    /* purple — the primary action color */
+  --energy-soft: #ece6ff;
+
+  /* ---- Pastel module colors (Tiimo-style color-coded blocks) ---- */
+  --pastel-purple: #e3dbff;
+  --pastel-pink:   #ffe0f0;
+  --pastel-blue:   #e2e8ff;
+  --pastel-green:  #dde9d8;
+  --pastel-orange: #ffe6d6;
+  --pastel-yellow: #fdf0cf;
+
+  --radius-lg:   20px;
+  --radius-xl:   28px;
 }
 
 :root[data-theme="dark"] {
-  --bg:           #0a0a0a;
-  --bg-soft:      #000000;
-  --bg-elevated:  #171717;
-  --ink:          #fafafa;
-  --ink-muted:    #a3a3a3;
-  --ink-faint:    #6b6b6b;
-  --line:         #262626;
-  --line-strong:  #383838;
-  --accent:       #fafafa;
-  --accent-soft:  #1f1f1f;
-  --accent-ink:   #0a0a0a;
-  --invert-bg:    #fafafa;
-  --invert-ink:   #0a0a0a;
-  --muted:        0 0% 12%;
-  --xp:          #fafafa;
-  --xp-soft:     #1f1f1f;
-  --flame:       #fafafa;
-  --flame-soft:  #1f1f1f;
-  --energy:      #fafafa;
-  --energy-soft: #1f1f1f;
+  --bg:           #1a1714;   /* warm dark, not pure black */
+  --bg-soft:      #14110f;
+  --bg-elevated:  #241f1b;
+  --ink:          #f6f3ec;
+  --ink-muted:    #b0aaa0;
+  --ink-faint:    #79736a;
+  --line:         #322c26;
+  --line-strong:  #443d35;
+  --accent:       #a08cff;   /* lighter purple on dark */
+  --accent-soft:  #2a2440;
+  --accent-ink:   #ffffff;
+  --invert-bg:    #f6f3ec;
+  --invert-ink:   #1a1714;
+  --muted:        30 10% 16%;
+  --xp:          #a08cff;
+  --xp-soft:     #2a2440;
+  --flame:       #ff9163;
+  --flame-soft:  #3a2a22;
+  --energy:      #a08cff;
+  --energy-soft: #2a2440;
+  --pastel-purple: #2e2748;
+  --pastel-pink:   #3a2433;
+  --pastel-blue:   #232a44;
+  --pastel-green:  #232e22;
+  --pastel-orange: #3a2a1f;
+  --pastel-yellow: #332d1c;
   color-scheme: dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --bg:           #0a0a0a;
-    --bg-soft:      #000000;
-    --bg-elevated:  #171717;
-    --ink:          #fafafa;
-    --ink-muted:    #a3a3a3;
-    --ink-faint:    #6b6b6b;
-    --line:         #262626;
-    --line-strong:  #383838;
-    --accent:       #fafafa;
-    --accent-soft:  #1f1f1f;
-    --accent-ink:   #0a0a0a;
-    --invert-bg:    #fafafa;
-    --invert-ink:   #0a0a0a;
-    --muted:        0 0% 12%;
-    --xp:          #fafafa;
-    --xp-soft:     #1f1f1f;
-    --flame:       #fafafa;
-    --flame-soft:  #1f1f1f;
-    --energy:      #fafafa;
-    --energy-soft: #1f1f1f;
-    color-scheme: dark;
-  }
 }
 
 /* font-display-medium utility for Wordmark */
@@ -102,23 +97,23 @@
 
 html,
 body {
-  background: #080808;
-  color: #F4F4F4;
+  background: var(--bg);
+  color: var(--ink);
   font-feature-settings: "ss01", "ss02";
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Subtle grain on pure black — very light, screen blend */
+/* Subtle warm grain — very light, multiply blend on the cream canvas */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.35;
-  mix-blend-mode: screen;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.03 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* Masonry column grid */
@@ -219,11 +214,11 @@ body::before {
 }
 .ticker-wrap::before {
   left: 0;
-  background: linear-gradient(to right, #080808 20%, transparent);
+  background: linear-gradient(to right, var(--bg) 20%, transparent);
 }
 .ticker-wrap::after {
   right: 0;
-  background: linear-gradient(to left, #080808 20%, transparent);
+  background: linear-gradient(to left, var(--bg) 20%, transparent);
 }
 
 /* FAQ: smooth reveal when details opens */
@@ -421,8 +416,8 @@ details > summary::-webkit-details-marker {
 }
 .motion-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(94,234,212,0.28);
-  box-shadow: 0 18px 50px rgba(0,0,0,0.55), 0 0 24px rgba(94,234,212,0.12);
+  border-color: var(--line-strong);
+  box-shadow: 0 10px 30px -12px rgba(24,22,19,0.18);
 }
 
 /* Animated underline on text links */
@@ -475,9 +470,17 @@ details > summary::-webkit-details-marker {
   to   { background-position: 200% 0; }
 }
 .skeleton-shimmer {
-  background: linear-gradient(90deg, #0f1011 25%, #152120 50%, #0f1011 75%);
+  background: linear-gradient(90deg, var(--bg-soft) 25%, var(--line) 50%, var(--bg-soft) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* Soft, warm card shadow — the Tiimo "floating panel" feel */
+.soft-card {
+  box-shadow: 0 1px 2px rgba(24,22,19,0.04), 0 10px 30px -12px rgba(24,22,19,0.16);
+}
+.soft-card-lg {
+  box-shadow: 0 2px 4px rgba(24,22,19,0.04), 0 24px 60px -18px rgba(24,22,19,0.22);
 }
 
 /* ── Game juice ───────────────────────────────────────────────────── */
@@ -508,8 +511,8 @@ details > summary::-webkit-details-marker {
 }
 
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(10,10,10,0.18); }
-  50%      { box-shadow: 0 0 0 10px rgba(10,10,10,0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124,92,255,0.30); }
+  50%      { box-shadow: 0 0 0 10px rgba(124,92,255,0); }
 }
 .anim-pulseGlow { animation: pulseGlow 2.2s ease-in-out infinite; }
 
@@ -534,53 +537,16 @@ details > summary::-webkit-details-marker {
   }
 }
 
-/* Landing wrapper — black with white. Scopes a dark monochrome palette to
-   the marketing page only (the app stays white-with-black). Components read
-   these tokens, so they all flip to dark with no per-component changes. */
+/* Landing wrapper — warm cream canvas. Inherits the warm root tokens; this
+   class is kept as a hook for landing-only background treatment. */
 .landing-game {
-  --bg:           #0a0a0a;
-  --bg-soft:      #000000;
-  --bg-elevated:  #171717;
-  --ink:          #fafafa;
-  --ink-muted:    #a3a3a3;
-  --ink-faint:    #6b6b6b;
-  --line:         #262626;
-  --line-strong:  #383838;
-  --accent:       #fafafa;
-  --accent-soft:  #1f1f1f;
-  --accent-ink:   #0a0a0a;
-  --invert-bg:    #fafafa;
-  --invert-ink:   #0a0a0a;
-  color-scheme: dark;
-
-  /* shadcn aliases for the pasted components */
-  --background:         var(--bg);
-  --card:               var(--bg-elevated);
-  --card-foreground:    var(--ink);
-  --popover:            var(--bg-elevated);
-  --popover-foreground: var(--ink);
-  --primary:            var(--accent);
-  --primary-foreground: var(--accent-ink);
-  --muted:              0 0% 12%;
-  --muted-foreground:   var(--ink-muted);
-  --foreground:         var(--ink);
-  --border:             var(--line);
-
-  /* monochrome accent tokens (dark) */
-  --xp:          #fafafa;
-  --xp-soft:     #1f1f1f;
-  --flame:       #fafafa;
-  --flame-soft:  #1f1f1f;
-  --energy:      #fafafa;
-  --energy-soft: #1f1f1f;
-
   background: var(--bg);
   color: var(--ink);
 }
 
-/* Headline accent — pure ink, no extra colour. */
+/* Headline accent — branded purple. */
 .text-game-gradient {
-  color: var(--ink);
+  color: var(--accent);
 }
 
 /* Scroll-reveal: fades/rises in when .is-in is added */
@@ -591,8 +557,8 @@ details > summary::-webkit-details-marker {
 }
 .reveal-up.is-in { opacity: 1; transform: translateY(0); }
 
-/* Clean emphasis ring for featured cards — monochrome, no glow */
-.anim-neon { box-shadow: 0 0 0 1px var(--ink); }
+/* Soft emphasis for featured cards — warm shadow, gentle lift */
+.anim-neon { box-shadow: 0 1px 2px rgba(24,22,19,0.04), 0 12px 32px -10px rgba(24,22,19,0.14); }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal-up { opacity: 1; transform: none; transition: none; }

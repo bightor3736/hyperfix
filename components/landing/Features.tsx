@@ -70,23 +70,29 @@ export function Features() {
         </Reveal>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map((f, i) => (
-            <Reveal key={f.title} delay={(i % 4) * 70}>
-              <article
-                className="h-full rounded-[var(--radius-lg)] p-5 transition-transform hover:-translate-y-0.5"
-                style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
-              >
-                <div
-                  className="inline-flex items-center justify-center w-10 h-10 rounded-xl mb-4"
-                  style={{ background: "var(--energy-soft)", color: "var(--energy)" }}
+          {features.map((f, i) => {
+            const pastels = [
+              "var(--pastel-purple)", "var(--pastel-green)", "var(--pastel-pink)", "var(--pastel-blue)",
+              "var(--pastel-orange)", "var(--pastel-yellow)", "var(--pastel-blue)", "var(--pastel-pink)", "var(--pastel-green)",
+            ];
+            return (
+              <Reveal key={f.title} delay={(i % 4) * 70}>
+                <article
+                  className="motion-card h-full rounded-[var(--radius-lg)] p-5"
+                  style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
                 >
-                  {f.icon}
-                </div>
-                <h3 className="font-display text-[19px] leading-[1.15] tracking-tight text-ink mb-2">{f.title}</h3>
-                <p className="text-[13px] leading-[1.65] text-ink-muted">{f.body}</p>
-              </article>
-            </Reveal>
-          ))}
+                  <div
+                    className="inline-flex items-center justify-center w-11 h-11 rounded-xl mb-4"
+                    style={{ background: pastels[i % pastels.length], color: "var(--ink)" }}
+                  >
+                    {f.icon}
+                  </div>
+                  <h3 className="font-display text-[19px] leading-[1.15] tracking-tight text-ink mb-2">{f.title}</h3>
+                  <p className="text-[13px] leading-[1.65] text-ink-muted">{f.body}</p>
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

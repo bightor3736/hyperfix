@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-const COLORS = ["#0a0a0a", "#404040", "#737373", "#a3a3a3", "#0a0a0a"];
+// Warm, celebratory brand palette — purple, pink, orange, blue, green.
+const COLORS = ["#7c5cff", "#ff7e49", "#ffb2da", "#9fb8ff", "#8fbf86"];
 
 /**
  * Lightweight confetti burst. Bump `fireKey` to re-trigger (e.g. a counter).
