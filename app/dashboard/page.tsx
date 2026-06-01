@@ -89,17 +89,19 @@ export default async function DashboardPage() {
   const greeting = getGreeting();
   const firstName = displayName.split(" ")[0];
 
-  return (
-    <div className="min-h-screen px-5 sm:px-8 pt-8 pb-20" style={{ background: "var(--bg)" }}>
-      <div className="max-w-3xl mx-auto space-y-6">
+  const allQuestsDone = questsDone === quests.length && quests.length > 0;
 
-        {/* Greeting row */}
-        <div className="flex items-center justify-between gap-4 anim-fadeUp">
+  return (
+    <div className="min-h-screen px-5 sm:px-8 pt-8 pb-24" style={{ background: "var(--bg)" }}>
+      <div className="max-w-2xl mx-auto">
+
+        {/* ── Top: greeting + progress snapshot ───────────────────────── */}
+        <div className="flex items-center justify-between gap-4 anim-fadeUp mb-5">
           <div className="min-w-0">
-            <p className="font-mono text-[11px] uppercase tracking-widest mb-0.5" style={{ color: "var(--energy)" }}>
+            <p className="font-mono text-[11px] uppercase tracking-widest mb-0.5" style={{ color: "var(--accent)" }}>
               {greeting}
             </p>
-            <h1 className="font-display text-ink leading-none tracking-tight truncate" style={{ fontSize: "clamp(26px,4.5vw,42px)" }}>
+            <h1 className="font-display text-ink leading-none tracking-tight truncate" style={{ fontSize: "clamp(26px,4.5vw,40px)" }}>
               {firstName}.
             </h1>
           </div>
@@ -114,66 +116,80 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        {/* Dopamine Menu — the hero, the core daily loop */}
+        {/* slim XP snapshot */}
         {user && (
-          <section className="anim-fadeUp" style={{ animationDelay: "40ms" }}>
+          <div className="anim-fadeUp mb-9" style={{ animationDelay: "30ms" }}>
+            <XpHud totalPoints={totalPoints} />
+          </div>
+        )}
+
+        {/* ── THE ONE THING — single primary action ───────────────────── */}
+        {user && (
+          <section className="anim-fadeUp" style={{ animationDelay: "60ms" }}>
+            <p className="font-mono text-[11px] uppercase tracking-widest text-ink-faint mb-3">
+              Right now
+            </p>
             <DopamineMenu todayCount={dopamineToday} name={firstName} />
           </section>
         )}
 
-        {/* Beat the Wall — task initiation */}
+        {/* ── Secondary — calm, optional, clearly de-emphasized ───────── */}
         {user && (
-          <section className="anim-fadeUp" style={{ animationDelay: "55ms" }}>
-            <BeatTheWall wallsTotal={wallsTotal} name={firstName} />
-          </section>
-        )}
-
-        {/* XP HUD */}
-        {user && (
-          <section className="anim-fadeUp" style={{ animationDelay: "70ms" }}>
-            <XpHud totalPoints={totalPoints} />
-            <div className="flex items-center justify-between gap-3 mt-3 flex-wrap px-1">
-              <div className="flex items-center gap-3 flex-wrap">
-                {username && (
-                  <Link href={`/u/${username}`} className="font-mono text-[11px] text-ink-muted hover:text-accent transition-colors">
-                    @{username} · profile →
-                  </Link>
-                )}
-                <Link href="/dashboard/fixations" className="inline-flex items-center gap-1 font-mono text-[11px] text-ink-faint hover:text-accent transition-colors">
-                  <Flame size={10} strokeWidth={2} />
-                  fixations →
-                </Link>
-              </div>
-              <ShareStatsButton
-                name={firstName}
-                streak={currentStreak}
-                level={levelName}
-                xp={totalPoints}
-                hits={dopamineTotal}
-              />
-            </div>
-          </section>
-        )}
-
-        {/* Daily Quests */}
-        {user && (
-          <section className="anim-fadeUp" style={{ animationDelay: "100ms" }}>
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="font-mono text-[11px] uppercase tracking-widest text-ink-faint">
-                Today&apos;s Quests
-              </h2>
-              <span
-                className="font-mono text-[10px] px-2 py-0.5 rounded-full"
-                style={{
-                  background: questsDone === quests.length && quests.length > 0 ? "var(--accent-soft)" : "var(--line)",
-                  color: questsDone === quests.length && quests.length > 0 ? "var(--accent)" : "var(--ink-muted)",
-                }}
-              >
-                {questsDone}/{quests.length} done
+          <div className="mt-14 anim-fadeUp" style={{ animationDelay: "120ms" }}>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="h-px flex-1" style={{ background: "var(--line)" }} />
+              <span className="font-mono text-[10px] uppercase tracking-widest text-ink-faint shrink-0">
+                When you&apos;ve got more in you
               </span>
+              <span className="h-px flex-1" style={{ background: "var(--line)" }} />
             </div>
-            <DailyQuestsClient initialQuests={quests} />
-          </section>
+
+            <div className="space-y-5">
+              {/* Beat the Wall — task initiation */}
+              <BeatTheWall wallsTotal={wallsTotal} name={firstName} />
+
+              {/* Daily Quests */}
+              <section>
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="font-mono text-[11px] uppercase tracking-widest text-ink-faint">
+                    Today&apos;s Quests
+                  </h2>
+                  <span
+                    className="font-mono text-[10px] px-2 py-0.5 rounded-full"
+                    style={{
+                      background: allQuestsDone ? "var(--reward-mint-soft)" : "var(--line)",
+                      color: allQuestsDone ? "var(--reward-mint)" : "var(--ink-muted)",
+                    }}
+                  >
+                    {questsDone}/{quests.length} done
+                  </span>
+                </div>
+                <DailyQuestsClient initialQuests={quests} />
+              </section>
+
+              {/* quiet links + share */}
+              <div className="flex items-center justify-between gap-3 flex-wrap pt-1">
+                <div className="flex items-center gap-4 flex-wrap">
+                  <Link href="/dashboard/fixations" className="inline-flex items-center gap-1.5 font-mono text-[11px] text-ink-muted hover:text-accent transition-colors">
+                    <Flame size={11} strokeWidth={2} />
+                    Hyperfixations →
+                  </Link>
+                  {username && (
+                    <Link href={`/u/${username}`} className="font-mono text-[11px] text-ink-faint hover:text-accent transition-colors">
+                      @{username} →
+                    </Link>
+                  )}
+                </div>
+                <ShareStatsButton
+                  name={firstName}
+                  streak={currentStreak}
+                  level={levelName}
+                  xp={totalPoints}
+                  hits={dopamineTotal}
+                />
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>

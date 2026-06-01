@@ -87,7 +87,7 @@ export function ProfileShowcase() {
                   <span style={{ color: "var(--xp)" }}>next: Unwell</span>
                 </div>
                 <div className="h-3 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
-                  <div className="h-full rounded-full anim-shimmer" style={{ width: "62%", background: "linear-gradient(90deg, var(--ink-faint), var(--ink))" }} />
+                  <div className="h-full rounded-full anim-shimmer" style={{ width: "62%", background: "linear-gradient(90deg, var(--accent), var(--xp))" }} />
                 </div>
               </div>
 

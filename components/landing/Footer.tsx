@@ -28,18 +28,18 @@ const columns = [
   },
 ];
 
-// Footer keeps its own deep palette regardless of theme — Linear's near-black
-// with a faint top hairline, so it grounds the page.
+// Footer keeps its own calm-slate palette regardless of theme — a soft deep
+// slate (not harsh black) that grounds the page without high-stress contrast.
 const footerVars = {
-  "--ink": "#f7f8f8",
-  "--ink-muted": "#9b9faa",
-  "--ink-faint": "#63666e",
-  "--line": "#1c1d22",
-  "--invert-bg": "#f7f8f8",
-  "--invert-ink": "#0c0c0f",
-  "--energy": "#9d86ff",
-  "--accent": "#9d86ff",
-  background: "#08080a",
+  "--ink": "#f3f5f9",
+  "--ink-muted": "#aab3c2",
+  "--ink-faint": "#6b7689",
+  "--line": "#2c3645",
+  "--invert-bg": "#f3f5f9",
+  "--invert-ink": "#1f2937",
+  "--energy": "#a896ff",
+  "--accent": "#a896ff",
+  background: "#1f2937",
   borderTop: "1px solid rgba(255,255,255,0.06)",
 } as CSSProperties;
 

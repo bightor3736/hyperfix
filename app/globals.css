@@ -2,33 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Design tokens — Linear × Tiimo ───────────────────────────────────
-   Linear's dark, precise, glassy structure with Tiimo's warmth: a warm-
-   tinted near-black canvas, indigo-purple accent, soft pastel *glows*
-   (not solid blocks), Fraunces serif headlines over an Inter UI. Dark is
-   the default brand look; a warm cream light variant lives on the toggle.
-   Everything reads these tokens, so the whole product shares one palette. */
+/* ── Design tokens — Calm Gamified Minimalism (ADHD-first) ────────────
+   A soft-cool light canvas (low visual stress, no harsh black/white),
+   indigo-purple primary, and bright "reward" accents (mint / amber /
+   coral) reserved for dopamine moments. Linear's structural polish and
+   Tiimo's warmth, tuned to the ADHD design guide. Light is the default;
+   a dark variant lives on the toggle. Everything reads these tokens. */
 :root {
   --font-display: var(--font-fraunces);
 
-  --bg:           #0c0c0f;   /* warm-tinted near-black (Linear, with warmth) */
-  --bg-soft:      #08080a;   /* deeper, for alternating sections */
-  --bg-elevated:  #141419;   /* cards — lifted, faintly warm */
-  --ink:          #f7f8f8;   /* Linear primary text */
-  --ink-muted:    #9b9faa;
-  --ink-faint:    #63666e;
-  --line:         #222329;   /* subtle hairline (Linear) */
-  --line-strong:  #2e3038;
-  --accent:       #7c5cff;   /* purple — bridges Linear #7170ff & #5e6ad2 */
-  --accent-soft:  #1a1730;   /* dark purple tint */
+  --bg:           #f6f8fb;   /* soft cool canvas */
+  --bg-soft:      #eef1f7;   /* slightly deeper, for alternating sections */
+  --bg-elevated:  #ffffff;   /* white surface */
+  --ink:          #1f2937;   /* cool dark gray — not harsh black */
+  --ink-muted:    #5b6472;
+  --ink-faint:    #98a1b1;
+  --line:         #e4e9f1;   /* soft cool hairline */
+  --line-strong:  #d2dae6;
+  --accent:       #7c5cff;   /* indigo-purple primary */
+  --accent-soft:  #ece8ff;   /* light purple wash */
   --accent-ink:   #ffffff;
-  --invert-bg:    #f7f8f8;
-  --invert-ink:   #0c0c0f;
-  color-scheme: dark;
+  --invert-bg:    #1f2937;
+  --invert-ink:   #ffffff;
+  color-scheme: light;
 
-  /* glass surfaces (Linear) */
-  --glass-bg:     rgba(255,255,255,0.045);
-  --glass-border: rgba(255,255,255,0.08);
+  /* glass surfaces */
+  --glass-bg:     rgba(31,41,55,0.035);
+  --glass-border: rgba(31,41,55,0.08);
 
   /* shadcn compatibility aliases */
   --background:        var(--bg);
@@ -39,67 +39,81 @@
   --primary:           var(--accent);
   --primary-foreground: var(--accent-ink);
   /* --muted holds HSL *channels* (shadcn convention) so hsl(var(--muted)) resolves */
-  --muted:             240 6% 12%;
+  --muted:             216 30% 96%;
   --muted-foreground:  var(--ink-muted);
   --foreground:        var(--ink);
   --border:            var(--line);
 
   /* ---- Branded accent tokens ---- */
   --xp:          #7c5cff;    /* purple */
-  --xp-soft:     #1a1730;
-  --flame:       #ff7e49;    /* warm orange (Tiimo) */
-  --flame-soft:  #2a1d15;
+  --xp-soft:     #ece8ff;
+  --flame:       #ff7a59;    /* coral — warm reward/streak */
+  --flame-soft:  #ffe8e1;
   --energy:      #7c5cff;    /* purple — the primary action color */
-  --energy-soft: #1a1730;
+  --energy-soft: #ece8ff;
 
-  /* ---- Pastel glow tints (muted for dark — used as soft section tints) ---- */
+  /* ---- Reward accents (dopamine moments only — used sparingly) ---- */
+  --reward-mint:  #34d399;
+  --reward-mint-soft: #d6f7ec;
+  --reward-amber: #ffc857;
+  --reward-amber-soft: #fff1cf;
+  --reward-coral: #ff7a59;
+  --reward-coral-soft: #ffe3da;
+
+  /* ---- Soft-vibrant pastel tints (color-coding, low stress) ---- */
+  --pastel-purple: #ece8ff;
+  --pastel-pink:   #ffe3f1;
+  --pastel-blue:   #e1ecff;
+  --pastel-green:  #d8f3e8;
+  --pastel-orange: #ffe8d6;
+  --pastel-yellow: #fff1cf;
+
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+}
+
+/* Explicit light — same as root (light is the default). */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* Dark variant — Linear-style, on the toggle. */
+:root[data-theme="dark"] {
+  --bg:           #0c0c0f;
+  --bg-soft:      #08080a;
+  --bg-elevated:  #141419;
+  --ink:          #f7f8f8;
+  --ink-muted:    #9b9faa;
+  --ink-faint:    #63666e;
+  --line:         #222329;
+  --line-strong:  #2e3038;
+  --accent:       #8b6fff;
+  --accent-soft:  #1a1730;
+  --accent-ink:   #ffffff;
+  --invert-bg:    #f7f8f8;
+  --invert-ink:   #0c0c0f;
+  --glass-bg:     rgba(255,255,255,0.045);
+  --glass-border: rgba(255,255,255,0.08);
+  --muted:        240 6% 12%;
+  --xp:          #8b6fff;
+  --xp-soft:     #1a1730;
+  --flame:       #ff7a59;
+  --flame-soft:  #2a1d15;
+  --energy:      #8b6fff;
+  --energy-soft: #1a1730;
+  --reward-mint:  #34d399;
+  --reward-mint-soft: #14271f;
+  --reward-amber: #ffc857;
+  --reward-amber-soft: #2a2414;
+  --reward-coral: #ff7a59;
+  --reward-coral-soft: #2a1d15;
   --pastel-purple: #211d3a;
   --pastel-pink:   #2e1d2b;
   --pastel-blue:   #1a2140;
   --pastel-green:  #18271c;
   --pastel-orange: #2c1f15;
   --pastel-yellow: #2a2414;
-
-  --radius-lg:   12px;
-  --radius-xl:   16px;
-}
-
-/* Explicit dark — same as root (dark is the default brand look). */
-:root[data-theme="dark"] {
   color-scheme: dark;
-}
-
-/* Warm cream light variant — Tiimo's daytime mode, on the toggle. */
-:root[data-theme="light"] {
-  --bg:           #f8f7f3;
-  --bg-soft:      #f1efe8;
-  --bg-elevated:  #fffefb;
-  --ink:          #181613;
-  --ink-muted:    #57544d;
-  --ink-faint:    #99958c;
-  --line:         #e7e2d9;
-  --line-strong:  #d8d2c6;
-  --accent:       #7c5cff;
-  --accent-soft:  #ece6ff;
-  --accent-ink:   #ffffff;
-  --invert-bg:    #181613;
-  --invert-ink:   #faf9f5;
-  --glass-bg:     rgba(24,22,19,0.04);
-  --glass-border: rgba(24,22,19,0.08);
-  --muted:        40 14% 94%;
-  --xp:          #7c5cff;
-  --xp-soft:     #ece6ff;
-  --flame:       #ff7e49;
-  --flame-soft:  #ffe8dd;
-  --energy:      #7c5cff;
-  --energy-soft: #ece6ff;
-  --pastel-purple: #e3dbff;
-  --pastel-pink:   #ffe0f0;
-  --pastel-blue:   #e2e8ff;
-  --pastel-green:  #dde9d8;
-  --pastel-orange: #ffe6d6;
-  --pastel-yellow: #fdf0cf;
-  color-scheme: light;
 }
 
 /* font-display-medium utility for Wordmark */
@@ -117,21 +131,22 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Subtle grain — screen blend (light specks on the dark canvas) */
+/* Very subtle grain — multiply specks on the soft-cool canvas (calm, low stress) */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 1;
+  opacity: 0.25;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.025 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* Dark variant flips the grain to light screen specks */
+:root[data-theme="dark"] body::before {
   opacity: 0.35;
   mix-blend-mode: screen;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-/* Light variant flips the grain to dark multiply specks */
-:root[data-theme="light"] body::before {
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.03 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* Masonry column grid */
@@ -434,12 +449,12 @@ details > summary::-webkit-details-marker {
 }
 .motion-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(124,92,255,0.35);
-  box-shadow: 0 0 30px -10px rgba(124,92,255,0.22), 0 18px 40px -20px rgba(0,0,0,0.6);
-}
-:root[data-theme="light"] .motion-card:hover {
   border-color: var(--line-strong);
-  box-shadow: 0 10px 30px -12px rgba(24,22,19,0.18);
+  box-shadow: 0 12px 30px -14px rgba(31,41,55,0.20);
+}
+:root[data-theme="dark"] .motion-card:hover {
+  border-color: rgba(139,111,255,0.35);
+  box-shadow: 0 0 30px -10px rgba(139,111,255,0.22), 0 18px 40px -20px rgba(0,0,0,0.6);
 }
 
 /* Animated underline on text links */
@@ -497,18 +512,18 @@ details > summary::-webkit-details-marker {
   animation: shimmer 1.6s ease-in-out infinite;
 }
 
-/* Card depth — Linear's subtle inner highlight + soft drop on dark */
+/* Card depth — soft, calm shadow on the light canvas */
 .soft-card {
-  box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.04), 0 8px 24px -12px rgba(0,0,0,0.6);
+  box-shadow: 0 1px 2px rgba(31,41,55,0.04), 0 10px 30px -14px rgba(31,41,55,0.14);
 }
 .soft-card-lg {
+  box-shadow: 0 2px 4px rgba(31,41,55,0.04), 0 24px 60px -20px rgba(31,41,55,0.18);
+}
+:root[data-theme="dark"] .soft-card {
+  box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.04), 0 8px 24px -12px rgba(0,0,0,0.6);
+}
+:root[data-theme="dark"] .soft-card-lg {
   box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.05), 0 24px 60px -20px rgba(0,0,0,0.7);
-}
-:root[data-theme="light"] .soft-card {
-  box-shadow: 0 1px 2px rgba(24,22,19,0.04), 0 10px 30px -12px rgba(24,22,19,0.16);
-}
-:root[data-theme="light"] .soft-card-lg {
-  box-shadow: 0 2px 4px rgba(24,22,19,0.04), 0 24px 60px -18px rgba(24,22,19,0.22);
 }
 
 /* Glass surface — Linear's translucent blurred panels */
@@ -614,9 +629,12 @@ details > summary::-webkit-details-marker {
 }
 .reveal-up.is-in { opacity: 1; transform: translateY(0); }
 
-/* Featured-card emphasis — Linear-style purple ring + soft glow */
+/* Featured-card emphasis — soft purple ring + gentle glow */
 .anim-neon {
-  box-shadow: 0 0 0 1px rgba(124,92,255,0.35), 0 0 40px -8px rgba(124,92,255,0.30), 0 18px 50px -20px rgba(0,0,0,0.7);
+  box-shadow: 0 0 0 1px rgba(124,92,255,0.30), 0 0 36px -10px rgba(124,92,255,0.22), 0 14px 40px -22px rgba(31,41,55,0.22);
+}
+:root[data-theme="dark"] .anim-neon {
+  box-shadow: 0 0 0 1px rgba(139,111,255,0.35), 0 0 40px -8px rgba(139,111,255,0.30), 0 18px 50px -20px rgba(0,0,0,0.7);
 }
 
 @media (prefers-reduced-motion: reduce) {

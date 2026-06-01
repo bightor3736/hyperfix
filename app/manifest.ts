@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "ADHD accountability that actually works. Track hyperfixations, earn real XP, beat the wall.",
     start_url: "/dashboard",
     display: "standalone",
-    background_color: "#0c0c0f",
+    background_color: "#f6f8fb",
     theme_color: "#7c5cff",
     orientation: "portrait",
     icons: [

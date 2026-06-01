@@ -136,7 +136,7 @@ export function ProofModal({ activityLabel, minutes, xp, onSubmit, onCancel }: P
                 className="h-full rounded-full transition-all duration-1000"
                 style={{
                   width: `${pct}%`,
-                  background: "linear-gradient(90deg, var(--ink-faint), var(--ink))",
+                  background: "linear-gradient(90deg, var(--accent), var(--xp))",
                 }}
               />
             </div>

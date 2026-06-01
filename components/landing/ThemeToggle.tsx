@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 type Theme = "light" | "dark";
 
 function getInitial(): Theme {
-  if (typeof window === "undefined") return "dark";
+  if (typeof window === "undefined") return "light";
   const stored = window.localStorage.getItem("hyperfix-theme");
   if (stored === "light" || stored === "dark") return stored;
-  return "dark"; // dark is the default brand look (Linear × Tiimo)
+  return "light"; // soft-cool light is the default (ADHD-friendly, low stress)
 }
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

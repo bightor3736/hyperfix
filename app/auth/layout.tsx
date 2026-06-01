@@ -120,7 +120,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                   <span className="font-mono text-[11px] text-ink-muted">520 / 900</span>
                 </div>
                 <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
-                  <div className="h-full rounded-full" style={{ width: "62%", background: "linear-gradient(90deg, var(--ink-faint), var(--ink))" }} />
+                  <div className="h-full rounded-full" style={{ width: "62%", background: "linear-gradient(90deg, var(--accent), var(--xp))" }} />
                 </div>
               </div>
 

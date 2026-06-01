@@ -49,7 +49,7 @@ export function XpHud({ totalPoints }: { totalPoints: number }) {
           className="absolute inset-y-0 left-0 rounded-full"
           style={{
             width: `${pct}%`,
-            background: "linear-gradient(90deg, var(--ink-faint), var(--ink))",
+            background: "linear-gradient(90deg, var(--accent), var(--xp))",
             transformOrigin: "left",
             animation: "barFill 0.8s cubic-bezier(0.34,1.56,0.64,1) both",
           }}

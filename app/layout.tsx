@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import { Fraunces, Lexend, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Suspense } from "react";
 import { AffTracker } from "@/components/AffTracker";
@@ -12,9 +12,10 @@ const fraunces = Fraunces({
   axes: ["opsz", "SOFT"],
 });
 
-// Inter — Linear's signature UI typeface. Keeps the --font-instrument variable
-// name so the Tailwind `sans` mapping doesn't need to change.
-const instrument = Inter({
+// Lexend — engineered to reduce reading friction; the top pick for ADHD
+// legibility. Keeps the --font-instrument variable name so the Tailwind
+// `sans` mapping doesn't need to change.
+const instrument = Lexend({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-instrument",
@@ -34,7 +35,7 @@ const DESCRIPTION =
   "Track your hyperfixations, earn XP for real actions, and beat the tasks your brain avoids. A warm, forgiving game built for ADHD — no leaderboards, just yours. Free to start.";
 
 export const viewport: Viewport = {
-  themeColor: "#0c0c0f",
+  themeColor: "#f6f8fb",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
