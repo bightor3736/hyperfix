@@ -459,6 +459,8 @@
 
 <script>
 (function(){
+  var EASE='cubic-bezier(0.22,0.61,0.18,1)';
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   function tf(s){
     var p=[];
     if(s.x||s.y) p.push('translate('+(s.x||0)+'px,'+(s.y||0)+'px)');
@@ -470,8 +472,6 @@
     if(s.skewY) p.push('skewY('+s.skewY+'deg)');
     return p.length?p.join(' '):'none';
   }
-  var EASE='cubic-bezier(0.22,0.61,0.18,1)';
-  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   function animateTo(el,from,to,dur,del){
     if(reduce){el.style.opacity=to.opacity;el.style.transform=to.transform;if(to.filter!=null)el.style.filter=to.filter;return;}
     el.style.opacity=from.opacity;el.style.transform=from.transform;if(from.filter!=null)el.style.filter=from.filter;
@@ -483,8 +483,7 @@
     }catch(e){el.style.opacity=to.opacity;el.style.transform=to.transform;if(to.filter!=null)el.style.filter=to.filter;}
   }
   function run(){
-    var handled={};
-    // 1) Appear-id elements — use the real Framer config (opacity/translate/rotate/spring)
+    // 1) Appear-id elements via the real Framer config
     var cfgEl=document.getElementById('__framer__appearAnimationsContent');
     if(cfgEl){
       var cfg=null; try{cfg=JSON.parse(cfgEl.text||cfgEl.textContent);}catch(e){}
@@ -492,7 +491,6 @@
         var entry=cfg[id]; var v=entry&&(entry['default']||entry[Object.keys(entry)[0]]);
         if(!v||!v.initial||!v.animate) return;
         var el=document.querySelector('[data-framer-appear-id="'+id+'"]'); if(!el) return;
-        handled[id]=1;
         var tr=v.animate.transition||{};
         animateTo(el,
           {opacity:(v.initial.opacity!=null?v.initial.opacity:1),transform:tf(v.initial)},
@@ -500,19 +498,26 @@
           (tr.duration!=null?tr.duration:0.6),(tr.delay!=null?tr.delay:0));
       });
     }
-    // 2) Split-text spans & any other element pre-hidden at opacity:0.001 (no appear-id):
-    //    reveal with a soft staggered rise+unblur so headlines actually show.
-    var hidden=document.querySelectorAll('[style*="opacity:0.001"]');
-    var i=0;
-    Array.prototype.forEach.call(hidden,function(el){
-      if(el.getAttribute('data-framer-appear-id')) return;
-      var cur=el.style.transform||'none';
-      var hasBlur=/blur/.test(el.style.filter||'');
-      animateTo(el,
-        {opacity:0.001,transform:cur,filter:hasBlur?(el.style.filter):null},
-        {opacity:1,transform:'none',filter:hasBlur?'blur(0px)':null},
-        0.7, Math.min(i*0.03,0.9));
-      i++;
+    // 2) Reveal everything else Framer pre-hid inline (opacity~0 or visibility:hidden).
+    //    This covers the "Main" wrapper, nav links, split-text spans, carousel clones.
+    var nodes=document.querySelectorAll('[style]'); var i=0;
+    Array.prototype.forEach.call(nodes,function(el){
+      if(el.getAttribute('data-framer-appear-id')) return; // already animated above
+      var st=el.style;
+      var op=st.opacity, opn=(op===''?null:parseFloat(op));
+      var opHidden=(opn!==null&&opn<=0.02);
+      var visHidden=(st.visibility==='hidden');
+      if(!opHidden&&!visHidden) return;
+      if(visHidden) st.visibility='visible';
+      if(opHidden){
+        var curT=(st.transform&&st.transform!=='none')?st.transform:'none';
+        var hasBlur=/blur/.test(st.filter||'');
+        animateTo(el,
+          {opacity:0.001,transform:curT,filter:hasBlur?st.filter:null},
+          {opacity:1,transform:'none',filter:hasBlur?'blur(0px)':null},
+          0.6, Math.min(i*0.012,0.5));
+        i++;
+      }
     });
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',run); else run();
