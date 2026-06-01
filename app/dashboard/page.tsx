@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { DailyQuestsClient } from "@/components/DailyQuestsClient";
 import { DopamineMenu } from "@/components/game/DopamineMenu";
+import { BeatTheWall } from "@/components/game/BeatTheWall";
 import { XpHud } from "@/components/game/XpHud";
 import { StreakFlame } from "@/components/game/StreakFlame";
 import { ShareStatsButton } from "@/components/game/ShareStatsButton";
@@ -75,6 +76,15 @@ export default async function DashboardPage() {
     dopamineTotal = totalRes.count ?? 0;
   }
 
+  let wallsTotal = 0;
+  if (user) {
+    const { count } = await supabase
+      .from("walls_broken")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", user.id);
+    wallsTotal = count ?? 0;
+  }
+
   const levelName = levelForPoints(totalPoints).level.name;
   const greeting = getGreeting();
   const firstName = displayName.split(" ")[0];
@@ -108,6 +118,13 @@ export default async function DashboardPage() {
         {user && (
           <section className="anim-fadeUp" style={{ animationDelay: "40ms" }}>
             <DopamineMenu todayCount={dopamineToday} />
+          </section>
+        )}
+
+        {/* Beat the Wall — task initiation */}
+        {user && (
+          <section className="anim-fadeUp" style={{ animationDelay: "55ms" }}>
+            <BeatTheWall wallsTotal={wallsTotal} />
           </section>
         )}
 

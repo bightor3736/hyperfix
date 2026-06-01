@@ -605,3 +605,14 @@ details > summary::-webkit-details-marker {
   .reveal-up { opacity: 1; transform: none; transition: none; }
   .anim-neon { animation: none !important; }
 }
+
+/* Spark twinkle — gentle scale + rotate pulse for the brand mark */
+@keyframes twinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50%      { transform: scale(1.18) rotate(15deg); opacity: 0.92; }
+}
+.anim-twinkle { animation: twinkle 3.2s ease-in-out infinite; transform-origin: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-twinkle { animation: none !important; }
+}

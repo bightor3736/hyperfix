@@ -1,4 +1,4 @@
-import { Zap, Check, Sparkles, Flame, Snowflake, Trophy, Dice5, Share2 } from "lucide-react";
+import { Zap, Check, Sparkles, Flame, Snowflake, Trophy, Dice5, Share2, BrickWall } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 const features = [
@@ -6,6 +6,11 @@ const features = [
     icon: <Dice5 size={20} strokeWidth={2} />,
     title: "Dopamine on tap",
     body: "Bored or understimulated? One tap deals a real dopamine hit matched to your energy and time — move, create, connect, reset, treat. Reroll until one clicks.",
+  },
+  {
+    icon: <BrickWall size={20} strokeWidth={2} />,
+    title: "Beat the Wall",
+    body: "Can't start? Name the task you're dreading and we shrink it to a 2-minute first step. You get rewarded for starting — because starting is the actual wall.",
   },
   {
     icon: <Zap size={20} strokeWidth={2.5} />,

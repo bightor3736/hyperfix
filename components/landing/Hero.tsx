@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { OAuthButtons } from "./OAuthButtons";
+import { LogoMark } from "@/components/Logo";
 import { Zap, Check, RefreshCw, Clock, Flame, Sparkles, Footprints, MessageCircle, Leaf, Coffee, type LucideIcon } from "lucide-react";
 
 export function Hero() {
@@ -13,7 +14,7 @@ export function Hero() {
             className="mb-6 inline-flex w-fit items-center gap-2 rounded-full px-3 py-1.5"
             style={{ background: "var(--energy-soft)", border: "1px solid var(--energy)" }}
           >
-            <span className="h-1.5 w-1.5 rounded-full pulse-dot" style={{ background: "var(--energy)" }} />
+            <LogoMark size={13} color="var(--energy)" className="anim-twinkle" />
             <span className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "var(--energy)" }}>
               Built for ADHD brains
             </span>
@@ -66,13 +67,31 @@ function HeroDopamineDemo() {
   const [i, setI] = useState(0);
   const [done, setDone] = useState(false);
   const [count, setCount] = useState(1);
+  const [live, setLive] = useState(true); // autoplay until the visitor interacts
   const hit = DEMO_HITS[i];
 
+  // Auto-loop the core loop so visitors see it move on its own.
+  useEffect(() => {
+    if (!live) return;
+    const t = setTimeout(() => {
+      if (done) {
+        setDone(false);
+        setI((p) => (p + 1) % DEMO_HITS.length);
+      } else {
+        setDone(true);
+        setCount((c) => (c >= 3 ? 1 : c + 1));
+      }
+    }, done ? 1700 : 2400);
+    return () => clearTimeout(t);
+  }, [done, live]);
+
   function reroll() {
+    setLive(false);
     setDone(false);
     setI((p) => (p + 1) % DEMO_HITS.length);
   }
   function complete() {
+    setLive(false);
     if (done) return;
     setDone(true);
     setCount((c) => Math.min(3, c + 1));

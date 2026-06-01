@@ -5,10 +5,13 @@ import { SocialProof } from "@/components/landing/SocialProof";
 import { Journey }   from "@/components/landing/Journey";
 import { Features }  from "@/components/landing/Features";
 import { ProfileShowcase } from "@/components/landing/ProfileShowcase";
+import { Testimonials } from "@/components/landing/Testimonials";
 import { Pricing }   from "@/components/landing/Pricing";
 import { FAQ }       from "@/components/landing/FAQ";
+import { FoundersNote } from "@/components/landing/FoundersNote";
 import { CTA }       from "@/components/landing/CTA";
 import { Footer }    from "@/components/landing/Footer";
+import { StickyMobileCTA } from "@/components/landing/StickyMobileCTA";
 
 export const metadata: Metadata = {
   title: "Hyperfix — Your daily dopamine, on tap",
@@ -49,11 +52,14 @@ export default async function Page({
         <Journey />
         <Features />
         <ProfileShowcase />
+        <Testimonials />
         <Pricing />
         <FAQ />
+        <FoundersNote />
         <CTA />
       </main>
       <Footer />
+      <StickyMobileCTA />
     </div>
   );
 }
