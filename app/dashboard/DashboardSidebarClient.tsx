@@ -4,7 +4,6 @@ import { useEffect, useState, useTransition } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import { LogoLockup } from "@/components/Logo";
 import { NotificationBell } from "@/components/NotificationBell";
 import { ThemeToggle } from "@/components/landing/ThemeToggle";
 import { StreakBadge } from "@/components/ui/streak-badge";
@@ -152,7 +151,23 @@ export function DashboardSidebarClient({
       {/* Logo */}
       <div className="px-5 pt-5 pb-4 shrink-0">
         <Link href="/dashboard" className="inline-block transition-transform hover:scale-[1.02]">
-          <LogoLockup size="sm" />
+          <span
+            style={{
+              fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif",
+              fontStyle: "italic",
+              fontWeight: 600,
+              fontSize: 22,
+              lineHeight: 1,
+              letterSpacing: "-0.08em",
+              color: "var(--ink)",
+              display: "inline-block",
+            }}
+          >
+            hyperfix
+            <span style={{ fontSize: "0.42em", verticalAlign: "super", fontStyle: "normal", letterSpacing: 0, marginLeft: "0.06em" }}>
+              ®
+            </span>
+          </span>
         </Link>
       </div>
 

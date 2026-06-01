@@ -112,7 +112,7 @@ function FixationCard({
               {days === 0 ? "today" : `${days}d`}
             </span>
           </div>
-          <p className="font-display text-[17px] leading-snug text-ink truncate">{fix.name}</p>
+          <p className="text-[17px] leading-snug text-ink truncate font-semibold" style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", letterSpacing: "-0.025em" }}>{fix.name}</p>
           {fix.description && (
             <p className="font-sans text-[13px] text-ink-muted mt-1 line-clamp-1">{fix.description}</p>
           )}
@@ -414,10 +414,23 @@ export default function FixationsPage() {
             Personal log
           </p>
           <h1
-            className="font-display text-ink leading-none tracking-tight"
-            style={{ fontSize: "clamp(28px,4vw,40px)" }}
+            className="text-ink leading-none"
+            style={{
+              fontFamily: "var(--font-landing-sans), Inter, sans-serif",
+              fontWeight: 600,
+              letterSpacing: "-0.045em",
+              fontSize: "clamp(28px,4vw,40px)",
+            }}
           >
-            Hyperfixations
+            Hyper
+            <span
+              style={{
+                fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif",
+                fontStyle: "italic",
+              }}
+            >
+              fixations
+            </span>
           </h1>
           <p className="mt-2 font-sans text-[14px] text-ink-muted leading-[1.5]">
             Log what you&apos;re deep in. Check in daily to earn XP. Archive when it fades.
@@ -438,7 +451,7 @@ export default function FixationsPage() {
                 style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
               >
                 <Icon size={14} strokeWidth={1.5} className="text-ink-muted" />
-                <span className="font-display text-[22px] leading-none text-ink">{value}</span>
+                <span className="text-[22px] leading-none text-ink font-semibold" style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", letterSpacing: "-0.03em" }}>{value}</span>
                 <span className="font-mono text-[9px] uppercase tracking-widest text-ink-faint">{label}</span>
               </div>
             ))}
@@ -480,7 +493,7 @@ export default function FixationsPage() {
             className="flex flex-col items-center justify-center py-16 text-center rounded-[var(--radius-lg)]"
             style={{ border: "1px dashed var(--line)" }}
           >
-            <p className="font-display text-[18px] text-ink mb-2">Nothing here yet.</p>
+            <p className="text-[18px] text-ink mb-2 font-semibold" style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", letterSpacing: "-0.03em" }}>Nothing here yet.</p>
             <p className="font-sans text-[13px] text-ink-muted">
               {filter === "archived"
                 ? "Mark fixations as done and they'll show up here."

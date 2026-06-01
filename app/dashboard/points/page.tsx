@@ -120,11 +120,23 @@ export default async function PointsPage() {
           <div className="flex items-end justify-between gap-4 flex-wrap">
             <div>
               <h1
-                className="font-display text-ink leading-none tracking-tight"
-                style={{ fontSize: "clamp(36px,6vw,56px)" }}
+                className="text-ink leading-none"
+                style={{
+                  fontFamily: "var(--font-landing-sans), Inter, sans-serif",
+                  fontWeight: 600,
+                  letterSpacing: "-0.05em",
+                  fontSize: "clamp(36px,6vw,56px)",
+                }}
               >
-                {totalPoints.toLocaleString()}
-                <span className="font-mono text-base text-ink-muted ml-2 align-middle">
+                <span
+                  style={{
+                    fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif",
+                    fontStyle: "italic",
+                  }}
+                >
+                  {totalPoints.toLocaleString()}
+                </span>
+                <span className="font-mono text-base text-ink-muted ml-2 align-middle" style={{ letterSpacing: "0.05em" }}>
                   XP
                 </span>
               </h1>
@@ -150,11 +162,11 @@ export default async function PointsPage() {
         <div className="grid grid-cols-3 gap-3 anim-fadeUp delay-100">
           <div className="rounded-2xl border border-line bg-bg-elevated p-4">
             <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">streak</p>
-            <p className="font-display text-3xl text-ink tabular-nums mt-1">{currentStreak}</p>
+            <p className="text-3xl text-ink tabular-nums mt-1 font-semibold" style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", letterSpacing: "-0.04em" }}>{currentStreak}</p>
           </div>
           <div className="rounded-2xl border border-line bg-bg-elevated p-4">
             <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">longest</p>
-            <p className="font-display text-3xl text-ink tabular-nums mt-1">{longestStreak}</p>
+            <p className="text-3xl text-ink tabular-nums mt-1 font-semibold" style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", letterSpacing: "-0.04em" }}>{longestStreak}</p>
           </div>
           <Link
             href={streakFreezes > 0 || isPro ? "/dashboard/points" : "/pricing"}
@@ -165,7 +177,7 @@ export default async function PointsPage() {
             }}
           >
             <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">freezes</p>
-            <p className="font-display text-3xl text-ink tabular-nums mt-1">{streakFreezes}</p>
+            <p className="text-3xl text-ink tabular-nums mt-1 font-semibold" style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", letterSpacing: "-0.04em" }}>{streakFreezes}</p>
             {streakFreezes === 0 && !isPro && (
               <p className="font-mono text-[9px] uppercase tracking-widest text-accent mt-1">Get more →</p>
             )}

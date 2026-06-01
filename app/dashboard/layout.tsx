@@ -39,7 +39,33 @@ export default async function DashboardLayout({
 
   return (
     <ToastProvider>
-    <div className="min-h-screen flex" style={{ background: "var(--bg)" }}>
+    <div
+      className="min-h-screen flex"
+      style={
+        {
+          background: "var(--bg)",
+          "--bg": "#f0f0f0",
+          "--bg-soft": "#eae9e7",
+          "--bg-elevated": "#ffffff",
+          "--ink": "#0a0a0a",
+          "--ink-muted": "#7c7c7c",
+          "--ink-faint": "#a4a4a4",
+          "--line": "rgba(0,0,0,0.10)",
+          "--line-strong": "rgba(0,0,0,0.18)",
+          "--accent": "#1dcc5d",
+          "--accent-soft": "#e3f9ec",
+          "--accent-ink": "#04130a",
+          "--energy": "#1dcc5d",
+          "--energy-soft": "#e3f9ec",
+          "--xp": "#13a64c",
+          "--xp-soft": "#e3f9ec",
+          "--primary": "#1dcc5d",
+          "--primary-foreground": "#04130a",
+          fontFamily: "var(--font-landing-sans), Inter, system-ui, sans-serif",
+          color: "#0a0a0a",
+        } as React.CSSProperties
+      }
+    >
       {/* Desktop Sidebar */}
       <DashboardSidebarClient
         displayName={displayName}

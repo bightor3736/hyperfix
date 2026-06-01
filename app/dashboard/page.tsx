@@ -98,11 +98,30 @@ export default async function DashboardPage() {
         {/* ── Top: greeting + progress snapshot ───────────────────────── */}
         <div className="flex items-center justify-between gap-4 anim-fadeUp mb-5">
           <div className="min-w-0">
-            <p className="font-mono text-[11px] uppercase tracking-widest mb-0.5" style={{ color: "var(--accent)" }}>
+            <p
+              className="mb-0.5 uppercase tracking-[0.12em] text-[11px]"
+              style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", color: "var(--accent)", letterSpacing: "0.12em" }}
+            >
               {greeting}
             </p>
-            <h1 className="font-display text-ink leading-none tracking-tight truncate" style={{ fontSize: "clamp(26px,4.5vw,40px)" }}>
-              {firstName}.
+            <h1
+              className="text-ink leading-none truncate"
+              style={{
+                fontFamily: "var(--font-landing-sans), Inter, sans-serif",
+                fontWeight: 600,
+                letterSpacing: "-0.045em",
+                fontSize: "clamp(26px,4.5vw,40px)",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif",
+                  fontStyle: "italic",
+                }}
+              >
+                {firstName}
+              </span>
+              .
             </h1>
           </div>
           <div className="flex items-center gap-2 shrink-0">
