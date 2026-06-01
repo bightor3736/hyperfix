@@ -40,7 +40,7 @@ export default async function DashboardLayout({
   return (
     <ToastProvider>
     <div
-      className="min-h-screen flex"
+      className="dash-landing min-h-screen flex"
       style={
         {
           background: "var(--bg)",
@@ -61,6 +61,9 @@ export default async function DashboardLayout({
           "--xp-soft": "#e3f9ec",
           "--primary": "#1dcc5d",
           "--primary-foreground": "#04130a",
+          // landing's near-black pill buttons
+          "--invert-bg": "#1c1c1c",
+          "--invert-ink": "#ffffff",
           fontFamily: "var(--font-landing-sans), Inter, system-ui, sans-serif",
           color: "#0a0a0a",
         } as React.CSSProperties
