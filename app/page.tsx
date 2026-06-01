@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import { Nav }       from "@/components/landing/Nav";
 import { Hero }      from "@/components/landing/Hero";
-import { SocialProof } from "@/components/landing/SocialProof";
 import { Modules }   from "@/components/landing/Modules";
-import { Features }  from "@/components/landing/Features";
 import { ProfileShowcase } from "@/components/landing/ProfileShowcase";
-import { Testimonials } from "@/components/landing/Testimonials";
 import { Pricing }   from "@/components/landing/Pricing";
 import { FAQ }       from "@/components/landing/FAQ";
 import { FoundersNote } from "@/components/landing/FoundersNote";
@@ -50,14 +47,11 @@ export default async function Page({
       <Nav />
       <main>
         <Hero />
-        <SocialProof />
         <Modules />
-        <Features />
         <ProfileShowcase />
-        <Testimonials />
+        <FoundersNote />
         <Pricing />
         <FAQ />
-        <FoundersNote />
         <CTA />
       </main>
       <Footer />

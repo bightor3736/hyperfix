@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { Wordmark } from "./Wordmark";
 
 const links = [
-  { label: "How it works", href: "#how" },
   { label: "Features", href: "#features" },
   { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },

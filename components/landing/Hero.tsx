@@ -3,26 +3,18 @@
 import { useState, useEffect } from "react";
 import { OAuthButtons } from "./OAuthButtons";
 import { LogoMark } from "@/components/Logo";
-import { Zap, Check, RefreshCw, Clock, Flame, Sparkles, Star, Footprints, MessageCircle, Leaf, Coffee, type LucideIcon } from "lucide-react";
+import { Zap, Check, RefreshCw, Clock, Flame, Sparkles, Footprints, MessageCircle, Leaf, Coffee, type LucideIcon } from "lucide-react";
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      {/* Linear-style gradient glow backdrop */}
+      {/* Linear backdrop — faint product grid + one restrained accent glow */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="grid-bg absolute inset-0" />
         <div
-          className="absolute -top-32 -left-16 h-[460px] w-[460px] rounded-full blur-[110px] opacity-60 anim-floatY"
-          style={{ background: "radial-gradient(circle, rgba(124,92,255,0.55), transparent 70%)" }}
+          className="absolute -top-40 left-1/2 h-[520px] w-[760px] -translate-x-1/2 rounded-full blur-[130px] opacity-40"
+          style={{ background: "radial-gradient(circle, rgba(124,92,255,0.45), transparent 70%)" }}
         />
-        <div
-          className="absolute top-0 right-0 h-[400px] w-[400px] rounded-full blur-[110px] opacity-45 anim-driftX"
-          style={{ background: "radial-gradient(circle, rgba(255,126,73,0.32), transparent 70%)" }}
-        />
-        <div
-          className="absolute bottom-0 left-1/3 h-[340px] w-[340px] rounded-full blur-[110px] opacity-40"
-          style={{ background: "radial-gradient(circle, rgba(94,106,210,0.40), transparent 70%)" }}
-        />
-        {/* faint top hairline glow, very Linear */}
         <div
           className="absolute inset-x-0 top-0 h-px"
           style={{ background: "linear-gradient(90deg, transparent, rgba(124,92,255,0.4), transparent)" }}
@@ -31,45 +23,39 @@ export function Hero() {
 
       <div className="relative mx-auto grid max-w-[1200px] grid-cols-1 gap-14 px-6 pb-20 pt-10 sm:px-10 sm:pb-28 sm:pt-16 md:grid-cols-[1.05fr_1fr] md:gap-12 lg:pt-20">
         <div className="flex flex-col justify-center">
-          <div
-            className="mb-6 inline-flex w-fit items-center gap-2 rounded-full px-3.5 py-1.5"
-            style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
-          >
+          <div className="glass mb-6 inline-flex w-fit items-center gap-2 rounded-full px-3.5 py-1.5">
             <LogoMark size={14} color="var(--accent)" />
             <span className="text-[12px] font-medium tracking-tight text-ink-muted">
-              Built for ADHD brains
+              An ADHD app that works the way you do
             </span>
           </div>
 
           <h1 className="font-display leading-[1.02] tracking-tight text-ink" style={{ fontSize: "clamp(42px,6vw,76px)" }}>
             Your ADHD,
             <br />
-            <span style={{ color: "var(--accent)" }}>finally on your side.</span>
+            <span className="text-game-gradient">finally on your side.</span>
           </h1>
 
-          <p className="mt-6 max-w-[480px] text-[17px] leading-[1.6] text-ink-muted">
-            Track your hyperfixations, earn XP for real actions — not just ticking a box —
-            and beat the tasks your brain keeps avoiding. A warm, forgiving game that&apos;s
-            yours alone. No leaderboards, no guilt.
+          <p className="mt-6 max-w-[470px] text-[17px] leading-[1.6] text-ink-muted">
+            Track what you&apos;re fixated on. Earn XP for things you actually did — proof required.
+            Shrink the tasks you keep avoiding. No leaderboards, no guilt, no streak you shatter in a bad week.
           </p>
 
-          <div className="mt-8 w-full max-w-[400px]">
+          <div className="mt-8 w-full max-w-[380px]">
             <OAuthButtons />
             <p className="mt-4 text-[13px] text-ink-faint">
-              Free to start. <span style={{ color: "var(--accent)" }}>No credit card.</span>
+              Free to start. <span style={{ color: "var(--accent)" }}>No credit card.</span> 60 seconds.
             </p>
           </div>
 
-          {/* warm star-rating social proof */}
-          <div className="mt-9 flex items-center gap-3">
-            <div className="flex items-center gap-0.5">
-              {[0, 1, 2, 3, 4].map((i) => (
-                <Star key={i} size={15} strokeWidth={0} fill="var(--flame)" />
-              ))}
-            </div>
-            <span className="text-[13px] text-ink-muted">
-              Loved by people who&apos;ve quit every other app
-            </span>
+          {/* honest, concrete trust line */}
+          <div className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-2">
+            {["Hyperfixation log", "Proof of action", "Forgiving streaks"].map((f) => (
+              <span key={f} className="flex items-center gap-1.5 text-[13px] text-ink-muted">
+                <Check size={13} strokeWidth={2.5} style={{ color: "var(--accent)" }} />
+                {f}
+              </span>
+            ))}
           </div>
         </div>
 
