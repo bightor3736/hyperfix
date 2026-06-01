@@ -5,17 +5,17 @@ const stats = [
   {
     icon: <TrendingUp size={18} strokeWidth={2} />,
     stat: "134M+",
-    label: "views on the dopamine-menu trend that inspired Hyperfix",
+    label: "views on the hyperfixation + dopamine content that showed us what people need",
   },
   {
     icon: <Ban size={18} strokeWidth={2} />,
     stat: "0",
-    label: "ads, infinite feeds, or doomscroll — by design",
+    label: "ads, leaderboards, or competitive pressure — it's your journey, not a race",
   },
   {
     icon: <Brain size={18} strokeWidth={2} />,
     stat: "100%",
-    label: "built around how an ADHD brain actually works",
+    label: "built for executive function struggles, not neurotypical productivity defaults",
   },
 ];
 

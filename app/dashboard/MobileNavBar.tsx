@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Trophy, MessageCircle, User } from "lucide-react";
+import { LayoutDashboard, Flame, MessageCircle, User } from "lucide-react";
 
 export function MobileNavBar({ username }: { username?: string | null }) {
   const pathname = usePathname();
@@ -22,8 +22,8 @@ export function MobileNavBar({ username }: { username?: string | null }) {
       <MobileNavLink href="/dashboard" label="Play" pathname={pathname} exact>
         <LayoutDashboard size={22} strokeWidth={1.5} />
       </MobileNavLink>
-      <MobileNavLink href="/leaderboard" label="Ranks" pathname={pathname}>
-        <Trophy size={22} strokeWidth={1.5} />
+      <MobileNavLink href="/dashboard/fixations" label="Fixations" pathname={pathname}>
+        <Flame size={22} strokeWidth={1.5} />
       </MobileNavLink>
       <MobileNavLink href="/dashboard/messages" label="Inbox" pathname={pathname}>
         <MessageCircle size={22} strokeWidth={1.5} />

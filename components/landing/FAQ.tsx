@@ -6,27 +6,27 @@ import { Reveal } from "./Reveal";
 const items = [
   {
     q: "What actually is Hyperfix?",
-    a: "A game for understimulated brains. When you're bored or can't start, you tap once and it hands you a real dopamine hit that isn't your phone. You earn XP, build a streak, and level up for choosing it over the doomscroll.",
+    a: "A personal ADHD accountability app with game mechanics. You track your hyperfixations, earn XP for real actions, and beat the tasks your brain keeps avoiding — all at your own pace. Not a competition, not a habit tracker. Just you and your streak.",
+  },
+  {
+    q: "What does 'proof of action' mean?",
+    a: "Instead of just tapping 'done' and lying to yourself, you run a timer for the activity's duration — or write one sentence about what you actually did. XP only drops when you've shown a receipt. It prevents checkbox farming and makes the XP feel earned.",
   },
   {
     q: "Is this just another habit tracker?",
-    a: "No. Habit trackers punish you the moment you break a chain. Hyperfix rewards showing up at all — with variable XP, jackpots and freezes that protect your streak on bad days.",
-  },
-  {
-    q: "How do the dopamine hits work?",
-    a: "Tell it your energy level, tap once, and it deals you a short activity matched to it — move, create, connect, reset or treat. Don't like it? Reroll. Do it, tap 'I did it', collect XP.",
+    a: "No. Habit trackers punish you the moment you break a chain. Hyperfix rewards showing up at all — variable XP, jackpots, streak freezes for bad days. And it doesn't care about consistency — it cares that you did something real today.",
   },
   {
     q: "What are streak freezes?",
-    a: "A miss-day insurance. If you skip a day, a freeze is spent automatically so your streak survives. Free players get one a month; Power-Up gets five.",
+    a: "Miss-day insurance. Skip a day and a freeze is used automatically so your streak survives. Free players get one a month; Power-Up gets five. Because ADHD brains have hard weeks, and one bad week shouldn't erase everything.",
   },
   {
     q: "Is it free?",
-    a: "The whole game is free to play — unlimited rolls, XP, levels, streaks and the leaderboard. Power-Up adds more freezes, boosted jackpot odds, XP multipliers and premium share cards.",
+    a: "Yes — the full core experience is free. Unlimited dopamine hits, hyperfixation log, XP, levels, streaks, quests and your stats card. Power-Up adds more streak freezes, boosted jackpot odds, and XP multipliers.",
   },
   {
     q: "Will this actually help my ADHD?",
-    a: "It's built around what your brain responds to: instant, low-effort wins, variable rewards and forgiving streaks. It won't fix everything — but it makes starting easier, which is usually the hardest part.",
+    a: "It's built around what ADHD brains actually respond to: instant feedback, variable rewards, low-friction starts, and forgiving systems. It won't fix everything — but it makes starting easier, keeps your hyperfixations organized, and rewards you for real effort instead of punishing imperfection.",
   },
 ];
 

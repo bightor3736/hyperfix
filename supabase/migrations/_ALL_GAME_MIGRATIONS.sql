@@ -316,6 +316,71 @@ ALTER TABLE profiles ADD COLUMN IF NOT EXISTS signup_campaign TEXT;
 
 CREATE INDEX IF NOT EXISTS profiles_signup_source ON profiles (signup_source);
 
+
+-- ─────────────────────────────────────────────────────────────
+-- 7) HYPERFIXATION LOG — personal tracking
+-- ─────────────────────────────────────────────────────────────
+
+CREATE TABLE IF NOT EXISTS hyperfixations (
+  id          UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id     UUID        NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+  name        TEXT        NOT NULL,
+  description TEXT,
+  status      TEXT        NOT NULL DEFAULT 'active', -- 'active' | 'fading' | 'archived'
+  intensity   INT         NOT NULL DEFAULT 3 CHECK (intensity BETWEEN 1 AND 5),
+  started_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  ended_at    TIMESTAMPTZ,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS hyperfixations_user_status ON hyperfixations (user_id, status, created_at DESC);
+
+ALTER TABLE hyperfixations ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS hyperfixations_own ON hyperfixations;
+CREATE POLICY hyperfixations_own ON hyperfixations
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
+
+INSERT INTO achievements (id, name, description, trigger, bonus, rarity, sort) VALUES
+  ('fixation_first',    'Down the Rabbit Hole',  'Log your first hyperfixation.',                         'metric', 10,  80, 20),
+  ('fixation_complete', 'Closure Arc',           'Archive a completed hyperfixation.',                   'metric', 30,  45, 21),
+  ('fixation_10',       'Pattern Recognized',    'Log 10 hyperfixations. You know your brain now.',      'metric', 80,  20, 22)
+ON CONFLICT (id) DO NOTHING;
+
+
+-- ─────────────────────────────────────────────────────────────
+-- 8) PROOF OF COMPLETION — receipts for dopamine hits
+-- ─────────────────────────────────────────────────────────────
+
+CREATE TABLE IF NOT EXISTS completions (
+  id              UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id         UUID        NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+  activity_type   TEXT        NOT NULL, -- 'dopamine_hit' | 'wall' | 'quest' | 'fixation'
+  activity_id     UUID,
+  proof_type      TEXT        NOT NULL, -- 'timer' | 'note'
+  proof_note      TEXT,
+  timer_seconds   INT,
+  xp_awarded      INT         NOT NULL DEFAULT 0,
+  created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS completions_user_time ON completions (user_id, created_at DESC);
+
+ALTER TABLE completions ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS completions_own ON completions;
+CREATE POLICY completions_own ON completions
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
+
+-- Add proof columns to dopamine_hits for easy lookup
+ALTER TABLE dopamine_hits ADD COLUMN IF NOT EXISTS proof_type    TEXT;
+ALTER TABLE dopamine_hits ADD COLUMN IF NOT EXISTS proof_note    TEXT;
+ALTER TABLE dopamine_hits ADD COLUMN IF NOT EXISTS timer_seconds INT;
+
 -- ═══════════════════════════════════════════════════════════════════════════
--- DONE. All game features should now work.
+-- DONE. All features now active:
+-- Gamification, streaks, quests, dopamine hits (with proof), Beat the Wall,
+-- signup attribution, hyperfixation log, completions ledger.
 -- ═══════════════════════════════════════════════════════════════════════════

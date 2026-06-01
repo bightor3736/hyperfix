@@ -12,6 +12,7 @@ import {
   type DopamineCategory,
 } from "@/lib/dopamine/menu";
 import { Confetti } from "./Confetti";
+import { ProofModal, type ProofResult } from "./ProofModal";
 
 const ENERGY_OPTS: { value: Energy; label: string; icon: LucideIcon }[] = [
   { value: "low", label: "Low", icon: BatteryLow },
@@ -32,6 +33,7 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
   const [gainedXp, setGainedXp] = useState<number | null>(null);
   const [jackpot, setJackpot] = useState(false);
   const [confettiKey, setConfettiKey] = useState(0);
+  const [showProof, setShowProof] = useState(false);
 
   function roll(opts?: { energy?: Energy; category?: DopamineCategory | null }) {
     setDone(false);
@@ -42,14 +44,23 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
     setActivity((prev) => pickHit({ energy: e, category: c ?? undefined, exclude: prev?.id }));
   }
 
-  async function complete() {
+  function requestProof() {
+    if (!activity || saving || done) return;
+    setShowProof(true);
+  }
+
+  async function complete(proof?: ProofResult) {
     if (!activity || saving) return;
+    setShowProof(false);
     setSaving(true);
     try {
       const res = await fetch("/api/dopamine/complete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ activityId: activity.id }),
+        body: JSON.stringify({
+          activityId: activity.id,
+          proof: proof ?? null,
+        }),
       });
       if (res.ok) {
         const data = (await res.json()) as { xp: number; jackpot?: boolean };
@@ -77,6 +88,16 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
       }}
     >
       <Confetti fireKey={confettiKey} />
+
+      {showProof && activity && (
+        <ProofModal
+          activityLabel={activity.label}
+          minutes={activity.minutes}
+          xp={xpFor(activity)}
+          onSubmit={(proof) => complete(proof)}
+          onCancel={() => setShowProof(false)}
+        />
+      )}
 
       {/* Header row: label + daily goal dots */}
       <div className="flex items-start justify-between gap-4 mb-5">
@@ -135,7 +156,7 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
                   className="press-pop inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-sans text-[12px] font-medium transition-all"
                   style={{
                     background: on ? "var(--energy)" : "var(--bg)",
-                    color: on ? "#fff" : "var(--ink-muted)",
+                    color: on ? "var(--accent-ink)" : "var(--ink-muted)",
                     border: `1px solid ${on ? "var(--energy)" : "var(--line)"}`,
                   }}
                 >
@@ -149,9 +170,9 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
           <button
             onClick={() => roll()}
             className="press-pop anim-pulseGlow w-full flex items-center justify-center gap-2.5 py-4 rounded-[var(--radius-lg)] font-sans text-[16px] font-bold transition-all hover:opacity-95"
-            style={{ background: "var(--energy)", color: "#fff" }}
+            style={{ background: "var(--energy)", color: "var(--accent-ink)" }}
           >
-            <Zap size={20} strokeWidth={2.5} fill="#fff" />
+            <Zap size={20} strokeWidth={2.5} fill="var(--accent-ink)" />
             Give me a hit
           </button>
           <p className="mt-3 text-center font-mono text-[10px] text-ink-faint">
@@ -168,7 +189,7 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
           saving={saving}
           gainedXp={gainedXp}
           jackpot={jackpot}
-          onComplete={complete}
+          onComplete={requestProof}
           onReroll={() => roll()}
         />
       )}
@@ -248,9 +269,9 @@ function ActiveCard({
         <button
           onClick={onReroll}
           className="press-pop w-full flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all hover:opacity-95"
-          style={{ background: "var(--energy)", color: "#fff" }}
+          style={{ background: "var(--energy)", color: "var(--accent-ink)" }}
         >
-          <Zap size={18} strokeWidth={2.5} fill="#fff" />
+          <Zap size={18} strokeWidth={2.5} fill="var(--accent-ink)" />
           Give me another
         </button>
       ) : (

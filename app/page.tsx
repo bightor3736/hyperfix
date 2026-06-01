@@ -15,18 +15,18 @@ import { StickyMobileCTA } from "@/components/landing/StickyMobileCTA";
 import { SourceCapture } from "@/components/SourceCapture";
 
 export const metadata: Metadata = {
-  title: "Hyperfix — Your daily dopamine, on tap",
+  title: "Hyperfix — ADHD accountability that actually works",
   description:
-    "One tap when you're bored and Hyperfix hands you a real dopamine hit that isn't your phone. Earn XP, build a streak, level up. The anti-doomscroll game for ADHD brains — free to start.",
+    "Track your hyperfixations. Earn XP for real actions. Beat the walls your brain puts up. A personal ADHD accountability app with game mechanics — not competitive, just yours.",
   keywords: [
-    "ADHD dopamine app", "dopamine menu app", "anti doomscroll app", "ADHD game",
-    "ADHD focus app", "ADHD productivity app", "ADHD streak app", "understimulation ADHD",
-    "neurodivergent productivity", "body doubling app",
+    "ADHD app", "hyperfixation tracker", "ADHD accountability", "ADHD dopamine",
+    "ADHD focus app", "ADHD productivity", "hyperfixation app", "understimulation ADHD",
+    "neurodivergent app", "ADHD game", "anti doomscroll",
   ],
   alternates: { canonical: "https://hyperfix.app" },
   openGraph: {
-    title: "Hyperfix — Your daily dopamine, on tap",
-    description: "The anti-doomscroll game for ADHD brains. One tap → a real dopamine hit that isn't your phone. Earn XP, build a streak, level up.",
+    title: "Hyperfix — ADHD accountability that actually works",
+    description: "Track your hyperfixations. Earn XP for real actions. Beat task paralysis. A personal ADHD app with game mechanics — no leaderboards, just your own journey.",
     url: "https://hyperfix.app",
     type: "website",
   },

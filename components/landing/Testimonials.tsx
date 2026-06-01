@@ -3,25 +3,25 @@ import { Reveal } from "./Reveal";
 
 const quotes = [
   {
-    text: "First app that doesn't make me feel guilty. I open it bored, it gives me one thing, I do it, I get a hit. That's it. My brain loves it.",
+    text: "I've been hyperfixating on Japanese vocab for three weeks. Having somewhere to actually log it and check in — and get XP for still being in it — makes it feel real instead of just chaotic.",
     name: "maya",
-    meta: "21-day streak",
+    meta: "21-day streak · Level 4",
     icon: Flame,
   },
   {
-    text: "The reroll button is genius. Half the battle is not being able to pick. It picks for me and I just go.",
+    text: "The proof timer is what got me. I can't just tap done anymore. I have to actually run 30 seconds of it or write what I did. Sounds annoying. It's not. It means my XP is mine.",
     name: "theo",
-    meta: "Level 5 · Unwell",
+    meta: "63 verified hits",
     icon: Zap,
   },
   {
-    text: "I replaced my 'open phone and scroll for 40 minutes' reflex with this. The jackpot thing actually got me. I want the jackpot.",
+    text: "I finally archived a hyperfixation. Months of notes, links, half-finished things — and I marked it done. +15 XP. That felt more real than finishing any task I've ever had.",
     name: "elise",
-    meta: "63 dopamine hits",
+    meta: "7 fixations logged",
     icon: Zap,
   },
   {
-    text: "Streak freezes are the whole reason I'm still here. I missed two days and it didn't punish me. Every other app would've reset me to zero and I'd have quit.",
+    text: "Streak freezes are the whole reason I'm still here. I had a brutal week, missed three days. It didn't reset me. Every other app would've crushed me and I'd have quit. I didn't quit.",
     name: "sam",
     meta: "38-day streak",
     icon: Flame,
@@ -38,8 +38,8 @@ export function Testimonials() {
               From people who get it
             </p>
             <h2 className="font-display leading-[1.04] tracking-tight" style={{ fontSize: "clamp(32px,5vw,48px)" }}>
-              <span className="text-ink">The only app they </span>
-              <span className="text-game-gradient">didn&apos;t abandon.</span>
+              <span className="text-ink">The app that </span>
+              <span className="text-game-gradient">actually stuck.</span>
             </h2>
           </div>
         </Reveal>

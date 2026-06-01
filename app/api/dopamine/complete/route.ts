@@ -13,13 +13,16 @@ export async function POST(req: Request) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { activityId } = await req.json();
-  const activity = activityId ? activityById(activityId) : undefined;
+  const body = await req.json() as {
+    activityId: string;
+    proof?: { type: "timer" | "note"; note?: string; timerSeconds?: number } | null;
+  };
+  const activity = body.activityId ? activityById(body.activityId) : undefined;
   if (!activity) return NextResponse.json({ error: "Unknown activity" }, { status: 400 });
 
   const admin = createAdminClient();
 
-  // Record the hit
+  // Record the hit with optional proof
   const { data: hit, error } = await admin
     .from("dopamine_hits")
     .insert({
@@ -29,6 +32,9 @@ export async function POST(req: Request) {
       label: activity.label,
       minutes: activity.minutes,
       energy: activity.energy,
+      proof_type: body.proof?.type ?? null,
+      proof_note: body.proof?.note ?? null,
+      timer_seconds: body.proof?.timerSeconds ?? null,
     })
     .select("id")
     .single();

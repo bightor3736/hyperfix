@@ -15,9 +15,9 @@ import {
   LogOut,
   User,
   Zap,
-  Trophy,
   Sparkles,
   Snowflake,
+  Flame,
 } from "lucide-react";
 import { levelForPoints } from "@/lib/gamification/levels";
 
@@ -102,14 +102,14 @@ export function DashboardSidebarClient({
           icon: <LayoutDashboard size={16} strokeWidth={1.5} />,
         },
         {
-          href: "/dashboard/points",
-          label: "Points & Levels",
-          icon: <Sparkles size={16} strokeWidth={1.5} />,
+          href: "/dashboard/fixations",
+          label: "Hyperfixations",
+          icon: <Flame size={16} strokeWidth={1.5} />,
         },
         {
-          href: "/leaderboard",
-          label: "Leaderboard",
-          icon: <Trophy size={16} strokeWidth={1.5} />,
+          href: "/dashboard/points",
+          label: "XP & Levels",
+          icon: <Sparkles size={16} strokeWidth={1.5} />,
         },
       ],
     },
@@ -182,7 +182,7 @@ export function DashboardSidebarClient({
                     fontSize: 13,
                     color: active ? "var(--accent)" : "var(--ink-muted)",
                     background: active ? "var(--accent-soft)" : "transparent",
-                    border: active ? "1px solid rgba(111,138,99,0.3)" : "1px solid transparent",
+                    border: active ? "1px solid var(--line)" : "1px solid transparent",
                     fontWeight: active ? 500 : 400,
                   }}
                 >

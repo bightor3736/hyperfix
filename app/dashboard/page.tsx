@@ -8,7 +8,7 @@ import { StreakFlame } from "@/components/game/StreakFlame";
 import { ShareStatsButton } from "@/components/game/ShareStatsButton";
 import { getDailyQuests } from "@/lib/quests/generate";
 import { levelForPoints } from "@/lib/gamification/levels";
-import { Snowflake, Trophy } from "lucide-react";
+import { Snowflake, Flame } from "lucide-react";
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -139,9 +139,9 @@ export default async function DashboardPage() {
                     @{username} · profile →
                   </Link>
                 )}
-                <Link href="/leaderboard" className="inline-flex items-center gap-1 font-mono text-[11px] text-ink-faint hover:text-accent transition-colors">
-                  <Trophy size={10} strokeWidth={2} />
-                  leaderboard →
+                <Link href="/dashboard/fixations" className="inline-flex items-center gap-1 font-mono text-[11px] text-ink-faint hover:text-accent transition-colors">
+                  <Flame size={10} strokeWidth={2} />
+                  fixations →
                 </Link>
               </div>
               <ShareStatsButton

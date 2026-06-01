@@ -21,15 +21,14 @@ export function Hero() {
           </div>
 
           <h1 className="font-display leading-[1.02] tracking-tight text-ink" style={{ fontSize: "clamp(40px,5.5vw,68px)" }}>
-            Your daily dopamine.
+            Your ADHD, tracked.
             <br />
-            <span style={{ color: "var(--energy)" }}>On tap.</span>
+            <span style={{ color: "var(--energy)" }}>Actually rewarded.</span>
           </h1>
 
           <p className="mt-6 max-w-[470px] text-[16px] leading-[1.6] text-ink-muted">
-            One tap when you&apos;re bored or understimulated, and Hyperfix hands you a real
-            dopamine hit that isn&apos;t your phone. Earn XP, build a streak, level up.
-            It&apos;s the anti-doomscroll — a game your ADHD brain actually wants to play.
+            Log your hyperfixations. Earn XP for real actions — not just tapping a box.
+            Beat the tasks your brain keeps avoiding. A personal game that&apos;s yours, not a race.
           </p>
 
           <div className="mt-9 w-full max-w-[400px]">
@@ -41,7 +40,7 @@ export function Hero() {
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
-            {["Dopamine on tap", "Forgiving streaks", "XP & levels", "Focus rooms"].map((f) => (
+            {["Hyperfixation log", "Proof of action", "Forgiving streaks", "XP & levels"].map((f) => (
               <span key={f} className="flex items-center gap-1.5 font-mono text-[12px] text-ink-muted">
                 <Check size={12} strokeWidth={2.5} style={{ color: "var(--energy)" }} />
                 {f}

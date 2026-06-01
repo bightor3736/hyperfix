@@ -2,12 +2,11 @@
 export const POINT_VALUES = {
   check_in: 10,
   new_fix: 25,
-  mood_log: 8,
-  task_done: 12,
-  med_log: 5,
-  rsd_entry: 8,
-  dopamine_hit: 12, // base; the route overrides per activity energy
-  wall_broken: 20,  // started a dreaded task — we reward the START, not the finish
+  dopamine_hit: 12,     // base; route overrides per activity energy
+  wall_broken: 20,      // started a dreaded task — we reward the START, not the finish
+  fixation_log: 10,     // logged a new hyperfixation
+  fixation_checkin: 5,  // daily check-in on an active fixation
+  fixation_complete: 15, // archived / completed a fixation
   user_creation: 50,
 } as const;
 
@@ -16,13 +15,12 @@ export type PointKind = keyof typeof POINT_VALUES | "achievement";
 // Human-readable labels for the awards history feed.
 export const KIND_LABELS: Record<string, string> = {
   check_in: "Daily check-in",
-  new_fix: "New fixation logged",
-  mood_log: "Mood logged",
-  task_done: "Brain-dump task done",
-  med_log: "Medication logged",
-  rsd_entry: "RSD entry",
+  new_fix: "Fixation logged",
   dopamine_hit: "Dopamine hit",
   wall_broken: "Wall broken",
+  fixation_log: "Hyperfixation logged",
+  fixation_checkin: "Fixation check-in",
+  fixation_complete: "Fixation completed",
   user_creation: "Joined Hyperfix",
   achievement: "Achievement unlocked",
 };
