@@ -2,6 +2,19 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  async rewrites() {
+    return {
+      // Serve the Whenevr static landing export at "/" (1:1 Framer copy).
+      // `missing` keeps the OAuth callback (/?code=...) on the Next route.
+      beforeFiles: [
+        {
+          source: "/",
+          missing: [{ type: "query", key: "code" }],
+          destination: "/site/index.html",
+        },
+      ],
+    };
+  },
   async headers() {
     return [
       {
