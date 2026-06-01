@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Nav }       from "@/components/landing/Nav";
 import { Hero }      from "@/components/landing/Hero";
+import { Journey }   from "@/components/landing/Journey";
 import { Features }  from "@/components/landing/Features";
-import { GameShowcase } from "@/components/landing/GameShowcase";
+import { ProfileShowcase } from "@/components/landing/ProfileShowcase";
 import { Pricing }   from "@/components/landing/Pricing";
 import { FAQ }       from "@/components/landing/FAQ";
 import { CTA }       from "@/components/landing/CTA";
@@ -39,12 +40,13 @@ export default async function Page({
   }
 
   return (
-    <div style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}>
+    <div className="landing-game" style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}>
       <Nav />
       <main>
         <Hero />
+        <Journey />
         <Features />
-        <GameShowcase />
+        <ProfileShowcase />
         <Pricing />
         <FAQ />
         <CTA />

@@ -534,3 +534,77 @@ details > summary::-webkit-details-marker {
     animation: none !important;
   }
 }
+
+/* ── Landing: dark "game mode" palette ──────────────────────────
+   Scoped to the marketing page only. Overrides the editorial tokens
+   (and the shadcn aliases the pasted UI components read) with a deep
+   neon palette so every component renders dark + game-y without any
+   change to the components themselves. */
+.landing-game {
+  --bg:           #0c0a16;
+  --bg-soft:      #08060f;
+  --bg-elevated:  #161126;
+  --ink:          #f4f1ff;
+  --ink-muted:    #a79ecb;
+  --ink-faint:    #6c648f;
+  --line:         #271f3f;
+  --line-strong:  #3a3160;
+  --accent:       #9d86ff;
+  --accent-soft:  #201a3a;
+  --accent-ink:   #0c0a16;
+  --invert-bg:    #f4f1ff;
+  --invert-ink:   #0c0a16;
+  color-scheme: dark;
+
+  /* shadcn aliases for the pasted components */
+  --background:         var(--bg);
+  --card:               var(--bg-elevated);
+  --card-foreground:    var(--ink);
+  --popover:            var(--bg-elevated);
+  --popover-foreground: var(--ink);
+  --primary:            var(--accent);
+  --primary-foreground: #ffffff;
+  --muted:              255 30% 14%;
+  --muted-foreground:   var(--ink-muted);
+  --foreground:         var(--ink);
+  --border:             var(--line);
+
+  /* brighter neon game tokens on dark */
+  --xp:          #ffc847;
+  --xp-soft:     #3a2e12;
+  --flame:       #ff7a45;
+  --flame-soft:  #3d2317;
+  --energy:      #9d86ff;
+  --energy-soft: #201a3a;
+
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* Gradient game headline text */
+.text-game-gradient {
+  background: linear-gradient(100deg, var(--energy), var(--flame) 60%, var(--xp));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Scroll-reveal: fades/rises in when .is-in is added */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.2,0.6,0.2,1), transform 0.7s cubic-bezier(0.2,0.6,0.2,1);
+}
+.reveal-up.is-in { opacity: 1; transform: translateY(0); }
+
+/* Soft neon glow ring used on featured game cards */
+@keyframes neonBreathe {
+  0%, 100% { box-shadow: 0 0 0 1px var(--line), 0 0 40px -12px var(--energy); }
+  50%      { box-shadow: 0 0 0 1px var(--energy), 0 0 60px -8px var(--energy); }
+}
+.anim-neon { animation: neonBreathe 4s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up { opacity: 1; transform: none; transition: none; }
+  .anim-neon { animation: none !important; }
+}
