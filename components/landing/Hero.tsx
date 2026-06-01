@@ -1,62 +1,62 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { OAuthButtons } from "./OAuthButtons";
 import { LogoMark } from "@/components/Logo";
-import { Zap, Check, RefreshCw, Clock, Flame, Sparkles, Footprints, MessageCircle, Leaf, Coffee, type LucideIcon } from "lucide-react";
+import { Check, RefreshCw, Clock, Flame, Footprints, MessageCircle, Leaf, Coffee, type LucideIcon } from "lucide-react";
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      {/* Linear backdrop — faint product grid + one restrained accent glow */}
+      {/* Backdrop — faint product grid + a single soft glow rising from the top.
+          One light source, not a symmetric blob field. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="grid-bg absolute inset-0" />
         <div
-          className="absolute -top-40 left-1/2 h-[520px] w-[760px] -translate-x-1/2 rounded-full blur-[130px] opacity-40"
-          style={{ background: "radial-gradient(circle, rgba(20,184,166,0.40), transparent 70%)" }}
+          className="absolute -top-48 left-1/2 h-[560px] w-[820px] -translate-x-1/2 rounded-full blur-[140px]"
+          style={{ background: "radial-gradient(circle at 50% 40%, rgba(20,184,166,0.30), rgba(52,211,153,0.10) 45%, transparent 72%)" }}
         />
         <div
           className="absolute inset-x-0 top-0 h-px"
-          style={{ background: "linear-gradient(90deg, transparent, rgba(20,184,166,0.4), transparent)" }}
+          style={{ background: "linear-gradient(90deg, transparent, rgba(20,184,166,0.45), transparent)" }}
         />
       </div>
 
-      <div className="relative mx-auto grid max-w-[1200px] grid-cols-1 gap-14 px-6 pb-20 pt-10 sm:px-10 sm:pb-28 sm:pt-16 md:grid-cols-[1.05fr_1fr] md:gap-12 lg:pt-20">
-        <div className="flex flex-col justify-center">
-          <div className="glass mb-6 inline-flex w-fit items-center gap-2 rounded-full px-3.5 py-1.5">
-            <LogoMark size={14} color="var(--accent)" />
-            <span className="text-[12px] font-medium tracking-tight text-ink-muted">
-              An ADHD app that works the way you do
+      <div className="relative mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-x-12 gap-y-16 px-6 pb-20 pt-12 sm:px-10 sm:pb-28 sm:pt-16 md:grid-cols-[1.04fr_0.96fr] lg:pt-24">
+        <div className="flex flex-col">
+          {/* Eyebrow — a small live signal, not a marketing slogan. */}
+          <div className="glass mb-7 inline-flex w-fit items-center gap-2.5 rounded-full py-1.5 pl-2 pr-3.5">
+            <span className="grid h-5 w-5 place-items-center rounded-full" style={{ background: "var(--accent-soft)" }}>
+              <span className="h-1.5 w-1.5 rounded-full anim-pulseDot" style={{ background: "var(--accent)", color: "var(--accent)" }} />
+            </span>
+            <span className="text-[12.5px] font-medium tracking-tight text-ink-muted">
+              Built for brains that run on dopamine
             </span>
           </div>
 
-          <h1 className="font-display leading-[1.02] tracking-tight text-ink" style={{ fontSize: "clamp(42px,6vw,76px)" }}>
+          <h1 className="font-display tracking-[-0.02em] text-ink" style={{ fontSize: "clamp(44px,6.2vw,78px)", lineHeight: 1.02 }}>
             Your ADHD,
             <br />
-            <span className="text-game-gradient">finally on your side.</span>
+            <span className="text-game-gradient">on your side</span> for once.
           </h1>
 
-          <p className="mt-6 max-w-[470px] text-[17px] leading-[1.6] text-ink-muted">
-            Track what you&apos;re fixated on. Earn XP for things you actually did — proof required.
-            Shrink the tasks you keep avoiding. No leaderboards, no guilt, no streak you shatter in a bad week.
+          <p className="mt-7 max-w-[460px] text-[17px] leading-[1.62] text-ink-muted">
+            Hyperfix turns your hyperfixations into momentum. Earn XP only for things you
+            actually did, shrink the tasks you keep avoiding, and keep a streak that survives a bad week.
           </p>
 
-          <div className="mt-8 w-full max-w-[380px]">
+          <div className="mt-9 w-full max-w-[380px]">
             <OAuthButtons />
-            <p className="mt-4 text-[13px] text-ink-faint">
-              Free to start. <span style={{ color: "var(--accent)" }}>No credit card.</span> 60 seconds.
+            <p className="mt-3.5 text-[13px] text-ink-faint">
+              Free to start · no card · live in under a minute.
             </p>
           </div>
 
-          {/* honest, concrete trust line */}
-          <div className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-2">
-            {["Hyperfixation log", "Proof of action", "Forgiving streaks"].map((f) => (
-              <span key={f} className="flex items-center gap-1.5 text-[13px] text-ink-muted">
-                <Check size={13} strokeWidth={2.5} style={{ color: "var(--accent)" }} />
-                {f}
-              </span>
-            ))}
-          </div>
+          {/* Trust line — written like a person, not a checkbox row. */}
+          <p className="mt-10 max-w-[440px] text-[13.5px] leading-relaxed text-ink-faint">
+            No leaderboards. No guilt-trips. No streak you shatter the moment life gets loud —
+            <span className="text-ink-muted"> just your own pace, tracked honestly.</span>
+          </p>
         </div>
 
         <HeroDopamineDemo />
@@ -106,46 +106,55 @@ function HeroDopamineDemo() {
   }
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="relative flex items-center justify-center">
+      {/* a faint pedestal glow so the card feels lit, not floating in a void */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-6 -bottom-6 top-10 rounded-[40px] blur-3xl"
+        style={{ background: "radial-gradient(60% 60% at 50% 50%, rgba(20,184,166,0.12), transparent 70%)" }}
+      />
       <div
         className="soft-card-lg relative w-full max-w-[420px] overflow-hidden rounded-[var(--radius-xl)] p-6"
         style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
       >
         {/* header */}
-        <div className="flex items-start justify-between mb-5">
+        <div className="mb-5 flex items-start justify-between">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-widest mb-1" style={{ color: "var(--accent)" }}>
-              Dopamine Menu
-            </p>
+            <div className="mb-1.5 inline-flex items-center gap-1.5">
+              <LogoMark size={13} color="var(--accent)" />
+              <p className="font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: "var(--accent)" }}>
+                Dopamine Menu
+              </p>
+            </div>
             <h3 className="font-display text-[25px] leading-tight text-ink">
               {done ? "That beat the scroll." : "Do this. Right now."}
             </h3>
           </div>
-          <div className="flex flex-col items-center shrink-0">
+          <div className="flex shrink-0 flex-col items-center">
             <div className="flex items-center gap-1">
               {[0, 1, 2].map((d) => (
                 <span
                   key={d}
-                  className="rounded-full transition-all"
-                  style={{ width: 8, height: 8, background: d < count ? "var(--accent)" : "var(--line)" }}
+                  className="rounded-full transition-all duration-300"
+                  style={{ width: 8, height: 8, background: d < count ? "var(--accent)" : "var(--line-strong)" }}
                 />
               ))}
             </div>
-            <p className="mt-1 font-mono text-[9px] uppercase tracking-widest text-ink-faint">{count}/3 today</p>
+            <p className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.16em] text-ink-faint">{count}/3 today</p>
           </div>
         </div>
 
         {/* card */}
         <div
-          className="rounded-[var(--radius-lg)] p-5 mb-4 transition-colors"
+          className="mb-4 rounded-[var(--radius-lg)] p-5 transition-colors duration-300"
           style={{
             background: done ? "var(--pastel-green)" : "var(--bg-soft)",
             border: `1px solid ${done ? "transparent" : "var(--line)"}`,
           }}
         >
-          <div className="flex items-center justify-between mb-3">
+          <div className="mb-3 flex items-center justify-between">
             <span
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono text-[10px] uppercase tracking-widest text-ink-muted"
+              className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-muted"
               style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
             >
               <hit.icon size={11} strokeWidth={2} />
@@ -167,23 +176,23 @@ function HeroDopamineDemo() {
         {done ? (
           <button
             onClick={reroll}
-            className="press-pop w-full flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold"
+            className="press-pop flex w-full items-center justify-center gap-2 rounded-[var(--radius-lg)] py-3.5 font-sans text-[15px] font-bold"
             style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
           >
-            <Zap size={18} strokeWidth={2.5} fill="var(--accent-ink)" /> Give me another
+            <RefreshCw size={16} strokeWidth={2.5} /> Give me another
           </button>
         ) : (
           <div className="flex items-center gap-3">
             <button
               onClick={complete}
-              className="press-pop flex-1 flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold"
+              className="press-pop flex flex-1 items-center justify-center gap-2 rounded-[var(--radius-lg)] py-3.5 font-sans text-[15px] font-bold"
               style={{ background: "var(--invert-bg)", color: "var(--invert-ink)" }}
             >
               <Check size={18} strokeWidth={2.5} /> I did it
             </button>
             <button
               onClick={reroll}
-              className="press-pop flex items-center justify-center gap-2 px-5 py-3.5 rounded-[var(--radius-lg)] font-sans text-[14px] font-medium"
+              className="press-pop flex items-center justify-center gap-2 rounded-[var(--radius-lg)] px-5 py-3.5 font-sans text-[14px] font-medium"
               style={{ background: "var(--bg-soft)", color: "var(--ink-muted)", border: "1px solid var(--line)" }}
             >
               <RefreshCw size={15} strokeWidth={1.5} /> Reroll
@@ -191,14 +200,12 @@ function HeroDopamineDemo() {
           </div>
         )}
 
-        {/* footer stats */}
-        <div className="mt-5 flex items-center justify-between">
+        {/* footer — a quiet streak line, no fake bragging */}
+        <div className="mt-5 flex items-center justify-between border-t pt-4" style={{ borderColor: "var(--line)" }}>
           <span className="inline-flex items-center gap-1.5 font-mono text-[11px]" style={{ color: "var(--flame)" }}>
             <Flame size={13} strokeWidth={2} fill="var(--flame)" /> 14-day streak
           </span>
-          <span className="inline-flex items-center gap-1.5 font-mono text-[11px]" style={{ color: "var(--xp)" }}>
-            <Sparkles size={13} strokeWidth={1.5} /> Level 4 · Hooked
-          </span>
+          <span className="font-mono text-[11px] text-ink-faint">Level 4 · Hooked</span>
         </div>
       </div>
     </div>
