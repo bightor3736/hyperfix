@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Lexend, JetBrains_Mono } from "next/font/google";
+import { Fraunces, Lexend, JetBrains_Mono, Inter, Source_Serif_4 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Suspense } from "react";
 import { AffTracker } from "@/components/AffTracker";
@@ -25,6 +25,20 @@ const mono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-mono",
+});
+
+// Whenevr-inspired display pairing: Inter (tight semibold headlines/UI) +
+// Source Serif 4 italic (the accent words).
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-serif",
 });
 
 const SITE_URL = "https://hyperfix.app";
@@ -138,7 +152,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${instrument.variable} ${mono.variable}`}
+      className={`${fraunces.variable} ${instrument.variable} ${mono.variable} ${inter.variable} ${sourceSerif.variable}`}
       suppressHydrationWarning
     >
       <head>

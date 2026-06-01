@@ -1,14 +1,5 @@
 import type { Metadata } from "next";
-import { Nav }       from "@/components/landing/Nav";
-import { Hero }      from "@/components/landing/Hero";
-import { Modules }   from "@/components/landing/Modules";
-import { ProfileShowcase } from "@/components/landing/ProfileShowcase";
-import { Pricing }   from "@/components/landing/Pricing";
-import { FAQ }       from "@/components/landing/FAQ";
-import { FoundersNote } from "@/components/landing/FoundersNote";
-import { CTA }       from "@/components/landing/CTA";
-import { Footer }    from "@/components/landing/Footer";
-import { StickyMobileCTA } from "@/components/landing/StickyMobileCTA";
+import { HeroInspired } from "@/components/landing/HeroInspired";
 import { SourceCapture } from "@/components/SourceCapture";
 
 export const metadata: Metadata = {
@@ -42,20 +33,11 @@ export default async function Page({
   }
 
   return (
-    <div className="landing-game" style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}>
+    <div style={{ minHeight: "100vh" }}>
       <SourceCapture />
-      <Nav />
       <main>
-        <Hero />
-        <Modules />
-        <ProfileShowcase />
-        <FoundersNote />
-        <Pricing />
-        <FAQ />
-        <CTA />
+        <HeroInspired />
       </main>
-      <Footer />
-      <StickyMobileCTA />
     </div>
   );
 }
