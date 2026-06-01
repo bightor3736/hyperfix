@@ -12,6 +12,7 @@ import { FoundersNote } from "@/components/landing/FoundersNote";
 import { CTA }       from "@/components/landing/CTA";
 import { Footer }    from "@/components/landing/Footer";
 import { StickyMobileCTA } from "@/components/landing/StickyMobileCTA";
+import { SourceCapture } from "@/components/SourceCapture";
 
 export const metadata: Metadata = {
   title: "Hyperfix — Your daily dopamine, on tap",
@@ -45,6 +46,7 @@ export default async function Page({
 
   return (
     <div className="landing-game" style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}>
+      <SourceCapture />
       <Nav />
       <main>
         <Hero />

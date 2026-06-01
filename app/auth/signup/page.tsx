@@ -19,10 +19,10 @@ export default async function SignupPage() {
         className="font-display text-[38px] leading-tight text-ink mb-2 anim-fadeUp"
         style={{ letterSpacing: "-0.02em" }}
       >
-        Start counting.
+        Start playing.
       </h1>
       <p className="text-[15px] text-ink-muted mb-1 anim-fadeUp delay-100">
-        30 seconds. Free forever. The number doesn&apos;t lie.
+        30 seconds to sign up. Free forever. Your first hit is waiting.
       </p>
 
       {userCount > 0 && (
@@ -30,11 +30,11 @@ export default async function SignupPage() {
           className="self-start inline-flex items-center font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1 mb-5 anim-fadeUp delay-150"
           style={{
             background: "var(--accent-soft)",
-            color: "var(--accent)",
-            border: "1px solid rgba(111,138,99,0.3)",
+            color: "var(--ink)",
+            border: "1px solid var(--line)",
           }}
         >
-          join {displayCount} people already tracking
+          join {displayCount} people already playing
         </span>
       )}
 

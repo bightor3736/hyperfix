@@ -12,7 +12,7 @@ export default function LoginPage() {
         Welcome back.
       </h1>
       <p className="text-[15px] text-ink-muted mb-6 anim-fadeUp delay-100">
-        Pick up the count where you left off.
+        Your streak&apos;s waiting. Pick up where you left off.
       </p>
 
       <div className="anim-fadeUp delay-200">
@@ -38,7 +38,7 @@ export default function LoginPage() {
         </a>
       </p>
       <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint anim-fadeUp delay-600">
-        or join the unwell at hyperfix.app
+        your daily dopamine · hyperfix.app
       </p>
     </div>
   );
