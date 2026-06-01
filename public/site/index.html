@@ -494,17 +494,19 @@
       if(opH){st.filter='none';st.transform='none';el.classList.add('hf-pre');io.observe(el);}
     });
 
+    var marqIdx=0;
     // 3) Marquees — Framer's JS normally clones children to loop; do it ourselves.
     document.querySelectorAll('ul').forEach(function(ul){
       if(ul.children.length<3||getComputedStyle(ul).display!=='flex')return;
       var anc=ul.parentElement,hidden=false;
-      for(var i=0;i<4&&anc;i++){if(getComputedStyle(anc).overflow==='hidden'){hidden=true;break;}anc=anc.parentElement;}
+      for(var i=0;i<9&&anc;i++){var a=getComputedStyle(anc);if(a.overflow==='hidden'||a.overflow==='clip'||a.overflowX==='hidden'||a.overflowX==='clip'){hidden=true;break;}anc=anc.parentElement;}
       if(!hidden)return;
-      var w=ul.scrollWidth; if(w<200)return;
+      var w=ul.scrollWidth; if(w<200||ul.getClientRects().length===0)return;
+      if(ul.dataset.hfMarquee)return; ul.dataset.hfMarquee='1';
       [].slice.call(ul.children).forEach(function(n){ul.appendChild(n.cloneNode(true));});
       ul.style.willChange='transform';
-      var dur=Math.max(18,w/55);
-      try{ul.animate([{transform:'translateX(0)'},{transform:'translateX(-'+w+'px)'}],{duration:dur*1000,iterations:Infinity,easing:'linear'});}catch(e){}
+      var dur=Math.max(20,w/55), dir=(marqIdx++%2)?1:-1;
+      try{ul.animate([{transform:'translateX(0)'},{transform:'translateX('+(dir*-w)+'px)'}],{duration:dur*1000,iterations:Infinity,easing:'linear'});}catch(e){}
     });
 
     // 4) FAQ — make answers visible (no collapse without the engine)
