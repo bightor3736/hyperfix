@@ -6,47 +6,39 @@ const columns = [
   {
     title: "Product",
     links: [
+      { label: "How it works", href: "#how" },
       { label: "Features", href: "#features" },
       { label: "Pricing", href: "#pricing" },
-      { label: "Graveyard", href: "#graveyard" },
-      { label: "Wrapped", href: "#wrapped" },
+      { label: "FAQ", href: "#faq" },
     ],
   },
   {
-    title: "Community",
-    links: [
-      { label: "Explore", href: "#explore" },
-      { label: "Manifesto", href: "/manifesto" },
-      { label: "Field notes", href: "#blog" },
-    ],
-  },
-  {
-    title: "Support",
-    links: [
-      { label: "Help", href: "#help" },
-      { label: "Privacy", href: "#privacy" },
-      { label: "Terms", href: "#terms" },
-    ],
-  },
-  {
-    title: "Try it",
+    title: "Play",
     links: [
       { label: "Sign up", href: "/auth/signup" },
       { label: "Log in", href: "/auth/login" },
-      { label: "iOS", href: "#ios" },
-      { label: "Android", href: "#android" },
+      { label: "Leaderboard", href: "/leaderboard" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { label: "Privacy", href: "/privacy" },
+      { label: "Terms", href: "/tos" },
     ],
   },
 ];
 
-// Footer keeps its own always-dark palette regardless of the active theme.
+// Footer keeps its own always-dark (pure black) palette regardless of theme.
 const footerVars = {
-  "--ink": "#f3eee0",
-  "--ink-muted": "#9a9488",
-  "--ink-faint": "#6b6557",
-  "--line": "#262523",
-  "--invert-bg": "#f3eee0",
+  "--ink": "#ffffff",
+  "--ink-muted": "#a3a3a3",
+  "--ink-faint": "#6b6b6b",
+  "--line": "#262626",
+  "--invert-bg": "#ffffff",
   "--invert-ink": "#0a0a0a",
+  "--energy": "#ffffff",
+  "--accent": "#ffffff",
   background: "#0a0a0a",
 } as CSSProperties;
 
@@ -55,10 +47,10 @@ export function Footer() {
     <footer style={footerVars} className="text-ink">
       <div className="mx-auto max-w-[1200px] px-6 pb-12 pt-20 sm:px-10">
         <div className="grid grid-cols-2 gap-y-12 sm:grid-cols-3 md:grid-cols-5 md:gap-x-10">
-          <div className="col-span-2 sm:col-span-3 md:col-span-1">
+          <div className="col-span-2 sm:col-span-3 md:col-span-2">
             <Wordmark />
             <p className="mt-4 max-w-[260px] text-[13px] leading-relaxed text-ink-muted">
-              A diary for the thing that rearranged your brain.
+              Your daily dopamine, on tap. The anti-doomscroll game for ADHD brains.
             </p>
             <div className="mt-6">
               <ThemeToggle />

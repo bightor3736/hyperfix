@@ -8,7 +8,7 @@ import { Confetti } from "./Confetti";
 
 type Phase = "idle" | "step" | "done";
 
-export function BeatTheWall({ wallsTotal = 0 }: { wallsTotal?: number }) {
+export function BeatTheWall({ wallsTotal = 0, name }: { wallsTotal?: number; name?: string }) {
   const router = useRouter();
   const [phase, setPhase] = useState<Phase>("idle");
   const [task, setTask] = useState("");
@@ -180,7 +180,7 @@ export function BeatTheWall({ wallsTotal = 0 }: { wallsTotal?: number }) {
         <div className="anim-pop">
           <div className="rounded-[var(--radius-lg)] p-5 mb-4 text-center" style={{ background: "var(--accent-soft)", border: "1px solid var(--accent)" }}>
             <p className="font-display text-ink" style={{ fontSize: "clamp(18px,3vw,24px)" }}>
-              You started. That was the whole battle.
+              You started{name ? `, ${name}` : ""}. That was the whole battle.
             </p>
             <p className="anim-floatUp font-display text-[22px] mt-1" style={{ color: "var(--xp)" }}>+{WALL_XP} XP</p>
           </div>

@@ -21,7 +21,7 @@ const ENERGY_OPTS: { value: Energy; label: string; icon: LucideIcon }[] = [
 
 const DAILY_GOAL = 3;
 
-export function DopamineMenu({ todayCount = 0 }: { todayCount?: number }) {
+export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; name?: string }) {
   const router = useRouter();
   const [energy, setEnergy] = useState<Energy>("low");
   const [category, setCategory] = useState<DopamineCategory | null>(null);
@@ -91,10 +91,10 @@ export function DopamineMenu({ todayCount = 0 }: { todayCount?: number }) {
             {done
               ? jackpot
                 ? "Jackpot! Triple XP."
-                : "That beat the scroll."
+                : `That beat the scroll${name ? `, ${name}` : ""}.`
               : activity
               ? "Do this. Right now."
-              : "Bored? Don't open the feed."}
+              : `${name ? `${name}, b` : "B"}ored? Don't open the feed.`}
           </h2>
         </div>
 

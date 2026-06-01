@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const COLORS = ["#f59e0b", "#ff6b35", "#7c5cff", "#6f8a63", "#63808a"];
+const COLORS = ["#0a0a0a", "#404040", "#737373", "#a3a3a3", "#0a0a0a"];
 
 /**
  * Lightweight confetti burst. Bump `fireKey` to re-trigger (e.g. a counter).

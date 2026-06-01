@@ -5,19 +5,19 @@
 /* ── Landing page design tokens ─────────────────────────────── */
 :root {
   --font-display: var(--font-fraunces);
-  --bg:           #f7f4ec;
-  --bg-soft:      #f0ebe0;
+  --bg:           #ffffff;
+  --bg-soft:      #f6f6f6;
   --bg-elevated:  #ffffff;
-  --ink:          #1b1a17;
-  --ink-muted:    #6b6659;
-  --ink-faint:    #b1aa9a;
-  --line:         #e2dccc;
-  --line-strong:  #c8c0ac;
-  --accent:       #6f8a63;
-  --accent-soft:  #dbe4d0;
-  --accent-ink:   #f7f4ec;
-  --invert-bg:    #1b1a17;
-  --invert-ink:   #f7f4ec;
+  --ink:          #0a0a0a;
+  --ink-muted:    #595959;
+  --ink-faint:    #9a9a9a;
+  --line:         #e6e6e6;
+  --line-strong:  #d4d4d4;
+  --accent:       #0a0a0a;
+  --accent-soft:  #f2f2f2;
+  --accent-ink:   #ffffff;
+  --invert-bg:    #0a0a0a;
+  --invert-ink:   #ffffff;
   color-scheme: light;
   /* shadcn compatibility aliases */
   --background:        var(--bg);
@@ -28,69 +28,68 @@
   --primary:           var(--accent);
   --primary-foreground: var(--accent-ink);
   /* --muted holds HSL *channels* (shadcn convention) so hsl(var(--muted)) resolves */
-  --muted:             42 35% 91%;
+  --muted:             0 0% 96%;
   --muted-foreground:  var(--ink-muted);
   --foreground:        var(--ink);
   --border:            var(--line);
 
-  /* ---- Playful game tokens (light) ---- */
-  --xp:          #f59e0b;   /* XP / levels — warm gold */
-  --xp-soft:     #fdecc8;
-  --flame:       #ff6b35;   /* streak fire */
-  --flame-soft:  #ffe2d6;
-  --energy:      #7c5cff;   /* dopamine / energy accent */
-  --energy-soft: #ece7ff;
-  --radius-lg:   22px;
-  --radius-xl:   28px;
+  /* ---- Monochrome accent tokens (no extra colours) ---- */
+  --xp:          #0a0a0a;
+  --xp-soft:     #f2f2f2;
+  --flame:       #0a0a0a;
+  --flame-soft:  #f2f2f2;
+  --energy:      #0a0a0a;
+  --energy-soft: #f2f2f2;
+  --radius-lg:   18px;
+  --radius-xl:   24px;
 }
 
 :root[data-theme="dark"] {
-  --bg:           #242019;
-  --bg-soft:      #1e1c16;
-  --bg-elevated:  #2c2920;
-  --ink:          #f3eee0;
-  --ink-muted:    #a39d8c;
-  --ink-faint:    #6b6557;
-  --line:         #3a352e;
-  --line-strong:  #4c463c;
-  --accent:       #acc096;
-  --accent-soft:  #2f3a2b;
-  --accent-ink:   #18170f;
-  --invert-bg:    #f3eee0;
-  --invert-ink:   #1b1a17;
-  --muted:        45 15% 10%;
-  /* ---- Playful game tokens (dark) ---- */
-  --xp:          #fbbf24;
-  --xp-soft:     #46391c;
-  --flame:       #ff8559;
-  --flame-soft:  #4a2c1f;
-  --energy:      #9d86ff;
-  --energy-soft: #2e2750;
+  --bg:           #0a0a0a;
+  --bg-soft:      #000000;
+  --bg-elevated:  #171717;
+  --ink:          #fafafa;
+  --ink-muted:    #a3a3a3;
+  --ink-faint:    #6b6b6b;
+  --line:         #262626;
+  --line-strong:  #383838;
+  --accent:       #fafafa;
+  --accent-soft:  #1f1f1f;
+  --accent-ink:   #0a0a0a;
+  --invert-bg:    #fafafa;
+  --invert-ink:   #0a0a0a;
+  --muted:        0 0% 12%;
+  --xp:          #fafafa;
+  --xp-soft:     #1f1f1f;
+  --flame:       #fafafa;
+  --flame-soft:  #1f1f1f;
+  --energy:      #fafafa;
+  --energy-soft: #1f1f1f;
   color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg:           #242019;
-    --bg-soft:      #1e1c16;
-    --bg-elevated:  #2c2920;
-    --ink:          #f3eee0;
-    --ink-muted:    #a39d8c;
-    --ink-faint:    #6b6557;
-    --line:         #3a352e;
-    --line-strong:  #4c463c;
-    --accent:       #acc096;
-    --accent-soft:  #2f3a2b;
-    --accent-ink:   #18170f;
-    --invert-bg:    #f3eee0;
-    --invert-ink:   #1b1a17;
-    --muted:        45 15% 10%;
-    --xp:          #fbbf24;
-    --xp-soft:     #46391c;
-    --flame:       #ff8559;
-    --flame-soft:  #4a2c1f;
-    --energy:      #9d86ff;
-    --energy-soft: #2e2750;
+    --bg:           #0a0a0a;
+    --bg-soft:      #000000;
+    --bg-elevated:  #171717;
+    --ink:          #fafafa;
+    --ink-muted:    #a3a3a3;
+    --ink-faint:    #6b6b6b;
+    --line:         #262626;
+    --line-strong:  #383838;
+    --accent:       #fafafa;
+    --accent-soft:  #1f1f1f;
+    --accent-ink:   #0a0a0a;
+    --invert-bg:    #fafafa;
+    --invert-ink:   #0a0a0a;
+    --muted:        0 0% 12%;
+    --xp:          #fafafa;
+    --xp-soft:     #1f1f1f;
+    --flame:       #fafafa;
+    --flame-soft:  #1f1f1f;
+    --energy:      #fafafa;
+    --energy-soft: #1f1f1f;
     color-scheme: dark;
   }
 }
@@ -509,8 +508,8 @@ details > summary::-webkit-details-marker {
 }
 
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(124,92,255,0.35); }
-  50%      { box-shadow: 0 0 0 10px rgba(124,92,255,0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(10,10,10,0.18); }
+  50%      { box-shadow: 0 0 0 10px rgba(10,10,10,0); }
 }
 .anim-pulseGlow { animation: pulseGlow 2.2s ease-in-out infinite; }
 
@@ -535,55 +534,15 @@ details > summary::-webkit-details-marker {
   }
 }
 
-/* ── Landing: dark "game mode" palette ──────────────────────────
-   Scoped to the marketing page only. Overrides the editorial tokens
-   (and the shadcn aliases the pasted UI components read) with a deep
-   neon palette so every component renders dark + game-y without any
-   change to the components themselves. */
+/* Landing wrapper — clean monochrome, inherits the root white/black palette. */
 .landing-game {
-  --bg:           #0c0a16;
-  --bg-soft:      #08060f;
-  --bg-elevated:  #161126;
-  --ink:          #f4f1ff;
-  --ink-muted:    #a79ecb;
-  --ink-faint:    #6c648f;
-  --line:         #271f3f;
-  --line-strong:  #3a3160;
-  --accent:       #9d86ff;
-  --accent-soft:  #201a3a;
-  --accent-ink:   #0c0a16;
-  --invert-bg:    #f4f1ff;
-  --invert-ink:   #0c0a16;
-  color-scheme: dark;
-
-  /* shadcn aliases for the pasted components */
-  --background:         var(--bg);
-  --card:               var(--bg-elevated);
-  --card-foreground:    var(--ink);
-  --popover:            var(--bg-elevated);
-  --popover-foreground: var(--ink);
-  --primary:            var(--accent);
-  --primary-foreground: #ffffff;
-  --muted:              255 30% 14%;
-  --muted-foreground:   var(--ink-muted);
-  --foreground:         var(--ink);
-  --border:             var(--line);
-
-  /* brighter neon game tokens on dark */
-  --xp:          #ffc847;
-  --xp-soft:     #3a2e12;
-  --flame:       #ff7a45;
-  --flame-soft:  #3d2317;
-  --energy:      #9d86ff;
-  --energy-soft: #201a3a;
-
   background: var(--bg);
   color: var(--ink);
 }
 
-/* Game headline accent — single clean colour, no rainbow */
+/* Headline accent — pure ink, no extra colour. */
 .text-game-gradient {
-  color: var(--energy);
+  color: var(--ink);
 }
 
 /* Scroll-reveal: fades/rises in when .is-in is added */
@@ -594,12 +553,8 @@ details > summary::-webkit-details-marker {
 }
 .reveal-up.is-in { opacity: 1; transform: translateY(0); }
 
-/* Soft neon glow ring used on featured game cards */
-@keyframes neonBreathe {
-  0%, 100% { box-shadow: 0 0 0 1px var(--line), 0 0 40px -12px var(--energy); }
-  50%      { box-shadow: 0 0 0 1px var(--energy), 0 0 60px -8px var(--energy); }
-}
-.anim-neon { animation: neonBreathe 4s ease-in-out infinite; }
+/* Clean emphasis ring for featured cards — monochrome, no glow */
+.anim-neon { box-shadow: 0 0 0 1px var(--ink); }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal-up { opacity: 1; transform: none; transition: none; }

@@ -117,14 +117,14 @@ export default async function DashboardPage() {
         {/* Dopamine Menu — the hero, the core daily loop */}
         {user && (
           <section className="anim-fadeUp" style={{ animationDelay: "40ms" }}>
-            <DopamineMenu todayCount={dopamineToday} />
+            <DopamineMenu todayCount={dopamineToday} name={firstName} />
           </section>
         )}
 
         {/* Beat the Wall — task initiation */}
         {user && (
           <section className="anim-fadeUp" style={{ animationDelay: "55ms" }}>
-            <BeatTheWall wallsTotal={wallsTotal} />
+            <BeatTheWall wallsTotal={wallsTotal} name={firstName} />
           </section>
         )}
 
