@@ -468,51 +468,73 @@
 (function(){
   var EASE='cubic-bezier(.22,.61,.18,1)';
   function tf(s){var p=[];if(s.x||s.y)p.push('translate('+(s.x||0)+'px,'+(s.y||0)+'px)');if(s.scale!=null&&s.scale!==1)p.push('scale('+s.scale+')');if(s.rotate)p.push('rotate('+s.rotate+'deg)');return p.length?p.join(' '):'none';}
+  var pending=[]; // hf-pre elements awaiting reveal
+
+  function reveal(el){ if(el.classList.contains('hf-in'))return; el.classList.add('hf-in'); }
+  function sweep(){ // failsafe: reveal anything at/above viewport, even if IO missed it
+    var vh=window.innerHeight||800;
+    pending=pending.filter(function(el){
+      var r=el.getBoundingClientRect();
+      if(r.top < vh*1.15){ reveal(el); return false; }
+      return true;
+    });
+  }
 
   function run(){
     // 1) Appear-id elements via Framer's own config
-    var cfgEl=document.getElementById('__framer__appearAnimationsContent'), cfg=null;
+    var cfgEl=document.getElementById('__framer__appearAnimationsContent'),cfg=null;
     if(cfgEl){try{cfg=JSON.parse(cfgEl.text||cfgEl.textContent);}catch(e){}}
-    var handled={};
     if(cfg)Object.keys(cfg).forEach(function(id){
-      var v=cfg[id]&&(cfg[id]['default']||cfg[id][Object.keys(cfg[id])[0]]); if(!v||!v.initial||!v.animate)return;
-      var el=document.querySelector('[data-framer-appear-id="'+id+'"]'); if(!el)return; handled[id]=1;
+      var v=cfg[id]&&(cfg[id]['default']||cfg[id][Object.keys(cfg[id])[0]]);if(!v||!v.initial||!v.animate)return;
+      var el=document.querySelector('[data-framer-appear-id="'+id+'"]');if(!el)return;
       var tr=v.animate.transition||{};
       try{el.style.opacity=(v.initial.opacity!=null?v.initial.opacity:1);el.style.transform=tf(v.initial);
-        var a=el.animate([{opacity:el.style.opacity,transform:el.style.transform},{opacity:(v.animate.opacity!=null?v.animate.opacity:1),transform:tf(v.animate)}],{duration:(tr.duration||0.6)*1000,delay:(tr.delay||0)*1000,easing:EASE,fill:'both'});
+        var a=el.animate([{opacity:el.style.opacity,transform:el.style.transform},{opacity:1,transform:tf(v.animate)}],{duration:(tr.duration||0.6)*1000,delay:(tr.delay||0)*1000,easing:EASE,fill:'both'});
         a.onfinish=function(){el.style.opacity=1;el.style.transform='none';};
       }catch(e){el.style.opacity=1;el.style.transform='none';}
     });
 
-    // 2) Everything else Framer pre-hid inline -> reveal with scroll fade-up
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('hf-in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});
+    // 2) Reveal everything Framer pre-hid. Resting state via class toggle; a
+    //    failsafe guarantees nothing stays invisible even if IO misses it.
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){reveal(e.target);io.unobserve(e.target);}});},{rootMargin:'0px 0px -5% 0px'});
     document.querySelectorAll('[style]').forEach(function(el){
       if(el.getAttribute('data-framer-appear-id'))return;
       var st=el.style,op=st.opacity;
-      var opH=(op!==''&&parseFloat(op)<=0.02), vH=(st.visibility==='hidden');
+      var opH=(op!==''&&parseFloat(op)<=0.02),vH=(st.visibility==='hidden');
       if(vH)st.visibility='visible';
-      if(opH){st.filter='none';st.transform='none';el.classList.add('hf-pre');io.observe(el);}
+      if(opH){ st.filter='none'; st.transform='none'; st.opacity=''; el.classList.add('hf-pre'); pending.push(el); io.observe(el); }
     });
+    sweep();
+    window.addEventListener('scroll',sweep,{passive:true});
+    // ultimate failsafe: after 4s reveal anything still hidden, no matter what
+    setTimeout(function(){ pending.forEach(reveal); pending=[]; }, 4000);
 
+    // 3) Marquees — clone items + loop (Framer's JS normally clones them)
     var marqIdx=0;
-    // 3) Marquees — Framer's JS normally clones children to loop; do it ourselves.
     document.querySelectorAll('ul').forEach(function(ul){
       if(ul.children.length<3||getComputedStyle(ul).display!=='flex')return;
       var anc=ul.parentElement,hidden=false;
       for(var i=0;i<9&&anc;i++){var a=getComputedStyle(anc);if(a.overflow==='hidden'||a.overflow==='clip'||a.overflowX==='hidden'||a.overflowX==='clip'){hidden=true;break;}anc=anc.parentElement;}
-      if(!hidden)return;
-      var w=ul.scrollWidth; if(w<200||ul.getClientRects().length===0)return;
+      if(!hidden)return; var w=ul.scrollWidth; if(w<200||ul.getClientRects().length===0)return;
       if(ul.dataset.hfMarquee)return; ul.dataset.hfMarquee='1';
       [].slice.call(ul.children).forEach(function(n){ul.appendChild(n.cloneNode(true));});
-      ul.style.willChange='transform';
-      var dur=Math.max(20,w/55), dir=(marqIdx++%2)?1:-1;
+      ul.style.willChange='transform'; var dur=Math.max(20,w/55),dir=(marqIdx++%2)?1:-1;
       try{ul.animate([{transform:'translateX(0)'},{transform:'translateX('+(dir*-w)+'px)'}],{duration:dur*1000,iterations:Infinity,easing:'linear'});}catch(e){}
     });
 
-    // 4) FAQ — make answers visible (no collapse without the engine)
+    // 4) FAQ answers visible
     document.querySelectorAll('[data-framer-name="Answer"],[data-framer-name="Content"]').forEach(function(el){
-      var h=el.style.height; if(h==='0px'||h==='0'){el.style.height='auto';}
-      if(el.style.overflow==='hidden')el.style.overflow='visible';
+      if(el.style.height==='0px'||el.style.height==='0')el.style.height='auto'; if(el.style.overflow==='hidden')el.style.overflow='visible';
+    });
+
+    // 5) Button / link micro-interactions (Framer's hover variants are gone)
+    document.querySelectorAll('a,button,[role="button"]').forEach(function(el){
+      if(el.dataset.hfBtn)return; el.dataset.hfBtn='1';
+      el.style.transition=(el.style.transition?el.style.transition+',':'')+'transform .18s cubic-bezier(.2,.6,.2,1)';
+      el.addEventListener('mouseenter',function(){el.style.transform='translateY(-2px)';});
+      el.addEventListener('mouseleave',function(){el.style.transform='';});
+      el.addEventListener('mousedown',function(){el.style.transform='scale(.97)';});
+      el.addEventListener('mouseup',function(){el.style.transform='translateY(-2px)';});
     });
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
