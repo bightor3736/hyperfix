@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
-// Hyperfix mark: white bloom on an energy-purple tile.
+// Hyperfix mark: white bloom on a soft-blue tile.
 export default function AppleIcon() {
   return new ImageResponse(
     (
@@ -11,7 +11,7 @@ export default function AppleIcon() {
         style={{
           width: 180,
           height: 180,
-          background: "#7c5cff",
+          background: "#5b7fff",
           borderRadius: 42,
           display: "flex",
           alignItems: "center",

@@ -14,16 +14,16 @@ export async function GET(req: Request) {
   const xp = parseInt(searchParams.get("xp") ?? "0", 10) || 0;
   const hits = parseInt(searchParams.get("hits") ?? "0", 10) || 0;
 
-  // Brand + game palette
-  const BG = "#f7f4ec";
-  const INK = "#1b1a17";
-  const MUTED = "#6b6659";
-  const FAINT = "#b1aa9a";
-  const LINE = "#e2dccc";
+  // Brand palette — soft-cool light, blue primary, warm reward accents
+  const BG = "#f6f8fb";
+  const INK = "#1f2937";
+  const MUTED = "#5b6472";
+  const FAINT = "#98a1b1";
+  const LINE = "#e4e9f1";
   const CARD = "#ffffff";
-  const ENERGY = "#7c5cff";
-  const XP = "#f59e0b";
-  const FLAME = "#ff6b35";
+  const ENERGY = "#5b7fff";
+  const XP = "#5b7fff";
+  const FLAME = "#ff7a59";
 
   return new ImageResponse(
     (
