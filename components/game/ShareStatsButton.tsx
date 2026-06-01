@@ -36,7 +36,7 @@ export function ShareStatsButton({ name, streak, level, xp, hits }: Props) {
         await navigator.share({
           files: [file],
           title: "My Hyperfix streak",
-          text: `${streak}-day streak on Hyperfix 🔥 — chose dopamine over the doomscroll. hyperfix.app`,
+          text: `${streak}-day streak on Hyperfix — chose dopamine over the doomscroll. hyperfix.app`,
         });
       } else {
         download(blob);
@@ -69,7 +69,7 @@ export function ShareStatsButton({ name, streak, level, xp, hits }: Props) {
 
   async function copyText() {
     await navigator.clipboard.writeText(
-      `${streak}-day streak on Hyperfix 🔥 — chose dopamine over the doomscroll. hyperfix.app`
+      `${streak}-day streak on Hyperfix — chose dopamine over the doomscroll. hyperfix.app`
     );
     setCopied(true);
     setTimeout(() => setCopied(false), 1600);

@@ -3,6 +3,8 @@
 // Pure data + a picker. Client-safe.
 // ─────────────────────────────────────────────────────────────
 
+import { Footprints, PenLine, MessageCircle, Leaf, Coffee, type LucideIcon } from "lucide-react";
+
 export type Energy = "low" | "med" | "high";
 export type DopamineCategory = "move" | "create" | "connect" | "reset" | "treat";
 
@@ -16,13 +18,13 @@ export type DopamineActivity = {
 
 export const CATEGORY_META: Record<
   DopamineCategory,
-  { label: string; emoji: string; color: string }
+  { label: string; icon: LucideIcon; color: string }
 > = {
-  move:    { label: "Move",    emoji: "🏃", color: "#6f8a63" },
-  create:  { label: "Create",  emoji: "✨", color: "#8a6f63" },
-  connect: { label: "Connect", emoji: "💬", color: "#63808a" },
-  reset:   { label: "Reset",   emoji: "🌿", color: "#7a8a63" },
-  treat:   { label: "Treat",   emoji: "🍓", color: "#8a637f" },
+  move:    { label: "Move",    icon: Footprints,    color: "#6f8a63" },
+  create:  { label: "Create",  icon: PenLine,       color: "#8a6f63" },
+  connect: { label: "Connect", icon: MessageCircle, color: "#63808a" },
+  reset:   { label: "Reset",   icon: Leaf,          color: "#7a8a63" },
+  treat:   { label: "Treat",   icon: Coffee,        color: "#8a637f" },
 };
 
 export const DOPAMINE_MENU: DopamineActivity[] = [
@@ -67,6 +69,21 @@ export const DOPAMINE_MENU: DopamineActivity[] = [
 export function xpFor(a: DopamineActivity): number {
   const byEnergy: Record<Energy, number> = { low: 8, med: 12, high: 18 };
   return byEnergy[a.energy];
+}
+
+// Probability a hit pays out a jackpot, and the multiplier when it does.
+export const JACKPOT_CHANCE = 0.125; // ~1 in 8
+export const JACKPOT_MULTIPLIER = 3;
+
+/**
+ * Roll the actual XP for a completed hit. Most hits pay the base value, but
+ * ~1 in 8 pays a 3x jackpot. The unpredictability is the point — a variable
+ * reward keeps the ADHD dopamine loop alive where a fixed reward goes stale.
+ */
+export function rollHitXp(a: DopamineActivity): { xp: number; base: number; jackpot: boolean } {
+  const base = xpFor(a);
+  const jackpot = Math.random() < JACKPOT_CHANCE;
+  return { xp: jackpot ? base * JACKPOT_MULTIPLIER : base, base, jackpot };
 }
 
 /**

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { OAuthButtons } from "./OAuthButtons";
-import { Zap, Check, RefreshCw, Clock, Flame, Sparkles } from "lucide-react";
+import { Zap, Check, RefreshCw, Clock, Flame, Sparkles, Footprints, MessageCircle, Leaf, Coffee, type LucideIcon } from "lucide-react";
 
 export function Hero() {
   return (
@@ -55,11 +55,11 @@ export function Hero() {
   );
 }
 
-const DEMO_HITS = [
-  { label: "Do 10 wall push-ups. Go.", cat: "🏃 Move", min: 2, xp: 8 },
-  { label: "Text someone you've been meaning to.", cat: "💬 Connect", min: 3, xp: 8 },
-  { label: "Reset one surface. Just one.", cat: "🌿 Reset", min: 8, xp: 12 },
-  { label: "Put one song on and feel it fully.", cat: "🍓 Treat", min: 4, xp: 8 },
+const DEMO_HITS: { label: string; cat: string; icon: LucideIcon; min: number; xp: number }[] = [
+  { label: "Do 10 wall push-ups. Go.", cat: "Move", icon: Footprints, min: 2, xp: 8 },
+  { label: "Text someone you've been meaning to.", cat: "Connect", icon: MessageCircle, min: 3, xp: 8 },
+  { label: "Reset one surface. Just one.", cat: "Reset", icon: Leaf, min: 8, xp: 12 },
+  { label: "Put one song on and feel it fully.", cat: "Treat", icon: Coffee, min: 4, xp: 8 },
 ];
 
 function HeroDopamineDemo() {
@@ -121,9 +121,10 @@ function HeroDopamineDemo() {
         >
           <div className="flex items-center justify-between mb-3">
             <span
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-mono text-[10px] uppercase tracking-widest text-ink-muted"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono text-[10px] uppercase tracking-widest text-ink-muted"
               style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
             >
+              <hit.icon size={11} strokeWidth={2} />
               {hit.cat}
             </span>
             <div className="flex items-center gap-2.5">

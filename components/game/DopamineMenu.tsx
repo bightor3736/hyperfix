@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Zap, RefreshCw, Check, Loader2, Clock } from "lucide-react";
+import { Zap, RefreshCw, Check, Loader2, Clock, BatteryLow, BatteryMedium, BatteryFull, type LucideIcon } from "lucide-react";
 import {
   pickHit,
   xpFor,
@@ -13,10 +13,10 @@ import {
 } from "@/lib/dopamine/menu";
 import { Confetti } from "./Confetti";
 
-const ENERGY_OPTS: { value: Energy; label: string; emoji: string }[] = [
-  { value: "low", label: "Low", emoji: "🔋" },
-  { value: "med", label: "Some", emoji: "⚡" },
-  { value: "high", label: "Lots", emoji: "🚀" },
+const ENERGY_OPTS: { value: Energy; label: string; icon: LucideIcon }[] = [
+  { value: "low", label: "Low", icon: BatteryLow },
+  { value: "med", label: "Some", icon: BatteryMedium },
+  { value: "high", label: "Lots", icon: BatteryFull },
 ];
 
 const DAILY_GOAL = 3;
@@ -30,11 +30,13 @@ export function DopamineMenu({ todayCount = 0 }: { todayCount?: number }) {
   const [done, setDone] = useState(false);
   const [count, setCount] = useState(todayCount);
   const [gainedXp, setGainedXp] = useState<number | null>(null);
+  const [jackpot, setJackpot] = useState(false);
   const [confettiKey, setConfettiKey] = useState(0);
 
   function roll(opts?: { energy?: Energy; category?: DopamineCategory | null }) {
     setDone(false);
     setGainedXp(null);
+    setJackpot(false);
     const e = opts?.energy ?? energy;
     const c = opts?.category !== undefined ? opts.category : category;
     setActivity((prev) => pickHit({ energy: e, category: c ?? undefined, exclude: prev?.id }));
@@ -50,11 +52,12 @@ export function DopamineMenu({ todayCount = 0 }: { todayCount?: number }) {
         body: JSON.stringify({ activityId: activity.id }),
       });
       if (res.ok) {
-        const data = (await res.json()) as { xp: number };
+        const data = (await res.json()) as { xp: number; jackpot?: boolean };
         setGainedXp(data.xp);
+        setJackpot(Boolean(data.jackpot));
         setDone(true);
         setCount((c) => c + 1);
-        setConfettiKey((k) => k + 1);
+        setConfettiKey((k) => k + (data.jackpot ? 2 : 1));
         router.refresh();
       }
     } finally {
@@ -81,8 +84,17 @@ export function DopamineMenu({ todayCount = 0 }: { todayCount?: number }) {
           <p className="font-mono text-[10px] uppercase tracking-widest mb-1" style={{ color: "var(--energy)" }}>
             Dopamine Menu
           </p>
-          <h2 className="font-display text-ink leading-[1.05]" style={{ fontSize: "clamp(24px,4.5vw,36px)" }}>
-            {done ? "That beat the scroll." : activity ? "Do this. Right now." : "Bored? Don't open the feed."}
+          <h2
+            className="font-display leading-[1.05]"
+            style={{ fontSize: "clamp(24px,4.5vw,36px)", color: done && jackpot ? "var(--xp)" : "var(--ink)" }}
+          >
+            {done
+              ? jackpot
+                ? "Jackpot! Triple XP."
+                : "That beat the scroll."
+              : activity
+              ? "Do this. Right now."
+              : "Bored? Don't open the feed."}
           </h2>
         </div>
 
@@ -115,18 +127,19 @@ export function DopamineMenu({ todayCount = 0 }: { todayCount?: number }) {
             <span className="font-mono text-[10px] uppercase tracking-widest text-ink-faint mr-1">Energy</span>
             {ENERGY_OPTS.map((opt) => {
               const on = energy === opt.value;
+              const Icon = opt.icon;
               return (
                 <button
                   key={opt.value}
                   onClick={() => setEnergy(opt.value)}
-                  className="press-pop px-3 py-1.5 rounded-full font-sans text-[12px] font-medium transition-all"
+                  className="press-pop inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-sans text-[12px] font-medium transition-all"
                   style={{
                     background: on ? "var(--energy)" : "var(--bg)",
                     color: on ? "#fff" : "var(--ink-muted)",
                     border: `1px solid ${on ? "var(--energy)" : "var(--line)"}`,
                   }}
                 >
-                  <span className="mr-1">{opt.emoji}</span>
+                  <Icon size={14} strokeWidth={2} />
                   {opt.label}
                 </button>
               );
@@ -154,6 +167,7 @@ export function DopamineMenu({ todayCount = 0 }: { todayCount?: number }) {
           done={done}
           saving={saving}
           gainedXp={gainedXp}
+          jackpot={jackpot}
           onComplete={complete}
           onReroll={() => roll()}
         />
@@ -175,6 +189,7 @@ function ActiveCard({
   done,
   saving,
   gainedXp,
+  jackpot,
   onComplete,
   onReroll,
 }: {
@@ -182,18 +197,20 @@ function ActiveCard({
   done: boolean;
   saving: boolean;
   gainedXp: number | null;
+  jackpot: boolean;
   onComplete: () => void;
   onReroll: () => void;
 }) {
   const cat = CATEGORY_META[activity.category];
+  const CatIcon = cat.icon;
 
   return (
     <div className="anim-pop">
       <div
         className="rounded-[var(--radius-lg)] p-5 mb-4"
         style={{
-          background: done ? "var(--accent-soft)" : "var(--bg)",
-          border: `1px solid ${done ? "var(--accent)" : "var(--line)"}`,
+          background: done ? (jackpot ? "var(--xp-soft)" : "var(--accent-soft)") : "var(--bg)",
+          border: `1px solid ${done ? (jackpot ? "var(--xp)" : "var(--accent)") : "var(--line)"}`,
         }}
       >
         <div className="flex items-center justify-between mb-3">
@@ -201,7 +218,7 @@ function ActiveCard({
             className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono text-[10px] uppercase tracking-widest"
             style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)", color: cat.color }}
           >
-            <span>{cat.emoji}</span> {cat.label}
+            <CatIcon size={12} strokeWidth={2} /> {cat.label}
           </span>
           <div className="flex items-center gap-2.5">
             <span className="inline-flex items-center gap-1 font-mono text-[10px] text-ink-faint">
@@ -212,10 +229,10 @@ function ActiveCard({
               +{xpFor(activity)} XP
               {done && gainedXp != null && (
                 <span
-                  className="anim-floatUp absolute -top-1 right-0 font-display text-[18px]"
-                  style={{ color: "var(--xp)" }}
+                  className="anim-floatUp absolute -top-1 right-0 whitespace-nowrap font-display"
+                  style={{ color: "var(--xp)", fontSize: jackpot ? 22 : 18 }}
                 >
-                  +{gainedXp}
+                  +{gainedXp}{jackpot ? " ×3!" : ""}
                 </span>
               )}
             </span>

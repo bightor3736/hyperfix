@@ -60,9 +60,14 @@ export async function GET(req: Request) {
 
         {/* Hero streak */}
         <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "center" }}>
-          <span style={{ fontSize: 26, color: FLAME, fontWeight: 700, letterSpacing: "0.18em" }}>
-            🔥 {name ? `${name.toUpperCase()}'S STREAK` : "CURRENT STREAK"}
-          </span>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill={FLAME} stroke={FLAME} strokeWidth="1.5">
+              <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
+            </svg>
+            <span style={{ fontSize: 26, color: FLAME, fontWeight: 700, letterSpacing: "0.18em" }}>
+              {name ? `${name.toUpperCase()}'S STREAK` : "CURRENT STREAK"}
+            </span>
+          </div>
           <div style={{ display: "flex", alignItems: "baseline", gap: 24, marginTop: 8 }}>
             <span style={{ fontSize: 300, color: INK, lineHeight: 1, letterSpacing: "-0.05em", fontWeight: 800 }}>
               {streak}

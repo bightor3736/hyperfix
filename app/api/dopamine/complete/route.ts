@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { awardPoints, recordCheckin } from "@/lib/gamification/award";
-import { activityById, xpFor } from "@/lib/dopamine/menu";
+import { activityById, rollHitXp } from "@/lib/dopamine/menu";
 
 /**
  * Log a completed dopamine hit. Awards XP and advances the daily streak
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: error?.message ?? "Failed" }, { status: 500 });
   }
 
-  const xp = xpFor(activity);
+  const { xp, jackpot } = rollHitXp(activity);
 
   // Award XP (boost- and Pro-aware, idempotent on the hit id) + advance streak
   await awardPoints(user.id, "dopamine_hit", hit.id, activity.label, xp);
@@ -46,6 +46,7 @@ export async function POST(req: Request) {
   return NextResponse.json({
     ok: true,
     xp,
+    jackpot,
     currentStreak: streak?.current_streak ?? null,
     froze: streak?.froze ?? false,
   });
