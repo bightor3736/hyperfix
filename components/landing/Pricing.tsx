@@ -92,7 +92,7 @@ export function Pricing() {
                   aria-checked={billing === b}
                   onClick={() => setBilling(b)}
                   className="press-pop h-9 rounded-full px-5 font-medium capitalize transition-all"
-                  style={billing === b ? { background: "var(--energy)", color: "#fff" } : { color: "var(--ink-muted)" }}
+                  style={billing === b ? { background: "var(--energy)", color: "var(--accent-ink)" } : { color: "var(--ink-muted)" }}
                 >
                   {b}{b === "yearly" ? " · -33%" : ""}
                 </button>
@@ -133,7 +133,7 @@ export function Pricing() {
                   <a
                     href="/auth/signup"
                     className="press-pop mt-6 inline-flex h-12 w-full items-center justify-center rounded-[var(--radius-lg)] text-[15px] font-bold transition-all hover:opacity-95"
-                    style={featured ? { background: "var(--energy)", color: "#fff" } : { background: "var(--invert-bg)", color: "var(--invert-ink)" }}
+                    style={featured ? { background: "var(--energy)", color: "var(--accent-ink)" } : { background: "var(--invert-bg)", color: "var(--invert-ink)" }}
                   >
                     {tier.cta}
                   </a>

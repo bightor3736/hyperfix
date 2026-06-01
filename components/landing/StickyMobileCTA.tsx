@@ -27,9 +27,9 @@ export function StickyMobileCTA() {
       <a
         href="/auth/signup"
         className="press-pop flex w-full items-center justify-center gap-2 rounded-[var(--radius-lg)] py-3.5 font-sans text-[16px] font-bold"
-        style={{ background: "var(--energy)", color: "#fff" }}
+        style={{ background: "var(--energy)", color: "var(--accent-ink)" }}
       >
-        <Zap size={18} strokeWidth={2.5} fill="#fff" />
+        <Zap size={18} strokeWidth={2.5} fill="var(--accent-ink)" />
         Start playing — free
       </a>
     </div>

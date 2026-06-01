@@ -163,9 +163,9 @@ function HeroDopamineDemo() {
           <button
             onClick={reroll}
             className="press-pop w-full flex items-center justify-center gap-2 py-3.5 rounded-[22px] font-sans text-[15px] font-bold"
-            style={{ background: "var(--energy)", color: "#fff" }}
+            style={{ background: "var(--energy)", color: "var(--accent-ink)" }}
           >
-            <Zap size={18} strokeWidth={2.5} fill="#fff" /> Give me another
+            <Zap size={18} strokeWidth={2.5} fill="var(--accent-ink)" /> Give me another
           </button>
         ) : (
           <div className="flex items-center gap-3">

@@ -61,8 +61,8 @@ export function ProfileShowcase() {
               {/* header */}
               <div className="flex items-center gap-4">
                 <div
-                  className="flex h-16 w-16 items-center justify-center rounded-2xl font-display text-[26px] text-white"
-                  style={{ background: "var(--energy)" }}
+                  className="flex h-16 w-16 items-center justify-center rounded-2xl font-display text-[26px]"
+                  style={{ background: "var(--energy)", color: "var(--accent-ink)" }}
                 >
                   M
                 </div>

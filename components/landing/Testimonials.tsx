@@ -56,8 +56,8 @@ export function Testimonials() {
                   <blockquote className="text-[15px] leading-[1.6] text-ink">&ldquo;{q.text}&rdquo;</blockquote>
                   <figcaption className="mt-5 flex items-center gap-3">
                     <span
-                      className="flex h-9 w-9 items-center justify-center rounded-full font-display text-[15px] text-white"
-                      style={{ background: "var(--energy)" }}
+                      className="flex h-9 w-9 items-center justify-center rounded-full font-display text-[15px]"
+                      style={{ background: "var(--energy)", color: "var(--accent-ink)" }}
                     >
                       {q.name[0].toUpperCase()}
                     </span>

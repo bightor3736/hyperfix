@@ -534,8 +534,46 @@ details > summary::-webkit-details-marker {
   }
 }
 
-/* Landing wrapper — clean monochrome, inherits the root white/black palette. */
+/* Landing wrapper — black with white. Scopes a dark monochrome palette to
+   the marketing page only (the app stays white-with-black). Components read
+   these tokens, so they all flip to dark with no per-component changes. */
 .landing-game {
+  --bg:           #0a0a0a;
+  --bg-soft:      #000000;
+  --bg-elevated:  #171717;
+  --ink:          #fafafa;
+  --ink-muted:    #a3a3a3;
+  --ink-faint:    #6b6b6b;
+  --line:         #262626;
+  --line-strong:  #383838;
+  --accent:       #fafafa;
+  --accent-soft:  #1f1f1f;
+  --accent-ink:   #0a0a0a;
+  --invert-bg:    #fafafa;
+  --invert-ink:   #0a0a0a;
+  color-scheme: dark;
+
+  /* shadcn aliases for the pasted components */
+  --background:         var(--bg);
+  --card:               var(--bg-elevated);
+  --card-foreground:    var(--ink);
+  --popover:            var(--bg-elevated);
+  --popover-foreground: var(--ink);
+  --primary:            var(--accent);
+  --primary-foreground: var(--accent-ink);
+  --muted:              0 0% 12%;
+  --muted-foreground:   var(--ink-muted);
+  --foreground:         var(--ink);
+  --border:             var(--line);
+
+  /* monochrome accent tokens (dark) */
+  --xp:          #fafafa;
+  --xp-soft:     #1f1f1f;
+  --flame:       #fafafa;
+  --flame-soft:  #1f1f1f;
+  --energy:      #fafafa;
+  --energy-soft: #1f1f1f;
+
   background: var(--bg);
   color: var(--ink);
 }
