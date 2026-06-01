@@ -729,6 +729,23 @@ nav[data-framer-name^="Desktop"],nav[data-framer-name^="Mobile"],nav[data-framer
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(run,80);});else setTimeout(run,80);
 })();
 </script>
+<script id="hyperfix-logo">
+(function(){
+  // The top nav is the "Desktop (Dark)" variant, so its wordmark is forced
+  // white via inline !important. Flip the nav logo to ink-black for the light bg.
+  function run(){
+    document.querySelectorAll('nav [data-framer-name="Logo"]').forEach(function(logo){
+      logo.querySelectorAll('*').forEach(function(el){
+        el.style.setProperty('color','#1a1615','important');
+        el.style.setProperty('--framer-text-color','#1a1615','important');
+      });
+    });
+  }
+  run();
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);
+  setTimeout(run,300);setTimeout(run,1200);
+})();
+</script>
 <script id="hyperfix-steps">
 (function(){
   function run(){

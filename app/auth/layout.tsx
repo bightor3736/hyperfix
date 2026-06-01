@@ -4,7 +4,21 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
   return (
     <div
       className="min-h-screen flex items-stretch"
-      style={{ background: "var(--bg)", color: "var(--ink)" }}
+      style={
+        {
+          background: "var(--bg)",
+          color: "var(--ink)",
+          // Match the landing page's green accent so sign-up / log-in feel
+          // continuous with the marketing site (scoped to auth only).
+          "--accent": "#1dcc5d",
+          "--accent-soft": "#e3f9ec",
+          "--accent-ink": "#04130a",
+          "--xp": "#13a64c",
+          "--xp-soft": "#e3f9ec",
+          "--primary": "#1dcc5d",
+          "--primary-foreground": "#04130a",
+        } as React.CSSProperties
+      }
     >
       {/* LEFT PANEL — form, no card wrapper */}
       <div className="flex-1 lg:w-[52%] flex flex-col relative overflow-hidden">
