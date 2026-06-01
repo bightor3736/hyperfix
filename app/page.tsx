@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Nav }       from "@/components/landing/Nav";
 import { Hero }      from "@/components/landing/Hero";
 import { Features }  from "@/components/landing/Features";
-import { Graveyard } from "@/components/landing/Graveyard";
+import { GameShowcase } from "@/components/landing/GameShowcase";
 import { Pricing }   from "@/components/landing/Pricing";
 import { FAQ }       from "@/components/landing/FAQ";
 import { CTA }       from "@/components/landing/CTA";
@@ -44,7 +44,7 @@ export default async function Page({
       <main>
         <Hero />
         <Features />
-        <Graveyard />
+        <GameShowcase />
         <Pricing />
         <FAQ />
         <CTA />
