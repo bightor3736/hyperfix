@@ -234,8 +234,10 @@
 @font-face { font-family: "Source Serif 4 Placeholder"; src: local("Times New Roman"); ascent-override: 87.45%; descent-override: 28.28%; line-gap-override: 0.00%; size-adjust: 118.46% }
 @font-face { font-family: "Inter Placeholder"; src: local("Arial"); ascent-override: 89.79%; descent-override: 22.36%; line-gap-override: 0.00%; size-adjust: 107.89% }
 /* Batch A */
-[data-framer-name="Circle Wrap"]{display:none !important;}            /* animated people arc -> gone */
-.hf-pill-avatar{display:none !important;}                            /* weird avatar in hero pill */
+/* Circle Wrap (people avatar arc) and pill avatars are kept visible. */
+.hf-pill-avatar{border-radius:50%!important;}
+/* Keep the top nav above the hero blob so it doesn't bleed over the bar */
+nav[data-framer-name^="Desktop"],nav[data-framer-name^="Mobile"],nav[data-framer-name^="Tablet"]{position:relative !important;z-index:60 !important;}
 .hf-menu-links{display:flex;align-items:center;gap:28px;}
 .hf-menu-links a{font:500 14px/1 var(--font-inter,Inter,sans-serif);color:#3a3a3a;text-decoration:none;transition:opacity .18s;}
 .hf-menu-links a:hover{opacity:.6;}
@@ -250,7 +252,6 @@
 [data-framer-name="Answer"] *{white-space:normal !important;width:auto !important;}
 
 /* 3-step process */
-[data-framer-name="Step 1"] [data-framer-name="Phone"]{display:none !important;}
 .hf-step-num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;background:#1dcc5d;color:#04130a;font:700 15px/1 var(--font-inter,Inter,sans-serif);margin-bottom:16px;}
 .hf-step-anim{opacity:0;transform:translateY(30px);transition:opacity .6s cubic-bezier(.2,.6,.2,1),transform .6s cubic-bezier(.2,.6,.2,1);}
 .hf-step-anim.hf-stin{opacity:1;transform:none;}
@@ -261,18 +262,28 @@
 .hf-try{display:inline-flex;align-items:center;gap:5px;margin-top:14px;font:600 13px/1 var(--font-inter,Inter,sans-serif);color:#1dcc5d;opacity:.5;transform:translateY(3px);transition:opacity .26s ease,transform .26s ease,gap .26s ease;text-decoration:none;}
 .hf-feat:hover .hf-try{opacity:1;transform:none;gap:9px;}
 
-/* Step cards: hide top-panel overlays, reset layout to top-aligned */
-[data-framer-name="Step 1"] [data-framer-name="Table"],
-[data-framer-name="Step 3"] [data-framer-name="Table"]{display:none !important;}
-[data-framer-name="Step 2"] [data-framer-name="Pills"]{display:none !important;}
+/* Step cards: text/badge at top, the real component anchored in the lower half */
 .framer-102dfqg,.framer-1rpvbds,.framer-q1d0uv{
   place-content:flex-start !important;
   align-items:flex-start !important;
   padding-top:32px !important;
+  position:relative !important;
 }
 .framer-8aecsj,.framer-gj9nhs,.framer-1bdtgpt{
   align-items:flex-start !important;
 }
+/* the absolutely-positioned visual components: keep full width, pin to bottom */
+[data-framer-name="Step 1"] [data-framer-name="Table"],
+[data-framer-name="Step 3"] [data-framer-name="Table"],
+[data-framer-name="Step 2"] [data-framer-name="Pills"]{
+  position:absolute !important;left:0 !important;right:0 !important;
+  top:auto !important;bottom:0 !important;transform:none !important;margin:0 !important;
+}
+/* FAQ plus-icon drawn into the toggle circles */
+.hf-faq-icon{position:relative !important;}
+.hf-faq-icon::before,.hf-faq-icon::after{content:"";position:absolute;top:50%;left:50%;background:#1a1615;border-radius:2px;}
+.hf-faq-icon::before{width:13px;height:2.5px;transform:translate(-50%,-50%);}
+.hf-faq-icon::after{width:2.5px;height:13px;transform:translate(-50%,-50%);}
 
 /* Nav: clean pill CTA */
 .hf-menu-links{display:flex;align-items:center;gap:24px;}
@@ -289,7 +300,6 @@
 <style id="hyperfix-overrides">
 /* Scroll-pinned sections that need Framer's engine — hidden (imagery/decorative only) */
 [data-framer-name="Projects (Desktop)"],[data-framer-name="Projects (Mobile)"]{display:none !important;}
-[data-framer-name="Bento Grid"] [data-framer-name="Pills"]{display:none !important;}
 /* entrance fade-up */
 .hf-pre{opacity:0 !important;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,.61,.18,1),transform .7s cubic-bezier(.22,.61,.18,1);}
 .hf-in{opacity:1 !important;transform:none !important;filter:none !important;}
@@ -640,6 +650,18 @@
       if(host){host.style.display='none'; host.parentElement.appendChild(wrap);}
     }
 
+    // 2b) Fix low-contrast nav CTA: any dark-background button/link in the
+    //     top nav whose text is also dark gets forced to white text.
+    function lum(c){var m=/rgba?\((\d+),\s*(\d+),\s*(\d+)/.exec(c);if(!m)return 255;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}
+    [].forEach.call(document.querySelectorAll('nav a,nav button'),function(el){
+      var r=el.getBoundingClientRect(); if(r.top>120)return;
+      var cs=getComputedStyle(el);
+      if(lum(cs.backgroundColor)<90 && lum(cs.color)<140){
+        el.style.setProperty('color','#fff','important');
+        [].forEach.call(el.querySelectorAll('*'),function(c){c.style.setProperty('color','#fff','important');});
+      }
+    });
+
     // 3) Stronger button micro-interactions (scale + lift), skip text links
     [].forEach.call(document.querySelectorAll('a,button,[role="button"]'),function(el){
       if(el.dataset.hfBtn2)return; el.dataset.hfBtn2='1';
@@ -662,8 +684,9 @@
     qs.forEach(function(q,idx){
       var ans=q.querySelector('[data-framer-name="Answer"]'); if(!ans)return;
       if(q.dataset.hfFaq)return; q.dataset.hfFaq='1';
-      // find the toggle icon (the circle) to rotate
+      // find the toggle icon (the circle) to rotate; draw a + into it via .hf-faq-icon
       var icon=q.parentElement&&q.parentElement.querySelector('[data-framer-name="Icon"]');
+      if(icon)icon.classList.add('hf-faq-icon');
       q.addEventListener('click',function(){
         var open=ans.classList.toggle('hf-open');
         if(icon)icon.style.transform=open?'rotate(45deg)':'';
