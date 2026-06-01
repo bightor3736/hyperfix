@@ -24,11 +24,10 @@ export function Nav() {
     <header className="sticky top-0 z-50 w-full transition-all">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 pt-3">
         <div
-          className="flex h-16 items-center justify-between rounded-full px-4 sm:px-5 transition-all"
+          className={`flex h-16 items-center justify-between rounded-full px-4 sm:px-5 transition-all ${scrolled ? "glass" : ""}`}
           style={{
-            background: scrolled ? "var(--bg-elevated)" : "transparent",
-            border: `1px solid ${scrolled ? "var(--line)" : "transparent"}`,
-            boxShadow: scrolled ? "0 8px 30px -16px rgba(24,22,19,0.25)" : "none",
+            border: `1px solid ${scrolled ? "var(--glass-border)" : "transparent"}`,
+            boxShadow: scrolled ? "0 8px 30px -16px rgba(0,0,0,0.6)" : "none",
           }}
         >
           <Wordmark />

@@ -25,7 +25,7 @@ function ModuleShell({
     <Reveal>
       <div
         className="overflow-hidden rounded-[var(--radius-xl)]"
-        style={{ background: pastel }}
+        style={{ background: pastel, border: "1px solid var(--glass-border)" }}
       >
         <div
           className={`grid grid-cols-1 items-center gap-8 p-8 sm:p-12 lg:grid-cols-2 lg:gap-12 ${
@@ -52,7 +52,7 @@ function MockCard({ children, className = "" }: { children: React.ReactNode; cla
   return (
     <div
       className={`soft-card w-full max-w-[380px] rounded-[var(--radius-lg)] p-5 ${className}`}
-      style={{ background: "var(--bg-elevated)", border: "1px solid rgba(24,22,19,0.06)" }}
+      style={{ background: "var(--bg-elevated)", border: "1px solid var(--glass-border)" }}
     >
       {children}
     </div>

@@ -6,9 +6,9 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function OG() {
-  const BG = "#f8f7f3";
-  const INK = "#181613";
-  const MUTED = "#57544d";
+  const BG = "#0c0c0f";
+  const INK = "#f7f8f8";
+  const MUTED = "#9b9faa";
   const ENERGY = "#7c5cff";
 
   return new ImageResponse(
@@ -22,7 +22,7 @@ export default async function OG() {
           padding: "64px 72px",
           fontFamily: "serif",
           background: BG,
-          backgroundImage: `radial-gradient(800px 520px at 100% 0%, #e3dbff 0%, ${BG} 62%), radial-gradient(600px 400px at 0% 100%, #ffe0f0 0%, transparent 55%)`,
+          backgroundImage: `radial-gradient(720px 480px at 18% 0%, rgba(124,92,255,0.38) 0%, ${BG} 60%), radial-gradient(560px 380px at 100% 100%, rgba(94,106,210,0.30) 0%, transparent 58%)`,
           color: INK,
           position: "relative",
         }}

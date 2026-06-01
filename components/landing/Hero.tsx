@@ -8,19 +8,24 @@ import { Zap, Check, RefreshCw, Clock, Flame, Sparkles, Star, Footprints, Messag
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      {/* warm pastel backdrop blobs */}
+      {/* Linear-style gradient glow backdrop */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
-          className="absolute -top-24 -left-24 h-[420px] w-[420px] rounded-full blur-[90px] opacity-70 anim-floatY"
-          style={{ background: "var(--pastel-purple)" }}
+          className="absolute -top-32 -left-16 h-[460px] w-[460px] rounded-full blur-[110px] opacity-60 anim-floatY"
+          style={{ background: "radial-gradient(circle, rgba(124,92,255,0.55), transparent 70%)" }}
         />
         <div
-          className="absolute top-10 right-0 h-[360px] w-[360px] rounded-full blur-[90px] opacity-60 anim-driftX"
-          style={{ background: "var(--pastel-pink)" }}
+          className="absolute top-0 right-0 h-[400px] w-[400px] rounded-full blur-[110px] opacity-45 anim-driftX"
+          style={{ background: "radial-gradient(circle, rgba(255,126,73,0.32), transparent 70%)" }}
         />
         <div
-          className="absolute bottom-0 left-1/3 h-[300px] w-[300px] rounded-full blur-[90px] opacity-50"
-          style={{ background: "var(--pastel-blue)" }}
+          className="absolute bottom-0 left-1/3 h-[340px] w-[340px] rounded-full blur-[110px] opacity-40"
+          style={{ background: "radial-gradient(circle, rgba(94,106,210,0.40), transparent 70%)" }}
+        />
+        {/* faint top hairline glow, very Linear */}
+        <div
+          className="absolute inset-x-0 top-0 h-px"
+          style={{ background: "linear-gradient(90deg, transparent, rgba(124,92,255,0.4), transparent)" }}
         />
       </div>
 

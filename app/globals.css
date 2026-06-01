@@ -2,28 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Design tokens — warm, soft, friendly (Hyperfix × Tiimo) ──────────
-   A warm cream canvas, near-black warm ink, and a branded purple accent,
-   plus a set of pastel "module" colors used for color-coded sections.
-   Everything in the app reads these tokens, so the whole product shares
-   one palette. */
+/* ── Design tokens — Linear × Tiimo ───────────────────────────────────
+   Linear's dark, precise, glassy structure with Tiimo's warmth: a warm-
+   tinted near-black canvas, indigo-purple accent, soft pastel *glows*
+   (not solid blocks), Fraunces serif headlines over an Inter UI. Dark is
+   the default brand look; a warm cream light variant lives on the toggle.
+   Everything reads these tokens, so the whole product shares one palette. */
 :root {
   --font-display: var(--font-fraunces);
 
-  --bg:           #f8f7f3;   /* warm cream canvas */
-  --bg-soft:      #f1efe8;   /* deeper cream for alternating sections */
-  --bg-elevated:  #fffefb;   /* cards — warm near-white */
-  --ink:          #181613;   /* warm near-black */
-  --ink-muted:    #57544d;   /* warm gray */
-  --ink-faint:    #99958c;
-  --line:         #e7e2d9;   /* warm hairline */
-  --line-strong:  #d8d2c6;
-  --accent:       #7c5cff;   /* our purple — a touch bolder than Tiimo's */
-  --accent-soft:  #ece6ff;   /* light purple wash */
+  --bg:           #0c0c0f;   /* warm-tinted near-black (Linear, with warmth) */
+  --bg-soft:      #08080a;   /* deeper, for alternating sections */
+  --bg-elevated:  #141419;   /* cards — lifted, faintly warm */
+  --ink:          #f7f8f8;   /* Linear primary text */
+  --ink-muted:    #9b9faa;
+  --ink-faint:    #63666e;
+  --line:         #222329;   /* subtle hairline (Linear) */
+  --line-strong:  #2e3038;
+  --accent:       #7c5cff;   /* purple — bridges Linear #7170ff & #5e6ad2 */
+  --accent-soft:  #1a1730;   /* dark purple tint */
   --accent-ink:   #ffffff;
-  --invert-bg:    #181613;
-  --invert-ink:   #faf9f5;
-  color-scheme: light;
+  --invert-bg:    #f7f8f8;
+  --invert-ink:   #0c0c0f;
+  color-scheme: dark;
+
+  /* glass surfaces (Linear) */
+  --glass-bg:     rgba(255,255,255,0.045);
+  --glass-border: rgba(255,255,255,0.08);
 
   /* shadcn compatibility aliases */
   --background:        var(--bg);
@@ -34,59 +39,67 @@
   --primary:           var(--accent);
   --primary-foreground: var(--accent-ink);
   /* --muted holds HSL *channels* (shadcn convention) so hsl(var(--muted)) resolves */
-  --muted:             40 14% 94%;
+  --muted:             240 6% 12%;
   --muted-foreground:  var(--ink-muted);
   --foreground:        var(--ink);
   --border:            var(--line);
 
   /* ---- Branded accent tokens ---- */
   --xp:          #7c5cff;    /* purple */
-  --xp-soft:     #ece6ff;
-  --flame:       #ff7e49;    /* warm orange — flames feel warm */
-  --flame-soft:  #ffe8dd;
+  --xp-soft:     #1a1730;
+  --flame:       #ff7e49;    /* warm orange (Tiimo) */
+  --flame-soft:  #2a1d15;
   --energy:      #7c5cff;    /* purple — the primary action color */
-  --energy-soft: #ece6ff;
+  --energy-soft: #1a1730;
 
-  /* ---- Pastel module colors (Tiimo-style color-coded blocks) ---- */
+  /* ---- Pastel glow tints (muted for dark — used as soft section tints) ---- */
+  --pastel-purple: #211d3a;
+  --pastel-pink:   #2e1d2b;
+  --pastel-blue:   #1a2140;
+  --pastel-green:  #18271c;
+  --pastel-orange: #2c1f15;
+  --pastel-yellow: #2a2414;
+
+  --radius-lg:   14px;
+  --radius-xl:   20px;
+}
+
+/* Explicit dark — same as root (dark is the default brand look). */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* Warm cream light variant — Tiimo's daytime mode, on the toggle. */
+:root[data-theme="light"] {
+  --bg:           #f8f7f3;
+  --bg-soft:      #f1efe8;
+  --bg-elevated:  #fffefb;
+  --ink:          #181613;
+  --ink-muted:    #57544d;
+  --ink-faint:    #99958c;
+  --line:         #e7e2d9;
+  --line-strong:  #d8d2c6;
+  --accent:       #7c5cff;
+  --accent-soft:  #ece6ff;
+  --accent-ink:   #ffffff;
+  --invert-bg:    #181613;
+  --invert-ink:   #faf9f5;
+  --glass-bg:     rgba(24,22,19,0.04);
+  --glass-border: rgba(24,22,19,0.08);
+  --muted:        40 14% 94%;
+  --xp:          #7c5cff;
+  --xp-soft:     #ece6ff;
+  --flame:       #ff7e49;
+  --flame-soft:  #ffe8dd;
+  --energy:      #7c5cff;
+  --energy-soft: #ece6ff;
   --pastel-purple: #e3dbff;
   --pastel-pink:   #ffe0f0;
   --pastel-blue:   #e2e8ff;
   --pastel-green:  #dde9d8;
   --pastel-orange: #ffe6d6;
   --pastel-yellow: #fdf0cf;
-
-  --radius-lg:   20px;
-  --radius-xl:   28px;
-}
-
-:root[data-theme="dark"] {
-  --bg:           #1a1714;   /* warm dark, not pure black */
-  --bg-soft:      #14110f;
-  --bg-elevated:  #241f1b;
-  --ink:          #f6f3ec;
-  --ink-muted:    #b0aaa0;
-  --ink-faint:    #79736a;
-  --line:         #322c26;
-  --line-strong:  #443d35;
-  --accent:       #a08cff;   /* lighter purple on dark */
-  --accent-soft:  #2a2440;
-  --accent-ink:   #ffffff;
-  --invert-bg:    #f6f3ec;
-  --invert-ink:   #1a1714;
-  --muted:        30 10% 16%;
-  --xp:          #a08cff;
-  --xp-soft:     #2a2440;
-  --flame:       #ff9163;
-  --flame-soft:  #3a2a22;
-  --energy:      #a08cff;
-  --energy-soft: #2a2440;
-  --pastel-purple: #2e2748;
-  --pastel-pink:   #3a2433;
-  --pastel-blue:   #232a44;
-  --pastel-green:  #232e22;
-  --pastel-orange: #3a2a1f;
-  --pastel-yellow: #332d1c;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 /* font-display-medium utility for Wordmark */
@@ -104,14 +117,19 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Subtle warm grain — very light, multiply blend on the cream canvas */
+/* Subtle grain — screen blend (light specks on the dark canvas) */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.4;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* Light variant flips the grain to dark multiply specks */
+:root[data-theme="light"] body::before {
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.03 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -416,6 +434,10 @@ details > summary::-webkit-details-marker {
 }
 .motion-card:hover {
   transform: translateY(-3px);
+  border-color: rgba(124,92,255,0.35);
+  box-shadow: 0 0 30px -10px rgba(124,92,255,0.22), 0 18px 40px -20px rgba(0,0,0,0.6);
+}
+:root[data-theme="light"] .motion-card:hover {
   border-color: var(--line-strong);
   box-shadow: 0 10px 30px -12px rgba(24,22,19,0.18);
 }
@@ -475,12 +497,33 @@ details > summary::-webkit-details-marker {
   animation: shimmer 1.6s ease-in-out infinite;
 }
 
-/* Soft, warm card shadow — the Tiimo "floating panel" feel */
+/* Card depth — Linear's subtle inner highlight + soft drop on dark */
 .soft-card {
-  box-shadow: 0 1px 2px rgba(24,22,19,0.04), 0 10px 30px -12px rgba(24,22,19,0.16);
+  box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.04), 0 8px 24px -12px rgba(0,0,0,0.6);
 }
 .soft-card-lg {
+  box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.05), 0 24px 60px -20px rgba(0,0,0,0.7);
+}
+:root[data-theme="light"] .soft-card {
+  box-shadow: 0 1px 2px rgba(24,22,19,0.04), 0 10px 30px -12px rgba(24,22,19,0.16);
+}
+:root[data-theme="light"] .soft-card-lg {
   box-shadow: 0 2px 4px rgba(24,22,19,0.04), 0 24px 60px -18px rgba(24,22,19,0.22);
+}
+
+/* Glass surface — Linear's translucent blurred panels */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+}
+
+/* Linear-style radial accent glow behind hero / sections */
+.accent-glow {
+  background:
+    radial-gradient(60% 50% at 20% 0%, rgba(124,92,255,0.20) 0%, transparent 60%),
+    radial-gradient(50% 45% at 85% 10%, rgba(255,126,73,0.10) 0%, transparent 55%);
 }
 
 /* ── Game juice ───────────────────────────────────────────────────── */
@@ -544,9 +587,12 @@ details > summary::-webkit-details-marker {
   color: var(--ink);
 }
 
-/* Headline accent — branded purple. */
+/* Headline accent — Linear-style purple→indigo gradient text. */
 .text-game-gradient {
-  color: var(--accent);
+  background: linear-gradient(95deg, #9d86ff 0%, #7c5cff 50%, #5e6ad2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Scroll-reveal: fades/rises in when .is-in is added */
@@ -557,8 +603,10 @@ details > summary::-webkit-details-marker {
 }
 .reveal-up.is-in { opacity: 1; transform: translateY(0); }
 
-/* Soft emphasis for featured cards — warm shadow, gentle lift */
-.anim-neon { box-shadow: 0 1px 2px rgba(24,22,19,0.04), 0 12px 32px -10px rgba(24,22,19,0.14); }
+/* Featured-card emphasis — Linear-style purple ring + soft glow */
+.anim-neon {
+  box-shadow: 0 0 0 1px rgba(124,92,255,0.35), 0 0 40px -8px rgba(124,92,255,0.30), 0 18px 50px -20px rgba(0,0,0,0.7);
+}
 
 @media (prefers-reduced-motion: reduce) {
   .reveal-up { opacity: 1; transform: none; transition: none; }

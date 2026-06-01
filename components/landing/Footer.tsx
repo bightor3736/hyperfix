@@ -29,18 +29,19 @@ const columns = [
   },
 ];
 
-// Footer keeps its own warm-dark palette regardless of theme — a deep cocoa,
-// not a stark black, to stay on-brand with the warm canvas above it.
+// Footer keeps its own deep palette regardless of theme — Linear's near-black
+// with a faint top hairline, so it grounds the page.
 const footerVars = {
-  "--ink": "#faf8f3",
-  "--ink-muted": "#b8b2a6",
-  "--ink-faint": "#857f73",
-  "--line": "#352f28",
-  "--invert-bg": "#faf8f3",
-  "--invert-ink": "#1f1b16",
-  "--energy": "#a08cff",
-  "--accent": "#a08cff",
-  background: "#1f1b16",
+  "--ink": "#f7f8f8",
+  "--ink-muted": "#9b9faa",
+  "--ink-faint": "#63666e",
+  "--line": "#1c1d22",
+  "--invert-bg": "#f7f8f8",
+  "--invert-ink": "#0c0c0f",
+  "--energy": "#9d86ff",
+  "--accent": "#9d86ff",
+  background: "#08080a",
+  borderTop: "1px solid rgba(255,255,255,0.06)",
 } as CSSProperties;
 
 export function Footer() {
