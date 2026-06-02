@@ -89,14 +89,9 @@ export function BeatTheWall({ wallsTotal = 0, name }: { wallsTotal?: number; nam
       <Confetti fireKey={confettiKey} />
 
       <div className="flex items-start justify-between gap-4 mb-4">
-        <div>
-          <p className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest mb-1" style={{ color: "var(--energy)" }}>
-            <BrickWall size={12} strokeWidth={2} /> Beat the Wall
-          </p>
-          <h2 className="font-display text-ink leading-[1.05]" style={{ fontSize: "clamp(20px,3.6vw,28px)" }}>
-            {phase === "done" ? "Wall broken." : phase === "step" ? "Just do this part." : "What are you avoiding?"}
-          </h2>
-        </div>
+        <h2 className="font-display text-ink leading-[1.05]" style={{ fontSize: "clamp(20px,3.6vw,28px)" }}>
+          {phase === "done" ? "Wall broken." : phase === "step" ? "Just do this part." : "What are you avoiding?"}
+        </h2>
         {total > 0 && (
           <div className="shrink-0 text-right">
             <p className="font-display text-[22px] leading-none text-ink tabular-nums">{total}</p>
@@ -125,9 +120,6 @@ export function BeatTheWall({ wallsTotal = 0, name }: { wallsTotal?: number; nam
           >
             Shrink it down <ArrowRight size={17} strokeWidth={2.5} />
           </button>
-          <p className="mt-3 text-center font-mono text-[10px] text-ink-faint">
-            We don&apos;t reward finishing. We reward starting — that&apos;s the wall.
-          </p>
         </>
       )}
 

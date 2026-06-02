@@ -99,28 +99,23 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
         />
       )}
 
-      {/* Header row: label + daily goal dots */}
+      {/* Header row: heading + daily goal dots */}
       <div className="flex items-start justify-between gap-4 mb-5">
-        <div>
-          <p className="font-mono text-[10px] uppercase tracking-widest mb-1" style={{ color: "var(--energy)" }}>
-            Dopamine Menu
-          </p>
-          <h2
-            className="font-display leading-[1.05]"
-            style={{ fontSize: "clamp(24px,4.5vw,36px)", color: done && jackpot ? "var(--xp)" : "var(--ink)" }}
-          >
-            {done
-              ? jackpot
-                ? "Jackpot! Triple XP."
-                : `That beat the scroll${name ? `, ${name}` : ""}.`
-              : activity
-              ? "Do this. Right now."
-              : `${name ? `${name}, b` : "B"}ored? Don't open the feed.`}
-          </h2>
-        </div>
+        <h2
+          className="font-display leading-[1.05]"
+          style={{ fontSize: "clamp(22px,4vw,32px)", color: done && jackpot ? "var(--xp)" : "var(--ink)" }}
+        >
+          {done
+            ? jackpot
+              ? "Jackpot! Triple XP."
+              : `That beat the scroll${name ? `, ${name}` : ""}.`
+            : activity
+            ? "Do this. Right now."
+            : `${name ? `${name}, b` : "B"}ored? Don't open the feed.`}
+        </h2>
 
-        {/* Daily goal ring */}
-        <div className="shrink-0 flex flex-col items-center">
+        {/* Daily goal dots */}
+        <div className="shrink-0 flex flex-col items-center pt-1">
           <div className="flex items-center gap-1">
             {Array.from({ length: DAILY_GOAL }).map((_, i) => (
               <span
@@ -130,7 +125,7 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
                   width: 8,
                   height: 8,
                   background: i < count ? "var(--energy)" : "var(--line)",
-                  transform: i < count ? "scale(1.15)" : "scale(1)",
+                  transform: i < count ? "scale(1.2)" : "scale(1)",
                 }}
               />
             ))}

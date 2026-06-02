@@ -69,7 +69,8 @@ export default async function DashboardPage() {
     wallsTotal = count ?? 0;
   }
 
-  const levelName = levelForPoints(totalPoints).level.name;
+  const { level, next } = levelForPoints(totalPoints);
+  const levelName = level.name;
   const firstName = displayName.split(" ")[0];
 
   return (
@@ -84,6 +85,8 @@ export default async function DashboardPage() {
       dopamineToday={dopamineToday}
       wallsTotal={wallsTotal}
       quests={quests}
+      currentLevelPoints={level.points}
+      nextLevelPoints={next?.points}
     />
   );
 }
