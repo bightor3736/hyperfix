@@ -1,7 +1,7 @@
 -- ============================================================================
--- HYPERFIX — CONSOLIDATED MIGRATIONS (auto-generated)
--- Run in order against a fresh Supabase project, or apply individually.
--- Generated 2026-06-02T19:44:03Z
+-- HYPERFIX — CONSOLIDATED MIGRATIONS (idempotent, safe to re-run)
+-- Run this whole file against your Supabase project (SQL editor or psql).
+-- Guards added: DROP POLICY IF EXISTS, CREATE TABLE/INDEX IF NOT EXISTS.
 -- ============================================================================
 
 -- ----------------------------------------------------------------------------
@@ -53,19 +53,29 @@ alter table public.fixes enable row level security;
 alter table public.fix_entries enable row level security;
 
 -- profiles policies
+DROP POLICY IF EXISTS "Public profiles are viewable by everyone" ON public.profiles;
 create policy "Public profiles are viewable by everyone" on public.profiles for select using (is_public = true);
+DROP POLICY IF EXISTS "Users can view own profile" ON public.profiles;
 create policy "Users can view own profile" on public.profiles for select using (auth.uid() = id);
+DROP POLICY IF EXISTS "Users can insert own profile" ON public.profiles;
 create policy "Users can insert own profile" on public.profiles for insert with check (auth.uid() = id);
+DROP POLICY IF EXISTS "Users can update own profile" ON public.profiles;
 create policy "Users can update own profile" on public.profiles for update using (auth.uid() = id);
 
 -- fixes policies
+DROP POLICY IF EXISTS "Public fixes are viewable by everyone" ON public.fixes;
 create policy "Public fixes are viewable by everyone" on public.fixes for select using (is_public = true);
+DROP POLICY IF EXISTS "Users can view own fixes" ON public.fixes;
 create policy "Users can view own fixes" on public.fixes for select using (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Users can insert own fixes" ON public.fixes;
 create policy "Users can insert own fixes" on public.fixes for insert with check (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Users can update own fixes" ON public.fixes;
 create policy "Users can update own fixes" on public.fixes for update using (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Users can delete own fixes" ON public.fixes;
 create policy "Users can delete own fixes" on public.fixes for delete using (auth.uid() = user_id);
 
 -- fix_entries policies
+DROP POLICY IF EXISTS "Users can manage own entries" ON public.fix_entries;
 create policy "Users can manage own entries" on public.fix_entries for all using (auth.uid() = user_id);
 
 -- auto-create profile on signup
@@ -101,8 +111,11 @@ create table if not exists public.fix_reactions (
 
 alter table public.fix_reactions enable row level security;
 
+DROP POLICY IF EXISTS "Anyone can view reactions" ON public.fix_reactions;
 create policy "Anyone can view reactions" on public.fix_reactions for select using (true);
+DROP POLICY IF EXISTS "Authenticated users can add reactions" ON public.fix_reactions;
 create policy "Authenticated users can add reactions" on public.fix_reactions for insert with check (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Users can remove own reactions" ON public.fix_reactions;
 create policy "Users can remove own reactions" on public.fix_reactions for delete using (auth.uid() = user_id);
 
 
@@ -120,8 +133,11 @@ create table if not exists public.follows (
 
 alter table public.follows enable row level security;
 
+DROP POLICY IF EXISTS "Anyone can view follows" ON public.follows;
 create policy "Anyone can view follows" on public.follows for select using (true);
+DROP POLICY IF EXISTS "Users can follow others" ON public.follows;
 create policy "Users can follow others" on public.follows for insert with check (auth.uid() = follower_id);
+DROP POLICY IF EXISTS "Users can unfollow" ON public.follows;
 create policy "Users can unfollow" on public.follows for delete using (auth.uid() = follower_id);
 
 create table if not exists public.notifications (
@@ -136,8 +152,11 @@ create table if not exists public.notifications (
 );
 
 alter table public.notifications enable row level security;
+DROP POLICY IF EXISTS "Users can view own notifications" ON public.notifications;
 create policy "Users can view own notifications" on public.notifications for select using (auth.uid() = user_id);
+DROP POLICY IF EXISTS "System can insert notifications" ON public.notifications;
 create policy "System can insert notifications" on public.notifications for insert with check (true);
+DROP POLICY IF EXISTS "Users can mark own notifications read" ON public.notifications;
 create policy "Users can mark own notifications read" on public.notifications for update using (auth.uid() = user_id);
 
 
@@ -197,15 +216,22 @@ create table if not exists public.fix_list_items (
 alter table public.fix_lists enable row level security;
 alter table public.fix_list_items enable row level security;
 
+DROP POLICY IF EXISTS "Public lists viewable by everyone" ON public.fix_lists;
 create policy "Public lists viewable by everyone" on public.fix_lists for select using (is_public = true);
+DROP POLICY IF EXISTS "Users can view own lists" ON public.fix_lists;
 create policy "Users can view own lists" on public.fix_lists for select using (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Users can insert own lists" ON public.fix_lists;
 create policy "Users can insert own lists" on public.fix_lists for insert with check (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Users can update own lists" ON public.fix_lists;
 create policy "Users can update own lists" on public.fix_lists for update using (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Users can delete own lists" ON public.fix_lists;
 create policy "Users can delete own lists" on public.fix_lists for delete using (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "List items viewable if list is accessible" ON public.fix_list_items;
 create policy "List items viewable if list is accessible" on public.fix_list_items for select using (
   exists (select 1 from public.fix_lists where id = list_id and (is_public = true or user_id = auth.uid()))
 );
+DROP POLICY IF EXISTS "Users can manage own list items" ON public.fix_list_items;
 create policy "Users can manage own list items" on public.fix_list_items for all using (
   exists (select 1 from public.fix_lists where id = list_id and user_id = auth.uid())
 );
@@ -225,6 +251,7 @@ create table if not exists public.fix_comments (
 alter table public.fix_comments enable row level security;
 
 -- Anyone can read comments on public fixes
+DROP POLICY IF EXISTS "Comments on public fixes are viewable by everyone" ON public.fix_comments;
 create policy "Comments on public fixes are viewable by everyone"
   on public.fix_comments for select
   using (
@@ -232,6 +259,7 @@ create policy "Comments on public fixes are viewable by everyone"
   );
 
 -- Users can read comments on their own fixes
+DROP POLICY IF EXISTS "Fix owners can read all comments on their fixes" ON public.fix_comments;
 create policy "Fix owners can read all comments on their fixes"
   on public.fix_comments for select
   using (
@@ -239,6 +267,7 @@ create policy "Fix owners can read all comments on their fixes"
   );
 
 -- Logged in users can comment on public fixes
+DROP POLICY IF EXISTS "Logged in users can comment on public fixes" ON public.fix_comments;
 create policy "Logged in users can comment on public fixes"
   on public.fix_comments for insert
   with check (
@@ -247,6 +276,7 @@ create policy "Logged in users can comment on public fixes"
   );
 
 -- Users can delete their own comments
+DROP POLICY IF EXISTS "Users can delete own comments" ON public.fix_comments;
 create policy "Users can delete own comments"
   on public.fix_comments for delete
   using (auth.uid() = user_id);
@@ -292,11 +322,13 @@ create index if not exists fix_studio_blocks_fix_id_idx
 alter table public.fix_studio_blocks enable row level security;
 
 -- Owners can read their own studio blocks
+DROP POLICY IF EXISTS "Owner can read own studio blocks" ON public.fix_studio_blocks;
 create policy "Owner can read own studio blocks"
   on public.fix_studio_blocks for select
   using (auth.uid() = user_id);
 
 -- Studio blocks on public fixes are viewable by everyone
+DROP POLICY IF EXISTS "Studio blocks on public fixes are viewable by everyone" ON public.fix_studio_blocks;
 create policy "Studio blocks on public fixes are viewable by everyone"
   on public.fix_studio_blocks for select
   using (
@@ -304,6 +336,7 @@ create policy "Studio blocks on public fixes are viewable by everyone"
   );
 
 -- Owners can add blocks to their own fixes
+DROP POLICY IF EXISTS "Owner can insert studio blocks" ON public.fix_studio_blocks;
 create policy "Owner can insert studio blocks"
   on public.fix_studio_blocks for insert
   with check (
@@ -312,11 +345,13 @@ create policy "Owner can insert studio blocks"
   );
 
 -- Owners can update their own blocks
+DROP POLICY IF EXISTS "Owner can update own studio blocks" ON public.fix_studio_blocks;
 create policy "Owner can update own studio blocks"
   on public.fix_studio_blocks for update
   using (auth.uid() = user_id);
 
 -- Owners can delete their own blocks
+DROP POLICY IF EXISTS "Owner can delete own studio blocks" ON public.fix_studio_blocks;
 create policy "Owner can delete own studio blocks"
   on public.fix_studio_blocks for delete
   using (auth.uid() = user_id);
@@ -422,14 +457,17 @@ create index if not exists messages_conversation_id_idx on messages(conversation
 alter table conversations enable row level security;
 alter table messages enable row level security;
 
+DROP POLICY IF EXISTS "Users can see their own conversations" ON conversations;
 create policy "Users can see their own conversations"
   on conversations for select
   using (auth.uid() = user_a or auth.uid() = user_b);
 
+DROP POLICY IF EXISTS "Users can create conversations they participate in" ON conversations;
 create policy "Users can create conversations they participate in"
   on conversations for insert
   with check (auth.uid() = user_a or auth.uid() = user_b);
 
+DROP POLICY IF EXISTS "Users can see messages in their conversations" ON messages;
 create policy "Users can see messages in their conversations"
   on messages for select
   using (
@@ -440,6 +478,7 @@ create policy "Users can see messages in their conversations"
     )
   );
 
+DROP POLICY IF EXISTS "Users can send messages in their conversations" ON messages;
 create policy "Users can send messages in their conversations"
   on messages for insert
   with check (
@@ -501,7 +540,7 @@ UPDATE profiles SET is_public = true WHERE is_public = false OR is_public IS NUL
 -- ----------------------------------------------------------------------------
 -- Focus rooms: body-doubling + Pomodoro + voice + Spotify
 
-CREATE TABLE focus_rooms (
+CREATE TABLE IF NOT EXISTS focus_rooms (
   id            UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
   code          TEXT        NOT NULL UNIQUE,          -- 6-char invite code
   name          TEXT        NOT NULL,
@@ -522,7 +561,7 @@ CREATE TABLE focus_rooms (
   last_activity TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE room_members (
+CREATE TABLE IF NOT EXISTS room_members (
   id          UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
   room_id     UUID        NOT NULL REFERENCES focus_rooms(id) ON DELETE CASCADE,
   user_id     UUID        NOT NULL REFERENCES profiles(id)    ON DELETE CASCADE,
@@ -533,7 +572,7 @@ CREATE TABLE room_members (
   UNIQUE (room_id, user_id)
 );
 
-CREATE TABLE room_messages (
+CREATE TABLE IF NOT EXISTS room_messages (
   id         UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
   room_id    UUID        NOT NULL REFERENCES focus_rooms(id) ON DELETE CASCADE,
   user_id    UUID        NOT NULL REFERENCES profiles(id)    ON DELETE CASCADE,
@@ -542,11 +581,11 @@ CREATE TABLE room_messages (
 );
 
 -- Indexes
-CREATE INDEX ON focus_rooms  (code);
-CREATE INDEX ON focus_rooms  (owner_id);
-CREATE INDEX ON room_members (room_id);
-CREATE INDEX ON room_members (user_id);
-CREATE INDEX ON room_messages(room_id, created_at);
+DO $$ BEGIN CREATE INDEX ON focus_rooms  (code); EXCEPTION WHEN duplicate_table THEN NULL; END $$;
+DO $$ BEGIN CREATE INDEX ON focus_rooms  (owner_id); EXCEPTION WHEN duplicate_table THEN NULL; END $$;
+DO $$ BEGIN CREATE INDEX ON room_members (room_id); EXCEPTION WHEN duplicate_table THEN NULL; END $$;
+DO $$ BEGIN CREATE INDEX ON room_members (user_id); EXCEPTION WHEN duplicate_table THEN NULL; END $$;
+DO $$ BEGIN CREATE INDEX ON room_messages(room_id, created_at); EXCEPTION WHEN duplicate_table THEN NULL; END $$;
 
 -- RLS
 ALTER TABLE focus_rooms   ENABLE ROW LEVEL SECURITY;
@@ -555,19 +594,29 @@ ALTER TABLE room_messages ENABLE ROW LEVEL SECURITY;
 
 -- focus_rooms: anyone authenticated can read active rooms they're in;
 --              only owner can update; anyone can create
+DROP POLICY IF EXISTS "rooms_select" ON focus_rooms;
 CREATE POLICY "rooms_select" ON focus_rooms FOR SELECT USING (true);
+DROP POLICY IF EXISTS "rooms_insert" ON focus_rooms;
 CREATE POLICY "rooms_insert" ON focus_rooms FOR INSERT WITH CHECK (auth.uid() = owner_id);
+DROP POLICY IF EXISTS "rooms_update" ON focus_rooms;
 CREATE POLICY "rooms_update" ON focus_rooms FOR UPDATE USING (auth.uid() = owner_id);
+DROP POLICY IF EXISTS "rooms_delete" ON focus_rooms;
 CREATE POLICY "rooms_delete" ON focus_rooms FOR DELETE USING (auth.uid() = owner_id);
 
 -- room_members: anyone can see membership; you manage your own row
+DROP POLICY IF EXISTS "members_select" ON room_members;
 CREATE POLICY "members_select" ON room_members FOR SELECT USING (true);
+DROP POLICY IF EXISTS "members_insert" ON room_members;
 CREATE POLICY "members_insert" ON room_members FOR INSERT WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "members_update" ON room_members;
 CREATE POLICY "members_update" ON room_members FOR UPDATE USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "members_delete" ON room_members;
 CREATE POLICY "members_delete" ON room_members FOR DELETE USING (auth.uid() = user_id);
 
 -- room_messages: readable by all members, writable by authenticated users
+DROP POLICY IF EXISTS "messages_select" ON room_messages;
 CREATE POLICY "messages_select" ON room_messages FOR SELECT USING (true);
+DROP POLICY IF EXISTS "messages_insert" ON room_messages;
 CREATE POLICY "messages_insert" ON room_messages FOR INSERT WITH CHECK (auth.uid() = user_id);
 
 
@@ -587,7 +636,7 @@ CREATE INDEX IF NOT EXISTS focus_rooms_discoverable_idx
 -- ADHD toolkit tables: brain dump, mood log, RSD journal, medication tracker
 
 -- Brain dump / task capture
-CREATE TABLE brain_dump (
+CREATE TABLE IF NOT EXISTS brain_dump (
   id              UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id         UUID        NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
   content         TEXT        NOT NULL,
@@ -598,7 +647,7 @@ CREATE TABLE brain_dump (
 );
 
 -- Daily mood / energy / focus check-in
-CREATE TABLE mood_logs (
+CREATE TABLE IF NOT EXISTS mood_logs (
   id         UUID  PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id    UUID  NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
   date       DATE  NOT NULL,
@@ -611,7 +660,7 @@ CREATE TABLE mood_logs (
 );
 
 -- RSD journal (always private)
-CREATE TABLE rsd_entries (
+CREATE TABLE IF NOT EXISTS rsd_entries (
   id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id    UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
   trigger    TEXT NOT NULL,
@@ -622,7 +671,7 @@ CREATE TABLE rsd_entries (
 );
 
 -- Medication tracker
-CREATE TABLE med_logs (
+CREATE TABLE IF NOT EXISTS med_logs (
   id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id       UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
   medication    TEXT NOT NULL,
@@ -634,11 +683,11 @@ CREATE TABLE med_logs (
 );
 
 -- Indexes
-CREATE INDEX ON brain_dump  (user_id, status);
-CREATE INDEX ON brain_dump  (user_id, created_at DESC);
-CREATE INDEX ON mood_logs   (user_id, date DESC);
-CREATE INDEX ON rsd_entries (user_id, created_at DESC);
-CREATE INDEX ON med_logs    (user_id, taken_at DESC);
+DO $$ BEGIN CREATE INDEX ON brain_dump  (user_id, status); EXCEPTION WHEN duplicate_table THEN NULL; END $$;
+DO $$ BEGIN CREATE INDEX ON brain_dump  (user_id, created_at DESC); EXCEPTION WHEN duplicate_table THEN NULL; END $$;
+DO $$ BEGIN CREATE INDEX ON mood_logs   (user_id, date DESC); EXCEPTION WHEN duplicate_table THEN NULL; END $$;
+DO $$ BEGIN CREATE INDEX ON rsd_entries (user_id, created_at DESC); EXCEPTION WHEN duplicate_table THEN NULL; END $$;
+DO $$ BEGIN CREATE INDEX ON med_logs    (user_id, taken_at DESC); EXCEPTION WHEN duplicate_table THEN NULL; END $$;
 
 -- RLS
 ALTER TABLE brain_dump  ENABLE ROW LEVEL SECURITY;
@@ -646,9 +695,13 @@ ALTER TABLE mood_logs   ENABLE ROW LEVEL SECURITY;
 ALTER TABLE rsd_entries ENABLE ROW LEVEL SECURITY;
 ALTER TABLE med_logs    ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "brain_dump_own" ON brain_dump;
 CREATE POLICY "brain_dump_own"  ON brain_dump  USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "mood_logs_own" ON mood_logs;
 CREATE POLICY "mood_logs_own"   ON mood_logs   USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "rsd_entries_own" ON rsd_entries;
 CREATE POLICY "rsd_entries_own" ON rsd_entries USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "med_logs_own" ON med_logs;
 CREATE POLICY "med_logs_own"    ON med_logs    USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
 
 
@@ -763,14 +816,18 @@ ALTER TABLE point_boosts      ENABLE ROW LEVEL SECURITY;
 -- Users read their own ledger; achievements catalog + boosts are public-read;
 -- user_achievements are publicly readable (for profile badges + leaderboard flair).
 DROP POLICY IF EXISTS point_events_own_select ON point_events;
+DROP POLICY IF EXISTS point_events_own_select ON point_events;
 CREATE POLICY point_events_own_select ON point_events FOR SELECT USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS achievements_public ON achievements;
 DROP POLICY IF EXISTS achievements_public ON achievements;
 CREATE POLICY achievements_public ON achievements FOR SELECT USING (true);
 
 DROP POLICY IF EXISTS user_achievements_public ON user_achievements;
+DROP POLICY IF EXISTS user_achievements_public ON user_achievements;
 CREATE POLICY user_achievements_public ON user_achievements FOR SELECT USING (true);
 
+DROP POLICY IF EXISTS point_boosts_public ON point_boosts;
 DROP POLICY IF EXISTS point_boosts_public ON point_boosts;
 CREATE POLICY point_boosts_public ON point_boosts FOR SELECT USING (active = true);
 
@@ -916,6 +973,7 @@ CREATE TABLE IF NOT EXISTS daily_quests (
 
 ALTER TABLE daily_quests ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "own_quests_all" ON daily_quests;
 CREATE POLICY "own_quests_all" ON daily_quests
   USING (auth.uid() = user_id)
   WITH CHECK (auth.uid() = user_id);
@@ -944,6 +1002,7 @@ CREATE INDEX IF NOT EXISTS dopamine_hits_user_time ON dopamine_hits (user_id, cr
 
 ALTER TABLE dopamine_hits ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS dopamine_hits_own ON dopamine_hits;
 DROP POLICY IF EXISTS dopamine_hits_own ON dopamine_hits;
 CREATE POLICY dopamine_hits_own ON dopamine_hits
   USING (auth.uid() = user_id)
@@ -979,6 +1038,7 @@ CREATE INDEX IF NOT EXISTS walls_broken_user_time ON walls_broken (user_id, crea
 
 ALTER TABLE walls_broken ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS walls_broken_own ON walls_broken;
 DROP POLICY IF EXISTS walls_broken_own ON walls_broken;
 CREATE POLICY walls_broken_own ON walls_broken
   USING (auth.uid() = user_id)
@@ -1072,5 +1132,4 @@ END $$;
 --   ${NEXT_PUBLIC_SITE_URL}/api/spotify/callback
 --
 -- This migration is intentionally a no-op documentation marker.
-
 
