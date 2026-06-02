@@ -5,20 +5,32 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { NotificationBell } from "@/components/NotificationBell";
-import { ThemeToggle } from "@/components/landing/ThemeToggle";
-import { StreakBadge } from "@/components/ui/streak-badge";
 import {
   LayoutDashboard,
   MessageCircle,
   Settings,
   LogOut,
   User,
-  Zap,
   Sparkles,
   Snowflake,
   Flame,
+  ChevronRight,
 } from "lucide-react";
 import { levelForPoints } from "@/lib/gamification/levels";
+
+// Dark sidebar — matches the dark indigo hero used in DashboardHome.
+// All colours are explicit (no var(--bg) etc.) so this is self-contained.
+const D = {
+  bg: "#0f0d40",
+  bgCard: "rgba(255,255,255,0.06)",
+  bgActive: "rgba(255,255,255,0.12)",
+  border: "rgba(255,255,255,0.07)",
+  text: "rgba(255,255,255,0.88)",
+  muted: "rgba(255,255,255,0.48)",
+  faint: "rgba(255,255,255,0.28)",
+  accent: "#a78bfa",      // violet-400 — readable on dark
+  accentBg: "rgba(167,139,250,0.15)",
+};
 
 type Props = {
   displayName: string;
@@ -31,16 +43,8 @@ type Props = {
   streakFreezes?: number;
 };
 
-type NavSection = {
-  label?: string;
-  items: Array<{
-    href: string;
-    label: string;
-    icon: React.ReactNode;
-    activeIcon?: React.ReactNode;
-    badge?: number;
-  }>;
-};
+type NavItem = { href: string; label: string; icon: React.ReactNode; badge?: number };
+type NavSection = { label?: string; items: NavItem[] };
 
 export function DashboardSidebarClient({
   displayName,
@@ -53,15 +57,14 @@ export function DashboardSidebarClient({
   streakFreezes = 0,
 }: Props) {
   const { level, next } = levelForPoints(totalPoints);
-  const levelFloor = level.points;
-  const levelCeil = next ? next.points : level.points;
   const levelPct = next
-    ? Math.min(100, Math.max(0, ((totalPoints - levelFloor) / (levelCeil - levelFloor)) * 100))
+    ? Math.min(100, Math.max(0, ((totalPoints - level.points) / (next.points - level.points)) * 100))
     : 100;
+
   const router = useRouter();
   const pathname = usePathname();
   const [pending, startTransition] = useTransition();
-  const [unreadMessages, setUnreadMessages] = useState(0);
+  const [unread, setUnread] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -69,18 +72,13 @@ export function DashboardSidebarClient({
       try {
         const res = await fetch("/api/messages/unread-count");
         if (!res.ok) return;
-        const data = (await res.json()) as { count: number };
-        if (!cancelled) setUnreadMessages(data.count ?? 0);
-      } catch {
-        /* ignore */
-      }
+        const { count } = (await res.json()) as { count: number };
+        if (!cancelled) setUnread(count ?? 0);
+      } catch { /* ignore */ }
     }
     load();
     const id = setInterval(load, 60_000);
-    return () => {
-      cancelled = true;
-      clearInterval(id);
-    };
+    return () => { cancelled = true; clearInterval(id); };
   }, [pathname]);
 
   function handleSignOut() {
@@ -95,94 +93,60 @@ export function DashboardSidebarClient({
   const navSections: NavSection[] = [
     {
       items: [
-        {
-          href: "/dashboard",
-          label: "Play",
-          icon: <LayoutDashboard size={16} strokeWidth={1.5} />,
-        },
-        {
-          href: "/dashboard/fixations",
-          label: "Hyperfixations",
-          icon: <Flame size={16} strokeWidth={1.5} />,
-        },
-        {
-          href: "/dashboard/points",
-          label: "XP & Levels",
-          icon: <Sparkles size={16} strokeWidth={1.5} />,
-        },
+        { href: "/dashboard",           label: "Play",           icon: <LayoutDashboard size={15} strokeWidth={1.5} /> },
+        { href: "/dashboard/fixations", label: "Fixations",      icon: <Flame size={15} strokeWidth={1.5} /> },
+        { href: "/dashboard/points",    label: "XP & Levels",    icon: <Sparkles size={15} strokeWidth={1.5} /> },
       ],
     },
     {
       label: "Community",
       items: [
-        {
-          href: "/dashboard/messages",
-          label: "Messages",
-          icon: <MessageCircle size={16} strokeWidth={1.5} />,
-          badge: unreadMessages,
-        },
+        { href: "/dashboard/messages",  label: "Messages",       icon: <MessageCircle size={15} strokeWidth={1.5} />, badge: unread },
       ],
     },
     {
-      label: "More",
+      label: "Account",
       items: [
-        {
-          href: "/dashboard/settings",
-          label: "Settings",
-          icon: <Settings size={16} strokeWidth={1.5} />,
-        },
+        { href: "/dashboard/settings",  label: "Settings",       icon: <Settings size={15} strokeWidth={1.5} /> },
       ],
     },
   ];
 
-  function isActive(href: string): boolean {
-    if (href === "/dashboard") return pathname === "/dashboard";
-    return pathname.startsWith(href);
+  function isActive(href: string) {
+    return href === "/dashboard" ? pathname === "/dashboard" : pathname.startsWith(href);
   }
 
   return (
     <aside
       className="hidden lg:flex flex-col fixed left-0 top-0 bottom-0 w-64 z-30"
-      style={{
-        background: "var(--bg)",
-        borderRight: "1px solid var(--line)",
-      }}
+      style={{ background: D.bg, borderRight: `1px solid ${D.border}` }}
     >
-      {/* Logo */}
-      <div className="px-5 pt-5 pb-4 shrink-0">
-        <Link href="/dashboard" className="inline-block transition-transform hover:scale-[1.02]">
-          <span
-            style={{
-              fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif",
-              fontStyle: "italic",
-              fontWeight: 600,
-              fontSize: 22,
-              lineHeight: 1,
-              letterSpacing: "-0.08em",
-              color: "var(--ink)",
-              display: "inline-block",
-            }}
-          >
+      {/* Wordmark */}
+      <div className="px-5 pt-6 pb-4 shrink-0">
+        <Link href="/dashboard" className="inline-block transition-opacity hover:opacity-80">
+          <span style={{
+            fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif",
+            fontStyle: "italic",
+            fontWeight: 600,
+            fontSize: 22,
+            lineHeight: 1,
+            letterSpacing: "-0.08em",
+            color: "#fff",
+            display: "inline-block",
+          }}>
             hyperfix
-            <span style={{ fontSize: "0.42em", verticalAlign: "super", fontStyle: "normal", letterSpacing: 0, marginLeft: "0.06em" }}>
-              ®
-            </span>
+            <span style={{ fontSize: "0.42em", verticalAlign: "super", fontStyle: "normal", letterSpacing: 0, marginLeft: "0.06em" }}>®</span>
           </span>
         </Link>
       </div>
 
-      {/* Divider */}
-      <div className="mx-4 mt-1 mb-2 shrink-0" style={{ height: 1, background: "var(--line)" }} />
-
-      {/* Nav — scrollable */}
+      {/* Nav */}
       <nav className="flex-1 px-3 flex flex-col overflow-y-auto min-h-0 pb-2">
         {navSections.map((section, si) => (
           <div key={si}>
             {section.label && (
-              <p
-                className="px-3 mb-1 font-mono uppercase tracking-[0.12em] text-ink-faint"
-                style={{ fontSize: 10, marginTop: si === 0 ? 4 : 20 }}
-              >
+              <p className="px-3 mb-1 text-[10px] uppercase tracking-[0.14em]"
+                style={{ color: D.faint, marginTop: si === 0 ? 4 : 18 }}>
                 {section.label}
               </p>
             )}
@@ -192,28 +156,22 @@ export function DashboardSidebarClient({
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="flex items-center gap-3 px-3 py-2 rounded-xl font-sans transition-all duration-150 mb-0.5"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-sans transition-all duration-150 mb-0.5"
                   style={{
                     fontSize: 13,
-                    color: active ? "var(--accent)" : "var(--ink-muted)",
-                    background: active ? "var(--accent-soft)" : "transparent",
-                    border: active ? "1px solid var(--line)" : "1px solid transparent",
+                    color: active ? "#fff" : D.muted,
+                    background: active ? D.bgActive : "transparent",
                     fontWeight: active ? 500 : 400,
+                    letterSpacing: "-0.01em",
                   }}
                 >
-                  <span className="shrink-0">{item.icon}</span>
+                  <span className="shrink-0" style={{ color: active ? D.accent : D.muted }}>
+                    {item.icon}
+                  </span>
                   <span className="flex-1 truncate">{item.label}</span>
                   {typeof item.badge === "number" && item.badge > 0 && (
-                    <span
-                      className="inline-flex items-center justify-center font-mono rounded-full px-1.5 min-w-[18px] h-[18px] shrink-0"
-                      style={{
-                        fontSize: 10,
-                        fontWeight: 600,
-                        background: "var(--accent)",
-                        color: "var(--accent-ink)",
-                        lineHeight: 1,
-                      }}
-                    >
+                    <span className="inline-flex items-center justify-center rounded-full px-1.5 min-w-[18px] h-[18px] shrink-0"
+                      style={{ fontSize: 10, fontWeight: 700, background: D.accent, color: D.bg, lineHeight: 1 }}>
                       {item.badge > 99 ? "99+" : item.badge}
                     </span>
                   )}
@@ -224,194 +182,110 @@ export function DashboardSidebarClient({
         ))}
       </nav>
 
-      {/* Level / XP progress */}
-      <div className="px-3 pb-2 shrink-0">
-        <Link
-          href="/dashboard/points"
-          className="block rounded-2xl p-3 transition-all hover:-translate-y-0.5"
-          style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
-        >
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-1.5 min-w-0">
-              <Sparkles size={12} strokeWidth={1.5} className="text-accent shrink-0" />
-              <span className="font-mono text-[10px] uppercase tracking-widest text-accent truncate">
+      {/* XP / Level bar */}
+      <div className="px-4 pb-3 shrink-0">
+        <Link href="/dashboard/points"
+          className="block rounded-2xl p-3.5 transition-all hover:brightness-110"
+          style={{ background: D.bgCard, border: `1px solid ${D.border}` }}>
+          <div className="flex items-center justify-between mb-2.5">
+            <div className="flex items-center gap-1.5">
+              <Sparkles size={11} strokeWidth={2} style={{ color: D.accent }} />
+              <span className="text-[11px] font-medium" style={{ color: D.accent, letterSpacing: "-0.01em" }}>
                 {level.name}
               </span>
             </div>
-            <span className="font-mono text-[10px] tabular-nums text-ink-muted shrink-0">
+            <span className="text-[11px] tabular-nums" style={{ color: D.muted }}>
               {totalPoints.toLocaleString()} XP
             </span>
           </div>
-          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
-            <div
-              className="h-full rounded-full transition-all"
-              style={{ width: `${levelPct}%`, background: "var(--accent)" }}
-            />
+          <div className="h-1 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.10)" }}>
+            <div className="h-full rounded-full" style={{
+              width: `${levelPct}%`,
+              background: "linear-gradient(90deg, #818cf8, #a78bfa)",
+            }} />
           </div>
           {next && (
-            <p className="mt-1.5 font-mono text-[9px] text-ink-faint">
+            <p className="mt-1.5 text-[10px]" style={{ color: D.faint }}>
               {(next.points - totalPoints).toLocaleString()} XP to {next.name}
             </p>
           )}
         </Link>
       </div>
 
-      {/* Streak badge */}
-      {currentStreak > 0 && (
-        <div className="px-3 pb-2 shrink-0 flex justify-center">
-          <StreakBadge
-            size="sm"
-            length={currentStreak}
-            frequency="daily"
-            subtitle="check-in streak"
-            className="w-full"
-          />
+      {/* Streak + Freezes chips */}
+      <div className="px-4 pb-3 shrink-0 flex gap-2">
+        <div className="flex-1 flex items-center justify-between rounded-xl px-3 py-2"
+          style={{ background: D.bgCard, border: `1px solid ${D.border}` }}>
+          <span className="inline-flex items-center gap-1.5 text-[12px]" style={{ color: D.muted }}>
+            <Flame size={13} strokeWidth={2} style={{ color: "#fb923c" }} />
+            streak
+          </span>
+          <span className="text-[13px] font-semibold tabular-nums" style={{ color: "#fff" }}>
+            {currentStreak}
+          </span>
         </div>
-      )}
-
-      {/* Streak freezes — protects your run + Pro upsell when empty */}
-      <div className="px-3 pb-2 shrink-0">
-        {streakFreezes > 0 ? (
-          <div
-            className="flex items-center justify-between rounded-xl px-3 py-2"
-            style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
-          >
-            <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-ink-muted">
-              <Snowflake size={12} strokeWidth={1.5} className="text-accent" />
-              freezes
-            </span>
-            <span className="font-mono text-[11px] tabular-nums text-ink">
-              {streakFreezes}
-            </span>
-          </div>
-        ) : (
-          <Link
-            href="/pricing"
-            className="flex items-center justify-between rounded-xl px-3 py-2 transition-all hover:-translate-y-0.5"
-            style={{ background: "var(--accent-soft)", border: "1px solid var(--accent)" }}
-          >
-            <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-accent">
-              <Snowflake size={12} strokeWidth={1.5} />
-              0 freezes
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-accent">
-              Get more →
-            </span>
-          </Link>
-        )}
+        <Link href={streakFreezes > 0 ? "/dashboard/points" : "/pricing"}
+          className="flex-1 flex items-center justify-between rounded-xl px-3 py-2 transition-all hover:brightness-110"
+          style={{ background: D.bgCard, border: `1px solid ${D.border}` }}>
+          <span className="inline-flex items-center gap-1.5 text-[12px]" style={{ color: D.muted }}>
+            <Snowflake size={13} strokeWidth={2} style={{ color: "#7dd3fc" }} />
+            freezes
+          </span>
+          <span className="text-[13px] font-semibold tabular-nums" style={{ color: "#fff" }}>
+            {streakFreezes}
+          </span>
+        </Link>
       </div>
 
-      {/* Pro upsell — free users only */}
-      {!isPro && (
-        <div className="px-3 pb-2 shrink-0">
-          <Link
-            href="/pricing"
-            className="block relative overflow-hidden rounded-2xl p-3.5 transition-all hover:-translate-y-0.5 group"
-            style={{
-              background: "var(--accent-soft)",
-              border: "1px solid var(--accent)",
-            }}
-          >
-            <div className="flex items-center gap-2 mb-1.5">
-              <Zap size={12} strokeWidth={1.5} className="text-accent" />
-              <span
-                className="font-mono text-[10px] uppercase tracking-widest text-accent"
-              >
-                Power-Up
-              </span>
-            </div>
-            <p className="font-sans text-[12px] mb-2 leading-snug text-ink-muted">
-              More freezes, boosted jackpot odds, XP multipliers.
-            </p>
-            <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-widest text-accent group-hover:gap-1.5 transition-all">
-              See plans →
-            </span>
-          </Link>
-        </div>
-      )}
-
       {/* User section */}
-      <div className="px-4 py-3 shrink-0" style={{ borderTop: "1px solid var(--line)" }}>
-        {/* Avatar + name + bell */}
-        <div className="flex items-center gap-2 mb-3">
-          <div className="flex-1 flex items-center gap-2.5 min-w-0">
-            <div
-              className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 overflow-hidden"
-              style={{
-                background: avatarUrl ? "transparent" : "var(--accent-soft)",
-                border: "1px solid var(--accent)",
-                color: "var(--accent)",
-              }}
-            >
-              {avatarUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={avatarUrl} alt={displayName} className="w-full h-full object-cover" />
-              ) : (
-                displayName[0]?.toUpperCase() || "?"
+      <div className="px-4 pt-3 pb-4 shrink-0" style={{ borderTop: `1px solid ${D.border}` }}>
+        <div className="flex items-center gap-2.5 mb-3">
+          {/* Avatar */}
+          <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 overflow-hidden"
+            style={{ background: D.bgCard, border: `1.5px solid ${D.border}`, color: D.accent }}>
+            {avatarUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={avatarUrl} alt={displayName} className="w-full h-full object-cover" />
+            ) : (
+              displayName[0]?.toUpperCase() || "?"
+            )}
+          </div>
+          {/* Name / email */}
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-1.5">
+              <p className="text-sm font-medium truncate" style={{ color: D.text, letterSpacing: "-0.01em" }}>
+                {displayName}
+              </p>
+              {isPro && (
+                <span className="text-[9px] rounded px-1.5 py-0.5 shrink-0 font-semibold"
+                  style={{ background: D.accentBg, color: D.accent }}>PRO</span>
               )}
             </div>
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-1.5">
-                <p className="font-sans text-sm font-medium truncate text-ink">
-                  {displayName}
-                </p>
-                {isPro && (
-                  <span
-                    className="font-mono text-[9px] shrink-0 rounded px-1.5 py-0.5"
-                    style={{
-                      background: "var(--accent-soft)",
-                      color: "var(--accent)",
-                      border: "1px solid var(--accent)",
-                    }}
-                  >
-                    PRO
-                  </span>
-                )}
-              </div>
-              {userEmail && (
-                <p className="font-mono text-[10px] truncate text-ink-faint">
-                  {userEmail}
-                </p>
-              )}
-            </div>
+            {userEmail && (
+              <p className="text-[10px] truncate" style={{ color: D.faint }}>{userEmail}</p>
+            )}
           </div>
           <NotificationBell />
         </div>
 
-        {/* Theme toggle row */}
-        <div className="flex items-center justify-between mb-3">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">
-            Theme
-          </span>
-          <ThemeToggle />
-        </div>
-
-        {/* Profile + sign out row */}
         <div className="flex gap-2">
           <Link
             href={username ? `/u/${username}` : "/onboarding/username"}
-            className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl font-sans text-xs font-medium transition-all duration-150 hover:opacity-80"
-            style={{
-              color: username ? "var(--ink-muted)" : "var(--accent)",
-              background: username ? "var(--line)" : "var(--accent-soft)",
-              border: username ? "1px solid var(--line)" : "1px solid var(--accent)",
-            }}
+            className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium transition-all hover:brightness-110"
+            style={{ background: D.bgCard, color: D.muted, border: `1px solid ${D.border}` }}
           >
             <User size={12} strokeWidth={1.5} />
-            {username ? "My profile" : "Set up profile"}
+            {username ? "Profile" : "Set up"}
+            <ChevronRight size={11} strokeWidth={2} />
           </Link>
           <button
             onClick={handleSignOut}
             disabled={pending}
-            className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl font-sans text-xs transition-all duration-150 hover:opacity-80 disabled:opacity-50"
-            style={{
-              color: "var(--ink-muted)",
-              background: "var(--line)",
-              border: "1px solid var(--line)",
-            }}
+            className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs transition-all hover:brightness-110 disabled:opacity-40"
+            style={{ background: D.bgCard, color: D.muted, border: `1px solid ${D.border}` }}
           >
             <LogOut size={12} strokeWidth={1.5} />
-            {pending ? "…" : "Sign out"}
+            {pending ? "…" : "Out"}
           </button>
         </div>
       </div>

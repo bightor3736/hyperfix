@@ -145,7 +145,6 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
       {!activity && (
         <>
           <div className="flex flex-wrap items-center gap-2 mb-5">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-ink-faint mr-1">Energy</span>
             {ENERGY_OPTS.map((opt) => {
               const on = energy === opt.value;
               const Icon = opt.icon;
@@ -169,15 +168,12 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
 
           <button
             onClick={() => roll()}
-            className="press-pop anim-pulseGlow w-full flex items-center justify-center gap-2.5 py-4 rounded-[var(--radius-lg)] font-sans text-[16px] font-bold transition-all hover:opacity-95"
-            style={{ background: "var(--energy)", color: "var(--accent-ink)" }}
+            className="press-pop anim-pulseGlow w-full flex items-center justify-center gap-2.5 rounded-[var(--radius-lg)] font-sans font-bold transition-all hover:opacity-95"
+            style={{ background: "var(--energy)", color: "var(--accent-ink)", fontSize: 17, padding: "18px 24px" }}
           >
-            <Zap size={20} strokeWidth={2.5} fill="var(--accent-ink)" />
+            <Zap size={22} strokeWidth={2.5} fill="var(--accent-ink)" />
             Give me a hit
           </button>
-          <p className="mt-3 text-center font-mono text-[10px] text-ink-faint">
-            One tap. A real dopamine hit that isn&apos;t your phone.
-          </p>
         </>
       )}
 
