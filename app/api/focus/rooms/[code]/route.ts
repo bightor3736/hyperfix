@@ -36,6 +36,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ code: s
 
   return NextResponse.json({
     room: {
+      id: room.id,
       code: room.code,
       name: room.name,
       ownerId: room.owner_id,

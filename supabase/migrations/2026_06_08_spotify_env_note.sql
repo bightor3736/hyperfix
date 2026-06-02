@@ -1,0 +1,20 @@
+-- Spotify "now playing" integration for focus rooms.
+--
+-- No schema changes are required. The columns used by this feature already
+-- exist on `focus_rooms` (added in 2026_05_29_focus_rooms.sql):
+--
+--   spotify_access_token   TEXT
+--   spotify_refresh_token  TEXT
+--   spotify_expires_at     TIMESTAMPTZ
+--   current_track          JSONB  -- {name,artist,albumArt,progressMs,durationMs,isPlaying,trackId}
+--
+-- Required environment variables (set these in your deployment):
+--
+--   SPOTIFY_CLIENT_ID       -- from the Spotify developer dashboard
+--   SPOTIFY_CLIENT_SECRET   -- from the Spotify developer dashboard
+--   NEXT_PUBLIC_SITE_URL    -- e.g. https://hyperfix.app (used for the OAuth redirect)
+--
+-- Spotify app redirect URI to whitelist:
+--   ${NEXT_PUBLIC_SITE_URL}/api/spotify/callback
+--
+-- This migration is intentionally a no-op documentation marker.

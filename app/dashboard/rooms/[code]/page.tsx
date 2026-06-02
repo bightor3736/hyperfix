@@ -3,12 +3,15 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Loader2, Play, Pause, RotateCcw, Brain, Coffee, LogOut, Users, Copy, Check } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
+import { VoiceChat } from "@/components/focus/VoiceChat";
+import SpotifyPanel from "@/components/focus/SpotifyPanel";
 
 type Mode = "focus" | "break";
 interface TimerState { mode: Mode; round: number; isRunning: boolean; remaining: number; startedAt: string | null; }
 interface MemberProfile { display_name: string | null; username: string | null; avatar_url: string | null; }
 interface Member { user_id: string; status: string; task: string; profiles: MemberProfile | null; }
-interface RoomMeta { code: string; name: string; ownerId: string; isOwner: boolean; isMember: boolean; timer: TimerState; }
+interface RoomMeta { id: string; code: string; name: string; ownerId: string; isOwner: boolean; isMember: boolean; timer: TimerState; }
 
 const DURATION: Record<Mode, number> = { focus: 1500, break: 300 };
 const STATUS_CFG: Record<string, { label: string; color: string }> = {
@@ -65,13 +68,38 @@ export default function RoomPage() {
     }
   }, [code, task]);
 
-  // Join on mount, then poll every 2s.
+  // Join on mount, then poll every 8s as a resilience fallback (Realtime below
+  // handles instant updates; this also refreshes the joined member profiles).
   useEffect(() => {
     fetch(`/api/focus/rooms/${code}/join`, { method: "POST" }).catch(() => {}).finally(poll);
-    const id = setInterval(poll, 2000);
+    const id = setInterval(poll, 8000);
     return () => clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code]);
+
+  // Realtime: push timer changes + member join/leave instantly.
+  useEffect(() => {
+    if (!room?.id) return;
+    const supabase = createClient();
+    const channel = supabase
+      .channel(`room:${room.id}`)
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "focus_rooms", filter: `id=eq.${room.id}` },
+        (payload) => {
+          const next = (payload.new as { timer_state?: TimerState })?.timer_state;
+          if (next) setRoom((prev) => (prev ? { ...prev, timer: next } : prev));
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "room_members", filter: `room_id=eq.${room.id}` },
+        () => { poll(); }
+      )
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [room?.id]);
 
   // Heartbeat every 15s so presence stays fresh.
   useEffect(() => {
@@ -242,6 +270,12 @@ export default function RoomPage() {
             <p className="mt-6 font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>The host controls the timer</p>
           )}
         </div>
+
+        {/* Spotify now-playing */}
+        <SpotifyPanel roomCode={code} isOwner={room.isOwner} />
+
+        {/* Voice */}
+        <VoiceChat roomCode={code} me={me} name={members.find((m) => m.user_id === me)?.profiles?.display_name ?? ""} />
 
         {/* My presence */}
         <div className="rounded-2xl p-4 mb-5" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)" }}>
