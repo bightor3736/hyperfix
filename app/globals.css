@@ -140,6 +140,16 @@
   --radius-xl: 30px;
 }
 
+/* Suppress the redundant "DOPAMINE MENU" / "BEAT THE WALL" micro-labels
+   inside the game cards — they double up with the section labels in
+   DashboardHome. Target the first <p> inside the card header div that
+   has the specific inline energy color (only these two components use it
+   this way at the start of their card). */
+.dash-landing [style*="energy"] p.font-mono.uppercase:first-child,
+.dash-landing p.inline-flex.font-mono.uppercase[style*="energy"] {
+  display: none !important;
+}
+
 html,
 body {
   background: var(--bg);
