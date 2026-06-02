@@ -17,7 +17,6 @@ export function BeatTheWall({ wallsTotal = 0, name }: { wallsTotal?: number; nam
   const [total, setTotal] = useState(wallsTotal);
   const [confettiKey, setConfettiKey] = useState(0);
 
-  // optional 2-minute timer
   const [secs, setSecs] = useState(120);
   const [running, setRunning] = useState(false);
   const tick = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -39,7 +38,6 @@ export function BeatTheWall({ wallsTotal = 0, name }: { wallsTotal?: number; nam
   }
 
   function reroll() {
-    // nudge to a different generic-feeling phrasing by appending a space variant
     const variants = [
       firstStepFor(task + " "),
       "Set a 2-minute timer and do the smallest visible piece. Stop when it rings.",
@@ -83,116 +81,155 @@ export function BeatTheWall({ wallsTotal = 0, name }: { wallsTotal?: number; nam
 
   return (
     <div
-      className="relative overflow-hidden rounded-[var(--radius-xl)] p-6 sm:p-7"
+      className="relative overflow-hidden rounded-[var(--radius-xl)]"
       style={{
-        background: [
-          "radial-gradient(ellipse 80% 70% at 5% 0%, rgba(249,115,22,0.09) 0%, transparent 60%)",
-          "radial-gradient(ellipse 50% 40% at 95% 100%, rgba(249,115,22,0.06) 0%, transparent 55%)",
-          "var(--bg-elevated)",
-        ].join(", "),
-        border: "1px solid var(--line)",
-        boxShadow: "0 2px 16px rgba(249,115,22,0.05), 0 1px 3px rgba(0,0,0,0.06)",
+        background: "linear-gradient(145deg, #fff5ed 0%, #fff9f5 45%, #fffefe 100%)",
+        border: "1px solid rgba(249,115,22,0.16)",
+        boxShadow: "0 4px 32px rgba(249,115,22,0.08), 0 1px 4px rgba(0,0,0,0.06)",
       }}
     >
       <Confetti fireKey={confettiKey} />
 
-      <div className="flex items-start justify-between gap-4 mb-4">
-        <h2 className="font-display text-ink leading-[1.05]" style={{ fontSize: "clamp(20px,3.6vw,28px)" }}>
-          {phase === "done" ? "Wall broken." : phase === "step" ? "Just do this part." : "What are you avoiding?"}
-        </h2>
+      {/* Card header bar */}
+      <div className="flex items-center justify-between px-6 pt-5 pb-0">
+        <span
+          className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest"
+          style={{ color: "var(--flame, #f97316)" }}
+        >
+          <BrickWall size={11} strokeWidth={2} />
+          Beat the Wall
+        </span>
         {total > 0 && (
-          <div className="shrink-0 text-right">
-            <p className="font-display text-[22px] leading-none text-ink tabular-nums">{total}</p>
-            <p className="font-mono text-[9px] uppercase tracking-widest text-ink-faint mt-0.5">walls broken</p>
+          <div className="text-right">
+            <span className="font-display text-[18px] leading-none tabular-nums" style={{ color: "var(--ink)" }}>{total}</span>
+            <span className="font-mono text-[9px] uppercase tracking-widest ml-1.5" style={{ color: "var(--ink-faint)" }}>broken</span>
           </div>
         )}
       </div>
 
-      {/* IDLE */}
-      {phase === "idle" && (
-        <>
-          <input
-            value={task}
-            onChange={(e) => setTask(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && breakItDown()}
-            placeholder="e.g. reply to that email I've avoided for a week"
-            maxLength={200}
-            className="w-full rounded-[var(--radius-lg)] px-4 py-3 font-sans text-[15px] text-ink outline-none transition-all focus:border-[var(--energy)]"
-            style={{ background: "var(--bg)", border: "1px solid var(--line)" }}
-          />
-          <button
-            onClick={breakItDown}
-            disabled={!task.trim()}
-            className="press-pop mt-3 w-full flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all hover:opacity-95 disabled:opacity-40"
-            style={{ background: "var(--energy)", color: "#fff" }}
-          >
-            Shrink it down <ArrowRight size={17} strokeWidth={2.5} />
-          </button>
-        </>
-      )}
+      {/* Main content */}
+      <div className="px-6 pt-4 pb-6 sm:px-7 sm:pb-7">
+        {/* Heading */}
+        <h2
+          className="font-display text-ink leading-[1.05] mb-4"
+          style={{ fontSize: "clamp(22px,3.8vw,30px)" }}
+        >
+          {phase === "done" ? "Wall broken." : phase === "step" ? "Just do this part." : "What are you avoiding?"}
+        </h2>
 
-      {/* STEP */}
-      {phase === "step" && (
-        <div className="anim-pop">
-          <div className="rounded-[var(--radius-lg)] p-5 mb-4" style={{ background: "var(--bg)", border: "1px solid var(--line)" }}>
-            <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint mb-2">Your 2-minute first step</p>
-            <p className="font-display text-ink leading-snug" style={{ fontSize: "clamp(18px,3vw,24px)" }}>{step}</p>
+        {/* IDLE */}
+        {phase === "idle" && (
+          <>
+            <input
+              value={task}
+              onChange={(e) => setTask(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && breakItDown()}
+              placeholder="e.g. reply to that email I've avoided for a week"
+              maxLength={200}
+              className="w-full rounded-[var(--radius-lg)] px-4 py-3 font-sans text-[15px] text-ink outline-none transition-all"
+              style={{
+                background: "rgba(255,255,255,0.75)",
+                border: "1.5px solid rgba(249,115,22,0.18)",
+              }}
+            />
+            <button
+              onClick={breakItDown}
+              disabled={!task.trim()}
+              className="press-pop mt-3 w-full flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all disabled:opacity-40"
+              style={{
+                background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)",
+                color: "#fff",
+                boxShadow: "0 6px 24px rgba(249,115,22,0.32), 0 2px 6px rgba(0,0,0,0.08)",
+              }}
+            >
+              Shrink it down <ArrowRight size={17} strokeWidth={2.5} />
+            </button>
+          </>
+        )}
 
-            <div className="mt-4 flex items-center gap-3">
+        {/* STEP */}
+        {phase === "step" && (
+          <div className="anim-pop">
+            <div
+              className="rounded-[var(--radius-lg)] p-5 mb-4"
+              style={{ background: "rgba(255,255,255,0.75)", border: "1.5px solid rgba(249,115,22,0.16)" }}
+            >
+              <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "var(--ink-faint)" }}>
+                Your 2-minute first step
+              </p>
+              <p className="font-display text-ink leading-snug" style={{ fontSize: "clamp(18px,3vw,24px)" }}>{step}</p>
+
+              <div className="mt-4 flex items-center gap-3">
+                <button
+                  onClick={() => setRunning((r) => !r)}
+                  className="press-pop inline-flex items-center gap-2 px-3 py-2 rounded-full font-mono text-[12px] tabular-nums"
+                  style={{
+                    background: "rgba(249,115,22,0.10)",
+                    color: "#f97316",
+                    border: "1px solid rgba(249,115,22,0.25)",
+                  }}
+                >
+                  {running ? <Pause size={13} strokeWidth={2.5} /> : <Play size={13} strokeWidth={2.5} fill="currentColor" />}
+                  {mm}:{ss}
+                </button>
+                <button
+                  onClick={reroll}
+                  className="press-pop inline-flex items-center gap-1.5 font-mono text-[11px] transition-colors"
+                  style={{ color: "var(--ink-faint)" }}
+                >
+                  <RefreshCw size={12} strokeWidth={1.5} /> different step
+                </button>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
               <button
-                onClick={() => setRunning((r) => !r)}
-                className="press-pop inline-flex items-center gap-2 px-3 py-2 rounded-full font-mono text-[12px] tabular-nums"
-                style={{ background: "var(--energy-soft)", color: "var(--energy)", border: "1px solid var(--energy)" }}
+                onClick={started}
+                disabled={saving}
+                className="press-pop flex-1 flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all disabled:opacity-50"
+                style={{ background: "var(--invert-bg)", color: "var(--invert-ink)" }}
               >
-                {running ? <Pause size={13} strokeWidth={2.5} /> : <Play size={13} strokeWidth={2.5} fill="currentColor" />}
-                {mm}:{ss}
+                {saving ? <Loader2 size={18} className="animate-spin" /> : <Check size={18} strokeWidth={2.5} />}
+                I started it
               </button>
-              <button onClick={reroll} className="press-pop inline-flex items-center gap-1.5 font-mono text-[11px] text-ink-faint hover:text-ink transition-colors">
-                <RefreshCw size={12} strokeWidth={1.5} /> different step
+              <button
+                onClick={reset}
+                disabled={saving}
+                className="press-pop px-4 py-3.5 rounded-[var(--radius-lg)] font-sans text-[13px] font-medium transition-all disabled:opacity-50"
+                style={{ background: "rgba(255,255,255,0.7)", color: "var(--ink-muted)", border: "1.5px solid rgba(249,115,22,0.15)" }}
+              >
+                Cancel
               </button>
             </div>
           </div>
+        )}
 
-          <div className="flex items-center gap-3">
-            <button
-              onClick={started}
-              disabled={saving}
-              className="press-pop flex-1 flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all hover:opacity-95 disabled:opacity-50"
-              style={{ background: "var(--invert-bg)", color: "var(--invert-ink)" }}
+        {/* DONE */}
+        {phase === "done" && (
+          <div className="anim-pop">
+            <div
+              className="rounded-[var(--radius-lg)] p-5 mb-4 text-center"
+              style={{ background: "rgba(255,255,255,0.75)", border: "1.5px solid rgba(249,115,22,0.25)" }}
             >
-              {saving ? <Loader2 size={18} className="animate-spin" /> : <Check size={18} strokeWidth={2.5} />}
-              I started it
-            </button>
+              <p className="font-display text-ink" style={{ fontSize: "clamp(18px,3vw,24px)" }}>
+                You started{name ? `, ${name}` : ""}. That was the whole battle.
+              </p>
+              <p className="anim-floatUp font-display text-[22px] mt-1" style={{ color: "var(--xp)" }}>+{WALL_XP} XP</p>
+            </div>
             <button
               onClick={reset}
-              disabled={saving}
-              className="press-pop px-4 py-3.5 rounded-[var(--radius-lg)] font-sans text-[13px] font-medium transition-all disabled:opacity-50"
-              style={{ background: "var(--bg)", color: "var(--ink-muted)", border: "1px solid var(--line)" }}
+              className="press-pop w-full flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all"
+              style={{
+                background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)",
+                color: "#fff",
+                boxShadow: "0 6px 24px rgba(249,115,22,0.32)",
+              }}
             >
-              Cancel
+              <BrickWall size={17} strokeWidth={2.5} /> Break another wall
             </button>
           </div>
-        </div>
-      )}
-
-      {/* DONE */}
-      {phase === "done" && (
-        <div className="anim-pop">
-          <div className="rounded-[var(--radius-lg)] p-5 mb-4 text-center" style={{ background: "var(--accent-soft)", border: "1px solid var(--accent)" }}>
-            <p className="font-display text-ink" style={{ fontSize: "clamp(18px,3vw,24px)" }}>
-              You started{name ? `, ${name}` : ""}. That was the whole battle.
-            </p>
-            <p className="anim-floatUp font-display text-[22px] mt-1" style={{ color: "var(--xp)" }}>+{WALL_XP} XP</p>
-          </div>
-          <button
-            onClick={reset}
-            className="press-pop w-full flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all hover:opacity-95"
-            style={{ background: "var(--energy)", color: "#fff" }}
-          >
-            <BrickWall size={17} strokeWidth={2.5} /> Break another wall
-          </button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

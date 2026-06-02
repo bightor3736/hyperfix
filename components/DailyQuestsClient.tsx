@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Check, Loader2, ChevronRight, Inbox, Timer, Activity, Pill, BookOpen, LayoutDashboard } from "lucide-react";
+import { Check, Loader2, ChevronRight, Inbox, Timer, Activity, Pill, BookOpen, LayoutDashboard, Trophy } from "lucide-react";
 import type { Quest, QuestKind } from "@/lib/quests/generate";
 
 const KIND_ICONS: Record<QuestKind, React.ReactNode> = {
@@ -21,14 +21,9 @@ export function DailyQuestsClient({ initialQuests }: { initialQuests: Quest[] })
   async function complete(quest: Quest) {
     if (quest.completed_at || loading) return;
     setLoading(quest.id);
-
-    // Optimistic
     setQuests((prev) =>
-      prev.map((q) =>
-        q.id === quest.id ? { ...q, completed_at: new Date().toISOString() } : q
-      )
+      prev.map((q) => q.id === quest.id ? { ...q, completed_at: new Date().toISOString() } : q)
     );
-
     try {
       await fetch("/api/quests/complete", {
         method: "POST",
@@ -36,7 +31,6 @@ export function DailyQuestsClient({ initialQuests }: { initialQuests: Quest[] })
         body: JSON.stringify({ questId: quest.id }),
       });
     } catch {
-      // Revert on failure
       setQuests((prev) =>
         prev.map((q) => (q.id === quest.id ? { ...q, completed_at: null } : q))
       );
@@ -45,15 +39,41 @@ export function DailyQuestsClient({ initialQuests }: { initialQuests: Quest[] })
     }
   }
 
+  const doneCount = quests.filter((q) => q.completed_at).length;
+
   return (
     <div
-      className="rounded-2xl overflow-hidden"
+      className="rounded-[var(--radius-xl)] overflow-hidden"
       style={{
         background: "var(--bg-elevated)",
         border: "1px solid var(--line)",
         boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
       }}
     >
+      {/* Header */}
+      <div
+        className="flex items-center justify-between px-5 py-4"
+        style={{ borderBottom: "1px solid var(--line)" }}
+      >
+        <span
+          className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest"
+          style={{ color: "var(--xp)" }}
+        >
+          <Trophy size={11} strokeWidth={2} />
+          Today&apos;s Quests
+        </span>
+        <span
+          className="font-mono text-[10px] tabular-nums px-2 py-0.5 rounded-full font-semibold"
+          style={{
+            background: doneCount === quests.length ? "var(--xp-soft)" : "var(--line)",
+            color: doneCount === quests.length ? "var(--xp)" : "var(--ink-muted)",
+          }}
+        >
+          {doneCount}/{quests.length}
+        </span>
+      </div>
+
+      {/* Quest rows */}
       {quests.map((quest, i) => {
         const done = !!quest.completed_at;
         const isLoading = loading === quest.id;
@@ -61,10 +81,10 @@ export function DailyQuestsClient({ initialQuests }: { initialQuests: Quest[] })
         return (
           <div
             key={quest.id}
-            className="flex items-center gap-4 px-4 py-3.5 transition-colors"
+            className="flex items-center gap-4 px-5 py-4 transition-colors"
             style={{
               borderBottom: i < quests.length - 1 ? "1px solid var(--line)" : "none",
-              background: done ? "var(--accent-soft)" : "transparent",
+              background: done ? "var(--xp-soft)" : "transparent",
             }}
           >
             {/* Checkbox */}
@@ -75,23 +95,20 @@ export function DailyQuestsClient({ initialQuests }: { initialQuests: Quest[] })
               style={{
                 width: 28,
                 height: 28,
-                background: done ? "var(--accent)" : "var(--bg)",
-                border: `1.5px solid ${done ? "var(--accent)" : "var(--line)"}`,
+                background: done ? "var(--xp)" : "var(--bg)",
+                border: `1.5px solid ${done ? "var(--xp)" : "var(--line)"}`,
                 cursor: done ? "default" : "pointer",
               }}
             >
               {isLoading ? (
-                <Loader2 size={13} className="text-accent animate-spin" />
+                <Loader2 size={13} className="animate-spin" style={{ color: "var(--xp)" }} />
               ) : done ? (
-                <Check size={13} strokeWidth={2.5} className="text-white" />
+                <Check size={13} strokeWidth={2.5} style={{ color: "#fff" }} />
               ) : null}
             </button>
 
             {/* Kind icon */}
-            <span
-              className="shrink-0"
-              style={{ color: done ? "var(--accent)" : "var(--ink-faint)" }}
-            >
+            <span className="shrink-0" style={{ color: done ? "var(--xp)" : "var(--ink-faint)" }}>
               {KIND_ICONS[quest.kind]}
             </span>
 
@@ -100,14 +117,14 @@ export function DailyQuestsClient({ initialQuests }: { initialQuests: Quest[] })
               <p
                 className="font-sans text-[13px] font-medium"
                 style={{
-                  color: done ? "var(--accent)" : "var(--ink)",
+                  color: done ? "var(--xp)" : "var(--ink)",
                   textDecoration: done ? "line-through" : "none",
-                  opacity: done ? 0.8 : 1,
+                  opacity: done ? 0.75 : 1,
                 }}
               >
                 {quest.title}
               </p>
-              <p className="font-mono text-[10px] text-ink-faint mt-0.5 truncate">
+              <p className="font-mono text-[10px] mt-0.5 truncate" style={{ color: "var(--ink-faint)" }}>
                 {quest.description}
               </p>
             </div>
@@ -117,7 +134,7 @@ export function DailyQuestsClient({ initialQuests }: { initialQuests: Quest[] })
               <span
                 className="font-mono text-[10px] tabular-nums px-2 py-0.5 rounded-full"
                 style={{
-                  background: done ? "var(--xp-soft)" : "var(--line)",
+                  background: done ? "rgba(124,58,237,0.12)" : "var(--line)",
                   color: done ? "var(--xp)" : "var(--ink-muted)",
                 }}
               >
@@ -126,7 +143,8 @@ export function DailyQuestsClient({ initialQuests }: { initialQuests: Quest[] })
               {!done && (
                 <Link
                   href={quest.href}
-                  className="text-ink-faint hover:text-accent transition-colors"
+                  className="transition-colors"
+                  style={{ color: "var(--ink-faint)" }}
                   onClick={() => complete(quest)}
                 >
                   <ChevronRight size={14} strokeWidth={1.5} />

@@ -57,10 +57,7 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
       const res = await fetch("/api/dopamine/complete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          activityId: activity.id,
-          proof: proof ?? null,
-        }),
+        body: JSON.stringify({ activityId: activity.id, proof: proof ?? null }),
       });
       if (res.ok) {
         const data = (await res.json()) as { xp: number; jackpot?: boolean };
@@ -80,15 +77,11 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
 
   return (
     <div
-      className="relative overflow-hidden rounded-[var(--radius-xl)] p-6 sm:p-8"
+      className="relative overflow-hidden rounded-[var(--radius-xl)]"
       style={{
-        background: [
-          "radial-gradient(ellipse 90% 80% at 5% 5%, rgba(79,70,229,0.13) 0%, transparent 60%)",
-          "radial-gradient(ellipse 60% 50% at 95% 100%, rgba(124,58,237,0.10) 0%, transparent 55%)",
-          "var(--bg-elevated)",
-        ].join(", "),
-        border: "1px solid var(--line)",
-        boxShadow: "0 2px 16px rgba(79,70,229,0.06), 0 1px 3px rgba(0,0,0,0.06)",
+        background: "linear-gradient(145deg, #eae8ff 0%, #f3f1ff 45%, #fafafe 100%)",
+        border: "1px solid rgba(79,70,229,0.14)",
+        boxShadow: "0 4px 32px rgba(79,70,229,0.10), 0 1px 4px rgba(0,0,0,0.06)",
       }}
     >
       <Confetti fireKey={confettiKey} />
@@ -103,11 +96,47 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
         />
       )}
 
-      {/* Header row: heading + daily goal dots */}
-      <div className="flex items-start justify-between gap-4 mb-5">
+      {/* Card header bar */}
+      <div
+        className="flex items-center justify-between px-6 pt-5 pb-0"
+      >
+        <span
+          className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest"
+          style={{ color: "var(--energy)" }}
+        >
+          <Zap size={11} strokeWidth={2.5} fill="currentColor" />
+          Dopamine Menu
+        </span>
+        <div className="flex flex-col items-end gap-1">
+          <div className="flex items-center gap-1">
+            {Array.from({ length: DAILY_GOAL }).map((_, i) => (
+              <span
+                key={i}
+                className="rounded-full transition-all duration-300"
+                style={{
+                  width: 7,
+                  height: 7,
+                  background: i < count ? "var(--energy)" : "rgba(79,70,229,0.18)",
+                  transform: i < count ? "scale(1.2)" : "scale(1)",
+                }}
+              />
+            ))}
+          </div>
+          <p className="font-mono text-[9px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
+            {count}/{DAILY_GOAL} today
+          </p>
+        </div>
+      </div>
+
+      {/* Main content */}
+      <div className="px-6 pt-4 pb-6 sm:px-8 sm:pb-8">
+        {/* Heading */}
         <h2
-          className="font-display leading-[1.05]"
-          style={{ fontSize: "clamp(22px,4vw,32px)", color: done && jackpot ? "var(--xp)" : "var(--ink)" }}
+          className="font-display leading-[1.05] mb-5"
+          style={{
+            fontSize: "clamp(24px,4.5vw,36px)",
+            color: done && jackpot ? "var(--xp)" : "var(--ink)",
+          }}
         >
           {done
             ? jackpot
@@ -118,83 +147,68 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
             : `${name ? `${name}, b` : "B"}ored? Don't open the feed.`}
         </h2>
 
-        {/* Daily goal dots */}
-        <div className="shrink-0 flex flex-col items-center pt-1">
-          <div className="flex items-center gap-1">
-            {Array.from({ length: DAILY_GOAL }).map((_, i) => (
-              <span
-                key={i}
-                className="rounded-full transition-all"
-                style={{
-                  width: 8,
-                  height: 8,
-                  background: i < count ? "var(--energy)" : "var(--line)",
-                  transform: i < count ? "scale(1.2)" : "scale(1)",
-                }}
-              />
-            ))}
-          </div>
-          <p className="mt-1 font-mono text-[9px] uppercase tracking-widest text-ink-faint">
-            {count}/{DAILY_GOAL} today
-          </p>
+        {/* IDLE */}
+        {!activity && (
+          <>
+            <div className="flex flex-wrap items-center gap-2 mb-5">
+              {ENERGY_OPTS.map((opt) => {
+                const on = energy === opt.value;
+                const Icon = opt.icon;
+                return (
+                  <button
+                    key={opt.value}
+                    onClick={() => setEnergy(opt.value)}
+                    className="press-pop inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full font-sans text-[12px] font-medium transition-all"
+                    style={{
+                      background: on ? "var(--energy)" : "rgba(255,255,255,0.7)",
+                      color: on ? "#fff" : "var(--ink-muted)",
+                      border: `1.5px solid ${on ? "var(--energy)" : "rgba(79,70,229,0.15)"}`,
+                    }}
+                  >
+                    <Icon size={13} strokeWidth={2} />
+                    {opt.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              onClick={() => roll()}
+              className="press-pop w-full flex items-center justify-center gap-2.5 rounded-[var(--radius-lg)] font-sans font-bold transition-all"
+              style={{
+                background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
+                color: "#fff",
+                fontSize: 17,
+                padding: "18px 24px",
+                boxShadow: "0 8px 32px rgba(79,70,229,0.40), 0 2px 8px rgba(0,0,0,0.10)",
+              }}
+            >
+              <Zap size={22} strokeWidth={2.5} fill="#fff" />
+              Give me a hit
+            </button>
+          </>
+        )}
+
+        {/* ACTIVE */}
+        {activity && (
+          <ActiveCard
+            activity={activity}
+            done={done}
+            saving={saving}
+            gainedXp={gainedXp}
+            jackpot={jackpot}
+            onComplete={requestProof}
+            onReroll={() => roll()}
+          />
+        )}
+
+        {/* Progress bar */}
+        <div className="mt-6 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(79,70,229,0.12)" }}>
+          <div
+            className="h-full rounded-full transition-all duration-500"
+            style={{ width: `${goalPct}%`, background: "linear-gradient(90deg, #4f46e5, #7c3aed, #a855f7)" }}
+          />
         </div>
-      </div>
-
-      {/* IDLE */}
-      {!activity && (
-        <>
-          <div className="flex flex-wrap items-center gap-2 mb-5">
-            {ENERGY_OPTS.map((opt) => {
-              const on = energy === opt.value;
-              const Icon = opt.icon;
-              return (
-                <button
-                  key={opt.value}
-                  onClick={() => setEnergy(opt.value)}
-                  className="press-pop inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-sans text-[12px] font-medium transition-all"
-                  style={{
-                    background: on ? "var(--energy)" : "var(--bg)",
-                    color: on ? "var(--accent-ink)" : "var(--ink-muted)",
-                    border: `1px solid ${on ? "var(--energy)" : "var(--line)"}`,
-                  }}
-                >
-                  <Icon size={14} strokeWidth={2} />
-                  {opt.label}
-                </button>
-              );
-            })}
-          </div>
-
-          <button
-            onClick={() => roll()}
-            className="press-pop anim-pulseGlow w-full flex items-center justify-center gap-2.5 rounded-[var(--radius-lg)] font-sans font-bold transition-all hover:opacity-95"
-            style={{ background: "var(--energy)", color: "var(--accent-ink)", fontSize: 17, padding: "18px 24px" }}
-          >
-            <Zap size={22} strokeWidth={2.5} fill="var(--accent-ink)" />
-            Give me a hit
-          </button>
-        </>
-      )}
-
-      {/* ACTIVE */}
-      {activity && (
-        <ActiveCard
-          activity={activity}
-          done={done}
-          saving={saving}
-          gainedXp={gainedXp}
-          jackpot={jackpot}
-          onComplete={requestProof}
-          onReroll={() => roll()}
-        />
-      )}
-
-      {/* subtle progress bar at the very bottom */}
-      <div className="mt-6 h-1.5 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
-        <div
-          className="h-full rounded-full transition-all duration-500"
-          style={{ width: `${goalPct}%`, background: "linear-gradient(90deg, var(--accent), var(--xp))" }}
-        />
       </div>
     </div>
   );
@@ -225,14 +239,14 @@ function ActiveCard({
       <div
         className="rounded-[var(--radius-lg)] p-5 mb-4"
         style={{
-          background: done ? (jackpot ? "var(--xp-soft)" : "var(--accent-soft)") : "var(--bg)",
-          border: `1px solid ${done ? (jackpot ? "var(--xp)" : "var(--accent)") : "var(--line)"}`,
+          background: done ? (jackpot ? "var(--xp-soft)" : "rgba(255,255,255,0.8)") : "rgba(255,255,255,0.7)",
+          border: `1.5px solid ${done ? (jackpot ? "var(--xp)" : "rgba(79,70,229,0.3)") : "rgba(79,70,229,0.12)"}`,
         }}
       >
         <div className="flex items-center justify-between mb-3">
           <span
             className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono text-[10px] uppercase tracking-widest"
-            style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)", color: cat.color }}
+            style={{ background: "rgba(255,255,255,0.8)", border: "1px solid rgba(79,70,229,0.12)", color: cat.color }}
           >
             <CatIcon size={12} strokeWidth={2} /> {cat.label}
           </span>
@@ -263,10 +277,14 @@ function ActiveCard({
       {done ? (
         <button
           onClick={onReroll}
-          className="press-pop w-full flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all hover:opacity-95"
-          style={{ background: "var(--energy)", color: "var(--accent-ink)" }}
+          className="press-pop w-full flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all"
+          style={{
+            background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
+            color: "#fff",
+            boxShadow: "0 6px 24px rgba(79,70,229,0.35)",
+          }}
         >
-          <Zap size={18} strokeWidth={2.5} fill="var(--accent-ink)" />
+          <Zap size={18} strokeWidth={2.5} fill="#fff" />
           Give me another
         </button>
       ) : (
@@ -274,7 +292,7 @@ function ActiveCard({
           <button
             onClick={onComplete}
             disabled={saving}
-            className="press-pop flex-1 flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all hover:opacity-95 disabled:opacity-50"
+            className="press-pop flex-1 flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all disabled:opacity-50"
             style={{ background: "var(--invert-bg)", color: "var(--invert-ink)" }}
           >
             {saving ? <Loader2 size={18} className="animate-spin" /> : <Check size={18} strokeWidth={2.5} />}
@@ -284,7 +302,7 @@ function ActiveCard({
             onClick={onReroll}
             disabled={saving}
             className="press-pop flex items-center justify-center gap-2 px-5 py-3.5 rounded-[var(--radius-lg)] font-sans text-[14px] font-medium transition-all disabled:opacity-50"
-            style={{ background: "var(--bg-elevated)", color: "var(--ink-muted)", border: "1px solid var(--line)" }}
+            style={{ background: "rgba(255,255,255,0.7)", color: "var(--ink-muted)", border: "1px solid rgba(79,70,229,0.14)" }}
           >
             <RefreshCw size={15} strokeWidth={1.5} />
             Reroll

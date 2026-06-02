@@ -47,26 +47,6 @@ function HeroStat({ icon: Icon, value, label, href, iconColor }: {
   );
 }
 
-function SectionLabel({ children, count, total }: {
-  children: React.ReactNode; count?: number; total?: number;
-}) {
-  return (
-    <div className="flex items-center justify-between mb-3">
-      <p className="text-[12px] font-semibold uppercase tracking-[0.08em]" style={{ color: "var(--ink-faint)" }}>
-        {children}
-      </p>
-      {count !== undefined && total !== undefined && (
-        <span
-          className="text-[11px] px-2.5 py-0.5 rounded-full font-semibold tabular-nums"
-          style={{ background: "var(--accent-soft)", color: "var(--accent)" }}
-        >
-          {count} / {total}
-        </span>
-      )}
-    </div>
-  );
-}
-
 export function DashboardHome({
   firstName,
   greeting,
@@ -80,7 +60,6 @@ export function DashboardHome({
   nextLevelPoints,
   currentLevelPoints = 0,
 }: DashboardHomeProps) {
-  const questsDone = quests.filter((q) => q.completed_at).length;
   const levelPct = nextLevelPoints
     ? Math.min(100, Math.max(0, ((totalPoints - currentLevelPoints) / (nextLevelPoints - currentLevelPoints)) * 100))
     : 100;
@@ -93,15 +72,14 @@ export function DashboardHome({
         className="relative overflow-hidden anim-fadeUp"
         style={{
           background: [
-            "radial-gradient(ellipse 80% 140% at 110% 65%, rgba(139,92,246,0.65) 0%, transparent 55%)",
-            "radial-gradient(ellipse 55% 90%  at 85%  -5%, rgba(99,102,241,0.50) 0%, transparent 50%)",
-            "radial-gradient(ellipse 40% 60%  at 100% 95%, rgba(192,78,200,0.42) 0%, transparent 48%)",
-            "linear-gradient(145deg, #1e1880 0%, #0f0d40 100%)",
+            "radial-gradient(ellipse 85% 150% at 115% 65%, rgba(139,92,246,0.70) 0%, transparent 55%)",
+            "radial-gradient(ellipse 55% 90%  at 85%  -5%, rgba(99,102,241,0.55) 0%, transparent 50%)",
+            "radial-gradient(ellipse 40% 60%  at 100% 95%, rgba(192,78,200,0.45) 0%, transparent 48%)",
+            "linear-gradient(145deg, #201890 0%, #0f0d40 100%)",
           ].join(", "),
-          padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) 56px",
+          padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) 60px",
         }}
       >
-        {/* Noise texture */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -111,12 +89,8 @@ export function DashboardHome({
             opacity: 0.7,
           }}
         />
-
         <div className="relative z-10">
-          <p
-            className="text-[11px] font-medium uppercase mb-2"
-            style={{ color: "rgba(167,139,250,0.8)", letterSpacing: "0.18em" }}
-          >
+          <p className="text-[11px] font-medium uppercase mb-2" style={{ color: "rgba(167,139,250,0.8)", letterSpacing: "0.18em" }}>
             {greeting}
           </p>
           <h1
@@ -142,14 +116,13 @@ export function DashboardHome({
             <HeroStat icon={Trophy}   value={levelName}                  label="level"      href="/dashboard/points" iconColor="#fbbf24" />
           </div>
 
-          {/* Level bar */}
           <div className="max-w-xs">
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-[10px] font-medium uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.38)" }}>
+              <span className="text-[10px] font-medium uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>
                 {levelName}
               </span>
               {nextLevelPoints && (
-                <span className="text-[10px] tabular-nums" style={{ color: "rgba(255,255,255,0.3)" }}>
+                <span className="text-[10px] tabular-nums" style={{ color: "rgba(255,255,255,0.28)" }}>
                   {(nextLevelPoints - totalPoints).toLocaleString()} XP to next
                 </span>
               )}
@@ -164,36 +137,18 @@ export function DashboardHome({
         </div>
       </header>
 
-      {/* ── CONTENT — overlaps hero by 28px ───────────────────────────── */}
+      {/* ── CONTENT — cards emerge from hero ──────────────────────────── */}
       <div
         className="mx-auto anim-fadeUp pb-28"
-        style={{
-          maxWidth: 640,
-          padding: "0 16px",
-          marginTop: -28,
-          animationDelay: "60ms",
-        }}
+        style={{ maxWidth: 640, padding: "0 16px", marginTop: -32, animationDelay: "60ms" }}
       >
-        {/* Dopamine Menu card */}
-        <section className="mb-5">
-          <SectionLabel>Dopamine Menu</SectionLabel>
-          <DopamineMenu todayCount={dopamineToday} name={firstName} />
-        </section>
-
-        {/* Beat the Wall card */}
-        <section className="mb-5">
-          <SectionLabel>Beat the Wall</SectionLabel>
-          <BeatTheWall wallsTotal={wallsTotal} name={firstName} />
-        </section>
-
-        {/* Quests */}
-        <section className="mb-5">
-          <SectionLabel count={questsDone} total={quests.length}>Today&apos;s Quests</SectionLabel>
-          <DailyQuestsClient initialQuests={quests} />
-        </section>
-
+        <DopamineMenu todayCount={dopamineToday} name={firstName} />
+        <div style={{ height: 14 }} />
+        <BeatTheWall wallsTotal={wallsTotal} name={firstName} />
+        <div style={{ height: 14 }} />
+        <DailyQuestsClient initialQuests={quests} />
         {username && (
-          <p className="text-center text-[12px] pb-4" style={{ color: "var(--ink-faint)" }}>
+          <p className="text-center text-[12px] pt-6 pb-2" style={{ color: "var(--ink-faint)" }}>
             @{username}
           </p>
         )}
