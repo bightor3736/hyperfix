@@ -71,7 +71,7 @@ export default function OnboardingUsernamePage() {
           .then(() => localStorage.removeItem("hyperfix_ref")).catch(() => {});
       }
 
-      router.push("/dashboard/new?welcome=1");
+      router.push("/onboarding/goals");
     } catch {
       setError("Network error. Please try again.");
       setSubmitting(false);
@@ -125,7 +125,8 @@ export default function OnboardingUsernamePage() {
           <div className="flex items-center gap-2 mb-7">
             <div className="h-1 w-8 rounded-full" style={{ background: "var(--accent)" }} />
             <div className="h-1 w-8 rounded-full" style={{ background: "var(--accent)" }} />
-            <span className="ml-auto font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>step 2 of 2</span>
+            <div className="h-1 w-8 rounded-full" style={{ background: "var(--line)" }} />
+            <span className="ml-auto font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>step 2 of 3</span>
           </div>
 
           {/* Heading */}

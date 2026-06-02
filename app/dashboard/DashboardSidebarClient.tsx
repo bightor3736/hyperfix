@@ -21,6 +21,7 @@ import {
   Pill,
   Heart,
   Timer,
+  Users,
 } from "lucide-react";
 import { levelForPoints } from "@/lib/gamification/levels";
 
@@ -109,6 +110,7 @@ export function DashboardSidebarClient({
       label: "Toolkit",
       items: [
         { href: "/dashboard/timer",      label: "Focus Timer",   icon: <Timer size={15} strokeWidth={1.5} /> },
+        { href: "/dashboard/rooms",      label: "Focus Rooms",   icon: <Users size={15} strokeWidth={1.5} /> },
         { href: "/dashboard/brain-dump", label: "Brain Dump",    icon: <Brain size={15} strokeWidth={1.5} /> },
         { href: "/dashboard/mood",       label: "Mood Check-in", icon: <Activity size={15} strokeWidth={1.5} /> },
         { href: "/dashboard/meds",       label: "Meds",          icon: <Pill size={15} strokeWidth={1.5} /> },
