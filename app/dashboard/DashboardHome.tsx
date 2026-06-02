@@ -22,38 +22,42 @@ export type DashboardHomeProps = {
   currentLevelPoints?: number;
 };
 
-function HeroStat({ icon: Icon, value, label, href, accent }: { icon: LucideIcon; value: string | number; label: string; href: string; accent?: string }) {
+function HeroStat({ icon: Icon, value, label, href, iconColor }: {
+  icon: LucideIcon; value: string | number; label: string; href: string; iconColor?: string;
+}) {
   return (
     <Link
       href={href}
       className="inline-flex items-center gap-1.5 rounded-full transition-all hover:opacity-80 active:scale-95"
       style={{
-        background: "rgba(255,255,255,0.10)",
-        border: "1px solid rgba(255,255,255,0.14)",
+        background: "rgba(255,255,255,0.11)",
+        border: "1px solid rgba(255,255,255,0.16)",
         padding: "6px 14px 6px 10px",
         backdropFilter: "blur(12px)",
       }}
     >
-      <Icon size={13} strokeWidth={2.5} style={{ color: accent ?? "rgba(255,255,255,0.7)" }} />
+      <Icon size={13} strokeWidth={2.5} style={{ color: iconColor ?? "rgba(255,255,255,0.7)" }} />
       <span className="text-[13px] font-bold tabular-nums leading-none" style={{ color: "#fff", letterSpacing: "-0.02em" }}>
         {value}
       </span>
-      <span className="text-[11px] leading-none" style={{ color: "rgba(255,255,255,0.5)" }}>
+      <span className="text-[11px] leading-none" style={{ color: "rgba(255,255,255,0.48)" }}>
         {label}
       </span>
     </Link>
   );
 }
 
-function SectionLabel({ children, count, total }: { children: React.ReactNode; count?: number; total?: number }) {
+function SectionLabel({ children, count, total }: {
+  children: React.ReactNode; count?: number; total?: number;
+}) {
   return (
     <div className="flex items-center justify-between mb-3">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.1em]" style={{ color: "var(--ink-faint)" }}>
+      <p className="text-[12px] font-semibold uppercase tracking-[0.08em]" style={{ color: "var(--ink-faint)" }}>
         {children}
       </p>
       {count !== undefined && total !== undefined && (
         <span
-          className="text-[11px] px-2.5 py-0.5 rounded-full font-medium tabular-nums"
+          className="text-[11px] px-2.5 py-0.5 rounded-full font-semibold tabular-nums"
           style={{ background: "var(--accent-soft)", color: "var(--accent)" }}
         >
           {count} / {total}
@@ -82,20 +86,19 @@ export function DashboardHome({
     : 100;
 
   return (
-    <div className="min-h-screen pb-28">
+    <div className="min-h-screen" style={{ background: "var(--bg)" }}>
 
       {/* ── HERO ──────────────────────────────────────────────────────── */}
       <header
         className="relative overflow-hidden anim-fadeUp"
         style={{
           background: [
-            "radial-gradient(ellipse 80% 140% at 110% 60%, rgba(139,92,246,0.6) 0%, transparent 55%)",
-            "radial-gradient(ellipse 55% 90%  at 85%  -8%, rgba(99,102,241,0.45) 0%, transparent 50%)",
-            "radial-gradient(ellipse 45% 65%  at 98%  95%, rgba(192,78,200,0.40) 0%, transparent 48%)",
+            "radial-gradient(ellipse 80% 140% at 110% 65%, rgba(139,92,246,0.65) 0%, transparent 55%)",
+            "radial-gradient(ellipse 55% 90%  at 85%  -5%, rgba(99,102,241,0.50) 0%, transparent 50%)",
+            "radial-gradient(ellipse 40% 60%  at 100% 95%, rgba(192,78,200,0.42) 0%, transparent 48%)",
             "linear-gradient(145deg, #1e1880 0%, #0f0d40 100%)",
           ].join(", "),
-          padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) clamp(28px,4vw,40px)",
-          minHeight: 220,
+          padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) 56px",
         }}
       >
         {/* Noise texture */}
@@ -127,99 +130,75 @@ export function DashboardHome({
               marginBottom: "clamp(18px,3vw,26px)",
             }}
           >
-            <span
-              style={{
-                fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif",
-                fontStyle: "italic",
-              }}
-            >
+            <span style={{ fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif", fontStyle: "italic" }}>
               {firstName}
             </span>
             .
           </h1>
 
-          {/* Stat pills */}
           <div className="flex flex-wrap gap-2 mb-5">
-            <HeroStat icon={Flame}    value={currentStreak} label="day streak" href="/dashboard/points" accent="#fb923c" />
-            <HeroStat icon={Sparkles} value={totalPoints.toLocaleString()} label="XP" href="/dashboard/points" accent="#a78bfa" />
-            <HeroStat icon={Trophy}   value={levelName}     label="level"      href="/dashboard/points" accent="#fbbf24" />
+            <HeroStat icon={Flame}    value={currentStreak}              label="day streak" href="/dashboard/points" iconColor="#fb923c" />
+            <HeroStat icon={Sparkles} value={totalPoints.toLocaleString()} label="XP"       href="/dashboard/points" iconColor="#a78bfa" />
+            <HeroStat icon={Trophy}   value={levelName}                  label="level"      href="/dashboard/points" iconColor="#fbbf24" />
           </div>
 
-          {/* Level progress bar */}
+          {/* Level bar */}
           <div className="max-w-xs">
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-[10px] font-medium uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>
+              <span className="text-[10px] font-medium uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.38)" }}>
                 {levelName}
               </span>
               {nextLevelPoints && (
-                <span className="text-[10px] tabular-nums" style={{ color: "rgba(255,255,255,0.35)" }}>
+                <span className="text-[10px] tabular-nums" style={{ color: "rgba(255,255,255,0.3)" }}>
                   {(nextLevelPoints - totalPoints).toLocaleString()} XP to next
                 </span>
               )}
             </div>
             <div className="h-1 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.12)" }}>
               <div
-                className="h-full rounded-full transition-all duration-700"
-                style={{
-                  width: `${levelPct}%`,
-                  background: "linear-gradient(90deg, #818cf8, #a78bfa, #c084fc)",
-                }}
+                className="h-full rounded-full"
+                style={{ width: `${levelPct}%`, background: "linear-gradient(90deg, #818cf8, #a78bfa, #c084fc)" }}
               />
             </div>
           </div>
         </div>
       </header>
 
-      {/* ── CONTENT ───────────────────────────────────────────────────── */}
+      {/* ── CONTENT — overlaps hero by 28px ───────────────────────────── */}
       <div
-        className="mx-auto anim-fadeUp"
+        className="mx-auto anim-fadeUp pb-28"
         style={{
           maxWidth: 640,
-          padding: "24px 16px 0",
+          padding: "0 16px",
+          marginTop: -28,
           animationDelay: "60ms",
-          display: "flex",
-          flexDirection: "column",
-          gap: 20,
         }}
       >
-
-        {/* Dopamine Menu */}
-        <div>
+        {/* Dopamine Menu card */}
+        <section className="mb-5">
           <SectionLabel>Dopamine Menu</SectionLabel>
           <DopamineMenu todayCount={dopamineToday} name={firstName} />
-        </div>
+        </section>
 
-        {/* Divider */}
-        <div className="h-px" style={{ background: "var(--line)" }} />
-
-        {/* Beat the Wall */}
-        <div>
+        {/* Beat the Wall card */}
+        <section className="mb-5">
           <SectionLabel>Beat the Wall</SectionLabel>
           <BeatTheWall wallsTotal={wallsTotal} name={firstName} />
-        </div>
-
-        {/* Divider */}
-        <div className="h-px" style={{ background: "var(--line)" }} />
+        </section>
 
         {/* Quests */}
-        <div>
+        <section className="mb-5">
           <SectionLabel count={questsDone} total={quests.length}>Today&apos;s Quests</SectionLabel>
           <DailyQuestsClient initialQuests={quests} />
-        </div>
+        </section>
 
-        {/* Footer nav — only shown on mobile where sidebar is hidden */}
-        <div
-          className="lg:hidden flex items-center gap-5 pt-3 pb-2"
-          style={{ borderTop: "1px solid var(--line)" }}
-        >
-          {username && (
-            <span className="ml-auto text-[13px]" style={{ color: "var(--ink-faint)" }}>
-              @{username}
-            </span>
-          )}
-        </div>
-
+        {username && (
+          <p className="text-center text-[12px] pb-4" style={{ color: "var(--ink-faint)" }}>
+            @{username}
+          </p>
+        )}
       </div>
+
     </div>
   );
 }

@@ -82,9 +82,13 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
     <div
       className="relative overflow-hidden rounded-[var(--radius-xl)] p-6 sm:p-8"
       style={{
-        background:
-          "radial-gradient(120% 120% at 0% 0%, var(--energy-soft) 0%, var(--bg-elevated) 55%)",
+        background: [
+          "radial-gradient(ellipse 90% 80% at 5% 5%, rgba(79,70,229,0.13) 0%, transparent 60%)",
+          "radial-gradient(ellipse 60% 50% at 95% 100%, rgba(124,58,237,0.10) 0%, transparent 55%)",
+          "var(--bg-elevated)",
+        ].join(", "),
         border: "1px solid var(--line)",
+        boxShadow: "0 2px 16px rgba(79,70,229,0.06), 0 1px 3px rgba(0,0,0,0.06)",
       }}
     >
       <Confetti fireKey={confettiKey} />

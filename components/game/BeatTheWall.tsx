@@ -84,7 +84,15 @@ export function BeatTheWall({ wallsTotal = 0, name }: { wallsTotal?: number; nam
   return (
     <div
       className="relative overflow-hidden rounded-[var(--radius-xl)] p-6 sm:p-7"
-      style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
+      style={{
+        background: [
+          "radial-gradient(ellipse 80% 70% at 5% 0%, rgba(249,115,22,0.09) 0%, transparent 60%)",
+          "radial-gradient(ellipse 50% 40% at 95% 100%, rgba(249,115,22,0.06) 0%, transparent 55%)",
+          "var(--bg-elevated)",
+        ].join(", "),
+        border: "1px solid var(--line)",
+        boxShadow: "0 2px 16px rgba(249,115,22,0.05), 0 1px 3px rgba(0,0,0,0.06)",
+      }}
     >
       <Confetti fireKey={confettiKey} />
 

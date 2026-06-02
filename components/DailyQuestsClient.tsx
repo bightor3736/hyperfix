@@ -48,7 +48,11 @@ export function DailyQuestsClient({ initialQuests }: { initialQuests: Quest[] })
   return (
     <div
       className="rounded-2xl overflow-hidden"
-      style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
+      style={{
+        background: "var(--bg-elevated)",
+        border: "1px solid var(--line)",
+        boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
+      }}
     >
       {quests.map((quest, i) => {
         const done = !!quest.completed_at;
@@ -113,8 +117,8 @@ export function DailyQuestsClient({ initialQuests }: { initialQuests: Quest[] })
               <span
                 className="font-mono text-[10px] tabular-nums px-2 py-0.5 rounded-full"
                 style={{
-                  background: done ? "rgba(111,138,99,0.15)" : "var(--line)",
-                  color: done ? "var(--accent)" : "var(--ink-muted)",
+                  background: done ? "var(--xp-soft)" : "var(--line)",
+                  color: done ? "var(--xp)" : "var(--ink-muted)",
                 }}
               >
                 +{quest.xp_reward} XP
