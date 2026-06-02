@@ -224,8 +224,8 @@ function FixationCard({
   );
 }
 
-function AddForm({ onAdd }: { onAdd: (f: Fixation, xp: number) => void }) {
-  const [open, setOpen] = useState(false);
+function AddForm({ onAdd, defaultOpen }: { onAdd: (f: Fixation, xp: number) => void; defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen ?? false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [intensity, setIntensity] = useState(3);
@@ -336,6 +336,10 @@ export default function FixationsPage() {
   const [loading, setLoading] = useState(true);
   const [xpToast, setXpToast] = useState<number | null>(null);
   const [filter, setFilter] = useState<"all" | "active" | "archived">("all");
+  // Auto-open the create form when arriving from /dashboard/new (?new=1).
+  const [autoOpen] = useState(() =>
+    typeof window !== "undefined" && new URLSearchParams(window.location.search).get("new") === "1"
+  );
 
   useEffect(() => {
     fetch("/api/fixations")
@@ -466,7 +470,7 @@ export default function FixationsPage() {
 
         {/* Add form */}
         <div className="mb-4">
-          <AddForm onAdd={handleAdd} />
+          <AddForm onAdd={handleAdd} defaultOpen={autoOpen} />
         </div>
 
         {/* Filter tabs */}

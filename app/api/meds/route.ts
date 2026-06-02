@@ -2,9 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { completeQuestByKind } from "@/lib/quests/complete";
 import { NextResponse } from "next/server";
 
-// The DB column is `content`; the client uses `text`. Alias on read so the
-// client interface stays stable.
-const SELECT = "id, text:content, status, created_at";
+const SELECT = "id, medication, dose, taken_at, effect_rating, notes";
 
 export async function GET() {
   const supabase = await createClient();
@@ -12,13 +10,14 @@ export async function GET() {
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { data, error } = await supabase
-    .from("brain_dump")
+    .from("med_logs")
     .select(SELECT)
     .eq("user_id", user.id)
-    .order("created_at", { ascending: false });
+    .order("taken_at", { ascending: false })
+    .limit(60);
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json({ items: data ?? [] });
+  return NextResponse.json({ logs: data ?? [] });
 }
 
 export async function POST(req: Request) {
@@ -26,19 +25,27 @@ export async function POST(req: Request) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { text } = (await req.json()) as { text: string };
-  if (!text?.trim()) return NextResponse.json({ error: "text required" }, { status: 400 });
+  const { medication, dose, effect_rating, notes } = (await req.json()) as {
+    medication: string; dose?: string; effect_rating?: number; notes?: string;
+  };
+  if (!medication?.trim()) return NextResponse.json({ error: "medication required" }, { status: 400 });
 
   const { data, error } = await supabase
-    .from("brain_dump")
-    .insert({ user_id: user.id, content: text.trim(), status: "inbox" })
+    .from("med_logs")
+    .insert({
+      user_id: user.id,
+      medication: medication.trim(),
+      dose: dose?.trim() ?? "",
+      effect_rating: effect_rating ?? null,
+      notes: notes?.trim() || null,
+    })
     .select(SELECT)
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-  // Dumping a thought auto-completes today's brain_dump quest, if any.
-  await completeQuestByKind(user.id, "brain_dump");
+  // Logging meds auto-completes today's med_log quest, if any.
+  await completeQuestByKind(user.id, "med_log");
 
-  return NextResponse.json({ item: data });
+  return NextResponse.json({ log: data });
 }

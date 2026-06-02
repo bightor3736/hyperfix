@@ -17,6 +17,10 @@ import {
   ChevronRight,
   Brain,
   Activity,
+  Trophy,
+  Pill,
+  Heart,
+  Timer,
 } from "lucide-react";
 import { levelForPoints } from "@/lib/gamification/levels";
 
@@ -95,16 +99,20 @@ export function DashboardSidebarClient({
   const navSections: NavSection[] = [
     {
       items: [
-        { href: "/dashboard",           label: "Play",           icon: <LayoutDashboard size={15} strokeWidth={1.5} /> },
-        { href: "/dashboard/fixations", label: "Fixations",      icon: <Flame size={15} strokeWidth={1.5} /> },
-        { href: "/dashboard/points",    label: "XP & Levels",    icon: <Sparkles size={15} strokeWidth={1.5} /> },
+        { href: "/dashboard",             label: "Play",         icon: <LayoutDashboard size={15} strokeWidth={1.5} /> },
+        { href: "/dashboard/fixations",   label: "Fixations",    icon: <Flame size={15} strokeWidth={1.5} /> },
+        { href: "/dashboard/points",      label: "XP & Levels",  icon: <Sparkles size={15} strokeWidth={1.5} /> },
+        { href: "/dashboard/achievements",label: "Achievements", icon: <Trophy size={15} strokeWidth={1.5} /> },
       ],
     },
     {
       label: "Toolkit",
       items: [
+        { href: "/dashboard/timer",      label: "Focus Timer",   icon: <Timer size={15} strokeWidth={1.5} /> },
         { href: "/dashboard/brain-dump", label: "Brain Dump",    icon: <Brain size={15} strokeWidth={1.5} /> },
         { href: "/dashboard/mood",       label: "Mood Check-in", icon: <Activity size={15} strokeWidth={1.5} /> },
+        { href: "/dashboard/meds",       label: "Meds",          icon: <Pill size={15} strokeWidth={1.5} /> },
+        { href: "/dashboard/rsd",        label: "RSD Journal",   icon: <Heart size={15} strokeWidth={1.5} /> },
       ],
     },
     {
