@@ -15,6 +15,8 @@ import {
   Snowflake,
   Flame,
   ChevronRight,
+  Brain,
+  Activity,
 } from "lucide-react";
 import { levelForPoints } from "@/lib/gamification/levels";
 
@@ -96,6 +98,13 @@ export function DashboardSidebarClient({
         { href: "/dashboard",           label: "Play",           icon: <LayoutDashboard size={15} strokeWidth={1.5} /> },
         { href: "/dashboard/fixations", label: "Fixations",      icon: <Flame size={15} strokeWidth={1.5} /> },
         { href: "/dashboard/points",    label: "XP & Levels",    icon: <Sparkles size={15} strokeWidth={1.5} /> },
+      ],
+    },
+    {
+      label: "Toolkit",
+      items: [
+        { href: "/dashboard/brain-dump", label: "Brain Dump",    icon: <Brain size={15} strokeWidth={1.5} /> },
+        { href: "/dashboard/mood",       label: "Mood Check-in", icon: <Activity size={15} strokeWidth={1.5} /> },
       ],
     },
     {

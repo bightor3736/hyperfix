@@ -20,40 +20,33 @@ export default async function SettingsPage() {
     .single();
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "var(--bg)" }}>
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }}
-      />
-      <div className="relative max-w-2xl mx-auto">
-        <span
-          className="inline-flex items-center font-sans text-xs rounded-full px-3 py-1 mb-5 anim-fadeUp"
-          style={{
-            background: "var(--accent-soft)",
-            color: "var(--accent)",
-            border: "1px solid var(--accent)",
-          }}
-        >
-          settings
-        </span>
-        <h1
-          className="font-display mb-3 anim-fadeUp delay-100"
-          style={{
-            color: "var(--ink)",
-            fontSize: "clamp(36px, 6vw, 56px)",
-            letterSpacing: "-0.02em",
-            fontWeight: 600,
-            lineHeight: 1.05,
-          }}
-        >
-          Your account.
-        </h1>
-        <p className="font-sans text-base mb-10 anim-fadeUp delay-200" style={{ color: "var(--ink-muted)" }}>
-          Profile, privacy, notifications, and the small switches that make Hyperfix yours.
-        </p>
+    <div className="min-h-screen pb-16" style={{ background: "var(--bg)" }}>
+      {/* Dark hero */}
+      <header
+        className="relative overflow-hidden"
+        style={{
+          background: [
+            "radial-gradient(ellipse 80% 140% at 110% 65%, rgba(139,92,246,0.60) 0%, transparent 55%)",
+            "radial-gradient(ellipse 50% 80%  at 85%  -5%, rgba(99,102,241,0.45) 0%, transparent 50%)",
+            "linear-gradient(145deg, #1e1880 0%, #0f0d40 100%)",
+          ].join(", "),
+          padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) 56px",
+        }}
+      >
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.7 }} />
+        <div className="relative z-10">
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] mb-2" style={{ color: "rgba(167,139,250,0.8)" }}>Account</p>
+          <h1 style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", fontWeight: 700, letterSpacing: "-0.05em", fontSize: "clamp(36px,5.5vw,54px)", lineHeight: 1, color: "#fff" }}>
+            Your <span style={{ fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif", fontStyle: "italic" }}>settings</span>.
+          </h1>
+          <p className="mt-3 font-sans text-[15px]" style={{ color: "rgba(255,255,255,0.55)" }}>
+            Profile, privacy, notifications, and the small switches that make Hyperfix yours.
+          </p>
+        </div>
+      </header>
 
-        <div className="anim-fadeUp delay-300">
+      <div className="relative max-w-2xl mx-auto px-4 sm:px-6 lg:px-8" style={{ marginTop: -24 }}>
+        <div className="anim-fadeUp">
           <SettingsForm profile={profile} userEmail={user.email ?? ""} userId={user.id} />
         </div>
       </div>

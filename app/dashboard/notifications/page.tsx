@@ -295,41 +295,25 @@ export default async function NotificationsPage() {
   };
 
   return (
-    <div
-      className="min-h-screen px-4 sm:px-6 lg:px-8 pt-10 pb-16"
-      style={{ background: "var(--bg)" }}
-    >
-      <div className="max-w-2xl mx-auto">
-        {/* Header */}
-        <div className="mb-8 flex items-end justify-between gap-4 flex-wrap anim-fadeUp">
+    <div className="min-h-screen pb-16" style={{ background: "var(--bg)" }}>
+      {/* Dark hero */}
+      <header className="relative overflow-hidden" style={{ background: ["radial-gradient(ellipse 80% 140% at 110% 65%, rgba(139,92,246,0.60) 0%, transparent 55%)", "radial-gradient(ellipse 50% 80% at 85% -5%, rgba(99,102,241,0.45) 0%, transparent 50%)", "linear-gradient(145deg, #1e1880 0%, #0f0d40 100%)"].join(", "), padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) 56px" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E\")", backgroundSize: "200px 200px", opacity: 0.7 }} />
+        <div className="relative z-10 flex items-end justify-between gap-4 flex-wrap">
           <div>
-            <p
-              className="font-mono text-[11px] uppercase tracking-[0.18em] mb-3"
-              style={{ color: TEAL }}
-            >
-              Notifications
-            </p>
-            <h1
-              className="font-display"
-              style={{
-                color: "var(--ink)",
-                fontSize: "clamp(28px, 4.5vw, 40px)",
-                lineHeight: 1.05,
-                letterSpacing: "-0.02em",
-                fontWeight: 600,
-              }}
-            >
-              What&apos;s been happening.
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] mb-2" style={{ color: "rgba(167,139,250,0.8)" }}>Notifications</p>
+            <h1 style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", fontWeight: 700, letterSpacing: "-0.05em", fontSize: "clamp(32px,5vw,48px)", lineHeight: 1, color: "#fff" }}>
+              What&apos;s been <span style={{ fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif", fontStyle: "italic" }}>happening</span>.
             </h1>
-            <p
-              className="mt-3 font-sans text-base"
-              style={{ color: "var(--ink-muted)" }}
-            >
+            <p className="mt-3 font-sans text-[15px]" style={{ color: "rgba(255,255,255,0.55)" }}>
               Reactions, follows, comments — all the signs you&apos;re not alone in this.
             </p>
           </div>
           <MarkAllReadButton hasUnread={hasUnread} />
         </div>
+      </header>
+
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8" style={{ marginTop: -24 }}>
 
         {notifications.length === 0 ? (
           <div
@@ -390,4 +374,5 @@ export default async function NotificationsPage() {
       </div>
     </div>
   );
+
 }
