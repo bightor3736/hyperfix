@@ -22,6 +22,20 @@ const ENERGY_OPTS: { value: Energy; label: string; icon: LucideIcon }[] = [
 
 const DAILY_GOAL = 3;
 
+// Dark theme constants — self-contained so this card always reads on the dark bg
+const T = {
+  label:   "rgba(167,139,250,0.85)",
+  heading: "#ffffff",
+  muted:   "rgba(255,255,255,0.55)",
+  faint:   "rgba(255,255,255,0.30)",
+  line:    "rgba(255,255,255,0.10)",
+  pill:    "rgba(255,255,255,0.08)",
+  pillOn:  "rgba(139,92,246,0.30)",
+  dot:     "rgba(255,255,255,0.18)",
+  dotOn:   "#a78bfa",
+  track:   "rgba(255,255,255,0.10)",
+};
+
 export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; name?: string }) {
   const router = useRouter();
   const [energy, setEnergy] = useState<Energy>("low");
@@ -79,9 +93,13 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
     <div
       className="relative overflow-hidden rounded-[var(--radius-xl)]"
       style={{
-        background: "linear-gradient(145deg, #eae8ff 0%, #f3f1ff 45%, #fafafe 100%)",
-        border: "1px solid rgba(79,70,229,0.14)",
-        boxShadow: "0 4px 32px rgba(79,70,229,0.10), 0 1px 4px rgba(0,0,0,0.06)",
+        background: [
+          "radial-gradient(ellipse 80% 100% at 100% 20%, rgba(139,92,246,0.45) 0%, transparent 55%)",
+          "radial-gradient(ellipse 50% 70% at 0%   80%, rgba(99,102,241,0.30) 0%, transparent 50%)",
+          "linear-gradient(160deg, #1a1580 0%, #0f0d40 100%)",
+        ].join(", "),
+        border: "1px solid rgba(255,255,255,0.08)",
+        boxShadow: "0 12px 48px rgba(15,13,64,0.50), 0 2px 8px rgba(0,0,0,0.20)",
       }}
     >
       <Confetti fireKey={confettiKey} />
@@ -96,46 +114,53 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
         />
       )}
 
-      {/* Card header bar */}
+      {/* Subtle noise texture */}
       <div
-        className="flex items-center justify-between px-6 pt-5 pb-0"
-      >
-        <span
-          className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest"
-          style={{ color: "var(--energy)" }}
-        >
-          <Zap size={11} strokeWidth={2.5} fill="currentColor" />
-          Dopamine Menu
-        </span>
-        <div className="flex flex-col items-end gap-1">
-          <div className="flex items-center gap-1">
-            {Array.from({ length: DAILY_GOAL }).map((_, i) => (
-              <span
-                key={i}
-                className="rounded-full transition-all duration-300"
-                style={{
-                  width: 7,
-                  height: 7,
-                  background: i < count ? "var(--energy)" : "rgba(79,70,229,0.18)",
-                  transform: i < count ? "scale(1.2)" : "scale(1)",
-                }}
-              />
-            ))}
-          </div>
-          <p className="font-mono text-[9px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
-            {count}/{DAILY_GOAL} today
-          </p>
-        </div>
-      </div>
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E\")",
+          backgroundSize: "200px 200px",
+        }}
+      />
 
-      {/* Main content */}
-      <div className="px-6 pt-4 pb-6 sm:px-8 sm:pb-8">
+      <div className="relative z-10 px-6 pt-5 pb-6 sm:px-8 sm:pb-8">
+
+        {/* Top bar: label + daily dots */}
+        <div className="flex items-center justify-between mb-5">
+          <span
+            className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest"
+            style={{ color: T.label }}
+          >
+            <Zap size={10} strokeWidth={2.5} fill="currentColor" />
+            Dopamine Menu
+          </span>
+          <div className="flex flex-col items-end gap-1">
+            <div className="flex items-center gap-1.5">
+              {Array.from({ length: DAILY_GOAL }).map((_, i) => (
+                <span
+                  key={i}
+                  className="rounded-full transition-all duration-300"
+                  style={{
+                    width: 7, height: 7,
+                    background: i < count ? T.dotOn : T.dot,
+                    transform: i < count ? "scale(1.2)" : "scale(1)",
+                  }}
+                />
+              ))}
+            </div>
+            <p className="font-mono text-[9px] uppercase tracking-widest" style={{ color: T.faint }}>
+              {count}/{DAILY_GOAL} today
+            </p>
+          </div>
+        </div>
+
         {/* Heading */}
         <h2
-          className="font-display leading-[1.05] mb-5"
+          className="font-display leading-[1.0] mb-5"
           style={{
-            fontSize: "clamp(24px,4.5vw,36px)",
-            color: done && jackpot ? "var(--xp)" : "var(--ink)",
+            fontSize: "clamp(26px,5vw,40px)",
+            color: done && jackpot ? "#c084fc" : T.heading,
           }}
         >
           {done
@@ -150,7 +175,7 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
         {/* IDLE */}
         {!activity && (
           <>
-            <div className="flex flex-wrap items-center gap-2 mb-5">
+            <div className="flex flex-wrap items-center gap-2 mb-6">
               {ENERGY_OPTS.map((opt) => {
                 const on = energy === opt.value;
                 const Icon = opt.icon;
@@ -160,9 +185,9 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
                     onClick={() => setEnergy(opt.value)}
                     className="press-pop inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full font-sans text-[12px] font-medium transition-all"
                     style={{
-                      background: on ? "var(--energy)" : "rgba(255,255,255,0.7)",
-                      color: on ? "#fff" : "var(--ink-muted)",
-                      border: `1.5px solid ${on ? "var(--energy)" : "rgba(79,70,229,0.15)"}`,
+                      background: on ? T.pillOn : T.pill,
+                      color: on ? "#fff" : T.muted,
+                      border: `1.5px solid ${on ? "rgba(139,92,246,0.6)" : T.line}`,
                     }}
                   >
                     <Icon size={13} strokeWidth={2} />
@@ -176,11 +201,12 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
               onClick={() => roll()}
               className="press-pop w-full flex items-center justify-center gap-2.5 rounded-[var(--radius-lg)] font-sans font-bold transition-all"
               style={{
-                background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
+                background: "linear-gradient(135deg, #6366f1 0%, #a855f7 100%)",
                 color: "#fff",
-                fontSize: 17,
-                padding: "18px 24px",
-                boxShadow: "0 8px 32px rgba(79,70,229,0.40), 0 2px 8px rgba(0,0,0,0.10)",
+                fontSize: 18,
+                padding: "20px 24px",
+                boxShadow: "0 8px 40px rgba(139,92,246,0.55), 0 2px 8px rgba(0,0,0,0.20)",
+                letterSpacing: "-0.01em",
               }}
             >
               <Zap size={22} strokeWidth={2.5} fill="#fff" />
@@ -191,7 +217,7 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
 
         {/* ACTIVE */}
         {activity && (
-          <ActiveCard
+          <DarkActiveCard
             activity={activity}
             done={done}
             saving={saving}
@@ -203,10 +229,10 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
         )}
 
         {/* Progress bar */}
-        <div className="mt-6 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(79,70,229,0.12)" }}>
+        <div className="mt-6 h-1 rounded-full overflow-hidden" style={{ background: T.track }}>
           <div
             className="h-full rounded-full transition-all duration-500"
-            style={{ width: `${goalPct}%`, background: "linear-gradient(90deg, #4f46e5, #7c3aed, #a855f7)" }}
+            style={{ width: `${goalPct}%`, background: "linear-gradient(90deg, #6366f1, #a855f7)" }}
           />
         </div>
       </div>
@@ -214,22 +240,12 @@ export function DopamineMenu({ todayCount = 0, name }: { todayCount?: number; na
   );
 }
 
-function ActiveCard({
-  activity,
-  done,
-  saving,
-  gainedXp,
-  jackpot,
-  onComplete,
-  onReroll,
+function DarkActiveCard({
+  activity, done, saving, gainedXp, jackpot, onComplete, onReroll,
 }: {
-  activity: DopamineActivity;
-  done: boolean;
-  saving: boolean;
-  gainedXp: number | null;
-  jackpot: boolean;
-  onComplete: () => void;
-  onReroll: () => void;
+  activity: DopamineActivity; done: boolean; saving: boolean;
+  gainedXp: number | null; jackpot: boolean;
+  onComplete: () => void; onReroll: () => void;
 }) {
   const cat = CATEGORY_META[activity.category];
   const CatIcon = cat.icon;
@@ -239,28 +255,32 @@ function ActiveCard({
       <div
         className="rounded-[var(--radius-lg)] p-5 mb-4"
         style={{
-          background: done ? (jackpot ? "var(--xp-soft)" : "rgba(255,255,255,0.8)") : "rgba(255,255,255,0.7)",
-          border: `1.5px solid ${done ? (jackpot ? "var(--xp)" : "rgba(79,70,229,0.3)") : "rgba(79,70,229,0.12)"}`,
+          background: done
+            ? jackpot ? "rgba(192,132,252,0.15)" : "rgba(99,102,241,0.15)"
+            : "rgba(255,255,255,0.07)",
+          border: `1.5px solid ${done
+            ? jackpot ? "rgba(192,132,252,0.4)" : "rgba(99,102,241,0.4)"
+            : "rgba(255,255,255,0.10)"}`,
         }}
       >
         <div className="flex items-center justify-between mb-3">
           <span
             className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono text-[10px] uppercase tracking-widest"
-            style={{ background: "rgba(255,255,255,0.8)", border: "1px solid rgba(79,70,229,0.12)", color: cat.color }}
+            style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.10)", color: cat.color }}
           >
             <CatIcon size={12} strokeWidth={2} /> {cat.label}
           </span>
           <div className="flex items-center gap-2.5">
-            <span className="inline-flex items-center gap-1 font-mono text-[10px] text-ink-faint">
+            <span className="inline-flex items-center gap-1 font-mono text-[10px]" style={{ color: "rgba(255,255,255,0.4)" }}>
               <Clock size={11} strokeWidth={1.5} />
               {activity.minutes} min
             </span>
-            <span className="relative font-mono text-[12px] font-semibold tabular-nums" style={{ color: "var(--xp)" }}>
+            <span className="relative font-mono text-[12px] font-semibold tabular-nums" style={{ color: "#c084fc" }}>
               +{xpFor(activity)} XP
               {done && gainedXp != null && (
                 <span
                   className="anim-floatUp absolute -top-1 right-0 whitespace-nowrap font-display"
-                  style={{ color: "var(--xp)", fontSize: jackpot ? 22 : 18 }}
+                  style={{ color: "#c084fc", fontSize: jackpot ? 22 : 18 }}
                 >
                   +{gainedXp}{jackpot ? " ×3!" : ""}
                 </span>
@@ -269,7 +289,7 @@ function ActiveCard({
           </div>
         </div>
 
-        <p className="font-display text-ink leading-snug" style={{ fontSize: "clamp(20px,3.6vw,28px)" }}>
+        <p className="font-display leading-snug" style={{ fontSize: "clamp(20px,3.6vw,28px)", color: "#fff" }}>
           {activity.label}
         </p>
       </div>
@@ -277,11 +297,11 @@ function ActiveCard({
       {done ? (
         <button
           onClick={onReroll}
-          className="press-pop w-full flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all"
+          className="press-pop w-full flex items-center justify-center gap-2 py-4 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all"
           style={{
-            background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
+            background: "linear-gradient(135deg, #6366f1 0%, #a855f7 100%)",
             color: "#fff",
-            boxShadow: "0 6px 24px rgba(79,70,229,0.35)",
+            boxShadow: "0 8px 32px rgba(139,92,246,0.50)",
           }}
         >
           <Zap size={18} strokeWidth={2.5} fill="#fff" />
@@ -292,8 +312,8 @@ function ActiveCard({
           <button
             onClick={onComplete}
             disabled={saving}
-            className="press-pop flex-1 flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all disabled:opacity-50"
-            style={{ background: "var(--invert-bg)", color: "var(--invert-ink)" }}
+            className="press-pop flex-1 flex items-center justify-center gap-2 py-4 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all disabled:opacity-50"
+            style={{ background: "#fff", color: "#1e1880" }}
           >
             {saving ? <Loader2 size={18} className="animate-spin" /> : <Check size={18} strokeWidth={2.5} />}
             I did it
@@ -301,8 +321,8 @@ function ActiveCard({
           <button
             onClick={onReroll}
             disabled={saving}
-            className="press-pop flex items-center justify-center gap-2 px-5 py-3.5 rounded-[var(--radius-lg)] font-sans text-[14px] font-medium transition-all disabled:opacity-50"
-            style={{ background: "rgba(255,255,255,0.7)", color: "var(--ink-muted)", border: "1px solid rgba(79,70,229,0.14)" }}
+            className="press-pop flex items-center justify-center gap-2 px-5 py-4 rounded-[var(--radius-lg)] font-sans text-[14px] font-medium transition-all disabled:opacity-50"
+            style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.12)" }}
           >
             <RefreshCw size={15} strokeWidth={1.5} />
             Reroll

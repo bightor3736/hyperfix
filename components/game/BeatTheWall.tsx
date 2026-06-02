@@ -83,9 +83,9 @@ export function BeatTheWall({ wallsTotal = 0, name }: { wallsTotal?: number; nam
     <div
       className="relative overflow-hidden rounded-[var(--radius-xl)]"
       style={{
-        background: "linear-gradient(145deg, #fff5ed 0%, #fff9f5 45%, #fffefe 100%)",
-        border: "1px solid rgba(249,115,22,0.16)",
-        boxShadow: "0 4px 32px rgba(249,115,22,0.08), 0 1px 4px rgba(0,0,0,0.06)",
+        background: "var(--bg-elevated)",
+        border: "1px solid var(--line-strong, rgba(15,15,40,0.18))",
+        boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
       }}
     >
       <Confetti fireKey={confettiKey} />
@@ -94,7 +94,7 @@ export function BeatTheWall({ wallsTotal = 0, name }: { wallsTotal?: number; nam
       <div className="flex items-center justify-between px-6 pt-5 pb-0">
         <span
           className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest"
-          style={{ color: "var(--flame, #f97316)" }}
+          style={{ color: "var(--ink-faint)" }}
         >
           <BrickWall size={11} strokeWidth={2} />
           Beat the Wall
@@ -126,10 +126,10 @@ export function BeatTheWall({ wallsTotal = 0, name }: { wallsTotal?: number; nam
               onKeyDown={(e) => e.key === "Enter" && breakItDown()}
               placeholder="e.g. reply to that email I've avoided for a week"
               maxLength={200}
-              className="w-full rounded-[var(--radius-lg)] px-4 py-3 font-sans text-[15px] text-ink outline-none transition-all"
+              className="w-full rounded-[var(--radius-lg)] px-4 py-3 font-sans text-[15px] text-ink outline-none transition-all focus:border-[var(--ink)]"
               style={{
-                background: "rgba(255,255,255,0.75)",
-                border: "1.5px solid rgba(249,115,22,0.18)",
+                background: "var(--bg)",
+                border: "1.5px solid var(--line)",
               }}
             />
             <button
@@ -137,9 +137,8 @@ export function BeatTheWall({ wallsTotal = 0, name }: { wallsTotal?: number; nam
               disabled={!task.trim()}
               className="press-pop mt-3 w-full flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all disabled:opacity-40"
               style={{
-                background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)",
-                color: "#fff",
-                boxShadow: "0 6px 24px rgba(249,115,22,0.32), 0 2px 6px rgba(0,0,0,0.08)",
+                background: "var(--invert-bg)",
+                color: "var(--invert-ink)",
               }}
             >
               Shrink it down <ArrowRight size={17} strokeWidth={2.5} />
@@ -152,7 +151,7 @@ export function BeatTheWall({ wallsTotal = 0, name }: { wallsTotal?: number; nam
           <div className="anim-pop">
             <div
               className="rounded-[var(--radius-lg)] p-5 mb-4"
-              style={{ background: "rgba(255,255,255,0.75)", border: "1.5px solid rgba(249,115,22,0.16)" }}
+              style={{ background: "var(--bg)", border: "1.5px solid var(--line)" }}
             >
               <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "var(--ink-faint)" }}>
                 Your 2-minute first step
@@ -164,9 +163,9 @@ export function BeatTheWall({ wallsTotal = 0, name }: { wallsTotal?: number; nam
                   onClick={() => setRunning((r) => !r)}
                   className="press-pop inline-flex items-center gap-2 px-3 py-2 rounded-full font-mono text-[12px] tabular-nums"
                   style={{
-                    background: "rgba(249,115,22,0.10)",
-                    color: "#f97316",
-                    border: "1px solid rgba(249,115,22,0.25)",
+                    background: "var(--accent-soft)",
+                    color: "var(--accent)",
+                    border: "1px solid var(--accent)",
                   }}
                 >
                   {running ? <Pause size={13} strokeWidth={2.5} /> : <Play size={13} strokeWidth={2.5} fill="currentColor" />}
@@ -196,7 +195,7 @@ export function BeatTheWall({ wallsTotal = 0, name }: { wallsTotal?: number; nam
                 onClick={reset}
                 disabled={saving}
                 className="press-pop px-4 py-3.5 rounded-[var(--radius-lg)] font-sans text-[13px] font-medium transition-all disabled:opacity-50"
-                style={{ background: "rgba(255,255,255,0.7)", color: "var(--ink-muted)", border: "1.5px solid rgba(249,115,22,0.15)" }}
+                style={{ background: "var(--bg)", color: "var(--ink-muted)", border: "1.5px solid var(--line)" }}
               >
                 Cancel
               </button>
@@ -220,9 +219,8 @@ export function BeatTheWall({ wallsTotal = 0, name }: { wallsTotal?: number; nam
               onClick={reset}
               className="press-pop w-full flex items-center justify-center gap-2 py-3.5 rounded-[var(--radius-lg)] font-sans text-[15px] font-bold transition-all"
               style={{
-                background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)",
-                color: "#fff",
-                boxShadow: "0 6px 24px rgba(249,115,22,0.32)",
+                background: "var(--invert-bg)",
+                color: "var(--invert-ink)",
               }}
             >
               <BrickWall size={17} strokeWidth={2.5} /> Break another wall
