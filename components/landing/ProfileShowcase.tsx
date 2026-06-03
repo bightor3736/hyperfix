@@ -1,10 +1,12 @@
 "use client";
 
-import { Flame, Zap, Trophy, Share2 } from "lucide-react";
+import { Flame, Zap, Trophy, Share2, Palette, Check } from "lucide-react";
 import { AchievementBadge } from "@/components/ui/achievement-badge";
 import { PointsLevelsTimeline, type PointsLevelTimeline } from "@/components/ui/points-levels-timeline";
 import type { UserAchievement } from "@/components/ui/achievement-list";
 import { Reveal } from "./Reveal";
+import { PROFILE_THEMES } from "@/lib/profile-themes";
+import { ACCENT_PRESETS, hexToRgba } from "@/lib/accent";
 
 const LEVELS: PointsLevelTimeline[] = [
   { id: "lvl_1", name: "Mildly Curious", points: 0 },
@@ -49,7 +51,8 @@ export function ProfileShowcase() {
               <span className="text-game-gradient">showing off.</span>
             </h2>
             <p className="mt-4 text-[15px] leading-[1.6] text-ink-muted">
-              Your level, streak, XP and unlocked badges, all in one card you can share. The flex is the marketing.
+              Your level, streak, XP and unlocked badges, all in one card you can share. Then make it
+              unmistakably yours — themes, accent colour, a live status, and every link you&apos;ve got.
             </p>
           </div>
         </Reveal>
@@ -118,6 +121,56 @@ export function ProfileShowcase() {
             </div>
           </Reveal>
         </div>
+
+        {/* Make it yours — customization strip */}
+        <Reveal delay={150}>
+          <div className="mt-6 rounded-[var(--radius-xl)] p-6 sm:p-8" style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}>
+            <div className="flex items-center gap-2.5 mb-6">
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-[10px]" style={{ background: "var(--pastel-purple)", color: "var(--ink)" }}>
+                <Palette size={17} strokeWidth={2} />
+              </span>
+              <span className="font-mono text-[11px] uppercase tracking-widest text-ink-faint">Make it yours</span>
+            </div>
+
+            <div className="grid grid-cols-1 gap-7 sm:grid-cols-3">
+              {/* Themes */}
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint mb-3">Themes</p>
+                <div className="grid grid-cols-3 gap-2">
+                  {PROFILE_THEMES.slice(0, 6).map((t, i) => (
+                    <div key={t.id} className="relative h-12 rounded-lg overflow-hidden" style={{ background: t.background("#5EEAD4"), border: i === 0 ? "2px solid var(--accent)" : "1px solid var(--line)" }}>
+                      {i === 0 && <span className="absolute top-1 right-1"><Check size={11} style={{ color: "var(--accent)" }} /></span>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Accent */}
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint mb-3">Accent</p>
+                <div className="flex flex-wrap gap-2">
+                  {ACCENT_PRESETS.map((p, i) => (
+                    <span key={p.hex} className="h-8 w-8 rounded-full" style={{ background: p.hex, border: i === 1 ? "2px solid var(--ink)" : "2px solid transparent", boxShadow: `0 0 10px ${hexToRgba(p.hex, 0.5)}` }} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Status + connections */}
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint mb-3">Status & links</p>
+                <div className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 mb-3" style={{ background: "var(--xp-soft)", border: "1px solid var(--xp)" }}>
+                  <span className="text-[14px] leading-none">🎧</span>
+                  <span className="font-sans text-[12px] text-ink">deep in a sourdough arc</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {["she/her", "Instagram", "TikTok", "GitHub"].map((c) => (
+                    <span key={c} className="rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest" style={{ background: "var(--bg)", border: "1px solid var(--line)", color: "var(--ink-muted)" }}>{c}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
