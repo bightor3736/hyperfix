@@ -641,6 +641,45 @@ details > summary::-webkit-details-marker {
   color: var(--ink);
 }
 
+/* ── Foku-inspired soft landing page variant ─────────────────────────
+   Soft blue/purple gradient backgrounds, rounded cards with subtle shadows.
+   Primary: #5B8DEF (soft blue), Accent: #A78BFA (soft purple),
+   Background: #EEF4FF, Dark button: #1A1A2E ──────────────────────────── */
+.landing-foku {
+  --bg:           #EEF4FF;
+  --bg-soft:      #E8E4FF;
+  --bg-elevated:  #ffffff;
+  --ink:          #1A1A2E;
+  --ink-muted:    #4B5563;
+  --ink-faint:    #9CA3AF;
+  --line:         rgba(91, 141, 239, 0.15);
+  --line-strong:  rgba(91, 141, 239, 0.25);
+  --accent:       #5B8DEF;
+  --accent-soft:  rgba(91, 141, 239, 0.15);
+  --accent-ink:   #ffffff;
+  --purple:       #A78BFA;
+  --purple-soft:  rgba(167, 139, 250, 0.15);
+  --invert-bg:    #1A1A2E;
+  --invert-ink:   #ffffff;
+  --energy:       #5B8DEF;
+  --energy-soft:  rgba(91, 141, 239, 0.15);
+  --flame:        #F472B6;
+  --flame-soft:   rgba(244, 114, 182, 0.15);
+  --radius-lg:    24px;
+  --radius-xl:    32px;
+  background: linear-gradient(180deg, #EEF4FF 0%, #E8E4FF 40%, #EEF4FF 100%);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* Foku gradient text */
+.text-foku-gradient {
+  background: linear-gradient(95deg, #5B8DEF 0%, #A78BFA 50%, #5B8DEF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 /* Headline accent — warm teal gradient text. */
 .text-game-gradient {
   background: linear-gradient(95deg, #1bc8b4 0%, #14b8a6 40%, #0d9e8f 100%);

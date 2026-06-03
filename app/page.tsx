@@ -1,32 +1,25 @@
 import type { Metadata } from "next";
-import { Nav }       from "@/components/landing/Nav";
-import { Hero }      from "@/components/landing/Hero";
-import { SocialProof } from "@/components/landing/SocialProof";
-import { Modules }   from "@/components/landing/Modules";
-import { FocusRooms } from "@/components/landing/FocusRooms";
-import { ProfileShowcase } from "@/components/landing/ProfileShowcase";
-import { FoundersNote } from "@/components/landing/FoundersNote";
-import { Pricing }   from "@/components/landing/Pricing";
-import { FAQ }       from "@/components/landing/FAQ";
-import { CTA }       from "@/components/landing/CTA";
-import { Footer }    from "@/components/landing/Footer";
-import { StickyMobileCTA } from "@/components/landing/StickyMobileCTA";
+import { NavFoku } from "@/components/landing-foku/Nav";
+import { HeroFoku } from "@/components/landing-foku/Hero";
+import { FeaturesFoku } from "@/components/landing-foku/Features";
+import { GraveyardFoku } from "@/components/landing-foku/Graveyard";
+import { PricingFoku } from "@/components/landing-foku/Pricing";
+import { FAQFoku } from "@/components/landing-foku/FAQ";
+import { FooterFoku } from "@/components/landing-foku/Footer";
 import { SourceCapture } from "@/components/SourceCapture";
 
 export const metadata: Metadata = {
-  title: "Hyperfix — ADHD accountability that actually works",
+  title: "Hyperfix — A journal for your obsessions",
   description:
-    "Track your hyperfixations. Earn real XP. Beat task paralysis. A warm, forgiving ADHD accountability app with game mechanics, streak freezes, focus rooms, and a profile worth showing off — free to start.",
+    "Track your hyperfixations. Log it. Count the days. Mourn it when it ends. A warm, playful app for ADHD and neurodivergent brains — free to start.",
   keywords: [
-    "ADHD app", "hyperfixation tracker", "ADHD accountability", "ADHD dopamine",
-    "ADHD focus app", "ADHD productivity", "hyperfixation app", "understimulation ADHD",
-    "neurodivergent app", "ADHD game", "anti doomscroll", "body doubling app",
-    "focus room ADHD", "ADHD streak app", "ADHD task paralysis", "dopamine menu ADHD",
+    "hyperfixation tracker", "ADHD app", "neurodivergent app", "hyperfixation journal",
+    "ADHD journal", "obsession tracker", "interest tracker", "ADHD productivity",
   ],
   alternates: { canonical: "https://hyperfix.app" },
   openGraph: {
-    title: "Hyperfix — ADHD accountability that actually works",
-    description: "Track your hyperfixations. Earn XP for real actions. Beat task paralysis. Focus rooms, streak freezes, and a profile worth showing off — no leaderboards, just your own journey.",
+    title: "Hyperfix — A journal for your obsessions",
+    description: "Track your hyperfixations. Log it. Count the days. Mourn it when it ends.",
     url: "https://hyperfix.app",
     type: "website",
   },
@@ -38,33 +31,33 @@ const faqSchema = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "What actually is Hyperfix?",
-      acceptedAnswer: { "@type": "Answer", text: "A personal ADHD accountability app with game mechanics. You track your hyperfixations, earn XP for real actions, and beat the tasks your brain keeps avoiding — all at your own pace. Not a competition, not a habit tracker. Just you and your streak." },
+      name: "What is a hyperfixation?",
+      acceptedAnswer: { "@type": "Answer", text: "A hyperfixation is an intense, all-consuming interest in a specific topic, hobby, show, game, or anything else that captures your attention. Common in ADHD and neurodivergent brains, hyperfixations come on strong and can fade just as quickly." },
     },
     {
       "@type": "Question",
-      name: "What does 'proof of action' mean?",
-      acceptedAnswer: { "@type": "Answer", text: "Instead of just tapping 'done' and lying to yourself, you run a timer for the activity's duration — or write one sentence about what you actually did. XP only drops when you've shown a receipt. It prevents checkbox farming and makes the XP feel earned." },
+      name: "Why would I track my hyperfixations?",
+      acceptedAnswer: { "@type": "Answer", text: "Tracking helps you understand your patterns, remember what you loved, and create a personal archive of your interests. It's also oddly satisfying to watch the day counter go up." },
     },
     {
       "@type": "Question",
-      name: "Is this just another habit tracker?",
-      acceptedAnswer: { "@type": "Answer", text: "No. Habit trackers punish you the moment you break a chain. Hyperfix rewards showing up at all — variable XP, jackpots, streak freezes for bad days. And it doesn't care about consistency — it cares that you did something real today." },
+      name: "What happens when a hyperfixation ends?",
+      acceptedAnswer: { "@type": "Answer", text: "You send it to the Graveyard — a dedicated space to honor past obsessions. Write a eulogy, remember the good times, and move on to the next one." },
     },
     {
       "@type": "Question",
-      name: "What are streak freezes?",
-      acceptedAnswer: { "@type": "Answer", text: "Miss-day insurance. Skip a day and a freeze is used automatically so your streak survives. Free players get one a month; Power-Up gets five. Because ADHD brains have hard weeks, and one bad week shouldn't erase everything." },
+      name: "Is this app only for people with ADHD?",
+      acceptedAnswer: { "@type": "Answer", text: "Nope! While it's designed with ADHD brains in mind, anyone who experiences intense interests can benefit. If you've ever stayed up until 3am researching something random, this app is for you." },
     },
     {
       "@type": "Question",
       name: "Is it free?",
-      acceptedAnswer: { "@type": "Answer", text: "Yes — the full core experience is free. Unlimited dopamine hits, hyperfixation log, XP, levels, streaks, quests, focus rooms and your stats card. Power-Up adds more streak freezes, boosted jackpot odds, XP multipliers, and premium profile themes." },
+      acceptedAnswer: { "@type": "Answer", text: "Yes — the full core experience is free. Track unlimited fixes, count the days, share with friends. Pro adds advanced features like unlimited history and custom categories." },
     },
     {
       "@type": "Question",
-      name: "Will this actually help my ADHD?",
-      acceptedAnswer: { "@type": "Answer", text: "It's built around what ADHD brains actually respond to: instant feedback, variable rewards, low-friction starts, and forgiving systems. It won't fix everything — but it makes starting easier, keeps your hyperfixations organized, and rewards you for real effort instead of punishing imperfection." },
+      name: "Is my data private?",
+      acceptedAnswer: { "@type": "Answer", text: "By default, your fixes are private. You can choose to make individual fixes or your profile public if you want to share. We never sell your data or use it for advertising." },
     },
   ],
 };
@@ -82,23 +75,18 @@ export default async function Page({
   }
 
   return (
-    <div className="landing-game" style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}>
+    <div className="landing-foku">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <SourceCapture />
-      <Nav />
+      <NavFoku />
       <main>
-        <Hero />
-        <SocialProof />
-        <Modules />
-        <FocusRooms />
-        <ProfileShowcase />
-        <FoundersNote />
-        <Pricing />
-        <FAQ />
-        <CTA />
+        <HeroFoku />
+        <FeaturesFoku />
+        <GraveyardFoku />
+        <PricingFoku />
+        <FAQFoku />
       </main>
-      <Footer />
-      <StickyMobileCTA />
+      <FooterFoku />
     </div>
   );
 }
