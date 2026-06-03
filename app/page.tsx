@@ -5,10 +5,9 @@ import { SocialProof } from "@/components/landing/SocialProof";
 import { Modules }   from "@/components/landing/Modules";
 import { FocusRooms } from "@/components/landing/FocusRooms";
 import { ProfileShowcase } from "@/components/landing/ProfileShowcase";
-import { Testimonials } from "@/components/landing/Testimonials";
+import { FoundersNote } from "@/components/landing/FoundersNote";
 import { Pricing }   from "@/components/landing/Pricing";
 import { FAQ }       from "@/components/landing/FAQ";
-import { FoundersNote } from "@/components/landing/FoundersNote";
 import { CTA }       from "@/components/landing/CTA";
 import { Footer }    from "@/components/landing/Footer";
 import { StickyMobileCTA } from "@/components/landing/StickyMobileCTA";
@@ -93,7 +92,6 @@ export default async function Page({
         <Modules />
         <FocusRooms />
         <ProfileShowcase />
-        <Testimonials />
         <FoundersNote />
         <Pricing />
         <FAQ />
