@@ -6,7 +6,8 @@ import type { Metadata } from "next";
 import { FollowButton, FollowButtonLoggedIn } from "@/components/FollowButton";
 import { MessageButton } from "@/components/MessageButton";
 import { ShareProfileButton } from "@/components/ShareProfileButton";
-import { resolveAccent, hexToRgba } from "@/lib/accent";
+import { resolveAccent, hexToRgba, isValidAccent, DEFAULT_ACCENT } from "@/lib/accent";
+import { getProfileTheme } from "@/lib/profile-themes";
 import { CategoryIcon, CATEGORY_COLOR } from "@/components/CategoryIcon";
 import { TombstoneIcon } from "@/components/MilestoneIcons";
 import { PinIcon } from "@/components/LandingIcons";
@@ -40,6 +41,11 @@ interface Profile {
   is_pro: boolean | null;
   accent_color: string | null;
   social_link?: string | null;
+  pronouns?: string | null;
+  status_emoji?: string | null;
+  status_text?: string | null;
+  socials?: Record<string, string> | null;
+  profile_theme?: string | null;
 }
 
 function dayCount(startedAt: string, endedAt: string | null): number {
@@ -143,7 +149,7 @@ export default async function PublicProfilePage({
 
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select("id, username, display_name, avatar_url, bio, is_public, pinned_fix_id, pinned_fix_ids, banner_url, is_pro, accent_color, social_link")
+    .select("id, username, display_name, avatar_url, bio, is_public, pinned_fix_id, pinned_fix_ids, banner_url, is_pro, accent_color, social_link, pronouns, status_emoji, status_text, socials, profile_theme")
     .eq("username", username)
     .single();
 
@@ -191,7 +197,16 @@ export default async function PublicProfilePage({
   const endedPublicCount = publicFixes.filter((f) => f.ended_at !== null).length;
 
   const displayName = typedProfile.display_name ?? typedProfile.username ?? "Anonymous";
-  const accent = resolveAccent(typedProfile.is_pro, typedProfile.accent_color);
+  // Accent is now available to everyone (Pro just unlocks premium themes/effects).
+  const accent = isValidAccent(typedProfile.accent_color) ? typedProfile.accent_color : DEFAULT_ACCENT;
+  const theme = getProfileTheme(typedProfile.profile_theme);
+  // Pro gate on premium themes — fall back to Aurora if a free user has one set.
+  const themeBg = (theme.pro && !typedProfile.is_pro ? getProfileTheme("aurora") : theme).background(accent);
+  // Merge structured socials with the legacy comma-separated social_link.
+  const socialList = [
+    typedProfile.social_link ?? "",
+    ...Object.values(typedProfile.socials ?? {}).filter(Boolean),
+  ].filter(Boolean).join(",");
 
   const { count: followerCount } = await supabase
     .from("follows")
@@ -215,7 +230,7 @@ export default async function PublicProfilePage({
   }
 
   return (
-    <div className="min-h-screen relative" style={{ background: "var(--bg)", color: "var(--ink)" }}>
+    <div className="min-h-screen relative" style={{ background: themeBg, color: "var(--ink)" }}>
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none mix-blend-overlay"
@@ -331,11 +346,33 @@ export default async function PublicProfilePage({
           </div>
 
           <p
-            className="font-mono text-[12px] mb-4"
+            className="font-mono text-[12px] mb-4 inline-flex items-center gap-2"
             style={{ color: "var(--ink-muted)" }}
           >
             @{typedProfile.username}
+            {typedProfile.pronouns && (
+              <span
+                className="rounded-full px-1.5 py-0.5 text-[10px] tracking-wide"
+                style={{ background: "var(--line)", color: "var(--ink-muted)" }}
+              >
+                {typedProfile.pronouns}
+              </span>
+            )}
           </p>
+
+          {(typedProfile.status_emoji || typedProfile.status_text) && (
+            <div
+              className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 mb-4 anim-fadeUp"
+              style={{ background: hexToRgba(accent, 0.10), border: `1px solid ${hexToRgba(accent, 0.22)}` }}
+            >
+              {typedProfile.status_emoji && <span className="text-[14px] leading-none">{typedProfile.status_emoji}</span>}
+              {typedProfile.status_text && (
+                <span className="font-sans text-[12px]" style={{ color: "var(--ink-muted)" }}>
+                  {typedProfile.status_text}
+                </span>
+              )}
+            </div>
+          )}
 
           {typedProfile.bio && (
             <p
@@ -346,9 +383,9 @@ export default async function PublicProfilePage({
             </p>
           )}
 
-          {typedProfile.social_link && (
+          {socialList && (
             <div className="mb-5">
-              <SocialChips socialLink={typedProfile.social_link} />
+              <SocialChips socialLink={socialList} />
             </div>
           )}
 

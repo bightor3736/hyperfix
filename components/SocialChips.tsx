@@ -41,6 +41,20 @@ function SpotifyIcon() {
     </svg>
   );
 }
+function GitHubIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.39 1.24-3.23-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.77.84 1.23 1.92 1.23 3.23 0 4.62-2.81 5.64-5.49 5.94.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12.01 12.01 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z" />
+    </svg>
+  );
+}
+function DiscordIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M20.32 4.37A19.8 19.8 0 0 0 15.45 3a13.9 13.9 0 0 0-.62 1.27 18.3 18.3 0 0 0-5.66 0A13.9 13.9 0 0 0 8.55 3a19.8 19.8 0 0 0-4.87 1.37C1.07 8.06.35 11.65.71 15.19a19.9 19.9 0 0 0 6.07 3.07c.49-.67.93-1.38 1.3-2.13-.71-.27-1.39-.6-2.04-.99.17-.13.34-.26.5-.4a14.2 14.2 0 0 0 12.13 0c.16.14.33.27.5.4-.65.39-1.33.72-2.04.99.37.75.81 1.46 1.3 2.13a19.9 19.9 0 0 0 6.07-3.07c.42-4.1-.72-7.66-3.27-10.82zM8.02 13.03c-1.18 0-2.15-1.09-2.15-2.42 0-1.34.95-2.43 2.15-2.43 1.2 0 2.17 1.1 2.15 2.43 0 1.33-.95 2.42-2.15 2.42zm7.96 0c-1.18 0-2.15-1.09-2.15-2.42 0-1.34.95-2.43 2.15-2.43 1.2 0 2.17 1.1 2.15 2.43 0 1.33-.95 2.42-2.15 2.42z" />
+    </svg>
+  );
+}
 function GlobeIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -57,6 +71,8 @@ const PLATFORMS: Platform[] = [
   { name: "YouTube", match: /(youtube\.com|youtu\.be)/i, Icon: YouTubeIcon },
   { name: "X", match: /(twitter\.com|x\.com)/i, Icon: () => <XIcon size={14} /> },
   { name: "Spotify", match: /spotify\.com/i, Icon: SpotifyIcon },
+  { name: "GitHub", match: /github\.com/i, Icon: GitHubIcon },
+  { name: "Discord", match: /(discord\.gg|discord\.com|discordapp)/i, Icon: DiscordIcon },
 ];
 
 function detectPlatform(url: string): { name: string; Icon: () => React.JSX.Element } {
@@ -79,7 +95,7 @@ export function SocialChips({ socialLink }: { socialLink: string | null | undefi
     .split(/[,\n]/)
     .map((s) => parseUrl(s))
     .filter((s): s is string => !!s)
-    .slice(0, 4);
+    .slice(0, 8);
 
   if (urls.length === 0) return null;
 

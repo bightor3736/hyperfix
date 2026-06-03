@@ -26,6 +26,7 @@ ORDER = [
     "2026_05_31_adhd_features.sql", "2026_06_01_gamification.sql", "2026_06_02_streaks_monetization.sql",
     "2026_06_03_daily_quests.sql", "2026_06_04_dopamine.sql", "2026_06_05_walls.sql", "2026_06_06_signup_source.sql",
     "2026_06_07_onboarding_goals.sql", "2026_06_08_focus_realtime.sql", "2026_06_08_spotify_env_note.sql",
+    "2026_06_09_profile_customization.sql",
 ]
 
 TABLE_RE = re.compile(r'^(\s*)create\s+table\s+(?!if\s+not\s+exists\b)(.*)$', re.IGNORECASE)

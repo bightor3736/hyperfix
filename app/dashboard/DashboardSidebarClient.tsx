@@ -22,6 +22,7 @@ import {
   Heart,
   Timer,
   Users,
+  Palette,
 } from "lucide-react";
 import { levelForPoints } from "@/lib/gamification/levels";
 
@@ -126,6 +127,7 @@ export function DashboardSidebarClient({
     {
       label: "Account",
       items: [
+        { href: "/dashboard/customize", label: "Customize",      icon: <Palette size={15} strokeWidth={1.5} /> },
         { href: "/dashboard/settings",  label: "Settings",       icon: <Settings size={15} strokeWidth={1.5} /> },
       ],
     },

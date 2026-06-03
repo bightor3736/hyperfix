@@ -58,6 +58,8 @@ export function VoiceChat({
   const [muted, setMuted] = useState(false);
   const [camOn, setCamOn] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [peerCount, setPeerCount] = useState(0);
+  const [localStreamState, setLocalStreamState] = useState<MediaStream | null>(null);
   // peerId -> remote MediaStream (drives the video/audio tiles).
   const [remoteStreams, setRemoteStreams] = useState<Map<string, MediaStream>>(new Map());
 
@@ -82,6 +84,7 @@ export function VoiceChat({
   const cleanupPeer = useCallback((id: string) => {
     peers.current.get(id)?.pc.close();
     peers.current.delete(id);
+    setPeerCount(peers.current.size);
     setRemote(id, null);
   }, [setRemote]);
 
@@ -94,6 +97,7 @@ export function VoiceChat({
     // Deterministic role so the two sides agree who yields on glare.
     const state: PeerState = { pc, polite: me < peerId, makingOffer: false, ignoreOffer: false };
     peers.current.set(peerId, state);
+    setPeerCount(peers.current.size);
 
     localStream.current?.getTracks().forEach((track) => pc.addTrack(track, localStream.current!));
 
@@ -151,6 +155,8 @@ export function VoiceChat({
     peers.current.forEach((_, id) => cleanupPeer(id));
     localStream.current?.getTracks().forEach((t) => t.stop());
     localStream.current = null;
+    setLocalStreamState(null);
+    setPeerCount(0);
     if (channelRef.current) { createClient().removeChannel(channelRef.current); channelRef.current = null; }
     setJoined(false);
     setCamOn(false);
@@ -164,6 +170,7 @@ export function VoiceChat({
     setError(null);
     try {
       localStream.current = await navigator.mediaDevices.getUserMedia({ audio: true, video: withVideo });
+      setLocalStreamState(localStream.current);
       setCamOn(withVideo);
       const supabase = createClient();
       const channel = supabase.channel(`voice:${roomCode}`, { config: { broadcast: { self: false } } });
@@ -237,7 +244,7 @@ export function VoiceChat({
         </p>
         {joined && (
           <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "#5eead4" }}>
-            live · {peers.current.size} connected
+            live · {peerCount} connected
           </span>
         )}
       </div>
@@ -249,7 +256,7 @@ export function VoiceChat({
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 my-3">
           {/* Self */}
           <VideoTile
-            stream={localStream.current}
+            stream={localStreamState}
             self
             videoRef={localVideoEl}
             label={`${name || "You"} (you)`}
