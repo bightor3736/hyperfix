@@ -274,8 +274,8 @@ export default function RoomPage() {
         {/* Spotify now-playing */}
         <SpotifyPanel roomCode={code} isOwner={room.isOwner} />
 
-        {/* Voice */}
-        <VoiceChat roomCode={code} me={me} name={members.find((m) => m.user_id === me)?.profiles?.display_name ?? ""} />
+        {/* Voice & video */}
+        <VoiceChat roomCode={code} me={me} name={members.find((m) => m.user_id === me)?.profiles?.display_name ?? ""} members={members} />
 
         {/* My presence */}
         <div className="rounded-2xl p-4 mb-5" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)" }}>
