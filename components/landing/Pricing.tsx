@@ -21,7 +21,8 @@ const tiers = [
       "Hyperfixation log + proof of action",
       "Daily quests, XP & 7 levels",
       "1 streak freeze a month",
-      "Standard stats card",
+      "Focus rooms — body doubling",
+      "Share card + custom accent colour",
       "Jackpot rewards (base odds)",
     ],
   },
@@ -38,9 +39,9 @@ const tiers = [
       "5 streak freezes a month",
       "Boosted jackpot odds",
       "XP multipliers & boosts",
-      "Premium share card templates",
+      "Premium profile themes (Nebula, Ember + more)",
       "Full stats, history & insights",
-      "Custom profile accent colour",
+      "Priority access to new features",
     ],
     featured: true,
   },
@@ -50,12 +51,13 @@ const comparison: { label: string; free: string | boolean; pro: string | boolean
   { label: "Dopamine rolls", free: "Unlimited", pro: "Unlimited" },
   { label: "XP, levels & daily quests", free: true, pro: true },
   { label: "Streak freezes / month", free: "1", pro: "5" },
+  { label: "Focus rooms — body doubling", free: true, pro: true },
   { label: "Jackpot odds", free: "Base", pro: "Boosted" },
   { label: "XP multipliers & boosts", free: false, pro: true },
   { label: "Hyperfixation log + proof", free: true, pro: true },
-  { label: "Stats cards", free: "Standard", pro: "Premium" },
+  { label: "Share card + custom accent", free: true, pro: true },
+  { label: "Premium profile themes", free: false, pro: true },
   { label: "Full stats & insights", free: false, pro: true },
-  { label: "Custom profile accent", free: false, pro: true },
 ];
 
 function Cell({ value }: { value: string | boolean }) {
@@ -137,7 +139,9 @@ export function Pricing() {
                   >
                     {tier.cta}
                   </a>
-                  <p className="mt-3 text-center text-[12px] text-ink-faint">{price.note}</p>
+                  <p className="mt-3 text-center text-[12px] text-ink-faint">
+                    {featured ? "30-day full refund if it's not for you." : price.note}
+                  </p>
 
                   <p className="mt-8 text-[13px] font-semibold text-ink">{tier.summary}</p>
                   <ul className="mt-4 space-y-3">

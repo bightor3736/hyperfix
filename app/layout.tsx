@@ -127,15 +127,36 @@ const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   name: "Hyperfix",
-  applicationCategory: "SocialNetworkingApplication",
-  operatingSystem: "Web",
+  applicationCategory: "HealthApplication",
+  operatingSystem: "Web, iOS, Android",
   description: DESCRIPTION,
   url: SITE_URL,
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-  },
+  screenshot: `${SITE_URL}/opengraph-image`,
+  featureList: [
+    "Hyperfixation tracker",
+    "XP and levels",
+    "Proof-of-action timer",
+    "Streak freezes",
+    "Focus rooms with body doubling",
+    "Customizable profile",
+    "Daily quests",
+    "Jackpot rewards",
+  ],
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Free Player",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    {
+      "@type": "Offer",
+      name: "Power-Up",
+      price: "3.25",
+      priceCurrency: "USD",
+      description: "Billed annually at $39/year",
+    },
+  ],
 };
 
 const websiteSchema = {
