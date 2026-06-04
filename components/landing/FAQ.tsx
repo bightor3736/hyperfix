@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Plus } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 const items = [
@@ -36,14 +37,19 @@ export function FAQ() {
   return (
     <section id="faq" style={{ background: "var(--bg)" }}>
       <div className="mx-auto max-w-[1100px] px-6 py-24 sm:px-10 sm:py-28">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
           <Reveal>
             <div>
-              <p className="font-mono text-[11px] uppercase tracking-widest mb-4" style={{ color: "var(--energy)" }}>
+              <span
+                className="inline-block rounded-full px-4 py-1.5 font-mono text-[11px] uppercase tracking-widest text-ink-muted"
+                style={{ border: "1px solid var(--line)" }}
+              >
                 FAQ
-              </p>
-              <h2 className="font-display leading-[1.05] tracking-tight text-ink" style={{ fontSize: "clamp(30px,4.5vw,44px)" }}>
-                Common questions.
+              </span>
+              <h2 className="mt-6 font-display leading-[1.05] tracking-tight text-ink" style={{ fontSize: "clamp(30px,4.5vw,44px)" }}>
+                Frequently asked
+                <br />
+                questions.
               </h2>
               <p className="mt-4 max-w-[280px] text-[15px] leading-[1.6] text-ink-muted">
                 Anything else, write us. A real person reads them.
@@ -51,40 +57,38 @@ export function FAQ() {
             </div>
           </Reveal>
 
-          <ul className="md:col-span-2">
-            {items.map((it, i) => {
-              const isOpen = open === i;
-              return (
-                <li key={it.q} className="border-t last:border-b" style={{ borderColor: "var(--line)" }}>
-                  <button
-                    type="button"
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    className="flex w-full items-center justify-between gap-6 py-6 text-left"
-                    aria-expanded={isOpen}
-                  >
-                    <span className="font-display text-[20px] leading-[1.25] tracking-tight text-ink">{it.q}</span>
-                    <span
-                      className="relative inline-flex h-6 w-6 flex-shrink-0 items-center justify-center"
-                      style={{ color: "var(--energy)" }}
-                      aria-hidden="true"
+          <Reveal delay={80}>
+            <div>
+              {items.map((it, i) => {
+                const isOpen = open === i;
+                return (
+                  <div key={it.q} className="border-t last:border-b" style={{ borderColor: "var(--line)" }}>
+                    <button
+                      type="button"
+                      onClick={() => setOpen(isOpen ? null : i)}
+                      className="flex w-full items-center justify-between gap-6 py-5 text-left"
+                      aria-expanded={isOpen}
                     >
-                      <span className="absolute h-[1.5px] w-3.5 rounded-full bg-current" />
-                      <span
-                        className={`absolute h-[1.5px] w-3.5 rounded-full bg-current transition-transform duration-300 ease-out ${isOpen ? "rotate-0" : "rotate-90"}`}
+                      <span className="text-[15px] font-medium text-ink">{it.q}</span>
+                      <Plus
+                        size={17}
+                        strokeWidth={2}
+                        className={`flex-shrink-0 transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
+                        style={{ color: "var(--accent)" }}
                       />
-                    </span>
-                  </button>
-                  <div
-                    className={`grid transition-all duration-300 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
-                  >
-                    <div className="overflow-hidden">
-                      <p className="pb-7 pr-12 text-[15px] leading-[1.65] text-ink-muted">{it.a}</p>
+                    </button>
+                    <div
+                      className={`grid transition-all duration-300 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+                    >
+                      <div className="overflow-hidden">
+                        <p className="pb-6 pr-8 text-[14px] leading-[1.65] text-ink-muted">{it.a}</p>
+                      </div>
                     </div>
                   </div>
-                </li>
-              );
-            })}
-          </ul>
+                );
+              })}
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

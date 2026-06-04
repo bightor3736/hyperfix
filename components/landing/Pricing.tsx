@@ -51,9 +51,9 @@ export function Pricing() {
       <div className="mx-auto max-w-[1100px] px-6 py-24 sm:px-10 sm:py-28">
         <Reveal>
           <div className="max-w-[600px] mb-14">
-            <p className="font-mono text-[11px] uppercase tracking-widest mb-4" style={{ color: "var(--accent)" }}>
+            <span className="inline-block rounded-full px-4 py-1.5 mb-5 font-mono text-[11px] uppercase tracking-widest text-ink-muted" style={{ border: "1px solid var(--line)" }}>
               Pricing
-            </p>
+            </span>
             <h2 className="font-display leading-[1.04] tracking-tight" style={{ fontSize: "clamp(32px,5vw,48px)" }}>
               <span className="text-ink">Free to play. </span>
               <span className="text-game-gradient">More if you need it.</span>

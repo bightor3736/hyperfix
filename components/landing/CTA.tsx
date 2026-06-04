@@ -2,8 +2,17 @@ import { OAuthButtons } from "./OAuthButtons";
 
 export function CTA() {
   return (
-    <section id="get-started" style={{ background: "var(--bg)" }}>
-      <div className="mx-auto max-w-[1200px] px-6 py-24 sm:px-10 sm:py-32">
+    <section id="get-started" className="relative overflow-hidden" style={{ background: "var(--bg)" }}>
+      {/* Soft tri-pastel wash — mirrors the hero, bookending the page */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent 0%, rgba(167,139,250,0.06) 30%, rgba(96,165,250,0.07) 60%, rgba(45,212,191,0.12) 100%)",
+        }}
+      />
+      <div className="relative mx-auto max-w-[1200px] px-6 py-24 sm:px-10 sm:py-32">
         <div className="mx-auto max-w-[680px] text-center">
           <p className="font-mono text-[11px] uppercase tracking-widest mb-5" style={{ color: "var(--accent)" }}>
             Ready to start?

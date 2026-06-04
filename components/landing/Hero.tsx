@@ -8,13 +8,16 @@ import { Check, RefreshCw, Clock, Flame, Footprints, MessageCircle, Leaf, Coffee
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      {/* Warm ambient light rising from the top — one source, not a field of blobs */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="absolute -top-56 left-1/2 h-[700px] w-[1000px] -translate-x-1/2 rounded-full blur-[160px] opacity-60"
-          style={{ background: "radial-gradient(ellipse at 50% 30%, rgba(20,184,166,0.22), rgba(28,184,124,0.06) 52%, transparent 72%)" }}
-        />
-      </div>
+      {/* Soft tri-pastel wash — mint→sky→lavender, teal-leaning to stay on brand.
+         Low alpha so it reads on both light and dark canvases. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(45,212,191,0.12) 0%, rgba(96,165,250,0.07) 38%, rgba(167,139,250,0.06) 64%, transparent 88%)",
+        }}
+      />
 
       {/* ── Center column ─────────────────────────────────────────── */}
       <div className="relative mx-auto flex max-w-[800px] flex-col items-center px-6 pt-20 text-center sm:px-10 sm:pt-24 lg:pt-32">

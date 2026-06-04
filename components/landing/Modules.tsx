@@ -74,9 +74,9 @@ export function Modules() {
       <div className="mx-auto max-w-[1100px] px-6 sm:px-10 py-20 sm:py-28">
         <Reveal>
           <div className="max-w-[640px] mb-12">
-            <p className="font-mono text-[11px] uppercase tracking-widest mb-4" style={{ color: "var(--accent)" }}>
+            <span className="inline-block rounded-full px-4 py-1.5 mb-5 font-mono text-[11px] uppercase tracking-widest text-ink-muted" style={{ border: "1px solid var(--line)" }}>
               Features
-            </p>
+            </span>
             <h2 className="font-display leading-[1.05] tracking-tight text-ink" style={{ fontSize: "clamp(32px,5vw,52px)" }}>
               Built for the way ADHD actually works.
             </h2>
