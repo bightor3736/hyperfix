@@ -24,14 +24,13 @@ export default async function DashboardPage() {
     username: string | null;
     total_points: number;
     current_streak: number;
-    longest_streak: number;
     streak_freezes: number;
   } | null = null;
 
   if (user) {
     const { data } = await supabase
       .from("profiles")
-      .select("display_name, username, total_points, current_streak, longest_streak, streak_freezes")
+      .select("display_name, username, total_points, current_streak, streak_freezes")
       .eq("id", user.id)
       .single();
     profile = data;
@@ -44,33 +43,9 @@ export default async function DashboardPage() {
   const totalPoints = profile?.total_points ?? 0;
   const currentStreak = profile?.current_streak ?? 0;
   const streakFreezes = profile?.streak_freezes ?? 0;
-
   const quests = user ? await getDailyQuests(user.id) : [];
 
-  // Dopamine hits today (drives the daily-goal ring inside the menu)
-  let dopamineToday = 0;
-  if (user) {
-    const startOfDay = new Date();
-    startOfDay.setHours(0, 0, 0, 0);
-    const { count } = await supabase
-      .from("dopamine_hits")
-      .select("id", { count: "exact", head: true })
-      .eq("user_id", user.id)
-      .gte("created_at", startOfDay.toISOString());
-    dopamineToday = count ?? 0;
-  }
-
-  let wallsTotal = 0;
-  if (user) {
-    const { count } = await supabase
-      .from("walls_broken")
-      .select("id", { count: "exact", head: true })
-      .eq("user_id", user.id);
-    wallsTotal = count ?? 0;
-  }
-
   const { level, next } = levelForPoints(totalPoints);
-  const levelName = level.name;
   const firstName = displayName.split(" ")[0];
 
   return (
@@ -78,12 +53,10 @@ export default async function DashboardPage() {
       firstName={firstName}
       greeting={getGreeting()}
       username={username}
-      levelName={levelName}
+      levelName={level.name}
       totalPoints={totalPoints}
       currentStreak={currentStreak}
       streakFreezes={streakFreezes}
-      dopamineToday={dopamineToday}
-      wallsTotal={wallsTotal}
       quests={quests}
       currentLevelPoints={level.points}
       nextLevelPoints={next?.points}

@@ -17,7 +17,7 @@ export default function Preview() {
     <div className="dash-landing min-h-screen flex" style={S}>
       <DashboardSidebarClient displayName="Viktor Vanlier" avatarUrl={null} userEmail="viktor@example.com" isPro={false} username="viktor" currentStreak={7} totalPoints={1240} streakFreezes={2} />
       <div className="flex-1 flex flex-col min-h-screen lg:ml-64">
-        <DashboardHome firstName="Viktor" greeting="good morning" username="viktor" levelName="Unwell" totalPoints={1240} currentStreak={7} streakFreezes={2} dopamineToday={1} wallsTotal={3} quests={Q} nextLevelPoints={1500} currentLevelPoints={1000} />
+        <DashboardHome firstName="Viktor" greeting="good morning" username="viktor" levelName="Unwell" totalPoints={1240} currentStreak={7} streakFreezes={2} quests={Q} nextLevelPoints={1500} currentLevelPoints={1000} />
         <MobileNavBar username="viktor" />
       </div>
     </div>

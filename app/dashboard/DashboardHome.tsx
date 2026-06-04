@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Flame, Trophy, Bell, Plus, BookOpen, Users, Clock, type LucideIcon } from "lucide-react";
+import { Flame, Trophy, Bell, Plus, BookOpen, Sparkles, Timer, type LucideIcon } from "lucide-react";
 import { DailyQuestsClient } from "@/components/DailyQuestsClient";
-import { DopamineMenu } from "@/components/game/DopamineMenu";
-import { BeatTheWall } from "@/components/game/BeatTheWall";
 import type { Quest } from "@/lib/quests/generate";
 
 export type DashboardHomeProps = {
@@ -15,8 +13,6 @@ export type DashboardHomeProps = {
   totalPoints: number;
   currentStreak: number;
   streakFreezes: number;
-  dopamineToday: number;
-  wallsTotal: number;
   quests: Quest[];
   nextLevelPoints?: number;
   currentLevelPoints?: number;
@@ -25,8 +21,8 @@ export type DashboardHomeProps = {
 const QUICK_ACTIONS: { icon: LucideIcon; label: string; href: string; tint: string }[] = [
   { icon: Plus,     label: "Log a fix",   href: "/dashboard/new",       tint: "var(--pastel-purple)" },
   { icon: BookOpen, label: "Fixations",   href: "/dashboard/fixations", tint: "var(--pastel-green)" },
-  { icon: Users,    label: "Focus room",  href: "/dashboard/rooms",     tint: "var(--pastel-blue)" },
-  { icon: Clock,    label: "Timer",       href: "/dashboard/timer",     tint: "var(--pastel-orange)" },
+  { icon: Sparkles, label: "XP & levels", href: "/dashboard/points",    tint: "var(--pastel-blue)" },
+  { icon: Timer,    label: "Timer",       href: "/dashboard/timer",     tint: "var(--pastel-orange)" },
 ];
 
 export function DashboardHome({
@@ -36,8 +32,6 @@ export function DashboardHome({
   levelName,
   totalPoints,
   currentStreak,
-  dopamineToday,
-  wallsTotal,
   quests,
   nextLevelPoints,
   currentLevelPoints = 0,
@@ -49,9 +43,8 @@ export function DashboardHome({
   return (
     <div className="min-h-screen" style={{ background: "var(--bg)" }}>
 
-      {/* ── HEADER — landing-style soft pastel wash ───────────────────── */}
+      {/* ── HEADER ────────────────────────────────────────────────── */}
       <header className="relative overflow-hidden anim-fadeUp">
-        {/* tri-pastel wash, mirrors the landing hero */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
@@ -104,7 +97,7 @@ export function DashboardHome({
             </div>
           </div>
 
-          {/* Stat pills */}
+          {/* Streak pill */}
           <div className="mt-5 flex flex-wrap gap-2">
             <Link
               href="/dashboard/points"
@@ -115,12 +108,6 @@ export function DashboardHome({
               <span className="text-[13px] font-bold tabular-nums leading-none">{currentStreak}</span>
               <span className="text-[12px] leading-none opacity-70">day streak</span>
             </Link>
-            {dopamineToday > 0 && (
-              <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5" style={{ background: "var(--accent-soft)", color: "var(--accent)" }}>
-                <span className="text-[13px] font-bold tabular-nums leading-none">{dopamineToday}</span>
-                <span className="text-[12px] leading-none opacity-70">hits today</span>
-              </span>
-            )}
           </div>
 
           {/* Level progress */}
@@ -143,10 +130,10 @@ export function DashboardHome({
         </div>
       </header>
 
-      {/* ── CONTENT ───────────────────────────────────────────────────── */}
+      {/* ── CONTENT ───────────────────────────────────────────────── */}
       <div className="mx-auto anim-fadeUp pb-28" style={{ maxWidth: 640, padding: "0 16px", animationDelay: "60ms" }}>
 
-        {/* Quick actions — finflow-style soft button grid */}
+        {/* Quick actions */}
         <div className="grid grid-cols-4 gap-2.5">
           {QUICK_ACTIONS.map((a) => (
             <Link
@@ -158,16 +145,12 @@ export function DashboardHome({
               <span className="flex h-10 w-10 items-center justify-center rounded-[12px]" style={{ background: a.tint, color: "var(--ink)" }}>
                 <a.icon size={18} strokeWidth={2} />
               </span>
-              <span className="text-[11px] font-medium text-ink-muted">{a.label}</span>
+              <span className="text-[11px] font-medium text-ink-muted text-center">{a.label}</span>
             </Link>
           ))}
         </div>
 
         <div style={{ height: 16 }} />
-        <DopamineMenu todayCount={dopamineToday} name={firstName} />
-        <div style={{ height: 14 }} />
-        <BeatTheWall wallsTotal={wallsTotal} name={firstName} />
-        <div style={{ height: 14 }} />
         <DailyQuestsClient initialQuests={quests} />
 
         {username && (
