@@ -92,9 +92,11 @@ function parseUrl(s: string): string | null {
 export function SocialChips({
   socialLink,
   variant = "chips",
+  dark = false,
 }: {
   socialLink: string | null | undefined;
   variant?: "chips" | "icons";
+  dark?: boolean;
 }) {
   if (!socialLink) return null;
   const urls = socialLink
@@ -105,10 +107,13 @@ export function SocialChips({
 
   if (urls.length === 0) return null;
 
-  // Reference-style icon row — plain icons in a divided row on a light card.
+  // Reference-style icon row — plain icons in a divided row.
   if (variant === "icons") {
+    const borderCol = dark ? "rgba(255,255,255,0.12)" : "#edeff2";
+    const iconCol = dark ? "rgba(255,255,255,0.55)" : "#5b6470";
+    const hoverBg = dark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.03)";
     return (
-      <div className="flex w-full items-stretch overflow-hidden rounded-2xl" style={{ border: "1px solid #edeff2" }}>
+      <div className="flex w-full items-stretch overflow-hidden rounded-2xl" style={{ border: `1px solid ${borderCol}` }}>
         {urls.map((url, i) => {
           const { name, Icon } = detectPlatform(url);
           return (
@@ -117,8 +122,10 @@ export function SocialChips({
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-1 items-center justify-center py-3.5 transition-colors hover:bg-black/[0.03]"
-              style={{ borderLeft: i > 0 ? "1px solid #edeff2" : undefined, color: "#5b6470" }}
+              className="flex flex-1 items-center justify-center py-3.5 transition-colors"
+              style={{ borderLeft: i > 0 ? `1px solid ${borderCol}` : undefined, color: iconCol, backgroundColor: "transparent" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = hoverBg; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent"; }}
               aria-label={name}
             >
               <Icon />

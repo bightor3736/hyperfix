@@ -9,14 +9,16 @@ import { resolveAccent, hexToRgba, isValidAccent, DEFAULT_ACCENT } from "@/lib/a
 import { levelForPoints } from "@/lib/gamification/levels";
 import { SocialChips } from "@/components/SocialChips";
 
-// Fixed light palette — the profile card is theme-independent so it always
-// reads like a clean, airy identity card regardless of the visitor's theme.
-const PAGE_BG = "linear-gradient(180deg, #e9edf1 0%, #f3f5f7 55%, #eef1f4 100%)";
-const CARD = "#ffffff";
-const INK = "#1b1f24";
-const MUTED = "#6b7280";
-const FAINT = "#9aa1ab";
-const LINE = "#edeff2";
+// Dark indigo focus-room palette
+const PAGE_BG = "linear-gradient(160deg, #1e1880 0%, #0f0d40 100%)";
+const CARD_BG = "rgba(255,255,255,0.05)";
+const CARD_BORDER = "rgba(255,255,255,0.12)";
+const INK = "#ffffff";
+const MUTED = "rgba(167,139,250,0.85)";    // purple-muted, matches FocusRooms
+const FAINT = "rgba(255,255,255,0.40)";
+const STATS_BG = "rgba(255,255,255,0.06)";
+const STATS_BORDER = "rgba(255,255,255,0.10)";
+const TEAL = "#5eead4";
 
 interface Fix {
   id: string;
@@ -164,16 +166,24 @@ export default async function PublicProfilePage({
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: PAGE_BG }}>
-      {/* Minimal light nav */}
-      <nav className="flex items-center justify-between px-5 py-4 sm:px-8" style={{ borderBottom: `1px solid ${LINE}` }}>
+    <div
+      className="min-h-screen"
+      style={{
+        background: [
+          "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,92,246,0.28) 0%, transparent 65%)",
+          PAGE_BG,
+        ].join(", "),
+      }}
+    >
+      {/* Nav */}
+      <nav className="flex items-center justify-between px-5 py-4 sm:px-8" style={{ borderBottom: `1px solid ${CARD_BORDER}` }}>
         <Link href="/" className="font-display text-[18px] tracking-tight transition-opacity hover:opacity-80" style={{ color: INK }}>
           hyperfix
         </Link>
         <Link
           href={currentUser ? "/dashboard" : "/auth/login"}
           className="rounded-full px-4 py-2 font-mono text-[11px] uppercase tracking-widest transition-opacity hover:opacity-80"
-          style={{ background: "#fff", border: `1px solid ${LINE}`, color: MUTED }}
+          style={{ background: "rgba(255,255,255,0.08)", border: `1px solid ${CARD_BORDER}`, color: FAINT }}
         >
           {currentUser ? "my fixes" : "log in"}
         </Link>
@@ -183,7 +193,12 @@ export default async function PublicProfilePage({
         {/* ── Profile card ──────────────────────────────────────────── */}
         <div
           className="w-full max-w-[400px] overflow-hidden rounded-[28px] anim-fadeUp"
-          style={{ background: CARD, boxShadow: "0 1px 2px rgba(16,24,40,0.04), 0 24px 48px -16px rgba(16,24,40,0.18)" }}
+          style={{
+            background: CARD_BG,
+            border: `1px solid ${CARD_BORDER}`,
+            boxShadow: "0 32px 80px -24px rgba(15,13,64,0.7)",
+            backdropFilter: "blur(20px)",
+          }}
         >
           {/* Banner */}
           <div
@@ -193,12 +208,12 @@ export default async function PublicProfilePage({
               backgroundImage: typedProfile.banner_url ? `url(${typedProfile.banner_url})` : undefined,
               background: typedProfile.banner_url
                 ? undefined
-                : "linear-gradient(170deg, #cfe0f2 0%, #dbe7f4 45%, #eef3f8 100%)",
+                : "linear-gradient(135deg, #6d5bd0 0%, #3b2f7a 55%, #1e1880 100%)",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
           >
-            {/* Floating action, top-right */}
+            {/* Action buttons */}
             <div className="absolute right-3 top-3 flex items-center gap-2">
               {!isSelf && (
                 currentUser
@@ -222,17 +237,17 @@ export default async function PublicProfilePage({
 
           {/* Body */}
           <div className="px-6 pb-7 text-center">
-            {/* Avatar — overlaps banner, gradient ring */}
+            {/* Avatar — overlaps banner */}
             <div className="relative mx-auto -mt-12 mb-3 w-fit">
               <div
                 className="rounded-full p-[3px]"
                 style={{
                   background: typedProfile.is_pro
-                    ? "conic-gradient(from 210deg, #ff7a59, #ffc857, #34d399, #2dd4bf, #818cf8, #c084fc, #ff7a59)"
-                    : accent,
+                    ? "conic-gradient(from 210deg, #ff7a59, #ffc857, #34d399, #5eead4, #818cf8, #c084fc, #ff7a59)"
+                    : `linear-gradient(135deg, ${TEAL}, #818cf8)`,
                 }}
               >
-                <div className="rounded-full p-[3px]" style={{ background: CARD }}>
+                <div className="rounded-full p-[3px]" style={{ background: "#0f0d40" }}>
                   {typedProfile.avatar_url ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -243,7 +258,7 @@ export default async function PublicProfilePage({
                   ) : (
                     <div
                       className="flex h-[84px] w-[84px] items-center justify-center rounded-full font-sans font-bold"
-                      style={{ background: hexToRgba(accent, 0.14), color: accent, fontSize: 28 }}
+                      style={{ background: "rgba(94,234,212,0.14)", color: TEAL, fontSize: 28 }}
                     >
                       {displayName.slice(0, 2).toUpperCase()}
                     </div>
@@ -252,13 +267,16 @@ export default async function PublicProfilePage({
               </div>
             </div>
 
-            {/* exp bar — level progress */}
+            {/* exp bar */}
             <div className="mx-auto mb-4 flex max-w-[240px] items-center gap-2.5">
               <span className="shrink-0 font-mono text-[9px] uppercase tracking-widest" style={{ color: FAINT }}>
                 {level.name}
               </span>
-              <div className="h-1.5 flex-1 overflow-hidden rounded-full" style={{ background: LINE }}>
-                <div className="h-full rounded-full" style={{ width: `${expPct}%`, background: `linear-gradient(90deg, ${accent}, #34d399)` }} />
+              <div className="h-1.5 flex-1 overflow-hidden rounded-full" style={{ background: "rgba(255,255,255,0.10)" }}>
+                <div
+                  className="h-full rounded-full"
+                  style={{ width: `${expPct}%`, background: "linear-gradient(90deg, #6366f1, #a855f7)" }}
+                />
               </div>
             </div>
 
@@ -270,7 +288,7 @@ export default async function PublicProfilePage({
               {typedProfile.is_pro && (
                 <span
                   className="rounded px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest"
-                  style={{ background: hexToRgba(accent, 0.12), color: accent, border: `1px solid ${hexToRgba(accent, 0.3)}` }}
+                  style={{ background: hexToRgba(TEAL, 0.15), color: TEAL, border: `1px solid ${hexToRgba(TEAL, 0.35)}` }}
                 >
                   pro
                 </span>
@@ -281,7 +299,7 @@ export default async function PublicProfilePage({
             <p className="mt-1 inline-flex items-center gap-2 font-mono text-[12px]" style={{ color: MUTED }}>
               @{typedProfile.username}
               {typedProfile.pronouns && (
-                <span className="rounded-full px-1.5 py-0.5 text-[10px] tracking-wide" style={{ background: "#f1f3f5", color: MUTED }}>
+                <span className="rounded-full px-1.5 py-0.5 text-[10px] tracking-wide" style={{ background: "rgba(255,255,255,0.08)", color: FAINT }}>
                   {typedProfile.pronouns}
                 </span>
               )}
@@ -291,22 +309,25 @@ export default async function PublicProfilePage({
             {(typedProfile.status_emoji || typedProfile.status_text) && (
               <div
                 className="mt-3 inline-flex items-center gap-2 rounded-full px-3 py-1.5"
-                style={{ background: hexToRgba(accent, 0.08), border: `1px solid ${hexToRgba(accent, 0.2)}` }}
+                style={{ background: "rgba(255,255,255,0.07)", border: `1px solid ${CARD_BORDER}` }}
               >
                 {typedProfile.status_emoji && <span className="text-[14px] leading-none">{typedProfile.status_emoji}</span>}
-                {typedProfile.status_text && <span className="font-sans text-[12px]" style={{ color: MUTED }}>{typedProfile.status_text}</span>}
+                {typedProfile.status_text && <span className="font-sans text-[12px]" style={{ color: FAINT }}>{typedProfile.status_text}</span>}
               </div>
             )}
 
             {/* bio */}
             {typedProfile.bio && (
-              <p className="mx-auto mt-4 max-w-[300px] font-sans text-[14px] leading-relaxed" style={{ color: MUTED }}>
+              <p className="mx-auto mt-4 max-w-[300px] font-sans text-[14px] leading-relaxed" style={{ color: FAINT }}>
                 {typedProfile.bio}
               </p>
             )}
 
-            {/* Stats panel — inset, soft */}
-            <div className="mt-6 grid grid-cols-3 rounded-2xl py-4" style={{ background: "#f7f8fa", border: `1px solid ${LINE}` }}>
+            {/* Stats panel */}
+            <div
+              className="mt-6 grid grid-cols-3 rounded-2xl py-4"
+              style={{ background: STATS_BG, border: `1px solid ${STATS_BORDER}` }}
+            >
               {stats.map((s, i) => {
                 const inner = (
                   <>
@@ -319,7 +340,7 @@ export default async function PublicProfilePage({
                   </>
                 );
                 return (
-                  <div key={s.label} className={i < 2 ? "border-r" : ""} style={{ borderColor: LINE }}>
+                  <div key={s.label} className={i < 2 ? "border-r" : ""} style={{ borderColor: STATS_BORDER }}>
                     {s.href ? <Link href={s.href} className="block transition-opacity hover:opacity-80">{inner}</Link> : inner}
                   </div>
                 );
@@ -329,7 +350,7 @@ export default async function PublicProfilePage({
             {/* Social icon row */}
             {socialList && (
               <div className="mt-4">
-                <SocialChips socialLink={socialList} variant="icons" />
+                <SocialChips socialLink={socialList} variant="icons" dark />
               </div>
             )}
           </div>
@@ -344,7 +365,12 @@ export default async function PublicProfilePage({
         >
           <div
             className="mx-auto flex max-w-md items-center justify-between gap-4 rounded-2xl px-5 py-4"
-            style={{ background: "#fff", border: `1px solid ${accent}`, boxShadow: "0 8px 40px rgba(16,24,40,0.18)" }}
+            style={{
+              background: "rgba(30,24,128,0.90)",
+              border: `1px solid ${CARD_BORDER}`,
+              backdropFilter: "blur(16px)",
+              boxShadow: "0 8px 40px rgba(15,13,64,0.5)",
+            }}
           >
             <div className="min-w-0">
               <p className="truncate font-sans text-sm font-semibold" style={{ color: INK }}>
@@ -355,7 +381,7 @@ export default async function PublicProfilePage({
             <Link
               href={`/auth/signup?next=/u/${typedProfile.username}`}
               className="shrink-0 rounded-full px-5 py-2.5 font-sans text-sm font-semibold transition-opacity hover:opacity-90"
-              style={{ background: accent, color: "#fff" }}
+              style={{ background: TEAL, color: "#0f0d40" }}
             >
               Join free →
             </Link>
