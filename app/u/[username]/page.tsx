@@ -8,6 +8,7 @@ import { MessageButton } from "@/components/MessageButton";
 import { ShareProfileButton } from "@/components/ShareProfileButton";
 import { resolveAccent, hexToRgba, isValidAccent, DEFAULT_ACCENT } from "@/lib/accent";
 import { getProfileTheme } from "@/lib/profile-themes";
+import { levelForPoints } from "@/lib/gamification/levels";
 import { CategoryIcon, CATEGORY_COLOR } from "@/components/CategoryIcon";
 import { TombstoneIcon } from "@/components/MilestoneIcons";
 import { PinIcon } from "@/components/LandingIcons";
@@ -46,21 +47,14 @@ interface Profile {
   status_text?: string | null;
   socials?: Record<string, string> | null;
   profile_theme?: string | null;
+  total_points?: number | null;
+  current_streak?: number | null;
 }
 
 function dayCount(startedAt: string, endedAt: string | null): number {
   const start = new Date(startedAt);
   const end = endedAt ? new Date(endedAt) : new Date();
   return Math.max(1, Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)));
-}
-
-function getMostObsessedCategory(fixes: Fix[]): string | null {
-  if (fixes.length === 0) return null;
-  const counts: Record<string, number> = {};
-  for (const fix of fixes) {
-    counts[fix.category] = (counts[fix.category] ?? 0) + 1;
-  }
-  return Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
 }
 
 function Initials({ name, accent }: { name: string; accent: string }) {
@@ -149,7 +143,7 @@ export default async function PublicProfilePage({
 
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select("id, username, display_name, avatar_url, bio, is_public, pinned_fix_id, pinned_fix_ids, banner_url, is_pro, accent_color, social_link, pronouns, status_emoji, status_text, socials, profile_theme")
+    .select("id, username, display_name, avatar_url, bio, is_public, pinned_fix_id, pinned_fix_ids, banner_url, is_pro, accent_color, social_link, pronouns, status_emoji, status_text, socials, profile_theme, total_points, current_streak")
     .eq("username", username)
     .single();
 
@@ -193,8 +187,14 @@ export default async function PublicProfilePage({
     .filter((f): f is Fix => !!f && (isSelf || f.is_public));
 
   const totalDays = allFixes.reduce((acc, fix) => acc + dayCount(fix.started_at, fix.ended_at), 0);
-  const mostObsessed = getMostObsessedCategory(allFixes);
   const endedPublicCount = publicFixes.filter((f) => f.ended_at !== null).length;
+
+  // Level / exp bar for the profile card
+  const totalPoints = typedProfile.total_points ?? 0;
+  const { level, next } = levelForPoints(totalPoints);
+  const expPct = next
+    ? Math.min(100, Math.max(0, ((totalPoints - level.points) / (next.points - level.points)) * 100))
+    : 100;
 
   const displayName = typedProfile.display_name ?? typedProfile.username ?? "Anonymous";
   // Accent is now available to everyone (Pro just unlocks premium themes/effects).
@@ -212,11 +212,6 @@ export default async function PublicProfilePage({
     .from("follows")
     .select("id", { count: "exact", head: true })
     .eq("following_id", typedProfile.id);
-
-  const { count: followingCount } = await supabase
-    .from("follows")
-    .select("id", { count: "exact", head: true })
-    .eq("follower_id", typedProfile.id);
 
   let isFollowing = false;
   if (currentUser && !isSelf) {
@@ -263,13 +258,20 @@ export default async function PublicProfilePage({
       </nav>
 
       <main id="main-content" className="relative max-w-2xl mx-auto px-5 sm:px-8 pt-10 sm:pt-16 pb-20">
-        {/* Optional banner — thin aesthetic strip if user set one */}
-        {typedProfile.banner_url && (
+        {/* ── Profile card ──────────────────────────────────────────── */}
+        <section
+          className="relative overflow-hidden rounded-[28px] mb-12 anim-fadeUp"
+          style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)", boxShadow: "0 2px 4px rgba(0,0,0,0.06), 0 24px 60px -24px rgba(0,0,0,0.45)" }}
+        >
+          {/* Banner */}
           <div
-            className="relative overflow-hidden rounded-2xl mb-8 anim-fadeUp"
+            className="relative"
             style={{
-              height: "clamp(110px, 18vw, 160px)",
-              backgroundImage: `url(${typedProfile.banner_url})`,
+              height: "clamp(120px, 22vw, 168px)",
+              backgroundImage: typedProfile.banner_url ? `url(${typedProfile.banner_url})` : undefined,
+              background: typedProfile.banner_url
+                ? undefined
+                : `linear-gradient(135deg, ${hexToRgba(accent, 0.55)} 0%, ${hexToRgba(accent, 0.18)} 55%, var(--bg-soft) 100%)`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -277,195 +279,164 @@ export default async function PublicProfilePage({
             <div
               aria-hidden
               className="absolute inset-0 pointer-events-none mix-blend-overlay"
-              style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.4 }}
+              style={{ backgroundImage: NOISE_URL, backgroundSize: "200px 200px", opacity: 0.25 }}
             />
+            {/* Floating action, top-right (reference's "Follow +") */}
+            <div className="absolute top-3 right-3 z-10 flex items-center gap-2">
+              {!isSelf && (
+                currentUser
+                  ? <FollowButtonLoggedIn
+                      targetUserId={typedProfile.id}
+                      targetUsername={typedProfile.username ?? ""}
+                      initialFollowing={isFollowing}
+                      initialCount={followerCount ?? 0}
+                    />
+                  : <FollowButton
+                      targetUserId={typedProfile.id}
+                      targetUsername={typedProfile.username ?? ""}
+                      initialFollowing={false}
+                      initialCount={followerCount ?? 0}
+                    />
+              )}
+              {!isSelf && currentUser && <MessageButton targetUserId={typedProfile.id} />}
+              {isSelf && (
+                <ShareProfileButton username={typedProfile.username ?? ""} displayName={displayName} />
+              )}
+            </div>
           </div>
-        )}
 
-        {/* Header — avatar + name + handle, quiet and centered */}
-        <header className="anim-fadeUp flex flex-col items-center text-center mb-8">
-          <div className="relative mb-5">
-            {typedProfile.is_pro && (
+          {/* Body */}
+          <div className="px-6 sm:px-8 pb-7 text-center">
+            {/* Avatar — overlaps the banner, gradient ring */}
+            <div className="relative mx-auto -mt-12 mb-3 w-fit">
               <div
-                aria-hidden
-                className="absolute -inset-3 rounded-full pointer-events-none"
+                className="rounded-full p-[3px]"
                 style={{
-                  background: `radial-gradient(circle, ${hexToRgba(accent, 0.45)} 0%, transparent 70%)`,
-                  filter: "blur(10px)",
-                }}
-              />
-            )}
-            {typedProfile.avatar_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={typedProfile.avatar_url}
-                alt={displayName}
-                className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover"
-                style={{ border: "1px solid var(--line)" }}
-              />
-            ) : (
-              <div
-                className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center font-display font-semibold"
-                style={{
-                  background: hexToRgba(accent, 0.14),
-                  border: "1px solid var(--line)",
-                  color: accent,
-                  fontSize: 28,
+                  background: typedProfile.is_pro
+                    ? "conic-gradient(from 210deg, #ff7a59, #ffc857, #34d399, #2dd4bf, #818cf8, #c084fc, #ff7a59)"
+                    : accent,
                 }}
               >
-                {displayName.slice(0, 2).toUpperCase()}
+                <div className="rounded-full p-[3px]" style={{ background: "var(--bg-elevated)" }}>
+                  {typedProfile.avatar_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={typedProfile.avatar_url}
+                      alt={displayName}
+                      className="block h-[88px] w-[88px] rounded-full object-cover"
+                    />
+                  ) : (
+                    <div
+                      className="flex h-[88px] w-[88px] items-center justify-center rounded-full font-display font-semibold"
+                      style={{ background: hexToRgba(accent, 0.14), color: accent, fontSize: 30 }}
+                    >
+                      {displayName.slice(0, 2).toUpperCase()}
+                    </div>
+                  )}
+                </div>
               </div>
-            )}
-          </div>
+            </div>
 
-          <div className="flex items-center gap-2 mb-1.5">
-            <h1
-              className="font-display"
-              style={{
-                fontSize: "clamp(28px, 4.8vw, 40px)",
-                fontWeight: 600,
-                color: "var(--ink)",
-                letterSpacing: "-0.025em",
-                lineHeight: 1,
-              }}
-            >
-              {displayName}
-            </h1>
-            {typedProfile.is_pro && (
-              <span
-                className="font-mono text-[9px] uppercase tracking-widest rounded px-1.5 py-0.5"
-                style={{
-                  background: hexToRgba(accent, 0.14),
-                  color: accent,
-                  border: `1px solid ${hexToRgba(accent, 0.3)}`,
-                }}
-              >
-                pro
+            {/* exp bar — level progress (reference's "exp." rainbow strip) */}
+            <div className="mx-auto mb-4 flex max-w-[260px] items-center gap-2.5">
+              <span className="font-mono text-[10px] uppercase tracking-widest shrink-0" style={{ color: "var(--ink-faint)" }}>
+                {level.name}
               </span>
-            )}
-          </div>
+              <div className="h-1.5 flex-1 overflow-hidden rounded-full" style={{ background: "var(--line)" }}>
+                <div
+                  className="h-full rounded-full"
+                  style={{ width: `${expPct}%`, background: `linear-gradient(90deg, ${accent}, var(--xp))` }}
+                />
+              </div>
+            </div>
 
-          <p
-            className="font-mono text-[12px] mb-4 inline-flex items-center gap-2"
-            style={{ color: "var(--ink-muted)" }}
-          >
-            @{typedProfile.username}
-            {typedProfile.pronouns && (
-              <span
-                className="rounded-full px-1.5 py-0.5 text-[10px] tracking-wide"
-                style={{ background: "var(--line)", color: "var(--ink-muted)" }}
+            {/* Name + pro */}
+            <div className="flex items-center justify-center gap-2">
+              <h1
+                className="font-display"
+                style={{ fontSize: "clamp(24px, 4vw, 32px)", fontWeight: 600, color: "var(--ink)", letterSpacing: "-0.02em", lineHeight: 1.1 }}
               >
-                {typedProfile.pronouns}
-              </span>
-            )}
-          </p>
-
-          {(typedProfile.status_emoji || typedProfile.status_text) && (
-            <div
-              className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 mb-4 anim-fadeUp"
-              style={{ background: hexToRgba(accent, 0.10), border: `1px solid ${hexToRgba(accent, 0.22)}` }}
-            >
-              {typedProfile.status_emoji && <span className="text-[14px] leading-none">{typedProfile.status_emoji}</span>}
-              {typedProfile.status_text && (
-                <span className="font-sans text-[12px]" style={{ color: "var(--ink-muted)" }}>
-                  {typedProfile.status_text}
+                {displayName}
+              </h1>
+              {typedProfile.is_pro && (
+                <span
+                  className="font-mono text-[9px] uppercase tracking-widest rounded px-1.5 py-0.5"
+                  style={{ background: hexToRgba(accent, 0.14), color: accent, border: `1px solid ${hexToRgba(accent, 0.3)}` }}
+                >
+                  pro
                 </span>
               )}
             </div>
-          )}
 
-          {typedProfile.bio && (
-            <p
-              className="font-sans text-[15px] leading-relaxed max-w-md mb-5"
-              style={{ color: "var(--ink-muted)" }}
-            >
-              {typedProfile.bio}
+            {/* handle + pronouns */}
+            <p className="mt-1.5 inline-flex items-center gap-2 font-mono text-[12px]" style={{ color: "var(--ink-muted)" }}>
+              @{typedProfile.username}
+              {typedProfile.pronouns && (
+                <span className="rounded-full px-1.5 py-0.5 text-[10px] tracking-wide" style={{ background: "var(--line)", color: "var(--ink-muted)" }}>
+                  {typedProfile.pronouns}
+                </span>
+              )}
             </p>
-          )}
 
-          {socialList && (
-            <div className="mb-5">
-              <SocialChips socialLink={socialList} />
+            {/* status */}
+            {(typedProfile.status_emoji || typedProfile.status_text) && (
+              <div
+                className="mt-3 inline-flex items-center gap-2 rounded-full px-3 py-1.5"
+                style={{ background: hexToRgba(accent, 0.1), border: `1px solid ${hexToRgba(accent, 0.22)}` }}
+              >
+                {typedProfile.status_emoji && <span className="text-[14px] leading-none">{typedProfile.status_emoji}</span>}
+                {typedProfile.status_text && (
+                  <span className="font-sans text-[12px]" style={{ color: "var(--ink-muted)" }}>{typedProfile.status_text}</span>
+                )}
+              </div>
+            )}
+
+            {/* bio */}
+            {typedProfile.bio && (
+              <p className="mx-auto mt-4 max-w-md font-sans text-[14px] leading-relaxed" style={{ color: "var(--ink-muted)" }}>
+                {typedProfile.bio}
+              </p>
+            )}
+
+            {/* Stats panel — soft inset, reference variant 2 */}
+            <div
+              className="mt-6 grid grid-cols-3 rounded-2xl py-4"
+              style={{ background: "var(--bg-soft)", border: "1px solid var(--line)" }}
+            >
+              {[
+                { label: "fixations", value: String(allFixes.length), href: undefined as string | undefined },
+                { label: "days", value: String(totalDays), href: undefined },
+                { label: "followers", value: String(followerCount ?? 0), href: `/u/${typedProfile.username}/followers` },
+              ].map((s, i) => {
+                const inner = (
+                  <>
+                    <p className="font-display tabular-nums" style={{ fontSize: "clamp(20px,3.4vw,28px)", fontWeight: 600, letterSpacing: "-0.02em", lineHeight: 1, color: "var(--ink)" }}>
+                      {s.value}
+                    </p>
+                    <p className="font-mono text-[10px] uppercase tracking-widest mt-1.5" style={{ color: "var(--ink-muted)" }}>
+                      {s.label}
+                    </p>
+                  </>
+                );
+                return (
+                  <div key={s.label} className={i < 2 ? "border-r" : ""} style={{ borderColor: "var(--line)" }}>
+                    {s.href ? (
+                      <Link href={s.href} className="block transition-opacity hover:opacity-80">{inner}</Link>
+                    ) : (
+                      inner
+                    )}
+                  </div>
+                );
+              })}
             </div>
-          )}
 
-          {/* Followers · Following */}
-          <p className="font-mono text-[11px] mb-5" style={{ color: "var(--ink-muted)" }}>
-            <Link
-              href={`/u/${typedProfile.username}/followers`}
-              className="transition-colors hover:text-[var(--accent)]"
-            >
-              <span style={{ color: "var(--ink)" }}>{followerCount ?? 0}</span> followers
-            </Link>
-            <span className="mx-2" style={{ color: "var(--ink-faint)" }}>·</span>
-            <Link
-              href={`/u/${typedProfile.username}/following`}
-              className="transition-colors hover:text-[var(--accent)]"
-            >
-              <span style={{ color: "var(--ink)" }}>{followingCount ?? 0}</span> following
-            </Link>
-          </p>
-
-          {/* Actions */}
-          <div className="flex items-center gap-2 flex-wrap justify-center">
-            {!isSelf && (
-              currentUser
-                ? <FollowButtonLoggedIn
-                    targetUserId={typedProfile.id}
-                    targetUsername={typedProfile.username ?? ""}
-                    initialFollowing={isFollowing}
-                    initialCount={followerCount ?? 0}
-                  />
-                : <FollowButton
-                    targetUserId={typedProfile.id}
-                    targetUsername={typedProfile.username ?? ""}
-                    initialFollowing={false}
-                    initialCount={followerCount ?? 0}
-                  />
-            )}
-            {!isSelf && currentUser && (
-              <MessageButton targetUserId={typedProfile.id} />
-            )}
-            {isSelf && (
-              <ShareProfileButton
-                username={typedProfile.username ?? ""}
-                displayName={displayName}
-              />
+            {/* Social icons row */}
+            {socialList && (
+              <div className="mt-5 flex justify-center">
+                <SocialChips socialLink={socialList} />
+              </div>
             )}
           </div>
-        </header>
-
-        {/* Stats — type as data, no boxes */}
-        <section
-          className="grid grid-cols-3 gap-6 sm:gap-8 mb-12 pb-10 anim-fadeUp"
-          style={{ borderBottom: "1px solid var(--line)" }}
-        >
-          {[
-            { label: "fixations", value: String(allFixes.length) },
-            { label: "days fixated", value: String(totalDays) },
-            { label: "top category", value: mostObsessed ?? "—" },
-          ].map((s) => (
-            <div key={s.label}>
-              <p
-                className="font-display tabular-nums"
-                style={{
-                  fontSize: "clamp(24px, 4vw, 36px)",
-                  fontWeight: 600,
-                  letterSpacing: "-0.03em",
-                  lineHeight: 1,
-                  color: "var(--ink)",
-                }}
-              >
-                {s.value}
-              </p>
-              <p
-                className="font-mono text-[10px] uppercase tracking-widest mt-2"
-                style={{ color: "var(--ink-muted)" }}
-              >
-                {s.label}
-              </p>
-            </div>
-          ))}
         </section>
 
         {/* Pinned — vvault list rows */}
