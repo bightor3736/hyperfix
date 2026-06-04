@@ -89,7 +89,13 @@ function parseUrl(s: string): string | null {
   return `https://${trimmed}`;
 }
 
-export function SocialChips({ socialLink }: { socialLink: string | null | undefined }) {
+export function SocialChips({
+  socialLink,
+  variant = "chips",
+}: {
+  socialLink: string | null | undefined;
+  variant?: "chips" | "icons";
+}) {
   if (!socialLink) return null;
   const urls = socialLink
     .split(/[,\n]/)
@@ -98,6 +104,30 @@ export function SocialChips({ socialLink }: { socialLink: string | null | undefi
     .slice(0, 8);
 
   if (urls.length === 0) return null;
+
+  // Reference-style icon row — plain icons in a divided row on a light card.
+  if (variant === "icons") {
+    return (
+      <div className="flex w-full items-stretch overflow-hidden rounded-2xl" style={{ border: "1px solid #edeff2" }}>
+        {urls.map((url, i) => {
+          const { name, Icon } = detectPlatform(url);
+          return (
+            <a
+              key={url}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-1 items-center justify-center py-3.5 transition-colors hover:bg-black/[0.03]"
+              style={{ borderLeft: i > 0 ? "1px solid #edeff2" : undefined, color: "#5b6470" }}
+              aria-label={name}
+            >
+              <Icon />
+            </a>
+          );
+        })}
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-wrap items-center gap-2">
