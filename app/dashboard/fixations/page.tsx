@@ -15,6 +15,8 @@ import {
   Sparkles,
 } from "lucide-react";
 import { DeepDiveDeck } from "@/components/game/DeepDiveDeck";
+import { FirstHitCelebration } from "@/components/game/FirstHitCelebration";
+import { levelForPoints } from "@/lib/gamification/levels";
 
 type Status = "active" | "fading" | "archived";
 
@@ -371,6 +373,12 @@ export default function FixationsPage() {
   const [autoOpen] = useState(() =>
     typeof window !== "undefined" && new URLSearchParams(window.location.search).get("new") === "1"
   );
+  // Coming straight from onboarding — the first logged fixation gets a
+  // full-screen "first hit" celebration instead of just a toast.
+  const [welcome] = useState(() =>
+    typeof window !== "undefined" && new URLSearchParams(window.location.search).get("welcome") === "1"
+  );
+  const [celebration, setCelebration] = useState<{ name: string; xp: number; levelName: string } | null>(null);
 
   useEffect(() => {
     fetch("/api/fixations")
@@ -386,8 +394,14 @@ export default function FixationsPage() {
   }
 
   function handleAdd(fixation: Fixation, xp: number) {
+    const isFirst = fixations.length === 0;
     setFixations((prev) => [fixation, ...prev]);
-    showXp(xp);
+    // First fixation of an onboarding session → big celebration. Otherwise toast.
+    if (welcome && isFirst) {
+      setCelebration({ name: fixation.name, xp, levelName: levelForPoints(0).level.name });
+    } else {
+      showXp(xp);
+    }
   }
 
   async function handleCheckin(id: string) {
@@ -432,6 +446,16 @@ export default function FixationsPage() {
 
   return (
     <div className="min-h-screen pb-24" style={{ background: "var(--bg)" }}>
+      {/* First-hit celebration (onboarding) */}
+      {celebration && (
+        <FirstHitCelebration
+          fixationName={celebration.name}
+          xp={celebration.xp}
+          levelName={celebration.levelName}
+          onClose={() => setCelebration(null)}
+        />
+      )}
+
       {/* XP toast */}
       {xpToast !== null && (
         <div
