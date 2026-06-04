@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { OAuthButtons } from "./OAuthButtons";
 import { LogoMark } from "@/components/Logo";
-import { Check, RefreshCw, Clock, Flame, Footprints, MessageCircle, Leaf, Coffee, ArrowRight, type LucideIcon } from "lucide-react";
+import { Check, RefreshCw, Clock, Flame, Footprints, MessageCircle, Leaf, Coffee, type LucideIcon } from "lucide-react";
 
 export function Hero() {
   return (
@@ -19,59 +18,33 @@ export function Hero() {
         }}
       />
 
-      {/* ── Center column ─────────────────────────────────────────── */}
-      <div className="relative mx-auto flex max-w-[800px] flex-col items-center px-6 pt-20 text-center sm:px-10 sm:pt-24 lg:pt-32">
+      {/* ── Center column — template-style: serif headline, single button ── */}
+      <div className="relative mx-auto flex max-w-[760px] flex-col items-center px-6 pt-16 text-center sm:px-10 sm:pt-20 lg:pt-28">
 
-        {/* Eyebrow — simple bordered pill, no icon, Dreelio-style */}
-        <div
-          className="anim-fadeUp mb-8 inline-flex items-center gap-2 rounded-full px-4 py-1.5"
-          style={{ border: "1px solid rgba(97,74,68,0.18)", background: "var(--bg-elevated)" }}
-        >
-          <span
-            className="h-1.5 w-1.5 rounded-full"
-            style={{ background: "var(--accent)" }}
-          />
-          <span className="text-[13px] font-medium" style={{ color: "var(--ink-muted)" }}>
-            ADHD accountability that actually works
-          </span>
-        </div>
-
-        {/* Headline — heavy, tight, Inter-style weight */}
+        {/* Headline — serif (Fraunces), balanced, template scale */}
         <h1
-          className="anim-fadeUp delay-100 font-sans font-semibold tracking-[-0.03em] text-ink"
-          style={{ fontSize: "clamp(48px,7.5vw,88px)", lineHeight: 1.0 }}
+          className="anim-fadeUp font-display leading-[1.05] tracking-tight text-ink text-balance"
+          style={{ fontSize: "clamp(40px,6vw,68px)" }}
         >
-          Your ADHD,{" "}
-          <span className="text-game-gradient">on your side</span>
-          <br />
-          for once.
+          Your ADHD, <span className="text-game-gradient">on your side</span> for once.
         </h1>
 
-        <p className="anim-fadeUp delay-200 mt-7 max-w-[540px] text-[18px] leading-[1.65]" style={{ color: "var(--ink-muted)" }}>
+        <p className="anim-fadeUp delay-100 mt-6 max-w-[520px] text-[18px] leading-[1.6]" style={{ color: "var(--ink-muted)" }}>
           Track your hyperfixations. Earn XP only for things you actually did.
           Keep a streak that survives a bad week — no guilt, no leaderboards.
         </p>
 
-        {/* CTA row — two buttons side by side, Dreelio-style */}
-        <div className="anim-fadeUp delay-300 mt-10 flex flex-col items-center gap-4 sm:flex-row">
-          <a
-            href="/auth/signup"
-            className="press-pop inline-flex h-[52px] items-center rounded-full px-8 text-[15px] font-semibold transition-opacity hover:opacity-90"
-            style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
-          >
-            Try Hyperfix free
-          </a>
-          <a
-            href="#features"
-            className="inline-flex h-[52px] items-center gap-2 rounded-full px-6 text-[15px] font-medium transition-opacity hover:opacity-70"
-            style={{ color: "var(--ink-muted)", border: "1px solid rgba(97,74,68,0.22)", background: "var(--bg-elevated)" }}
-          >
-            See how it works <ArrowRight size={15} strokeWidth={2} />
-          </a>
-        </div>
+        {/* Single primary button, template-style */}
+        <a
+          href="/auth/signup"
+          className="anim-fadeUp delay-200 press-pop mt-8 inline-flex h-[52px] items-center rounded-full px-8 text-[15px] font-semibold transition-opacity hover:opacity-90"
+          style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
+        >
+          Try Hyperfix free
+        </a>
 
         {/* Trust line */}
-        <p className="anim-fadeUp delay-400 mt-6 text-[13px]" style={{ color: "var(--ink-faint)" }}>
+        <p className="anim-fadeUp delay-300 mt-5 text-[13px]" style={{ color: "var(--ink-faint)" }}>
           Free to start · no credit card · live in 60 seconds
         </p>
       </div>
