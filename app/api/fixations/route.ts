@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 import { awardPoints } from "@/lib/gamification/award";
 import { POINT_VALUES } from "@/lib/gamification/levels";
+import { completeQuestByKind } from "@/lib/quests/complete";
 
 export async function GET() {
   const supabase = await createClient();
@@ -50,6 +51,7 @@ export async function POST(req: Request) {
   // Award XP for logging a new fixation. awardPoints handles the Pro
   // multiplier, idempotency, and achievement evaluation — and never throws.
   await awardPoints(user.id, "fixation_log", data.id, `Logged fixation: ${body.name.trim()}`);
+  await completeQuestByKind(user.id, "log_fixation");
 
   return NextResponse.json({ fixation: data, xp: POINT_VALUES.fixation_log });
 }

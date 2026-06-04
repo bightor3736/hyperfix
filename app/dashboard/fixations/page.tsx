@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { DeepDiveDeck } from "@/components/game/DeepDiveDeck";
+import { BrainBurst } from "@/components/game/BrainBurst";
 import { FirstHitCelebration } from "@/components/game/FirstHitCelebration";
 import { levelForPoints } from "@/lib/gamification/levels";
 
@@ -86,6 +87,7 @@ function FixationCard({
 }) {
   const [open, setOpen] = useState(false);
   const [deepOpen, setDeepOpen] = useState(false);
+  const [burstOpen, setBurstOpen] = useState(false);
   const [loading, setLoading] = useState<string | null>(null);
   const days = daysSince(fix.started_at);
 
@@ -230,8 +232,8 @@ function FixationCard({
         </div>
       )}
 
-      {/* Deep dive toggle */}
-      <div className="px-4 pt-3 pb-4">
+      {/* Deep dive + Brain burst toggles */}
+      <div className="px-4 pt-3 pb-4 space-y-2.5">
         <button
           onClick={() => setDeepOpen((d) => !d)}
           className="press-pop w-full inline-flex items-center gap-2 px-3 py-2.5 rounded-xl font-sans text-[12px] font-medium transition-all"
@@ -246,8 +248,27 @@ function FixationCard({
         </button>
 
         {deepOpen && (
-          <div className="mt-3">
+          <div className="pb-1">
             <DeepDiveDeck fixationId={fix.id} onXp={onXp} />
+          </div>
+        )}
+
+        <button
+          onClick={() => setBurstOpen((b) => !b)}
+          className="press-pop w-full inline-flex items-center gap-2 px-3 py-2.5 rounded-xl font-sans text-[12px] font-medium transition-all"
+          style={{
+            background: burstOpen ? "var(--xp-soft)" : "transparent",
+            color: burstOpen ? "var(--xp)" : "var(--ink-muted)",
+            border: `1px solid ${burstOpen ? "var(--xp)" : "var(--line)"}`,
+          }}
+        >
+          <Zap size={13} strokeWidth={2.5} />
+          {burstOpen ? "Hide brain burst" : "Brain burst — dump a thought"}
+        </button>
+
+        {burstOpen && (
+          <div className="pb-1">
+            <BrainBurst fixationId={fix.id} onXp={onXp} />
           </div>
         )}
       </div>

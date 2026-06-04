@@ -4,7 +4,6 @@ import { ToastProvider } from "@/components/ToastProvider";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { MobileNavBar } from "./MobileNavBar";
-import { QuickCapture } from "@/components/QuickCapture";
 
 export default async function DashboardLayout({
   children,
@@ -100,7 +99,6 @@ export default async function DashboardLayout({
 
         <PWAInstallPrompt />
         <ServiceWorkerRegister />
-        <QuickCapture />
 
         <MobileNavBar username={profile?.username ?? null} />
       </div>

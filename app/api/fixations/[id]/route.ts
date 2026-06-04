@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 import { awardPoints } from "@/lib/gamification/award";
 import { POINT_VALUES } from "@/lib/gamification/levels";
+import { completeQuestByKind } from "@/lib/quests/complete";
 
 export async function PATCH(
   req: Request,
@@ -56,6 +57,7 @@ export async function PATCH(
     const today = new Date().toISOString().split("T")[0];
     xp = POINT_VALUES.fixation_checkin;
     await awardPoints(user.id, "fixation_checkin", `${id}_${today}`, `Check-in: ${existing.name}`);
+    await completeQuestByKind(user.id, "fixation_checkin");
   } else if (body.status === "archived" && existing.status !== "archived") {
     xp = POINT_VALUES.fixation_complete;
     await awardPoints(user.id, "fixation_complete", `${id}_complete`, `Completed fixation: ${existing.name}`);

@@ -15,7 +15,7 @@ const items = [
   },
   {
     q: "Is this just another habit tracker?",
-    a: "No. Habit trackers punish you the moment you break a chain. Hyperfix rewards showing up at all — variable XP, jackpots, streak freezes for bad days. And it doesn't care about consistency — it cares that you did something real today.",
+    a: "No. Habit trackers punish you the moment you break a chain. Hyperfix is built around what you're already obsessed with — you earn XP for logging it, going deeper on it, and following through. Streak freezes cover the bad days. It cares that you did something real, not that you were perfect.",
   },
   {
     q: "What are streak freezes?",
@@ -23,7 +23,7 @@ const items = [
   },
   {
     q: "Is it free?",
-    a: "Yes — the full core experience is free. Unlimited dopamine hits, hyperfixation log, XP, levels, streaks, quests and your stats card. Power-Up adds more streak freezes, boosted jackpot odds, and XP multipliers.",
+    a: "Yes — the full core experience is free. Unlimited hyperfixation logs, deep dives, brain bursts, XP, levels, streaks, daily quests, the focus timer and your shareable stats card. Power-Up adds more streak freezes, an XP multiplier, and premium profile themes.",
   },
   {
     q: "Will this actually help my ADHD?",

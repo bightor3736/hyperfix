@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { FollowButton, FollowButtonLoggedIn } from "@/components/FollowButton";
-import { MessageButton } from "@/components/MessageButton";
 import { ShareProfileButton } from "@/components/ShareProfileButton";
 import { resolveAccent, hexToRgba, isValidAccent, DEFAULT_ACCENT } from "@/lib/accent";
 import { levelForPoints } from "@/lib/gamification/levels";
@@ -230,7 +229,6 @@ export default async function PublicProfilePage({
                       initialCount={followerCount ?? 0}
                     />
               )}
-              {!isSelf && currentUser && <MessageButton targetUserId={typedProfile.id} />}
               {isSelf && <ShareProfileButton username={typedProfile.username ?? ""} displayName={displayName} />}
             </div>
           </div>

@@ -21,8 +21,8 @@ const LEVELS: PointsLevelTimeline[] = [
 const BADGES: UserAchievement[] = [
   { id: "a1", name: "First Hit", trigger: "metric", achievedAt: "2026-01-01" },
   { id: "a2", name: "Week Warrior", trigger: "streak", achievedAt: "2026-01-08" },
-  { id: "a3", name: "Dopamine x25", trigger: "metric", achievedAt: "2026-02-01" },
-  { id: "a4", name: "Jackpot", trigger: "metric", achievedAt: "2026-02-10" },
+  { id: "a3", name: "Deep Diver", trigger: "metric", achievedAt: "2026-02-01" },
+  { id: "a4", name: "Ten Fixations", trigger: "metric", achievedAt: "2026-02-10" },
   { id: "a5", name: "Night Owl", trigger: "metric", achievedAt: null },
   { id: "a6", name: "Centurion", trigger: "api", achievedAt: null },
 ];

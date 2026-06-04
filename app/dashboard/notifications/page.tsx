@@ -146,7 +146,7 @@ function renderNotif(n: Notif): Rendered | null {
           <span style={{ color: "var(--ink-muted)" }}> sent you a message</span>
         </>
       ),
-      href: "/dashboard/messages",
+      href: null,
     };
   }
   return null;

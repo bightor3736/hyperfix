@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { awardPoints } from "@/lib/gamification/award";
 import { POINT_VALUES } from "@/lib/gamification/levels";
 import { DEEP_DIVE_PROMPT_KEYS } from "@/lib/deepdive/prompts";
+import { completeQuestByKind } from "@/lib/quests/complete";
 
 // GET — list this user's Deep Dive answers for one fixation.
 export async function GET(
@@ -83,6 +84,7 @@ export async function POST(
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
   await awardPoints(user.id, "fixation_insight", data.id, "Deep dive insight");
+  await completeQuestByKind(user.id, "deep_dive");
 
   return NextResponse.json({ insight: data, xp: POINT_VALUES.fixation_insight, awarded: true });
 }

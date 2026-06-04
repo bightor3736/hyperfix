@@ -112,7 +112,7 @@ export function NotificationBell() {
     if (n.type === "message") {
       return {
         text: `${name} sent you a message`,
-        href: "/dashboard/messages",
+        href: null,
       };
     }
 

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { LogoMark } from "@/components/Logo";
-import { Check, RefreshCw, Clock, Flame, Footprints, MessageCircle, Leaf, Coffee, type LucideIcon } from "lucide-react";
+import { Check, Flame, Plus, Sparkles } from "lucide-react";
 
 export function Hero() {
   return (
@@ -80,7 +80,7 @@ export function Hero() {
               hyperfix.app/dashboard
             </div>
           </div>
-          <HeroDopamineDemo />
+          <HeroFixationDemo />
         </div>
       </div>
 
@@ -90,36 +90,36 @@ export function Hero() {
   );
 }
 
-const DEMO_HITS: { label: string; cat: string; icon: LucideIcon; min: number; xp: number }[] = [
-  { label: "Do 10 wall push-ups. Go.", cat: "Move", icon: Footprints, min: 2, xp: 8 },
-  { label: "Text someone you've been meaning to.", cat: "Connect", icon: MessageCircle, min: 3, xp: 8 },
-  { label: "Reset one surface. Just one.", cat: "Reset", icon: Leaf, min: 8, xp: 12 },
-  { label: "Put one song on and feel it fully.", cat: "Treat", icon: Coffee, min: 4, xp: 8 },
+const DEMO_FIX: { name: string; spark: string; intensity: number }[] = [
+  { name: "Japanese vocabulary", spark: "started with one anime at 2am", intensity: 5 },
+  { name: "Sourdough starters", spark: "named him Gerald, obviously", intensity: 3 },
+  { name: "90s skateboarding", spark: "down a YouTube rabbit hole", intensity: 4 },
+  { name: "Roman aqueducts", spark: "one Wikipedia tab became forty", intensity: 4 },
 ];
 
-function HeroDopamineDemo() {
+function HeroFixationDemo() {
   const [i, setI] = useState(0);
   const [done, setDone] = useState(false);
-  const [count, setCount] = useState(1);
+  const [xp, setXp] = useState(120);
   const [live, setLive] = useState(true);
-  const hit = DEMO_HITS[i];
+  const fix = DEMO_FIX[i];
 
   useEffect(() => {
     if (!live) return;
     const t = setTimeout(() => {
       if (done) {
         setDone(false);
-        setI((p) => (p + 1) % DEMO_HITS.length);
+        setI((p) => (p + 1) % DEMO_FIX.length);
       } else {
         setDone(true);
-        setCount((c) => (c >= 3 ? 1 : c + 1));
+        setXp((x) => x + 10);
       }
     }, done ? 1700 : 2400);
     return () => clearTimeout(t);
   }, [done, live]);
 
-  function reroll() { setLive(false); setDone(false); setI((p) => (p + 1) % DEMO_HITS.length); }
-  function complete() { setLive(false); if (done) return; setDone(true); setCount((c) => Math.min(3, c + 1)); }
+  function log() { setLive(false); if (done) return; setDone(true); setXp((x) => x + 10); }
+  function next() { setLive(false); setDone(false); setI((p) => (p + 1) % DEMO_FIX.length); }
 
   return (
     <div
@@ -132,28 +132,22 @@ function HeroDopamineDemo() {
           <div className="mb-1.5 inline-flex items-center gap-1.5">
             <LogoMark size={13} color="var(--accent)" />
             <p className="font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: "var(--accent)" }}>
-              Dopamine Menu
+              Hyperfixations
             </p>
           </div>
           <h3 className="font-sans text-[24px] font-semibold leading-tight" style={{ color: "var(--ink)" }}>
-            {done ? "That beat the scroll." : "Do this. Right now."}
+            {done ? "Logged. It's yours now." : "What are you deep in?"}
           </h3>
         </div>
         <div className="flex shrink-0 flex-col items-end">
-          <div className="flex items-center gap-1">
-            {[0, 1, 2].map((d) => (
-              <span
-                key={d}
-                className="rounded-full transition-all duration-300"
-                style={{ width: 8, height: 8, background: d < count ? "var(--accent)" : "rgba(97,74,68,0.18)" }}
-              />
-            ))}
-          </div>
-          <p className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.16em]" style={{ color: "var(--ink-faint)" }}>{count}/3 today</p>
+          <span className="font-sans text-[20px] font-bold tabular-nums leading-none" style={{ color: "var(--ink)" }}>
+            {xp.toLocaleString()}
+          </span>
+          <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.16em]" style={{ color: "var(--ink-faint)" }}>total XP</p>
         </div>
       </div>
 
-      {/* activity card */}
+      {/* fixation card */}
       <div
         className="mb-4 rounded-[16px] p-5 transition-colors duration-300"
         style={{
@@ -166,47 +160,36 @@ function HeroDopamineDemo() {
             className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em]"
             style={{ background: "var(--bg-elevated)", border: "1px solid rgba(97,74,68,0.14)", color: "var(--ink-muted)" }}
           >
-            <hit.icon size={11} strokeWidth={2} />
-            {hit.cat}
+            {done ? <Check size={11} strokeWidth={2.5} /> : <Sparkles size={11} strokeWidth={2} />}
+            {done ? "Active · day 1" : "New fixation"}
           </span>
-          <div className="flex items-center gap-2.5">
-            <span className="inline-flex items-center gap-1 font-mono text-[10px]" style={{ color: "var(--ink-faint)" }}>
-              <Clock size={11} strokeWidth={1.5} /> {hit.min} min
-            </span>
-            <span className="font-mono text-[13px] font-semibold tabular-nums" style={{ color: "var(--accent)" }}>
-              +{hit.xp} XP
-            </span>
+          <div className="flex items-center gap-1">
+            {[1, 2, 3, 4, 5].map((b) => (
+              <span key={b} className="h-4 w-1.5 rounded-full" style={{ background: b <= fix.intensity ? "var(--accent)" : "rgba(97,74,68,0.16)" }} />
+            ))}
           </div>
         </div>
-        <p className="font-sans text-[20px] font-semibold leading-snug" style={{ color: "var(--ink)" }}>{hit.label}</p>
+        <p className="font-sans text-[20px] font-semibold leading-snug" style={{ color: "var(--ink)" }}>{fix.name}</p>
+        <p className="mt-1 font-sans text-[13px]" style={{ color: "var(--ink-muted)" }}>{fix.spark}</p>
       </div>
 
       {/* actions */}
       {done ? (
         <button
-          onClick={reroll}
+          onClick={next}
           className="press-pop flex w-full items-center justify-center gap-2 rounded-[16px] py-3.5 font-sans text-[15px] font-semibold"
           style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
         >
-          <RefreshCw size={16} strokeWidth={2.5} /> Give me another
+          <Plus size={16} strokeWidth={2.5} /> Log another
         </button>
       ) : (
-        <div className="flex items-center gap-3">
-          <button
-            onClick={complete}
-            className="press-pop flex flex-1 items-center justify-center gap-2 rounded-[16px] py-3.5 font-sans text-[15px] font-semibold"
-            style={{ background: "var(--invert-bg)", color: "var(--invert-ink)" }}
-          >
-            <Check size={18} strokeWidth={2.5} /> I did it
-          </button>
-          <button
-            onClick={reroll}
-            className="press-pop flex items-center justify-center gap-2 rounded-[16px] px-5 py-3.5 font-sans text-[14px] font-medium"
-            style={{ background: "var(--bg-soft)", color: "var(--ink-muted)", border: "1px solid rgba(97,74,68,0.18)" }}
-          >
-            <RefreshCw size={15} strokeWidth={1.5} /> Reroll
-          </button>
-        </div>
+        <button
+          onClick={log}
+          className="press-pop flex w-full items-center justify-center gap-2 rounded-[16px] py-3.5 font-sans text-[15px] font-semibold"
+          style={{ background: "var(--invert-bg)", color: "var(--invert-ink)" }}
+        >
+          <Check size={18} strokeWidth={2.5} /> Log it — +10 XP
+        </button>
       )}
 
       {/* footer */}
@@ -214,7 +197,7 @@ function HeroDopamineDemo() {
         <span className="inline-flex items-center gap-1.5 font-mono text-[11px]" style={{ color: "var(--flame)" }}>
           <Flame size={13} strokeWidth={2} fill="var(--flame)" /> 14-day streak
         </span>
-        <span className="font-mono text-[11px]" style={{ color: "var(--ink-faint)" }}>Level 4 · Hooked</span>
+        <span className="font-mono text-[11px]" style={{ color: "var(--ink-faint)" }}>Level 3 · Invested</span>
       </div>
     </div>
   );

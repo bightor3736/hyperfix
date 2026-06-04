@@ -7,7 +7,7 @@ import { RevealSection } from "@/components/RevealSection";
 export const metadata: Metadata = {
   title: "Hyperfix Pricing — free forever, Pro for the obsessed",
   description:
-    "Hyperfix is free to log your obsessions, share cards, and build your graveyard. Pro unlocks unlimited fixes, custom themes, analytics, and more. Cancel anytime.",
+    "Hyperfix is free to log your hyperfixations, go deep on them, and share your stats card. Pro unlocks more streak freezes, an XP multiplier, custom themes, and analytics. Cancel anytime.",
   alternates: { canonical: "https://hyperfix.app/pricing" },
   openGraph: {
     images: [
@@ -29,13 +29,13 @@ const NOISE_URL =
   "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 const freeFeatures = [
-  "Up to 3 active fixes",
-  "Automatic day counter",
-  "Intensity meter (1–10)",
-  "Shareable fix cards (9:16, free forever)",
-  "Public profile + banner",
-  "Daily check-in streak",
-  "The Graveyard",
+  "Unlimited hyperfixation logs",
+  "Deep dives + brain bursts (earn XP)",
+  "Intensity meter & day counter",
+  "Shareable stats card (free forever)",
+  "Public profile + custom accent",
+  "Daily quests, XP & streaks",
+  "Focus timer + proof of action",
   "Hyperfix Wrapped (annual)",
 ];
 
@@ -70,7 +70,7 @@ const faqs = [
   { q: "Is there a free trial?", a: "The Free plan is the trial — it's unlimited in time, just capped in features. When you're ready for unlimited fixes and the full toolkit, upgrade to Pro." },
   { q: "How does billing work?", a: "Pro is billed monthly via Stripe. You can update your payment method or cancel at any time from your account settings. We email a receipt for every charge." },
   { q: "Do you sell my data?", a: "No. Never. We don't train AI on your obsessions. Your hyperfixation history is yours — encrypted in our database, not for sale." },
-  { q: "What happens if I cancel Pro?", a: "You keep everything. Your graveyard, history, closed fixes — all stays. You lose access to Pro-only features going forward, but your data is yours." },
+  { q: "What happens if I cancel Pro?", a: "You keep everything. Your fixations, deep dives, history and XP — all stays. You lose access to Pro-only features going forward, but your data is yours." },
 ];
 
 function GrainOverlay({ opacity = 0.22 }: { opacity?: number }) {

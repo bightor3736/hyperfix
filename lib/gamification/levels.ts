@@ -8,6 +8,8 @@ export const POINT_VALUES = {
   fixation_checkin: 5,  // daily check-in on an active fixation
   fixation_complete: 15, // archived / completed a fixation
   fixation_insight: 8,  // answered a Deep Dive reflection prompt about a fixation
+  brain_burst: 4,       // quick thought captured about a fixation
+  focus_session: 12,    // completed a focus-timer session
   user_creation: 50,
 } as const;
 
@@ -23,6 +25,8 @@ export const KIND_LABELS: Record<string, string> = {
   fixation_checkin: "Fixation check-in",
   fixation_complete: "Fixation completed",
   fixation_insight: "Deep dive insight",
+  brain_burst: "Brain burst",
+  focus_session: "Focus session",
   user_creation: "Joined Hyperfix",
   achievement: "Achievement unlocked",
 };

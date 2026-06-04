@@ -1,13 +1,13 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
 
+// Every quest is a hyperfixation action — the daily loop, gamified.
 export type QuestKind =
-  | "check_in"
-  | "brain_dump"
-  | "focus_session"
-  | "mood_log"
-  | "med_log"
-  | "rsd_entry";
+  | "log_fixation"
+  | "fixation_checkin"
+  | "deep_dive"
+  | "brain_burst"
+  | "focus_session";
 
 export type Quest = {
   id: string;
@@ -20,53 +20,47 @@ export type Quest = {
 };
 
 const QUEST_DEFS: Record<QuestKind, { title: string; description: string; xp_reward: number; href: string }> = {
-  check_in: {
-    title: "Check in on a project",
-    description: "Log today's progress on any active project.",
+  log_fixation: {
+    title: "Log a hyperfixation",
+    description: "What's pulling you in right now? Add it to your list.",
     xp_reward: 10,
-    href: "/dashboard",
+    href: "/dashboard/new",
   },
-  brain_dump: {
-    title: "Dump 3 thoughts",
-    description: "Clear your head — add at least one thing to your brain dump.",
+  fixation_checkin: {
+    title: "Check in on a fixation",
+    description: "Still deep in it? Tap to keep the flame alive.",
     xp_reward: 8,
-    href: "/dashboard/brain-dump",
+    href: "/dashboard/fixations",
+  },
+  deep_dive: {
+    title: "Do a deep dive",
+    description: "Answer one reflection prompt about a fixation.",
+    xp_reward: 8,
+    href: "/dashboard/fixations",
+  },
+  brain_burst: {
+    title: "Brain-burst a thought",
+    description: "Get one idea about a fixation out of your head.",
+    xp_reward: 6,
+    href: "/dashboard/fixations",
   },
   focus_session: {
     title: "Do a focus session",
-    description: "Complete a 25-min focus timer. Silence everything else.",
+    description: "Run one focus timer on your fixation. Lock in.",
     xp_reward: 15,
     href: "/dashboard/timer",
   },
-  mood_log: {
-    title: "Log your mood",
-    description: "Check in on how you're feeling. Takes 10 seconds.",
-    xp_reward: 8,
-    href: "/dashboard/mood",
-  },
-  med_log: {
-    title: "Log your meds",
-    description: "Track today's medication. Keep the streak going.",
-    xp_reward: 5,
-    href: "/dashboard/meds",
-  },
-  rsd_entry: {
-    title: "Write an RSD entry",
-    description: "Something weighing on you? Process it here.",
-    xp_reward: 10,
-    href: "/dashboard/rsd",
-  },
 };
 
-// Deterministic weekly rotation — 3 quests per day, varies by day-of-week
+// Deterministic weekly rotation — 3 quests per day, varies by day-of-week.
 const WEEKLY_ROTATION: QuestKind[][] = [
-  ["check_in", "mood_log", "focus_session"],       // Sunday
-  ["check_in", "brain_dump", "focus_session"],     // Monday
-  ["mood_log", "med_log", "check_in"],             // Tuesday
-  ["focus_session", "rsd_entry", "mood_log"],      // Wednesday
-  ["check_in", "brain_dump", "med_log"],           // Thursday
-  ["focus_session", "mood_log", "check_in"],       // Friday
-  ["brain_dump", "rsd_entry", "focus_session"],    // Saturday
+  ["fixation_checkin", "deep_dive", "focus_session"],   // Sunday
+  ["log_fixation", "brain_burst", "focus_session"],     // Monday
+  ["fixation_checkin", "deep_dive", "brain_burst"],     // Tuesday
+  ["focus_session", "deep_dive", "fixation_checkin"],   // Wednesday
+  ["log_fixation", "brain_burst", "fixation_checkin"],  // Thursday
+  ["focus_session", "deep_dive", "fixation_checkin"],   // Friday
+  ["brain_burst", "deep_dive", "focus_session"],        // Saturday
 ];
 
 export async function getDailyQuests(userId: string): Promise<Quest[]> {

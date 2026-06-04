@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, Dice5, Clock, Timer, Flame, Snowflake, Zap, Trophy, Check } from "lucide-react";
+import { BookOpen, Clock, Timer, Flame, Snowflake, Sparkles, Check } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 /**
@@ -46,9 +46,9 @@ export function HowItWorks() {
         {/* Step 2 — text left */}
         <Step
           n="2"
-          title="Get a real dopamine hit"
-          body="Bored or understimulated? Tap once. Hyperfix deals a real activity matched to your energy — move, create, connect, reset. Don't like it? Reroll. Roughly 1 in 8 pays a 3× jackpot."
-          card={<DopamineCard />}
+          title="Go deep, earn XP"
+          body="Answer a quick prompt about your fixation — what pulled you in, the thing that surprised you, the next rabbit hole. Every deep dive earns XP and builds a real record of your obsession. Brain bursts let you dump a stray thought before it's gone."
+          card={<DeepDiveCard />}
         />
 
         {/* Step 3 — card left */}
@@ -174,7 +174,7 @@ function FixationCard() {
   );
 }
 
-function DopamineCard() {
+function DeepDiveCard() {
   return (
     <CardShell>
       <div className="mb-4 flex items-center justify-between">
@@ -182,16 +182,19 @@ function DopamineCard() {
           className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-ink-muted"
           style={{ background: "var(--bg-soft)", border: "1px solid var(--line)" }}
         >
-          <Dice5 size={11} strokeWidth={2} /> Move
+          <Sparkles size={11} strokeWidth={2} /> Deep dive
         </span>
         <span className="font-mono text-[12px] font-semibold tabular-nums" style={{ color: "var(--xp)" }}>+8 XP</span>
       </div>
-      <p className="mb-4 font-display text-[22px] leading-snug text-ink">Step outside for 90 seconds. Real air.</p>
+      <p className="mb-2 font-display text-[22px] leading-snug text-ink">What pulled you in?</p>
+      <div className="mb-4 rounded-[var(--radius-lg)] px-3 py-2.5 font-sans text-[13px] text-ink-muted" style={{ background: "var(--bg-soft)", border: "1px solid var(--line)" }}>
+        It started with one video at 2am and now I&apos;ve read every wiki page…
+      </div>
       <button
         className="press-pop flex w-full items-center justify-center gap-2 rounded-[var(--radius-lg)] py-3 font-sans text-[14px] font-bold"
         style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
       >
-        <Zap size={15} strokeWidth={2.5} fill="var(--accent-ink)" /> Give me a hit
+        <Check size={15} strokeWidth={2.5} /> Save — +8 XP
       </button>
     </CardShell>
   );

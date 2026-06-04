@@ -7,31 +7,29 @@ import { Reveal } from "./Reveal";
 type Billing = "monthly" | "yearly";
 
 const FREE_FEATURES = [
-  "Unlimited dopamine rolls",
-  "Hyperfixation log + proof of action",
+  "Unlimited hyperfixation logs",
+  "Deep dives + brain bursts (earn XP)",
   "Daily quests, XP & 7 levels",
   "1 streak freeze a month",
-  "Focus rooms — body doubling",
+  "Focus timer + proof of action",
   "Share card + custom accent colour",
-  "Jackpot rewards",
 ];
 
 const PRO_FEATURES = [
   "5 streak freezes a month",
-  "Boosted jackpot odds",
-  "XP multipliers & boosts",
+  "XP multiplier, always on",
   "Premium profile themes",
   "Full stats, history & insights",
   "Priority access to new features",
 ];
 
 const comparison: { label: string; free: string | boolean; pro: string | boolean }[] = [
-  { label: "Dopamine rolls", free: "Unlimited", pro: "Unlimited" },
+  { label: "Hyperfixation logs", free: "Unlimited", pro: "Unlimited" },
+  { label: "Deep dives & brain bursts", free: true, pro: true },
   { label: "XP, levels & daily quests", free: true, pro: true },
   { label: "Streak freezes / month", free: "1", pro: "5" },
-  { label: "Focus rooms", free: true, pro: true },
-  { label: "Jackpot odds", free: "Base", pro: "Boosted" },
-  { label: "XP multipliers & boosts", free: false, pro: true },
+  { label: "Focus timer", free: true, pro: true },
+  { label: "XP multiplier", free: false, pro: true },
   { label: "Share card + custom accent", free: true, pro: true },
   { label: "Premium profile themes", free: false, pro: true },
   { label: "Full stats & insights", free: false, pro: true },

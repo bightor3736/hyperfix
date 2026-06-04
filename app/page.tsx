@@ -12,19 +12,19 @@ import { StickyMobileCTA } from "@/components/landing/StickyMobileCTA";
 import { SourceCapture } from "@/components/SourceCapture";
 
 export const metadata: Metadata = {
-  title: "Hyperfix — ADHD accountability that actually works",
+  title: "Hyperfix — the app for your hyperfixations",
   description:
-    "Track your hyperfixations. Earn real XP. Beat task paralysis. A warm, forgiving ADHD accountability app with game mechanics, streak freezes, focus rooms, and a profile worth showing off — free to start.",
+    "Track your hyperfixations and earn real XP for logging, learning about, and following through on what you're obsessed with. A warm, forgiving ADHD app with game mechanics, streak freezes, and a profile worth showing off — free to start.",
   keywords: [
-    "ADHD app", "hyperfixation tracker", "ADHD accountability", "ADHD dopamine",
-    "ADHD focus app", "ADHD productivity", "hyperfixation app", "understimulation ADHD",
-    "neurodivergent app", "ADHD game", "anti doomscroll", "body doubling app",
-    "focus room ADHD", "ADHD streak app", "ADHD task paralysis", "dopamine menu ADHD",
+    "ADHD app", "hyperfixation tracker", "hyperfixation app", "track hyperfixations",
+    "ADHD focus app", "ADHD productivity", "ADHD dopamine", "understimulation ADHD",
+    "neurodivergent app", "ADHD game", "special interest tracker", "ADHD obsession",
+    "ADHD streak app", "hyperfixation journal", "ADHD hobby tracker",
   ],
   alternates: { canonical: "https://hyperfix.app" },
   openGraph: {
-    title: "Hyperfix — ADHD accountability that actually works",
-    description: "Track your hyperfixations. Earn XP for real actions. Beat task paralysis. Focus rooms, streak freezes, and a profile worth showing off — no leaderboards, just your own journey.",
+    title: "Hyperfix — the app for your hyperfixations",
+    description: "Track your hyperfixations. Earn XP for logging, learning about, and following through on what you're obsessed with. Streak freezes and a profile worth showing off — your own journey, no leaderboards.",
     url: "https://hyperfix.app",
     type: "website",
   },
@@ -57,7 +57,7 @@ const faqSchema = {
     {
       "@type": "Question",
       name: "Is it free?",
-      acceptedAnswer: { "@type": "Answer", text: "Yes — the full core experience is free. Unlimited dopamine hits, hyperfixation log, XP, levels, streaks, quests, focus rooms and your stats card. Power-Up adds more streak freezes, boosted jackpot odds, XP multipliers, and premium profile themes." },
+      acceptedAnswer: { "@type": "Answer", text: "Yes — the full core experience is free. Unlimited hyperfixation logs, deep dives, brain bursts, XP, levels, streaks, daily quests, the focus timer and your shareable stats card. Power-Up adds more streak freezes, an XP multiplier, and premium profile themes." },
     },
     {
       "@type": "Question",

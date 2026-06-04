@@ -2,16 +2,15 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Check, Loader2, ChevronRight, Inbox, Timer, Activity, Pill, BookOpen, LayoutDashboard, Trophy } from "lucide-react";
+import { Check, Loader2, ChevronRight, Plus, Flame, Timer, Sparkles, Zap, Trophy } from "lucide-react";
 import type { Quest, QuestKind } from "@/lib/quests/generate";
 
 const KIND_ICONS: Record<QuestKind, React.ReactNode> = {
-  check_in: <LayoutDashboard size={15} strokeWidth={1.5} />,
-  brain_dump: <Inbox size={15} strokeWidth={1.5} />,
+  log_fixation: <Plus size={15} strokeWidth={1.5} />,
+  fixation_checkin: <Flame size={15} strokeWidth={1.5} />,
+  deep_dive: <Sparkles size={15} strokeWidth={1.5} />,
+  brain_burst: <Zap size={15} strokeWidth={1.5} />,
   focus_session: <Timer size={15} strokeWidth={1.5} />,
-  mood_log: <Activity size={15} strokeWidth={1.5} />,
-  med_log: <Pill size={15} strokeWidth={1.5} />,
-  rsd_entry: <BookOpen size={15} strokeWidth={1.5} />,
 };
 
 export function DailyQuestsClient({ initialQuests }: { initialQuests: Quest[] }) {
