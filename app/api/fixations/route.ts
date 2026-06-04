@@ -1,5 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
+import { awardPoints } from "@/lib/gamification/award";
+import { POINT_VALUES } from "@/lib/gamification/levels";
 
 export async function GET() {
   const supabase = await createClient();
@@ -45,18 +47,9 @@ export async function POST(req: Request) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-  // Award XP for logging a new fixation
-  try {
-    await supabase.rpc("award_points", {
-      p_user_id: user.id,
-      p_kind: "fixation_log",
-      p_points: 10,
-      p_ref_id: data.id,
-      p_description: `Logged fixation: ${body.name.trim()}`,
-    });
-  } catch {
-    // Non-fatal — fixation was created, XP award is best-effort
-  }
+  // Award XP for logging a new fixation. awardPoints handles the Pro
+  // multiplier, idempotency, and achievement evaluation — and never throws.
+  await awardPoints(user.id, "fixation_log", data.id, `Logged fixation: ${body.name.trim()}`);
 
-  return NextResponse.json({ fixation: data, xp: 10 });
+  return NextResponse.json({ fixation: data, xp: POINT_VALUES.fixation_log });
 }

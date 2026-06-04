@@ -12,7 +12,9 @@ import {
   ChevronDown,
   ChevronUp,
   RotateCcw,
+  Sparkles,
 } from "lucide-react";
+import { DeepDiveDeck } from "@/components/game/DeepDiveDeck";
 
 type Status = "active" | "fading" | "archived";
 
@@ -72,13 +74,16 @@ function FixationCard({
   onCheckin,
   onStatusChange,
   onDelete,
+  onXp,
 }: {
   fix: Fixation;
   onCheckin: (id: string) => Promise<void>;
   onStatusChange: (id: string, status: Status) => Promise<void>;
   onDelete: (id: string) => Promise<void>;
+  onXp: (xp: number) => void;
 }) {
   const [open, setOpen] = useState(false);
+  const [deepOpen, setDeepOpen] = useState(false);
   const [loading, setLoading] = useState<string | null>(null);
   const days = daysSince(fix.started_at);
 
@@ -127,11 +132,13 @@ function FixationCard({
         </div>
       </button>
 
-      {/* Expanded actions */}
-      {open && fix.status !== "archived" && (
+      {/* Expanded area */}
+      {open && (
+      <div style={{ borderTop: "1px solid var(--line)" }}>
+      {fix.status !== "archived" && (
         <div
-          className="px-4 pb-4 flex flex-wrap items-center gap-2"
-          style={{ borderTop: "1px solid var(--line)", paddingTop: 12 }}
+          className="px-4 flex flex-wrap items-center gap-2"
+          style={{ paddingTop: 12 }}
         >
           <button
             onClick={() => act(() => onCheckin(fix.id), "checkin")}
@@ -219,6 +226,30 @@ function FixationCard({
             )}
           </button>
         </div>
+      )}
+
+      {/* Deep dive toggle */}
+      <div className="px-4 pt-3 pb-4">
+        <button
+          onClick={() => setDeepOpen((d) => !d)}
+          className="press-pop w-full inline-flex items-center gap-2 px-3 py-2.5 rounded-xl font-sans text-[12px] font-medium transition-all"
+          style={{
+            background: deepOpen ? "var(--accent-soft)" : "transparent",
+            color: deepOpen ? "var(--accent)" : "var(--ink-muted)",
+            border: `1px solid ${deepOpen ? "var(--accent)" : "var(--line)"}`,
+          }}
+        >
+          <Sparkles size={13} strokeWidth={2.5} />
+          {deepOpen ? "Hide deep dive" : "Deep dive — learn about it, earn XP"}
+        </button>
+
+        {deepOpen && (
+          <div className="mt-3">
+            <DeepDiveDeck fixationId={fix.id} onXp={onXp} />
+          </div>
+        )}
+      </div>
+      </div>
       )}
     </div>
   );
@@ -519,6 +550,7 @@ export default function FixationsPage() {
                 onCheckin={handleCheckin}
                 onStatusChange={handleStatusChange}
                 onDelete={handleDelete}
+                onXp={showXp}
               />
             ))}
           </div>

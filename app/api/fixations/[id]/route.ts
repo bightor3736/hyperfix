@@ -1,5 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
+import { awardPoints } from "@/lib/gamification/award";
+import { POINT_VALUES } from "@/lib/gamification/levels";
 
 export async function PATCH(
   req: Request,
@@ -46,35 +48,17 @@ export async function PATCH(
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-  // Award XP for daily check-in or archiving
+  // Award XP for daily check-in or archiving. awardPoints is idempotent on
+  // (user, kind, ref) — so a same-day check-in won't double-pay — and applies
+  // the Pro multiplier + achievement evaluation.
   let xp = 0;
   if (body.checkin) {
-    xp = 5;
-    try {
-      const today = new Date().toISOString().split("T")[0];
-      await supabase.rpc("award_points", {
-        p_user_id: user.id,
-        p_kind: "fixation_checkin",
-        p_points: xp,
-        p_ref_id: `${id}_${today}`,
-        p_description: `Check-in: ${existing.name}`,
-      });
-    } catch {
-      xp = 0;
-    }
+    const today = new Date().toISOString().split("T")[0];
+    xp = POINT_VALUES.fixation_checkin;
+    await awardPoints(user.id, "fixation_checkin", `${id}_${today}`, `Check-in: ${existing.name}`);
   } else if (body.status === "archived" && existing.status !== "archived") {
-    xp = 15;
-    try {
-      await supabase.rpc("award_points", {
-        p_user_id: user.id,
-        p_kind: "fixation_complete",
-        p_points: xp,
-        p_ref_id: `${id}_complete`,
-        p_description: `Completed fixation: ${existing.name}`,
-      });
-    } catch {
-      xp = 0;
-    }
+    xp = POINT_VALUES.fixation_complete;
+    await awardPoints(user.id, "fixation_complete", `${id}_complete`, `Completed fixation: ${existing.name}`);
   }
 
   return NextResponse.json({ fixation: data, xp });
