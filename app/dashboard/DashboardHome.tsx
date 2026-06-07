@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Flame, Trophy, Bell, Plus, BookOpen, Sparkles, Timer, type LucideIcon } from "lucide-react";
 import { DailyQuestsClient } from "@/components/DailyQuestsClient";
+import { JustStart } from "@/components/start/JustStart";
 import type { Quest } from "@/lib/quests/generate";
 
 export type DashboardHomeProps = {
@@ -132,6 +133,11 @@ export function DashboardHome({
 
       {/* ── CONTENT ───────────────────────────────────────────────── */}
       <div className="mx-auto anim-fadeUp pb-28" style={{ maxWidth: 640, padding: "0 16px", animationDelay: "60ms" }}>
+
+        {/* The painkiller: get over the starting line on a task you're avoiding */}
+        <JustStart />
+
+        <div style={{ height: 16 }} />
 
         {/* Quick actions */}
         <div className="grid grid-cols-4 gap-2.5">
