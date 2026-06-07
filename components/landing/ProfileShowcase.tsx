@@ -29,10 +29,13 @@ const BADGES: UserAchievement[] = [
 
 function Stat({ icon, label, value, color }: { icon: React.ReactNode; label: string; value: string; color: string }) {
   return (
-    <div className="flex flex-col items-center gap-1 rounded-2xl px-4 py-3" style={{ background: "var(--bg)", border: "1px solid var(--line)" }}>
+    <div
+      className="flex flex-col items-center gap-1 px-4 py-3"
+      style={{ background: "var(--bg)", border: "2.5px solid var(--ink)", borderRadius: 6, boxShadow: "3px 3px 0 0 var(--ink)" }}
+    >
       <span style={{ color }}>{icon}</span>
-      <span className="font-display text-[24px] leading-none text-ink tabular-nums">{value}</span>
-      <span className="font-mono text-[9px] uppercase tracking-widest text-ink-faint">{label}</span>
+      <span className="text-[26px] font-bold leading-none text-ink tabular-nums" style={{ letterSpacing: "-0.03em" }}>{value}</span>
+      <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-ink-faint">{label}</span>
     </div>
   );
 }
@@ -43,14 +46,22 @@ export function ProfileShowcase() {
       <div className="mx-auto max-w-[1100px] px-6 py-24 sm:px-10 sm:py-28">
         <Reveal>
           <div className="max-w-[600px] mb-14">
-            <span className="inline-block rounded-full px-4 py-1.5 mb-5 font-mono text-[11px] uppercase tracking-widest text-ink-muted" style={{ border: "1px solid var(--line)" }}>
+            <span
+              className="brutal-tag mb-5"
+              style={{ background: "var(--lime)", color: "var(--ink)" }}
+            >
               Your player card
             </span>
-            <h2 className="font-display leading-[1.04] tracking-tight" style={{ fontSize: "clamp(32px,5vw,48px)" }}>
-              <span className="text-ink">A profile worth </span>
-              <span className="text-game-gradient">showing off.</span>
+            <h2 className="leading-[0.98] text-ink" style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 700, letterSpacing: "-0.03em" }}>
+              A profile worth{" "}
+              <span
+                className="inline-block px-2"
+                style={{ background: "var(--xp)", color: "#fff", border: "2.5px solid var(--ink)", boxShadow: "4px 4px 0 0 var(--ink)", transform: "rotate(-1.5deg)" }}
+              >
+                showing off.
+              </span>
             </h2>
-            <p className="mt-4 text-[15px] leading-[1.6] text-ink-muted">
+            <p className="mt-6 text-[17px] font-medium leading-[1.55] text-ink-muted">
               Your level, streak, XP and unlocked badges, all in one card you can share. Then make it
               unmistakably yours — themes, accent colour, a live status, and every link you&apos;ve got.
             </p>
@@ -60,50 +71,59 @@ export function ProfileShowcase() {
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_1fr]">
           {/* Player card */}
           <Reveal>
-            <div className="rounded-[var(--radius-xl)] p-6 sm:p-8 anim-neon" style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}>
+            <div
+              className="brutal-hover p-6 sm:p-8"
+              style={{ background: "var(--bg-elevated)", border: "3.5px solid var(--ink)", borderRadius: 8, boxShadow: "10px 10px 0 0 var(--ink)" }}
+            >
               {/* header */}
               <div className="flex items-center gap-4">
                 <div
-                  className="flex h-16 w-16 items-center justify-center rounded-2xl font-display text-[26px]"
-                  style={{ background: "var(--energy)", color: "var(--accent-ink)" }}
+                  className="flex h-16 w-16 shrink-0 items-center justify-center text-[28px] font-bold"
+                  style={{ background: "var(--yellow)", color: "var(--ink)", border: "2.5px solid var(--ink)", borderRadius: 6, boxShadow: "3px 3px 0 0 var(--ink)", letterSpacing: "-0.03em" }}
                 >
                   M
                 </div>
                 <div className="min-w-0">
-                  <p className="font-display text-[22px] leading-tight text-ink truncate">@maya</p>
-                  <span className="inline-flex items-center gap-1.5 mt-1 px-2.5 py-1 rounded-full font-mono text-[11px]" style={{ background: "var(--xp-soft)", color: "var(--xp)" }}>
-                    <Zap size={12} strokeWidth={2.5} fill="currentColor" /> Level 4 · Hooked
+                  <p className="text-[22px] font-bold leading-tight text-ink truncate" style={{ letterSpacing: "-0.02em" }}>@maya</p>
+                  <span
+                    className="mt-1.5 inline-flex items-center gap-1.5 px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider"
+                    style={{ background: "var(--xp)", color: "#fff", border: "2px solid var(--ink)", borderRadius: 999 }}
+                  >
+                    <Zap size={12} strokeWidth={3} fill="currentColor" /> Level 4 · Hooked
                   </span>
                 </div>
                 <button
-                  className="press-pop ml-auto inline-flex items-center gap-1.5 px-3 py-2 rounded-full font-sans text-[12px] font-medium"
-                  style={{ background: "var(--energy-soft)", color: "var(--energy)", border: "1px solid var(--energy)" }}
+                  className="brutal-btn ml-auto shrink-0 px-3.5 py-2 text-[12px]"
+                  style={{ background: "var(--blue)", color: "#fff" }}
                 >
-                  <Share2 size={13} strokeWidth={2} /> Share
+                  <Share2 size={13} strokeWidth={3} /> Share
                 </button>
               </div>
 
               {/* XP bar */}
-              <div className="mt-6">
-                <div className="flex items-center justify-between font-mono text-[11px] mb-2">
+              <div className="mt-7">
+                <div className="mb-2 flex items-center justify-between font-mono text-[11px] font-bold uppercase tracking-wider">
                   <span className="text-ink-faint">520 / 900 XP</span>
                   <span style={{ color: "var(--xp)" }}>next: Unwell</span>
                 </div>
-                <div className="h-3 rounded-full overflow-hidden" style={{ background: "var(--line)" }}>
-                  <div className="h-full rounded-full anim-shimmer" style={{ width: "62%", background: "linear-gradient(90deg, var(--accent), var(--xp))" }} />
+                <div
+                  className="h-5 overflow-hidden"
+                  style={{ background: "var(--bg)", border: "2.5px solid var(--ink)", borderRadius: 6 }}
+                >
+                  <div className="h-full" style={{ width: "62%", background: "var(--xp)", borderRight: "2.5px solid var(--ink)" }} />
                 </div>
               </div>
 
               {/* stats */}
-              <div className="mt-6 grid grid-cols-3 gap-3">
-                <Stat icon={<Flame size={18} strokeWidth={2} fill="currentColor" />} label="Streak" value="14" color="var(--flame)" />
-                <Stat icon={<Zap size={18} strokeWidth={2} fill="currentColor" />} label="Hits" value="63" color="var(--energy)" />
-                <Stat icon={<Trophy size={18} strokeWidth={2} />} label="Badges" value="4" color="var(--xp)" />
+              <div className="mt-7 grid grid-cols-3 gap-3">
+                <Stat icon={<Flame size={20} strokeWidth={2.5} fill="currentColor" />} label="Streak" value="14" color="var(--flame)" />
+                <Stat icon={<Zap size={20} strokeWidth={2.5} fill="currentColor" />} label="Hits" value="63" color="var(--blue)" />
+                <Stat icon={<Trophy size={20} strokeWidth={2.5} />} label="Badges" value="4" color="var(--xp)" />
               </div>
 
               {/* badges */}
-              <div className="mt-6">
-                <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint mb-3">Badges</p>
+              <div className="mt-7">
+                <p className="mb-3 font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">Badges</p>
                 <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
                   {BADGES.map((b) => (
                     <AchievementBadge key={b.id} achievement={b} badgeSize="sm" lockedStyle="grayscale" />
@@ -115,8 +135,11 @@ export function ProfileShowcase() {
 
           {/* Level ladder */}
           <Reveal delay={100}>
-            <div className="rounded-[var(--radius-xl)] p-6 sm:p-7 h-full" style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}>
-              <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint mb-4">Level ladder · 7 tiers</p>
+            <div
+              className="h-full p-6 sm:p-7"
+              style={{ background: "var(--bg-elevated)", border: "2.5px solid var(--ink)", borderRadius: 8, boxShadow: "7px 7px 0 0 var(--ink)" }}
+            >
+              <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">Level ladder · 7 tiers</p>
               <PointsLevelsTimeline levels={LEVELS} currentPoints={520} currentLevelLabel="You're here" className="border-0 bg-transparent p-0" />
             </div>
           </Reveal>
@@ -124,22 +147,39 @@ export function ProfileShowcase() {
 
         {/* Make it yours — customization strip */}
         <Reveal delay={150}>
-          <div className="mt-6 rounded-[var(--radius-xl)] p-6 sm:p-8" style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}>
-            <div className="flex items-center gap-2.5 mb-6">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-[10px]" style={{ background: "var(--pastel-purple)", color: "var(--ink)" }}>
-                <Palette size={17} strokeWidth={2} />
+          <div
+            className="mt-6 p-6 sm:p-8"
+            style={{ background: "var(--bg-elevated)", border: "2.5px solid var(--ink)", borderRadius: 8, boxShadow: "7px 7px 0 0 var(--ink)" }}
+          >
+            <div className="mb-6 flex items-center gap-2.5">
+              <span
+                className="inline-flex h-10 w-10 items-center justify-center"
+                style={{ background: "var(--pink)", color: "var(--ink)", border: "2.5px solid var(--ink)", borderRadius: 6, boxShadow: "3px 3px 0 0 var(--ink)" }}
+              >
+                <Palette size={18} strokeWidth={2.5} />
               </span>
-              <span className="font-mono text-[11px] uppercase tracking-widest text-ink-faint">Make it yours</span>
+              <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-ink">Make it yours</span>
             </div>
 
             <div className="grid grid-cols-1 gap-7 sm:grid-cols-3">
               {/* Themes */}
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint mb-3">Themes</p>
+                <p className="mb-3 font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">Themes</p>
                 <div className="grid grid-cols-3 gap-2">
                   {PROFILE_THEMES.slice(0, 6).map((t, i) => (
-                    <div key={t.id} className="relative h-12 rounded-lg overflow-hidden" style={{ background: t.background("#5EEAD4"), border: i === 0 ? "2px solid var(--accent)" : "1px solid var(--line)" }}>
-                      {i === 0 && <span className="absolute top-1 right-1"><Check size={11} style={{ color: "var(--accent)" }} /></span>}
+                    <div
+                      key={t.id}
+                      className="relative h-12 overflow-hidden"
+                      style={{ background: t.background("#5EEAD4"), border: "2.5px solid var(--ink)", borderRadius: 6, boxShadow: i === 0 ? "3px 3px 0 0 var(--ink)" : "none" }}
+                    >
+                      {i === 0 && (
+                        <span
+                          className="absolute right-1 top-1 inline-flex h-4 w-4 items-center justify-center"
+                          style={{ background: "var(--lime)", border: "1.5px solid var(--ink)", borderRadius: 4 }}
+                        >
+                          <Check size={9} strokeWidth={3.5} style={{ color: "var(--ink)" }} />
+                        </span>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -147,24 +187,38 @@ export function ProfileShowcase() {
 
               {/* Accent */}
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint mb-3">Accent</p>
+                <p className="mb-3 font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">Accent</p>
                 <div className="flex flex-wrap gap-2">
                   {ACCENT_PRESETS.map((p, i) => (
-                    <span key={p.hex} className="h-8 w-8 rounded-full" style={{ background: p.hex, border: i === 1 ? "2px solid var(--ink)" : "2px solid transparent", boxShadow: `0 0 10px ${hexToRgba(p.hex, 0.5)}` }} />
+                    <span
+                      key={p.hex}
+                      className="h-8 w-8"
+                      style={{ background: p.hex, border: "2.5px solid var(--ink)", borderRadius: 6, boxShadow: i === 1 ? "3px 3px 0 0 var(--ink)" : "none", transform: i === 1 ? "translate(-1px,-1px)" : "none" }}
+                      title={`${p.name} ${hexToRgba(p.hex, 1)}`}
+                    />
                   ))}
                 </div>
               </div>
 
               {/* Status + connections */}
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-widest text-ink-faint mb-3">Status & links</p>
-                <div className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 mb-3" style={{ background: "var(--xp-soft)", border: "1px solid var(--xp)" }}>
+                <p className="mb-3 font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">Status & links</p>
+                <div
+                  className="mb-3 inline-flex items-center gap-2 px-3 py-1.5"
+                  style={{ background: "var(--xp)", border: "2.5px solid var(--ink)", borderRadius: 999, boxShadow: "3px 3px 0 0 var(--ink)" }}
+                >
                   <span className="text-[14px] leading-none">🎧</span>
-                  <span className="font-sans text-[12px] text-ink">deep in a sourdough arc</span>
+                  <span className="text-[12px] font-bold" style={{ color: "#fff" }}>deep in a sourdough arc</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {["she/her", "Instagram", "TikTok", "GitHub"].map((c) => (
-                    <span key={c} className="rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest" style={{ background: "var(--bg)", border: "1px solid var(--line)", color: "var(--ink-muted)" }}>{c}</span>
+                    <span
+                      key={c}
+                      className="px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-widest"
+                      style={{ background: "var(--bg)", border: "2px solid var(--ink)", borderRadius: 999, color: "var(--ink-muted)" }}
+                    >
+                      {c}
+                    </span>
                   ))}
                 </div>
               </div>

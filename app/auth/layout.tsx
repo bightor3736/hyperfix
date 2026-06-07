@@ -1,30 +1,12 @@
-// Wordmark matching the landing / whenevr template logo: "hyperfix" in
-// Source Serif 4 italic with a small ® superscript.
+import { LogoMark } from "@/components/Logo";
+
+// Brutalist wordmark for auth — mark + heavy Space Grotesk wordmark.
 function Wordmark({ size = 26 }: { size?: number }) {
   return (
-    <span
-      style={{
-        fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif",
-        fontStyle: "italic",
-        fontWeight: 600,
-        fontSize: size,
-        lineHeight: 1,
-        letterSpacing: "-0.08em",
-        color: "var(--ink)",
-        display: "inline-block",
-      }}
-    >
-      hyperfix
-      <span
-        style={{
-          fontSize: "0.42em",
-          verticalAlign: "super",
-          fontStyle: "normal",
-          letterSpacing: 0,
-          marginLeft: "0.06em",
-        }}
-      >
-        ®
+    <span className="inline-flex items-center gap-2" style={{ lineHeight: 1 }}>
+      <LogoMark size={Math.round(size * 0.95)} color="var(--accent)" />
+      <span style={{ fontWeight: 700, fontSize: size, letterSpacing: "-0.04em", color: "var(--ink)" }}>
+        hyperfix
       </span>
     </span>
   );
@@ -33,126 +15,86 @@ function Wordmark({ size = 26 }: { size?: number }) {
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className="min-h-screen flex items-stretch"
+      className="flex min-h-screen items-stretch"
       style={
         {
-          // Mirror the landing page palette + typography (scoped to auth) so
-          // sign-up / log-in feel like the marketing site.
-          background: "#f0f0f0",
-          color: "#0a0a0a",
-          fontFamily: "var(--font-landing-sans), Inter, system-ui, sans-serif",
+          background: "#FBF6EA",
+          color: "#0A0A0A",
+          fontFamily: "var(--font-grotesk), system-ui, sans-serif",
           letterSpacing: "-0.01em",
-          "--bg": "#f0f0f0",
-          "--bg-soft": "#eae9e7",
-          "--bg-elevated": "#ffffff",
-          "--ink": "#0a0a0a",
-          "--ink-muted": "#7c7c7c",
-          "--ink-faint": "#a4a4a4",
-          "--line": "rgba(0,0,0,0.10)",
-          "--line-strong": "rgba(0,0,0,0.18)",
-          // landing green accent
-          "--accent": "#1dcc5d",
-          "--accent-soft": "#e3f9ec",
-          "--accent-ink": "#04130a",
-          "--xp": "#13a64c",
-          "--xp-soft": "#e3f9ec",
-          "--primary": "#1dcc5d",
-          "--primary-foreground": "#04130a",
+          "--bg": "#FBF6EA",
+          "--bg-soft": "#F2EAD7",
+          "--bg-elevated": "#FFFFFF",
+          "--ink": "#0A0A0A",
+          "--ink-muted": "#2E2E2E",
+          "--ink-faint": "#6A6A6A",
+          "--line": "#0A0A0A",
+          "--line-strong": "#0A0A0A",
+          "--accent": "#2F4BFF",
+          "--accent-soft": "#DCE2FF",
+          "--accent-ink": "#FFFFFF",
+          "--xp": "#8B5CF6",
+          "--xp-soft": "#ECE4FF",
+          "--primary": "#2F4BFF",
+          "--primary-foreground": "#FFFFFF",
         } as React.CSSProperties
       }
     >
-      {/* LEFT PANEL — form, no card wrapper */}
-      <div className="flex-1 lg:w-[52%] flex flex-col relative overflow-hidden">
-        {/* Mobile sage bloom from top */}
-        <div
-          aria-hidden
-          className="lg:hidden absolute top-0 left-0 right-0 pointer-events-none"
-          style={{
-            height: 240,
-            background:
-              "radial-gradient(ellipse 120% 100% at 50% 0%, var(--accent-soft) 0%, transparent 72%)",
-            opacity: 0.7,
-          }}
-        />
-
+      {/* LEFT PANEL — form */}
+      <div className="relative flex flex-1 flex-col overflow-hidden lg:w-[52%]">
         {/* Desktop header */}
-        <div className="hidden lg:block relative z-10 px-10 pt-8">
-          <a href="/" className="inline-block transition-transform hover:scale-[1.02]">
+        <div className="relative z-10 hidden px-10 pt-8 lg:block">
+          <a href="/" className="inline-block">
             <Wordmark size={26} />
           </a>
         </div>
 
         {/* Mobile header */}
-        <div className="lg:hidden relative z-10 flex items-center justify-center pt-10 pb-4">
-          <a href="/" className="inline-block transition-transform hover:scale-[1.02]">
+        <div className="relative z-10 flex items-center justify-center pb-4 pt-10 lg:hidden">
+          <a href="/" className="inline-block">
             <Wordmark size={26} />
           </a>
         </div>
 
-        {/* Form area — no card around it */}
-        <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 py-8">
-          <div className="w-full max-w-[380px] anim-fadeUp delay-200">
+        {/* Form area */}
+        <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 py-8">
+          <div className="anim-fadeUp delay-200 w-full max-w-[380px]">
             {children}
           </div>
         </div>
 
         {/* Desktop footer */}
-        <div className="hidden lg:block relative z-10 px-10 pb-6">
-          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">
-            hyperfix · your daily dopamine, on tap
+        <div className="relative z-10 hidden px-10 pb-6 lg:block">
+          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-ink-faint">
+            hyperfix · the app for your hyperfixations
           </p>
         </div>
       </div>
 
-      {/* RIGHT PANEL — landing hero treatment (blob + headline), desktop only */}
-      <div className="hidden lg:flex lg:w-[48%] xl:w-[46%] p-5">
+      {/* RIGHT PANEL — bold brutalist block, desktop only */}
+      <div className="hidden p-5 lg:flex lg:w-[48%] xl:w-[46%]">
         <div
-          className="relative w-full rounded-3xl overflow-hidden flex flex-col justify-end anim-fadeUp"
-          style={{ background: "#ffffff", border: "1px solid var(--line)" }}
+          className="relative flex w-full flex-col justify-between overflow-hidden p-10"
+          style={{ background: "var(--accent)", border: "3.5px solid var(--ink)", borderRadius: 8, boxShadow: "10px 10px 0 0 var(--ink)" }}
         >
-          {/* The landing's blue/purple hero blob */}
-          <img
-            src="/site/images/922LPrLT3JS7JXQbJxraBeoo8I_1.png"
-            alt=""
-            aria-hidden="true"
-            className="pointer-events-none select-none absolute"
-            style={{
-              top: "-8%",
-              right: "-22%",
-              width: "135%",
-              maxWidth: "none",
-              transform: "rotate(-12deg)",
-            }}
-          />
+          {/* big offset mark */}
+          <div className="flex justify-end">
+            <LogoMark size={120} color="var(--yellow)" ink="#0A0A0A" />
+          </div>
 
-          {/* Bottom headline */}
-          <div className="relative z-10 px-10 pb-10">
-            <p
-              className="leading-[1.02]"
-              style={{
-                color: "var(--ink)",
-                fontFamily: "var(--font-landing-sans), Inter, sans-serif",
-                fontWeight: 600,
-                letterSpacing: "-0.05em",
-                fontSize: "clamp(30px, 3.4vw, 50px)",
-              }}
-            >
-              Small wins that{" "}
+          <div className="relative z-10">
+            <p className="leading-[0.95]" style={{ color: "#fff", fontWeight: 700, letterSpacing: "-0.04em", fontSize: "clamp(34px,3.6vw,54px)" }}>
+              Small wins that
+              <br />
               <span
-                style={{
-                  fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif",
-                  fontStyle: "italic",
-                }}
+                className="mt-2 inline-block px-2"
+                style={{ background: "var(--yellow)", color: "#0A0A0A", border: "2.5px solid var(--ink)", boxShadow: "4px 4px 0 0 var(--ink)", transform: "rotate(-1.5deg)" }}
               >
-                actually
-              </span>{" "}
-              stick.
+                actually stick.
+              </span>
             </p>
-            <p
-              className="mt-4 text-[15px] text-ink-muted max-w-sm"
-              style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", letterSpacing: "-0.01em" }}
-            >
-              One tap, a real hit that isn&apos;t your phone. Earn XP, build a streak, level up.
+            <p className="mt-6 max-w-sm text-[15px] font-medium" style={{ color: "rgba(255,255,255,0.92)" }}>
+              Log what you&apos;re obsessed with. Earn XP, build a streak, level up — no guilt, no leaderboards.
             </p>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Wordmark } from "./Wordmark";
 
 const links = [
-  { label: "Features", href: "#features" },
+  { label: "How it works", href: "#features" },
   { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
 ];
@@ -20,23 +20,26 @@ export function Nav() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full transition-all">
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 pt-3">
+    <header className="sticky top-0 z-50 w-full">
+      <div className="mx-auto max-w-[1200px] px-4 pt-3 sm:px-6">
         <div
-          className={`flex h-16 items-center justify-between rounded-full px-4 sm:px-5 transition-all ${scrolled ? "glass" : ""}`}
+          className="flex h-16 items-center justify-between px-3 sm:px-4"
           style={{
-            border: `1px solid ${scrolled ? "rgba(97,74,68,0.14)" : "transparent"}`,
-            boxShadow: scrolled ? "0 4px 24px -8px rgba(26,22,21,0.10)" : "none",
-            background: scrolled ? "rgba(249,248,247,0.85)" : "transparent",
+            background: "var(--bg-elevated)",
+            border: "2.5px solid var(--ink)",
+            borderRadius: 8,
+            boxShadow: scrolled ? "4px 4px 0 0 var(--ink)" : "0 0 0 0 var(--ink)",
+            transition: "box-shadow 0.15s ease",
           }}
         >
           <Wordmark />
-          <nav className="hidden items-center gap-7 md:flex">
+          <nav className="hidden items-center gap-1 md:flex">
             {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-[14px] font-medium text-ink-muted transition-colors hover:text-ink"
+                className="px-3 py-2 text-[14px] font-semibold text-ink transition-colors hover:bg-[var(--bg-soft)]"
+                style={{ borderRadius: 4 }}
               >
                 {link.label}
               </a>
@@ -45,13 +48,13 @@ export function Nav() {
           <div className="flex items-center gap-2">
             <a
               href="/auth/login"
-              className="hidden h-10 items-center rounded-full px-4 text-[14px] font-medium text-ink transition-colors hover:text-ink-muted sm:inline-flex"
+              className="hidden h-10 items-center px-3 text-[14px] font-semibold text-ink hover:underline sm:inline-flex"
             >
               Log in
             </a>
             <a
               href="/auth/signup"
-              className="press-pop inline-flex h-10 items-center rounded-full px-5 text-[14px] font-semibold transition-all hover:opacity-90"
+              className="brutal-btn h-10 px-5 text-[14px]"
               style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
             >
               Get started

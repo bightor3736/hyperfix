@@ -1,24 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Lexend, JetBrains_Mono, Inter, Source_Serif_4 } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Suspense } from "react";
 import { AffTracker } from "@/components/AffTracker";
 import "./globals.css";
 
-const fraunces = Fraunces({
+// Space Grotesk — geometric grotesque with quirky details. The brutalist
+// voice of the brand: used for every heading, the wordmark, and body.
+// Exposed under multiple legacy variable names so existing components that
+// reference --font-fraunces / --font-instrument / --font-landing-sans all
+// resolve to the new brutalist face without markup changes.
+const grotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-fraunces",
-  axes: ["opsz", "SOFT"],
-});
-
-// Lexend — engineered to reduce reading friction; the top pick for ADHD
-// legibility. Keeps the --font-instrument variable name so the Tailwind
-// `sans` mapping doesn't need to change.
-const instrument = Lexend({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-instrument",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-grotesk",
 });
 
 const mono = JetBrains_Mono({
@@ -27,20 +23,11 @@ const mono = JetBrains_Mono({
   variable: "--font-mono",
 });
 
-// Landing-page typefaces — used to keep the auth screens visually continuous
-// with the marketing site (Inter for headings/body, Source Serif 4 for the
-// italic accent words and the "F" mark).
+// Inter — neutral fallback face kept available for dense UI body text.
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-landing-sans",
-});
-
-const sourceSerif = Source_Serif_4({
-  subsets: ["latin"],
-  display: "swap",
-  style: ["italic", "normal"],
-  variable: "--font-landing-serif",
 });
 
 const SITE_URL = "https://hyperfix.app";
@@ -51,7 +38,7 @@ const DESCRIPTION =
   "Track your hyperfixations, earn XP for real actions, and beat the tasks your brain avoids. A warm, forgiving game built for ADHD — no leaderboards, just yours. Free to start.";
 
 export const viewport: Viewport = {
-  themeColor: "#f6f8fb",
+  themeColor: "#FBF6EA",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -175,7 +162,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${instrument.variable} ${mono.variable} ${inter.variable} ${sourceSerif.variable}`}
+      className={`${grotesk.variable} ${mono.variable} ${inter.variable}`}
       suppressHydrationWarning
     >
       <head>

@@ -28,20 +28,22 @@ export function ThemeToggle() {
 
   return (
     <div
-      className="inline-flex h-9 items-center rounded-full border border-line p-0.5 text-[12px] font-medium"
+      className="inline-flex h-10 items-center p-0.5 font-mono text-[11px] font-bold uppercase tracking-wider"
       role="radiogroup"
       aria-label="Theme"
+      style={{ border: "2.5px solid var(--ink)", borderRadius: 6, background: "var(--bg-elevated)" }}
     >
       <button
         type="button"
         role="radio"
         aria-checked={theme === "light"}
         onClick={() => setTheme("light")}
-        className={`h-8 rounded-full px-3 ${
+        className="h-8 px-3 transition-colors"
+        style={
           theme === "light"
-            ? "bg-invert-bg text-invert-ink"
-            : "text-ink-muted hover:text-ink"
-        }`}
+            ? { background: "var(--ink)", color: "var(--bg-elevated)", borderRadius: 3 }
+            : { color: "var(--ink-muted)" }
+        }
       >
         Light
       </button>
@@ -50,11 +52,12 @@ export function ThemeToggle() {
         role="radio"
         aria-checked={theme === "dark"}
         onClick={() => setTheme("dark")}
-        className={`h-8 rounded-full px-3 ${
+        className="h-8 px-3 transition-colors"
+        style={
           theme === "dark"
-            ? "bg-invert-bg text-invert-ink"
-            : "text-ink-muted hover:text-ink"
-        }`}
+            ? { background: "var(--ink)", color: "var(--bg-elevated)", borderRadius: 3 }
+            : { color: "var(--ink-muted)" }
+        }
       >
         Dark
       </button>

@@ -16,20 +16,21 @@ export function StickyMobileCTA() {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-50 px-4 pb-4 pt-3 transition-all duration-300 sm:hidden ${
-        show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-full opacity-0"
+      className={`fixed inset-x-0 bottom-0 z-50 px-4 pb-4 pt-3 transition-transform duration-200 sm:hidden ${
+        show ? "translate-y-0" : "pointer-events-none translate-y-full"
       }`}
       style={{
-        background: "linear-gradient(to top, var(--bg) 70%, transparent)",
+        background: "var(--bg)",
+        borderTop: "3.5px solid var(--ink)",
         paddingBottom: "calc(1rem + env(safe-area-inset-bottom))",
       }}
     >
       <a
         href="/auth/signup"
-        className="press-pop flex w-full items-center justify-center gap-2 rounded-[var(--radius-lg)] py-3.5 font-sans text-[16px] font-bold"
-        style={{ background: "var(--energy)", color: "var(--accent-ink)" }}
+        className="brutal-btn flex w-full items-center justify-center gap-2 py-3.5 text-[16px]"
+        style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
       >
-        <Zap size={18} strokeWidth={2.5} fill="var(--accent-ink)" />
+        <Zap size={18} strokeWidth={3} fill="var(--accent-ink)" />
         Start playing — free
       </a>
     </div>

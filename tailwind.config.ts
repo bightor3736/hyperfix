@@ -32,6 +32,15 @@ const config: Config = {
         "accent-ink":  "var(--accent-ink)",
         "invert-bg":   "var(--invert-bg)",
         "invert-ink":  "var(--invert-ink)",
+        // Brutalist flat accents
+        blue:        "var(--blue)",
+        yellow:      "var(--yellow)",
+        pink:        "var(--pink)",
+        lime:        "var(--lime)",
+        coral:       "var(--coral)",
+        violet:      "var(--violet)",
+        xp:          "var(--xp)",
+        flame:       "var(--flame)",
         // shadcn compatibility tokens
         background:           "var(--background)",
         card:                "var(--card)",
@@ -45,8 +54,8 @@ const config: Config = {
         border:              "var(--border)",
       },
       fontFamily: {
-        display: ["var(--font-fraunces)", "Georgia", "serif"],
-        sans: ["var(--font-instrument)", "ui-sans-serif", "system-ui"],
+        display: ["var(--font-grotesk)", "ui-sans-serif", "system-ui"],
+        sans: ["var(--font-grotesk)", "ui-sans-serif", "system-ui"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       letterSpacing: {
@@ -54,8 +63,18 @@ const config: Config = {
         crush: "-0.06em",
       },
       borderRadius: {
-        card: "18px",
+        card: "6px",
         pill: "999px",
+      },
+      boxShadow: {
+        brutal: "4px 4px 0 0 var(--ink)",
+        "brutal-sm": "3px 3px 0 0 var(--ink)",
+        "brutal-lg": "7px 7px 0 0 var(--ink)",
+        "brutal-xl": "10px 10px 0 0 var(--ink)",
+      },
+      borderWidth: {
+        brutal: "2.5px",
+        "brutal-lg": "3.5px",
       },
     },
   },

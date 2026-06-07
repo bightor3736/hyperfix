@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { Plus, HelpCircle } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 const items = [
@@ -36,52 +36,76 @@ export function FAQ() {
 
   return (
     <section id="faq" style={{ background: "var(--bg)" }}>
-      <div className="mx-auto max-w-[1100px] px-6 py-24 sm:px-10 sm:py-28">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
+      <div className="mx-auto max-w-[1100px] px-5 py-24 sm:px-8 sm:py-28">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-[0.85fr_1.15fr] md:gap-16">
           <Reveal>
-            <div>
+            <div className="md:sticky md:top-28">
               <span
-                className="inline-block rounded-full px-4 py-1.5 font-mono text-[11px] uppercase tracking-widest text-ink-muted"
-                style={{ border: "1px solid var(--line)" }}
+                className="brutal-tag anim-fadeUp mb-6"
+                style={{ background: "var(--pink)", color: "var(--ink)" }}
               >
-                FAQ
+                <HelpCircle size={13} strokeWidth={3} /> FAQ
               </span>
-              <h2 className="mt-6 font-display leading-[1.05] tracking-tight text-ink" style={{ fontSize: "clamp(30px,4.5vw,44px)" }}>
-                Frequently asked
+              <h2
+                className="anim-fadeUp delay-100 leading-[0.98] text-ink"
+                style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 700, letterSpacing: "-0.03em" }}
+              >
+                Frequently
                 <br />
-                questions.
+                asked
+                <br />
+                <span
+                  className="inline-block px-2 mt-1"
+                  style={{ background: "var(--yellow)", color: "var(--ink)", border: "2.5px solid var(--ink)", boxShadow: "4px 4px 0 0 var(--ink)", transform: "rotate(-1.5deg)" }}
+                >
+                  questions.
+                </span>
               </h2>
-              <p className="mt-4 max-w-[280px] text-[15px] leading-[1.6] text-ink-muted">
+              <p className="anim-fadeUp delay-200 mt-7 max-w-[300px] text-[16px] font-medium leading-[1.5] text-ink-muted">
                 Anything else, write us. A real person reads them.
               </p>
             </div>
           </Reveal>
 
           <Reveal delay={80}>
-            <div>
+            <div className="flex flex-col gap-4">
               {items.map((it, i) => {
                 const isOpen = open === i;
                 return (
-                  <div key={it.q} className="border-t last:border-b" style={{ borderColor: "var(--line)" }}>
+                  <div
+                    key={it.q}
+                    style={{
+                      background: isOpen ? "var(--lime)" : "var(--bg-elevated)",
+                      border: "2.5px solid var(--ink)",
+                      borderRadius: 8,
+                      boxShadow: isOpen ? "7px 7px 0 0 var(--ink)" : "4px 4px 0 0 var(--ink)",
+                      transition: "box-shadow 0.15s ease, background 0.15s ease",
+                    }}
+                  >
                     <button
                       type="button"
                       onClick={() => setOpen(isOpen ? null : i)}
-                      className="flex w-full items-center justify-between gap-6 py-5 text-left"
+                      className="flex w-full items-center justify-between gap-5 px-5 py-5 text-left"
                       aria-expanded={isOpen}
                     >
-                      <span className="text-[15px] font-medium text-ink">{it.q}</span>
-                      <Plus
-                        size={17}
-                        strokeWidth={2}
-                        className={`flex-shrink-0 transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
-                        style={{ color: "var(--accent)" }}
-                      />
+                      <span className="text-[16px] font-bold leading-snug text-ink" style={{ letterSpacing: "-0.01em" }}>{it.q}</span>
+                      <span
+                        className="flex h-8 w-8 shrink-0 items-center justify-center"
+                        style={{ background: isOpen ? "var(--ink)" : "var(--bg-soft)", border: "2.5px solid var(--ink)", borderRadius: 6 }}
+                      >
+                        <Plus
+                          size={18}
+                          strokeWidth={3}
+                          className={`transition-transform duration-200 ${isOpen ? "rotate-45" : ""}`}
+                          style={{ color: isOpen ? "var(--bg)" : "var(--ink)" }}
+                        />
+                      </span>
                     </button>
                     <div
                       className={`grid transition-all duration-300 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
                     >
                       <div className="overflow-hidden">
-                        <p className="pb-6 pr-8 text-[14px] leading-[1.65] text-ink-muted">{it.a}</p>
+                        <p className="px-5 pb-6 text-[14px] font-medium leading-[1.65] text-ink" style={{ opacity: 0.85 }}>{it.a}</p>
                       </div>
                     </div>
                   </div>

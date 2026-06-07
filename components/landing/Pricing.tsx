@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check } from "lucide-react";
+import { Check, X, Zap } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 type Billing = "monthly" | "yearly";
@@ -36,9 +36,9 @@ const comparison: { label: string; free: string | boolean; pro: string | boolean
 ];
 
 function Cell({ value }: { value: string | boolean }) {
-  if (value === true) return <Check className="mx-auto" size={15} style={{ color: "var(--accent)" }} strokeWidth={2.5} />;
-  if (value === false) return <span className="mx-auto block h-1 w-4 rounded-full" style={{ background: "var(--line)" }} />;
-  return <span className="text-[13px] text-ink">{value}</span>;
+  if (value === true) return <Check className="mx-auto" size={17} style={{ color: "var(--ink)" }} strokeWidth={3} />;
+  if (value === false) return <X className="mx-auto" size={16} style={{ color: "var(--ink-faint)" }} strokeWidth={3} />;
+  return <span className="text-[13px] font-bold text-ink">{value}</span>;
 }
 
 export function Pricing() {
@@ -46,17 +46,29 @@ export function Pricing() {
 
   return (
     <section id="pricing" style={{ background: "var(--bg-soft)" }}>
-      <div className="mx-auto max-w-[1100px] px-6 py-24 sm:px-10 sm:py-28">
+      <div className="mx-auto max-w-[1100px] px-5 py-24 sm:px-8 sm:py-28">
         <Reveal>
-          <div className="max-w-[600px] mb-14">
-            <span className="inline-block rounded-full px-4 py-1.5 mb-5 font-mono text-[11px] uppercase tracking-widest text-ink-muted" style={{ border: "1px solid var(--line)" }}>
-              Pricing
+          <div className="max-w-[600px] mb-12">
+            <span
+              className="brutal-tag anim-fadeUp mb-6"
+              style={{ background: "var(--lime)", color: "var(--ink)" }}
+            >
+              <Zap size={13} strokeWidth={3} /> Pricing
             </span>
-            <h2 className="font-display leading-[1.04] tracking-tight" style={{ fontSize: "clamp(32px,5vw,48px)" }}>
-              <span className="text-ink">Free to play. </span>
-              <span className="text-game-gradient">More if you need it.</span>
+            <h2
+              className="anim-fadeUp delay-100 leading-[0.98] text-ink"
+              style={{ fontSize: "clamp(34px,5.5vw,56px)", fontWeight: 700, letterSpacing: "-0.03em" }}
+            >
+              Free to play.
+              <br />
+              <span
+                className="inline-block px-2 mt-1"
+                style={{ background: "var(--accent)", color: "var(--accent-ink)", border: "2.5px solid var(--ink)", boxShadow: "4px 4px 0 0 var(--ink)", transform: "rotate(-1deg)" }}
+              >
+                More if you need it.
+              </span>
             </h2>
-            <p className="mt-4 text-[15px] leading-[1.6] text-ink-muted">
+            <p className="anim-fadeUp delay-200 mt-7 text-[17px] font-medium leading-[1.5] text-ink-muted">
               The whole game is free. Power-Up adds more streak insurance, boosted odds, and multipliers for when it gets serious.
             </p>
           </div>
@@ -65,8 +77,8 @@ export function Pricing() {
         {/* Billing toggle */}
         <Reveal>
           <div
-            className="mb-10 inline-flex h-10 items-center rounded-full p-1 text-[13px]"
-            style={{ border: "1px solid var(--line)", background: "var(--bg-elevated)" }}
+            className="mb-12 inline-flex items-center p-1 text-[13px]"
+            style={{ border: "2.5px solid var(--ink)", borderRadius: 8, background: "var(--bg-elevated)", boxShadow: "4px 4px 0 0 var(--ink)" }}
             role="radiogroup"
             aria-label="Billing period"
           >
@@ -77,10 +89,10 @@ export function Pricing() {
                 role="radio"
                 aria-checked={billing === b}
                 onClick={() => setBilling(b)}
-                className="h-8 rounded-full px-5 font-medium capitalize transition-all"
+                className="h-9 px-5 font-mono text-[12px] font-bold uppercase tracking-widest capitalize transition-colors"
                 style={
                   billing === b
-                    ? { background: "var(--invert-bg)", color: "var(--invert-ink)" }
+                    ? { background: "var(--ink)", color: "var(--bg)", borderRadius: 5 }
                     : { color: "var(--ink-muted)" }
                 }
               >
@@ -91,37 +103,40 @@ export function Pricing() {
         </Reveal>
 
         {/* Tier cards */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 max-w-[840px]">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 max-w-[840px] items-stretch">
           {/* Free */}
           <Reveal>
             <article
-              className="flex flex-col rounded-[var(--radius-xl)] p-8 h-full"
-              style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
+              className="flex flex-col p-8 h-full"
+              style={{ background: "var(--bg-elevated)", border: "2.5px solid var(--ink)", borderRadius: 8, boxShadow: "4px 4px 0 0 var(--ink)" }}
             >
               <div>
-                <h3 className="font-display text-[28px] leading-none tracking-tight text-ink">Free</h3>
-                <p className="mt-2 text-[14px] text-ink-muted">Everything you need to start.</p>
+                <h3 className="text-[30px] font-bold leading-none text-ink" style={{ letterSpacing: "-0.02em" }}>Free Player</h3>
+                <p className="mt-3 text-[14px] font-medium text-ink-muted">Everything you need to start.</p>
               </div>
 
               <div className="mt-7 flex items-end gap-2">
-                <p className="font-display text-[48px] leading-none tracking-tight text-ink">$0</p>
-                <p className="mb-1.5 text-[13px] text-ink-muted">forever</p>
+                <p className="text-[52px] font-bold leading-none text-ink" style={{ letterSpacing: "-0.03em" }}>$0</p>
+                <p className="mb-2 font-mono text-[12px] uppercase tracking-widest text-ink-muted">forever</p>
               </div>
 
               <a
                 href="/auth/signup"
-                className="mt-7 inline-flex h-11 w-full items-center justify-center rounded-full text-[14px] font-semibold transition-all hover:opacity-90"
-                style={{ background: "var(--invert-bg)", color: "var(--invert-ink)" }}
+                className="brutal-btn mt-7 h-12 w-full text-[15px]"
+                style={{ background: "var(--bg-elevated)", color: "var(--ink)" }}
               >
                 Start free
               </a>
-              <p className="mt-2.5 text-center text-[12px] text-ink-faint">No credit card.</p>
+              <p className="mt-3 text-center font-mono text-[11px] uppercase tracking-widest text-ink-faint">No credit card.</p>
 
-              <ul className="mt-8 space-y-3">
+              <ul className="mt-8 space-y-3.5">
                 {FREE_FEATURES.map((f) => (
-                  <li key={f} className="flex items-start gap-3 text-[14px] leading-[1.5] text-ink">
-                    <span className="mt-0.5 shrink-0" style={{ color: "var(--accent)" }}>
-                      <Check size={15} strokeWidth={2.5} />
+                  <li key={f} className="flex items-start gap-3 text-[14px] font-medium leading-[1.5] text-ink">
+                    <span
+                      className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center"
+                      style={{ background: "var(--lime)", border: "2px solid var(--ink)", borderRadius: 4 }}
+                    >
+                      <Check size={12} strokeWidth={3.5} style={{ color: "var(--ink)" }} />
                     </span>
                     {f}
                   </li>
@@ -133,45 +148,54 @@ export function Pricing() {
           {/* Power-Up */}
           <Reveal delay={80}>
             <article
-              className="flex flex-col rounded-[var(--radius-xl)] p-8 h-full"
-              style={{ background: "var(--bg-elevated)", border: "1px solid var(--accent)" }}
+              className="relative flex flex-col p-8 h-full"
+              style={{ background: "var(--yellow)", border: "3.5px solid var(--ink)", borderRadius: 8, boxShadow: "10px 10px 0 0 var(--ink)" }}
             >
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="font-display text-[28px] leading-none tracking-tight text-ink">Power-Up</h3>
-                  <p className="mt-2 text-[14px] text-ink-muted">For when you&apos;re properly hooked.</p>
-                </div>
+              {/* MOST POPULAR badge */}
+              <span
+                className="brutal-tag absolute -top-3.5 right-6 font-bold"
+                style={{ background: "var(--accent)", color: "var(--accent-ink)", boxShadow: "3px 3px 0 0 var(--ink)" }}
+              >
+                <Zap size={12} strokeWidth={3} /> Most popular
+              </span>
+
+              <div>
+                <h3 className="text-[30px] font-bold leading-none text-ink" style={{ letterSpacing: "-0.02em" }}>Power-Up</h3>
+                <p className="mt-3 text-[14px] font-medium text-ink" style={{ opacity: 0.75 }}>For when you&apos;re properly hooked.</p>
               </div>
 
               <div className="mt-7 flex items-end gap-2">
-                <p className="font-display text-[48px] leading-none tracking-tight text-ink">
+                <p className="text-[52px] font-bold leading-none text-ink" style={{ letterSpacing: "-0.03em" }}>
                   {billing === "yearly" ? "$3.25" : "$5"}
                 </p>
-                <div className="mb-1.5">
-                  <p className="text-[13px] text-ink-muted">per month</p>
+                <div className="mb-2">
+                  <p className="font-mono text-[12px] uppercase tracking-widest text-ink">per month</p>
                   {billing === "yearly" && (
-                    <p className="text-[11px] text-ink-faint">billed $39/year</p>
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-ink" style={{ opacity: 0.7 }}>billed $39/year</p>
                   )}
                 </div>
               </div>
 
               <a
                 href="/auth/signup"
-                className="mt-7 inline-flex h-11 w-full items-center justify-center rounded-full text-[14px] font-semibold transition-all hover:opacity-90"
-                style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
+                className="brutal-btn mt-7 h-12 w-full text-[15px]"
+                style={{ background: "var(--ink)", color: "var(--bg)" }}
               >
-                Power up
+                Power up <Zap size={16} strokeWidth={3} />
               </a>
-              <p className="mt-2.5 text-center text-[12px] text-ink-faint">
-                Cancel anytime · 30-day refund if it&apos;s not for you
+              <p className="mt-3 text-center font-mono text-[11px] uppercase tracking-widest text-ink" style={{ opacity: 0.7 }}>
+                Cancel anytime · 30-day refund
               </p>
 
-              <p className="mt-8 text-[13px] font-medium text-ink-muted mb-3">Everything in Free, plus:</p>
-              <ul className="space-y-3">
+              <p className="mt-8 mb-3 font-mono text-[12px] font-bold uppercase tracking-widest text-ink">Everything in Free, plus:</p>
+              <ul className="space-y-3.5">
                 {PRO_FEATURES.map((f) => (
-                  <li key={f} className="flex items-start gap-3 text-[14px] leading-[1.5] text-ink">
-                    <span className="mt-0.5 shrink-0" style={{ color: "var(--accent)" }}>
-                      <Check size={15} strokeWidth={2.5} />
+                  <li key={f} className="flex items-start gap-3 text-[14px] font-bold leading-[1.5] text-ink">
+                    <span
+                      className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center"
+                      style={{ background: "var(--bg-elevated)", border: "2px solid var(--ink)", borderRadius: 4 }}
+                    >
+                      <Check size={12} strokeWidth={3.5} style={{ color: "var(--ink)" }} />
                     </span>
                     {f}
                   </li>
@@ -184,27 +208,33 @@ export function Pricing() {
         {/* Comparison table */}
         <Reveal>
           <div className="mt-20 max-w-[840px]">
-            <h3 className="font-display text-[22px] leading-[1.1] tracking-tight text-ink mb-8">
+            <h3 className="mb-8 text-[26px] font-bold leading-[1.1] text-ink" style={{ letterSpacing: "-0.02em" }}>
               Compare the two
             </h3>
-            <div className="overflow-hidden rounded-[var(--radius-lg)]" style={{ border: "1px solid var(--line)" }}>
+            <div
+              className="overflow-hidden"
+              style={{ border: "2.5px solid var(--ink)", borderRadius: 8, boxShadow: "4px 4px 0 0 var(--ink)", background: "var(--bg-elevated)" }}
+            >
               <div
-                className="grid grid-cols-[1.8fr_1fr_1fr] items-center px-5 py-3.5 text-[12px] font-medium"
-                style={{ background: "var(--bg-elevated)", borderBottom: "1px solid var(--line)" }}
+                className="grid grid-cols-[1.8fr_1fr_1fr] items-center px-5 py-3.5 font-mono text-[11px] font-bold uppercase tracking-widest"
+                style={{ background: "var(--ink)", color: "var(--bg)" }}
               >
                 <span />
-                <span className="text-center text-ink-muted">Free</span>
-                <span className="text-center" style={{ color: "var(--accent)" }}>Power-Up</span>
+                <span className="text-center">Free</span>
+                <span className="text-center" style={{ color: "var(--yellow)" }}>Power-Up</span>
               </div>
-              {comparison.map((row) => (
+              {comparison.map((row, idx) => (
                 <div
                   key={row.label}
-                  className="grid grid-cols-[1.8fr_1fr_1fr] items-center px-5 py-3.5 border-t"
-                  style={{ borderColor: "var(--line)", background: "var(--bg-elevated)" }}
+                  className="grid grid-cols-[1.8fr_1fr_1fr] items-center px-5 py-3.5"
+                  style={{
+                    borderTop: idx === 0 ? "none" : "2px solid var(--ink)",
+                    background: idx % 2 === 1 ? "var(--bg-soft)" : "var(--bg-elevated)",
+                  }}
                 >
-                  <span className="pr-4 text-[13px] leading-[1.4] text-ink">{row.label}</span>
-                  <span className="text-center"><Cell value={row.free} /></span>
-                  <span className="text-center"><Cell value={row.pro} /></span>
+                  <span className="pr-4 text-[13px] font-medium leading-[1.4] text-ink">{row.label}</span>
+                  <span className="text-center" style={{ borderLeft: "2px solid var(--ink)" }}><Cell value={row.free} /></span>
+                  <span className="text-center" style={{ borderLeft: "2px solid var(--ink)" }}><Cell value={row.pro} /></span>
                 </div>
               ))}
             </div>

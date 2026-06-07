@@ -1,14 +1,13 @@
 import type { CSSProperties } from "react";
 import { ArrowRight } from "lucide-react";
-import { Wordmark } from "./Wordmark";
+import { LogoMark, LogoWordmark } from "@/components/Logo";
 import { ThemeToggle } from "./ThemeToggle";
-import { LogoMark } from "@/components/Logo";
 
 const columns = [
   {
     title: "Product",
     links: [
-      { label: "Features", href: "#features" },
+      { label: "How it works", href: "#features" },
       { label: "Pricing", href: "#pricing" },
       { label: "FAQ", href: "#faq" },
     ],
@@ -30,19 +29,15 @@ const columns = [
   },
 ];
 
-// Footer keeps its own calm-slate palette regardless of theme — a soft deep
-// slate (not harsh black) that grounds the page without high-stress contrast.
+// Footer runs the inverted brutalist palette — near-black ground, off-white
+// ink, off-white offset shadows so the hard edges still read.
 const footerVars = {
-  "--ink": "#f4f0eb",
-  "--ink-muted": "#a09690",
-  "--ink-faint": "#6b6460",
-  "--line": "#2e2724",
-  "--invert-bg": "#f4f0eb",
-  "--invert-ink": "#1a1615",
-  "--energy": "#2dd4bf",
-  "--accent": "#2dd4bf",
-  background: "#1a1615",
-  borderTop: "1px solid rgba(255,255,255,0.06)",
+  "--ink": "#FBF6EA",
+  "--ink-muted": "#B8B2A4",
+  "--ink-faint": "#7C776C",
+  "--line": "#FBF6EA",
+  "--bg-elevated": "#161616",
+  background: "#0A0A0A",
 } as CSSProperties;
 
 const socials = [
@@ -52,34 +47,40 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer style={footerVars} className="relative overflow-hidden text-ink">
+    <footer style={footerVars} className="relative overflow-hidden">
       <div className="mx-auto max-w-[1200px] px-6 pb-0 pt-20 sm:px-10">
-        {/* Sign-up nudge strip */}
-        <div className="mb-16 flex flex-col gap-5 rounded-[var(--radius-xl)] p-7 sm:flex-row sm:items-center sm:justify-between sm:p-9"
-          style={{ background: "rgba(255,255,255,0.04)", border: "1px solid var(--line)" }}>
+        {/* Sign-up nudge block */}
+        <div
+          className="mb-16 flex flex-col gap-5 p-7 sm:flex-row sm:items-center sm:justify-between sm:p-9"
+          style={{ background: "var(--accent)", border: "3.5px solid #FBF6EA", borderRadius: 8, boxShadow: "8px 8px 0 0 #FBF6EA" }}
+        >
           <div>
-            <p className="font-display text-[22px] leading-tight text-ink sm:text-[26px]">
+            <p className="text-[26px] font-bold leading-tight sm:text-[32px]" style={{ color: "#fff", letterSpacing: "-0.03em" }}>
               Your first quest is waiting.
             </p>
-            <p className="mt-1.5 text-[13px] text-ink-muted">
+            <p className="mt-1.5 font-mono text-[12px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.85)" }}>
               Free to start · no credit card · 60 seconds
             </p>
           </div>
           <a
             href="/auth/signup"
-            className="press-pop inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full px-7 text-[15px] font-semibold transition-opacity hover:opacity-90"
-            style={{ background: "var(--accent)", color: "#06302c" }}
+            className="brutal-btn shrink-0 px-7 py-3.5 text-[15px]"
+            style={{ background: "#FBF6EA", color: "#0A0A0A", borderColor: "#0A0A0A", boxShadow: "4px 4px 0 0 #0A0A0A" }}
           >
-            Start playing <ArrowRight size={16} strokeWidth={2.5} />
+            Start playing <ArrowRight size={16} strokeWidth={3} />
           </a>
         </div>
 
         {/* Link columns */}
         <div className="grid grid-cols-2 gap-y-12 sm:grid-cols-3 md:grid-cols-5 md:gap-x-10">
           <div className="col-span-2 sm:col-span-3 md:col-span-2">
-            <Wordmark />
-            <p className="mt-4 max-w-[260px] text-[13px] leading-relaxed text-ink-muted">
-              ADHD accountability that actually works. Track your hyperfixations, earn XP, keep a streak that forgives you.
+            <span className="inline-flex items-center gap-2.5">
+              <LogoMark size={28} color="var(--accent)" ink="#FBF6EA" />
+              <span className="text-[28px] leading-none" style={{ fontWeight: 700, letterSpacing: "-0.04em", color: "#FBF6EA" }}>hyperfix</span>
+            </span>
+            <p className="mt-4 max-w-[260px] text-[14px] font-medium leading-relaxed" style={{ color: "var(--ink-muted)" }}>
+              ADHD accountability that actually works. Track your hyperfixations,
+              earn XP, keep a streak that forgives you.
             </p>
             <div className="mt-6 flex items-center gap-2.5">
               {socials.map((s) => (
@@ -88,8 +89,8 @@ export function Footer() {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-9 items-center rounded-full px-4 text-[12px] font-medium text-ink-muted transition-colors hover:text-ink"
-                  style={{ border: "1px solid var(--line)" }}
+                  className="inline-flex h-9 items-center px-4 font-mono text-[11px] font-bold uppercase tracking-wider transition-transform hover:-translate-y-0.5"
+                  style={{ border: "2px solid #FBF6EA", borderRadius: 999, color: "var(--ink)" }}
                 >
                   {s.label}
                 </a>
@@ -101,16 +102,13 @@ export function Footer() {
           </div>
           {columns.map((col) => (
             <div key={col.title}>
-              <h4 className="font-mono text-[11px] uppercase tracking-widest text-ink-faint">
+              <h4 className="font-mono text-[11px] font-bold uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>
                 {col.title}
               </h4>
               <ul className="mt-4 space-y-2.5">
                 {col.links.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-[13px] text-ink-muted transition-colors hover:text-ink"
-                    >
+                    <a href={link.href} className="text-[14px] font-medium transition-colors hover:underline" style={{ color: "var(--ink-muted)" }}>
                       {link.label}
                     </a>
                   </li>
@@ -120,32 +118,29 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-line pt-7 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[12px] text-ink-faint">© 2026 Hyperfix · Made for brains that run hot.</p>
-          <p className="inline-flex items-center gap-1.5 text-[12px] text-ink-faint">
-            <LogoMark size={13} color="var(--accent)" /> Built for the way ADHD actually works
+        <div className="mt-16 flex flex-col gap-3 pt-7 sm:flex-row sm:items-center sm:justify-between" style={{ borderTop: "2.5px solid #FBF6EA" }}>
+          <p className="font-mono text-[12px] uppercase tracking-wider" style={{ color: "var(--ink-faint)" }}>© 2026 Hyperfix · Made for brains that run hot.</p>
+          <p className="inline-flex items-center gap-1.5 font-mono text-[12px] uppercase tracking-wider" style={{ color: "var(--ink-faint)" }}>
+            <LogoMark size={14} color="var(--accent)" ink="#FBF6EA" /> Built for the way ADHD actually works
           </p>
         </div>
       </div>
 
-      {/* Oversized brand watermark — the lowest part of the page */}
+      {/* Oversized outlined wordmark watermark */}
       <div aria-hidden className="relative mt-10 select-none overflow-hidden">
         <p
-          className="whitespace-nowrap text-center font-display font-medium leading-[0.8] tracking-tight"
+          className="whitespace-nowrap text-center leading-[0.8]"
           style={{
             fontSize: "clamp(80px,18vw,240px)",
+            fontWeight: 700,
+            letterSpacing: "-0.04em",
             color: "transparent",
-            WebkitTextStroke: "1px rgba(255,255,255,0.06)",
-            transform: "translateY(28%)",
+            WebkitTextStroke: "2px rgba(251,246,234,0.14)",
+            transform: "translateY(26%)",
           }}
         >
           hyperfix
         </p>
-        {/* fade the watermark into the footer base */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{ background: "linear-gradient(to bottom, transparent 0%, #1a1615 88%)" }}
-        />
       </div>
     </footer>
   );

@@ -4,11 +4,14 @@ export function Wordmark({ className = "" }: { className?: string }) {
   return (
     <a
       href="/"
-      className={`inline-flex items-center gap-2.5 leading-none hover:opacity-90 ${className}`}
+      className={`inline-flex items-center gap-2.5 leading-none ${className}`}
       aria-label="Hyperfix"
     >
-      <LogoMark size={26} color="var(--energy)" />
-      <span className="font-display-medium text-[30px] leading-none tracking-tight text-ink sm:text-[33px]">
+      <LogoMark size={28} color="var(--accent)" />
+      <span
+        className="text-[26px] leading-none text-ink sm:text-[28px]"
+        style={{ fontWeight: 700, letterSpacing: "-0.04em" }}
+      >
         hyperfix
       </span>
     </a>
