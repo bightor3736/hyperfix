@@ -6,7 +6,7 @@
 CREATE TABLE IF NOT EXISTS fixation_insights (
   id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id     UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
-  fixation_id UUID NOT NULL REFERENCES hyperfixations(id) ON DELETE CASCADE,
+  fixation_id UUID NOT NULL REFERENCES fixes(id) ON DELETE CASCADE,
   prompt_key  TEXT NOT NULL,
   body        TEXT NOT NULL,
   created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
