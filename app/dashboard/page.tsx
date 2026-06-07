@@ -25,12 +25,13 @@ export default async function DashboardPage() {
     total_points: number;
     current_streak: number;
     streak_freezes: number;
+    is_pro: boolean | null;
   } | null = null;
 
   if (user) {
     const { data } = await supabase
       .from("profiles")
-      .select("display_name, username, total_points, current_streak, streak_freezes")
+      .select("display_name, username, total_points, current_streak, streak_freezes, is_pro")
       .eq("id", user.id)
       .single();
     profile = data;
@@ -43,6 +44,7 @@ export default async function DashboardPage() {
   const totalPoints = profile?.total_points ?? 0;
   const currentStreak = profile?.current_streak ?? 0;
   const streakFreezes = profile?.streak_freezes ?? 0;
+  const isPro = profile?.is_pro ?? false;
   const quests = user ? await getDailyQuests(user.id) : [];
 
   const { level, index, next } = levelForPoints(totalPoints);
@@ -58,6 +60,7 @@ export default async function DashboardPage() {
       totalPoints={totalPoints}
       currentStreak={currentStreak}
       streakFreezes={streakFreezes}
+      isPro={isPro}
       quests={quests}
       currentLevelPoints={level.points}
       nextLevelPoints={next?.points}

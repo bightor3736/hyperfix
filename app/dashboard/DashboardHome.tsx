@@ -17,6 +17,7 @@ export type DashboardHomeProps = {
   currentStreak: number;
   streakFreezes: number;
   quests: Quest[];
+  isPro?: boolean;
   nextLevelPoints?: number;
   currentLevelPoints?: number;
 };
@@ -37,6 +38,7 @@ export function DashboardHome({
   totalPoints,
   currentStreak,
   quests,
+  isPro = false,
   nextLevelPoints,
   currentLevelPoints = 0,
 }: DashboardHomeProps) {
@@ -54,6 +56,7 @@ export function DashboardHome({
         streak={currentStreak}
         xp={totalPoints}
         displayName={username ?? firstName}
+        isPro={isPro}
       />
 
       {/* ── HEADER ────────────────────────────────────────────────── */}

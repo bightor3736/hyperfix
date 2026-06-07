@@ -11,45 +11,43 @@ import { Play, Pause, RotateCcw, ArrowRight, Check, X, Zap, Clock } from "lucide
  * The flow: name the thing you're avoiding → shrink it to the smallest first
  * move → commit to a tiny timer ("do 5 min, you can quit after") → cross the
  * line → get celebrated for starting. Started-but-unfinished tasks are kept
- * (the Zeigarnik pull) so they bring you back.
- *
- * v1 persists open tasks in localStorage — fast, offline-friendly, no
- * migration. XP is awarded server-side via /api/start on completion.
+ * server-side (the Zeigarnik pull) so they bring you back across devices.
  */
 
-type StartTask = {
+type Task = {
   id: string;
   title: string;
   step: string;
-  createdAt: number;
-  lastStartedAt: number;
   sessions: number;
   totalMinutes: number;
-  done: boolean;
+  lastStartedAt: string | null;
+  createdAt: string;
 };
 
 type Phase = "idle" | "setup" | "running" | "done";
 
-const STORE_KEY = "hyperfix_start_tasks";
 const DURATIONS = [2, 5, 10, 25];
 
-function loadTasks(): StartTask[] {
-  try {
-    const raw = localStorage.getItem(STORE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw) as StartTask[];
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveTasks(tasks: StartTask[]) {
-  try {
-    localStorage.setItem(STORE_KEY, JSON.stringify(tasks));
-  } catch {
-    /* storage full / blocked — non-fatal */
-  }
+// API rows come back snake_case; normalise to the local shape.
+type TaskRow = {
+  id: string;
+  title: string;
+  step: string;
+  sessions: number;
+  total_minutes: number;
+  last_started_at: string | null;
+  created_at: string;
+};
+function fromRow(r: TaskRow): Task {
+  return {
+    id: r.id,
+    title: r.title,
+    step: r.step ?? "",
+    sessions: r.sessions ?? 0,
+    totalMinutes: r.total_minutes ?? 0,
+    lastStartedAt: r.last_started_at,
+    createdAt: r.created_at,
+  };
 }
 
 function fmt(sec: number) {
@@ -58,8 +56,9 @@ function fmt(sec: number) {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-function ago(ts: number): string {
-  const diff = Date.now() - ts;
+function ago(iso: string | null): string {
+  if (!iso) return "just now";
+  const diff = Date.now() - Date.parse(iso);
   const days = Math.floor(diff / 86400000);
   if (days >= 1) return `${days}d ago`;
   const hrs = Math.floor(diff / 3600000);
@@ -70,7 +69,7 @@ function ago(ts: number): string {
 }
 
 export function JustStart() {
-  const [tasks, setTasks] = useState<StartTask[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [phase, setPhase] = useState<Phase>("idle");
 
   // draft / active task fields
@@ -78,6 +77,7 @@ export function JustStart() {
   const [step, setStep] = useState("");
   const [minutes, setMinutes] = useState(5);
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   // timer
   const [remaining, setRemaining] = useState(5 * 60);
@@ -85,38 +85,41 @@ export function JustStart() {
   const [earnedXp, setEarnedXp] = useState(0);
   const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // Load the user's open tasks.
   useEffect(() => {
-    setTasks(loadTasks());
+    fetch("/api/start/tasks")
+      .then((r) => (r.ok ? r.json() : { tasks: [] }))
+      .then((d) => setTasks((d.tasks ?? []).map(fromRow)))
+      .catch(() => { /* offline — start empty */ });
   }, []);
 
-  const openTasks = tasks.filter((t) => !t.done);
-
-  function persist(next: StartTask[]) {
-    setTasks(next);
-    saveTasks(next);
-  }
-
   // ── Begin a brand-new task ────────────────────────────────────────
-  function beginNew() {
-    if (!title.trim()) return;
-    const id = `t_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
-    const task: StartTask = {
-      id,
-      title: title.trim(),
-      step: step.trim(),
-      createdAt: Date.now(),
-      lastStartedAt: 0,
-      sessions: 0,
-      totalMinutes: 0,
-      done: false,
-    };
-    persist([task, ...tasks]);
-    setActiveId(id);
-    setPhase("setup");
+  async function beginNew() {
+    const t = title.trim();
+    if (!t || submitting) return;
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/start/tasks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: t, step: step.trim() }),
+      });
+      const d = await res.json();
+      if (d?.task) {
+        const task = fromRow(d.task);
+        setTasks((prev) => [task, ...prev]);
+        setActiveId(task.id);
+        setPhase("setup");
+      }
+    } catch {
+      /* keep them in the form on failure */
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   // ── Re-open an existing avoided task ──────────────────────────────
-  function resume(task: StartTask) {
+  function resume(task: Task) {
     setTitle(task.title);
     setStep(task.step);
     setActiveId(task.id);
@@ -128,13 +131,6 @@ export function JustStart() {
     setRemaining(minutes * 60);
     setRunning(true);
     setPhase("running");
-    setTasks((prev) => {
-      const next = prev.map((t) =>
-        t.id === activeId ? { ...t, lastStartedAt: Date.now(), step: step.trim() } : t
-      );
-      saveTasks(next);
-      return next;
-    });
   }
 
   const finish = useCallback(() => {
@@ -142,21 +138,19 @@ export function JustStart() {
     setRemaining(0);
     setPhase("done");
 
-    // Record the win + book the session against the active task.
-    setTasks((prev) => {
-      const next = prev.map((t) =>
+    // Optimistically book the session locally.
+    setTasks((prev) =>
+      prev.map((t) =>
         t.id === activeId
-          ? { ...t, sessions: t.sessions + 1, totalMinutes: t.totalMinutes + minutes }
+          ? { ...t, sessions: t.sessions + 1, totalMinutes: t.totalMinutes + minutes, lastStartedAt: new Date().toISOString(), step: step.trim() || t.step }
           : t
-      );
-      saveTasks(next);
-      return next;
-    });
+      )
+    );
 
     fetch("/api/start", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ minutes, task: title }),
+      body: JSON.stringify({ minutes, task: title, taskId: activeId, step: step.trim() }),
     })
       .then((r) => r.json())
       .then((d) => setEarnedXp(d?.xp ?? 20))
@@ -179,7 +173,7 @@ export function JustStart() {
     } catch {
       /* no audio */
     }
-  }, [activeId, minutes, title]);
+  }, [activeId, minutes, title, step]);
 
   // timer loop
   useEffect(() => {
@@ -213,14 +207,21 @@ export function JustStart() {
   }
 
   function markDone(id: string) {
-    persist(tasks.map((t) => (t.id === id ? { ...t, done: true } : t)));
+    setTasks((prev) => prev.filter((t) => t.id !== id));
+    fetch(`/api/start/tasks/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ done: true }),
+    }).catch(() => { /* non-fatal */ });
   }
 
   function removeTask(id: string) {
-    persist(tasks.filter((t) => t.id !== id));
+    setTasks((prev) => prev.filter((t) => t.id !== id));
+    fetch(`/api/start/tasks/${id}`, { method: "DELETE" }).catch(() => { /* non-fatal */ });
   }
 
   const activeTask = tasks.find((t) => t.id === activeId);
+  const openTasks = tasks;
 
   // ──────────────────────────────────────────────────────────────────
   return (
@@ -261,11 +262,11 @@ export function JustStart() {
             />
             <button
               type="submit"
-              disabled={!title.trim()}
+              disabled={!title.trim() || submitting}
               className="brutal-btn mt-3 w-full py-3.5 text-[15px] disabled:opacity-40"
               style={{ background: "var(--accent)", color: "var(--accent-ink)", borderRadius: 7 }}
             >
-              Let&apos;s start <ArrowRight size={17} strokeWidth={3} />
+              {submitting ? "One sec…" : <>Let&apos;s start <ArrowRight size={17} strokeWidth={3} /></>}
             </button>
           </form>
 
@@ -300,7 +301,7 @@ export function JustStart() {
                     <button
                       onClick={() => markDone(t.id)}
                       aria-label="Mark done"
-                      className="shrink-0 text-ink-faint transition-colors hover:text-lime"
+                      className="shrink-0 transition-colors"
                       style={{ color: "var(--ink-faint)" }}
                     >
                       <Check size={18} strokeWidth={3} />

@@ -28,12 +28,14 @@ export function MilestoneWatcher({
   streak,
   xp,
   displayName,
+  isPro = false,
 }: {
   levelNum: number;
   levelName: string;
   streak: number;
   xp: number;
   displayName?: string;
+  isPro?: boolean;
 }) {
   const [milestone, setMilestone] = useState<Milestone | null>(null);
 
@@ -80,6 +82,7 @@ export function MilestoneWatcher({
       levelName={levelName}
       levelNum={levelNum}
       xp={xp}
+      isPro={isPro}
       onClose={() => setMilestone(null)}
     />
   );

@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { Confetti } from "@/components/game/Confetti";
 import { ShareStatsButton } from "@/components/game/ShareStatsButton";
-import { Trophy, Flame } from "lucide-react";
+import { ProCheckoutButton } from "@/components/ProCheckoutButton";
+import { Trophy, Flame, Zap } from "lucide-react";
 
 /**
  * Full-screen celebration for the two highest-bragging moments: leveling up
@@ -23,6 +24,7 @@ export function MilestoneCelebration({
   levelNum,
   xp,
   fixation,
+  isPro = false,
   onClose,
 }: {
   milestone: Milestone;
@@ -32,6 +34,7 @@ export function MilestoneCelebration({
   levelNum: number;
   xp: number;
   fixation?: string;
+  isPro?: boolean;
   onClose: () => void;
 }) {
   const [fire, setFire] = useState(0);
@@ -113,6 +116,28 @@ export function MilestoneCelebration({
             fixation={fixation}
           />
         </div>
+
+        {/* Upgrade nudge — only non-Pro, only at the bigger level-up moment.
+            Sell on the dopamine high, never mid-task. */}
+        {!isPro && isLevel && (
+          <div
+            className="mt-6 p-4 text-left"
+            style={{ background: "var(--yellow)", border: "2.5px solid var(--ink)", borderRadius: 7 }}
+          >
+            <p className="inline-flex items-center gap-1.5 text-[14px] font-bold text-ink">
+              <Zap size={14} strokeWidth={3} fill="var(--ink)" /> Level up faster
+            </p>
+            <p className="mt-1 text-[12px] font-medium leading-snug" style={{ color: "var(--ink)", opacity: 0.75 }}>
+              Power-Up earns 1.5× XP on every start, plus 5 streak freezes a month so a bad week never costs you.
+            </p>
+            <ProCheckoutButton
+              className="brutal-btn mt-3 w-full py-2.5 text-[13px]"
+              style={{ background: "var(--ink)", color: "var(--bg)", borderRadius: 6 }}
+            >
+              Power up <Zap size={14} strokeWidth={3} />
+            </ProCheckoutButton>
+          </div>
+        )}
 
         <button onClick={onClose} className="mt-4 text-[13px] font-medium text-ink-faint transition-opacity hover:opacity-80">
           Keep going
