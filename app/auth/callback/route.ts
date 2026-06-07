@@ -1,6 +1,28 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
+import { trackServer } from "@/lib/analytics/server";
+
+// Top-of-funnel: tell a brand-new account apart from a returning login. The
+// auth user's created_at is stamped at first confirmation, so if it's within
+// a couple of minutes of now we count a signup, otherwise a login.
+async function trackAuthEntry() {
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    const createdMs = user.created_at ? Date.parse(user.created_at) : NaN;
+    const isNew = Number.isFinite(createdMs) && Date.now() - createdMs < 2 * 60 * 1000;
+    let source: string | null = null;
+    try {
+      const raw = (await cookies()).get("hf_src")?.value;
+      if (raw) source = (JSON.parse(decodeURIComponent(raw)).source as string) ?? null;
+    } catch { /* no attribution */ }
+    await trackServer(isNew ? "signup" : "login", { userId: user.id, source });
+  } catch {
+    /* best-effort — never block auth */
+  }
+}
 
 // Write first-touch attribution to the profile, once, at account creation.
 async function persistSource() {
@@ -51,6 +73,7 @@ export async function GET(request: Request) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
       await persistSource();
+      await trackAuthEntry();
       return NextResponse.redirect(`${origin}${next}`);
     }
   }
@@ -60,6 +83,7 @@ export async function GET(request: Request) {
     const { error } = await supabase.auth.verifyOtp({ token_hash, type });
     if (!error) {
       await persistSource();
+      await trackAuthEntry();
       return NextResponse.redirect(`${origin}${next}`);
     }
   }

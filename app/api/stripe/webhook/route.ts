@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import { createServerClient } from "@supabase/ssr";
+import { trackServer } from "@/lib/analytics/server";
 import Stripe from "stripe";
 
 export async function POST(req: NextRequest) {
@@ -46,6 +47,12 @@ export async function POST(req: NextRequest) {
           stripe_subscription_id: session.subscription as string,
         })
         .eq("id", userId);
+
+      // Funnel: a paid conversion — the bottom of the monetization funnel.
+      await trackServer("upgrade", {
+        userId,
+        props: { amount: session.amount_total ?? null, currency: session.currency ?? null },
+      });
     }
   }
 

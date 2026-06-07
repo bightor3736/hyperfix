@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe";
+import { trackServer } from "@/lib/analytics/server";
 import type Stripe from "stripe";
 
 export async function POST(req: NextRequest) {
@@ -45,6 +46,10 @@ export async function POST(req: NextRequest) {
     }
 
     const session = await getStripe().checkout.sessions.create(sessionParams);
+
+    // Funnel: intent to pay. Pairs with the `upgrade` event on webhook success
+    // to measure checkout → paid conversion.
+    await trackServer("checkout_start", { userId: user.id });
 
     return NextResponse.json({ url: session.url });
   } catch (err) {

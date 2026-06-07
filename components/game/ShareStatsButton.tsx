@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Share2, Download, X, Loader2, Check } from "lucide-react";
+import { track } from "@/lib/analytics/client";
 
 type Props = {
   name?: string;
@@ -42,8 +43,10 @@ export function ShareStatsButton({ name, streak, level, levelNum, xp, hits, fixa
       const file = new File([blob], "hyperfix-card.png", { type: "image/png" });
       const nav = navigator as Navigator & { canShare?: (d: ShareData) => boolean };
       if (nav.canShare?.({ files: [file] })) {
+        track("share", { surface: "native", levelNum: levelNum ?? 0 });
         await navigator.share({ files: [file], title: "My Hyperfix card", text: caption });
       } else {
+        track("share", { surface: "download", levelNum: levelNum ?? 0 });
         download(blob);
       }
     } catch {
@@ -55,6 +58,7 @@ export function ShareStatsButton({ name, streak, level, levelNum, xp, hits, fixa
 
   async function downloadCard() {
     setBusy(true);
+    track("share", { surface: "download", levelNum: levelNum ?? 0 });
     try {
       const res = await fetch(imgUrl);
       download(await res.blob());

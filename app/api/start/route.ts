@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { awardPoints, recordCheckin } from "@/lib/gamification/award";
 import { POINT_VALUES } from "@/lib/gamification/levels";
 import { completeQuestByKind } from "@/lib/quests/complete";
+import { trackServer, isFirstTime } from "@/lib/analytics/server";
 
 // Records that a user crossed the starting line on a task they were avoiding.
 // We reward the START, not the finish — task initiation is the ADHD pain, so
@@ -48,8 +49,19 @@ export async function POST(req: Request) {
 
   const label = task ? `Started: ${task} (${minutes}m)` : `Started a dreaded task (${minutes}m)`;
   const ref = `start:${Math.floor(Date.now() / 60000)}`;
+
+  // Activation event: is this the user's very first start (the "aha")? Check
+  // before writing so the first row is correctly flagged.
+  const first = await isFirstTime(user.id, "task_start");
+
   await awardPoints(user.id, "wall_broken", ref, label);
   await completeQuestByKind(user.id, "focus_session");
+
+  // Funnel: the core activation + repeat-engagement signal.
+  await trackServer("task_start", {
+    userId: user.id,
+    props: { minutes, first, named: Boolean(task), hasTaskId: Boolean(body.taskId) },
+  });
 
   // Forgiving streak: showing up to start keeps your streak alive.
   const streak = await recordCheckin(user.id);
