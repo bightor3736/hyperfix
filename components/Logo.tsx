@@ -1,16 +1,18 @@
 /**
  * Hyperfix brand — warm, friendly, a little obsessive
  *
- * LogoMark     — a soft "bloom" (a rounded quatrefoil). Reads as warmth and
- *                energy rather than a generic sparkle. Purple by default,
- *                single colour, legible from 16px favicon to hero.
+ * LogoMark     — a soft "bloom": four spreading petals surrounding a dominant
+ *                focus-point center. The larger center represents hyperfixation
+ *                — intense focus — while the petals radiate outward. Single
+ *                colour, legible from 16px favicon to hero.
  * LogoWordmark — "hyperfix" in Fraunces medium.
  * LogoLockup   — mark + wordmark.
  * LogoTile     — the bloom on a rounded app-icon tile (for icons / avatars).
  */
 
-// The bloom: four overlapping rounded lobes around a center — a friendly,
-// organic burst. Built from circles so it stays crisp at any size.
+// The bloom: four slightly smaller petals around a larger focal-point center —
+// strong visual hierarchy representing "hyperfixation" = intense focus radiating
+// outward. Built from circles so it stays crisp at any size.
 export function LogoMark({
   size = 28,
   className = "",
@@ -31,11 +33,11 @@ export function LogoMark({
       aria-hidden="true"
     >
       <g fill={color}>
-        <circle cx="14" cy="7.4" r="6.6" />
-        <circle cx="14" cy="20.6" r="6.6" />
-        <circle cx="7.4" cy="14" r="6.6" />
-        <circle cx="20.6" cy="14" r="6.6" />
-        <circle cx="14" cy="14" r="6.6" />
+        <circle cx="14" cy="7.4" r="5.8" />
+        <circle cx="14" cy="20.6" r="5.8" />
+        <circle cx="7.4" cy="14" r="5.8" />
+        <circle cx="20.6" cy="14" r="5.8" />
+        <circle cx="14" cy="14" r="7.8" />
       </g>
     </svg>
   );

@@ -79,7 +79,7 @@ export function Footer() {
           <div className="col-span-2 sm:col-span-3 md:col-span-2">
             <Wordmark />
             <p className="mt-4 max-w-[260px] text-[13px] leading-relaxed text-ink-muted">
-              ADHD accountability that actually works. Track your hyperfixations, earn real XP, beat the wall.
+              ADHD accountability that actually works. Track your hyperfixations, earn XP, keep a streak that forgives you.
             </p>
             <div className="mt-6 flex items-center gap-2.5">
               {socials.map((s) => (
