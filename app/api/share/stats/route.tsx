@@ -4,93 +4,103 @@ export const runtime = "edge";
 export const size = { width: 1080, height: 1080 };
 export const contentType = "image/png";
 export const dynamic = "force-dynamic";
-export const alt = "My Hyperfix stats";
+export const alt = "My Hyperfix card";
 
+// Neo-brutalist shareable flex card — the level name is the hero (the meme),
+// streak + XP are the proof, and the current obsession is the relatable hook.
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const name = (searchParams.get("name") ?? "").slice(0, 24);
+  const name = (searchParams.get("name") ?? "").slice(0, 20);
   const streak = parseInt(searchParams.get("streak") ?? "0", 10) || 0;
   const level = (searchParams.get("level") ?? "Mildly Curious").slice(0, 28);
+  const levelNum = parseInt(searchParams.get("levelNum") ?? "0", 10) || 0;
   const xp = parseInt(searchParams.get("xp") ?? "0", 10) || 0;
-  const hits = parseInt(searchParams.get("hits") ?? "0", 10) || 0;
+  const fixation = (searchParams.get("fixation") ?? "").slice(0, 40);
 
-  // Brand palette — warm organic canvas
-  const BG = "#f9f8f7";
-  const INK = "#1a1615";
-  const MUTED = "#453f3d";
-  const FAINT = "#757170";
-  const LINE = "#f0ebe6";
-  const CARD = "#ffffff";
-  const ENERGY = "#14b8a6";
-  const XP = "#14b8a6";
-  const FLAME = "#c9502e";
+  const BG = "#FBF6EA";
+  const INK = "#0A0A0A";
+  const FAINT = "#6A6A6A";
+  const CARD = "#FFFFFF";
+  const BLUE = "#2F4BFF";
+  const VIOLET = "#8B5CF6";
+  const FLAME = "#FF5C3A";
+
+  // level name scales down as it gets longer so it always fills the block
+  const lvl = level.toUpperCase();
+  const lvlSize = lvl.length > 16 ? 92 : lvl.length > 10 ? 120 : 150;
+
+  const Bracket = () => (
+    <svg width="64" height="64" viewBox="0 0 32 32">
+      <g fill={INK}>
+        <rect x="3" y="3" width="3" height="8" /><rect x="3" y="3" width="8" height="3" />
+        <rect x="26" y="3" width="3" height="8" /><rect x="21" y="3" width="8" height="3" />
+        <rect x="3" y="21" width="3" height="8" /><rect x="3" y="26" width="8" height="3" />
+        <rect x="26" y="21" width="3" height="8" /><rect x="21" y="26" width="8" height="3" />
+      </g>
+      <rect x="11.5" y="11.5" width="9" height="9" fill={BLUE} stroke={INK} strokeWidth="2.5" />
+    </svg>
+  );
 
   return new ImageResponse(
     (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          height: "100%",
-          background: BG,
-          backgroundImage: `radial-gradient(900px 600px at 0% 0%, #ece7ff 0%, ${BG} 55%)`,
-          padding: 72,
-          fontFamily: "sans-serif",
-        }}
-      >
-        {/* Header */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+      <div style={{ display: "flex", width: "100%", height: "100%", background: BG, padding: 52, fontFamily: "sans-serif" }}>
+        <div
+          style={{
+            display: "flex", flexDirection: "column", width: "100%", height: "100%",
+            background: CARD, border: `6px solid ${INK}`, borderRadius: 16,
+            boxShadow: `20px 20px 0 0 ${INK}`, padding: 56, justifyContent: "space-between",
+          }}
+        >
+          {/* Header */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <Bracket />
+              <span style={{ fontSize: 46, color: INK, fontWeight: 800, letterSpacing: "-0.04em" }}>hyperfix</span>
+            </div>
+            <div style={{ display: "flex", border: `4px solid ${INK}`, borderRadius: 999, padding: "10px 24px", background: BG }}>
+              <span style={{ fontSize: 22, color: INK, fontWeight: 800, letterSpacing: "0.12em" }}>FIXATION REPORT</span>
+            </div>
+          </div>
+
+          {/* Level hero */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span style={{ fontSize: 30, color: FAINT, fontWeight: 800, letterSpacing: "0.1em" }}>
+              {(name ? `@${name}` : "MY BRAIN").toUpperCase()} · LEVEL {levelNum || ""}
+            </span>
             <div
               style={{
-                display: "flex",
-                width: 18,
-                height: 18,
-                borderRadius: 999,
-                background: ENERGY,
+                display: "flex", marginTop: 18, background: VIOLET, border: `6px solid ${INK}`,
+                borderRadius: 12, boxShadow: `10px 10px 0 0 ${INK}`, padding: "28px 36px", alignSelf: "flex-start",
+                maxWidth: "100%",
               }}
-            />
-            <span style={{ fontSize: 30, color: INK, fontWeight: 700, letterSpacing: "-0.02em" }}>
-              Hyperfix
-            </span>
+            >
+              <span style={{ fontSize: lvlSize, color: "#fff", fontWeight: 800, letterSpacing: "-0.04em", lineHeight: 1 }}>
+                {lvl}
+              </span>
+            </div>
           </div>
-          <span style={{ fontSize: 22, color: MUTED }}>your daily dopamine, on tap</span>
-        </div>
 
-        {/* Hero streak */}
-        <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "center" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <svg width="28" height="28" viewBox="0 0 24 24" fill={FLAME} stroke={FLAME} strokeWidth="1.5">
-              <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
-            </svg>
-            <span style={{ fontSize: 26, color: FLAME, fontWeight: 700, letterSpacing: "0.18em" }}>
-              {name ? `${name.toUpperCase()}'S STREAK` : "CURRENT STREAK"}
-            </span>
+          {/* Stats */}
+          <div style={{ display: "flex", gap: 24 }}>
+            <Stat label="STREAK" value={`${streak}d`} color={FLAME} ink={INK} bg={BG} />
+            <Stat label="TOTAL XP" value={xp.toLocaleString()} color={BLUE} ink={INK} bg={BG} />
           </div>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 24, marginTop: 8 }}>
-            <span style={{ fontSize: 300, color: INK, lineHeight: 1, letterSpacing: "-0.05em", fontWeight: 800 }}>
-              {streak}
-            </span>
-            <span style={{ fontSize: 60, color: FLAME, fontWeight: 800, letterSpacing: "-0.02em" }}>
-              day{streak === 1 ? "" : "s"}
-            </span>
+
+          {/* Current obsession */}
+          {fixation ? (
+            <div style={{ display: "flex", flexDirection: "column", background: "#FFD23F", border: `6px solid ${INK}`, borderRadius: 12, padding: "24px 32px" }}>
+              <span style={{ fontSize: 24, color: INK, fontWeight: 800, letterSpacing: "0.1em" }}>CURRENTLY OBSESSED WITH</span>
+              <span style={{ fontSize: 56, color: INK, fontWeight: 800, letterSpacing: "-0.03em", marginTop: 4 }}>{fixation}</span>
+            </div>
+          ) : (
+            <div style={{ display: "flex" }} />
+          )}
+
+          {/* Footer */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: `4px solid ${INK}`, paddingTop: 28 }}>
+            <span style={{ fontSize: 26, color: FAINT, fontWeight: 800, letterSpacing: "0.08em" }}>MADE WITH HYPERFIX</span>
+            <span style={{ fontSize: 30, color: INK, fontWeight: 800, letterSpacing: "-0.02em" }}>hyperfix.app</span>
           </div>
-          <span style={{ fontSize: 30, color: MUTED, marginTop: 16 }}>
-            chose dopamine over the doomscroll.
-          </span>
-        </div>
-
-        {/* Stats row */}
-        <div style={{ display: "flex", gap: 24 }}>
-          <Stat label="LEVEL" value={level} valueColor={ENERGY} card={CARD} line={LINE} faint={FAINT} small />
-          <Stat label="TOTAL XP" value={xp.toLocaleString()} valueColor={XP} card={CARD} line={LINE} faint={FAINT} />
-          <Stat label="DOPAMINE HITS" value={String(hits)} valueColor={FLAME} card={CARD} line={LINE} faint={FAINT} />
-        </div>
-
-        {/* Footer */}
-        <div style={{ display: "flex", justifyContent: "center", marginTop: 36 }}>
-          <span style={{ fontSize: 26, color: INK, fontWeight: 600 }}>hyperfix.app</span>
         </div>
       </div>
     ),
@@ -98,47 +108,16 @@ export async function GET(req: Request) {
   );
 }
 
-function Stat({
-  label,
-  value,
-  valueColor,
-  card,
-  line,
-  faint,
-  small,
-}: {
-  label: string;
-  value: string;
-  valueColor: string;
-  card: string;
-  line: string;
-  faint: string;
-  small?: boolean;
-}) {
+function Stat({ label, value, color, ink, bg }: { label: string; value: string; color: string; ink: string; bg: string }) {
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        flex: 1,
-        background: card,
-        border: `1px solid ${line}`,
-        borderRadius: 28,
-        padding: 28,
+        display: "flex", flexDirection: "column", flex: 1, background: bg,
+        border: `5px solid ${ink}`, borderRadius: 12, boxShadow: `8px 8px 0 0 ${ink}`, padding: 28,
       }}
     >
-      <span style={{ fontSize: 20, color: faint, letterSpacing: "0.16em", fontWeight: 700 }}>{label}</span>
-      <span
-        style={{
-          fontSize: small ? 40 : 56,
-          color: valueColor,
-          fontWeight: 800,
-          letterSpacing: "-0.02em",
-          marginTop: 10,
-        }}
-      >
-        {value}
-      </span>
+      <span style={{ fontSize: 24, color: ink, fontWeight: 800, letterSpacing: "0.14em" }}>{label}</span>
+      <span style={{ fontSize: 92, color, fontWeight: 800, letterSpacing: "-0.03em", marginTop: 6, lineHeight: 1 }}>{value}</span>
     </div>
   );
 }
