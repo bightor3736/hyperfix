@@ -12,19 +12,19 @@ import { StickyMobileCTA } from "@/components/landing/StickyMobileCTA";
 import { SourceCapture } from "@/components/SourceCapture";
 
 export const metadata: Metadata = {
-  title: "Hyperfix — the app for your hyperfixations",
+  title: "Hyperfix — start the task you've been avoiding",
   description:
-    "Track your hyperfixations and earn real XP for logging, learning about, and following through on what you're obsessed with. A warm, forgiving ADHD app with game mechanics, streak freezes, and a profile worth showing off — free to start.",
+    "The ADHD app that beats task paralysis. Name the thing you're avoiding, do just 5 minutes, and earn XP for starting — not for being perfect. Forgiving streaks, no shame, free to start.",
   keywords: [
-    "ADHD app", "hyperfixation tracker", "hyperfixation app", "track hyperfixations",
-    "ADHD focus app", "ADHD productivity", "ADHD dopamine", "understimulation ADHD",
-    "neurodivergent app", "ADHD game", "special interest tracker", "ADHD obsession",
-    "ADHD streak app", "hyperfixation journal", "ADHD hobby tracker",
+    "ADHD app", "task paralysis", "ADHD task initiation", "can't start tasks",
+    "ADHD focus app", "ADHD productivity", "how to start a task with ADHD", "ADHD procrastination",
+    "neurodivergent app", "ADHD motivation", "beat the wall ADHD", "ADHD getting started",
+    "ADHD streak app", "5 minute rule", "ADHD focus timer",
   ],
   alternates: { canonical: "https://hyperfix.app" },
   openGraph: {
-    title: "Hyperfix — the app for your hyperfixations",
-    description: "Track your hyperfixations. Earn XP for logging, learning about, and following through on what you're obsessed with. Streak freezes and a profile worth showing off — your own journey, no leaderboards.",
+    title: "Hyperfix — start the task you've been avoiding",
+    description: "Trick your ADHD brain into starting. Name it, do 5 minutes, get rewarded for starting. Forgiving streaks, no shame — free to start.",
     url: "https://hyperfix.app",
     type: "website",
   },
@@ -37,32 +37,32 @@ const faqSchema = {
     {
       "@type": "Question",
       name: "What actually is Hyperfix?",
-      acceptedAnswer: { "@type": "Answer", text: "A personal ADHD accountability app with game mechanics. You track your hyperfixations, earn XP for real actions, and beat the tasks your brain keeps avoiding — all at your own pace. Not a competition, not a habit tracker. Just you and your streak." },
+      acceptedAnswer: { "@type": "Answer", text: "An ADHD app that gets you over the starting line on the task you've been avoiding. Name the thing, shrink it to the smallest first move, do just 5 minutes — and earn XP for starting, not for being perfect. Built for task paralysis, not for tracking." },
     },
     {
       "@type": "Question",
-      name: "What does 'proof of action' mean?",
-      acceptedAnswer: { "@type": "Answer", text: "Instead of just tapping 'done' and lying to yourself, you run a timer for the activity's duration — or write one sentence about what you actually did. XP only drops when you've shown a receipt. It prevents checkbox farming and makes the XP feel earned." },
+      name: "Why does it reward starting instead of finishing?",
+      acceptedAnswer: { "@type": "Answer", text: "Because for ADHD brains, starting is the hard part — task initiation is the actual wall. If the win is 'I began', you get a real hit of success every time, which is exactly what makes you come back. Finishing takes care of itself once you've crossed the line." },
     },
     {
       "@type": "Question",
-      name: "Is this just another habit tracker?",
-      acceptedAnswer: { "@type": "Answer", text: "No. Habit trackers punish you the moment you break a chain. Hyperfix rewards showing up at all — variable XP, jackpots, streak freezes for bad days. And it doesn't care about consistency — it cares that you did something real today." },
+      name: "What's the '5-minute' thing?",
+      acceptedAnswer: { "@type": "Answer", text: "The deal: commit to just a few minutes, and you're allowed to quit after. Most of the time you won't want to — momentum takes over. It works because it drops the barrier from 'finish this huge thing' to 'do 5 minutes', which is what gets a stuck brain moving." },
     },
     {
       "@type": "Question",
       name: "What are streak freezes?",
-      acceptedAnswer: { "@type": "Answer", text: "Miss-day insurance. Skip a day and a freeze is used automatically so your streak survives. Free players get one a month; Power-Up gets five. Because ADHD brains have hard weeks, and one bad week shouldn't erase everything." },
+      acceptedAnswer: { "@type": "Answer", text: "Miss-day insurance. Skip a day and a freeze is used automatically so your streak survives. Free players get one a month; Power-Up gets five. ADHD brains have hard weeks — one bad week shouldn't erase everything, and you'll never get a shaming 'streak lost'." },
     },
     {
       "@type": "Question",
       name: "Is it free?",
-      acceptedAnswer: { "@type": "Answer", text: "Yes — the full core experience is free. Unlimited hyperfixation logs, deep dives, brain bursts, XP, levels, streaks, daily quests, the focus timer and your shareable stats card. Power-Up adds more streak freezes, an XP multiplier, and premium profile themes." },
+      acceptedAnswer: { "@type": "Answer", text: "Yes — the full core loop is free. Unlimited tasks, the focus timer, XP, levels, streaks, daily quests, and your shareable card. Power-Up adds a 1.5× XP multiplier, five streak freezes a month, and premium profile themes." },
     },
     {
       "@type": "Question",
       name: "Will this actually help my ADHD?",
-      acceptedAnswer: { "@type": "Answer", text: "It's built around what ADHD brains actually respond to: instant feedback, variable rewards, low-friction starts, and forgiving systems. It won't fix everything — but it makes starting easier, keeps your hyperfixations organized, and rewards you for real effort instead of punishing imperfection." },
+      acceptedAnswer: { "@type": "Answer", text: "It's built around what ADHD brains respond to: instant feedback, tiny low-friction starts, rewards for showing up, and forgiving systems that never punish a bad day. It won't fix everything — but it makes starting the thing you're dreading genuinely easier." },
     },
   ],
 };

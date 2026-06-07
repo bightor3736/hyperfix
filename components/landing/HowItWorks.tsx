@@ -40,7 +40,7 @@ export function HowItWorks() {
               </span>
             </h2>
             <p className="mx-auto mt-7 max-w-[480px] text-[17px] font-medium leading-[1.5] text-ink-muted">
-              Log what you&apos;re into, get a hit, prove you did it, keep a streak that forgives you. Five steps, no busywork.
+              Name the thing you&apos;re avoiding, shrink it, do five minutes, get rewarded for starting — and keep a streak that forgives you. No busywork.
             </p>
           </div>
         </Reveal>
@@ -48,10 +48,10 @@ export function HowItWorks() {
         {/* Step 1 — card left, text right */}
         <Step
           n="1"
-          color="var(--yellow)"
-          title="Log your hyperfixation"
-          body="Drop in whatever you're deep in right now — a show, a song, a language, a person. Rate the intensity and check in daily. Hyperfix gives it a home instead of letting it live in 40 browser tabs."
-          card={<FixationCard />}
+          color="var(--coral)"
+          title="Name what you're avoiding"
+          body="Type in the thing you've been dreading — the email, the form, the gym bag by the door. Getting it out of your head and onto the screen is the first crack in the wall. Hyperfix keeps your avoided tasks so they stop haunting you in the background."
+          card={<AvoidCard />}
           flip
         />
 
@@ -59,17 +59,17 @@ export function HowItWorks() {
         <Step
           n="2"
           color="var(--violet)"
-          title="Go deep, earn XP"
-          body="Answer a quick prompt about your fixation — what pulled you in, the thing that surprised you, the next rabbit hole. Every deep dive earns XP and builds a real record of your obsession. Brain bursts let you dump a stray thought before it's gone."
-          card={<DeepDiveCard />}
+          title="Shrink it, do 5 minutes"
+          body="Pick the smallest possible first move — open the doc, write one line — and start a tiny timer. The deal: do five minutes, then you're allowed to quit. You usually won't want to. That's the whole trick to beating task paralysis."
+          card={<DealCard />}
         />
 
         {/* Step 3 — card left */}
         <Step
           n="3"
           color="var(--blue)"
-          title="Prove you did it"
-          body="No more tapping 'done' and lying to yourself. Run the timer or write one line about what you actually did. XP only drops when you've shown a receipt — so it means something."
+          title="Get XP for starting"
+          body="The win is that you began — not that you finished. Cross the line and the XP drops, because starting is the hard part for an ADHD brain. Every start is a real hit of success, which is exactly what brings you back tomorrow."
           card={<ProofCard />}
           flip
         />
@@ -77,7 +77,7 @@ export function HowItWorks() {
         {/* Step 4 — text left */}
         <Step
           n="4"
-          color="var(--coral)"
+          color="var(--yellow)"
           title="Keep a streak that survives"
           body="ADHD isn't linear, so your streak shouldn't snap the first day you miss. Streak freezes kick in automatically. Miss a day, your run survives. No reset to zero, no guilt spiral."
           card={<StreakCard />}
@@ -206,36 +206,33 @@ function Label({ icon, children }: { icon: React.ReactNode; children: React.Reac
   );
 }
 
-function FixationCard() {
+function AvoidCard() {
   return (
-    <CardShell tint="var(--yellow)">
+    <CardShell tint="var(--coral)">
       <div className="mb-4">
-        <Label icon={<BookOpen size={11} strokeWidth={3} />}>Active fixations</Label>
+        <Label icon={<BookOpen size={11} strokeWidth={3} />}>Still waiting on you</Label>
       </div>
       <div style={{ background: "var(--bg-elevated)", border: "2.5px solid var(--ink)", borderRadius: 6 }}>
         {[
-          { name: "Japanese vocab", days: "21d", bars: 5 },
-          { name: "Sourdough starters", days: "4d", bars: 3 },
-          { name: "90s skateboarding", days: "12d", bars: 4 },
+          { name: "The email I've been dreading", meta: "added 2d ago" },
+          { name: "My tax return", meta: "1 start · 5m in" },
+          { name: "The gym bag by the door", meta: "added today" },
         ].map((f, idx) => (
           <div
             key={f.name}
-            className="flex items-center justify-between px-3.5 py-3"
+            className="flex items-center justify-between gap-3 px-3.5 py-3"
             style={{ borderTop: idx === 0 ? "none" : "2.5px solid var(--ink)" }}
           >
-            <div>
-              <p className="text-[15px] font-bold text-ink" style={{ letterSpacing: "-0.01em" }}>{f.name}</p>
-              <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-ink-faint">{f.days} in</p>
+            <div className="min-w-0">
+              <p className="truncate text-[15px] font-bold text-ink" style={{ letterSpacing: "-0.01em" }}>{f.name}</p>
+              <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-ink-faint">{f.meta}</p>
             </div>
-            <div className="flex items-center gap-1">
-              {[1, 2, 3, 4, 5].map((b) => (
-                <span
-                  key={b}
-                  className="h-5 w-2.5"
-                  style={{ background: b <= f.bars ? "var(--coral)" : "var(--bg)", border: "2px solid var(--ink)" }}
-                />
-              ))}
-            </div>
+            <span
+              className="inline-flex shrink-0 items-center gap-1 px-2.5 py-1.5 font-mono text-[10px] font-bold uppercase"
+              style={{ background: "var(--yellow)", border: "2px solid var(--ink)", borderRadius: 6, color: "var(--ink)" }}
+            >
+              <Timer size={11} strokeWidth={3} /> Go
+            </span>
           </div>
         ))}
       </div>
@@ -243,29 +240,29 @@ function FixationCard() {
   );
 }
 
-function DeepDiveCard() {
+function DealCard() {
   return (
     <CardShell tint="var(--violet)">
       <div className="mb-4 flex items-center justify-between">
-        <Label icon={<Sparkles size={11} strokeWidth={3} />}>Deep dive</Label>
+        <Label icon={<Sparkles size={11} strokeWidth={3} />}>The deal</Label>
         <span
           className="px-2.5 py-1 font-mono text-[12px] font-bold tabular-nums"
           style={{ background: "var(--bg-elevated)", border: "2px solid var(--ink)", borderRadius: 6, color: "var(--xp)" }}
         >
-          +8 XP
+          5:00
         </span>
       </div>
-      <p className="mb-3 text-[24px] font-bold leading-snug" style={{ color: "#fff", letterSpacing: "-0.02em" }}>
-        What pulled you in?
+      <p className="mb-3 text-[22px] font-bold leading-snug" style={{ color: "#fff", letterSpacing: "-0.02em" }}>
+        Do 5 minutes. Then you can stop.
       </p>
       <div
         className="mb-4 px-3.5 py-3 text-[13px] font-medium text-ink"
         style={{ background: "var(--bg-elevated)", border: "2.5px solid var(--ink)", borderRadius: 6 }}
       >
-        It started with one video at 2am and now I&apos;ve read every wiki page…
+        Smallest first move: just open the doc and write one line.
       </div>
       <button className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--accent)", color: "var(--accent-ink)" }}>
-        <Check size={16} strokeWidth={3} /> Save — +8 XP
+        <Check size={16} strokeWidth={3} /> Start now
       </button>
     </CardShell>
   );
@@ -275,7 +272,7 @@ function ProofCard() {
   return (
     <CardShell tint="var(--blue)">
       <div className="mb-4">
-        <Label icon={<Clock size={11} strokeWidth={3} />}>Proof of action</Label>
+        <Label icon={<Clock size={11} strokeWidth={3} />}>You started</Label>
       </div>
       <div
         className="px-4 py-5 text-center"
@@ -295,7 +292,7 @@ function ProofCard() {
         </span>
       </div>
       <button className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--invert-bg)", color: "var(--invert-ink)" }}>
-        <Check size={16} strokeWidth={3} /> Claim <span style={{ color: "var(--xp)" }}>+8 XP</span>
+        <Check size={16} strokeWidth={3} /> I started <span style={{ color: "var(--xp)" }}>+20 XP</span>
       </button>
     </CardShell>
   );
@@ -303,7 +300,7 @@ function ProofCard() {
 
 function StreakCard() {
   return (
-    <CardShell tint="var(--coral)">
+    <CardShell tint="var(--yellow)">
       <div className="mb-4">
         <Label icon={<Flame size={11} strokeWidth={3} fill="var(--ink)" />}>14-day streak</Label>
       </div>

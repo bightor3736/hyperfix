@@ -79,8 +79,8 @@ export function Footer() {
               <span className="text-[28px] leading-none" style={{ fontWeight: 700, letterSpacing: "-0.04em", color: "#FBF6EA" }}>hyperfix</span>
             </span>
             <p className="mt-4 max-w-[260px] text-[14px] font-medium leading-relaxed" style={{ color: "var(--ink-muted)" }}>
-              ADHD accountability that actually works. Track your hyperfixations,
-              earn XP, keep a streak that forgives you.
+              Start the task you&apos;ve been avoiding. Do 5 minutes, earn XP for
+              starting, keep a streak that forgives you.
             </p>
             <div className="mt-6 flex items-center gap-2.5">
               {socials.map((s) => (

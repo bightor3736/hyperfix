@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Hyperfix",
     short_name: "Hyperfix",
-    description: "ADHD accountability that actually works. Track hyperfixations, earn real XP, beat the wall.",
+    description: "Start the task you've been avoiding. Name it, do 5 minutes, get rewarded for starting — the ADHD app that beats task paralysis.",
     start_url: "/dashboard",
     display: "standalone",
     background_color: "#f9f8f7",
@@ -17,10 +17,10 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ["lifestyle", "health", "games"],
     shortcuts: [
       {
-        name: "Roll a dopamine hit",
-        short_name: "Play",
-        description: "Get a dopamine hit right now",
-        url: "/dashboard",
+        name: "Start a task",
+        short_name: "Start",
+        description: "Beat the freeze — start the thing you're avoiding",
+        url: "/dashboard?welcome=1",
       },
       {
         name: "Leaderboard",

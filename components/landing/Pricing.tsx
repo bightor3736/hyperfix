@@ -7,11 +7,11 @@ import { Reveal } from "./Reveal";
 type Billing = "monthly" | "yearly";
 
 const FREE_FEATURES = [
-  "Unlimited hyperfixation logs",
+  "Unlimited tasks + the Just Start flow",
+  "Focus timer + 5-minute starts",
+  "XP for starting, daily quests & 7 levels",
+  "Forgiving streak + 1 freeze a month",
   "Deep dives + brain bursts (earn XP)",
-  "Daily quests, XP & 7 levels",
-  "1 streak freeze a month",
-  "Focus timer + proof of action",
   "Share card + custom accent colour",
 ];
 

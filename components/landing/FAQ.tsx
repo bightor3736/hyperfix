@@ -7,27 +7,27 @@ import { Reveal } from "./Reveal";
 const items = [
   {
     q: "What actually is Hyperfix?",
-    a: "A personal ADHD accountability app with game mechanics. You track your hyperfixations, earn XP for real actions, and beat the tasks your brain keeps avoiding — all at your own pace. Not a competition, not a habit tracker. Just you and your streak.",
+    a: "An ADHD app that gets you over the starting line on the task you've been avoiding. Name the thing, shrink it to the smallest first move, do just 5 minutes — and earn XP for starting, not for being perfect. Built for task paralysis, not for tracking.",
   },
   {
-    q: "What does 'proof of action' mean?",
-    a: "Instead of just tapping 'done' and lying to yourself, you run a timer for the activity's duration — or write one sentence about what you actually did. XP only drops when you've shown a receipt. It prevents checkbox farming and makes the XP feel earned.",
+    q: "Why does it reward starting instead of finishing?",
+    a: "Because for ADHD brains, starting is the hard part — task initiation is the actual wall. If the win is 'I began', you get a real hit of success every time, which is exactly what makes you come back. Finishing takes care of itself once you've crossed the line.",
   },
   {
-    q: "Is this just another habit tracker?",
-    a: "No. Habit trackers punish you the moment you break a chain. Hyperfix is built around what you're already obsessed with — you earn XP for logging it, going deeper on it, and following through. Streak freezes cover the bad days. It cares that you did something real, not that you were perfect.",
+    q: "What's the '5-minute' thing?",
+    a: "The deal: commit to just a few minutes, and you're allowed to quit after. Most of the time you won't want to — momentum takes over. It works because it drops the barrier from 'finish this huge thing' to 'do 5 minutes', which is what gets a stuck brain moving.",
   },
   {
     q: "What are streak freezes?",
-    a: "Miss-day insurance. Skip a day and a freeze is used automatically so your streak survives. Free players get one a month; Power-Up gets five. Because ADHD brains have hard weeks, and one bad week shouldn't erase everything.",
+    a: "Miss-day insurance. Skip a day and a freeze is used automatically so your streak survives. Free players get one a month; Power-Up gets five. ADHD brains have hard weeks — one bad week shouldn't erase everything, and you'll never get a shaming 'streak lost'.",
   },
   {
     q: "Is it free?",
-    a: "Yes — the full core experience is free. Unlimited hyperfixation logs, deep dives, brain bursts, XP, levels, streaks, daily quests, the focus timer and your shareable stats card. Power-Up adds more streak freezes, an XP multiplier, and premium profile themes.",
+    a: "Yes — the full core loop is free. Unlimited tasks, the focus timer, XP, levels, streaks, daily quests, and your shareable card. Power-Up adds a 1.5× XP multiplier, five streak freezes a month, and premium profile themes.",
   },
   {
     q: "Will this actually help my ADHD?",
-    a: "It's built around what ADHD brains actually respond to: instant feedback, variable rewards, low-friction starts, and forgiving systems. It won't fix everything — but it makes starting easier, keeps your hyperfixations organized, and rewards you for real effort instead of punishing imperfection.",
+    a: "It's built around what ADHD brains respond to: instant feedback, tiny low-friction starts, rewards for showing up, and forgiving systems that never punish a bad day. It won't fix everything — but it makes starting the thing you're dreading genuinely easier.",
   },
 ];
 
