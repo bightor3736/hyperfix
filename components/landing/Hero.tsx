@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Check, Flame, Plus, Zap, Target } from "lucide-react";
+import { Check, Flame, Play, Zap, Brain, ArrowRight } from "lucide-react";
 import { LogoMark } from "@/components/Logo";
 
 export function Hero() {
@@ -18,37 +18,39 @@ export function Hero() {
             {/* eyebrow chip */}
             <span
               className="brutal-tag anim-fadeUp mb-6"
-              style={{ background: "var(--yellow)", color: "var(--ink)" }}
+              style={{ background: "var(--coral)", color: "#fff" }}
             >
-              <Target size={13} strokeWidth={3} /> The app for your hyperfixations
+              <Brain size={13} strokeWidth={3} /> For brains that can&apos;t just start
             </span>
 
             <h1
               className="anim-fadeUp delay-100 leading-[0.95] text-ink"
               style={{ fontSize: "clamp(44px,7vw,84px)", fontWeight: 700, letterSpacing: "-0.04em" }}
             >
-              Your obsessions,
+              Trick your brain
               <br />
+              into{" "}
               <span
                 className="inline-block px-2"
-                style={{ background: "var(--accent)", color: "var(--accent-ink)", border: "2.5px solid var(--ink)", boxShadow: "4px 4px 0 0 var(--ink)", transform: "rotate(-1.5deg)" }}
+                style={{ background: "var(--coral)", color: "#fff", border: "2.5px solid var(--ink)", boxShadow: "4px 4px 0 0 var(--ink)", transform: "rotate(-1.5deg)" }}
               >
-                turned into XP.
+                starting.
               </span>
             </h1>
 
             <p className="anim-fadeUp delay-200 mt-7 max-w-[480px] text-[18px] font-medium leading-[1.5] text-ink-muted">
-              Track what you&apos;re deep in. Earn XP only for things you actually
-              did. Keep a streak that survives a bad week — no guilt, no leaderboards.
+              Stuck staring at the thing you&apos;ve been avoiding? Name it, shrink
+              it, and do just 5 minutes. We reward you for <span className="text-ink" style={{ fontWeight: 700 }}>starting</span> —
+              not for being perfect. No guilt, no dead streaks.
             </p>
 
             <div className="anim-fadeUp delay-300 mt-8 flex flex-wrap items-center gap-3">
               <a
                 href="/auth/signup"
                 className="brutal-btn h-[54px] px-7 text-[16px]"
-                style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
+                style={{ background: "var(--coral)", color: "#fff" }}
               >
-                Try Hyperfix free <Plus size={18} strokeWidth={3} />
+                Start something free <ArrowRight size={18} strokeWidth={3} />
               </a>
               <a
                 href="#features"
@@ -66,7 +68,7 @@ export function Hero() {
 
           {/* ── Right: interactive demo ── */}
           <div className="anim-fadeUp delay-300">
-            <HeroFixationDemo />
+            <HeroStartDemo />
           </div>
         </div>
       </div>
@@ -83,8 +85,8 @@ export function Hero() {
 }
 
 const TICKER_ITEMS = [
-  "LOG IT", "GO DEEP", "EARN XP", "KEEP THE STREAK", "NO GUILT",
-  "PROOF OF ACTION", "BRAIN BURSTS", "LEVEL UP", "OWN YOUR OBSESSION",
+  "JUST START", "5 MINUTES", "REWARD THE START", "BEAT THE FREEZE", "NO SHAME",
+  "PROOF OF ACTION", "SHOW UP", "KEEP THE STREAK", "YOU ONLY HAVE TO BEGIN",
 ];
 
 function Ticker() {
@@ -93,43 +95,54 @@ function Ticker() {
       {TICKER_ITEMS.map((t, i) => (
         <span key={i} className="flex items-center font-mono text-[13px] font-bold uppercase tracking-widest" style={{ color: "var(--bg)" }}>
           <span className="px-5">{t}</span>
-          <span style={{ color: "var(--yellow)" }}>★</span>
+          <span style={{ color: "var(--coral)" }}>★</span>
         </span>
       ))}
     </div>
   );
 }
 
-const DEMO_FIX: { name: string; spark: string; intensity: number }[] = [
-  { name: "Japanese vocab", spark: "started with one anime at 2am", intensity: 5 },
-  { name: "Sourdough starters", spark: "named him Gerald, obviously", intensity: 3 },
-  { name: "90s skateboarding", spark: "down a YouTube rabbit hole", intensity: 4 },
-  { name: "Roman aqueducts", spark: "one Wikipedia tab became forty", intensity: 4 },
+const DEMO_TASKS: { task: string; step: string }[] = [
+  { task: "the email I've been dreading", step: "open it, write one line" },
+  { task: "my tax return", step: "just find the login" },
+  { task: "the gym bag by the door", step: "put on the shoes" },
+  { task: "that essay due Friday", step: "type the title" },
 ];
 
-function HeroFixationDemo() {
+type DemoPhase = "ask" | "deal" | "running" | "done";
+
+function HeroStartDemo() {
   const [i, setI] = useState(0);
-  const [done, setDone] = useState(false);
-  const [xp, setXp] = useState(120);
+  const [phase, setPhase] = useState<DemoPhase>("ask");
+  const [xp, setXp] = useState(140);
   const [live, setLive] = useState(true);
-  const fix = DEMO_FIX[i];
+  const item = DEMO_TASKS[i];
 
   useEffect(() => {
     if (!live) return;
+    const delays: Record<DemoPhase, number> = { ask: 1900, deal: 1700, running: 1600, done: 2100 };
     const t = setTimeout(() => {
-      if (done) {
-        setDone(false);
-        setI((p) => (p + 1) % DEMO_FIX.length);
-      } else {
-        setDone(true);
-        setXp((x) => x + 10);
-      }
-    }, done ? 1700 : 2400);
+      setPhase((p) => {
+        if (p === "ask") return "deal";
+        if (p === "deal") return "running";
+        if (p === "running") { setXp((x) => x + 20); return "done"; }
+        setI((n) => (n + 1) % DEMO_TASKS.length);
+        return "ask";
+      });
+    }, delays[phase]);
     return () => clearTimeout(t);
-  }, [done, live]);
+  }, [phase, live]);
 
-  function log() { setLive(false); if (done) return; setDone(true); setXp((x) => x + 10); }
-  function next() { setLive(false); setDone(false); setI((p) => (p + 1) % DEMO_FIX.length); }
+  function advance() {
+    setLive(false);
+    setPhase((p) => {
+      if (p === "ask") return "deal";
+      if (p === "deal") return "running";
+      if (p === "running") { setXp((x) => x + 20); return "done"; }
+      setI((n) => (n + 1) % DEMO_TASKS.length);
+      return "ask";
+    });
+  }
 
   return (
     <div
@@ -140,11 +153,11 @@ function HeroFixationDemo() {
       <div className="mb-5 flex items-start justify-between">
         <div>
           <span className="mb-2 inline-flex items-center gap-1.5">
-            <LogoMark size={16} color="var(--accent)" />
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-ink">Hyperfixations</span>
+            <LogoMark size={16} color="var(--coral)" />
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-ink">Just start</span>
           </span>
           <h3 className="text-[22px] font-bold leading-tight text-ink" style={{ letterSpacing: "-0.02em" }}>
-            {done ? "Logged. It's yours." : "What are you deep in?"}
+            {phase === "done" ? "You started." : "What are you avoiding?"}
           </h3>
         </div>
         <div
@@ -156,11 +169,11 @@ function HeroFixationDemo() {
         </div>
       </div>
 
-      {/* fixation card */}
+      {/* task card */}
       <div
         className="mb-4 p-4 transition-colors"
         style={{
-          background: done ? "var(--lime)" : "var(--bg-soft)",
+          background: phase === "done" ? "var(--lime)" : "var(--bg-soft)",
           border: "2.5px solid var(--ink)",
           borderRadius: 6,
           boxShadow: "4px 4px 0 0 var(--ink)",
@@ -171,27 +184,38 @@ function HeroFixationDemo() {
             className="inline-flex items-center gap-1.5 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider"
             style={{ background: "var(--bg-elevated)", border: "2px solid var(--ink)", borderRadius: 999, color: "var(--ink)" }}
           >
-            {done ? <Check size={11} strokeWidth={3} /> : <Zap size={11} strokeWidth={3} />}
-            {done ? "Active · day 1" : "New fixation"}
+            {phase === "done" ? <Check size={11} strokeWidth={3} /> : <Zap size={11} strokeWidth={3} />}
+            {phase === "done" ? "Started · nice" : "The dreaded task"}
           </span>
-          <div className="flex items-center gap-1">
-            {[1, 2, 3, 4, 5].map((b) => (
-              <span key={b} className="h-4 w-2" style={{ background: b <= fix.intensity ? "var(--accent)" : "transparent", border: "1.5px solid var(--ink)" }} />
-            ))}
-          </div>
+          {phase === "running" && (
+            <span className="font-mono text-[12px] font-bold tabular-nums text-coral" style={{ color: "var(--coral)" }}>4:59</span>
+          )}
         </div>
-        <p className="text-[19px] font-bold leading-snug text-ink" style={{ letterSpacing: "-0.02em" }}>{fix.name}</p>
-        <p className="mt-0.5 text-[13px] font-medium text-ink-muted">{fix.spark}</p>
+        <p className="text-[19px] font-bold leading-snug text-ink" style={{ letterSpacing: "-0.02em" }}>{item.task}</p>
+        <p className="mt-0.5 text-[13px] font-medium text-ink-muted">
+          {phase === "ask" && "tap to name it"}
+          {phase === "deal" && `smallest move: ${item.step}`}
+          {phase === "running" && "5 minutes. you can quit after."}
+          {phase === "done" && "the hard part is over."}
+        </p>
       </div>
 
       {/* action */}
-      {done ? (
-        <button onClick={next} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--bg-elevated)", color: "var(--ink)" }}>
-          <Plus size={16} strokeWidth={3} /> Log another
+      {phase === "done" ? (
+        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--bg-elevated)", color: "var(--ink)" }}>
+          <Zap size={16} strokeWidth={3} /> Start another
+        </button>
+      ) : phase === "deal" ? (
+        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--coral)", color: "#fff" }}>
+          <Play size={17} strokeWidth={3} fill="currentColor" /> Do 5 minutes
+        </button>
+      ) : phase === "running" ? (
+        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--lime)", color: "var(--ink)" }}>
+          <Check size={18} strokeWidth={3} /> I started — +20 XP
         </button>
       ) : (
-        <button onClick={log} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--accent)", color: "var(--accent-ink)" }}>
-          <Check size={18} strokeWidth={3} /> Log it — +10 XP
+        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--accent)", color: "var(--accent-ink)" }}>
+          <ArrowRight size={18} strokeWidth={3} /> Name it
         </button>
       )}
 
