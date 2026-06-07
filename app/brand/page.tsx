@@ -84,10 +84,10 @@ export default function BrandPage() {
         {/* 1. LOGO */}
         <section className="mb-20">
           <p className="font-mono text-[12px] font-bold uppercase tracking-widest text-ink-faint mb-2">01</p>
-          <h2 className="mb-8 text-[34px] font-bold tracking-tight text-ink">Logo — the target mark</h2>
+          <h2 className="mb-8 text-[34px] font-bold tracking-tight text-ink">Logo — the focus-lock mark</h2>
 
           <Box className="mb-4 p-8">
-            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-ink-faint mb-6">Mark · concentric squares locking onto center</p>
+            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-ink-faint mb-6">Mark · corner brackets clamping a locked-on center</p>
             <div className="flex flex-wrap items-end gap-8">
               {[16, 24, 32, 48, 64, 88].map((s) => (
                 <div key={s} className="flex flex-col items-center gap-2">

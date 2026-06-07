@@ -1,13 +1,13 @@
 /**
  * Hyperfix brand — NEO-BRUTALIST
  *
- * The mark is a TARGET: concentric hard-edged squares locking onto a center
- * block. It reads as "fixation" — total, square-jawed focus — and is built
- * from rects with thick black strokes so it stays razor-sharp at any size,
- * from a 16px favicon to a hero block.
+ * The mark is a FOCUS LOCK: four hard corner brackets (the universal
+ * camera/scanner "locked-on" frame) clamping a solid center block. It reads
+ * instantly as fixation — total, locked-in focus — and is built from plain
+ * rects so it stays razor-sharp at any size, from a 16px favicon to a hero.
  *
- * LogoMark     — the target, on transparent ground.
- * LogoTile     — the target inside a bordered, shadowed app-icon block.
+ * LogoMark     — the lock, on transparent ground.
+ * LogoTile     — the lock inside a bordered, shadowed app-icon block.
  * LogoWordmark — "hyperfix" in Space Grotesk, heavy, tight.
  * LogoLockup   — mark + wordmark.
  */
@@ -20,9 +20,9 @@ export function LogoMark({
 }: {
   size?: number;
   className?: string;
-  /** fill of the locked-on center + middle ring */
+  /** fill of the locked-on center block */
   color?: string;
-  /** stroke / outer color */
+  /** color of the corner brackets + center border */
   ink?: string;
 }) {
   return (
@@ -35,12 +35,22 @@ export function LogoMark({
       className={className}
       aria-hidden="true"
     >
-      {/* outer square — the frame */}
-      <rect x="2" y="2" width="28" height="28" rx="1.5" fill="var(--bg-elevated)" stroke={ink} strokeWidth="2.5" />
-      {/* middle square — the accent block */}
-      <rect x="8.5" y="8.5" width="15" height="15" rx="1" fill={color} stroke={ink} strokeWidth="2.5" />
-      {/* center block — the lock-on */}
-      <rect x="13.5" y="13.5" width="5" height="5" fill={ink} />
+      <g fill={ink}>
+        {/* top-left bracket */}
+        <rect x="3" y="3" width="3" height="8" />
+        <rect x="3" y="3" width="8" height="3" />
+        {/* top-right bracket */}
+        <rect x="26" y="3" width="3" height="8" />
+        <rect x="21" y="3" width="8" height="3" />
+        {/* bottom-left bracket */}
+        <rect x="3" y="21" width="3" height="8" />
+        <rect x="3" y="26" width="8" height="3" />
+        {/* bottom-right bracket */}
+        <rect x="26" y="21" width="3" height="8" />
+        <rect x="21" y="26" width="8" height="3" />
+      </g>
+      {/* locked-on center block */}
+      <rect x="11.5" y="11.5" width="9" height="9" fill={color} stroke={ink} strokeWidth="2.5" />
     </svg>
   );
 }
@@ -49,7 +59,7 @@ export function LogoMark({
 export function LogoTile({
   size = 40,
   className = "",
-  tile = "var(--yellow)",
+  tile = "var(--accent)",
 }: {
   size?: number;
   className?: string;
@@ -69,7 +79,7 @@ export function LogoTile({
       }}
       aria-hidden="true"
     >
-      <LogoMark size={Math.round(size * 0.6)} color="var(--bg-elevated)" />
+      <LogoMark size={Math.round(size * 0.62)} color="#FFFFFF" ink="#FFFFFF" />
     </span>
   );
 }

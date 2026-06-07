@@ -69,7 +69,7 @@ export function Pricing() {
               </span>
             </h2>
             <p className="anim-fadeUp delay-200 mt-7 text-[17px] font-medium leading-[1.5] text-ink-muted">
-              The whole game is free. Power-Up adds more streak insurance, boosted odds, and multipliers for when it gets serious.
+              The whole game is free. Power-Up adds more streak insurance, an XP multiplier, and premium themes for when it gets serious.
             </p>
           </div>
         </Reveal>

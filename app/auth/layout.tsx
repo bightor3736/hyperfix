@@ -79,7 +79,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         >
           {/* big offset mark */}
           <div className="flex justify-end">
-            <LogoMark size={120} color="var(--yellow)" ink="#0A0A0A" />
+            <LogoMark size={120} color="var(--yellow)" ink="#FBF6EA" />
           </div>
 
           <div className="relative z-10">
