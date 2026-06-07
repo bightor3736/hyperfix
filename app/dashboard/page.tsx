@@ -12,7 +12,12 @@ function getGreeting(): string {
   return "good night, night owl";
 }
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ welcome?: string }>;
+}) {
+  const welcome = (await searchParams)?.welcome === "1";
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
@@ -61,6 +66,7 @@ export default async function DashboardPage() {
       currentStreak={currentStreak}
       streakFreezes={streakFreezes}
       isPro={isPro}
+      welcome={welcome}
       quests={quests}
       currentLevelPoints={level.points}
       nextLevelPoints={next?.points}

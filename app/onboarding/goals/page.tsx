@@ -42,7 +42,7 @@ export default function OnboardingGoalsPage() {
         body: JSON.stringify({ goals: [...selected] }),
       }).catch(() => { /* non-fatal — don't block the user */ });
     } finally {
-      router.push("/dashboard/new?welcome=1");
+      router.push("/dashboard?welcome=1");
     }
   }
 

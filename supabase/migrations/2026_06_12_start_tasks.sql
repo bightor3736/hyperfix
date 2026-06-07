@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS start_tasks (
   sessions        INT         NOT NULL DEFAULT 0,    -- times the user crossed the line
   total_minutes   INT         NOT NULL DEFAULT 0,    -- minutes actually started
   last_started_at TIMESTAMPTZ,                       -- powers "Xh ago" + reminders
+  last_reminded_at TIMESTAMPTZ,                      -- anti-spam for "still waiting" pushes
   done_at         TIMESTAMPTZ,                       -- null = still open
   created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

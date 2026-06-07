@@ -193,11 +193,60 @@ export async function GET(req: Request) {
     }
   }
 
+  // --- "Still waiting on you" reminders (Just Start) ---
+  // The strongest ADHD return hook: a task you started-but-didn't-finish
+  // nags the brain (Zeigarnik). Nudge once when it's gone quiet for 2+ days,
+  // then back off for 3 days (last_reminded_at) so we never spam. One push
+  // per user per run — their oldest-quiet open task.
+  let taskReminders = 0;
+  const now = Date.now();
+  const quietBefore = now - 2 * 86_400_000;     // last activity older than 2 days
+  const remindCooldown = now - 3 * 86_400_000;  // not reminded in the last 3 days
+
+  const { data: openTasks } = await supabase
+    .from("start_tasks")
+    .select("id, user_id, title, sessions, last_started_at, last_reminded_at, created_at")
+    .is("done_at", null)
+    .order("created_at", { ascending: true })
+    .limit(2000);
+
+  const remindedUsers = new Set<string>();
+  for (const t of openTasks ?? []) {
+    try {
+      if (remindedUsers.has(t.user_id)) continue;
+
+      const lastActivity = new Date(t.last_started_at ?? t.created_at).getTime();
+      if (lastActivity > quietBefore) continue;
+      if (t.last_reminded_at && new Date(t.last_reminded_at).getTime() > remindCooldown) continue;
+
+      const started = (t.sessions ?? 0) > 0;
+      await sendPushToUser(t.user_id, {
+        title: started ? "That thing is still waiting" : "Still avoiding it?",
+        body: started
+          ? `"${t.title}" — you started once. Just 5 more minutes?`
+          : `"${t.title}" — you only have to start. 5 minutes, you can quit after.`,
+        url: "/dashboard",
+        tag: "task-reminder",
+      });
+
+      await supabase
+        .from("start_tasks")
+        .update({ last_reminded_at: new Date().toISOString() })
+        .eq("id", t.id);
+
+      remindedUsers.add(t.user_id);
+      taskReminders++;
+    } catch (err) {
+      errors.push(`task:${t.id}: ${err}`);
+    }
+  }
+
   return Response.json({
     ok: true,
     streakReminders,
     milestonesSent,
     inactivitySent,
+    taskReminders,
     errors: errors.length > 0 ? errors : undefined,
   });
 }

@@ -18,6 +18,7 @@ export type DashboardHomeProps = {
   streakFreezes: number;
   quests: Quest[];
   isPro?: boolean;
+  welcome?: boolean;
   nextLevelPoints?: number;
   currentLevelPoints?: number;
 };
@@ -39,6 +40,7 @@ export function DashboardHome({
   currentStreak,
   quests,
   isPro = false,
+  welcome = false,
   nextLevelPoints,
   currentLevelPoints = 0,
 }: DashboardHomeProps) {
@@ -150,7 +152,7 @@ export function DashboardHome({
       <div className="mx-auto anim-fadeUp pb-28" style={{ maxWidth: 640, padding: "0 16px", animationDelay: "60ms" }}>
 
         {/* The painkiller: get over the starting line on a task you're avoiding */}
-        <JustStart />
+        <JustStart welcome={welcome} />
 
         <div style={{ height: 16 }} />
 

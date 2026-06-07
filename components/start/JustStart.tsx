@@ -68,9 +68,10 @@ function ago(iso: string | null): string {
   return "just now";
 }
 
-export function JustStart() {
+export function JustStart({ welcome = false }: { welcome?: boolean }) {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [phase, setPhase] = useState<Phase>("idle");
+  const titleRef = useRef<HTMLInputElement | null>(null);
 
   // draft / active task fields
   const [title, setTitle] = useState("");
@@ -92,6 +93,15 @@ export function JustStart() {
       .then((d) => setTasks((d.tasks ?? []).map(fromRow)))
       .catch(() => { /* offline — start empty */ });
   }, []);
+
+  // First run after onboarding: drop the cursor straight in the input so the
+  // very first thing a new user does is start something (the <60s aha moment).
+  useEffect(() => {
+    if (welcome && phase === "idle") {
+      const t = setTimeout(() => titleRef.current?.focus(), 400);
+      return () => clearTimeout(t);
+    }
+  }, [welcome, phase]);
 
   // ── Begin a brand-new task ────────────────────────────────────────
   async function beginNew() {
@@ -233,7 +243,7 @@ export function JustStart() {
       {phase === "idle" && (
         <>
           <span className="brutal-tag mb-4" style={{ background: "var(--coral)", color: "#fff" }}>
-            <Zap size={13} strokeWidth={3} /> Just start
+            <Zap size={13} strokeWidth={3} /> {welcome ? "Welcome — let's start" : "Just start"}
           </span>
           <h2
             className="leading-[1.02] text-ink"
@@ -242,7 +252,9 @@ export function JustStart() {
             What are you avoiding?
           </h2>
           <p className="mt-2 text-[14px] font-medium leading-snug text-ink-muted">
-            Name it. You only have to <span className="text-ink" style={{ fontWeight: 700 }}>start</span> — you can quit after a few minutes.
+            {welcome
+              ? <>Name one thing right now — we&apos;ll get you over the line in 5 minutes. That&apos;s your first win.</>
+              : <>Name it. You only have to <span className="text-ink" style={{ fontWeight: 700 }}>start</span> — you can quit after a few minutes.</>}
           </p>
 
           <form
@@ -253,6 +265,7 @@ export function JustStart() {
             className="mt-5"
           >
             <input
+              ref={titleRef}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. the email I've been dreading"
