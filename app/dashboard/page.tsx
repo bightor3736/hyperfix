@@ -45,7 +45,7 @@ export default async function DashboardPage() {
   const streakFreezes = profile?.streak_freezes ?? 0;
   const quests = user ? await getDailyQuests(user.id) : [];
 
-  const { level, next } = levelForPoints(totalPoints);
+  const { level, index, next } = levelForPoints(totalPoints);
   const firstName = displayName.split(" ")[0];
 
   return (
@@ -54,6 +54,7 @@ export default async function DashboardPage() {
       greeting={getGreeting()}
       username={username}
       levelName={level.name}
+      levelNum={index + 1}
       totalPoints={totalPoints}
       currentStreak={currentStreak}
       streakFreezes={streakFreezes}

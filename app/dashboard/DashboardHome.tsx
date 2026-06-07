@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Flame, Trophy, Bell, Plus, BookOpen, Sparkles, Timer, type LucideIcon } from "lucide-react";
 import { DailyQuestsClient } from "@/components/DailyQuestsClient";
 import { JustStart } from "@/components/start/JustStart";
+import { MilestoneWatcher } from "@/components/game/MilestoneWatcher";
 import type { Quest } from "@/lib/quests/generate";
 
 export type DashboardHomeProps = {
@@ -11,6 +12,7 @@ export type DashboardHomeProps = {
   greeting: string;
   username: string | null;
   levelName: string;
+  levelNum: number;
   totalPoints: number;
   currentStreak: number;
   streakFreezes: number;
@@ -31,6 +33,7 @@ export function DashboardHome({
   greeting,
   username,
   levelName,
+  levelNum,
   totalPoints,
   currentStreak,
   quests,
@@ -43,6 +46,15 @@ export function DashboardHome({
 
   return (
     <div className="min-h-screen" style={{ background: "var(--bg)" }}>
+
+      {/* Fires the share-card celebration on level-up / streak milestones */}
+      <MilestoneWatcher
+        levelNum={levelNum}
+        levelName={levelName}
+        streak={currentStreak}
+        xp={totalPoints}
+        displayName={username ?? firstName}
+      />
 
       {/* ── HEADER ────────────────────────────────────────────────── */}
       <header className="relative overflow-hidden anim-fadeUp">
