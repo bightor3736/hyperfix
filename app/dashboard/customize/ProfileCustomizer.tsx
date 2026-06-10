@@ -164,7 +164,7 @@ export function ProfileCustomizer({ profile }: { profile: ProfileRow | null }) {
               onClick={() => setAccent(p.hex)}
               aria-label={p.name}
               className="w-8 h-8 rounded-full transition-transform hover:scale-110"
-              style={{ background: p.hex, border: accent.toUpperCase() === p.hex.toUpperCase() ? "2px solid var(--ink)" : "2px solid transparent", boxShadow: `0 0 12px ${hexToRgba(p.hex, 0.5)}` }}
+              style={{ background: p.hex, border: accent.toUpperCase() === p.hex.toUpperCase() ? "1px solid var(--line)" : "2px solid transparent", boxShadow: `0 0 12px ${hexToRgba(p.hex, 0.5)}` }}
             />
           ))}
           <label className="inline-flex items-center gap-2 ml-1 cursor-pointer">

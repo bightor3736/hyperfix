@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const BW = "2.5px solid var(--ink)";
-const SHADOW = "4px 4px 0 0 var(--ink)";
+const BW = "1.5px solid var(--line-strong)";
+const SHADOW = "var(--shadow)";
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -23,7 +23,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 
 function Box({ children, color = "var(--bg-elevated)", className = "" }: { children: React.ReactNode; color?: string; className?: string }) {
   return (
-    <div className={className} style={{ background: color, border: BW, borderRadius: 8, boxShadow: SHADOW }}>
+    <div className={className} style={{ background: color, border: BW, borderRadius: 16, boxShadow: SHADOW }}>
       {children}
     </div>
   );
@@ -32,9 +32,9 @@ function Box({ children, color = "var(--bg-elevated)", className = "" }: { child
 // ── Color swatch ──
 function Swatch({ hex, token, label, dark }: { hex: string; token: string; label: string; dark?: boolean }) {
   return (
-    <div style={{ border: BW, borderRadius: 6, overflow: "hidden", boxShadow: "3px 3px 0 0 var(--ink)" }}>
+    <div style={{ border: BW, borderRadius: 16, overflow: "hidden", boxShadow: "var(--shadow-sm)" }}>
       <div className="flex h-20 items-end p-2" style={{ background: hex }}>
-        <span className="font-mono text-[10px] font-bold" style={{ color: dark ? "#fff" : "#0A0A0A" }}>{hex}</span>
+        <span className="font-mono text-[10px] font-bold" style={{ color: dark ? "#fff" : "#2B2440" }}>{hex}</span>
       </div>
       <div className="px-3 py-2" style={{ background: "var(--bg-elevated)", borderTop: BW }}>
         <p className="text-[13px] font-bold text-ink">{label}</p>
@@ -125,22 +125,22 @@ export default function BrandPage() {
 
           <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-ink-faint mb-3">Canvas + ink</p>
           <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6">
-            <Swatch hex="#FBF6EA" token="--bg" label="Paper" />
+            <Swatch hex="#FAF6F0" token="--bg" label="Paper" />
             <Swatch hex="#F2EAD7" token="--bg-soft" label="Soft" />
             <Swatch hex="#FFFFFF" token="--bg-elevated" label="Card" />
-            <Swatch hex="#0A0A0A" token="--ink" label="Ink" dark />
+            <Swatch hex="#2B2440" token="--ink" label="Ink" dark />
             <Swatch hex="#2E2E2E" token="--ink-muted" label="Muted" dark />
             <Swatch hex="#6A6A6A" token="--ink-faint" label="Faint" dark />
           </div>
 
           <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-ink-faint mb-3">Flat accents</p>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6">
-            <Swatch hex="#2F4BFF" token="--accent / --blue" label="Blue · primary" dark />
-            <Swatch hex="#8B5CF6" token="--xp / --violet" label="Violet · XP" dark />
-            <Swatch hex="#FF5C3A" token="--flame / --coral" label="Coral · streak" dark />
-            <Swatch hex="#16E08A" token="--lime" label="Lime · reward" />
-            <Swatch hex="#FFD23F" token="--yellow" label="Yellow · accent" />
-            <Swatch hex="#FF5CA8" token="--pink" label="Pink · accent" dark />
+            <Swatch hex="#6957E8" token="--accent / --blue" label="Blue · primary" dark />
+            <Swatch hex="#9B8AFB" token="--xp / --violet" label="Violet · XP" dark />
+            <Swatch hex="#F97E6D" token="--flame / --coral" label="Coral · streak" dark />
+            <Swatch hex="#3ECF9B" token="--lime" label="Lime · reward" />
+            <Swatch hex="#FFC93F" token="--yellow" label="Yellow · accent" />
+            <Swatch hex="#F49FC4" token="--pink" label="Pink · accent" dark />
           </div>
         </section>
 
@@ -199,7 +199,7 @@ export default function BrandPage() {
               <Box key={v.p} className="p-5">
                 <p className="text-[16px] font-bold text-ink">{v.p}</p>
                 <p className="mt-1 text-[13px] font-medium leading-[1.5] text-ink-muted">{v.d}</p>
-                <p className="mt-3 px-3 py-2 font-mono text-[12px]" style={{ background: "var(--lime)", border: "2px solid var(--ink)", borderRadius: 4 }}>
+                <p className="mt-3 px-3 py-2 font-mono text-[12px]" style={{ background: "var(--lime)", border: "1px solid var(--line)", borderRadius: 20 }}>
                   &ldquo;{v.ex}&rdquo;
                 </p>
               </Box>
@@ -213,8 +213,8 @@ export default function BrandPage() {
           <h2 className="mb-8 text-[34px] font-bold tracking-tight text-ink">Level names · 7 tiers</h2>
           <div className="flex flex-col gap-3">
             {LEVELS.map((l) => (
-              <div key={l.n} className="flex items-center gap-4 p-4" style={{ background: "var(--bg-elevated)", border: BW, borderRadius: 6, boxShadow: SHADOW }}>
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center font-mono text-[14px] font-bold" style={{ background: l.color, color: "#fff", border: BW, borderRadius: 4 }}>
+              <div key={l.n} className="flex items-center gap-4 p-4" style={{ background: "var(--bg-elevated)", border: BW, borderRadius: 16, boxShadow: SHADOW }}>
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center font-mono text-[14px] font-bold" style={{ background: l.color, color: "#fff", border: BW, borderRadius: 20 }}>
                   {l.n}
                 </span>
                 <span className="flex-1 text-[18px] font-bold tracking-tight text-ink">{l.name}</span>

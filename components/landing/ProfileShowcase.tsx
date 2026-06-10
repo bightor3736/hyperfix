@@ -31,7 +31,7 @@ function Stat({ icon, label, value, color }: { icon: React.ReactNode; label: str
   return (
     <div
       className="flex flex-col items-center gap-1 px-4 py-3"
-      style={{ background: "var(--bg)", border: "2.5px solid var(--ink)", borderRadius: 6, boxShadow: "3px 3px 0 0 var(--ink)" }}
+      style={{ background: "var(--bg)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-sm)" }}
     >
       <span style={{ color }}>{icon}</span>
       <span className="text-[26px] font-bold leading-none text-ink tabular-nums" style={{ letterSpacing: "-0.03em" }}>{value}</span>
@@ -56,7 +56,7 @@ export function ProfileShowcase() {
               A profile worth{" "}
               <span
                 className="inline-block px-2"
-                style={{ background: "var(--xp)", color: "#fff", border: "2.5px solid var(--ink)", boxShadow: "4px 4px 0 0 var(--ink)", transform: "rotate(-1.5deg)" }}
+                style={{ background: "var(--xp)", color: "#fff", border: "1.5px solid var(--line-strong)", boxShadow: "var(--shadow)", transform: "rotate(-1.5deg)" }}
               >
                 showing off.
               </span>
@@ -73,13 +73,13 @@ export function ProfileShowcase() {
           <Reveal>
             <div
               className="brutal-hover p-6 sm:p-8"
-              style={{ background: "var(--bg-elevated)", border: "3.5px solid var(--ink)", borderRadius: 8, boxShadow: "10px 10px 0 0 var(--ink)" }}
+              style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
             >
               {/* header */}
               <div className="flex items-center gap-4">
                 <div
                   className="flex h-16 w-16 shrink-0 items-center justify-center text-[28px] font-bold"
-                  style={{ background: "var(--yellow)", color: "var(--ink)", border: "2.5px solid var(--ink)", borderRadius: 6, boxShadow: "3px 3px 0 0 var(--ink)", letterSpacing: "-0.03em" }}
+                  style={{ background: "var(--yellow)", color: "var(--ink)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-sm)", letterSpacing: "-0.03em" }}
                 >
                   M
                 </div>
@@ -87,7 +87,7 @@ export function ProfileShowcase() {
                   <p className="text-[22px] font-bold leading-tight text-ink truncate" style={{ letterSpacing: "-0.02em" }}>@maya</p>
                   <span
                     className="mt-1.5 inline-flex items-center gap-1.5 px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider"
-                    style={{ background: "var(--xp)", color: "#fff", border: "2px solid var(--ink)", borderRadius: 999 }}
+                    style={{ background: "var(--xp)", color: "#fff", border: "1px solid var(--line)", borderRadius: 999 }}
                   >
                     <Zap size={12} strokeWidth={3} fill="currentColor" /> Level 4 · Hooked
                   </span>
@@ -108,9 +108,9 @@ export function ProfileShowcase() {
                 </div>
                 <div
                   className="h-5 overflow-hidden"
-                  style={{ background: "var(--bg)", border: "2.5px solid var(--ink)", borderRadius: 6 }}
+                  style={{ background: "var(--bg)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
                 >
-                  <div className="h-full" style={{ width: "62%", background: "var(--xp)", borderRight: "2.5px solid var(--ink)" }} />
+                  <div className="h-full" style={{ width: "62%", background: "var(--xp)", borderRight: "1.5px solid var(--line-strong)" }} />
                 </div>
               </div>
 
@@ -137,7 +137,7 @@ export function ProfileShowcase() {
           <Reveal delay={100}>
             <div
               className="h-full p-6 sm:p-7"
-              style={{ background: "var(--bg-elevated)", border: "2.5px solid var(--ink)", borderRadius: 8, boxShadow: "7px 7px 0 0 var(--ink)" }}
+              style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-lg)" }}
             >
               <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">Level ladder · 7 tiers</p>
               <PointsLevelsTimeline levels={LEVELS} currentPoints={520} currentLevelLabel="You're here" className="border-0 bg-transparent p-0" />
@@ -149,12 +149,12 @@ export function ProfileShowcase() {
         <Reveal delay={150}>
           <div
             className="mt-6 p-6 sm:p-8"
-            style={{ background: "var(--bg-elevated)", border: "2.5px solid var(--ink)", borderRadius: 8, boxShadow: "7px 7px 0 0 var(--ink)" }}
+            style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-lg)" }}
           >
             <div className="mb-6 flex items-center gap-2.5">
               <span
                 className="inline-flex h-10 w-10 items-center justify-center"
-                style={{ background: "var(--pink)", color: "var(--ink)", border: "2.5px solid var(--ink)", borderRadius: 6, boxShadow: "3px 3px 0 0 var(--ink)" }}
+                style={{ background: "var(--pink)", color: "var(--ink)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-sm)" }}
               >
                 <Palette size={18} strokeWidth={2.5} />
               </span>
@@ -170,12 +170,12 @@ export function ProfileShowcase() {
                     <div
                       key={t.id}
                       className="relative h-12 overflow-hidden"
-                      style={{ background: t.background("#5EEAD4"), border: "2.5px solid var(--ink)", borderRadius: 6, boxShadow: i === 0 ? "3px 3px 0 0 var(--ink)" : "none" }}
+                      style={{ background: t.background("#5EEAD4"), border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: i === 0 ? "var(--shadow-sm)" : "none" }}
                     >
                       {i === 0 && (
                         <span
                           className="absolute right-1 top-1 inline-flex h-4 w-4 items-center justify-center"
-                          style={{ background: "var(--lime)", border: "1.5px solid var(--ink)", borderRadius: 4 }}
+                          style={{ background: "var(--lime)", border: "1px solid var(--line)", borderRadius: 20 }}
                         >
                           <Check size={9} strokeWidth={3.5} style={{ color: "var(--ink)" }} />
                         </span>
@@ -193,7 +193,7 @@ export function ProfileShowcase() {
                     <span
                       key={p.hex}
                       className="h-8 w-8"
-                      style={{ background: p.hex, border: "2.5px solid var(--ink)", borderRadius: 6, boxShadow: i === 1 ? "3px 3px 0 0 var(--ink)" : "none", transform: i === 1 ? "translate(-1px,-1px)" : "none" }}
+                      style={{ background: p.hex, border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: i === 1 ? "var(--shadow-sm)" : "none", transform: i === 1 ? "translate(-1px,-1px)" : "none" }}
                       title={`${p.name} ${hexToRgba(p.hex, 1)}`}
                     />
                   ))}
@@ -205,7 +205,7 @@ export function ProfileShowcase() {
                 <p className="mb-3 font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">Status & links</p>
                 <div
                   className="mb-3 inline-flex items-center gap-2 px-3 py-1.5"
-                  style={{ background: "var(--xp)", border: "2.5px solid var(--ink)", borderRadius: 999, boxShadow: "3px 3px 0 0 var(--ink)" }}
+                  style={{ background: "var(--xp)", border: "1.5px solid var(--line-strong)", borderRadius: 999, boxShadow: "var(--shadow-sm)" }}
                 >
                   <span className="text-[14px] leading-none">🎧</span>
                   <span className="text-[12px] font-bold" style={{ color: "#fff" }}>deep in a sourdough arc</span>
@@ -215,7 +215,7 @@ export function ProfileShowcase() {
                     <span
                       key={c}
                       className="px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-widest"
-                      style={{ background: "var(--bg)", border: "2px solid var(--ink)", borderRadius: 999, color: "var(--ink-muted)" }}
+                      style={{ background: "var(--bg)", border: "1px solid var(--line)", borderRadius: 999, color: "var(--ink-muted)" }}
                     >
                       {c}
                     </span>

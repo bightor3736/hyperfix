@@ -41,7 +41,7 @@ export function Confetti({ fireKey }: { fireKey: number }) {
             width: p.size,
             height: p.size,
             background: p.color,
-            borderRadius: 2,
+            borderRadius: 20,
             animationDelay: `${p.delay}s`,
             transform: `rotate(${p.rot}deg)`,
           }}

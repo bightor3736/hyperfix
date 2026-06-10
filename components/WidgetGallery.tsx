@@ -66,7 +66,7 @@ function IntensityBar({ pct }: { pct: number }) {
             flex: 1,
             height: i % 3 === 1 ? 18 : i % 3 === 2 ? 10 : 14,
             background: "rgba(0,0,0,0.25)",
-            borderRadius: 2,
+            borderRadius: 20,
           }}
         />
       ))}
@@ -144,7 +144,7 @@ function Waveform({ color }: { color: string }) {
             flex: "0 0 4px",
             height: `${h * 32}px`,
             background: "rgba(0,0,0,0.35)",
-            borderRadius: 2,
+            borderRadius: 20,
           }}
         />
       ))}
@@ -277,7 +277,7 @@ function WidgetFitness() {
       {/* time slots */}
       <div style={{
         background: LIME,
-        borderRadius: 12,
+        borderRadius: 20,
         padding: "10px 12px",
         display: "flex",
         justifyContent: "space-between",
@@ -329,7 +329,7 @@ function WidgetStocks() {
       <div style={row("flex-start", 10)}>
         <div style={{
           background: GOLD,
-          borderRadius: 10,
+          borderRadius: 20,
           width: 36,
           height: 36,
           display: "flex",
@@ -455,7 +455,7 @@ function WidgetRadio() {
               flex: "0 0 4px",
               height: `${8 + Math.abs(Math.sin(i * 0.7)) * 28}px`,
               background: "rgba(0,0,0,0.28)",
-              borderRadius: 2,
+              borderRadius: 20,
             }} />
           ))}
         </div>

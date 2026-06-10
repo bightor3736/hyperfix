@@ -323,7 +323,7 @@ function ShareCard({
                 style={{
                   width: 56,
                   height: 20,
-                  borderRadius: 4,
+                  borderRadius: 20,
                   background: i < intensity ? TEAL : "rgba(17,17,17,0.12)",
                 }}
               />
@@ -832,7 +832,7 @@ function ShareCardDark({
                 style={{
                   width: 56,
                   height: 20,
-                  borderRadius: 4,
+                  borderRadius: 20,
                   background: i < intensity ? "#5EEAD4" : "rgba(244,244,244,0.08)",
                 }}
               />

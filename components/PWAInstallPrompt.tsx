@@ -88,14 +88,14 @@ export function PWAInstallPrompt() {
         className="mx-auto flex max-w-sm items-center gap-3.5 p-4 anim-fadeUp"
         style={{
           background: "var(--bg-elevated)",
-          border: "3px solid var(--ink)",
-          borderRadius: 10,
-          boxShadow: "6px 6px 0 0 var(--ink)",
+          border: "1.5px solid var(--line-strong)",
+          borderRadius: 20,
+          boxShadow: "var(--shadow-lg)",
         }}
       >
         <div
           className="flex h-11 w-11 shrink-0 items-center justify-center"
-          style={{ background: "var(--accent)", border: "2.5px solid var(--ink)", borderRadius: 8 }}
+          style={{ background: "var(--accent)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
         >
           <LogoMark size={22} color="#fff" ink="#fff" />
         </div>
@@ -118,7 +118,7 @@ export function PWAInstallPrompt() {
           <button
             onClick={handleInstall}
             className="brutal-btn shrink-0 px-3.5 py-2 text-[13px]"
-            style={{ background: "var(--accent)", color: "#fff", borderRadius: 6 }}
+            style={{ background: "var(--accent)", color: "#fff", borderRadius: 16 }}
           >
             <Plus size={14} strokeWidth={3} /> Add
           </button>

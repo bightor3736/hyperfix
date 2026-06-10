@@ -20,15 +20,15 @@ import {
 import { levelForPoints } from "@/lib/gamification/levels";
 
 const D = {
-  bg: "#0f0d40",
-  bgCard: "rgba(255,255,255,0.06)",
-  bgActive: "rgba(255,255,255,0.12)",
-  border: "rgba(255,255,255,0.07)",
-  text: "rgba(255,255,255,0.88)",
-  muted: "rgba(255,255,255,0.48)",
-  faint: "rgba(255,255,255,0.28)",
-  accent: "#a78bfa",
-  accentBg: "rgba(167,139,250,0.15)",
+  bg: "var(--bg-elevated)",
+  bgCard: "var(--bg-soft)",
+  bgActive: "var(--accent-soft)",
+  border: "var(--line)",
+  text: "var(--ink)",
+  muted: "var(--ink-muted)",
+  faint: "var(--ink-faint)",
+  accent: "var(--accent)",
+  accentBg: "var(--accent-soft)",
 };
 
 type Props = {
@@ -105,7 +105,7 @@ export function DashboardSidebarClient({
     >
       {/* Logo */}
       <div className="flex items-center justify-between px-5 pt-6 pb-4" style={{ borderBottom: `1px solid ${D.border}` }}>
-        <Link href="/dashboard" className="font-display text-[18px] tracking-tight transition-opacity hover:opacity-80" style={{ color: "#fff" }}>
+        <Link href="/dashboard" className="font-display text-[18px] tracking-tight transition-opacity hover:opacity-80" style={{ color: "var(--ink)" }}>
           hyperfix
         </Link>
         <NotificationBell />
@@ -121,13 +121,13 @@ export function DashboardSidebarClient({
           // eslint-disable-next-line @next/next/no-img-element
           <img src={avatarUrl} alt={displayName} className="w-8 h-8 rounded-full object-cover shrink-0" style={{ border: `1px solid ${D.border}` }} />
         ) : (
-          <div className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0" style={{ background: "rgba(94,234,212,0.14)", color: "#5eead4" }}>
+          <div className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0" style={{ background: "var(--pastel-green)", color: "var(--lime)" }}>
             {initials}
           </div>
         )}
         <div className="min-w-0 flex-1">
           <p className="text-[13px] font-semibold truncate" style={{ color: D.text }}>{displayName}</p>
-          {isPro && <p className="font-mono text-[9px] uppercase tracking-widest" style={{ color: "#5eead4" }}>pro</p>}
+          {isPro && <p className="font-mono text-[9px] uppercase tracking-widest" style={{ color: "var(--lime)" }}>pro</p>}
         </div>
         <ChevronRight size={13} strokeWidth={2} style={{ color: D.faint }} />
       </Link>
@@ -135,12 +135,12 @@ export function DashboardSidebarClient({
       {/* Streak + level strip */}
       <div className="px-4 py-3" style={{ borderBottom: `1px solid ${D.border}` }}>
         <div className="flex items-center gap-3 mb-2.5">
-          <Link href="/dashboard/points" className="flex items-center gap-1.5 transition-opacity hover:opacity-80" style={{ color: "#ff7a59" }}>
+          <Link href="/dashboard/points" className="flex items-center gap-1.5 transition-opacity hover:opacity-80" style={{ color: "var(--flame)" }}>
             <Flame size={13} strokeWidth={2.5} fill="currentColor" />
             <span className="font-mono text-[12px] font-bold tabular-nums">{currentStreak}</span>
           </Link>
           {streakFreezes > 0 && (
-            <span className="flex items-center gap-1 font-mono text-[11px]" style={{ color: "#93c5fd" }}>
+            <span className="flex items-center gap-1 font-mono text-[11px]" style={{ color: "var(--accent)" }}>
               <Snowflake size={11} strokeWidth={2} />
               {streakFreezes}
             </span>
@@ -150,7 +150,7 @@ export function DashboardSidebarClient({
           </span>
         </div>
         <div className="h-1.5 rounded-full overflow-hidden" style={{ background: D.bgCard }}>
-          <div className="h-full rounded-full" style={{ width: `${levelPct}%`, background: "linear-gradient(90deg, #6366f1, #a855f7)" }} />
+          <div className="h-full rounded-full" style={{ width: `${levelPct}%`, background: "linear-gradient(90deg, var(--accent), var(--violet))" }} />
         </div>
         <p className="mt-1.5 font-mono text-[10px]" style={{ color: D.faint }}>{level.name}</p>
       </div>
@@ -198,7 +198,7 @@ export function DashboardSidebarClient({
           <LogOut size={15} strokeWidth={1.5} />
           <span className="text-[13px] font-medium">Sign out</span>
         </button>
-        <p className="mt-2 px-3 font-mono text-[10px] truncate" style={{ color: "rgba(255,255,255,0.2)" }}>{userEmail}</p>
+        <p className="mt-2 px-3 font-mono text-[10px] truncate" style={{ color: "var(--ink-faint)" }}>{userEmail}</p>
       </div>
     </aside>
   );

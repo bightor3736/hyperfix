@@ -179,7 +179,7 @@ export function FormError({ message }: { message: string | null }) {
       className="text-sm font-sans rounded-xl px-4 py-3"
       style={{
         background: "var(--bg-soft)",
-        border: "1px solid var(--ink)",
+        border: "1px solid var(--line)",
         color: "var(--ink)",
       }}
     >

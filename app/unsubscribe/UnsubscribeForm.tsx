@@ -64,7 +64,7 @@ export function UnsubscribeForm({ email: prefillEmail }: { email?: string }) {
         style={{
           background: "#1C1C1E",
           border: "1px solid var(--line)",
-          borderRadius: 12,
+          borderRadius: 20,
           color: "var(--ink)",
         }}
       />

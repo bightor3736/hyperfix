@@ -153,7 +153,7 @@ export default function HyperfixCard({
               flex: 1,
               height: i % 3 === 0 ? 16 : i % 3 === 1 ? 10 : 13,
               background: "rgba(0,0,0,0.22)",
-              borderRadius: 2,
+              borderRadius: 20,
             }} />
           ))}
           <div style={{

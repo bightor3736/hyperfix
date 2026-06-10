@@ -237,7 +237,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
   return (
     <section
       className="brutal-box-lg p-6 sm:p-7"
-      style={{ background: "var(--bg-elevated)", border: "3.5px solid var(--ink)", borderRadius: 10, boxShadow: "7px 7px 0 0 var(--ink)" }}
+      style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 20, boxShadow: "var(--shadow-lg)" }}
     >
       {/* ── IDLE: name the monster + open tasks ────────────────────── */}
       {phase === "idle" && (
@@ -271,13 +271,13 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
               placeholder="e.g. the email I've been dreading"
               autoComplete="off"
               className="w-full px-4 py-3.5 text-[15px] font-medium text-ink outline-none"
-              style={{ background: "var(--bg-soft)", border: "2.5px solid var(--ink)", borderRadius: 7 }}
+              style={{ background: "var(--bg-soft)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
             />
             <button
               type="submit"
               disabled={!title.trim() || submitting}
               className="brutal-btn mt-3 w-full py-3.5 text-[15px] disabled:opacity-40"
-              style={{ background: "var(--accent)", color: "var(--accent-ink)", borderRadius: 7 }}
+              style={{ background: "var(--accent)", color: "var(--accent-ink)", borderRadius: 16 }}
             >
               {submitting ? "One sec…" : <>Let&apos;s start <ArrowRight size={17} strokeWidth={3} /></>}
             </button>
@@ -294,7 +294,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
                   <li
                     key={t.id}
                     className="flex items-center gap-3 p-3"
-                    style={{ background: "var(--bg-soft)", border: "2px solid var(--ink)", borderRadius: 7 }}
+                    style={{ background: "var(--bg-soft)", border: "1px solid var(--line)", borderRadius: 16 }}
                   >
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-[14px] font-bold text-ink">{t.title}</p>
@@ -307,7 +307,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
                     <button
                       onClick={() => resume(t)}
                       className="brutal-btn shrink-0 px-3 py-2 text-[12px]"
-                      style={{ background: "var(--yellow)", color: "var(--ink)", borderRadius: 6 }}
+                      style={{ background: "var(--yellow)", color: "var(--ink)", borderRadius: 16 }}
                     >
                       <Play size={12} strokeWidth={3} fill="currentColor" /> Go
                     </button>
@@ -358,7 +358,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
               placeholder="e.g. just open the doc and write one line"
               autoComplete="off"
               className="mt-2 w-full px-4 py-3 text-[14px] font-medium text-ink outline-none"
-              style={{ background: "var(--bg-soft)", border: "2.5px solid var(--ink)", borderRadius: 7 }}
+              style={{ background: "var(--bg-soft)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
             />
           </label>
 
@@ -372,8 +372,8 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
                   className="flex-1 py-2.5 font-mono text-[13px] font-bold transition-all"
                   style={
                     minutes === m
-                      ? { background: "var(--ink)", color: "var(--bg)", border: "2.5px solid var(--ink)", borderRadius: 6 }
-                      : { background: "var(--bg-elevated)", color: "var(--ink)", border: "2.5px solid var(--ink)", borderRadius: 6 }
+                      ? { background: "var(--ink)", color: "var(--bg)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }
+                      : { background: "var(--bg-elevated)", color: "var(--ink)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }
                   }
                 >
                   {m}m
@@ -383,7 +383,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
           </div>
 
           {/* The 5-minute lie */}
-          <div className="mt-5 p-4" style={{ background: "var(--yellow)", border: "2.5px solid var(--ink)", borderRadius: 7 }}>
+          <div className="mt-5 p-4" style={{ background: "var(--yellow)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}>
             <p className="text-[14px] font-bold leading-snug text-ink">
               The deal: do {minutes} minutes. Then you&apos;re allowed to stop.
             </p>
@@ -395,7 +395,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
           <button
             onClick={launch}
             className="brutal-btn mt-5 w-full py-4 text-[16px]"
-            style={{ background: "var(--coral)", color: "#fff", borderRadius: 7 }}
+            style={{ background: "var(--coral)", color: "#fff", borderRadius: 16 }}
           >
             Start now <Play size={17} strokeWidth={3} fill="currentColor" />
           </button>
@@ -411,7 +411,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
           </h2>
           {(activeTask?.step || step) && (
             <p className="mt-2 inline-flex max-w-full items-center gap-1.5 px-3 py-1.5 text-[12px] font-bold text-ink"
-              style={{ background: "var(--bg-soft)", border: "2px solid var(--ink)", borderRadius: 999 }}>
+              style={{ background: "var(--bg-soft)", border: "1px solid var(--line)", borderRadius: 999 }}>
               <Clock size={12} strokeWidth={3} /> {activeTask?.step || step}
             </p>
           )}
@@ -427,7 +427,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
             <button
               onClick={() => setRunning((r) => !r)}
               className="brutal-btn px-7 py-3.5 text-[15px]"
-              style={{ background: running ? "var(--bg-elevated)" : "var(--accent)", color: running ? "var(--ink)" : "var(--accent-ink)", borderRadius: 7 }}
+              style={{ background: running ? "var(--bg-elevated)" : "var(--accent)", color: running ? "var(--ink)" : "var(--accent-ink)", borderRadius: 16 }}
             >
               {running ? <Pause size={17} strokeWidth={3} fill="currentColor" /> : <Play size={17} strokeWidth={3} fill="currentColor" />}
               {running ? "Pause" : "Resume"}
@@ -435,7 +435,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
             <button
               onClick={finish}
               className="brutal-btn px-5 py-3.5 text-[13px]"
-              style={{ background: "var(--lime)", color: "var(--ink)", borderRadius: 7 }}
+              style={{ background: "var(--lime)", color: "var(--ink)", borderRadius: 16 }}
             >
               <Check size={16} strokeWidth={3} /> I started
             </button>
@@ -454,7 +454,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
         <div className="flex flex-col items-center text-center anim-pop">
           <div
             className="flex h-16 w-16 items-center justify-center anim-wiggle"
-            style={{ background: "var(--lime)", border: "3px solid var(--ink)", borderRadius: 10, boxShadow: "3px 3px 0 0 var(--ink)" }}
+            style={{ background: "var(--lime)", border: "1.5px solid var(--line-strong)", borderRadius: 20, boxShadow: "var(--shadow-sm)" }}
           >
             <Check size={32} strokeWidth={3} style={{ color: "var(--ink)" }} />
           </div>
@@ -467,7 +467,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
 
           <div
             className="mt-5 inline-flex items-center gap-2 px-4 py-2"
-            style={{ background: "var(--xp)", color: "#fff", border: "2.5px solid var(--ink)", borderRadius: 999, boxShadow: "3px 3px 0 0 var(--ink)" }}
+            style={{ background: "var(--xp)", color: "#fff", border: "1.5px solid var(--line-strong)", borderRadius: 999, boxShadow: "var(--shadow-sm)" }}
           >
             <Zap size={15} strokeWidth={3} fill="#fff" />
             <span className="font-mono text-[13px] font-bold uppercase tracking-wider">+{earnedXp} XP</span>
@@ -477,7 +477,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
             <button
               onClick={launch}
               className="brutal-btn w-full py-3.5 text-[15px]"
-              style={{ background: "var(--coral)", color: "#fff", borderRadius: 7 }}
+              style={{ background: "var(--coral)", color: "#fff", borderRadius: 16 }}
             >
               Keep going — another round <ArrowRight size={16} strokeWidth={3} />
             </button>
@@ -488,14 +488,14 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
                   reset();
                 }}
                 className="brutal-btn flex-1 py-3 text-[14px]"
-                style={{ background: "var(--lime)", color: "var(--ink)", borderRadius: 7 }}
+                style={{ background: "var(--lime)", color: "var(--ink)", borderRadius: 16 }}
               >
                 <Check size={15} strokeWidth={3} /> It&apos;s done
               </button>
               <button
                 onClick={reset}
                 className="brutal-btn flex-1 py-3 text-[14px]"
-                style={{ background: "var(--bg-elevated)", color: "var(--ink)", borderRadius: 7 }}
+                style={{ background: "var(--bg-elevated)", color: "var(--ink)", borderRadius: 16 }}
               >
                 Save for later
               </button>

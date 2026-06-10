@@ -102,7 +102,7 @@ export async function GET(
                 <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <span style={{ fontSize: 46, fontWeight: 700, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>{displayName}</span>
                   {profile.is_pro && (
-                    <span style={{ fontSize: 16, fontWeight: 700, color: "#0f0d40", background: TEAL, padding: "3px 10px", borderRadius: 8, letterSpacing: "0.04em" }}>PRO</span>
+                    <span style={{ fontSize: 16, fontWeight: 700, color: "#0f0d40", background: TEAL, padding: "3px 10px", borderRadius: 16, letterSpacing: "0.04em" }}>PRO</span>
                   )}
                 </div>
                 <span style={{ fontSize: 22, color: "rgba(167,139,250,0.9)", fontFamily: "ui-monospace, monospace", marginTop: 8 }}>@{profile.username ?? username}</span>

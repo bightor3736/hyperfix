@@ -3,79 +3,81 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════════════════
-   HYPERFIX — NEO-BRUTALIST DESIGN SYSTEM
-   Thick black borders. Hard offset shadows. Flat primary color blocks.
-   No gradients. Mono labels. Loud, eigenwijs, memorable.
+   HYPERFIX — SOFT & FRIENDLY DESIGN SYSTEM (Tiimo-inspired)
+   Warm cream canvas. Deep plum ink. Lilac primary. Pastel accents.
+   Big rounded corners, soft diffuse shadows, calm motion.
+   (Class & variable names kept from the previous system so every
+   component restyles automatically.)
    ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
   --font-display: var(--font-grotesk);
 
   /* ── Canvas ── */
-  --bg:           #FBF6EA;   /* warm paper */
-  --bg-soft:      #F2EAD7;   /* alt section */
+  --bg:           #FAF6F0;   /* warm cream */
+  --bg-soft:      #F3EDE4;   /* alt section */
   --bg-elevated:  #FFFFFF;   /* card surface */
 
-  /* ── Ink (text + the all-important black borders) ── */
-  --ink:          #0A0A0A;
-  --ink-muted:    #2E2E2E;
-  --ink-faint:    #6A6A6A;
+  /* ── Ink — deep plum, never pure black ── */
+  --ink:          #2B2440;
+  --ink-muted:    #564E70;
+  --ink-faint:    #8B84A3;
 
-  /* Borders are BLACK and THICK. line == ink in brutalism. */
-  --line:         #0A0A0A;
-  --line-strong:  #0A0A0A;
-  --bw:           2.5px;        /* standard border width */
-  --bw-lg:        3.5px;        /* heavy border width */
+  /* Borders are now soft and hairline. */
+  --line:         #E9E2D8;
+  --line-strong:  #D9D1C5;
+  --bw:           1px;          /* standard border width */
+  --bw-lg:        1px;          /* heavy border width (now same) */
 
-  /* ── Flat primary accents (NO gradients) ── */
-  --blue:         #2F4BFF;
-  --yellow:       #FFD23F;
-  --pink:         #FF5CA8;
-  --lime:         #16E08A;
-  --coral:        #FF5C3A;
-  --violet:       #8B5CF6;
-  --violet-soft:  #ECE4FF;
+  /* ── Friendly accents (lilac-led, pastel-supported) ── */
+  --blue:         #6957E8;   /* lilac-violet — primary */
+  --yellow:       #FFC93F;
+  --pink:         #F49FC4;
+  --lime:         #3ECF9B;
+  --coral:        #F97E6D;
+  --violet:       #9B8AFB;
+  --violet-soft:  #EFEBFF;
 
   --accent:       var(--blue);
-  --accent-soft:  #DCE2FF;
+  --accent-soft:  #E9E5FC;
   --accent-ink:   #FFFFFF;
 
   /* Semantic roles */
-  --xp:           #8B5CF6;   /* violet — XP & levels */
-  --xp-soft:      #ECE4FF;
-  --flame:        #FF5C3A;   /* coral — streaks */
-  --flame-soft:   #FFE0D7;
-  --energy:       #2F4BFF;
-  --energy-soft:  #DCE2FF;
+  --xp:           #9B8AFB;   /* soft violet — XP & levels */
+  --xp-soft:      #EFEBFF;
+  --flame:        #F97E6D;   /* soft coral — streaks */
+  --flame-soft:   #FEE9E5;
+  --energy:       #6957E8;
+  --energy-soft:  #E9E5FC;
 
-  --reward-mint:       #16E08A;
-  --reward-mint-soft:  #C9F9E5;
-  --reward-amber:      #FFD23F;
-  --reward-amber-soft: #FFF1C2;
-  --reward-coral:      #FF5C3A;
-  --reward-coral-soft: #FFE0D7;
+  --reward-mint:       #3ECF9B;
+  --reward-mint-soft:  #E0F8EF;
+  --reward-amber:      #FFC93F;
+  --reward-amber-soft: #FFF4D6;
+  --reward-coral:      #F97E6D;
+  --reward-coral-soft: #FEE9E5;
 
-  /* Flat pastel fills for tags / chips */
-  --pastel-purple: #ECE4FF;
-  --pastel-pink:   #FFE0EE;
-  --pastel-blue:   #DCE2FF;
-  --pastel-green:  #C9F9E5;
-  --pastel-orange: #FFE6D2;
-  --pastel-yellow: #FFF1C2;
+  /* Soft pastel fills for tags / chips */
+  --pastel-purple: #EFEBFF;
+  --pastel-pink:   #FCEAF2;
+  --pastel-blue:   #E9E5FC;
+  --pastel-green:  #E0F8EF;
+  --pastel-orange: #FFEDDC;
+  --pastel-yellow: #FFF4D6;
 
   /* Invert (dark blocks on light page) */
-  --invert-bg:    #0A0A0A;
-  --invert-ink:   #FBF6EA;
+  --invert-bg:    #2B2440;
+  --invert-ink:   #FAF6F0;
 
-  /* ── Hard offset shadows — the brutalist signature ── */
-  --shadow:       4px 4px 0 0 var(--ink);
-  --shadow-sm:    3px 3px 0 0 var(--ink);
-  --shadow-lg:    7px 7px 0 0 var(--ink);
-  --shadow-xl:    10px 10px 0 0 var(--ink);
+  /* ── Soft diffuse shadows ── */
+  --shadow:       0 4px 16px rgba(43, 36, 64, 0.07);
+  --shadow-sm:    0 2px 8px rgba(43, 36, 64, 0.06);
+  --shadow-lg:    0 10px 30px rgba(43, 36, 64, 0.10);
+  --shadow-xl:    0 18px 48px rgba(43, 36, 64, 0.14);
 
-  /* ── Radius — brutalism is mostly square, with tiny softening ── */
-  --radius-lg:    6px;
-  --radius-xl:    8px;
+  /* ── Radius — generous and friendly ── */
+  --radius-lg:    20px;
+  --radius-xl:    28px;
 
   color-scheme: light;
 
@@ -87,53 +89,57 @@
   --popover-foreground: var(--ink);
   --primary:           var(--accent);
   --primary-foreground: var(--accent-ink);
-  --muted:             45 30% 92%;
+  --muted:             40 30% 93%;
   --muted-foreground:  var(--ink-muted);
   --foreground:        var(--ink);
   --border:            var(--line);
 
-  /* legacy glass aliases — now solid panels */
+  /* legacy glass aliases — soft panels */
   --glass-bg:     #FFFFFF;
-  --glass-border: var(--ink);
+  --glass-border: var(--line);
 }
 
 :root[data-theme="light"] { color-scheme: light; }
 
-/* ── Dark variant — inverted brutalism: near-black paper, off-white borders,
-      shadows go off-white so the offset still reads. ── */
+/* ── Dark variant — calm plum night mode, soft borders, gentle glow. ── */
 :root[data-theme="dark"] {
-  --bg:           #0E0E10;
-  --bg-soft:      #161618;
-  --bg-elevated:  #1B1B1F;
-  --ink:          #F5F1E6;
-  --ink-muted:    #C2BEB2;
-  --ink-faint:    #8A867C;
-  --line:         #F5F1E6;
-  --line-strong:  #F5F1E6;
+  --bg:           #17141F;
+  --bg-soft:      #1E1A29;
+  --bg-elevated:  #232030;
+  --ink:          #F2EFF8;
+  --ink-muted:    #BBB4CE;
+  --ink-faint:    #847E99;
+  --line:         #332E45;
+  --line-strong:  #443E5A;
 
-  --accent:       #5B72FF;
-  --accent-soft:  #1E2347;
-  --accent-ink:   #0E0E10;
-  --xp:           #A78BFA;
-  --xp-soft:      #241a3a;
-  --flame:        #FF7A5C;
-  --flame-soft:   #2e1a14;
-  --energy:       #5B72FF;
-  --energy-soft:  #1E2347;
+  --accent:       #8B7BF4;
+  --accent-soft:  #2A2547;
+  --accent-ink:   #17141F;
+  --xp:           #A99AFB;
+  --xp-soft:      #2A2547;
+  --flame:        #FB9486;
+  --flame-soft:   #3A2622;
+  --energy:       #8B7BF4;
+  --energy-soft:  #2A2547;
 
-  --pastel-purple: #241a3a;
-  --pastel-pink:   #2e1722;
-  --pastel-blue:   #1E2347;
-  --pastel-green:  #11271f;
-  --pastel-orange: #2c1d12;
-  --pastel-yellow: #2a2412;
+  --pastel-purple: #2A2547;
+  --pastel-pink:   #382433;
+  --pastel-blue:   #262649;
+  --pastel-green:  #1D3329;
+  --pastel-orange: #392A1C;
+  --pastel-yellow: #38311A;
 
-  --invert-bg:    #F5F1E6;
-  --invert-ink:   #0E0E10;
+  --invert-bg:    #F2EFF8;
+  --invert-ink:   #17141F;
 
-  --glass-bg:     #1B1B1F;
-  --glass-border: var(--ink);
-  --muted:        240 6% 12%;
+  --shadow:       0 4px 16px rgba(0, 0, 0, 0.35);
+  --shadow-sm:    0 2px 8px rgba(0, 0, 0, 0.30);
+  --shadow-lg:    0 10px 30px rgba(0, 0, 0, 0.45);
+  --shadow-xl:    0 18px 48px rgba(0, 0, 0, 0.55);
+
+  --glass-bg:     #232030;
+  --glass-border: var(--line);
+  --muted:        255 10% 14%;
   color-scheme: dark;
 }
 
@@ -147,22 +153,22 @@ html, body {
 
 .font-display-medium {
   font-family: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
-/* The dashboard inherits the brutalist display language too. */
+/* The dashboard inherits the friendly display language too. */
 .dash-landing .font-display {
   font-family: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif !important;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 .dash-landing .font-sans {
   font-family: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif !important;
 }
 .dash-landing {
-  --radius-lg: 6px;
-  --radius-xl: 8px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
 }
 
 /* Suppress redundant game-card micro-labels inside .dash-landing (they
@@ -173,107 +179,109 @@ html, body {
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   BRUTALIST PRIMITIVES
+   SOFT PRIMITIVES (legacy "brutal-*" names kept — visuals are friendly)
    ════════════════════════════════════════════════════════════════════ */
 
-/* Hard-bordered box with offset shadow — the core surface. */
+/* Soft rounded card with diffuse shadow — the core surface. */
 .brutal-box {
   background: var(--bg-elevated);
-  border: var(--bw) solid var(--ink);
+  border: var(--bw) solid var(--line);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
 }
 .brutal-box-lg {
   background: var(--bg-elevated);
-  border: var(--bw-lg) solid var(--ink);
+  border: var(--bw-lg) solid var(--line);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
 }
-.brutal-border    { border: var(--bw) solid var(--ink); }
+.brutal-border    { border: var(--bw) solid var(--line); }
 .brutal-shadow    { box-shadow: var(--shadow); }
 .brutal-shadow-lg { box-shadow: var(--shadow-lg); }
 .brutal-shadow-xl { box-shadow: var(--shadow-xl); }
 
-/* The signature button: hard border + offset shadow that "presses" down on
-   hover/active by moving into its own shadow. */
+/* The signature button: soft pill that lifts on hover, gently presses down. */
 .brutal-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border: var(--bw) solid var(--ink);
-  border-radius: var(--radius-lg);
+  border: var(--bw) solid transparent;
+  border-radius: 999px;
   box-shadow: var(--shadow);
   font-weight: 700;
   letter-spacing: -0.01em;
-  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease, filter 0.2s ease;
   will-change: transform;
 }
-.brutal-btn:hover  { transform: translate(2px, 2px); box-shadow: var(--shadow-sm); }
-.brutal-btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 0 var(--ink); }
+.brutal-btn:hover  { transform: translateY(-2px); box-shadow: var(--shadow-lg); filter: brightness(1.03); }
+.brutal-btn:active { transform: translateY(0) scale(0.98); box-shadow: var(--shadow-sm); }
 
-/* Hover-lift: card nudges UP-LEFT and grows its shadow (opposite of press). */
-.brutal-hover { transition: transform 0.12s ease, box-shadow 0.12s ease; }
-.brutal-hover:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-lg); }
+/* Hover-lift: card floats up with a bigger shadow. */
+.brutal-hover { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+.brutal-hover:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 
-/* press-pop (legacy name kept) — now brutalist press. */
-.press-pop { transition: transform 0.08s ease, box-shadow 0.08s ease; }
-.press-pop:active { transform: translate(3px, 3px); }
+/* press-pop (legacy name kept) — gentle press. */
+.press-pop { transition: transform 0.12s ease, box-shadow 0.12s ease; }
+.press-pop:active { transform: scale(0.97); }
 
-/* Tag / pill — small flat chip with hard border. */
+/* Tag / pill — soft chip. */
 .brutal-tag {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  border: 2px solid var(--ink);
+  border: 1px solid var(--line);
+  background: var(--bg-elevated);
   border-radius: 999px;
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-mono), ui-sans-serif, sans-serif;
   font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  padding: 0.25rem 0.7rem;
+  padding: 0.3rem 0.8rem;
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   LEGACY UTILITY ALIASES — remapped to brutalist visuals so existing
-   components shift over without markup changes.
+   LEGACY UTILITY ALIASES — soft visuals, unchanged markup.
    ════════════════════════════════════════════════════════════════════ */
-.soft-card    { border: var(--bw) solid var(--ink); box-shadow: var(--shadow); }
-.soft-card-lg { border: var(--bw-lg) solid var(--ink); box-shadow: var(--shadow-lg); }
-.paper-card   { border: var(--bw) solid var(--ink); box-shadow: var(--shadow); }
-.glass        { background: var(--bg-elevated); border: var(--bw) solid var(--ink); box-shadow: var(--shadow); }
-.motion-card  { transition: transform 0.12s ease, box-shadow 0.12s ease; }
-.motion-card:hover { transform: translate(-2px,-2px); box-shadow: var(--shadow-lg); }
+.soft-card    { border: var(--bw) solid var(--line); box-shadow: var(--shadow); border-radius: var(--radius-lg); }
+.soft-card-lg { border: var(--bw-lg) solid var(--line); box-shadow: var(--shadow-lg); border-radius: var(--radius-xl); }
+.paper-card   { border: var(--bw) solid var(--line); box-shadow: var(--shadow); border-radius: var(--radius-lg); }
+.glass        { background: var(--bg-elevated); border: var(--bw) solid var(--line); box-shadow: var(--shadow); border-radius: var(--radius-lg); }
+.motion-card  { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+.motion-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 .anim-neon    { box-shadow: var(--shadow-lg); }
 
-/* Flat color headline — no gradient in brutalism. */
-.text-game-gradient { color: var(--accent); }
+/* Soft accent headline. */
+.text-game-gradient {
+  background: linear-gradient(100deg, var(--accent), var(--violet));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 /* Tabular figures for counters */
 .tabular { font-variant-numeric: tabular-nums; }
 .display { font-feature-settings: "ss01","kern"; }
 .text-balance { text-wrap: balance; }
 
-/* Accent glow / grid bg neutralised to flat brutalist treatments. */
-.accent-glow { background: transparent; }
+/* Accent glow — gentle pastel halo behind heroes. */
+.accent-glow {
+  background: radial-gradient(closest-side, var(--accent-soft), transparent 70%);
+}
 .grid-bg {
-  background-image:
-    linear-gradient(to right, rgba(10,10,10,0.07) var(--bw), transparent var(--bw)),
-    linear-gradient(to bottom, rgba(10,10,10,0.07) var(--bw), transparent var(--bw));
-  background-size: 48px 48px;
+  background-image: radial-gradient(rgba(43,36,64,0.07) 1px, transparent 1px);
+  background-size: 26px 26px;
 }
 :root[data-theme="dark"] .grid-bg {
-  background-image:
-    linear-gradient(to right, rgba(245,241,230,0.08) var(--bw), transparent var(--bw)),
-    linear-gradient(to bottom, rgba(245,241,230,0.08) var(--bw), transparent var(--bw));
+  background-image: radial-gradient(rgba(242,239,248,0.07) 1px, transparent 1px);
 }
 
-/* Diagonal hatch fill — brutalist texture for panels / eyebrows. */
+/* Dotted texture (replaces the old hard diagonal hatch). */
 .hatch {
-  background-image: repeating-linear-gradient(
-    45deg, var(--ink) 0, var(--ink) 1.5px, transparent 1.5px, transparent 7px
-  );
+  background-image: radial-gradient(var(--line-strong) 1px, transparent 1px);
+  background-size: 8px 8px;
 }
 
 /* Hide scrollbar */
@@ -285,17 +293,17 @@ details > summary { list-style: none; }
 details > summary::marker, details > summary::-webkit-details-marker { display: none; }
 
 /* ════════════════════════════════════════════════════════════════════
-   MOTION SYSTEM — brutalist = snappy, hard, a little aggressive.
+   MOTION SYSTEM — soft, springy, reassuring.
    ════════════════════════════════════════════════════════════════════ */
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes popHard {
-  0%   { opacity: 0; transform: scale(0.6); }
-  70%  { opacity: 1; transform: scale(1.08); }
+  0%   { opacity: 0; transform: scale(0.85); }
+  70%  { opacity: 1; transform: scale(1.03); }
   100% { opacity: 1; transform: scale(1); }
 }
 @keyframes shake {
@@ -305,7 +313,7 @@ details > summary::marker, details > summary::-webkit-details-marker { display: 
   60%     { transform: translateX(-2px) rotate(-0.5deg); }
   80%     { transform: translateX(2px) rotate(0.5deg); }
 }
-@keyframes blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+@keyframes blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0.25; } }
 @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 @keyframes spinSlow { from { transform: rotate(0); } to { transform: rotate(360deg); } }
@@ -316,12 +324,12 @@ details > summary::marker, details > summary::-webkit-details-marker { display: 
   100% { opacity: 0; transform: translateY(120px) rotate(360deg); }
 }
 
-.anim-fadeUp   { animation: fadeUp 0.5s cubic-bezier(0.2,0.7,0.2,1) both; }
-.anim-fadeIn   { animation: fadeIn 0.5s ease both; }
-.anim-pop      { animation: popHard 0.32s cubic-bezier(0.3,1.4,0.5,1) both; }
-.anim-popHard  { animation: popHard 0.32s cubic-bezier(0.3,1.4,0.5,1) both; }
+.anim-fadeUp   { animation: fadeUp 0.55s cubic-bezier(0.2,0.7,0.2,1) both; }
+.anim-fadeIn   { animation: fadeIn 0.55s ease both; }
+.anim-pop      { animation: popHard 0.4s cubic-bezier(0.3,1.3,0.5,1) both; }
+.anim-popHard  { animation: popHard 0.4s cubic-bezier(0.3,1.3,0.5,1) both; }
 .anim-shake    { animation: shake 0.4s ease both; }
-.anim-blink    { animation: blink 1s steps(1) infinite; }
+.anim-blink    { animation: blink 1.4s ease-in-out infinite; }
 .anim-floatY   { animation: floatY 4s ease-in-out infinite; }
 .anim-spinSlow { animation: spinSlow 18s linear infinite; }
 .anim-spin     { animation: spinSlow 1s linear infinite; }
@@ -330,20 +338,20 @@ details > summary::marker, details > summary::-webkit-details-marker { display: 
 .marquee       { animation: marquee 40s linear infinite; }
 .anim-confetti { animation: confettiFall 1s ease-in forwards; }
 
-/* legacy aliases mapped to brutalist motion */
-.anim-scaleIn  { animation: popHard 0.32s cubic-bezier(0.3,1.4,0.5,1) both; }
-.anim-slideLeft{ animation: fadeUp 0.5s cubic-bezier(0.2,0.7,0.2,1) both; }
-.anim-floatUp  { animation: fadeUp 0.5s ease both; }
+/* legacy aliases mapped to soft motion */
+.anim-scaleIn  { animation: popHard 0.4s cubic-bezier(0.3,1.3,0.5,1) both; }
+.anim-slideLeft{ animation: fadeUp 0.55s cubic-bezier(0.2,0.7,0.2,1) both; }
+.anim-floatUp  { animation: fadeUp 0.55s ease both; }
 .anim-flame    { animation: wiggle 1.4s ease-in-out infinite; transform-origin: bottom center; }
 .anim-bloom    { animation: floatY 6s ease-in-out infinite; }
 .anim-glowPulse{ animation: none; }
 .anim-pulseGlow{ animation: none; }
 .anim-driftX   { animation: floatY 6s ease-in-out infinite; }
-.anim-pulseDot { animation: blink 1.4s steps(1) infinite; }
-.anim-cellPop  { animation: popHard 0.3s cubic-bezier(0.3,1.4,0.5,1) both; }
+.anim-pulseDot { animation: blink 1.6s ease-in-out infinite; }
+.anim-cellPop  { animation: popHard 0.35s cubic-bezier(0.3,1.3,0.5,1) both; }
 .anim-shimmer  { animation: none; }
 .shimmer-sweep { animation: none; }
-.pulse-dot     { animation: blink 1.4s steps(1) infinite; }
+.pulse-dot     { animation: blink 1.6s ease-in-out infinite; }
 
 .delay-100 { animation-delay: 0.08s; }
 .delay-200 { animation-delay: 0.16s; }
@@ -353,16 +361,16 @@ details > summary::marker, details > summary::-webkit-details-marker { display: 
 .delay-700 { animation-delay: 0.56s; }
 
 /* Scroll-reveal */
-.reveal-up { opacity: 0; transform: translateY(18px); transition: opacity 0.5s cubic-bezier(0.2,0.7,0.2,1), transform 0.5s cubic-bezier(0.2,0.7,0.2,1); }
+.reveal-up { opacity: 0; transform: translateY(16px); transition: opacity 0.55s cubic-bezier(0.2,0.7,0.2,1), transform 0.55s cubic-bezier(0.2,0.7,0.2,1); }
 .reveal-up.is-in { opacity: 1; transform: translateY(0); }
-.reveal { animation: fadeUp 0.5s cubic-bezier(0.2,0.7,0.2,1) both; }
+.reveal { animation: fadeUp 0.55s cubic-bezier(0.2,0.7,0.2,1) both; }
 
-/* Animated link underline — hard, no fade. */
+/* Animated link underline — soft. */
 .motion-link { position: relative; }
 .motion-link::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: -3px;
-  height: 2px; background: currentColor; transform: scaleX(0);
-  transform-origin: left; transition: transform 0.15s ease;
+  height: 2px; border-radius: 2px; background: currentColor; transform: scaleX(0);
+  transform-origin: left; transition: transform 0.2s ease;
 }
 .motion-link:hover::after { transform: scaleX(1); }
 .link-wave { text-decoration: none; }
@@ -375,18 +383,20 @@ details > summary::marker, details > summary::-webkit-details-marker { display: 
 .ticker-wrap::before { left: 0;  background: linear-gradient(to right, var(--bg), transparent); }
 .ticker-wrap::after  { right: 0; background: linear-gradient(to left,  var(--bg), transparent); }
 
-/* Range slider — brutalist */
+/* Range slider — soft rounded */
 .hyperfix-range {
-  -webkit-appearance: none; appearance: none; width: 100%; height: 6px;
-  background: var(--bg-elevated); border: 2px solid var(--ink); outline: none; cursor: pointer;
+  -webkit-appearance: none; appearance: none; width: 100%; height: 8px;
+  background: var(--bg-soft); border: 1px solid var(--line); border-radius: 999px;
+  outline: none; cursor: pointer;
 }
 .hyperfix-range::-webkit-slider-thumb {
-  -webkit-appearance: none; appearance: none; width: 20px; height: 20px;
-  background: var(--accent); border: 2px solid var(--ink); cursor: pointer;
-  box-shadow: 2px 2px 0 0 var(--ink);
+  -webkit-appearance: none; appearance: none; width: 22px; height: 22px;
+  background: var(--accent); border: 3px solid var(--bg-elevated); border-radius: 999px;
+  cursor: pointer; box-shadow: var(--shadow-sm);
 }
 .hyperfix-range::-moz-range-thumb {
-  width: 20px; height: 20px; background: var(--accent); border: 2px solid var(--ink); cursor: pointer;
+  width: 22px; height: 22px; background: var(--accent);
+  border: 3px solid var(--bg-elevated); border-radius: 999px; cursor: pointer;
 }
 
 /* Reduced motion */
@@ -405,10 +415,11 @@ details > summary::marker, details > summary::-webkit-details-marker { display: 
 @media (min-width: 640px)  { .masonry-grid { column-count: 2; } }
 @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
 
-/* Stamp */
+/* Stamp — soft pill label */
 .stamp {
-  border: 2px solid var(--ink); padding: 0.25rem 0.75rem; letter-spacing: 0.16em;
-  text-transform: uppercase; font-size: 0.65rem; display: inline-block;
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  padding: 0.3rem 0.85rem; letter-spacing: 0.14em;
+  text-transform: uppercase; font-size: 0.65rem; font-weight: 700; display: inline-block;
 }
-.tilt-l { transform: rotate(-1.6deg); }
-.tilt-r { transform: rotate(1.4deg); }
+.tilt-l { transform: rotate(-1.2deg); }
+.tilt-r { transform: rotate(1deg); }

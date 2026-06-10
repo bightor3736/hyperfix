@@ -57,12 +57,12 @@ export function MilestoneCelebration({
 
       <div
         className="relative w-full max-w-[380px] p-7 text-center anim-pop"
-        style={{ background: "var(--bg-elevated)", border: "3.5px solid var(--ink)", borderRadius: 8, boxShadow: "10px 10px 0 0 var(--ink)" }}
+        style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
       >
         {/* Badge */}
         <div
           className="mx-auto mb-5 flex h-16 w-16 items-center justify-center anim-wiggle"
-          style={{ background: accent, border: "3px solid var(--ink)", borderRadius: 8, boxShadow: "3px 3px 0 0 var(--ink)" }}
+          style={{ background: accent, border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-sm)" }}
         >
           {isLevel ? (
             <Trophy size={30} strokeWidth={2.5} style={{ color: "#fff" }} />
@@ -122,7 +122,7 @@ export function MilestoneCelebration({
         {!isPro && isLevel && (
           <div
             className="mt-6 p-4 text-left"
-            style={{ background: "var(--yellow)", border: "2.5px solid var(--ink)", borderRadius: 7 }}
+            style={{ background: "var(--yellow)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
           >
             <p className="inline-flex items-center gap-1.5 text-[14px] font-bold text-ink">
               <Zap size={14} strokeWidth={3} fill="var(--ink)" /> Level up faster
@@ -132,7 +132,7 @@ export function MilestoneCelebration({
             </p>
             <ProCheckoutButton
               className="brutal-btn mt-3 w-full py-2.5 text-[13px]"
-              style={{ background: "var(--ink)", color: "var(--bg)", borderRadius: 6 }}
+              style={{ background: "var(--ink)", color: "var(--bg)", borderRadius: 16 }}
             >
               Power up <Zap size={14} strokeWidth={3} />
             </ProCheckoutButton>

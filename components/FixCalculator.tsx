@@ -91,7 +91,7 @@ export default function FixCalculator() {
             style={{
               background: "transparent",
               border: "1px solid var(--line)",
-              borderRadius: 12,
+              borderRadius: 20,
             }}
           />
           <p className={`mt-1.5 text-right font-mono text-[9px] tracking-widest tabular ${charsLeft < 15 ? "text-accent" : "text-[var(--ink-faint)]"}`}>
@@ -134,7 +134,7 @@ export default function FixCalculator() {
                   src={coverUrl}
                   alt="cover preview"
                   className="h-10 w-16 object-cover"
-                  style={{ borderRadius: 8, border: "1px solid var(--line)" }}
+                  style={{ borderRadius: 16, border: "1px solid var(--line)" }}
                 />
                 <button
                   onClick={removeCover}

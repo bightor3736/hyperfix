@@ -76,7 +76,7 @@ export default function WaitlistForm({
           style={{
             background: "#1C1C1E",
             border: "1px solid var(--line)",
-            borderRadius: 12,
+            borderRadius: 20,
             boxShadow: "0 1px 0 0 transparent inset",
           }}
         />

@@ -87,7 +87,7 @@ export function ShareStatsButton({ name, streak, level, levelNum, xp, hits, fixa
       <button
         onClick={() => setOpen(true)}
         className="brutal-btn inline-flex items-center gap-2 px-4 py-2 text-[13px]"
-        style={{ background: "var(--accent)", color: "var(--accent-ink)", borderRadius: 6 }}
+        style={{ background: "var(--accent)", color: "var(--accent-ink)", borderRadius: 16 }}
       >
         <Share2 size={14} strokeWidth={2.5} />
         Share my card
@@ -96,15 +96,15 @@ export function ShareStatsButton({ name, streak, level, levelNum, xp, hits, fixa
       {open && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center px-4"
-          style={{ background: "rgba(10,10,10,0.6)" }}
+          style={{ background: "rgba(43,36,64,0.6)" }}
           onClick={() => setOpen(false)}
         >
           <div
             className="w-full max-w-sm overflow-hidden anim-pop"
-            style={{ background: "var(--bg-elevated)", border: "3.5px solid var(--ink)", borderRadius: 8, boxShadow: "10px 10px 0 0 var(--ink)" }}
+            style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "2.5px solid var(--ink)" }}>
+            <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1.5px solid var(--line-strong)" }}>
               <p className="text-[15px] font-bold text-ink">Share your card</p>
               <button onClick={() => setOpen(false)} className="text-ink-faint transition-colors hover:text-ink">
                 <X size={18} strokeWidth={2.5} />
@@ -117,7 +117,7 @@ export function ShareStatsButton({ name, streak, level, levelNum, xp, hits, fixa
                 src={imgUrl}
                 alt="Your Hyperfix card"
                 className="w-full"
-                style={{ border: "2.5px solid var(--ink)", borderRadius: 6 }}
+                style={{ border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
               />
 
               <div className="mt-4 flex items-center gap-3">
@@ -125,7 +125,7 @@ export function ShareStatsButton({ name, streak, level, levelNum, xp, hits, fixa
                   onClick={nativeShare}
                   disabled={busy}
                   className="brutal-btn flex-1 py-3 text-[14px] disabled:opacity-50"
-                  style={{ background: "var(--accent)", color: "#fff", borderRadius: 6 }}
+                  style={{ background: "var(--accent)", color: "#fff", borderRadius: 16 }}
                 >
                   {busy ? <Loader2 size={16} className="animate-spin" /> : <Share2 size={16} strokeWidth={2.5} />}
                   Share
@@ -134,7 +134,7 @@ export function ShareStatsButton({ name, streak, level, levelNum, xp, hits, fixa
                   onClick={downloadCard}
                   disabled={busy}
                   className="brutal-btn px-4 py-3 text-[13px] disabled:opacity-50"
-                  style={{ background: "var(--bg-elevated)", color: "var(--ink)", borderRadius: 6 }}
+                  style={{ background: "var(--bg-elevated)", color: "var(--ink)", borderRadius: 16 }}
                 >
                   <Download size={15} strokeWidth={2.5} />
                 </button>

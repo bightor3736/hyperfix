@@ -147,7 +147,7 @@ export function StreakHeatmap({ dates }: { dates: string[] }) {
                     style={{
                       width: CELL_SIZE,
                       height: CELL_SIZE,
-                      borderRadius: 4,
+                      borderRadius: 20,
                       background: checkedIn
                         ? "var(--accent)"
                         : inRange

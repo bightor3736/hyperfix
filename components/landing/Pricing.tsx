@@ -63,7 +63,7 @@ export function Pricing() {
               <br />
               <span
                 className="inline-block px-2 mt-1"
-                style={{ background: "var(--accent)", color: "var(--accent-ink)", border: "2.5px solid var(--ink)", boxShadow: "4px 4px 0 0 var(--ink)", transform: "rotate(-1deg)" }}
+                style={{ background: "var(--accent)", color: "var(--accent-ink)", border: "1.5px solid var(--line-strong)", boxShadow: "var(--shadow)", transform: "rotate(-1deg)" }}
               >
                 More if you need it.
               </span>
@@ -78,7 +78,7 @@ export function Pricing() {
         <Reveal>
           <div
             className="mb-12 inline-flex items-center p-1 text-[13px]"
-            style={{ border: "2.5px solid var(--ink)", borderRadius: 8, background: "var(--bg-elevated)", boxShadow: "4px 4px 0 0 var(--ink)" }}
+            style={{ border: "1.5px solid var(--line-strong)", borderRadius: 16, background: "var(--bg-elevated)", boxShadow: "var(--shadow)" }}
             role="radiogroup"
             aria-label="Billing period"
           >
@@ -108,7 +108,7 @@ export function Pricing() {
           <Reveal>
             <article
               className="flex flex-col p-8 h-full"
-              style={{ background: "var(--bg-elevated)", border: "2.5px solid var(--ink)", borderRadius: 8, boxShadow: "4px 4px 0 0 var(--ink)" }}
+              style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow)" }}
             >
               <div>
                 <h3 className="text-[30px] font-bold leading-none text-ink" style={{ letterSpacing: "-0.02em" }}>Free Player</h3>
@@ -134,7 +134,7 @@ export function Pricing() {
                   <li key={f} className="flex items-start gap-3 text-[14px] font-medium leading-[1.5] text-ink">
                     <span
                       className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center"
-                      style={{ background: "var(--lime)", border: "2px solid var(--ink)", borderRadius: 4 }}
+                      style={{ background: "var(--lime)", border: "1px solid var(--line)", borderRadius: 20 }}
                     >
                       <Check size={12} strokeWidth={3.5} style={{ color: "var(--ink)" }} />
                     </span>
@@ -149,12 +149,12 @@ export function Pricing() {
           <Reveal delay={80}>
             <article
               className="relative flex flex-col p-8 h-full"
-              style={{ background: "var(--yellow)", border: "3.5px solid var(--ink)", borderRadius: 8, boxShadow: "10px 10px 0 0 var(--ink)" }}
+              style={{ background: "var(--yellow)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
             >
               {/* MOST POPULAR badge */}
               <span
                 className="brutal-tag absolute -top-3.5 right-6 font-bold"
-                style={{ background: "var(--accent)", color: "var(--accent-ink)", boxShadow: "3px 3px 0 0 var(--ink)" }}
+                style={{ background: "var(--accent)", color: "var(--accent-ink)", boxShadow: "var(--shadow-sm)" }}
               >
                 <Zap size={12} strokeWidth={3} /> Most popular
               </span>
@@ -193,7 +193,7 @@ export function Pricing() {
                   <li key={f} className="flex items-start gap-3 text-[14px] font-bold leading-[1.5] text-ink">
                     <span
                       className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center"
-                      style={{ background: "var(--bg-elevated)", border: "2px solid var(--ink)", borderRadius: 4 }}
+                      style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)", borderRadius: 20 }}
                     >
                       <Check size={12} strokeWidth={3.5} style={{ color: "var(--ink)" }} />
                     </span>
@@ -213,7 +213,7 @@ export function Pricing() {
             </h3>
             <div
               className="overflow-hidden"
-              style={{ border: "2.5px solid var(--ink)", borderRadius: 8, boxShadow: "4px 4px 0 0 var(--ink)", background: "var(--bg-elevated)" }}
+              style={{ border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow)", background: "var(--bg-elevated)" }}
             >
               <div
                 className="grid grid-cols-[1.8fr_1fr_1fr] items-center px-5 py-3.5 font-mono text-[11px] font-bold uppercase tracking-widest"
@@ -228,13 +228,13 @@ export function Pricing() {
                   key={row.label}
                   className="grid grid-cols-[1.8fr_1fr_1fr] items-center px-5 py-3.5"
                   style={{
-                    borderTop: idx === 0 ? "none" : "2px solid var(--ink)",
+                    borderTop: idx === 0 ? "none" : "1px solid var(--line)",
                     background: idx % 2 === 1 ? "var(--bg-soft)" : "var(--bg-elevated)",
                   }}
                 >
                   <span className="pr-4 text-[13px] font-medium leading-[1.4] text-ink">{row.label}</span>
-                  <span className="text-center" style={{ borderLeft: "2px solid var(--ink)" }}><Cell value={row.free} /></span>
-                  <span className="text-center" style={{ borderLeft: "2px solid var(--ink)" }}><Cell value={row.pro} /></span>
+                  <span className="text-center" style={{ borderLeft: "1px solid var(--line)" }}><Cell value={row.free} /></span>
+                  <span className="text-center" style={{ borderLeft: "1px solid var(--line)" }}><Cell value={row.pro} /></span>
                 </div>
               ))}
             </div>

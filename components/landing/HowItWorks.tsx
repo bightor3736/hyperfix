@@ -31,8 +31,8 @@ export function HowItWorks() {
                 style={{
                   background: "var(--yellow)",
                   color: "var(--ink)",
-                  border: "3.5px solid var(--ink)",
-                  boxShadow: "7px 7px 0 0 var(--ink)",
+                  border: "1.5px solid var(--line-strong)",
+                  boxShadow: "var(--shadow-lg)",
                   transform: "rotate(-1deg)",
                 }}
               >
@@ -89,9 +89,9 @@ export function HowItWorks() {
             className="relative mx-auto max-w-[640px] p-8 text-center sm:p-12"
             style={{
               background: "var(--lime)",
-              border: "3.5px solid var(--ink)",
-              borderRadius: 8,
-              boxShadow: "10px 10px 0 0 var(--ink)",
+              border: "1.5px solid var(--line-strong)",
+              borderRadius: 16,
+              boxShadow: "var(--shadow-xl)",
             }}
           >
             <span
@@ -99,9 +99,9 @@ export function HowItWorks() {
               style={{
                 background: "var(--bg-elevated)",
                 color: "var(--ink)",
-                border: "3px solid var(--ink)",
-                borderRadius: 6,
-                boxShadow: "4px 4px 0 0 var(--ink)",
+                border: "1.5px solid var(--line-strong)",
+                borderRadius: 16,
+                boxShadow: "var(--shadow)",
               }}
             >
               5
@@ -155,9 +155,9 @@ function Step({
               style={{
                 background: color,
                 color: "var(--ink)",
-                border: "2.5px solid var(--ink)",
-                borderRadius: 6,
-                boxShadow: "4px 4px 0 0 var(--ink)",
+                border: "1.5px solid var(--line-strong)",
+                borderRadius: 16,
+                boxShadow: "var(--shadow)",
               }}
             >
               {n}
@@ -184,9 +184,9 @@ function CardShell({ tint, children }: { tint: string; children: React.ReactNode
       className="brutal-hover p-5 sm:p-6"
       style={{
         background: tint,
-        border: "3.5px solid var(--ink)",
-        borderRadius: 8,
-        boxShadow: "7px 7px 0 0 var(--ink)",
+        border: "1.5px solid var(--line-strong)",
+        borderRadius: 16,
+        boxShadow: "var(--shadow-lg)",
       }}
     >
       {children}
@@ -198,7 +198,7 @@ function Label({ icon, children }: { icon: React.ReactNode; children: React.Reac
   return (
     <span
       className="inline-flex items-center gap-1.5 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-widest"
-      style={{ background: "var(--bg-elevated)", border: "2px solid var(--ink)", borderRadius: 999, color: "var(--ink)" }}
+      style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)", borderRadius: 999, color: "var(--ink)" }}
     >
       {icon}
       {children}
@@ -212,7 +212,7 @@ function AvoidCard() {
       <div className="mb-4">
         <Label icon={<BookOpen size={11} strokeWidth={3} />}>Still waiting on you</Label>
       </div>
-      <div style={{ background: "var(--bg-elevated)", border: "2.5px solid var(--ink)", borderRadius: 6 }}>
+      <div style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}>
         {[
           { name: "The email I've been dreading", meta: "added 2d ago" },
           { name: "My tax return", meta: "1 start · 5m in" },
@@ -221,7 +221,7 @@ function AvoidCard() {
           <div
             key={f.name}
             className="flex items-center justify-between gap-3 px-3.5 py-3"
-            style={{ borderTop: idx === 0 ? "none" : "2.5px solid var(--ink)" }}
+            style={{ borderTop: idx === 0 ? "none" : "1.5px solid var(--line-strong)" }}
           >
             <div className="min-w-0">
               <p className="truncate text-[15px] font-bold text-ink" style={{ letterSpacing: "-0.01em" }}>{f.name}</p>
@@ -229,7 +229,7 @@ function AvoidCard() {
             </div>
             <span
               className="inline-flex shrink-0 items-center gap-1 px-2.5 py-1.5 font-mono text-[10px] font-bold uppercase"
-              style={{ background: "var(--yellow)", border: "2px solid var(--ink)", borderRadius: 6, color: "var(--ink)" }}
+              style={{ background: "var(--yellow)", border: "1px solid var(--line)", borderRadius: 16, color: "var(--ink)" }}
             >
               <Timer size={11} strokeWidth={3} /> Go
             </span>
@@ -247,7 +247,7 @@ function DealCard() {
         <Label icon={<Sparkles size={11} strokeWidth={3} />}>The deal</Label>
         <span
           className="px-2.5 py-1 font-mono text-[12px] font-bold tabular-nums"
-          style={{ background: "var(--bg-elevated)", border: "2px solid var(--ink)", borderRadius: 6, color: "var(--xp)" }}
+          style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)", borderRadius: 16, color: "var(--xp)" }}
         >
           5:00
         </span>
@@ -257,7 +257,7 @@ function DealCard() {
       </p>
       <div
         className="mb-4 px-3.5 py-3 text-[13px] font-medium text-ink"
-        style={{ background: "var(--bg-elevated)", border: "2.5px solid var(--ink)", borderRadius: 6 }}
+        style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
       >
         Smallest first move: just open the doc and write one line.
       </div>
@@ -276,17 +276,17 @@ function ProofCard() {
       </div>
       <div
         className="px-4 py-5 text-center"
-        style={{ background: "var(--bg-elevated)", border: "2.5px solid var(--ink)", borderRadius: 6 }}
+        style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
       >
         <p className="font-bold leading-none tabular-nums text-ink" style={{ fontSize: 48, letterSpacing: "-0.03em" }}>01:24</p>
-        <div className="mt-4 h-4 overflow-hidden" style={{ background: "var(--bg)", border: "2.5px solid var(--ink)", borderRadius: 4 }}>
-          <div className="h-full" style={{ width: "62%", background: "var(--lime)", borderRight: "2.5px solid var(--ink)" }} />
+        <div className="mt-4 h-4 overflow-hidden" style={{ background: "var(--bg)", border: "1.5px solid var(--line-strong)", borderRadius: 20 }}>
+          <div className="h-full" style={{ width: "62%", background: "var(--lime)", borderRight: "1.5px solid var(--line-strong)" }} />
         </div>
       </div>
       <div className="my-4 flex items-center justify-center">
         <span
           className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] font-bold uppercase tracking-wider"
-          style={{ background: "var(--lime)", color: "var(--ink)", border: "2.5px solid var(--ink)", borderRadius: 6 }}
+          style={{ background: "var(--lime)", color: "var(--ink)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
         >
           <Timer size={14} strokeWidth={3} /> Running
         </span>
@@ -306,7 +306,7 @@ function StreakCard() {
       </div>
       <div
         className="flex items-center justify-center gap-1.5 px-2 py-4"
-        style={{ background: "var(--bg-elevated)", border: "2.5px solid var(--ink)", borderRadius: 6 }}
+        style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
       >
         {[1, 1, 1, 0, 1, 1, 1].map((on, idx) => (
           <span
@@ -314,8 +314,8 @@ function StreakCard() {
             className="flex h-9 w-9 items-center justify-center"
             style={{
               background: on ? "var(--flame)" : "var(--blue)",
-              border: "2.5px solid var(--ink)",
-              borderRadius: 6,
+              border: "1.5px solid var(--line-strong)",
+              borderRadius: 16,
             }}
           >
             {on ? (

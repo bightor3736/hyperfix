@@ -74,8 +74,8 @@ export function LogoTile({
         height: size,
         background: tile,
         borderRadius: radius,
-        border: "2.5px solid var(--ink)",
-        boxShadow: "3px 3px 0 0 var(--ink)",
+        border: "1.5px solid var(--line-strong)",
+        boxShadow: "var(--shadow-sm)",
       }}
       aria-hidden="true"
     >

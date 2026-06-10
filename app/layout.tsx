@@ -1,25 +1,26 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, JetBrains_Mono, Inter } from "next/font/google";
+import { Quicksand, Nunito, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Suspense } from "react";
 import { AffTracker } from "@/components/AffTracker";
 import "./globals.css";
 
-// Space Grotesk — geometric grotesque with quirky details. The brutalist
-// voice of the brand: used for every heading, the wordmark, and body.
-// Exposed under multiple legacy variable names so existing components that
-// reference --font-fraunces / --font-instrument / --font-landing-sans all
-// resolve to the new brutalist face without markup changes.
-const grotesk = Space_Grotesk({
+// Quicksand — rounded geometric sans, the warm friendly voice of the brand:
+// every heading, the wordmark, and body. Kept under the legacy --font-grotesk
+// variable so existing components restyle without markup changes.
+const grotesk = Quicksand({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "600", "700"],
   variable: "--font-grotesk",
 });
 
-const mono = JetBrains_Mono({
+// Nunito fills the legacy --font-mono slot: the small uppercase labels now
+// render as soft rounded chips instead of hard terminal text.
+const mono = Nunito({
   subsets: ["latin"],
   display: "swap",
+  weight: ["600", "700", "800"],
   variable: "--font-mono",
 });
 
@@ -38,7 +39,7 @@ const DESCRIPTION =
   "Track your hyperfixations, earn XP for real actions, and beat the tasks your brain avoids. A warm, forgiving game built for ADHD — no leaderboards, just yours. Free to start.";
 
 export const viewport: Viewport = {
-  themeColor: "#FBF6EA",
+  themeColor: "#FAF6F0",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",

@@ -92,7 +92,7 @@ export function ShareFixationCard({ fixId, isPublic, title, days, intensity }: P
             }}
           />
           <div style={{ flex: 1, padding: "5px 6px", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative" }}>
-            <div style={{ width: "70%", height: 2, background: "var(--line)", borderRadius: 2 }} />
+            <div style={{ width: "70%", height: 2, background: "var(--line)", borderRadius: 20 }} />
             <div>
               <div style={{ fontFamily: "Georgia, serif", fontSize: 11, fontWeight: 700, color: TEAL, lineHeight: 1, letterSpacing: "-0.04em" }}>
                 {days > 999 ? "999+" : days}

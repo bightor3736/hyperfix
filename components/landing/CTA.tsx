@@ -14,9 +14,9 @@ export function CTA() {
             className="relative p-8 text-center sm:p-14"
             style={{
               background: "var(--yellow)",
-              border: "3.5px solid var(--ink)",
-              borderRadius: 8,
-              boxShadow: "10px 10px 0 0 var(--ink)",
+              border: "1.5px solid var(--line-strong)",
+              borderRadius: 16,
+              boxShadow: "var(--shadow-xl)",
             }}
           >
             <span
@@ -37,8 +37,8 @@ export function CTA() {
                 style={{
                   background: "var(--accent)",
                   color: "var(--accent-ink)",
-                  border: "3.5px solid var(--ink)",
-                  boxShadow: "7px 7px 0 0 var(--ink)",
+                  border: "1.5px solid var(--line-strong)",
+                  boxShadow: "var(--shadow-lg)",
                   transform: "rotate(-1.5deg)",
                 }}
               >
@@ -55,9 +55,9 @@ export function CTA() {
                 className="p-4"
                 style={{
                   background: "var(--bg-elevated)",
-                  border: "3px solid var(--ink)",
-                  borderRadius: 8,
-                  boxShadow: "4px 4px 0 0 var(--ink)",
+                  border: "1.5px solid var(--line-strong)",
+                  borderRadius: 16,
+                  boxShadow: "var(--shadow)",
                 }}
               >
                 <OAuthButtons />

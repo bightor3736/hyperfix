@@ -17,13 +17,13 @@ export async function GET(req: Request) {
   const xp = parseInt(searchParams.get("xp") ?? "0", 10) || 0;
   const fixation = (searchParams.get("fixation") ?? "").slice(0, 40);
 
-  const BG = "#FBF6EA";
-  const INK = "#0A0A0A";
+  const BG = "#FAF6F0";
+  const INK = "#2B2440";
   const FAINT = "#6A6A6A";
   const CARD = "#FFFFFF";
-  const BLUE = "#2F4BFF";
-  const VIOLET = "#8B5CF6";
-  const FLAME = "#FF5C3A";
+  const BLUE = "#6957E8";
+  const VIOLET = "#9B8AFB";
+  const FLAME = "#F97E6D";
 
   // level name scales down as it gets longer so it always fills the block
   const lvl = level.toUpperCase();
@@ -70,7 +70,7 @@ export async function GET(req: Request) {
             <div
               style={{
                 display: "flex", marginTop: 18, background: VIOLET, border: `6px solid ${INK}`,
-                borderRadius: 12, boxShadow: `10px 10px 0 0 ${INK}`, padding: "28px 36px", alignSelf: "flex-start",
+                borderRadius: 20, boxShadow: `10px 10px 0 0 ${INK}`, padding: "28px 36px", alignSelf: "flex-start",
                 maxWidth: "100%",
               }}
             >
@@ -88,7 +88,7 @@ export async function GET(req: Request) {
 
           {/* Current obsession */}
           {fixation ? (
-            <div style={{ display: "flex", flexDirection: "column", background: "#FFD23F", border: `6px solid ${INK}`, borderRadius: 12, padding: "24px 32px" }}>
+            <div style={{ display: "flex", flexDirection: "column", background: "#FFC93F", border: `6px solid ${INK}`, borderRadius: 20, padding: "24px 32px" }}>
               <span style={{ fontSize: 24, color: INK, fontWeight: 800, letterSpacing: "0.1em" }}>CURRENTLY OBSESSED WITH</span>
               <span style={{ fontSize: 56, color: INK, fontWeight: 800, letterSpacing: "-0.03em", marginTop: 4 }}>{fixation}</span>
             </div>
@@ -113,7 +113,7 @@ function Stat({ label, value, color, ink, bg }: { label: string; value: string; 
     <div
       style={{
         display: "flex", flexDirection: "column", flex: 1, background: bg,
-        border: `5px solid ${ink}`, borderRadius: 12, boxShadow: `8px 8px 0 0 ${ink}`, padding: 28,
+        border: `5px solid ${ink}`, borderRadius: 20, boxShadow: `8px 8px 0 0 ${ink}`, padding: 28,
       }}
     >
       <span style={{ fontSize: 24, color: ink, fontWeight: 800, letterSpacing: "0.14em" }}>{label}</span>

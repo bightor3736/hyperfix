@@ -53,12 +53,12 @@ export function FirstHitCelebration({
 
       <div
         className="relative w-full max-w-[380px] p-7 text-center anim-pop"
-        style={{ background: "var(--bg-elevated)", border: "3.5px solid var(--ink)", borderRadius: 8, boxShadow: "10px 10px 0 0 var(--ink)" }}
+        style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
       >
         {/* Badge */}
         <div
           className="mx-auto mb-5 flex h-16 w-16 items-center justify-center anim-wiggle"
-          style={{ background: "var(--yellow)", border: "3px solid var(--ink)", borderRadius: 8, boxShadow: "3px 3px 0 0 var(--ink)" }}
+          style={{ background: "var(--yellow)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-sm)" }}
         >
           <Zap size={30} strokeWidth={2.5} style={{ color: "var(--ink)" }} fill="var(--ink)" />
         </div>
@@ -76,10 +76,10 @@ export function FirstHitCelebration({
         </p>
 
         {/* Fixation */}
-        <div className="mt-6 p-4 text-left" style={{ background: "var(--bg-soft)", border: "2.5px solid var(--ink)", borderRadius: 6 }}>
+        <div className="mt-6 p-4 text-left" style={{ background: "var(--bg-soft)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}>
           <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">Now tracking</p>
           <p className="mt-0.5 text-[18px] font-bold leading-snug text-ink" style={{ letterSpacing: "-0.02em" }}>{fixationName}</p>
-          <p className="mt-2 inline-flex items-center gap-1.5 px-2 py-0.5 font-mono text-[10px] font-bold uppercase" style={{ background: "var(--xp)", color: "#fff", border: "2px solid var(--ink)", borderRadius: 999 }}>
+          <p className="mt-2 inline-flex items-center gap-1.5 px-2 py-0.5 font-mono text-[10px] font-bold uppercase" style={{ background: "var(--xp)", color: "#fff", border: "1px solid var(--line)", borderRadius: 999 }}>
             Level 1 · {levelName}
           </p>
         </div>
@@ -95,7 +95,7 @@ export function FirstHitCelebration({
           href="/dashboard"
           onClick={onClose}
           className="brutal-btn mt-6 w-full py-3.5 text-[15px]"
-          style={{ background: "var(--accent)", color: "var(--accent-ink)", borderRadius: 6 }}
+          style={{ background: "var(--accent)", color: "var(--accent-ink)", borderRadius: 16 }}
         >
           Take me in <ArrowRight size={17} strokeWidth={3} />
         </Link>

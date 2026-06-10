@@ -172,7 +172,7 @@ export default async function PublicFixPage({ params }: { params: Promise<{ id: 
 
       {!user && (
         <div className="fixed bottom-0 inset-x-0 z-50 px-4" style={{ paddingBottom: "max(16px, env(safe-area-inset-bottom))" }}>
-          <div className="max-w-lg mx-auto flex items-center justify-between gap-4 rounded-2xl px-5 py-4" style={{ background: "rgba(10,10,10,0.92)", backdropFilter: "blur(20px)", border: "1px solid var(--accent)", boxShadow: "0 8px 40px rgba(0,0,0,0.6)" }}>
+          <div className="max-w-lg mx-auto flex items-center justify-between gap-4 rounded-2xl px-5 py-4" style={{ background: "rgba(43,36,64,0.92)", backdropFilter: "blur(20px)", border: "1px solid var(--accent)", boxShadow: "0 8px 40px rgba(0,0,0,0.6)" }}>
             <div className="min-w-0">
               <p className="font-sans text-sm font-semibold truncate" style={{ color: "var(--ink)" }}>Track your own hyperfixations</p>
               <p className="font-mono text-[11px]" style={{ color: "var(--ink-muted)" }}>free · 30 seconds</p>

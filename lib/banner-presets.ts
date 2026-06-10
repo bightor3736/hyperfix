@@ -33,7 +33,7 @@ export const BANNER_PRESETS: BannerPreset[] = [
 
   // ── Purple / Violet ────────────────────────────────────
   { id: "vapor-purple",  label: "Vapor",   palette: ["#0B061B", "#2B1B5A", "#A78BFA"] },
-  { id: "dusk-purple",   label: "Dusk",    palette: ["#0E0820", "#311E63", "#8B5CF6"] },
+  { id: "dusk-purple",   label: "Dusk",    palette: ["#0E0820", "#311E63", "#9B8AFB"] },
   { id: "plum-purple",   label: "Plum",    palette: ["#160820", "#3D1858", "#C084FC"] },
   { id: "indigo-violet", label: "Indigo",  palette: ["#06081F", "#1E2266", "#6366F1"] },
 

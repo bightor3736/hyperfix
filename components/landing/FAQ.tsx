@@ -56,7 +56,7 @@ export function FAQ() {
                 <br />
                 <span
                   className="inline-block px-2 mt-1"
-                  style={{ background: "var(--yellow)", color: "var(--ink)", border: "2.5px solid var(--ink)", boxShadow: "4px 4px 0 0 var(--ink)", transform: "rotate(-1.5deg)" }}
+                  style={{ background: "var(--yellow)", color: "var(--ink)", border: "1.5px solid var(--line-strong)", boxShadow: "var(--shadow)", transform: "rotate(-1.5deg)" }}
                 >
                   questions.
                 </span>
@@ -76,9 +76,9 @@ export function FAQ() {
                     key={it.q}
                     style={{
                       background: isOpen ? "var(--lime)" : "var(--bg-elevated)",
-                      border: "2.5px solid var(--ink)",
-                      borderRadius: 8,
-                      boxShadow: isOpen ? "7px 7px 0 0 var(--ink)" : "4px 4px 0 0 var(--ink)",
+                      border: "1.5px solid var(--line-strong)",
+                      borderRadius: 16,
+                      boxShadow: isOpen ? "var(--shadow-lg)" : "var(--shadow)",
                       transition: "box-shadow 0.15s ease, background 0.15s ease",
                     }}
                   >
@@ -91,7 +91,7 @@ export function FAQ() {
                       <span className="text-[16px] font-bold leading-snug text-ink" style={{ letterSpacing: "-0.01em" }}>{it.q}</span>
                       <span
                         className="flex h-8 w-8 shrink-0 items-center justify-center"
-                        style={{ background: isOpen ? "var(--ink)" : "var(--bg-soft)", border: "2.5px solid var(--ink)", borderRadius: 6 }}
+                        style={{ background: isOpen ? "var(--ink)" : "var(--bg-soft)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
                       >
                         <Plus
                           size={18}

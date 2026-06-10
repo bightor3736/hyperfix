@@ -26,9 +26,9 @@ export function Nav() {
           className="flex h-16 items-center justify-between px-3 sm:px-4"
           style={{
             background: "var(--bg-elevated)",
-            border: "2.5px solid var(--ink)",
-            borderRadius: 8,
-            boxShadow: scrolled ? "4px 4px 0 0 var(--ink)" : "0 0 0 0 var(--ink)",
+            border: "1.5px solid var(--line-strong)",
+            borderRadius: 16,
+            boxShadow: scrolled ? "var(--shadow)" : "0 0 0 0 rgba(0,0,0,0)",
             transition: "box-shadow 0.15s ease",
           }}
         >
@@ -39,7 +39,7 @@ export function Nav() {
                 key={link.href}
                 href={link.href}
                 className="px-3 py-2 text-[14px] font-semibold text-ink transition-colors hover:bg-[var(--bg-soft)]"
-                style={{ borderRadius: 4 }}
+                style={{ borderRadius: 20 }}
               >
                 {link.label}
               </a>

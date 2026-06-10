@@ -520,7 +520,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             >
               {!bannerUrl && (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <p className="font-mono text-xs" style={{ color: "rgba(10,10,10,0.25)" }}>No banner set</p>
+                  <p className="font-mono text-xs" style={{ color: "rgba(43,36,64,0.25)" }}>No banner set</p>
                 </div>
               )}
               <div className="absolute bottom-3 right-3 flex gap-2">
@@ -884,8 +884,8 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             onClick={() => setShowDeleteModal(true)}
             className="self-start px-5 py-2.5 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80 opacity-50 hover:opacity-70"
             style={{
-              background: "rgba(10,10,10,0.08)",
-              border: "1px solid rgba(10,10,10,0.2)",
+              background: "rgba(43,36,64,0.08)",
+              border: "1px solid rgba(43,36,64,0.2)",
               color: "#737373",
             }}
           >
@@ -971,8 +971,8 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
         <p
           className="font-sans text-sm rounded-xl px-4 py-3"
           style={{
-            background: "rgba(10,10,10,0.08)",
-            border: "1px solid rgba(10,10,10,0.2)",
+            background: "rgba(43,36,64,0.08)",
+            border: "1px solid rgba(43,36,64,0.2)",
             color: "#737373",
           }}
         >
@@ -1033,8 +1033,8 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               <p
                 className="font-sans text-sm rounded-xl px-3 py-2 mb-4"
                 style={{
-                  background: "rgba(10,10,10,0.08)",
-                  border: "1px solid rgba(10,10,10,0.2)",
+                  background: "rgba(43,36,64,0.08)",
+                  border: "1px solid rgba(43,36,64,0.2)",
                   color: "#737373",
                 }}
               >
@@ -1059,8 +1059,8 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                 disabled={pending}
                 className="flex-1 py-2.5 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 disabled:opacity-60"
                 style={{
-                  background: "rgba(10,10,10,0.15)",
-                  border: "1px solid rgba(10,10,10,0.3)",
+                  background: "rgba(43,36,64,0.15)",
+                  border: "1px solid rgba(43,36,64,0.3)",
                   color: "#737373",
                 }}
               >
@@ -1077,7 +1077,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           className="fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 rounded-2xl font-sans text-sm font-bold z-50 pointer-events-none"
           style={{
             background: "var(--accent)",
-            border: "1px solid rgba(10,10,10,0.3)",
+            border: "1px solid rgba(43,36,64,0.3)",
             color: "var(--accent)",
             boxShadow: "0 4px 24px rgba(0,0,0,0.5)",
           }}

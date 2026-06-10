@@ -32,7 +32,7 @@ export function Hero() {
               into{" "}
               <span
                 className="inline-block px-2"
-                style={{ background: "var(--coral)", color: "#fff", border: "2.5px solid var(--ink)", boxShadow: "4px 4px 0 0 var(--ink)", transform: "rotate(-1.5deg)" }}
+                style={{ background: "var(--coral)", color: "#fff", border: "1.5px solid var(--line-strong)", boxShadow: "var(--shadow)", transform: "rotate(-1.5deg)" }}
               >
                 starting.
               </span>
@@ -147,7 +147,7 @@ function HeroStartDemo() {
   return (
     <div
       className="w-full p-5 sm:p-6"
-      style={{ background: "var(--bg-elevated)", border: "3.5px solid var(--ink)", borderRadius: 8, boxShadow: "10px 10px 0 0 var(--ink)" }}
+      style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
     >
       {/* header */}
       <div className="mb-5 flex items-start justify-between">
@@ -162,7 +162,7 @@ function HeroStartDemo() {
         </div>
         <div
           className="flex shrink-0 flex-col items-center px-3 py-1.5"
-          style={{ background: "var(--xp)", border: "2.5px solid var(--ink)", borderRadius: 6, boxShadow: "3px 3px 0 0 var(--ink)" }}
+          style={{ background: "var(--xp)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-sm)" }}
         >
           <span className="text-[18px] font-bold leading-none tabular-nums" style={{ color: "#fff" }}>{xp.toLocaleString()}</span>
           <span className="mt-0.5 font-mono text-[8px] uppercase tracking-widest" style={{ color: "#fff" }}>total xp</span>
@@ -174,15 +174,15 @@ function HeroStartDemo() {
         className="mb-4 p-4 transition-colors"
         style={{
           background: phase === "done" ? "var(--lime)" : "var(--bg-soft)",
-          border: "2.5px solid var(--ink)",
-          borderRadius: 6,
-          boxShadow: "4px 4px 0 0 var(--ink)",
+          border: "1.5px solid var(--line-strong)",
+          borderRadius: 16,
+          boxShadow: "var(--shadow)",
         }}
       >
         <div className="mb-2.5 flex items-center justify-between">
           <span
             className="inline-flex items-center gap-1.5 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider"
-            style={{ background: "var(--bg-elevated)", border: "2px solid var(--ink)", borderRadius: 999, color: "var(--ink)" }}
+            style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)", borderRadius: 999, color: "var(--ink)" }}
           >
             {phase === "done" ? <Check size={11} strokeWidth={3} /> : <Zap size={11} strokeWidth={3} />}
             {phase === "done" ? "Started · nice" : "The dreaded task"}

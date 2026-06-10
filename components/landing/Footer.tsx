@@ -32,12 +32,12 @@ const columns = [
 // Footer runs the inverted brutalist palette — near-black ground, off-white
 // ink, off-white offset shadows so the hard edges still read.
 const footerVars = {
-  "--ink": "#FBF6EA",
+  "--ink": "#FAF6F0",
   "--ink-muted": "#B8B2A4",
   "--ink-faint": "#7C776C",
-  "--line": "#FBF6EA",
+  "--line": "#FAF6F0",
   "--bg-elevated": "#161616",
-  background: "#0A0A0A",
+  background: "#2B2440",
 } as CSSProperties;
 
 const socials = [
@@ -52,7 +52,7 @@ export function Footer() {
         {/* Sign-up nudge block */}
         <div
           className="mb-16 flex flex-col gap-5 p-7 sm:flex-row sm:items-center sm:justify-between sm:p-9"
-          style={{ background: "var(--accent)", border: "3.5px solid #FBF6EA", borderRadius: 8, boxShadow: "8px 8px 0 0 #FBF6EA" }}
+          style={{ background: "var(--accent)", border: "3.5px solid #FAF6F0", borderRadius: 16, boxShadow: "8px 8px 0 0 #FAF6F0" }}
         >
           <div>
             <p className="text-[26px] font-bold leading-tight sm:text-[32px]" style={{ color: "#fff", letterSpacing: "-0.03em" }}>
@@ -65,7 +65,7 @@ export function Footer() {
           <a
             href="/auth/signup"
             className="brutal-btn shrink-0 px-7 py-3.5 text-[15px]"
-            style={{ background: "#FBF6EA", color: "#0A0A0A", borderColor: "#0A0A0A", boxShadow: "4px 4px 0 0 #0A0A0A" }}
+            style={{ background: "#FAF6F0", color: "#2B2440", borderColor: "#2B2440", boxShadow: "4px 4px 0 0 #2B2440" }}
           >
             Start playing <ArrowRight size={16} strokeWidth={3} />
           </a>
@@ -75,8 +75,8 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-y-12 sm:grid-cols-3 md:grid-cols-5 md:gap-x-10">
           <div className="col-span-2 sm:col-span-3 md:col-span-2">
             <span className="inline-flex items-center gap-2.5">
-              <LogoMark size={28} color="var(--accent)" ink="#FBF6EA" />
-              <span className="text-[28px] leading-none" style={{ fontWeight: 700, letterSpacing: "-0.04em", color: "#FBF6EA" }}>hyperfix</span>
+              <LogoMark size={28} color="var(--accent)" ink="#FAF6F0" />
+              <span className="text-[28px] leading-none" style={{ fontWeight: 700, letterSpacing: "-0.04em", color: "#FAF6F0" }}>hyperfix</span>
             </span>
             <p className="mt-4 max-w-[260px] text-[14px] font-medium leading-relaxed" style={{ color: "var(--ink-muted)" }}>
               Start the task you&apos;ve been avoiding. Do 5 minutes, earn XP for
@@ -90,7 +90,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex h-9 items-center px-4 font-mono text-[11px] font-bold uppercase tracking-wider transition-transform hover:-translate-y-0.5"
-                  style={{ border: "2px solid #FBF6EA", borderRadius: 999, color: "var(--ink)" }}
+                  style={{ border: "2px solid #FAF6F0", borderRadius: 999, color: "var(--ink)" }}
                 >
                   {s.label}
                 </a>
@@ -118,10 +118,10 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 pt-7 sm:flex-row sm:items-center sm:justify-between" style={{ borderTop: "2.5px solid #FBF6EA" }}>
+        <div className="mt-16 flex flex-col gap-3 pt-7 sm:flex-row sm:items-center sm:justify-between" style={{ borderTop: "2.5px solid #FAF6F0" }}>
           <p className="font-mono text-[12px] uppercase tracking-wider" style={{ color: "var(--ink-faint)" }}>© 2026 Hyperfix · Made for brains that run hot.</p>
           <p className="inline-flex items-center gap-1.5 font-mono text-[12px] uppercase tracking-wider" style={{ color: "var(--ink-faint)" }}>
-            <LogoMark size={14} color="var(--accent)" ink="#FBF6EA" /> Built for the way ADHD actually works
+            <LogoMark size={14} color="var(--accent)" ink="#FAF6F0" /> Built for the way ADHD actually works
           </p>
         </div>
       </div>

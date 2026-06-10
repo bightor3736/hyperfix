@@ -85,7 +85,7 @@ export default function OnboardingUsernamePage() {
 
   const feedbackColor =
     validation === "available" ? "var(--accent)"
-    : validation === "taken" ? "#0a0a0a"
+    : validation === "taken" ? "#2B2440"
     : "#737373";
 
   const feedbackText =
@@ -189,7 +189,7 @@ export default function OnboardingUsernamePage() {
             </div>
 
             {error && (
-              <p className="font-sans text-xs rounded-xl px-3 py-2.5" style={{ background: "rgba(248,113,113,0.08)", border: "1px solid rgba(248,113,113,0.2)", color: "#0a0a0a" }}>
+              <p className="font-sans text-xs rounded-xl px-3 py-2.5" style={{ background: "rgba(248,113,113,0.08)", border: "1px solid rgba(248,113,113,0.2)", color: "#2B2440" }}>
                 {error}
               </p>
             )}

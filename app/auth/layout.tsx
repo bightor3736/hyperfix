@@ -18,24 +18,24 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       className="flex min-h-screen items-stretch"
       style={
         {
-          background: "#FBF6EA",
-          color: "#0A0A0A",
+          background: "#FAF6F0",
+          color: "#2B2440",
           fontFamily: "var(--font-grotesk), system-ui, sans-serif",
           letterSpacing: "-0.01em",
-          "--bg": "#FBF6EA",
+          "--bg": "#FAF6F0",
           "--bg-soft": "#F2EAD7",
           "--bg-elevated": "#FFFFFF",
-          "--ink": "#0A0A0A",
+          "--ink": "#2B2440",
           "--ink-muted": "#2E2E2E",
           "--ink-faint": "#6A6A6A",
-          "--line": "#0A0A0A",
-          "--line-strong": "#0A0A0A",
-          "--accent": "#2F4BFF",
+          "--line": "#E9E2D8",
+          "--line-strong": "#2B2440",
+          "--accent": "#6957E8",
           "--accent-soft": "#DCE2FF",
           "--accent-ink": "#FFFFFF",
-          "--xp": "#8B5CF6",
-          "--xp-soft": "#ECE4FF",
-          "--primary": "#2F4BFF",
+          "--xp": "#9B8AFB",
+          "--xp-soft": "#EFEBFF",
+          "--primary": "#6957E8",
           "--primary-foreground": "#FFFFFF",
         } as React.CSSProperties
       }
@@ -75,11 +75,11 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <div className="hidden p-5 lg:flex lg:w-[48%] xl:w-[46%]">
         <div
           className="relative flex w-full flex-col justify-between overflow-hidden p-10"
-          style={{ background: "var(--accent)", border: "3.5px solid var(--ink)", borderRadius: 8, boxShadow: "10px 10px 0 0 var(--ink)" }}
+          style={{ background: "var(--accent)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
         >
           {/* big offset mark */}
           <div className="flex justify-end">
-            <LogoMark size={120} color="var(--yellow)" ink="#FBF6EA" />
+            <LogoMark size={120} color="var(--yellow)" ink="#FAF6F0" />
           </div>
 
           <div className="relative z-10">
@@ -88,7 +88,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
               <br />
               <span
                 className="mt-2 inline-block px-2"
-                style={{ background: "var(--yellow)", color: "#0A0A0A", border: "2.5px solid var(--ink)", boxShadow: "4px 4px 0 0 var(--ink)", transform: "rotate(-1.5deg)" }}
+                style={{ background: "var(--yellow)", color: "#2B2440", border: "1.5px solid var(--line-strong)", boxShadow: "var(--shadow)", transform: "rotate(-1.5deg)" }}
               >
                 actually stick.
               </span>

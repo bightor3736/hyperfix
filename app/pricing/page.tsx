@@ -290,7 +290,7 @@ export default function PricingPage() {
                       </ul>
                       <ProCheckoutButton
                         className="inline-flex w-full items-center justify-center gap-2 font-sans text-base font-semibold px-6 py-4 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] disabled:opacity-70"
-                        style={{ background: TEAL, color: "#0a0a0a", borderRadius: 999 }}
+                        style={{ background: TEAL, color: "#2B2440", borderRadius: 999 }}
                         label="Get Pro"
                       />
                     </div>
@@ -412,7 +412,7 @@ export default function PricingPage() {
                 <div className="mt-10 flex justify-center">
                   <ProCheckoutButton
                     className="inline-flex items-center justify-center gap-2 font-sans text-base font-semibold px-8 py-4 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] disabled:opacity-70"
-                    style={{ background: TEAL, color: "#0a0a0a", borderRadius: 999, minWidth: 220 }}
+                    style={{ background: TEAL, color: "#2B2440", borderRadius: 999, minWidth: 220 }}
                     label="Get Pro"
                   />
                 </div>

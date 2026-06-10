@@ -271,7 +271,7 @@ function FixGridCard({
           <div
             className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5"
             style={{
-              background: "rgba(10,10,10,0.55)",
+              background: "rgba(43,36,64,0.55)",
               border: `1px solid rgba(${rgb},0.4)`,
               backdropFilter: "blur(8px)",
               color,

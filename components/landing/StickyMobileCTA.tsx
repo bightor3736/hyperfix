@@ -21,7 +21,7 @@ export function StickyMobileCTA() {
       }`}
       style={{
         background: "var(--bg)",
-        borderTop: "3.5px solid var(--ink)",
+        borderTop: "1.5px solid var(--line-strong)",
         paddingBottom: "calc(1rem + env(safe-area-inset-bottom))",
       }}
     >

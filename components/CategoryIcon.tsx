@@ -163,7 +163,7 @@ export const CATEGORY_COLOR: Record<string, string> = {
   ship: "#EF4444",
   game: "#10B981",
   "video essay": "#F97316",
-  podcast: "#8B5CF6",
+  podcast: "#9B8AFB",
   book: "#F97316",
   character: "#EC4899",
   person: "#06B6D4",

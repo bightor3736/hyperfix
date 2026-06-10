@@ -31,7 +31,7 @@ export function ThemeToggle() {
       className="inline-flex h-10 items-center p-0.5 font-mono text-[11px] font-bold uppercase tracking-wider"
       role="radiogroup"
       aria-label="Theme"
-      style={{ border: "2.5px solid var(--ink)", borderRadius: 6, background: "var(--bg-elevated)" }}
+      style={{ border: "1.5px solid var(--line-strong)", borderRadius: 16, background: "var(--bg-elevated)" }}
     >
       <button
         type="button"
@@ -41,7 +41,7 @@ export function ThemeToggle() {
         className="h-8 px-3 transition-colors"
         style={
           theme === "light"
-            ? { background: "var(--ink)", color: "var(--bg-elevated)", borderRadius: 3 }
+            ? { background: "var(--ink)", color: "var(--bg-elevated)", borderRadius: 20 }
             : { color: "var(--ink-muted)" }
         }
       >
@@ -55,7 +55,7 @@ export function ThemeToggle() {
         className="h-8 px-3 transition-colors"
         style={
           theme === "dark"
-            ? { background: "var(--ink)", color: "var(--bg-elevated)", borderRadius: 3 }
+            ? { background: "var(--ink)", color: "var(--bg-elevated)", borderRadius: 20 }
             : { color: "var(--ink-muted)" }
         }
       >
