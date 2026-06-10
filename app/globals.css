@@ -324,6 +324,33 @@ details > summary::marker, details > summary::-webkit-details-marker { display: 
   100% { opacity: 0; transform: translateY(120px) rotate(360deg); }
 }
 
+/* Live-activity ripple — a calm dot that breathes expanding rings, like a
+   resting heartbeat. Used wherever something is genuinely "live": a running
+   5-minute session, an active streak. */
+@keyframes liveRipple {
+  0%   { transform: scale(1);   opacity: 0.55; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+.live-dot {
+  position: relative;
+  display: inline-flex;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: currentColor;
+  flex: none;
+}
+.live-dot::before,
+.live-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: currentColor;
+  animation: liveRipple 2.2s cubic-bezier(0.25, 0.6, 0.35, 1) infinite;
+}
+.live-dot::after { animation-delay: 1.1s; }
+
 .anim-fadeUp   { animation: fadeUp 0.55s cubic-bezier(0.2,0.7,0.2,1) both; }
 .anim-fadeIn   { animation: fadeIn 0.55s ease both; }
 .anim-pop      { animation: popHard 0.4s cubic-bezier(0.3,1.3,0.5,1) both; }
@@ -408,6 +435,7 @@ details > summary::marker, details > summary::-webkit-details-marker { display: 
     animation: none !important; transition: none !important; transform: none !important;
   }
   .reveal-up { opacity: 1; }
+  .live-dot::before, .live-dot::after { animation: none !important; opacity: 0; }
 }
 
 /* Masonry */

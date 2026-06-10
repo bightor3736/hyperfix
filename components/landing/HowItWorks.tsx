@@ -263,10 +263,10 @@ function ProofCard() {
       </div>
       <div className="my-4 flex items-center justify-center">
         <span
-          className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[12px] font-bold"
+          className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12px] font-bold"
           style={{ background: "var(--lime)", color: "#fff" }}
         >
-          <Timer size={14} strokeWidth={2.5} /> Running
+          <span className="live-dot" style={{ width: 8, height: 8 }} /> Running
         </span>
       </div>
       <button className="brutal-btn w-full rounded-full py-3.5 text-[15px]" style={{ background: "var(--ink)", color: "var(--bg)" }}>

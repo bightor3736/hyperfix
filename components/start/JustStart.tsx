@@ -405,7 +405,10 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
       {/* ── RUNNING: the timer ─────────────────────────────────────── */}
       {phase === "running" && (
         <div className="flex flex-col items-center text-center">
-          <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">Working on</p>
+          <p className="inline-flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">
+            {running && <span className="live-dot" style={{ color: "var(--lime)", width: 8, height: 8 }} />}
+            {running ? "Live — working on" : "Paused — working on"}
+          </p>
           <h2 className="mt-1 leading-tight text-ink" style={{ fontSize: "clamp(18px,4vw,24px)", fontWeight: 800, letterSpacing: "-0.02em" }}>
             {title}
           </h2>

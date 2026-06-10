@@ -248,7 +248,10 @@ function HeroStartDemo() {
             {phase === "done" ? "Started · nice" : "The dreaded task"}
           </span>
           {phase === "running" && (
-            <span className="font-mono text-[12px] font-bold tabular-nums" style={{ color: "var(--flame)" }}>4:59</span>
+            <span className="inline-flex items-center gap-2 font-mono text-[12px] font-bold tabular-nums" style={{ color: "var(--flame)" }}>
+              <span className="live-dot" style={{ color: "var(--lime)", width: 8, height: 8 }} />
+              4:59
+            </span>
           )}
         </div>
         <p className="text-[18px] font-bold leading-snug text-ink" style={{ letterSpacing: "-0.02em" }}>{item.task}</p>
