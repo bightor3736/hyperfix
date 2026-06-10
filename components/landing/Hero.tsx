@@ -1,103 +1,164 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Check, Flame, Play, Zap, Brain, ArrowRight } from "lucide-react";
+import { Check, Flame, Play, Zap, ArrowRight, Star, Heart, Sparkles } from "lucide-react";
 import { LogoMark } from "@/components/Logo";
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden" style={{ background: "var(--bg)" }}>
-      {/* faint brutalist grid backdrop */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 grid-bg opacity-60" />
+      {/* soft pastel blobs backdrop */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div
+          className="absolute -top-32 right-[-10%] h-[480px] w-[480px] rounded-full opacity-70"
+          style={{ background: "radial-gradient(closest-side, var(--accent-soft), transparent 72%)" }}
+        />
+        <div
+          className="absolute bottom-[-20%] left-[-8%] h-[420px] w-[420px] rounded-full opacity-60"
+          style={{ background: "radial-gradient(closest-side, var(--pastel-pink), transparent 72%)" }}
+        />
+        <div
+          className="absolute top-[30%] left-[38%] h-[300px] w-[300px] rounded-full opacity-50"
+          style={{ background: "radial-gradient(closest-side, var(--pastel-yellow), transparent 72%)" }}
+        />
+      </div>
 
-      <div className="relative mx-auto max-w-[1200px] px-5 pt-14 sm:px-8 sm:pt-20">
+      <div className="relative mx-auto max-w-[1200px] px-5 pt-14 pb-6 sm:px-8 sm:pt-24">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
 
           {/* ── Left: copy ── */}
           <div>
-            {/* eyebrow chip */}
+            {/* eyebrow chip — soft pastel pill */}
             <span
-              className="brutal-tag anim-fadeUp mb-6"
-              style={{ background: "var(--coral)", color: "#fff" }}
+              className="anim-fadeUp mb-6 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[13px] font-bold"
+              style={{ background: "var(--accent-soft)", color: "var(--accent)" }}
             >
-              <Brain size={13} strokeWidth={3} /> For brains that can&apos;t just start
+              <Sparkles size={14} strokeWidth={2.5} /> Made for ADHD brains
             </span>
 
             <h1
-              className="anim-fadeUp delay-100 leading-[0.95] text-ink"
-              style={{ fontSize: "clamp(44px,7vw,84px)", fontWeight: 700, letterSpacing: "-0.04em" }}
+              className="anim-fadeUp delay-100 leading-[1.04] text-ink"
+              style={{ fontSize: "clamp(40px,6.4vw,76px)", fontWeight: 700, letterSpacing: "-0.025em" }}
             >
-              Trick your brain
-              <br />
-              into{" "}
-              <span
-                className="inline-block px-2"
-                style={{ background: "var(--coral)", color: "#fff", border: "1.5px solid var(--line-strong)", boxShadow: "var(--shadow)", transform: "rotate(-1.5deg)" }}
-              >
-                starting.
+              Trick your brain into{" "}
+              <span className="relative inline-block" style={{ color: "var(--accent)" }}>
+                starting
+                <svg
+                  aria-hidden
+                  viewBox="0 0 220 14"
+                  className="absolute -bottom-2 left-0 w-full"
+                  style={{ height: 12 }}
+                >
+                  <path
+                    d="M4 10 C 60 2, 160 2, 216 8"
+                    fill="none"
+                    stroke="var(--yellow)"
+                    strokeWidth="7"
+                    strokeLinecap="round"
+                  />
+                </svg>
               </span>
+              .
             </h1>
 
-            <p className="anim-fadeUp delay-200 mt-7 max-w-[480px] text-[18px] font-medium leading-[1.5] text-ink-muted">
+            <p className="anim-fadeUp delay-200 mt-7 max-w-[480px] text-[18px] font-medium leading-[1.6] text-ink-muted">
               Stuck staring at the thing you&apos;ve been avoiding? Name it, shrink
-              it, and do just 5 minutes. We reward you for <span className="text-ink" style={{ fontWeight: 700 }}>starting</span> —
+              it, and do just 5 minutes. We reward you for{" "}
+              <span className="text-ink" style={{ fontWeight: 700 }}>starting</span> —
               not for being perfect. No guilt, no dead streaks.
             </p>
 
-            <div className="anim-fadeUp delay-300 mt-8 flex flex-wrap items-center gap-3">
+            <div className="anim-fadeUp delay-300 mt-9 flex flex-wrap items-center gap-3">
               <a
                 href="/auth/signup"
-                className="brutal-btn h-[54px] px-7 text-[16px]"
-                style={{ background: "var(--coral)", color: "#fff" }}
+                className="brutal-btn h-[56px] rounded-full px-8 text-[16px]"
+                style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
               >
-                Start something free <ArrowRight size={18} strokeWidth={3} />
+                Start something free <ArrowRight size={18} strokeWidth={2.5} />
               </a>
               <a
                 href="#features"
-                className="brutal-btn h-[54px] px-7 text-[16px]"
-                style={{ background: "var(--bg-elevated)", color: "var(--ink)" }}
+                className="brutal-btn h-[56px] rounded-full px-8 text-[16px]"
+                style={{ background: "var(--bg-elevated)", color: "var(--ink)", border: "1px solid var(--line)" }}
               >
                 See how it works
               </a>
             </div>
 
-            <p className="anim-fadeUp delay-400 mt-5 font-mono text-[12px] uppercase tracking-widest text-ink-faint">
-              Free to start · no credit card · live in 60s
-            </p>
+            {/* rating + reassurance strip */}
+            <div className="anim-fadeUp delay-400 mt-7 flex flex-wrap items-center gap-x-5 gap-y-2">
+              <span className="inline-flex items-center gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={15} fill="var(--yellow)" stroke="var(--yellow)" />
+                ))}
+              </span>
+              <span className="text-[13px] font-semibold text-ink-muted">
+                Loved by brains that can&apos;t just start
+              </span>
+              <span className="text-[13px] font-medium text-ink-faint">
+                Free to start · no credit card
+              </span>
+            </div>
           </div>
 
-          {/* ── Right: interactive demo ── */}
-          <div className="anim-fadeUp delay-300">
-            <HeroStartDemo />
+          {/* ── Right: interactive demo in a phone frame ── */}
+          <div className="anim-fadeUp delay-300 flex justify-center lg:justify-end">
+            <PhoneFrame>
+              <HeroStartDemo />
+            </PhoneFrame>
           </div>
         </div>
-      </div>
 
-      {/* marquee ticker — brutalist staple */}
-      <div className="mt-16 overflow-hidden border-y-[2.5px] border-ink" style={{ background: "var(--ink)" }}>
-        <div className="marquee flex whitespace-nowrap py-2.5">
-          <Ticker />
-          <Ticker />
+        {/* soft proof strip */}
+        <div
+          className="mt-16 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 rounded-[28px] px-6 py-5"
+          style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)", boxShadow: "var(--shadow)" }}
+        >
+          {PROOF_ITEMS.map((p) => (
+            <span key={p.label} className="inline-flex items-center gap-2 text-[13.5px] font-bold text-ink-muted">
+              <span
+                className="flex h-7 w-7 items-center justify-center rounded-full"
+                style={{ background: p.tint, color: p.color }}
+              >
+                {p.icon}
+              </span>
+              {p.label}
+            </span>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-const TICKER_ITEMS = [
-  "JUST START", "5 MINUTES", "REWARD THE START", "BEAT THE FREEZE", "NO SHAME",
-  "PROOF OF ACTION", "SHOW UP", "KEEP THE STREAK", "YOU ONLY HAVE TO BEGIN",
+const PROOF_ITEMS = [
+  { label: "Rewards the start, not the finish", icon: <Zap size={14} strokeWidth={2.5} />, tint: "var(--accent-soft)", color: "var(--accent)" },
+  { label: "5-minute deals your brain accepts", icon: <Play size={13} strokeWidth={2.5} fill="currentColor" />, tint: "var(--pastel-yellow)", color: "#B8860B" },
+  { label: "Streaks that forgive bad weeks", icon: <Flame size={14} strokeWidth={2.5} />, tint: "var(--flame-soft)", color: "var(--flame)" },
+  { label: "Built with ADHD, for ADHD", icon: <Heart size={13} strokeWidth={2.5} fill="currentColor" />, tint: "var(--pastel-pink)", color: "var(--pink)" },
 ];
 
-function Ticker() {
+/* Rounded device shell around the live demo — the friendly app-in-hand look. */
+function PhoneFrame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex shrink-0 items-center" aria-hidden="true">
-      {TICKER_ITEMS.map((t, i) => (
-        <span key={i} className="flex items-center font-mono text-[13px] font-bold uppercase tracking-widest" style={{ color: "var(--bg)" }}>
-          <span className="px-5">{t}</span>
-          <span style={{ color: "var(--coral)" }}>★</span>
-        </span>
-      ))}
+    <div
+      className="w-full max-w-[400px] p-3"
+      style={{
+        background: "var(--ink)",
+        borderRadius: 44,
+        boxShadow: "var(--shadow-xl)",
+      }}
+    >
+      <div
+        className="overflow-hidden"
+        style={{ background: "var(--bg)", borderRadius: 34 }}
+      >
+        {/* speaker notch bar */}
+        <div className="flex justify-center pt-2.5 pb-1">
+          <div className="h-[5px] w-16 rounded-full" style={{ background: "var(--line-strong)" }} />
+        </div>
+        {children}
+      </div>
     </div>
   );
 }
@@ -145,24 +206,21 @@ function HeroStartDemo() {
   }
 
   return (
-    <div
-      className="w-full p-5 sm:p-6"
-      style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
-    >
+    <div className="w-full p-5">
       {/* header */}
       <div className="mb-5 flex items-start justify-between">
         <div>
           <span className="mb-2 inline-flex items-center gap-1.5">
-            <LogoMark size={16} color="var(--coral)" />
+            <LogoMark size={16} color="var(--accent)" />
             <span className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-ink">Just start</span>
           </span>
-          <h3 className="text-[22px] font-bold leading-tight text-ink" style={{ letterSpacing: "-0.02em" }}>
+          <h3 className="text-[21px] font-bold leading-tight text-ink" style={{ letterSpacing: "-0.02em" }}>
             {phase === "done" ? "You started." : "What are you avoiding?"}
           </h3>
         </div>
         <div
-          className="flex shrink-0 flex-col items-center px-3 py-1.5"
-          style={{ background: "var(--xp)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-sm)" }}
+          className="flex shrink-0 flex-col items-center rounded-2xl px-3 py-1.5"
+          style={{ background: "var(--xp)", boxShadow: "var(--shadow-sm)" }}
         >
           <span className="text-[18px] font-bold leading-none tabular-nums" style={{ color: "#fff" }}>{xp.toLocaleString()}</span>
           <span className="mt-0.5 font-mono text-[8px] uppercase tracking-widest" style={{ color: "#fff" }}>total xp</span>
@@ -171,27 +229,29 @@ function HeroStartDemo() {
 
       {/* task card */}
       <div
-        className="mb-4 p-4 transition-colors"
+        className="mb-4 rounded-3xl p-4 transition-colors"
         style={{
-          background: phase === "done" ? "var(--lime)" : "var(--bg-soft)",
-          border: "1.5px solid var(--line-strong)",
-          borderRadius: 16,
-          boxShadow: "var(--shadow)",
+          background: phase === "done" ? "var(--reward-mint-soft)" : "var(--bg-soft)",
+          border: "1px solid var(--line)",
         }}
       >
         <div className="mb-2.5 flex items-center justify-between">
           <span
-            className="inline-flex items-center gap-1.5 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider"
-            style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)", borderRadius: 999, color: "var(--ink)" }}
+            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider"
+            style={{
+              background: phase === "done" ? "var(--lime)" : "var(--bg-elevated)",
+              color: phase === "done" ? "#fff" : "var(--ink)",
+              border: phase === "done" ? "none" : "1px solid var(--line)",
+            }}
           >
             {phase === "done" ? <Check size={11} strokeWidth={3} /> : <Zap size={11} strokeWidth={3} />}
             {phase === "done" ? "Started · nice" : "The dreaded task"}
           </span>
           {phase === "running" && (
-            <span className="font-mono text-[12px] font-bold tabular-nums text-coral" style={{ color: "var(--coral)" }}>4:59</span>
+            <span className="font-mono text-[12px] font-bold tabular-nums" style={{ color: "var(--flame)" }}>4:59</span>
           )}
         </div>
-        <p className="text-[19px] font-bold leading-snug text-ink" style={{ letterSpacing: "-0.02em" }}>{item.task}</p>
+        <p className="text-[18px] font-bold leading-snug text-ink" style={{ letterSpacing: "-0.02em" }}>{item.task}</p>
         <p className="mt-0.5 text-[13px] font-medium text-ink-muted">
           {phase === "ask" && "tap to name it"}
           {phase === "deal" && `smallest move: ${item.step}`}
@@ -202,25 +262,25 @@ function HeroStartDemo() {
 
       {/* action */}
       {phase === "done" ? (
-        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--bg-elevated)", color: "var(--ink)" }}>
-          <Zap size={16} strokeWidth={3} /> Start another
+        <button onClick={advance} className="brutal-btn w-full rounded-full py-3.5 text-[15px]" style={{ background: "var(--bg-elevated)", color: "var(--ink)", border: "1px solid var(--line)" }}>
+          <Zap size={16} strokeWidth={2.5} /> Start another
         </button>
       ) : phase === "deal" ? (
-        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--coral)", color: "#fff" }}>
-          <Play size={17} strokeWidth={3} fill="currentColor" /> Do 5 minutes
+        <button onClick={advance} className="brutal-btn w-full rounded-full py-3.5 text-[15px]" style={{ background: "var(--accent)", color: "#fff" }}>
+          <Play size={17} strokeWidth={2.5} fill="currentColor" /> Do 5 minutes
         </button>
       ) : phase === "running" ? (
-        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--lime)", color: "var(--ink)" }}>
-          <Check size={18} strokeWidth={3} /> I started — +20 XP
+        <button onClick={advance} className="brutal-btn w-full rounded-full py-3.5 text-[15px]" style={{ background: "var(--lime)", color: "#fff" }}>
+          <Check size={18} strokeWidth={2.5} /> I started — +20 XP
         </button>
       ) : (
-        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--accent)", color: "var(--accent-ink)" }}>
-          <ArrowRight size={18} strokeWidth={3} /> Name it
+        <button onClick={advance} className="brutal-btn w-full rounded-full py-3.5 text-[15px]" style={{ background: "var(--accent)", color: "var(--accent-ink)" }}>
+          <ArrowRight size={18} strokeWidth={2.5} /> Name it
         </button>
       )}
 
       {/* footer */}
-      <div className="mt-4 flex items-center justify-between border-t-[2.5px] border-ink pt-3">
+      <div className="mt-4 flex items-center justify-between pt-3" style={{ borderTop: "1px solid var(--line)" }}>
         <span className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase" style={{ color: "var(--flame)" }}>
           <Flame size={13} strokeWidth={2.5} fill="var(--flame)" /> 14-day streak
         </span>

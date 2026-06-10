@@ -23,11 +23,11 @@ export function Nav() {
     <header className="sticky top-0 z-50 w-full">
       <div className="mx-auto max-w-[1200px] px-4 pt-3 sm:px-6">
         <div
-          className="flex h-16 items-center justify-between px-3 sm:px-4"
+          className="flex h-16 items-center justify-between px-4 sm:px-5"
           style={{
             background: "var(--bg-elevated)",
-            border: "1.5px solid var(--line-strong)",
-            borderRadius: 16,
+            border: "1px solid var(--line)",
+            borderRadius: 999,
             boxShadow: scrolled ? "var(--shadow)" : "0 0 0 0 rgba(0,0,0,0)",
             transition: "box-shadow 0.15s ease",
           }}
@@ -54,7 +54,7 @@ export function Nav() {
             </a>
             <a
               href="/auth/signup"
-              className="brutal-btn h-10 px-5 text-[14px]"
+              className="brutal-btn h-10 rounded-full px-5 text-[14px]"
               style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
             >
               Get started
