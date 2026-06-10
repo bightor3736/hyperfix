@@ -41,25 +41,20 @@ export function FAQ() {
           <Reveal>
             <div className="md:sticky md:top-28">
               <span
-                className="brutal-tag anim-fadeUp mb-6"
-                style={{ background: "var(--pink)", color: "var(--ink)" }}
+                className="anim-fadeUp mb-6 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[13px] font-bold"
+                style={{ background: "var(--pastel-pink)", color: "var(--pink)" }}
               >
-                <HelpCircle size={13} strokeWidth={3} /> FAQ
+                <HelpCircle size={14} strokeWidth={2.5} /> FAQ
               </span>
               <h2
-                className="anim-fadeUp delay-100 leading-[0.98] text-ink"
-                style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 700, letterSpacing: "-0.03em" }}
+                className="anim-fadeUp delay-100 leading-[1.05] text-ink"
+                style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 700, letterSpacing: "-0.02em" }}
               >
                 Frequently
                 <br />
                 asked
                 <br />
-                <span
-                  className="inline-block px-2 mt-1"
-                  style={{ background: "var(--yellow)", color: "var(--ink)", border: "1.5px solid var(--line-strong)", boxShadow: "var(--shadow)", transform: "rotate(-1.5deg)" }}
-                >
-                  questions.
-                </span>
+                <span style={{ color: "var(--accent)" }}>questions.</span>
               </h2>
               <p className="anim-fadeUp delay-200 mt-7 max-w-[300px] text-[16px] font-medium leading-[1.5] text-ink-muted">
                 Anything else, write us. A real person reads them.
@@ -75,10 +70,10 @@ export function FAQ() {
                   <div
                     key={it.q}
                     style={{
-                      background: isOpen ? "var(--lime)" : "var(--bg-elevated)",
-                      border: "1.5px solid var(--line-strong)",
-                      borderRadius: 16,
-                      boxShadow: isOpen ? "var(--shadow-lg)" : "var(--shadow)",
+                      background: isOpen ? "var(--accent-soft)" : "var(--bg-elevated)",
+                      border: "1px solid var(--line)",
+                      borderRadius: 24,
+                      boxShadow: isOpen ? "var(--shadow-lg)" : "var(--shadow-sm)",
                       transition: "box-shadow 0.15s ease, background 0.15s ease",
                     }}
                   >
@@ -90,14 +85,14 @@ export function FAQ() {
                     >
                       <span className="text-[16px] font-bold leading-snug text-ink" style={{ letterSpacing: "-0.01em" }}>{it.q}</span>
                       <span
-                        className="flex h-8 w-8 shrink-0 items-center justify-center"
-                        style={{ background: isOpen ? "var(--ink)" : "var(--bg-soft)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+                        style={{ background: isOpen ? "var(--accent)" : "var(--bg-soft)" }}
                       >
                         <Plus
                           size={18}
-                          strokeWidth={3}
+                          strokeWidth={2.5}
                           className={`transition-transform duration-200 ${isOpen ? "rotate-45" : ""}`}
-                          style={{ color: isOpen ? "var(--bg)" : "var(--ink)" }}
+                          style={{ color: isOpen ? "#fff" : "var(--ink)" }}
                         />
                       </span>
                     </button>

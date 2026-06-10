@@ -31,7 +31,7 @@ function Stat({ icon, label, value, color }: { icon: React.ReactNode; label: str
   return (
     <div
       className="flex flex-col items-center gap-1 px-4 py-3"
-      style={{ background: "var(--bg)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-sm)" }}
+      style={{ background: "var(--bg)", borderRadius: 16, boxShadow: "var(--shadow-sm)" }}
     >
       <span style={{ color }}>{icon}</span>
       <span className="text-[26px] font-bold leading-none text-ink tabular-nums" style={{ letterSpacing: "-0.03em" }}>{value}</span>
@@ -48,7 +48,7 @@ export function ProfileShowcase() {
           <div className="max-w-[600px] mb-14">
             <span
               className="brutal-tag mb-5"
-              style={{ background: "var(--lime)", color: "var(--ink)" }}
+              style={{ background: "var(--reward-mint-soft)", color: "var(--lime)" }}
             >
               Your player card
             </span>
@@ -56,7 +56,7 @@ export function ProfileShowcase() {
               A profile worth{" "}
               <span
                 className="inline-block px-2"
-                style={{ background: "var(--xp)", color: "#fff", border: "1.5px solid var(--line-strong)", boxShadow: "var(--shadow)", transform: "rotate(-1.5deg)" }}
+                style={{ background: "var(--xp)", color: "#fff", boxShadow: "var(--shadow)" }}
               >
                 showing off.
               </span>
@@ -73,13 +73,13 @@ export function ProfileShowcase() {
           <Reveal>
             <div
               className="brutal-hover p-6 sm:p-8"
-              style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
+              style={{ background: "var(--bg-elevated)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
             >
               {/* header */}
               <div className="flex items-center gap-4">
                 <div
                   className="flex h-16 w-16 shrink-0 items-center justify-center text-[28px] font-bold"
-                  style={{ background: "var(--yellow)", color: "var(--ink)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-sm)", letterSpacing: "-0.03em" }}
+                  style={{ background: "var(--yellow)", color: "var(--ink)", borderRadius: 16, boxShadow: "var(--shadow-sm)", letterSpacing: "-0.03em" }}
                 >
                   M
                 </div>
@@ -108,9 +108,9 @@ export function ProfileShowcase() {
                 </div>
                 <div
                   className="h-5 overflow-hidden"
-                  style={{ background: "var(--bg)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
+                  style={{ background: "var(--bg)", borderRadius: 16 }}
                 >
-                  <div className="h-full" style={{ width: "62%", background: "var(--xp)", borderRight: "1.5px solid var(--line-strong)" }} />
+                  <div className="h-full" style={{ width: "62%", background: "var(--xp)" }} />
                 </div>
               </div>
 
@@ -137,7 +137,7 @@ export function ProfileShowcase() {
           <Reveal delay={100}>
             <div
               className="h-full p-6 sm:p-7"
-              style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-lg)" }}
+              style={{ background: "var(--bg-elevated)", borderRadius: 16, boxShadow: "var(--shadow-lg)" }}
             >
               <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">Level ladder · 7 tiers</p>
               <PointsLevelsTimeline levels={LEVELS} currentPoints={520} currentLevelLabel="You're here" className="border-0 bg-transparent p-0" />
@@ -149,12 +149,12 @@ export function ProfileShowcase() {
         <Reveal delay={150}>
           <div
             className="mt-6 p-6 sm:p-8"
-            style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-lg)" }}
+            style={{ background: "var(--bg-elevated)", borderRadius: 16, boxShadow: "var(--shadow-lg)" }}
           >
             <div className="mb-6 flex items-center gap-2.5">
               <span
                 className="inline-flex h-10 w-10 items-center justify-center"
-                style={{ background: "var(--pink)", color: "var(--ink)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-sm)" }}
+                style={{ background: "var(--pastel-pink)", color: "var(--pink)", borderRadius: 16, boxShadow: "var(--shadow-sm)" }}
               >
                 <Palette size={18} strokeWidth={2.5} />
               </span>
@@ -170,7 +170,7 @@ export function ProfileShowcase() {
                     <div
                       key={t.id}
                       className="relative h-12 overflow-hidden"
-                      style={{ background: t.background("#5EEAD4"), border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: i === 0 ? "var(--shadow-sm)" : "none" }}
+                      style={{ background: t.background("#5EEAD4"), borderRadius: 16, boxShadow: i === 0 ? "var(--shadow-sm)" : "none" }}
                     >
                       {i === 0 && (
                         <span
@@ -193,7 +193,7 @@ export function ProfileShowcase() {
                     <span
                       key={p.hex}
                       className="h-8 w-8"
-                      style={{ background: p.hex, border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: i === 1 ? "var(--shadow-sm)" : "none", transform: i === 1 ? "translate(-1px,-1px)" : "none" }}
+                      style={{ background: p.hex, borderRadius: 16, boxShadow: i === 1 ? "var(--shadow-sm)" : "none", transform: i === 1 ? "translate(-1px,-1px)" : "none" }}
                       title={`${p.name} ${hexToRgba(p.hex, 1)}`}
                     />
                   ))}
@@ -205,7 +205,7 @@ export function ProfileShowcase() {
                 <p className="mb-3 font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">Status & links</p>
                 <div
                   className="mb-3 inline-flex items-center gap-2 px-3 py-1.5"
-                  style={{ background: "var(--xp)", border: "1.5px solid var(--line-strong)", borderRadius: 999, boxShadow: "var(--shadow-sm)" }}
+                  style={{ background: "var(--xp)", borderRadius: 999, boxShadow: "var(--shadow-sm)" }}
                 >
                   <span className="text-[14px] leading-none">🎧</span>
                   <span className="text-[12px] font-bold" style={{ color: "#fff" }}>deep in a sourdough arc</span>

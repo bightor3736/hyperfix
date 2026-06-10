@@ -51,7 +51,7 @@ export function Pricing() {
           <div className="max-w-[600px] mb-12">
             <span
               className="brutal-tag anim-fadeUp mb-6"
-              style={{ background: "var(--lime)", color: "var(--ink)" }}
+              style={{ background: "var(--reward-mint-soft)", color: "var(--lime)" }}
             >
               <Zap size={13} strokeWidth={3} /> Pricing
             </span>
@@ -61,12 +61,7 @@ export function Pricing() {
             >
               Free to play.
               <br />
-              <span
-                className="inline-block px-2 mt-1"
-                style={{ background: "var(--accent)", color: "var(--accent-ink)", border: "1.5px solid var(--line-strong)", boxShadow: "var(--shadow)", transform: "rotate(-1deg)" }}
-              >
-                More if you need it.
-              </span>
+              <span style={{ color: "var(--accent)" }}>More if you need it.</span>
             </h2>
             <p className="anim-fadeUp delay-200 mt-7 text-[17px] font-medium leading-[1.5] text-ink-muted">
               The whole game is free. Power-Up adds more streak insurance, an XP multiplier, and premium themes for when it gets serious.
@@ -78,7 +73,7 @@ export function Pricing() {
         <Reveal>
           <div
             className="mb-12 inline-flex items-center p-1 text-[13px]"
-            style={{ border: "1.5px solid var(--line-strong)", borderRadius: 16, background: "var(--bg-elevated)", boxShadow: "var(--shadow)" }}
+            style={{ borderRadius: 28, background: "var(--bg-elevated)", boxShadow: "var(--shadow)" }}
             role="radiogroup"
             aria-label="Billing period"
           >
@@ -108,7 +103,7 @@ export function Pricing() {
           <Reveal>
             <article
               className="flex flex-col p-8 h-full"
-              style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow)" }}
+              style={{ background: "var(--bg-elevated)", borderRadius: 28, boxShadow: "var(--shadow)" }}
             >
               <div>
                 <h3 className="text-[30px] font-bold leading-none text-ink" style={{ letterSpacing: "-0.02em" }}>Free Player</h3>
@@ -149,7 +144,7 @@ export function Pricing() {
           <Reveal delay={80}>
             <article
               className="relative flex flex-col p-8 h-full"
-              style={{ background: "var(--yellow)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
+              style={{ background: "var(--pastel-yellow)", borderRadius: 28, boxShadow: "var(--shadow-lg)" }}
             >
               {/* MOST POPULAR badge */}
               <span
@@ -179,7 +174,7 @@ export function Pricing() {
               <a
                 href="/auth/signup"
                 className="brutal-btn mt-7 h-12 w-full text-[15px]"
-                style={{ background: "var(--ink)", color: "var(--bg)" }}
+                style={{ background: "var(--accent)", color: "#fff" }}
               >
                 Power up <Zap size={16} strokeWidth={3} />
               </a>
@@ -213,15 +208,15 @@ export function Pricing() {
             </h3>
             <div
               className="overflow-hidden"
-              style={{ border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow)", background: "var(--bg-elevated)" }}
+              style={{ borderRadius: 28, boxShadow: "var(--shadow)", background: "var(--bg-elevated)" }}
             >
               <div
                 className="grid grid-cols-[1.8fr_1fr_1fr] items-center px-5 py-3.5 font-mono text-[11px] font-bold uppercase tracking-widest"
-                style={{ background: "var(--ink)", color: "var(--bg)" }}
+                style={{ background: "var(--accent)", color: "#fff" }}
               >
                 <span />
                 <span className="text-center">Free</span>
-                <span className="text-center" style={{ color: "var(--yellow)" }}>Power-Up</span>
+                <span className="text-center" style={{ color: "#fff", fontWeight: 800 }}>Power-Up</span>
               </div>
               {comparison.map((row, idx) => (
                 <div

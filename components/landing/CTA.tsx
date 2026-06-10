@@ -13,40 +13,28 @@ export function CTA() {
           <div
             className="relative p-8 text-center sm:p-14"
             style={{
-              background: "var(--yellow)",
-              border: "1.5px solid var(--line-strong)",
-              borderRadius: 16,
-              boxShadow: "var(--shadow-xl)",
+              background: "var(--pastel-yellow)",
+              borderRadius: 36,
+              boxShadow: "var(--shadow-lg)",
             }}
           >
             <span
-              className="brutal-tag mb-6"
-              style={{ background: "var(--bg-elevated)", color: "var(--ink)" }}
+              className="mb-6 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[13px] font-bold"
+              style={{ background: "var(--bg-elevated)", color: "var(--ink)", boxShadow: "var(--shadow-sm)" }}
             >
-              <Sparkles size={13} strokeWidth={3} /> Ready to start?
+              <Sparkles size={14} strokeWidth={2.5} /> Ready to start?
             </span>
 
             <h2
-              className="font-bold leading-[0.95] text-ink"
-              style={{ fontSize: "clamp(34px,6vw,60px)", letterSpacing: "-0.03em" }}
+              className="font-bold leading-[1.05] text-ink"
+              style={{ fontSize: "clamp(34px,6vw,56px)", letterSpacing: "-0.02em" }}
             >
               Your brain isn&apos;t broken.
               <br />
-              <span
-                className="mt-3 inline-block px-3"
-                style={{
-                  background: "var(--accent)",
-                  color: "var(--accent-ink)",
-                  border: "1.5px solid var(--line-strong)",
-                  boxShadow: "var(--shadow-lg)",
-                  transform: "rotate(-1.5deg)",
-                }}
-              >
-                It just needs the right game.
-              </span>
+              <span style={{ color: "var(--accent)" }}>It just needs the right game.</span>
             </h2>
 
-            <p className="mx-auto mt-7 max-w-[440px] text-[17px] font-medium leading-[1.5] text-ink-muted">
+            <p className="mx-auto mt-7 max-w-[440px] text-[17px] font-medium leading-[1.6] text-ink-muted">
               Takes 60 seconds to sign up. Your first quest is waiting.
             </p>
 
@@ -55,14 +43,13 @@ export function CTA() {
                 className="p-4"
                 style={{
                   background: "var(--bg-elevated)",
-                  border: "1.5px solid var(--line-strong)",
-                  borderRadius: 16,
+                  borderRadius: 24,
                   boxShadow: "var(--shadow)",
                 }}
               >
                 <OAuthButtons />
               </div>
-              <p className="mt-5 font-mono text-[12px] font-bold uppercase tracking-widest text-ink">
+              <p className="mt-5 text-[13px] font-bold text-ink-muted">
                 Free to start ·{" "}
                 <span style={{ color: "var(--accent)" }}>no credit card</span>
               </p>
