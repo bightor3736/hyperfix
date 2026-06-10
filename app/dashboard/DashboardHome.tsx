@@ -23,11 +23,11 @@ export type DashboardHomeProps = {
   currentLevelPoints?: number;
 };
 
-const QUICK_ACTIONS: { icon: LucideIcon; label: string; href: string; tint: string }[] = [
-  { icon: Plus,     label: "Log a fix",   href: "/dashboard/new",       tint: "var(--pastel-purple)" },
-  { icon: BookOpen, label: "Fixations",   href: "/dashboard/fixations", tint: "var(--pastel-green)" },
-  { icon: Sparkles, label: "XP & levels", href: "/dashboard/points",    tint: "var(--pastel-blue)" },
-  { icon: Timer,    label: "Timer",       href: "/dashboard/timer",     tint: "var(--pastel-orange)" },
+const QUICK_ACTIONS: { icon: LucideIcon; label: string; href: string; iconBg: string; iconColor: string }[] = [
+  { icon: Plus,     label: "Log fix",    href: "/dashboard/new",       iconBg: "var(--accent)",  iconColor: "#fff" },
+  { icon: BookOpen, label: "Fixations",  href: "/dashboard/fixations", iconBg: "#30D158",        iconColor: "#fff" },
+  { icon: Sparkles, label: "XP",         href: "/dashboard/points",    iconBg: "var(--xp)",      iconColor: "#fff" },
+  { icon: Timer,    label: "Timer",      href: "/dashboard/timer",     iconBg: "#FF9F0A",        iconColor: "#fff" },
 ];
 
 export function DashboardHome({
@@ -51,7 +51,6 @@ export function DashboardHome({
   return (
     <div className="min-h-screen" style={{ background: "var(--bg)" }}>
 
-      {/* Fires the share-card celebration on level-up / streak milestones */}
       <MilestoneWatcher
         levelNum={levelNum}
         levelName={levelName}
@@ -61,119 +60,150 @@ export function DashboardHome({
         isPro={isPro}
       />
 
-      {/* ── HEADER ────────────────────────────────────────────────── */}
-      <header className="relative overflow-hidden anim-fadeUp">
+      {/* ── HEADER ── */}
+      <header className="sticky top-0 z-10 anim-fadeUp" style={{ background: "var(--bg)", borderBottom: "1px solid var(--line)" }}>
         <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(45,212,191,0.14) 0%, rgba(96,165,250,0.08) 42%, rgba(167,139,250,0.06) 68%, transparent 92%)",
-          }}
-        />
-
-        <div className="relative mx-auto w-full" style={{ maxWidth: 640, padding: "clamp(16px,4vw,24px) 16px 44px" }}>
-          {/* Profile row */}
-          <div className="flex items-center justify-between">
-            <Link href={username ? `/u/${username}` : "/dashboard/customize"} className="flex items-center gap-3 transition-opacity hover:opacity-80">
-              <span
-                className="flex h-11 w-11 items-center justify-center rounded-full font-display text-[19px]"
-                style={{ background: "var(--accent)", color: "var(--accent-ink)", outline: "2px solid var(--accent-soft)", outlineOffset: 2 }}
-              >
-                {firstName.charAt(0).toUpperCase()}
-              </span>
-              <div className="leading-tight">
-                <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--accent)" }}>
-                  {greeting}
-                </p>
-                <p className="font-display text-[18px] tracking-tight text-ink">{firstName}</p>
-              </div>
-            </Link>
-            <Link
-              href="/dashboard/notifications"
-              className="press-pop relative flex h-10 w-10 items-center justify-center rounded-full"
-              style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
-              aria-label="Notifications"
+          className="mx-auto flex items-center justify-between"
+          style={{ maxWidth: 640, padding: "12px 16px" }}
+        >
+          <Link
+            href={username ? `/u/${username}` : "/dashboard/customize"}
+            className="flex items-center gap-2.5 transition-opacity hover:opacity-70"
+          >
+            <span
+              className="flex h-9 w-9 items-center justify-center rounded-full font-semibold text-[14px]"
+              style={{ background: "var(--accent)", color: "#fff" }}
             >
-              <Bell size={17} strokeWidth={2} className="text-ink-muted" />
-            </Link>
-          </div>
-
-          {/* Big XP hero */}
-          <div className="mt-7">
-            <p className="font-mono text-[11px] uppercase tracking-widest text-ink-faint mb-1">Total XP</p>
-            <div className="flex items-end gap-3">
-              <p className="font-display leading-none tracking-tight text-ink tabular-nums" style={{ fontSize: "clamp(44px,9vw,64px)" }}>
-                {totalPoints.toLocaleString()}
+              {firstName.charAt(0).toUpperCase()}
+            </span>
+            <div className="leading-tight">
+              <p className="text-[11px] font-medium" style={{ color: "var(--ink-faint)" }}>
+                {greeting}
               </p>
-              <span
-                className="mb-2 inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px]"
-                style={{ background: "var(--xp-soft)", color: "var(--xp)" }}
-              >
-                <Trophy size={12} strokeWidth={2.5} /> {levelName}
-              </span>
+              <p className="text-[15px] font-semibold tracking-tight" style={{ color: "var(--ink)" }}>
+                {firstName}
+              </p>
             </div>
-          </div>
-
-          {/* Streak pill */}
-          <div className="mt-5 flex flex-wrap gap-2">
-            <Link
-              href="/dashboard/points"
-              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-opacity hover:opacity-80"
-              style={{ background: "var(--flame-soft)", color: "var(--flame)" }}
-            >
-              <Flame size={13} strokeWidth={2.5} fill="currentColor" />
-              <span className="text-[13px] font-bold tabular-nums leading-none">{currentStreak}</span>
-              <span className="text-[12px] leading-none opacity-70">day streak</span>
-            </Link>
-          </div>
-
-          {/* Level progress */}
-          <div className="mt-5 max-w-sm">
-            <div className="mb-1.5 flex items-center justify-between">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-ink-faint">{levelName}</span>
-              {nextLevelPoints && (
-                <span className="font-mono text-[10px] tabular-nums text-ink-faint">
-                  {(nextLevelPoints - totalPoints).toLocaleString()} XP to next
-                </span>
-              )}
-            </div>
-            <div className="h-2 overflow-hidden rounded-full" style={{ background: "var(--line)" }}>
-              <div
-                className="h-full rounded-full anim-shimmer"
-                style={{ width: `${levelPct}%`, background: "linear-gradient(90deg, var(--accent), var(--xp))" }}
-              />
-            </div>
-          </div>
+          </Link>
+          <Link
+            href="/dashboard/notifications"
+            className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-[var(--fill-soft)]"
+            aria-label="Notifications"
+          >
+            <Bell size={18} strokeWidth={1.75} style={{ color: "var(--ink-muted)" }} />
+          </Link>
         </div>
       </header>
 
-      {/* ── CONTENT ───────────────────────────────────────────────── */}
-      <div className="mx-auto anim-fadeUp pb-28" style={{ maxWidth: 640, padding: "0 16px", animationDelay: "60ms" }}>
+      {/* ── CONTENT ── */}
+      <div
+        className="mx-auto pb-28 anim-fadeUp"
+        style={{ maxWidth: 640, padding: "20px 16px", animationDelay: "40ms" }}
+      >
 
-        {/* The painkiller: get over the starting line on a task you're avoiding */}
-        <JustStart welcome={welcome} />
+        {/* XP + level card */}
+        <div
+          className="rounded-[var(--radius-xl)] overflow-hidden mb-4"
+          style={{
+            background: "var(--bg-elevated)",
+            border: "1px solid var(--line)",
+            boxShadow: "var(--shadow)",
+          }}
+        >
+          {/* XP hero */}
+          <div className="px-5 pt-5 pb-4">
+            <p className="text-[11px] font-medium uppercase tracking-[0.06em] mb-1" style={{ color: "var(--ink-faint)" }}>
+              Total XP
+            </p>
+            <div className="flex items-end gap-3">
+              <p
+                className="font-display leading-none tracking-tight tabular-nums"
+                style={{ fontSize: "clamp(40px,9vw,56px)", fontWeight: 700, color: "var(--ink)" }}
+              >
+                {totalPoints.toLocaleString()}
+              </p>
+              <span
+                className="mb-1 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold"
+                style={{ background: "var(--xp-soft)", color: "var(--xp)" }}
+              >
+                <Trophy size={11} strokeWidth={2} /> {levelName}
+              </span>
+            </div>
 
-        <div style={{ height: 16 }} />
+            {/* Level progress */}
+            <div className="mt-4">
+              <div className="mb-1.5 flex items-center justify-between">
+                <span className="text-[10px] font-medium" style={{ color: "var(--ink-faint)" }}>{levelName}</span>
+                {nextLevelPoints && (
+                  <span className="text-[10px] tabular-nums" style={{ color: "var(--ink-faint)" }}>
+                    {(nextLevelPoints - totalPoints).toLocaleString()} XP to next
+                  </span>
+                )}
+              </div>
+              <div className="h-1.5 overflow-hidden rounded-full" style={{ background: "var(--fill-soft)" }}>
+                <div
+                  className="h-full rounded-full"
+                  style={{ width: `${levelPct}%`, background: "var(--accent)", transition: "width 0.6s ease" }}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Stat row */}
+          <div
+            className="flex items-stretch"
+            style={{ borderTop: "1px solid var(--line)" }}
+          >
+            <Link
+              href="/dashboard/points"
+              className="flex flex-1 items-center justify-center gap-2 py-3 transition-colors hover:bg-[var(--fill-faint)]"
+            >
+              <Flame size={14} strokeWidth={2.5} fill="currentColor" style={{ color: "var(--flame)" }} />
+              <span className="text-[13px] font-semibold tabular-nums" style={{ color: "var(--ink)" }}>
+                {currentStreak}
+              </span>
+              <span className="text-[11px]" style={{ color: "var(--ink-faint)" }}>streak</span>
+            </Link>
+            <div style={{ width: 1, background: "var(--line)", margin: "8px 0" }} />
+            <Link
+              href="/dashboard/achievements"
+              className="flex flex-1 items-center justify-center gap-2 py-3 transition-colors hover:bg-[var(--fill-faint)]"
+            >
+              <Sparkles size={14} strokeWidth={2} style={{ color: "var(--xp)" }} />
+              <span className="text-[13px] font-semibold" style={{ color: "var(--ink)" }}>
+                {levelName}
+              </span>
+            </Link>
+          </div>
+        </div>
 
         {/* Quick actions */}
-        <div className="grid grid-cols-4 gap-2.5">
+        <div className="grid grid-cols-4 gap-3 mb-4">
           {QUICK_ACTIONS.map((a) => (
             <Link
               key={a.label}
               href={a.href}
-              className="press-pop flex flex-col items-center gap-2 rounded-[var(--radius-lg)] py-3.5 transition-opacity hover:opacity-90"
+              className="flex flex-col items-center gap-2 py-3.5 rounded-[var(--radius-lg)] transition-colors hover:bg-[var(--fill-soft)]"
               style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
             >
-              <span className="flex h-10 w-10 items-center justify-center rounded-[12px]" style={{ background: a.tint, color: "var(--ink)" }}>
-                <a.icon size={18} strokeWidth={2} />
+              <span
+                className="flex h-10 w-10 items-center justify-center rounded-[10px]"
+                style={{ background: a.iconBg, color: a.iconColor }}
+              >
+                <a.icon size={18} strokeWidth={1.75} />
               </span>
-              <span className="text-[11px] font-medium text-ink-muted text-center">{a.label}</span>
+              <span className="text-[11px] font-medium text-center" style={{ color: "var(--ink-muted)" }}>
+                {a.label}
+              </span>
             </Link>
           ))}
         </div>
 
-        <div style={{ height: 16 }} />
+        {/* Start section */}
+        <JustStart welcome={welcome} />
+
+        <div style={{ height: 20 }} />
+
         <DailyQuestsClient initialQuests={quests} />
 
         {username && (

@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════════════════
-   HYPERFIX — SOFT & FRIENDLY DESIGN SYSTEM (Tiimo-inspired)
-   Warm cream canvas. Deep plum ink. Lilac primary. Pastel accents.
-   Big rounded corners, soft diffuse shadows, calm motion.
+   HYPERFIX — APPLE-INSPIRED DESIGN SYSTEM
+   iOS/macOS canvas. True-black ink. Lilac brand accent. System fills.
+   Apple-standard radii (13–16px), hairline separators, material surfaces.
    (Class & variable names kept from the previous system so every
    component restyles automatically.)
    ═══════════════════════════════════════════════════════════════════════ */
@@ -13,71 +13,76 @@
 :root {
   --font-display: var(--font-grotesk);
 
-  /* ── Canvas ── */
-  --bg:           #FAF6F0;   /* warm cream */
-  --bg-soft:      #F3EDE4;   /* alt section */
-  --bg-elevated:  #FFFFFF;   /* card surface */
+  /* ── Canvas — iOS system grouped background ── */
+  --bg:           #F2F2F7;   /* iOS systemGroupedBackground */
+  --bg-soft:      #EFEFF4;   /* iOS secondarySystemGroupedBackground */
+  --bg-elevated:  #FFFFFF;   /* iOS systemBackground / card surface */
 
-  /* ── Ink — deep plum, never pure black ── */
-  --ink:          #2B2440;
-  --ink-muted:    #564E70;
-  --ink-faint:    #8B84A3;
+  /* ── Ink — Apple label colors ── */
+  --ink:          #000000;   /* iOS label */
+  --ink-muted:    #3C3C43;   /* iOS secondaryLabel (at 60% → #636366) */
+  --ink-faint:    #8E8E93;   /* iOS tertiaryLabel */
 
-  /* Borders are now soft and hairline. */
-  --line:         #E9E2D8;
-  --line-strong:  #D9D1C5;
-  --bw:           1px;          /* standard border width */
-  --bw-lg:        1px;          /* heavy border width (now same) */
+  /* ── Separators — Apple hairline ── */
+  --line:         rgba(60,60,67,0.13);   /* iOS separator */
+  --line-strong:  rgba(60,60,67,0.22);   /* iOS opaqueSeparator approx */
+  --bw:           1px;
+  --bw-lg:        1px;
 
-  /* ── Friendly accents (lilac-led, pastel-supported) ── */
-  --blue:         #6957E8;   /* lilac-violet — primary */
-  --yellow:       #FFC93F;
-  --pink:         #F49FC4;
-  --lime:         #3ECF9B;
-  --coral:        #F97E6D;
-  --violet:       #9B8AFB;
-  --violet-soft:  #EFEBFF;
+  /* ── Brand accent + system fills ── */
+  --blue:         #6957E8;   /* Hyperfix lilac-violet — brand primary */
+  --yellow:       #FF9F0A;   /* iOS system yellow */
+  --pink:         #FF2D55;   /* iOS system pink */
+  --lime:         #30D158;   /* iOS system green */
+  --coral:        #FF6B6B;
+  --violet:       #BF5AF2;   /* iOS system purple */
+  --violet-soft:  #F0EBFF;
 
   --accent:       var(--blue);
-  --accent-soft:  #E9E5FC;
+  --accent-soft:  #EEEAFD;   /* tint at 8% opacity */
   --accent-ink:   #FFFFFF;
 
+  /* iOS system fill — for secondary/tertiary surfaces */
+  --fill:         rgba(120,120,128,0.2);
+  --fill-soft:    rgba(120,120,128,0.12);
+  --fill-faint:   rgba(120,120,128,0.08);
+
   /* Semantic roles */
-  --xp:           #9B8AFB;   /* soft violet — XP & levels */
-  --xp-soft:      #EFEBFF;
-  --flame:        #F97E6D;   /* soft coral — streaks */
-  --flame-soft:   #FEE9E5;
-  --energy:       #6957E8;
-  --energy-soft:  #E9E5FC;
+  --xp:           #BF5AF2;   /* iOS purple */
+  --xp-soft:      #F5EEFF;
+  --flame:        #FF6B6B;   /* warm red */
+  --flame-soft:   #FFF0F0;
+  --energy:       var(--blue);
+  --energy-soft:  #EEEAFD;
 
-  --reward-mint:       #3ECF9B;
-  --reward-mint-soft:  #E0F8EF;
-  --reward-amber:      #FFC93F;
-  --reward-amber-soft: #FFF4D6;
-  --reward-coral:      #F97E6D;
-  --reward-coral-soft: #FEE9E5;
+  --reward-mint:       #30D158;
+  --reward-mint-soft:  #EDFAF2;
+  --reward-amber:      #FF9F0A;
+  --reward-amber-soft: #FFF5E0;
+  --reward-coral:      #FF6B6B;
+  --reward-coral-soft: #FFF0F0;
 
-  /* Soft pastel fills for tags / chips */
-  --pastel-purple: #EFEBFF;
-  --pastel-pink:   #FCEAF2;
-  --pastel-blue:   #E9E5FC;
-  --pastel-green:  #E0F8EF;
-  --pastel-orange: #FFEDDC;
-  --pastel-yellow: #FFF4D6;
+  /* Pastel fills — lighter/more neutral Apple-style */
+  --pastel-purple: #EEEAFD;
+  --pastel-pink:   #FFEEF3;
+  --pastel-blue:   #E8F1FF;
+  --pastel-green:  #EDFAF2;
+  --pastel-orange: #FFF3E0;
+  --pastel-yellow: #FFF5E0;
 
-  /* Invert (dark blocks on light page) */
-  --invert-bg:    #2B2440;
-  --invert-ink:   #FAF6F0;
+  /* Invert */
+  --invert-bg:    #1C1C1E;
+  --invert-ink:   #FFFFFF;
 
-  /* ── Soft diffuse shadows ── */
-  --shadow:       0 4px 16px rgba(43, 36, 64, 0.07);
-  --shadow-sm:    0 2px 8px rgba(43, 36, 64, 0.06);
-  --shadow-lg:    0 10px 30px rgba(43, 36, 64, 0.10);
-  --shadow-xl:    0 18px 48px rgba(43, 36, 64, 0.14);
+  /* ── Apple-style shadows — subtle material depth ── */
+  --shadow:       0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm:    0 1px 2px rgba(0,0,0,0.06);
+  --shadow-lg:    0 4px 16px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+  --shadow-xl:    0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08);
 
-  /* ── Radius — generous and friendly ── */
-  --radius-lg:    20px;
-  --radius-xl:    28px;
+  /* ── Radius — Apple HIG standard ── */
+  --radius-lg:    13px;   /* Apple card radius */
+  --radius-xl:    16px;   /* larger sections */
 
   color-scheme: light;
 
@@ -89,57 +94,61 @@
   --popover-foreground: var(--ink);
   --primary:           var(--accent);
   --primary-foreground: var(--accent-ink);
-  --muted:             40 30% 93%;
+  --muted:             240 5% 94%;
   --muted-foreground:  var(--ink-muted);
   --foreground:        var(--ink);
   --border:            var(--line);
 
-  /* legacy glass aliases — soft panels */
-  --glass-bg:     #FFFFFF;
-  --glass-border: var(--line);
+  /* glass aliases */
+  --glass-bg:     rgba(255,255,255,0.72);
+  --glass-border: rgba(255,255,255,0.3);
 }
 
 :root[data-theme="light"] { color-scheme: light; }
 
-/* ── Dark variant — calm plum night mode, soft borders, gentle glow. ── */
+/* ── Dark variant — Apple dark mode: true black, elevated surfaces. ── */
 :root[data-theme="dark"] {
-  --bg:           #17141F;
-  --bg-soft:      #1E1A29;
-  --bg-elevated:  #232030;
-  --ink:          #F2EFF8;
-  --ink-muted:    #BBB4CE;
-  --ink-faint:    #847E99;
-  --line:         #332E45;
-  --line-strong:  #443E5A;
+  --bg:           #000000;   /* iOS systemBackground dark */
+  --bg-soft:      #1C1C1E;   /* iOS secondarySystemBackground dark */
+  --bg-elevated:  #2C2C2E;   /* iOS tertiarySystemBackground dark */
+  --ink:          #FFFFFF;   /* iOS label dark */
+  --ink-muted:    #EBEBF5;   /* iOS secondaryLabel dark (at 60% → #EBEBF599) */
+  --ink-faint:    #8D8D93;   /* iOS tertiaryLabel dark */
+  --line:         rgba(84,84,88,0.6);    /* iOS separator dark */
+  --line-strong:  rgba(84,84,88,0.85);
 
-  --accent:       #8B7BF4;
-  --accent-soft:  #2A2547;
-  --accent-ink:   #17141F;
-  --xp:           #A99AFB;
-  --xp-soft:      #2A2547;
-  --flame:        #FB9486;
-  --flame-soft:   #3A2622;
-  --energy:       #8B7BF4;
-  --energy-soft:  #2A2547;
+  --fill:         rgba(120,120,128,0.36);
+  --fill-soft:    rgba(120,120,128,0.24);
+  --fill-faint:   rgba(120,120,128,0.16);
 
-  --pastel-purple: #2A2547;
-  --pastel-pink:   #382433;
-  --pastel-blue:   #262649;
-  --pastel-green:  #1D3329;
-  --pastel-orange: #392A1C;
-  --pastel-yellow: #38311A;
+  --accent:       #7B6CF0;   /* brand purple lightened for dark */
+  --accent-soft:  #1E1A3A;
+  --accent-ink:   #FFFFFF;
+  --xp:           #CC7FF5;
+  --xp-soft:      #2A1F3D;
+  --flame:        #FF7B7B;
+  --flame-soft:   #2E1A1A;
+  --energy:       #7B6CF0;
+  --energy-soft:  #1E1A3A;
 
-  --invert-bg:    #F2EFF8;
-  --invert-ink:   #17141F;
+  --pastel-purple: #1E1A3A;
+  --pastel-pink:   #2E1322;
+  --pastel-blue:   #0D1F3C;
+  --pastel-green:  #0D2418;
+  --pastel-orange: #2E1D0A;
+  --pastel-yellow: #2A1F0A;
 
-  --shadow:       0 4px 16px rgba(0, 0, 0, 0.35);
-  --shadow-sm:    0 2px 8px rgba(0, 0, 0, 0.30);
-  --shadow-lg:    0 10px 30px rgba(0, 0, 0, 0.45);
-  --shadow-xl:    0 18px 48px rgba(0, 0, 0, 0.55);
+  --invert-bg:    #F2F2F7;
+  --invert-ink:   #1C1C1E;
 
-  --glass-bg:     #232030;
-  --glass-border: var(--line);
-  --muted:        255 10% 14%;
+  --shadow:       0 2px 12px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-sm:    0 1px 4px rgba(0,0,0,0.4);
+  --shadow-lg:    0 6px 24px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.4);
+  --shadow-xl:    0 12px 40px rgba(0,0,0,0.7), 0 4px 12px rgba(0,0,0,0.5);
+
+  --glass-bg:     rgba(44,44,46,0.85);
+  --glass-border: rgba(255,255,255,0.08);
+  --muted:        240 4% 14%;
   color-scheme: dark;
 }
 
@@ -182,7 +191,7 @@ html, body {
    SOFT PRIMITIVES (legacy "brutal-*" names kept — visuals are friendly)
    ════════════════════════════════════════════════════════════════════ */
 
-/* Soft rounded card with diffuse shadow — the core surface. */
+/* Apple card — white surface, hairline border, subtle shadow. */
 .brutal-box {
   background: var(--bg-elevated);
   border: var(--bw) solid var(--line);
@@ -191,32 +200,31 @@ html, body {
 }
 .brutal-box-lg {
   background: var(--bg-elevated);
-  border: var(--bw-lg) solid var(--line);
+  border: var(--bw) solid var(--line);
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow);
 }
 .brutal-border    { border: var(--bw) solid var(--line); }
 .brutal-shadow    { box-shadow: var(--shadow); }
 .brutal-shadow-lg { box-shadow: var(--shadow-lg); }
 .brutal-shadow-xl { box-shadow: var(--shadow-xl); }
 
-/* The signature button: soft pill that lifts on hover, gently presses down. */
+/* Apple-style button: rounded rect, system-feel, no lift — just a subtle press. */
 .brutal-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border: var(--bw) solid transparent;
-  border-radius: 999px;
-  box-shadow: var(--shadow);
-  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
   letter-spacing: -0.01em;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease, filter 0.2s ease;
+  transition: opacity 0.12s ease, transform 0.12s ease;
   will-change: transform;
 }
-.brutal-btn:hover  { transform: translateY(-2px); box-shadow: var(--shadow-lg); filter: brightness(1.03); }
-.brutal-btn:active { transform: translateY(0) scale(0.98); box-shadow: var(--shadow-sm); }
+.brutal-btn:hover  { opacity: 0.88; }
+.brutal-btn:active { transform: scale(0.97); opacity: 0.75; }
 
 /* Cursor-following glow — a soft light inside the button that tracks the
    pointer (set as --mx/--my by CursorGlow). The button feels aware of you. */
@@ -293,11 +301,47 @@ html, body {
   background: radial-gradient(closest-side, var(--accent-soft), transparent 70%);
 }
 .grid-bg {
-  background-image: radial-gradient(rgba(43,36,64,0.07) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(60,60,67,0.06) 1px, transparent 1px);
   background-size: 26px 26px;
 }
 :root[data-theme="dark"] .grid-bg {
-  background-image: radial-gradient(rgba(242,239,248,0.07) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+}
+
+/* Apple-style grouped list — inset separator from left edge */
+.apple-list-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  background: var(--bg-elevated);
+  transition: background 0.1s ease;
+}
+.apple-list-row:active,
+.apple-list-row:hover { background: var(--fill-faint); }
+.apple-list-row + .apple-list-row {
+  border-top: 1px solid var(--line);
+}
+
+/* Apple system fill buttons */
+.apple-btn-fill {
+  background: var(--fill-soft);
+  border-radius: 10px;
+  font-weight: 600;
+  transition: background 0.12s ease, opacity 0.12s ease;
+}
+.apple-btn-fill:active { background: var(--fill); opacity: 0.8; }
+
+/* Frosted glass surface (sidebar, sheets) */
+.apple-glass {
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border-right: 1px solid rgba(255,255,255,0.25);
+}
+:root[data-theme="dark"] .apple-glass {
+  background: rgba(28,28,30,0.85);
+  border-right: 1px solid rgba(255,255,255,0.06);
 }
 
 /* Dotted texture (replaces the old hard diagonal hatch). */

@@ -236,33 +236,45 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
   // ──────────────────────────────────────────────────────────────────
   return (
     <section
-      className="brutal-box-lg p-6 sm:p-7"
-      style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 20, boxShadow: "var(--shadow-lg)" }}
+      className="overflow-hidden"
+      style={{
+        background: "var(--bg-elevated)",
+        border: "1px solid var(--line)",
+        borderRadius: "var(--radius-xl)",
+        boxShadow: "var(--shadow)",
+      }}
     >
-      {/* ── IDLE: name the monster + open tasks ────────────────────── */}
+      <div className="p-5 sm:p-6">
+
+      {/* ── IDLE: name the monster + open tasks ── */}
       {phase === "idle" && (
         <>
-          <span className="brutal-tag mb-4" style={{ background: "var(--coral)", color: "#fff" }}>
-            <Zap size={13} strokeWidth={3} /> {welcome ? "Welcome — let's start" : "Just start"}
-          </span>
+          <div className="flex items-center gap-2 mb-4">
+            <span
+              className="flex h-8 w-8 items-center justify-center rounded-[8px]"
+              style={{ background: "var(--coral)", color: "#fff" }}
+            >
+              <Zap size={16} strokeWidth={2.5} />
+            </span>
+            <span className="text-[13px] font-semibold" style={{ color: "var(--ink)" }}>
+              {welcome ? "Welcome — let's start" : "Just start"}
+            </span>
+          </div>
           <h2
-            className="leading-[1.02] text-ink"
-            style={{ fontSize: "clamp(26px,5vw,36px)", fontWeight: 800, letterSpacing: "-0.03em" }}
+            className="leading-tight"
+            style={{ fontSize: "clamp(22px,5vw,28px)", fontWeight: 700, letterSpacing: "-0.02em", color: "var(--ink)" }}
           >
             What are you avoiding?
           </h2>
-          <p className="mt-2 text-[14px] font-medium leading-snug text-ink-muted">
+          <p className="mt-2 text-[14px] leading-snug" style={{ color: "var(--ink-muted)" }}>
             {welcome
-              ? <>Name one thing right now — we&apos;ll get you over the line in 5 minutes. That&apos;s your first win.</>
-              : <>Name it. You only have to <span className="text-ink" style={{ fontWeight: 700 }}>start</span> — you can quit after a few minutes.</>}
+              ? <>Name one thing right now — we&apos;ll get you over the line in 5 minutes.</>
+              : <>Name it. You only have to <b style={{ color: "var(--ink)" }}>start</b> — you can quit after a few minutes.</>}
           </p>
 
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              beginNew();
-            }}
-            className="mt-5"
+            onSubmit={(e) => { e.preventDefault(); beginNew(); }}
+            className="mt-5 space-y-2"
           >
             <input
               ref={titleRef}
@@ -270,86 +282,100 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. the email I've been dreading"
               autoComplete="off"
-              className="w-full px-4 py-3.5 text-[15px] font-medium text-ink outline-none"
-              style={{ background: "var(--bg-soft)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
+              className="w-full px-4 py-3.5 text-[15px] font-medium outline-none rounded-[10px] transition-all"
+              style={{
+                background: "var(--fill-soft)",
+                border: "1px solid transparent",
+                color: "var(--ink)",
+              }}
+              onFocus={(e) => e.currentTarget.style.borderColor = "var(--accent)"}
+              onBlur={(e) => e.currentTarget.style.borderColor = "transparent"}
             />
             <button
               type="submit"
               disabled={!title.trim() || submitting}
-              className="brutal-btn mt-3 w-full py-3.5 text-[15px] disabled:opacity-40"
-              style={{ background: "var(--accent)", color: "var(--accent-ink)", borderRadius: 16 }}
+              className="brutal-btn w-full py-3.5 text-[15px] font-semibold disabled:opacity-40"
+              style={{ background: "var(--accent)", color: "#fff" }}
             >
-              {submitting ? "One sec…" : <>Let&apos;s start <ArrowRight size={17} strokeWidth={3} /></>}
+              {submitting ? "One sec…" : <>Let&apos;s start <ArrowRight size={16} strokeWidth={2.5} /></>}
             </button>
           </form>
 
-          {/* Open loops pull you back (Zeigarnik) */}
+          {/* Open loops */}
           {openTasks.length > 0 && (
-            <div className="mt-7">
-              <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">
+            <div className="mt-6">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.06em] mb-2" style={{ color: "var(--ink-faint)" }}>
                 Still waiting on you
               </p>
-              <ul className="mt-3 space-y-2.5">
-                {openTasks.slice(0, 4).map((t) => (
-                  <li
+              <div
+                className="overflow-hidden rounded-[10px]"
+                style={{ border: "1px solid var(--line)" }}
+              >
+                {openTasks.slice(0, 4).map((t, i) => (
+                  <div
                     key={t.id}
-                    className="flex items-center gap-3 p-3"
-                    style={{ background: "var(--bg-soft)", border: "1px solid var(--line)", borderRadius: 16 }}
+                    className="flex items-center gap-3 px-3 py-2.5"
+                    style={{ borderTop: i > 0 ? "1px solid var(--line)" : "none" }}
                   >
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-[14px] font-bold text-ink">{t.title}</p>
-                      <p className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-ink-faint">
+                      <p className="truncate text-[13px] font-semibold" style={{ color: "var(--ink)" }}>{t.title}</p>
+                      <p className="mt-0.5 text-[11px]" style={{ color: "var(--ink-faint)" }}>
                         {t.sessions > 0
-                          ? `${t.sessions} start${t.sessions === 1 ? "" : "s"} · ${t.totalMinutes}m in · ${ago(t.lastStartedAt)}`
+                          ? `${t.sessions} start${t.sessions === 1 ? "" : "s"} · ${t.totalMinutes}m · ${ago(t.lastStartedAt)}`
                           : `added ${ago(t.createdAt)}`}
                       </p>
                     </div>
                     <button
                       onClick={() => resume(t)}
-                      className="brutal-btn shrink-0 px-3 py-2 text-[12px]"
-                      style={{ background: "var(--yellow)", color: "var(--ink)", borderRadius: 16 }}
+                      className="brutal-btn shrink-0 px-3 py-1.5 text-[12px] font-semibold"
+                      style={{ background: "var(--accent)", color: "#fff" }}
                     >
-                      <Play size={12} strokeWidth={3} fill="currentColor" /> Go
+                      <Play size={11} strokeWidth={2.5} fill="currentColor" /> Go
                     </button>
                     <button
                       onClick={() => markDone(t.id)}
                       aria-label="Mark done"
-                      className="shrink-0 transition-colors"
+                      className="shrink-0 transition-opacity hover:opacity-60"
                       style={{ color: "var(--ink-faint)" }}
                     >
-                      <Check size={18} strokeWidth={3} />
+                      <Check size={17} strokeWidth={2.5} />
                     </button>
                     <button
                       onClick={() => removeTask(t.id)}
                       aria-label="Remove"
-                      className="shrink-0 text-ink-faint transition-opacity hover:opacity-60"
+                      className="shrink-0 transition-opacity hover:opacity-60"
+                      style={{ color: "var(--ink-faint)" }}
                     >
-                      <X size={16} strokeWidth={2.5} />
+                      <X size={15} strokeWidth={2} />
                     </button>
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           )}
         </>
       )}
 
-      {/* ── SETUP: shrink it + the deal ────────────────────────────── */}
+      {/* ── SETUP ── */}
       {phase === "setup" && (
         <>
           <button
             onClick={reset}
-            className="mb-4 font-mono text-[11px] font-bold uppercase tracking-widest text-ink-faint transition-colors hover:text-ink"
+            className="mb-4 text-[13px] font-medium transition-opacity hover:opacity-70"
+            style={{ color: "var(--accent)" }}
           >
             ← back
           </button>
-          <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">Starting</p>
-          <h2 className="mt-1 leading-[1.05] text-ink" style={{ fontSize: "clamp(22px,4.5vw,30px)", fontWeight: 800, letterSpacing: "-0.03em" }}>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.06em]" style={{ color: "var(--ink-faint)" }}>Starting</p>
+          <h2
+            className="mt-1 leading-tight"
+            style={{ fontSize: "clamp(18px,4.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", color: "var(--ink)" }}
+          >
             {title}
           </h2>
 
           <label className="mt-5 block">
-            <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-ink-muted">
+            <span className="text-[12px] font-semibold" style={{ color: "var(--ink-muted)" }}>
               What&apos;s the smallest first move?
             </span>
             <input
@@ -357,23 +383,25 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
               onChange={(e) => setStep(e.target.value)}
               placeholder="e.g. just open the doc and write one line"
               autoComplete="off"
-              className="mt-2 w-full px-4 py-3 text-[14px] font-medium text-ink outline-none"
-              style={{ background: "var(--bg-soft)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
+              className="mt-2 w-full px-4 py-3 text-[14px] font-medium outline-none rounded-[10px] transition-all"
+              style={{ background: "var(--fill-soft)", border: "1px solid transparent", color: "var(--ink)" }}
+              onFocus={(e) => e.currentTarget.style.borderColor = "var(--accent)"}
+              onBlur={(e) => e.currentTarget.style.borderColor = "transparent"}
             />
           </label>
 
           <div className="mt-5">
-            <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-ink-muted">How long?</span>
+            <span className="text-[12px] font-semibold" style={{ color: "var(--ink-muted)" }}>How long?</span>
             <div className="mt-2 flex gap-2">
               {DURATIONS.map((m) => (
                 <button
                   key={m}
                   onClick={() => setMinutes(m)}
-                  className="flex-1 py-2.5 font-mono text-[13px] font-bold transition-all"
+                  className="flex-1 py-2.5 text-[13px] font-semibold rounded-[10px] transition-all"
                   style={
                     minutes === m
-                      ? { background: "var(--ink)", color: "var(--bg)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }
-                      : { background: "var(--bg-elevated)", color: "var(--ink)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }
+                      ? { background: "var(--accent)", color: "#fff" }
+                      : { background: "var(--fill-soft)", color: "var(--ink-muted)" }
                   }
                 >
                   {m}m
@@ -382,123 +410,134 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
             </div>
           </div>
 
-          {/* The 5-minute lie */}
-          <div className="mt-5 p-4" style={{ background: "var(--yellow)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}>
-            <p className="text-[14px] font-bold leading-snug text-ink">
+          <div
+            className="mt-5 p-4 rounded-[10px]"
+            style={{ background: "var(--reward-amber-soft)", border: "1px solid var(--line)" }}
+          >
+            <p className="text-[14px] font-semibold leading-snug" style={{ color: "var(--ink)" }}>
               The deal: do {minutes} minutes. Then you&apos;re allowed to stop.
             </p>
-            <p className="mt-1 text-[12px] font-medium leading-snug" style={{ color: "var(--ink)", opacity: 0.7 }}>
+            <p className="mt-1 text-[12px] leading-snug" style={{ color: "var(--ink-muted)" }}>
               (You probably won&apos;t want to. That&apos;s the whole trick.)
             </p>
           </div>
 
           <button
             onClick={launch}
-            className="brutal-btn mt-5 w-full py-4 text-[16px]"
-            style={{ background: "var(--coral)", color: "#fff", borderRadius: 16 }}
+            className="brutal-btn mt-4 w-full py-3.5 text-[15px] font-semibold"
+            style={{ background: "var(--accent)", color: "#fff" }}
           >
-            Start now <Play size={17} strokeWidth={3} fill="currentColor" />
+            Start now <Play size={16} strokeWidth={2.5} fill="currentColor" />
           </button>
         </>
       )}
 
-      {/* ── RUNNING: the timer ─────────────────────────────────────── */}
+      {/* ── RUNNING ── */}
       {phase === "running" && (
         <div className="flex flex-col items-center text-center">
-          <p className="inline-flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">
+          <p className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.06em]" style={{ color: "var(--ink-faint)" }}>
             {running && <span className="live-dot" style={{ color: "var(--lime)", width: 8, height: 8 }} />}
             {running ? "Live — working on" : "Paused — working on"}
           </p>
-          <h2 className="mt-1 leading-tight text-ink" style={{ fontSize: "clamp(18px,4vw,24px)", fontWeight: 800, letterSpacing: "-0.02em" }}>
+          <h2
+            className="mt-1 leading-tight"
+            style={{ fontSize: "clamp(18px,4vw,22px)", fontWeight: 700, letterSpacing: "-0.02em", color: "var(--ink)" }}
+          >
             {title}
           </h2>
           {(activeTask?.step || step) && (
-            <p className="mt-2 inline-flex max-w-full items-center gap-1.5 px-3 py-1.5 text-[12px] font-bold text-ink"
-              style={{ background: "var(--bg-soft)", border: "1px solid var(--line)", borderRadius: 999 }}>
-              <Clock size={12} strokeWidth={3} /> {activeTask?.step || step}
+            <p
+              className="mt-2 inline-flex max-w-full items-center gap-1.5 px-3 py-1.5 text-[12px] font-medium rounded-full"
+              style={{ background: "var(--fill-soft)", color: "var(--ink-muted)" }}
+            >
+              <Clock size={11} strokeWidth={2.5} /> {activeTask?.step || step}
             </p>
           )}
 
           <p
-            className="mt-6 tabular-nums leading-none text-ink"
-            style={{ fontWeight: 800, letterSpacing: "-0.05em", fontSize: "clamp(64px,18vw,104px)" }}
+            className="mt-6 tabular-nums leading-none"
+            style={{ fontWeight: 700, letterSpacing: "-0.05em", fontSize: "clamp(64px,18vw,100px)", color: "var(--ink)" }}
           >
             {fmt(remaining)}
           </p>
 
-          <div className="mt-6 flex items-center gap-3">
+          <div className="mt-6 flex items-center gap-2.5">
             <button
               onClick={() => setRunning((r) => !r)}
-              className="brutal-btn px-7 py-3.5 text-[15px]"
-              style={{ background: running ? "var(--bg-elevated)" : "var(--accent)", color: running ? "var(--ink)" : "var(--accent-ink)", borderRadius: 16 }}
+              className="brutal-btn px-6 py-3 text-[14px] font-semibold"
+              style={{
+                background: running ? "var(--fill-soft)" : "var(--accent)",
+                color: running ? "var(--ink)" : "#fff",
+              }}
             >
-              {running ? <Pause size={17} strokeWidth={3} fill="currentColor" /> : <Play size={17} strokeWidth={3} fill="currentColor" />}
+              {running ? <Pause size={16} strokeWidth={2.5} fill="currentColor" /> : <Play size={16} strokeWidth={2.5} fill="currentColor" />}
               {running ? "Pause" : "Resume"}
             </button>
             <button
               onClick={finish}
-              className="brutal-btn px-5 py-3.5 text-[13px]"
-              style={{ background: "var(--lime)", color: "var(--ink)", borderRadius: 16 }}
+              className="brutal-btn px-5 py-3 text-[13px] font-semibold"
+              style={{ background: "var(--reward-mint)", color: "#fff" }}
             >
-              <Check size={16} strokeWidth={3} /> I started
+              <Check size={15} strokeWidth={2.5} /> I started
             </button>
           </div>
           <button
             onClick={reset}
-            className="mt-4 inline-flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-widest text-ink-faint transition-colors hover:text-ink"
+            className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-medium transition-opacity hover:opacity-70"
+            style={{ color: "var(--ink-faint)" }}
           >
-            <RotateCcw size={12} strokeWidth={3} /> cancel
+            <RotateCcw size={11} strokeWidth={2.5} /> cancel
           </button>
         </div>
       )}
 
-      {/* ── DONE: celebrate the START ──────────────────────────────── */}
+      {/* ── DONE ── */}
       {phase === "done" && (
         <div className="flex flex-col items-center text-center anim-pop">
           <div
-            className="flex h-16 w-16 items-center justify-center anim-wiggle"
-            style={{ background: "var(--lime)", border: "1.5px solid var(--line-strong)", borderRadius: 20, boxShadow: "var(--shadow-sm)" }}
+            className="flex h-16 w-16 items-center justify-center rounded-[18px] anim-wiggle"
+            style={{ background: "var(--reward-mint)", boxShadow: "0 4px 16px rgba(48,209,88,0.35)" }}
           >
-            <Check size={32} strokeWidth={3} style={{ color: "var(--ink)" }} />
+            <Check size={30} strokeWidth={2.5} style={{ color: "#fff" }} />
           </div>
-          <h2 className="mt-5 leading-none text-ink" style={{ fontSize: "clamp(30px,6vw,44px)", fontWeight: 800, letterSpacing: "-0.03em" }}>
+          <h2
+            className="mt-5 leading-none"
+            style={{ fontSize: "clamp(28px,6vw,40px)", fontWeight: 700, letterSpacing: "-0.03em", color: "var(--ink)" }}
+          >
             You started.
           </h2>
-          <p className="mt-2 text-[15px] font-medium leading-snug text-ink-muted">
+          <p className="mt-2 text-[14px] leading-snug" style={{ color: "var(--ink-muted)" }}>
             That was the hard part — and you did it.
           </p>
 
           <div
-            className="mt-5 inline-flex items-center gap-2 px-4 py-2"
-            style={{ background: "var(--xp)", color: "#fff", border: "1.5px solid var(--line-strong)", borderRadius: 999, boxShadow: "var(--shadow-sm)" }}
+            className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full"
+            style={{ background: "var(--xp)", color: "#fff" }}
           >
-            <Zap size={15} strokeWidth={3} fill="#fff" />
-            <span className="font-mono text-[13px] font-bold uppercase tracking-wider">+{earnedXp} XP</span>
+            <Zap size={14} strokeWidth={2.5} fill="#fff" />
+            <span className="text-[13px] font-semibold">+{earnedXp} XP</span>
           </div>
 
-          <div className="mt-7 flex w-full flex-col gap-2.5">
+          <div className="mt-6 flex w-full flex-col gap-2">
             <button
               onClick={launch}
-              className="brutal-btn w-full py-3.5 text-[15px]"
-              style={{ background: "var(--coral)", color: "#fff", borderRadius: 16 }}
+              className="brutal-btn w-full py-3.5 text-[14px] font-semibold"
+              style={{ background: "var(--accent)", color: "#fff" }}
             >
-              Keep going — another round <ArrowRight size={16} strokeWidth={3} />
+              Keep going — another round <ArrowRight size={15} strokeWidth={2.5} />
             </button>
-            <div className="flex gap-2.5">
+            <div className="flex gap-2">
               <button
-                onClick={() => {
-                  if (activeId) markDone(activeId);
-                  reset();
-                }}
-                className="brutal-btn flex-1 py-3 text-[14px]"
-                style={{ background: "var(--lime)", color: "var(--ink)", borderRadius: 16 }}
+                onClick={() => { if (activeId) markDone(activeId); reset(); }}
+                className="brutal-btn flex-1 py-3 text-[13px] font-semibold"
+                style={{ background: "var(--reward-mint)", color: "#fff" }}
               >
-                <Check size={15} strokeWidth={3} /> It&apos;s done
+                <Check size={14} strokeWidth={2.5} /> It&apos;s done
               </button>
               <button
                 onClick={reset}
-                className="brutal-btn flex-1 py-3 text-[14px]"
-                style={{ background: "var(--bg-elevated)", color: "var(--ink)", borderRadius: 16 }}
+                className="brutal-btn flex-1 py-3 text-[13px] font-semibold"
+                style={{ background: "var(--fill-soft)", color: "var(--ink)" }}
               >
                 Save for later
               </button>
@@ -506,6 +545,8 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
           </div>
         </div>
       )}
+
+      </div>
     </section>
   );
 }

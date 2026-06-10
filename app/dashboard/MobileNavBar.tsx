@@ -12,10 +12,11 @@ export function MobileNavBar({ username }: { username?: string | null }) {
     <nav
       className="lg:hidden fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around px-2 py-1"
       style={{
-        background: "rgba(15,13,64,0.88)",
-        backdropFilter: "blur(24px)",
-        WebkitBackdropFilter: "blur(24px)",
-        borderTop: "1px solid rgba(255,255,255,0.07)",
+        background: "rgba(var(--bg-elevated-rgb, 255,255,255), 0.85)",
+        backdropFilter: "blur(20px) saturate(1.8)",
+        WebkitBackdropFilter: "blur(20px) saturate(1.8)",
+        backgroundColor: "var(--bg-elevated)",
+        borderTop: "1px solid var(--line)",
         paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
@@ -57,12 +58,12 @@ function MobileNavLink({
       aria-current={isActive ? "page" : undefined}
       className="flex flex-col items-center gap-1 px-5 py-2 rounded-2xl transition-all"
       style={{
-        color: isActive ? "#a78bfa" : "rgba(255,255,255,0.45)",
-        background: isActive ? "rgba(167,139,250,0.12)" : "transparent",
+        color: isActive ? "var(--accent)" : "var(--ink-faint)",
+        background: isActive ? "var(--accent-soft)" : "transparent",
       }}
     >
       {children}
-      <span className="font-mono text-[9px] uppercase tracking-widest">{label}</span>
+      <span className="text-[10px] font-medium">{label}</span>
     </Link>
   );
 }

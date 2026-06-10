@@ -12,24 +12,11 @@ import {
   Sparkles,
   Snowflake,
   Flame,
-  ChevronRight,
   Trophy,
   Timer,
   Palette,
 } from "lucide-react";
 import { levelForPoints } from "@/lib/gamification/levels";
-
-const D = {
-  bg: "var(--bg-elevated)",
-  bgCard: "var(--bg-soft)",
-  bgActive: "var(--accent-soft)",
-  border: "var(--line)",
-  text: "var(--ink)",
-  muted: "var(--ink-muted)",
-  faint: "var(--ink-faint)",
-  accent: "var(--accent)",
-  accentBg: "var(--accent-soft)",
-};
 
 type Props = {
   displayName: string;
@@ -76,18 +63,18 @@ export function DashboardSidebarClient({
   const navSections: NavSection[] = [
     {
       items: [
-        { href: "/dashboard",              label: "Play",         icon: <LayoutDashboard size={15} strokeWidth={1.5} /> },
-        { href: "/dashboard/fixations",    label: "Fixations",    icon: <Flame size={15} strokeWidth={1.5} /> },
-        { href: "/dashboard/points",       label: "XP & Levels",  icon: <Sparkles size={15} strokeWidth={1.5} /> },
-        { href: "/dashboard/achievements", label: "Achievements", icon: <Trophy size={15} strokeWidth={1.5} /> },
-        { href: "/dashboard/timer",        label: "Focus Timer",  icon: <Timer size={15} strokeWidth={1.5} /> },
+        { href: "/dashboard",              label: "Play",         icon: <LayoutDashboard size={16} strokeWidth={1.75} /> },
+        { href: "/dashboard/fixations",    label: "Fixations",    icon: <Flame size={16} strokeWidth={1.75} /> },
+        { href: "/dashboard/points",       label: "XP & Levels",  icon: <Sparkles size={16} strokeWidth={1.75} /> },
+        { href: "/dashboard/achievements", label: "Achievements", icon: <Trophy size={16} strokeWidth={1.75} /> },
+        { href: "/dashboard/timer",        label: "Focus Timer",  icon: <Timer size={16} strokeWidth={1.75} /> },
       ],
     },
     {
       label: "Account",
       items: [
-        { href: "/dashboard/customize", label: "Customize",  icon: <Palette size={15} strokeWidth={1.5} /> },
-        { href: "/dashboard/settings",  label: "Settings",   icon: <Settings size={15} strokeWidth={1.5} /> },
+        { href: "/dashboard/customize", label: "Customize",  icon: <Palette size={16} strokeWidth={1.75} /> },
+        { href: "/dashboard/settings",  label: "Settings",   icon: <Settings size={16} strokeWidth={1.75} /> },
       ],
     },
   ];
@@ -100,67 +87,108 @@ export function DashboardSidebarClient({
 
   return (
     <aside
-      className="hidden lg:flex flex-col h-screen w-60 shrink-0 fixed left-0 top-0 z-40"
-      style={{ background: D.bg, borderRight: `1px solid ${D.border}` }}
+      className="apple-glass hidden lg:flex flex-col h-screen w-[220px] shrink-0 fixed left-0 top-0 z-40"
+      style={{ background: "var(--bg-elevated)" }}
     >
-      {/* Logo */}
-      <div className="flex items-center justify-between px-5 pt-6 pb-4" style={{ borderBottom: `1px solid ${D.border}` }}>
-        <Link href="/dashboard" className="font-display text-[18px] tracking-tight transition-opacity hover:opacity-80" style={{ color: "var(--ink)" }}>
+      {/* ── App title ── */}
+      <div
+        className="flex items-center justify-between px-4 pt-5 pb-3"
+        style={{ borderBottom: "1px solid var(--line)" }}
+      >
+        <Link
+          href="/dashboard"
+          className="font-display text-[15px] font-semibold tracking-tight transition-opacity hover:opacity-70"
+          style={{ color: "var(--ink)" }}
+        >
           hyperfix
         </Link>
         <NotificationBell />
       </div>
 
-      {/* Profile strip */}
+      {/* ── Profile row ── */}
       <Link
         href={username ? `/u/${username}` : "/onboarding/username"}
-        className="flex items-center gap-2.5 px-4 py-3 transition-opacity hover:opacity-80"
-        style={{ borderBottom: `1px solid ${D.border}` }}
+        className="flex items-center gap-2.5 px-4 py-2.5 transition-colors hover:bg-[var(--fill-faint)]"
+        style={{ borderBottom: "1px solid var(--line)" }}
       >
         {avatarUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={avatarUrl} alt={displayName} className="w-8 h-8 rounded-full object-cover shrink-0" style={{ border: `1px solid ${D.border}` }} />
+          <img
+            src={avatarUrl}
+            alt={displayName}
+            className="w-7 h-7 rounded-full object-cover shrink-0"
+          />
         ) : (
-          <div className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0" style={{ background: "var(--pastel-green)", color: "var(--lime)" }}>
+          <div
+            className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-semibold shrink-0"
+            style={{ background: "var(--accent)", color: "#fff" }}
+          >
             {initials}
           </div>
         )}
         <div className="min-w-0 flex-1">
-          <p className="text-[13px] font-semibold truncate" style={{ color: D.text }}>{displayName}</p>
-          {isPro && <p className="font-mono text-[9px] uppercase tracking-widest" style={{ color: "var(--lime)" }}>pro</p>}
+          <p className="text-[13px] font-medium truncate" style={{ color: "var(--ink)" }}>
+            {displayName}
+          </p>
+          {isPro && (
+            <p className="text-[10px] font-semibold" style={{ color: "var(--accent)" }}>
+              Pro
+            </p>
+          )}
         </div>
-        <ChevronRight size={13} strokeWidth={2} style={{ color: D.faint }} />
       </Link>
 
-      {/* Streak + level strip */}
-      <div className="px-4 py-3" style={{ borderBottom: `1px solid ${D.border}` }}>
-        <div className="flex items-center gap-3 mb-2.5">
-          <Link href="/dashboard/points" className="flex items-center gap-1.5 transition-opacity hover:opacity-80" style={{ color: "var(--flame)" }}>
-            <Flame size={13} strokeWidth={2.5} fill="currentColor" />
-            <span className="font-mono text-[12px] font-bold tabular-nums">{currentStreak}</span>
+      {/* ── Streak + XP strip ── */}
+      <div
+        className="px-4 py-3"
+        style={{ borderBottom: "1px solid var(--line)" }}
+      >
+        <div className="flex items-center gap-3 mb-2">
+          <Link
+            href="/dashboard/points"
+            className="flex items-center gap-1.5 text-[12px] font-semibold tabular-nums transition-opacity hover:opacity-70"
+            style={{ color: "var(--flame)" }}
+          >
+            <Flame size={12} strokeWidth={2.5} fill="currentColor" />
+            {currentStreak}
           </Link>
           {streakFreezes > 0 && (
-            <span className="flex items-center gap-1 font-mono text-[11px]" style={{ color: "var(--accent)" }}>
-              <Snowflake size={11} strokeWidth={2} />
+            <span
+              className="flex items-center gap-1 text-[11px] font-medium"
+              style={{ color: "var(--accent)" }}
+            >
+              <Snowflake size={10} strokeWidth={2} />
               {streakFreezes}
             </span>
           )}
-          <span className="ml-auto font-mono text-[10px]" style={{ color: D.faint }}>
+          <span className="ml-auto text-[11px] tabular-nums" style={{ color: "var(--ink-faint)" }}>
             {totalPoints.toLocaleString()} XP
           </span>
         </div>
-        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: D.bgCard }}>
-          <div className="h-full rounded-full" style={{ width: `${levelPct}%`, background: "linear-gradient(90deg, var(--accent), var(--violet))" }} />
+        {/* Level progress bar */}
+        <div
+          className="h-1 rounded-full overflow-hidden"
+          style={{ background: "var(--fill-soft)" }}
+        >
+          <div
+            className="h-full rounded-full"
+            style={{ width: `${levelPct}%`, background: "var(--accent)" }}
+          />
         </div>
-        <p className="mt-1.5 font-mono text-[10px]" style={{ color: D.faint }}>{level.name}</p>
+        <p className="mt-1 text-[10px]" style={{ color: "var(--ink-faint)" }}>
+          {level.name}
+        </p>
       </div>
 
-      {/* Nav */}
-      <nav className="flex-1 overflow-y-auto py-3 px-3 space-y-4">
+      {/* ── Nav ── */}
+      <nav className="flex-1 overflow-y-auto py-2 px-2 space-y-4">
         {navSections.map((section, si) => (
           <div key={si}>
             {section.label && (
-              <p className="px-2 mb-1.5 font-mono text-[9px] uppercase tracking-[0.14em]" style={{ color: D.faint }}>
+              <p
+                className="px-2 mb-1 text-[11px] font-semibold uppercase tracking-[0.06em]"
+                style={{ color: "var(--ink-faint)" }}
+              >
                 {section.label}
               </p>
             )}
@@ -171,13 +199,21 @@ export function DashboardSidebarClient({
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-2.5 px-3 py-2 rounded-xl transition-all"
+                    className="flex items-center gap-2.5 px-2.5 py-2 rounded-[9px] transition-colors"
                     style={{
-                      background: active ? D.bgActive : "transparent",
-                      color: active ? D.accent : D.muted,
+                      background: active ? "var(--accent-soft)" : "transparent",
+                      color: active ? "var(--accent)" : "var(--ink-muted)",
                     }}
                   >
-                    <span style={{ color: active ? D.accent : D.faint }}>{item.icon}</span>
+                    <span
+                      className="flex h-6 w-6 items-center justify-center rounded-[6px] shrink-0"
+                      style={{
+                        background: active ? "var(--accent)" : "var(--fill-soft)",
+                        color: active ? "#fff" : "var(--ink-muted)",
+                      }}
+                    >
+                      {item.icon}
+                    </span>
                     <span className="text-[13px] font-medium">{item.label}</span>
                   </Link>
                 );
@@ -187,18 +223,28 @@ export function DashboardSidebarClient({
         ))}
       </nav>
 
-      {/* Sign out */}
-      <div className="px-3 pb-5" style={{ borderTop: `1px solid ${D.border}`, paddingTop: 12 }}>
+      {/* ── Sign out ── */}
+      <div
+        className="px-2 pb-4 pt-2"
+        style={{ borderTop: "1px solid var(--line)" }}
+      >
         <button
           onClick={handleSignOut}
           disabled={pending}
-          className="flex w-full items-center gap-2.5 px-3 py-2 rounded-xl transition-all hover:opacity-70 disabled:opacity-50"
-          style={{ color: D.faint }}
+          className="flex w-full items-center gap-2.5 px-2.5 py-2 rounded-[9px] transition-colors hover:bg-[var(--fill-faint)] disabled:opacity-40"
+          style={{ color: "var(--ink-faint)" }}
         >
-          <LogOut size={15} strokeWidth={1.5} />
+          <span
+            className="flex h-6 w-6 items-center justify-center rounded-[6px] shrink-0"
+            style={{ background: "var(--fill-soft)", color: "var(--ink-faint)" }}
+          >
+            <LogOut size={14} strokeWidth={1.75} />
+          </span>
           <span className="text-[13px] font-medium">Sign out</span>
         </button>
-        <p className="mt-2 px-3 font-mono text-[10px] truncate" style={{ color: "var(--ink-faint)" }}>{userEmail}</p>
+        <p className="mt-1.5 px-2.5 text-[10px] truncate" style={{ color: "var(--ink-faint)" }}>
+          {userEmail}
+        </p>
       </div>
     </aside>
   );
