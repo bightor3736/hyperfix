@@ -1,14 +1,13 @@
 /**
- * Hyperfix brand — NEO-BRUTALIST
+ * Hyperfix brand — SOFT & FRIENDLY
  *
- * The mark is a FOCUS LOCK: four hard corner brackets (the universal
- * camera/scanner "locked-on" frame) clamping a solid center block. It reads
- * instantly as fixation — total, locked-in focus — and is built from plain
- * rects so it stays razor-sharp at any size, from a 16px favicon to a hero.
+ * The mark is a START SPARK: a rounded play triangle (the universal "go")
+ * with a small spark dot floating off its top-right corner — the moment of
+ * ignition. Round joins everywhere; it reads warm at 16px and at hero size.
  *
- * LogoMark     — the lock, on transparent ground.
- * LogoTile     — the lock inside a bordered, shadowed app-icon block.
- * LogoWordmark — "hyperfix" in Space Grotesk, heavy, tight.
+ * LogoMark     — the start spark, on transparent ground.
+ * LogoTile     — the spark inside a soft squircle app-icon tile.
+ * LogoWordmark — "hyperfix" lowercase, rounded, friendly.
  * LogoLockup   — mark + wordmark.
  */
 
@@ -16,13 +15,13 @@ export function LogoMark({
   size = 28,
   className = "",
   color = "var(--accent)",
-  ink = "var(--ink)",
+  ink = "var(--yellow)",
 }: {
   size?: number;
   className?: string;
-  /** fill of the locked-on center block */
+  /** fill of the play triangle */
   color?: string;
-  /** color of the corner brackets + center border */
+  /** color of the spark dot */
   ink?: string;
 }) {
   return (
@@ -35,27 +34,21 @@ export function LogoMark({
       className={className}
       aria-hidden="true"
     >
-      <g fill={ink}>
-        {/* top-left bracket */}
-        <rect x="3" y="3" width="3" height="8" />
-        <rect x="3" y="3" width="8" height="3" />
-        {/* top-right bracket */}
-        <rect x="26" y="3" width="3" height="8" />
-        <rect x="21" y="3" width="8" height="3" />
-        {/* bottom-left bracket */}
-        <rect x="3" y="21" width="3" height="8" />
-        <rect x="3" y="26" width="8" height="3" />
-        {/* bottom-right bracket */}
-        <rect x="26" y="21" width="3" height="8" />
-        <rect x="21" y="26" width="8" height="3" />
-      </g>
-      {/* locked-on center block */}
-      <rect x="11.5" y="11.5" width="9" height="9" fill={color} stroke={ink} strokeWidth="2.5" />
+      {/* rounded play triangle — heavy round-join stroke does the softening */}
+      <path
+        d="M11 9.5 L23.5 16.75 L11 24 Z"
+        fill={color}
+        stroke={color}
+        strokeWidth="5.5"
+        strokeLinejoin="round"
+      />
+      {/* spark dot — the moment it catches */}
+      <circle cx="25.5" cy="6.5" r="3.5" fill={ink} />
     </svg>
   );
 }
 
-/** The mark inside a bordered, shadowed tile — app icon / avatar / favicon. */
+/** The mark inside a soft squircle tile — app icon / avatar / favicon. */
 export function LogoTile({
   size = 40,
   className = "",
@@ -65,7 +58,7 @@ export function LogoTile({
   className?: string;
   tile?: string;
 }) {
-  const radius = Math.max(4, Math.round(size * 0.14));
+  const radius = Math.max(8, Math.round(size * 0.28));
   return (
     <span
       className={`inline-flex items-center justify-center ${className}`}
@@ -74,7 +67,6 @@ export function LogoTile({
         height: size,
         background: tile,
         borderRadius: radius,
-        border: "1.5px solid var(--line-strong)",
         boxShadow: "var(--shadow-sm)",
       }}
       aria-hidden="true"
@@ -99,7 +91,7 @@ export function LogoWordmark({
   return (
     <span
       className={`font-display-medium leading-none text-ink ${fontSize} ${className}`}
-      style={{ fontWeight: 700, letterSpacing: "-0.04em" }}
+      style={{ fontWeight: 700, letterSpacing: "-0.02em" }}
     >
       hyperfix
     </span>

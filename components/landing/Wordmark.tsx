@@ -10,7 +10,7 @@ export function Wordmark({ className = "" }: { className?: string }) {
       <LogoMark size={28} color="var(--accent)" />
       <span
         className="text-[26px] leading-none text-ink sm:text-[28px]"
-        style={{ fontWeight: 700, letterSpacing: "-0.04em" }}
+        style={{ fontWeight: 700, letterSpacing: "-0.02em" }}
       >
         hyperfix
       </span>

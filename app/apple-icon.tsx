@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
-// Hyperfix focus-lock mark: white brackets + center block on a blue tile.
+// Hyperfix start-spark mark: white rounded play + spark dot on a lilac squircle.
 export default function AppleIcon() {
   return new ImageResponse(
     (
@@ -12,24 +12,21 @@ export default function AppleIcon() {
           width: 180,
           height: 180,
           background: "#6957E8",
-          borderRadius: 40,
+          borderRadius: 50,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
         <svg width="118" height="118" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-          <g fill="#ffffff">
-            <rect x="3" y="3" width="3" height="8" />
-            <rect x="3" y="3" width="8" height="3" />
-            <rect x="26" y="3" width="3" height="8" />
-            <rect x="21" y="3" width="8" height="3" />
-            <rect x="3" y="21" width="3" height="8" />
-            <rect x="3" y="26" width="8" height="3" />
-            <rect x="26" y="21" width="3" height="8" />
-            <rect x="21" y="26" width="8" height="3" />
-            <rect x="11.5" y="11.5" width="9" height="9" />
-          </g>
+          <path
+            d="M11 9.5 L23.5 16.75 L11 24 Z"
+            fill="#ffffff"
+            stroke="#ffffff"
+            strokeWidth="5.5"
+            strokeLinejoin="round"
+          />
+          <circle cx="25.5" cy="6.5" r="3.5" fill="#FFC93F" />
         </svg>
       </div>
     ),

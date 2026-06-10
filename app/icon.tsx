@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
-// Hyperfix focus-lock mark: white brackets + center block on a blue tile.
+// Hyperfix start-spark mark: white rounded play + spark dot on a lilac squircle.
 export default function Icon() {
   return new ImageResponse(
     (
@@ -12,24 +12,21 @@ export default function Icon() {
           width: 32,
           height: 32,
           background: "#6957E8",
-          borderRadius: 16,
+          borderRadius: 9,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        <svg width="22" height="22" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-          <g fill="#ffffff">
-            <rect x="3" y="3" width="3" height="8" />
-            <rect x="3" y="3" width="8" height="3" />
-            <rect x="26" y="3" width="3" height="8" />
-            <rect x="21" y="3" width="8" height="3" />
-            <rect x="3" y="21" width="3" height="8" />
-            <rect x="3" y="26" width="8" height="3" />
-            <rect x="26" y="21" width="3" height="8" />
-            <rect x="21" y="26" width="8" height="3" />
-            <rect x="11.5" y="11.5" width="9" height="9" />
-          </g>
+        <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M11 9.5 L23.5 16.75 L11 24 Z"
+            fill="#ffffff"
+            stroke="#ffffff"
+            strokeWidth="5.5"
+            strokeLinejoin="round"
+          />
+          <circle cx="25.5" cy="6.5" r="3.5" fill="#FFC93F" />
         </svg>
       </div>
     ),
