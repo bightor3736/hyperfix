@@ -218,6 +218,28 @@ html, body {
 .brutal-btn:hover  { transform: translateY(-2px); box-shadow: var(--shadow-lg); filter: brightness(1.03); }
 .brutal-btn:active { transform: translateY(0) scale(0.98); box-shadow: var(--shadow-sm); }
 
+/* Cursor-following glow — a soft light inside the button that tracks the
+   pointer (set as --mx/--my by CursorGlow). The button feels aware of you. */
+.brutal-btn { overflow: hidden; }
+.brutal-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    110px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 255, 255, 0.28),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.brutal-btn:hover::before { opacity: 1; }
+@media (prefers-reduced-motion: reduce), (hover: none) {
+  .brutal-btn::before { display: none; }
+}
+
 /* Hover-lift: card floats up with a bigger shadow. */
 .brutal-hover { transition: transform 0.18s ease, box-shadow 0.18s ease; }
 .brutal-hover:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }

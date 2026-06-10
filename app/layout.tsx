@@ -3,6 +3,7 @@ import { Quicksand, Nunito, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Suspense } from "react";
 import { AffTracker } from "@/components/AffTracker";
+import { CursorGlow } from "@/components/CursorGlow";
 import "./globals.css";
 
 // Quicksand — rounded geometric sans, the warm friendly voice of the brand:
@@ -192,6 +193,7 @@ export default function RootLayout({
             Skip to content
           </a>
           <Suspense fallback={null}><AffTracker /></Suspense>
+          <CursorGlow />
           {children}
           <Analytics />
         </body>
