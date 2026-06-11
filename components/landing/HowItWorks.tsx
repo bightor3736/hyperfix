@@ -14,100 +14,80 @@ export function HowItWorks() {
   return (
     <section id="features" className="px-5 py-24 sm:px-8 sm:py-28" style={{ background: "var(--bg)" }}>
       <div className="mx-auto max-w-[1080px]">
-        {/* Section header */}
+        {/* Section header — Steep editorial style */}
         <Reveal>
-          <div className="mb-20 text-center">
+          <div className="mb-20 max-w-[580px]">
             <span
-              className="mb-6 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[13px] font-bold"
-              style={{ background: "var(--reward-mint-soft)", color: "var(--lime)" }}
+              className="mb-6 inline-block text-[13px] font-medium"
+              style={{ color: "var(--ink-faint)", letterSpacing: "-0.009em" }}
             >
-              <Zap size={14} strokeWidth={2.5} /> How it works
+              How it works
             </span>
             <h2
-              className="font-bold leading-[1.05] text-ink"
-              style={{ fontSize: "clamp(34px,5.5vw,58px)", letterSpacing: "-0.02em" }}
+              className="steep-display text-ink"
+              style={{ fontSize: "clamp(36px,5.5vw,56px)" }}
             >
-              The whole loop,
-              <br />
-              <span style={{ color: "var(--accent)" }}>built for your brain.</span>
+              The loop your brain<br />
+              <span style={{ color: "var(--accent)", fontStyle: "italic" }}>actually accepts.</span>
             </h2>
-            <p className="mx-auto mt-7 max-w-[480px] text-[17px] font-medium leading-[1.6] text-ink-muted">
-              Name the thing you&apos;re avoiding, shrink it, do five minutes, get rewarded for starting — and keep a streak that forgives you. No busywork.
+            <p className="mt-6 max-w-[460px] text-[17px] leading-[1.65]" style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}>
+              Name the thing you&apos;re avoiding, shrink it, do five minutes, get rewarded for starting — and keep a streak that forgives you.
             </p>
           </div>
         </Reveal>
 
-        {/* Step 1 — card left, text right */}
-        <Step
-          n="1"
-          color="var(--coral)"
-          title="Name what you're avoiding"
-          body="Type in the thing you've been dreading — the email, the form, the gym bag by the door. Getting it out of your head and onto the screen is the first crack in the wall. Hyperfix keeps your avoided tasks so they stop haunting you in the background."
-          card={<AvoidCard />}
-          flip
-        />
+        <Step n="1" color="" title="Name what you're avoiding"
+          body="Type in the thing you've been dreading — the email, the form, the gym bag by the door. Getting it out of your head and onto the screen is the first crack in the wall."
+          card={<AvoidCard />} flip />
 
-        {/* Step 2 — text left */}
-        <Step
-          n="2"
-          color="var(--violet)"
-          title="Shrink it, do 5 minutes"
-          body="Pick the smallest possible first move — open the doc, write one line — and start a tiny timer. The deal: do five minutes, then you're allowed to quit. You usually won't want to. That's the whole trick to beating task paralysis."
-          card={<DealCard />}
-        />
+        <Step n="2" color="" title="Shrink it, do 5 minutes"
+          body="Pick the smallest possible first move and start a tiny timer. The deal: do five minutes, then you're allowed to quit. You usually won't want to. That's the whole trick."
+          card={<DealCard />} />
 
-        {/* Step 3 — card left */}
-        <Step
-          n="3"
-          color="var(--blue)"
-          title="Get XP for starting"
-          body="The win is that you began — not that you finished. Cross the line and the XP drops, because starting is the hard part for an ADHD brain. Every start is a real hit of success, which is exactly what brings you back tomorrow."
-          card={<ProofCard />}
-          flip
-        />
+        <Step n="3" color="" title="Get XP for starting"
+          body="The win is that you began — not that you finished. Cross the line and the XP drops. Every start is a real hit of success, which is exactly what brings you back tomorrow."
+          card={<ProofCard />} flip />
 
-        {/* Step 4 — text left */}
-        <Step
-          n="4"
-          color="var(--yellow)"
-          title="Keep a streak that survives"
+        <Step n="4" color="" title="Keep a streak that survives"
           body="ADHD isn't linear, so your streak shouldn't snap the first day you miss. Streak freezes kick in automatically. Miss a day, your run survives. No reset to zero, no guilt spiral."
-          card={<StreakCard />}
-        />
+          card={<StreakCard />} />
 
-        {/* Step 5 — centered finish */}
+        {/* Step 5 — Steep centered finish with Ink CTA */}
         <Reveal>
           <div
-            className="relative mx-auto max-w-[640px] p-8 text-center sm:p-12"
+            className="relative mx-auto max-w-[640px] p-8 sm:p-12"
             style={{
-              background: "var(--reward-mint-soft)",
+              background: "var(--bg-elevated)",
               borderRadius: 32,
-              boxShadow: "var(--shadow-lg)",
+              boxShadow: "var(--shadow)",
             }}
           >
             <span
-              className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full text-[20px] font-bold"
-              style={{ background: "var(--lime)", color: "#fff", boxShadow: "var(--shadow-sm)" }}
+              className="mb-5 inline-flex h-10 w-10 items-center justify-center rounded-full text-[15px] font-semibold"
+              style={{ background: "var(--fill-soft)", color: "var(--ink)", border: "1px solid var(--line)" }}
             >
               5
             </span>
             <h3
-              className="font-bold leading-tight text-ink"
-              style={{ fontSize: "clamp(28px,4vw,40px)", letterSpacing: "-0.02em" }}
+              className="steep-display text-ink"
+              style={{ fontSize: "clamp(28px,4vw,38px)" }}
             >
               Level up.
             </h3>
-            <p className="mx-auto mt-3 max-w-[460px] text-[16px] font-medium leading-[1.6] text-ink-muted">
+            <p className="mt-4 max-w-[460px] text-[16px] leading-[1.65]" style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}>
               Watch your XP climb through seven levels — Mildly Curious all the way to Clinically Obsessed.
               Unlock badges, customize your profile, and share a card that&apos;s unmistakably yours.
             </p>
-            <a
-              href="/auth/signup"
-              className="brutal-btn mt-8 h-[54px] rounded-full px-8 text-[16px]"
-              style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
-            >
-              <Trophy size={18} strokeWidth={2.5} /> Start playing — free
-            </a>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <a
+                href="/auth/signup"
+                className="brutal-btn h-[52px] px-8 text-[16px]"
+                style={{ background: "var(--ink)", color: "#fff" }}
+              >
+                <Trophy size={16} strokeWidth={2} /> Start playing — free
+              </a>
+              <span className="text-[13px]" style={{ color: "var(--ink-faint)" }}>No credit card needed</span>
+            </div>
           </div>
         </Reveal>
       </div>
@@ -120,7 +100,6 @@ function Step({
   title,
   body,
   card,
-  color,
   flip = false,
 }: {
   n: string;
@@ -132,23 +111,21 @@ function Step({
 }) {
   return (
     <Reveal>
-      <div className="mb-24 grid items-center gap-10 md:grid-cols-2 md:gap-14">
+      <div className="mb-24 grid items-center gap-10 md:grid-cols-2 md:gap-16">
         <div className={flip ? "order-1 md:order-1" : "order-1 md:order-2"}>
-          <div className="flex items-center gap-3">
-            <span
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[18px] font-bold"
-              style={{ background: color, color: "#fff", boxShadow: "var(--shadow-sm)" }}
-            >
-              {n}
-            </span>
-            <h3
-              className="font-bold leading-tight text-ink"
-              style={{ fontSize: "clamp(22px,3vw,30px)", letterSpacing: "-0.02em" }}
-            >
-              {title}
-            </h3>
-          </div>
-          <p className="mt-5 text-[16px] font-medium leading-[1.65] text-ink-muted">{body}</p>
+          {/* Steep: step number as small plain label */}
+          <span className="mb-4 block text-[12px] font-medium" style={{ color: "var(--ink-faint)", letterSpacing: "0.04em" }}>
+            Step {n}
+          </span>
+          <h3
+            className="steep-heading text-ink"
+            style={{ fontSize: "clamp(24px,3vw,32px)" }}
+          >
+            {title}
+          </h3>
+          <p className="mt-5 text-[16px] leading-[1.7]" style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}>
+            {body}
+          </p>
         </div>
         <div className={flip ? "order-2 md:order-2" : "order-2 md:order-1"}>{card}</div>
       </div>
@@ -156,14 +133,14 @@ function Step({
   );
 }
 
-/* ── Soft card shell — pastel tinted panel, big radius, gentle hover lift. ── */
+/* ── Steep card shell — white or tinted surface, 24px radius, three-layer shadow. ── */
 function CardShell({ tint, children }: { tint: string; children: React.ReactNode }) {
   return (
     <div
       className="brutal-hover p-5 sm:p-6"
       style={{
         background: tint,
-        borderRadius: 28,
+        borderRadius: 24,
         boxShadow: "var(--shadow)",
       }}
     >
@@ -186,7 +163,7 @@ function Label({ icon, children }: { icon: React.ReactNode; children: React.Reac
 
 function AvoidCard() {
   return (
-    <CardShell tint="var(--flame-soft)">
+    <CardShell tint="var(--apricot)">
       <div className="mb-4">
         <Label icon={<BookOpen size={11} strokeWidth={2.5} />}>Still waiting on you</Label>
       </div>
@@ -220,7 +197,7 @@ function AvoidCard() {
 
 function DealCard() {
   return (
-    <CardShell tint="var(--violet-soft)">
+    <CardShell tint="var(--bg-elevated)">
       <div className="mb-4 flex items-center justify-between">
         <Label icon={<Sparkles size={11} strokeWidth={2.5} />}>The deal</Label>
         <span
@@ -248,7 +225,7 @@ function DealCard() {
 
 function ProofCard() {
   return (
-    <CardShell tint="var(--accent-soft)">
+    <CardShell tint="var(--sky)">
       <div className="mb-4">
         <Label icon={<Clock size={11} strokeWidth={2.5} />}>You started</Label>
       </div>
@@ -278,7 +255,7 @@ function ProofCard() {
 
 function StreakCard() {
   return (
-    <CardShell tint="var(--pastel-yellow)">
+    <CardShell tint="var(--bg-elevated)">
       <div className="mb-4">
         <Label icon={<Flame size={11} strokeWidth={2.5} fill="var(--flame)" />}>14-day streak</Label>
       </div>

@@ -3,90 +3,98 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════════════════
-   HYPERFIX — APPLE-INSPIRED DESIGN SYSTEM
-   iOS/macOS canvas. True-black ink. Lilac brand accent. System fills.
-   Apple-standard radii (13–16px), hairline separators, material surfaces.
-   (Class & variable names kept from the previous system so every
-   component restyles automatically.)
+   HYPERFIX — STEEP-INSPIRED DESIGN SYSTEM
+   White/Fog canvas. Ink #17191c. Lilac brand accent. Editorial serifs.
+   24px card radius (ceramic-tile feel). Three-layer shadow. One CTA/screen.
+   (Class & variable names kept so all existing components restyle.)
    ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
-  --font-display: var(--font-grotesk);
+  /* Steep: Signifier for display → Playfair Display (Google Fonts free sub) */
+  --font-display: var(--font-display, Georgia, 'Times New Roman', serif);
 
-  /* ── Canvas — iOS system grouped background ── */
-  --bg:           #F2F2F7;   /* iOS systemGroupedBackground */
-  --bg-soft:      #EFEFF4;   /* iOS secondarySystemGroupedBackground */
-  --bg-elevated:  #FFFFFF;   /* iOS systemBackground / card surface */
+  /* ── Canvas — Steep white/fog surfaces ── */
+  --bg:           #f7f7f8;   /* Steep Fog — page bg, sidebar, section fills */
+  --bg-soft:      #f0f0f2;   /* slightly deeper fog for alternating sections */
+  --bg-elevated:  #ffffff;   /* Pure White — card surface */
 
-  /* ── Ink — Apple label colors ── */
-  --ink:          #000000;   /* iOS label */
-  --ink-muted:    #3C3C43;   /* iOS secondaryLabel (at 60% → #636366) */
-  --ink-faint:    #8E8E93;   /* iOS tertiaryLabel */
+  /* ── Ink — Steep ink hierarchy ── */
+  --ink:          #17191c;   /* Steep Ink — near-black with warmth */
+  --ink-muted:    #4c4c4c;   /* Steep Ash — body text */
+  --ink-faint:    #777b86;   /* Steep Graphite — tertiary, icons */
 
-  /* ── Separators — Apple hairline ── */
-  --line:         rgba(60,60,67,0.13);   /* iOS separator */
-  --line-strong:  rgba(60,60,67,0.22);   /* iOS opaqueSeparator approx */
+  /* ── Borders — Steep Dove hairlines ── */
+  --line:         #e2e2e5;   /* Steep Dove-ish — hairline borders */
+  --line-strong:  #a3a6af;   /* Steep Dove — stronger dividers */
   --bw:           1px;
   --bw-lg:        1px;
 
-  /* ── Brand accent + system fills ── */
-  --blue:         #6957E8;   /* Hyperfix lilac-violet — brand primary */
-  --yellow:       #FF9F0A;   /* iOS system yellow */
-  --pink:         #FF2D55;   /* iOS system pink */
-  --lime:         #30D158;   /* iOS system green */
-  --coral:        #FF6B6B;
-  --violet:       #BF5AF2;   /* iOS system purple */
-  --violet-soft:  #F0EBFF;
+  /* ── Brand accent ── */
+  --blue:         #6957E8;   /* Hyperfix lilac-violet — Steep's "Rust" analogue */
+  --yellow:       #e8a020;
+  --pink:         #d4607a;
+  --lime:         #2ca05a;
+  --coral:        #d45c4c;
+  --violet:       #7b5ce8;
+  --violet-soft:  #eeeafd;
 
   --accent:       var(--blue);
-  --accent-soft:  #EEEAFD;   /* tint at 8% opacity */
-  --accent-ink:   #FFFFFF;
+  --accent-soft:  #eeeafd;
+  --accent-ink:   #ffffff;
 
-  /* iOS system fill — for secondary/tertiary surfaces */
-  --fill:         rgba(120,120,128,0.2);
-  --fill-soft:    rgba(120,120,128,0.12);
-  --fill-faint:   rgba(120,120,128,0.08);
+  /* Steep Apricot Wash + Sky Wash — card tints, hero glow */
+  --apricot:      #fbe1d1;   /* Steep Apricot Wash */
+  --sky:          #d3e3fc;   /* Steep Sky Wash */
+  --fill:         rgba(23,25,28,0.06);
+  --fill-soft:    rgba(23,25,28,0.04);
+  --fill-faint:   rgba(23,25,28,0.025);
 
-  /* Semantic roles */
-  --xp:           #BF5AF2;   /* iOS purple */
-  --xp-soft:      #F5EEFF;
-  --flame:        #FF6B6B;   /* warm red */
-  --flame-soft:   #FFF0F0;
+  /* Semantic roles — muted, editorial */
+  --xp:           #6957E8;
+  --xp-soft:      #eeeafd;
+  --flame:        #c4573d;
+  --flame-soft:   #fbe1d1;   /* apricot wash reuse */
   --energy:       var(--blue);
-  --energy-soft:  #EEEAFD;
+  --energy-soft:  #eeeafd;
 
-  --reward-mint:       #30D158;
-  --reward-mint-soft:  #EDFAF2;
-  --reward-amber:      #FF9F0A;
-  --reward-amber-soft: #FFF5E0;
-  --reward-coral:      #FF6B6B;
-  --reward-coral-soft: #FFF0F0;
+  --reward-mint:       #2ca05a;
+  --reward-mint-soft:  #e8f5ef;
+  --reward-amber:      #e8a020;
+  --reward-amber-soft: #fdf3e0;
+  --reward-coral:      #d45c4c;
+  --reward-coral-soft: #fbe1d1;
 
-  /* Pastel fills — lighter/more neutral Apple-style */
-  --pastel-purple: #EEEAFD;
-  --pastel-pink:   #FFEEF3;
-  --pastel-blue:   #E8F1FF;
-  --pastel-green:  #EDFAF2;
-  --pastel-orange: #FFF3E0;
-  --pastel-yellow: #FFF5E0;
+  /* Pastel tints — Steep apricot + sky + their variants */
+  --pastel-purple: #eeeafd;
+  --pastel-pink:   #fbe1d1;   /* apricot */
+  --pastel-blue:   #d3e3fc;   /* sky */
+  --pastel-green:  #e8f5ef;
+  --pastel-orange: #fdf3e0;
+  --pastel-yellow: #fdf3e0;
 
-  /* Invert */
-  --invert-bg:    #1C1C1E;
-  --invert-ink:   #FFFFFF;
+  --invert-bg:    #17191c;
+  --invert-ink:   #ffffff;
 
-  /* ── Apple-style shadows — subtle material depth ── */
-  --shadow:       0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-sm:    0 1px 2px rgba(0,0,0,0.06);
-  --shadow-lg:    0 4px 16px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
-  --shadow-xl:    0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08);
+  /* ── Steep three-layer card shadow ── */
+  --shadow:       rgba(4,23,43,0.05) 0px 0px 0px 1px,
+                  rgba(0,0,0,0.10) 0px 20px 25px -5px,
+                  rgba(0,0,0,0.10) 0px 8px 10px -6px;
+  --shadow-sm:    rgba(4,23,43,0.05) 0px 0px 0px 1px,
+                  rgba(0,0,0,0.06) 0px 4px 6px -2px;
+  --shadow-lg:    rgba(4,23,43,0.06) 0px 0px 0px 1px,
+                  rgba(0,0,0,0.14) 0px 32px 40px -8px,
+                  rgba(0,0,0,0.10) 0px 12px 16px -6px;
+  --shadow-xl:    rgba(4,23,43,0.07) 0px 0px 0px 1px,
+                  rgba(0,0,0,0.18) 0px 40px 56px -8px,
+                  rgba(0,0,0,0.12) 0px 16px 24px -6px;
 
-  /* ── Radius — Apple HIG standard ── */
-  --radius-lg:    13px;   /* Apple card radius */
-  --radius-xl:    16px;   /* larger sections */
+  /* ── Radius — Steep 24px cards, 9999px buttons ── */
+  --radius-lg:    24px;   /* Steep card radius — ceramic tile feel */
+  --radius-xl:    32px;   /* section blocks */
 
   color-scheme: light;
 
-  /* shadcn compatibility aliases */
+  /* shadcn compatibility */
   --background:        var(--bg);
   --card:              var(--bg-elevated);
   --card-foreground:   var(--ink);
@@ -94,60 +102,75 @@
   --popover-foreground: var(--ink);
   --primary:           var(--accent);
   --primary-foreground: var(--accent-ink);
-  --muted:             240 5% 94%;
+  --muted:             240 4% 95%;
   --muted-foreground:  var(--ink-muted);
   --foreground:        var(--ink);
   --border:            var(--line);
 
-  /* glass aliases */
-  --glass-bg:     rgba(255,255,255,0.72);
-  --glass-border: rgba(255,255,255,0.3);
+  --glass-bg:     rgba(255,255,255,0.85);
+  --glass-border: rgba(255,255,255,0.4);
 }
 
 :root[data-theme="light"] { color-scheme: light; }
 
-/* ── Dark variant — Apple dark mode: true black, elevated surfaces. ── */
+/* ── Dark variant — Steep at night: deep warm-gray, same structure. ── */
 :root[data-theme="dark"] {
-  --bg:           #000000;   /* iOS systemBackground dark */
-  --bg-soft:      #1C1C1E;   /* iOS secondarySystemBackground dark */
-  --bg-elevated:  #2C2C2E;   /* iOS tertiarySystemBackground dark */
-  --ink:          #FFFFFF;   /* iOS label dark */
-  --ink-muted:    #EBEBF5;   /* iOS secondaryLabel dark (at 60% → #EBEBF599) */
-  --ink-faint:    #8D8D93;   /* iOS tertiaryLabel dark */
-  --line:         rgba(84,84,88,0.6);    /* iOS separator dark */
-  --line-strong:  rgba(84,84,88,0.85);
+  --bg:           #111113;
+  --bg-soft:      #18181b;
+  --bg-elevated:  #1e1e22;
+  --ink:          #f4f4f5;
+  --ink-muted:    #a1a1aa;
+  --ink-faint:    #71717a;
+  --line:         rgba(255,255,255,0.08);
+  --line-strong:  rgba(255,255,255,0.13);
 
-  --fill:         rgba(120,120,128,0.36);
-  --fill-soft:    rgba(120,120,128,0.24);
-  --fill-faint:   rgba(120,120,128,0.16);
+  --fill:         rgba(255,255,255,0.08);
+  --fill-soft:    rgba(255,255,255,0.05);
+  --fill-faint:   rgba(255,255,255,0.03);
 
-  --accent:       #7B6CF0;   /* brand purple lightened for dark */
-  --accent-soft:  #1E1A3A;
-  --accent-ink:   #FFFFFF;
-  --xp:           #CC7FF5;
-  --xp-soft:      #2A1F3D;
-  --flame:        #FF7B7B;
-  --flame-soft:   #2E1A1A;
-  --energy:       #7B6CF0;
-  --energy-soft:  #1E1A3A;
+  --accent:       #8b7cf4;
+  --accent-soft:  #1e1a3a;
+  --accent-ink:   #ffffff;
+  --apricot:      #3a2518;
+  --sky:          #0d1f3c;
+  --xp:           #8b7cf4;
+  --xp-soft:      #1e1a3a;
+  --flame:        #e06b54;
+  --flame-soft:   #3a2518;
+  --energy:       #8b7cf4;
+  --energy-soft:  #1e1a3a;
 
-  --pastel-purple: #1E1A3A;
-  --pastel-pink:   #2E1322;
-  --pastel-blue:   #0D1F3C;
-  --pastel-green:  #0D2418;
-  --pastel-orange: #2E1D0A;
-  --pastel-yellow: #2A1F0A;
+  --reward-mint:       #34a868;
+  --reward-mint-soft:  #0d2218;
+  --reward-amber:      #d4922a;
+  --reward-amber-soft: #2e1f0a;
+  --reward-coral:      #e06b54;
+  --reward-coral-soft: #3a2518;
 
-  --invert-bg:    #F2F2F7;
-  --invert-ink:   #1C1C1E;
+  --pastel-purple: #1e1a3a;
+  --pastel-pink:   #3a2518;
+  --pastel-blue:   #0d1f3c;
+  --pastel-green:  #0d2218;
+  --pastel-orange: #2e1f0a;
+  --pastel-yellow: #2e1f0a;
 
-  --shadow:       0 2px 12px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3);
-  --shadow-sm:    0 1px 4px rgba(0,0,0,0.4);
-  --shadow-lg:    0 6px 24px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.4);
-  --shadow-xl:    0 12px 40px rgba(0,0,0,0.7), 0 4px 12px rgba(0,0,0,0.5);
+  --invert-bg:    #f7f7f8;
+  --invert-ink:   #17191c;
 
-  --glass-bg:     rgba(44,44,46,0.85);
-  --glass-border: rgba(255,255,255,0.08);
+  --shadow:       rgba(0,0,0,0.4) 0px 0px 0px 1px,
+                  rgba(0,0,0,0.5) 0px 20px 25px -5px,
+                  rgba(0,0,0,0.4) 0px 8px 10px -6px;
+  --shadow-sm:    rgba(0,0,0,0.3) 0px 0px 0px 1px,
+                  rgba(0,0,0,0.3) 0px 4px 6px -2px;
+  --shadow-lg:    rgba(0,0,0,0.5) 0px 0px 0px 1px,
+                  rgba(0,0,0,0.6) 0px 32px 40px -8px,
+                  rgba(0,0,0,0.5) 0px 12px 16px -6px;
+  --shadow-xl:    rgba(0,0,0,0.6) 0px 0px 0px 1px,
+                  rgba(0,0,0,0.7) 0px 40px 56px -8px,
+                  rgba(0,0,0,0.5) 0px 16px 24px -6px;
+
+  --glass-bg:     rgba(30,30,34,0.92);
+  --glass-border: rgba(255,255,255,0.06);
   --muted:        240 4% 14%;
   color-scheme: dark;
 }
@@ -191,25 +214,25 @@ html, body {
    SOFT PRIMITIVES (legacy "brutal-*" names kept — visuals are friendly)
    ════════════════════════════════════════════════════════════════════ */
 
-/* Apple card — white surface, hairline border, subtle shadow. */
+/* Steep card — white surface, 24px radius, three-layer shadow. */
 .brutal-box {
   background: var(--bg-elevated);
-  border: var(--bw) solid var(--line);
+  border: none;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
 }
 .brutal-box-lg {
   background: var(--bg-elevated);
-  border: var(--bw) solid var(--line);
+  border: none;
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-lg);
 }
 .brutal-border    { border: var(--bw) solid var(--line); }
 .brutal-shadow    { box-shadow: var(--shadow); }
 .brutal-shadow-lg { box-shadow: var(--shadow-lg); }
 .brutal-shadow-xl { box-shadow: var(--shadow-xl); }
 
-/* Apple-style button: rounded rect, system-feel, no lift — just a subtle press. */
+/* Steep-style button: pill shape (9999px), slight opacity on hover. */
 .brutal-btn {
   position: relative;
   display: inline-flex;
@@ -217,14 +240,14 @@ html, body {
   justify-content: center;
   gap: 0.5rem;
   border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  transition: opacity 0.12s ease, transform 0.12s ease;
+  border-radius: 9999px;
+  font-weight: 500;
+  letter-spacing: -0.009em;
+  transition: opacity 0.15s ease, transform 0.12s ease;
   will-change: transform;
 }
-.brutal-btn:hover  { opacity: 0.88; }
-.brutal-btn:active { transform: scale(0.97); opacity: 0.75; }
+.brutal-btn:hover  { opacity: 0.85; }
+.brutal-btn:active { transform: scale(0.98); opacity: 0.75; }
 
 /* Cursor-following glow — a soft light inside the button that tracks the
    pointer (set as --mx/--my by CursorGlow). The button feels aware of you. */
@@ -300,15 +323,61 @@ html, body {
 .accent-glow {
   background: radial-gradient(closest-side, var(--accent-soft), transparent 70%);
 }
+/* Steep hero glow — apricot wash radial, used only in hero */
+.steep-hero-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(251,225,209,0.55) 0%, transparent 65%);
+  pointer-events: none;
+}
+:root[data-theme="dark"] .steep-hero-glow {
+  background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(105,87,232,0.12) 0%, transparent 65%);
+}
+
 .grid-bg {
-  background-image: radial-gradient(rgba(60,60,67,0.06) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(23,25,28,0.05) 1px, transparent 1px);
   background-size: 26px 26px;
 }
 :root[data-theme="dark"] .grid-bg {
-  background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
 }
 
-/* Apple-style grouped list — inset separator from left edge */
+/* Steep display text — Playfair Display editorial serif */
+.steep-display {
+  font-family: var(--font-display), Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.10;
+}
+.steep-heading {
+  font-family: var(--font-display), Georgia, 'Times New Roman', serif;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+}
+
+/* Steep warm card — apricot wash background */
+.steep-warm-card {
+  background: var(--apricot);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+/* Steep cool card — sky wash background */
+.steep-cool-card {
+  background: var(--sky);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+/* Frosted glass surface (sidebar) */
+.apple-glass {
+  background: var(--bg-elevated);
+}
+:root[data-theme="dark"] .apple-glass {
+  background: var(--bg-elevated);
+}
+
+/* List rows */
 .apple-list-row {
   display: flex;
   align-items: center;
@@ -317,32 +386,15 @@ html, body {
   background: var(--bg-elevated);
   transition: background 0.1s ease;
 }
-.apple-list-row:active,
 .apple-list-row:hover { background: var(--fill-faint); }
-.apple-list-row + .apple-list-row {
-  border-top: 1px solid var(--line);
-}
-
-/* Apple system fill buttons */
+.apple-list-row + .apple-list-row { border-top: 1px solid var(--line); }
 .apple-btn-fill {
   background: var(--fill-soft);
   border-radius: 10px;
   font-weight: 600;
-  transition: background 0.12s ease, opacity 0.12s ease;
+  transition: background 0.12s ease;
 }
-.apple-btn-fill:active { background: var(--fill); opacity: 0.8; }
-
-/* Frosted glass surface (sidebar, sheets) */
-.apple-glass {
-  background: rgba(255,255,255,0.72);
-  backdrop-filter: blur(20px) saturate(1.8);
-  -webkit-backdrop-filter: blur(20px) saturate(1.8);
-  border-right: 1px solid rgba(255,255,255,0.25);
-}
-:root[data-theme="dark"] .apple-glass {
-  background: rgba(28,28,30,0.85);
-  border-right: 1px solid rgba(255,255,255,0.06);
-}
+.apple-btn-fill:active { background: var(--fill); }
 
 /* Dotted texture (replaces the old hard diagonal hatch). */
 .hatch {

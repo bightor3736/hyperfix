@@ -1,123 +1,168 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Check, Flame, Play, Zap, ArrowRight, Star, Heart, Sparkles } from "lucide-react";
+import { Check, Flame, Play, Zap, ArrowRight, Star } from "lucide-react";
 import { LogoMark } from "@/components/Logo";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden" style={{ background: "var(--bg)" }}>
-      {/* soft pastel blobs backdrop */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div
-          className="absolute -top-32 right-[-10%] h-[480px] w-[480px] rounded-full opacity-70"
-          style={{ background: "radial-gradient(closest-side, var(--accent-soft), transparent 72%)" }}
-        />
-        <div
-          className="absolute bottom-[-20%] left-[-8%] h-[420px] w-[420px] rounded-full opacity-60"
-          style={{ background: "radial-gradient(closest-side, var(--pastel-pink), transparent 72%)" }}
-        />
-        <div
-          className="absolute top-[30%] left-[38%] h-[300px] w-[300px] rounded-full opacity-50"
-          style={{ background: "radial-gradient(closest-side, var(--pastel-yellow), transparent 72%)" }}
-        />
-      </div>
+    <section className="relative overflow-hidden" style={{ background: "var(--bg-elevated)" }}>
+      {/* Steep hero glow — apricot wash radial from top-center */}
+      <div className="steep-hero-glow" aria-hidden />
 
-      <div className="relative mx-auto max-w-[1200px] px-5 pt-14 pb-6 sm:px-8 sm:pt-24">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+      <div className="relative mx-auto max-w-[1200px] px-6 pb-10 pt-20 sm:px-8 sm:pt-28">
 
-          {/* ── Left: copy ── */}
-          <div>
-            {/* eyebrow chip — soft pastel pill */}
-            <span
-              className="anim-fadeUp mb-6 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[13px] font-bold"
-              style={{ background: "var(--accent-soft)", color: "var(--accent)" }}
+        {/* ── Centered headline block ── */}
+        <div className="mx-auto max-w-[760px] text-center">
+          {/* Eyebrow */}
+          <span
+            className="anim-fadeUp mb-8 inline-block rounded-full px-4 py-1.5 text-[13px]"
+            style={{
+              background: "var(--fill-soft)",
+              color: "var(--ink-muted)",
+              border: "1px solid var(--line)",
+              letterSpacing: "-0.009em",
+            }}
+          >
+            For ADHD brains
+          </span>
+
+          {/* Steep: large Signifier-style display headline */}
+          <h1
+            className="steep-display anim-fadeUp delay-100 text-ink"
+            style={{ fontSize: "clamp(42px, 7vw, 80px)" }}
+          >
+            Trick your brain into{" "}
+            <span style={{ color: "var(--accent)", fontStyle: "italic" }}>starting.</span>
+          </h1>
+
+          <p
+            className="anim-fadeUp delay-200 mx-auto mt-7 max-w-[520px] text-[18px] leading-[1.6]"
+            style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}
+          >
+            Name what you&apos;re avoiding, shrink it to five minutes, and earn XP
+            for starting — not for finishing. No guilt, no dead streaks.
+          </p>
+
+          {/* Steep: one filled Ink CTA + text link */}
+          <div className="anim-fadeUp delay-300 mt-9 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="/auth/signup"
+              className="brutal-btn h-[52px] px-8 text-[16px]"
+              style={{ background: "var(--ink)", color: "#ffffff" }}
             >
-              <Sparkles size={14} strokeWidth={2.5} /> Made for ADHD brains
-            </span>
-
-            <h1
-              className="anim-fadeUp delay-100 leading-[1.04] text-ink"
-              style={{ fontSize: "clamp(40px,6.4vw,76px)", fontWeight: 700, letterSpacing: "-0.025em" }}
+              Start for free
+            </a>
+            <a
+              href="#features"
+              className="text-[16px] transition-opacity hover:opacity-70"
+              style={{ color: "var(--ink)", letterSpacing: "-0.009em" }}
             >
-              Trick your brain into{" "}
-              <span className="relative inline-block" style={{ color: "var(--accent)" }}>
-                starting
-                <svg
-                  aria-hidden
-                  viewBox="0 0 220 14"
-                  className="absolute -bottom-2 left-0 w-full"
-                  style={{ height: 12 }}
-                >
-                  <path
-                    d="M4 10 C 60 2, 160 2, 216 8"
-                    fill="none"
-                    stroke="var(--yellow)"
-                    strokeWidth="7"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
-              .
-            </h1>
-
-            <p className="anim-fadeUp delay-200 mt-7 max-w-[480px] text-[18px] font-medium leading-[1.6] text-ink-muted">
-              Stuck staring at the thing you&apos;ve been avoiding? Name it, shrink
-              it, and do just 5 minutes. We reward you for{" "}
-              <span className="text-ink" style={{ fontWeight: 700 }}>starting</span> —
-              not for being perfect. No guilt, no dead streaks.
-            </p>
-
-            <div className="anim-fadeUp delay-300 mt-9 flex flex-wrap items-center gap-3">
-              <a
-                href="/auth/signup"
-                className="brutal-btn h-[56px] rounded-full px-8 text-[16px]"
-                style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
-              >
-                Start something free <ArrowRight size={18} strokeWidth={2.5} />
-              </a>
-              <a
-                href="#features"
-                className="brutal-btn h-[56px] rounded-full px-8 text-[16px]"
-                style={{ background: "var(--bg-elevated)", color: "var(--ink)", border: "1px solid var(--line)" }}
-              >
-                See how it works
-              </a>
-            </div>
-
-            {/* rating + reassurance strip */}
-            <div className="anim-fadeUp delay-400 mt-7 flex flex-wrap items-center gap-x-5 gap-y-2">
-              <span className="inline-flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={15} fill="var(--yellow)" stroke="var(--yellow)" />
-                ))}
-              </span>
-              <span className="text-[13px] font-semibold text-ink-muted">
-                Loved by brains that can&apos;t just start
-              </span>
-              <span className="text-[13px] font-medium text-ink-faint">
-                Free to start · no credit card
-              </span>
-            </div>
+              See how it works →
+            </a>
           </div>
 
-          {/* ── Right: interactive demo in a phone frame ── */}
-          <div className="anim-fadeUp delay-300 flex justify-center lg:justify-end">
-            <PhoneFrame>
-              <HeroStartDemo />
-            </PhoneFrame>
+          {/* Reassurance line */}
+          <div className="anim-fadeUp delay-400 mt-6 flex flex-wrap items-center justify-center gap-4">
+            <span className="inline-flex items-center gap-1">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} size={14} fill="var(--ink-faint)" stroke="var(--ink-faint)" />
+              ))}
+            </span>
+            <span className="text-[13px]" style={{ color: "var(--ink-faint)", letterSpacing: "-0.009em" }}>
+              Free to start · no credit card
+            </span>
           </div>
         </div>
 
-        {/* soft proof strip */}
+        {/* ── Floating product cards — Steep style ── */}
+        <div className="relative mx-auto mt-16 max-w-[860px]">
+
+          {/* Central app demo — the main product card */}
+          <div
+            className="relative mx-auto max-w-[480px]"
+            style={{
+              background: "var(--bg-elevated)",
+              borderRadius: 24,
+              boxShadow: "var(--shadow-lg)",
+              overflow: "hidden",
+            }}
+          >
+            <HeroStartDemo />
+          </div>
+
+          {/* Floating stat card — left */}
+          <div
+            className="absolute hidden md:block"
+            style={{
+              top: 20,
+              left: -60,
+              width: 160,
+              background: "var(--bg-elevated)",
+              borderRadius: 20,
+              boxShadow: "var(--shadow)",
+              padding: "16px 18px",
+              transform: "rotate(-2deg)",
+            }}
+          >
+            <p className="text-[11px]" style={{ color: "var(--ink-faint)", letterSpacing: "-0.009em" }}>Current streak</p>
+            <p className="mt-1 text-[32px] font-semibold leading-none tabular-nums" style={{ color: "var(--ink)", letterSpacing: "-0.04em" }}>14</p>
+            <p className="mt-1 text-[11px]" style={{ color: "var(--flame)" }}>🔥 days</p>
+          </div>
+
+          {/* Floating XP card — right */}
+          <div
+            className="absolute hidden md:block"
+            style={{
+              top: 32,
+              right: -50,
+              width: 148,
+              background: "var(--apricot)",
+              borderRadius: 20,
+              boxShadow: "var(--shadow)",
+              padding: "16px 18px",
+              transform: "rotate(1.5deg)",
+            }}
+          >
+            <p className="text-[11px]" style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}>XP earned</p>
+            <p className="mt-1 text-[28px] font-semibold leading-none tabular-nums" style={{ color: "var(--ink)", letterSpacing: "-0.04em" }}>+20</p>
+            <p className="mt-1 text-[11px]" style={{ color: "var(--ink-muted)" }}>for starting ✓</p>
+          </div>
+
+          {/* Floating level card — bottom left */}
+          <div
+            className="absolute hidden md:block"
+            style={{
+              bottom: 20,
+              left: -40,
+              width: 152,
+              background: "var(--sky)",
+              borderRadius: 20,
+              boxShadow: "var(--shadow)",
+              padding: "14px 18px",
+              transform: "rotate(1deg)",
+            }}
+          >
+            <p className="text-[11px]" style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}>Level</p>
+            <p className="mt-1 text-[15px] font-semibold leading-tight" style={{ color: "var(--ink)", letterSpacing: "-0.01em" }}>Deeply Unwell</p>
+            <div className="mt-2 h-1.5 overflow-hidden rounded-full" style={{ background: "rgba(23,25,28,0.1)" }}>
+              <div className="h-full rounded-full" style={{ width: "72%", background: "var(--accent)" }} />
+            </div>
+          </div>
+        </div>
+
+        {/* ── Proof strip — Steep white card below hero ── */}
         <div
-          className="mt-16 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 rounded-[28px] px-6 py-5"
-          style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)", boxShadow: "var(--shadow)" }}
+          className="mt-20 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 rounded-[20px] px-8 py-6"
+          style={{
+            background: "var(--bg-elevated)",
+            boxShadow: "var(--shadow-sm)",
+          }}
         >
           {PROOF_ITEMS.map((p) => (
-            <span key={p.label} className="inline-flex items-center gap-2 text-[13.5px] font-bold text-ink-muted">
+            <span key={p.label} className="flex items-center gap-2.5 text-[14px]" style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}>
               <span
-                className="flex h-7 w-7 items-center justify-center rounded-full"
+                className="flex h-6 w-6 items-center justify-center rounded-full"
                 style={{ background: p.tint, color: p.color }}
               >
                 {p.icon}
@@ -132,42 +177,18 @@ export function Hero() {
 }
 
 const PROOF_ITEMS = [
-  { label: "Rewards the start, not the finish", icon: <Zap size={14} strokeWidth={2.5} />, tint: "var(--accent-soft)", color: "var(--accent)" },
-  { label: "5-minute deals your brain accepts", icon: <Play size={13} strokeWidth={2.5} fill="currentColor" />, tint: "var(--pastel-yellow)", color: "#B8860B" },
-  { label: "Streaks that forgive bad weeks", icon: <Flame size={14} strokeWidth={2.5} />, tint: "var(--flame-soft)", color: "var(--flame)" },
-  { label: "Built with ADHD, for ADHD", icon: <Heart size={13} strokeWidth={2.5} fill="currentColor" />, tint: "var(--pastel-pink)", color: "var(--pink)" },
+  { label: "XP for starting, not finishing",  icon: <Zap size={13} strokeWidth={2.5} />,              tint: "var(--accent-soft)", color: "var(--accent)" },
+  { label: "5-minute deal your brain accepts", icon: <Play size={12} strokeWidth={2.5} fill="currentColor" />, tint: "var(--apricot)",      color: "var(--ink-muted)" },
+  { label: "Streaks that survive bad weeks",   icon: <Flame size={13} strokeWidth={2.5} />,             tint: "var(--flame-soft)",  color: "var(--flame)" },
+  { label: "Built with ADHD, for ADHD",        icon: <span>♥</span>,                                   tint: "var(--fill-soft)",   color: "var(--ink-muted)" },
 ];
 
-/* Rounded device shell around the live demo — the friendly app-in-hand look. */
-function PhoneFrame({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      className="w-full max-w-[400px] p-3"
-      style={{
-        background: "var(--ink)",
-        borderRadius: 44,
-        boxShadow: "var(--shadow-xl)",
-      }}
-    >
-      <div
-        className="overflow-hidden"
-        style={{ background: "var(--bg)", borderRadius: 34 }}
-      >
-        {/* speaker notch bar */}
-        <div className="flex justify-center pt-2.5 pb-1">
-          <div className="h-[5px] w-16 rounded-full" style={{ background: "var(--line-strong)" }} />
-        </div>
-        {children}
-      </div>
-    </div>
-  );
-}
-
+/* ── Animated product demo card ── */
 const DEMO_TASKS: { task: string; step: string }[] = [
   { task: "the email I've been dreading", step: "open it, write one line" },
-  { task: "my tax return", step: "just find the login" },
-  { task: "the gym bag by the door", step: "put on the shoes" },
-  { task: "that essay due Friday", step: "type the title" },
+  { task: "my tax return",                step: "just find the login" },
+  { task: "the gym bag by the door",      step: "put on the shoes" },
+  { task: "that essay due Friday",        step: "type the title" },
 ];
 
 type DemoPhase = "ask" | "deal" | "running" | "done";
@@ -181,7 +202,7 @@ function HeroStartDemo() {
 
   useEffect(() => {
     if (!live) return;
-    const delays: Record<DemoPhase, number> = { ask: 1900, deal: 1700, running: 1600, done: 2100 };
+    const delays: Record<DemoPhase, number> = { ask: 2000, deal: 1800, running: 1700, done: 2200 };
     const t = setTimeout(() => {
       setPhase((p) => {
         if (p === "ask") return "deal";
@@ -206,88 +227,91 @@ function HeroStartDemo() {
   }
 
   return (
-    <div className="w-full p-5">
-      {/* header */}
+    <div className="w-full p-6">
+      {/* Header row */}
       <div className="mb-5 flex items-start justify-between">
         <div>
-          <span className="mb-2 inline-flex items-center gap-1.5">
-            <LogoMark size={16} color="var(--accent)" />
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-ink">Just start</span>
-          </span>
-          <h3 className="text-[21px] font-bold leading-tight text-ink" style={{ letterSpacing: "-0.02em" }}>
+          <div className="mb-1 flex items-center gap-1.5">
+            <LogoMark size={15} color="var(--accent)" />
+            <span className="text-[11px] font-semibold" style={{ color: "var(--ink-faint)", letterSpacing: "-0.009em" }}>Just start</span>
+          </div>
+          <h3 className="steep-heading text-[22px] text-ink" style={{ fontSize: 22 }}>
             {phase === "done" ? "You started." : "What are you avoiding?"}
           </h3>
         </div>
+        {/* XP badge — Steep Apricot Wash */}
         <div
-          className="flex shrink-0 flex-col items-center rounded-2xl px-3 py-1.5"
-          style={{ background: "var(--xp)", boxShadow: "var(--shadow-sm)" }}
+          className="flex shrink-0 flex-col items-center rounded-[14px] px-3.5 py-2"
+          style={{ background: "var(--apricot)" }}
         >
-          <span className="text-[18px] font-bold leading-none tabular-nums" style={{ color: "#fff" }}>{xp.toLocaleString()}</span>
-          <span className="mt-0.5 font-mono text-[8px] uppercase tracking-widest" style={{ color: "#fff" }}>total xp</span>
+          <span className="text-[20px] font-semibold leading-none tabular-nums" style={{ color: "var(--ink)", letterSpacing: "-0.04em" }}>{xp}</span>
+          <span className="mt-0.5 text-[9px] font-medium uppercase tracking-[0.08em]" style={{ color: "var(--ink-muted)" }}>XP</span>
         </div>
       </div>
 
-      {/* task card */}
+      {/* Task card */}
       <div
-        className="mb-4 rounded-3xl p-4 transition-colors"
+        className="mb-4 rounded-[16px] p-4"
         style={{
-          background: phase === "done" ? "var(--reward-mint-soft)" : "var(--bg-soft)",
+          background: phase === "done" ? "var(--sky)" : "var(--bg)",
           border: "1px solid var(--line)",
         }}
       >
-        <div className="mb-2.5 flex items-center justify-between">
+        <div className="mb-2 flex items-center justify-between">
           <span
-            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider"
+            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium"
             style={{
-              background: phase === "done" ? "var(--lime)" : "var(--bg-elevated)",
-              color: phase === "done" ? "#fff" : "var(--ink)",
+              background: phase === "done" ? "var(--reward-mint)" : "var(--bg-elevated)",
+              color: phase === "done" ? "#fff" : "var(--ink-muted)",
               border: phase === "done" ? "none" : "1px solid var(--line)",
             }}
           >
-            {phase === "done" ? <Check size={11} strokeWidth={3} /> : <Zap size={11} strokeWidth={3} />}
-            {phase === "done" ? "Started · nice" : "The dreaded task"}
+            {phase === "done" ? <Check size={11} strokeWidth={2.5} /> : <Zap size={11} strokeWidth={2.5} />}
+            {phase === "done" ? "Started ✓" : "Dreaded task"}
           </span>
           {phase === "running" && (
-            <span className="inline-flex items-center gap-2 font-mono text-[12px] font-bold tabular-nums" style={{ color: "var(--flame)" }}>
-              <span className="live-dot" style={{ color: "var(--lime)", width: 8, height: 8 }} />
+            <span className="flex items-center gap-1.5 text-[13px] font-semibold tabular-nums" style={{ color: "var(--ink)" }}>
+              <span className="live-dot" style={{ color: "var(--reward-mint)", width: 8, height: 8 }} />
               4:59
             </span>
           )}
         </div>
-        <p className="text-[18px] font-bold leading-snug text-ink" style={{ letterSpacing: "-0.02em" }}>{item.task}</p>
-        <p className="mt-0.5 text-[13px] font-medium text-ink-muted">
-          {phase === "ask" && "tap to name it"}
-          {phase === "deal" && `smallest move: ${item.step}`}
+        <p className="text-[17px] font-semibold leading-snug text-ink" style={{ letterSpacing: "-0.015em" }}>
+          {item.task}
+        </p>
+        <p className="mt-1 text-[13px]" style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}>
+          {phase === "ask"     && "tap to name it"}
+          {phase === "deal"    && `smallest move: ${item.step}`}
           {phase === "running" && "5 minutes. you can quit after."}
-          {phase === "done" && "the hard part is over."}
+          {phase === "done"    && "the hard part is over."}
         </p>
       </div>
 
-      {/* action */}
+      {/* CTA */}
       {phase === "done" ? (
-        <button onClick={advance} className="brutal-btn w-full rounded-full py-3.5 text-[15px]" style={{ background: "var(--bg-elevated)", color: "var(--ink)", border: "1px solid var(--line)" }}>
-          <Zap size={16} strokeWidth={2.5} /> Start another
+        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--fill-soft)", color: "var(--ink)", border: "1px solid var(--line)" }}>
+          <Zap size={15} strokeWidth={2.5} /> Start another
         </button>
       ) : phase === "deal" ? (
-        <button onClick={advance} className="brutal-btn w-full rounded-full py-3.5 text-[15px]" style={{ background: "var(--accent)", color: "#fff" }}>
-          <Play size={17} strokeWidth={2.5} fill="currentColor" /> Do 5 minutes
+        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--ink)", color: "#fff" }}>
+          <Play size={16} strokeWidth={2.5} fill="currentColor" /> Do 5 minutes
         </button>
       ) : phase === "running" ? (
-        <button onClick={advance} className="brutal-btn w-full rounded-full py-3.5 text-[15px]" style={{ background: "var(--lime)", color: "#fff" }}>
-          <Check size={18} strokeWidth={2.5} /> I started — +20 XP
+        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--reward-mint)", color: "#fff" }}>
+          <Check size={16} strokeWidth={2.5} /> I started — +20 XP
         </button>
       ) : (
-        <button onClick={advance} className="brutal-btn w-full rounded-full py-3.5 text-[15px]" style={{ background: "var(--accent)", color: "var(--accent-ink)" }}>
-          <ArrowRight size={18} strokeWidth={2.5} /> Name it
+        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--ink)", color: "#fff" }}>
+          <ArrowRight size={16} strokeWidth={2.5} /> Name it
         </button>
       )}
 
-      {/* footer */}
+      {/* Footer */}
       <div className="mt-4 flex items-center justify-between pt-3" style={{ borderTop: "1px solid var(--line)" }}>
-        <span className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase" style={{ color: "var(--flame)" }}>
-          <Flame size={13} strokeWidth={2.5} fill="var(--flame)" /> 14-day streak
+        <span className="flex items-center gap-1.5 text-[12px] font-medium" style={{ color: "var(--flame)" }}>
+          <Flame size={12} strokeWidth={2.5} fill="currentColor" /> 14-day streak
         </span>
-        <span className="font-mono text-[11px] font-bold uppercase text-ink-faint">Lvl 3 · Invested</span>
+        <span className="text-[12px]" style={{ color: "var(--ink-faint)", letterSpacing: "-0.009em" }}>Lvl 3 · Invested</span>
       </div>
     </div>
   );

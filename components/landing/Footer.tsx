@@ -37,25 +37,25 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden" style={{ background: "var(--bg-soft)" }}>
       <div className="mx-auto max-w-[1200px] px-6 pb-12 pt-20 sm:px-10">
-        {/* Sign-up nudge block — big friendly lilac card */}
+        {/* Steep footer CTA — Ink surface, white text, one pill CTA */}
         <div
-          className="mb-16 flex flex-col gap-5 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10"
-          style={{ background: "var(--accent)", borderRadius: 32, boxShadow: "var(--shadow-lg)" }}
+          className="mb-16 flex flex-col gap-5 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-12"
+          style={{ background: "var(--ink)", borderRadius: 28 }}
         >
           <div>
-            <p className="text-[26px] font-bold leading-tight sm:text-[32px]" style={{ color: "#fff", letterSpacing: "-0.02em" }}>
+            <p className="steep-display" style={{ fontSize: "clamp(24px,4vw,36px)", color: "#ffffff" }}>
               Your first quest is waiting.
             </p>
-            <p className="mt-1.5 text-[14px] font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>
+            <p className="mt-2 text-[14px]" style={{ color: "rgba(255,255,255,0.55)", letterSpacing: "-0.009em" }}>
               Free to start · no credit card · 60 seconds
             </p>
           </div>
           <a
             href="/auth/signup"
-            className="brutal-btn shrink-0 rounded-full px-8 py-4 text-[15px]"
-            style={{ background: "#fff", color: "var(--accent)" }}
+            className="brutal-btn shrink-0 px-8 py-3.5 text-[15px]"
+            style={{ background: "#ffffff", color: "var(--ink)" }}
           >
-            Start playing <ArrowRight size={16} strokeWidth={2.5} />
+            Start playing <ArrowRight size={16} strokeWidth={2} />
           </a>
         </div>
 
@@ -90,13 +90,13 @@ export function Footer() {
           </div>
           {columns.map((col) => (
             <div key={col.title}>
-              <h4 className="text-[12px] font-bold uppercase tracking-widest text-ink-faint">
+              <h4 className="text-[12px] font-medium uppercase tracking-[0.08em]" style={{ color: "var(--ink-faint)" }}>
                 {col.title}
               </h4>
-              <ul className="mt-4 space-y-2.5">
+              <ul className="mt-4 space-y-3">
                 {col.links.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href} className="text-[14px] font-semibold text-ink-muted transition-colors hover:text-accent">
+                    <a href={link.href} className="text-[14px] transition-colors hover:text-ink" style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}>
                       {link.label}
                     </a>
                   </li>

@@ -1,14 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Quicksand, Nunito, Inter } from "next/font/google";
+import { Quicksand, Nunito, Inter, Playfair_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Suspense } from "react";
 import { AffTracker } from "@/components/AffTracker";
 import { CursorGlow } from "@/components/CursorGlow";
 import "./globals.css";
 
-// Quicksand — rounded geometric sans, the warm friendly voice of the brand:
-// every heading, the wordmark, and body. Kept under the legacy --font-grotesk
-// variable so existing components restyle without markup changes.
+// Playfair Display — editorial serif for Steep-style display headlines only.
+// Fills --font-display: used at 44px+ for hero and section openers, never body.
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600"],
+  variable: "--font-display",
+});
+
+// Quicksand — friendly rounded sans; body, labels, UI. Maps to --font-grotesk
+// (kept so all existing components restyle without markup changes).
 const grotesk = Quicksand({
   subsets: ["latin"],
   display: "swap",
@@ -16,8 +24,7 @@ const grotesk = Quicksand({
   variable: "--font-grotesk",
 });
 
-// Nunito fills the legacy --font-mono slot: the small uppercase labels now
-// render as soft rounded chips instead of hard terminal text.
+// Nunito — soft rounded labels, chips, small uppercase text. --font-mono slot.
 const mono = Nunito({
   subsets: ["latin"],
   display: "swap",
@@ -25,7 +32,7 @@ const mono = Nunito({
   variable: "--font-mono",
 });
 
-// Inter — neutral fallback face kept available for dense UI body text.
+// Inter — neutral dense UI fallback. --font-landing-sans.
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -164,7 +171,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${grotesk.variable} ${mono.variable} ${inter.variable}`}
+      className={`${playfair.variable} ${grotesk.variable} ${mono.variable} ${inter.variable}`}
       suppressHydrationWarning
     >
       <head>

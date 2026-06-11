@@ -48,23 +48,22 @@ export function Pricing() {
     <section id="pricing" style={{ background: "var(--bg-soft)" }}>
       <div className="mx-auto max-w-[1100px] px-5 py-24 sm:px-8 sm:py-28">
         <Reveal>
-          <div className="max-w-[600px] mb-12">
+          <div className="max-w-[560px] mb-14">
             <span
-              className="brutal-tag anim-fadeUp mb-6"
-              style={{ background: "var(--reward-mint-soft)", color: "var(--lime)" }}
+              className="mb-5 inline-block text-[13px] font-medium"
+              style={{ color: "var(--ink-faint)", letterSpacing: "-0.009em" }}
             >
-              <Zap size={13} strokeWidth={3} /> Pricing
+              Pricing
             </span>
             <h2
-              className="anim-fadeUp delay-100 leading-[0.98] text-ink"
-              style={{ fontSize: "clamp(34px,5.5vw,56px)", fontWeight: 700, letterSpacing: "-0.03em" }}
+              className="steep-display text-ink"
+              style={{ fontSize: "clamp(36px,5.5vw,52px)" }}
             >
-              Free to play.
-              <br />
-              <span style={{ color: "var(--accent)" }}>More if you need it.</span>
+              Free to play.{" "}
+              <span style={{ color: "var(--accent)", fontStyle: "italic" }}>More if you need it.</span>
             </h2>
-            <p className="anim-fadeUp delay-200 mt-7 text-[17px] font-medium leading-[1.5] text-ink-muted">
-              The whole game is free. Power-Up adds more streak insurance, an XP multiplier, and premium themes for when it gets serious.
+            <p className="mt-6 text-[17px] leading-[1.65]" style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}>
+              The whole game is free. Power-Up adds more streak insurance, an XP multiplier, and premium themes.
             </p>
           </div>
         </Reveal>
