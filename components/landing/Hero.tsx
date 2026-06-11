@@ -1,208 +1,125 @@
 "use client";
-import { ArrowRight, Zap } from "lucide-react";
-import { IPhone } from "@/components/devices/iPhone";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
-function HeroPhone() {
+function AppPreview() {
   return (
-    <IPhone scale={0.85}>
-      {/* App UI inside the phone */}
-      <div style={{ background: "#111", height: "100%", padding: "56px 0 0" }}>
-        {/* Header */}
-        <div style={{ padding: "0 18px 16px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-          <div style={{ fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.4)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 4 }}>Daily Quest</div>
-          <div style={{ fontSize: 18, fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>Good morning 👋</div>
+    <div
+      style={{
+        background: "#fff",
+        borderRadius: 20,
+        border: "1px solid #E4E4E7",
+        boxShadow: "0 24px 64px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.06)",
+        overflow: "hidden",
+        width: "100%",
+        maxWidth: 420,
+      }}
+    >
+      {/* App header */}
+      <div style={{ padding: "20px 24px 16px", borderBottom: "1px solid #F4F4F5" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: "#A1A1AA", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 3 }}>Wednesday</div>
+            <div style={{ fontSize: 18, fontWeight: 700, color: "#18181B", letterSpacing: "-0.02em" }}>Good morning</div>
+          </div>
+          <div style={{ display: "flex", gap: 6 }}>
+            <div style={{ padding: "5px 10px", background: "#EDE9FE", borderRadius: 9999, fontSize: 12, fontWeight: 600, color: "#5B21B6" }}>⚡ 820 XP</div>
+            <div style={{ padding: "5px 10px", background: "#FEE2E2", borderRadius: 9999, fontSize: 12, fontWeight: 600, color: "#DC2626" }}>🔥 14d</div>
+          </div>
         </div>
-
         {/* XP bar */}
-        <div style={{ padding: "14px 18px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-            <span style={{ fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.5)" }}>Level 4 · Properly Hooked</span>
-            <span style={{ fontSize: 12, fontWeight: 700, color: "#a78bfa" }}>820 / 1000 XP</span>
+        <div style={{ marginTop: 14 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
+            <span style={{ fontSize: 12, color: "#A1A1AA" }}>Level 4 · Properly Hooked</span>
+            <span style={{ fontSize: 12, fontWeight: 600, color: "#5B21B6" }}>820 / 1000</span>
           </div>
-          <div style={{ height: 5, background: "rgba(255,255,255,0.08)", borderRadius: 99 }}>
-            <div style={{ width: "82%", height: "100%", borderRadius: 99, background: "linear-gradient(90deg, #7c3aed, #a78bfa)" }} />
+          <div style={{ height: 4, background: "#F4F4F5", borderRadius: 99 }}>
+            <div style={{ width: "82%", height: "100%", borderRadius: 99, background: "#7C3AED" }} />
           </div>
-        </div>
-
-        {/* Task card */}
-        <div style={{ margin: "8px 14px 12px", padding: "16px", background: "rgba(167,139,250,0.12)", borderRadius: 18, border: "1px solid rgba(167,139,250,0.2)" }}>
-          <div style={{ fontSize: 11, fontWeight: 600, color: "#a78bfa", marginBottom: 6, letterSpacing: "0.04em", textTransform: "uppercase" }}>Just Start</div>
-          <div style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 10, letterSpacing: "-0.018em", lineHeight: 1.3 }}>Reply to Dr. Williams email</div>
-          <div style={{ display: "flex", gap: 8 }}>
-            <div style={{ flex: 1, padding: "10px 14px", background: "rgba(255,255,255,0.06)", borderRadius: 12, fontSize: 12, color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.08)" }}>Open Gmail</div>
-            <div style={{ flex: 1, padding: "10px 14px", background: "#7c3aed", borderRadius: 12, fontSize: 12, fontWeight: 700, color: "#fff", textAlign: "center" }}>Start ⚡</div>
-          </div>
-        </div>
-
-        {/* Stats row */}
-        <div style={{ display: "flex", margin: "0 14px", gap: 8 }}>
-          {[
-            { icon: "🔥", label: "Streak", value: "14d" },
-            { icon: "⚡", label: "XP today", value: "+120" },
-            { icon: "✓", label: "Tasks", value: "3 done" },
-          ].map((s) => (
-            <div key={s.label} style={{ flex: 1, padding: "12px 10px", background: "rgba(255,255,255,0.05)", borderRadius: 14, border: "1px solid rgba(255,255,255,0.07)", textAlign: "center" }}>
-              <div style={{ fontSize: 18, marginBottom: 2 }}>{s.icon}</div>
-              <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", letterSpacing: "-0.01em" }}>{s.value}</div>
-              <div style={{ fontSize: 10, color: "rgba(255,255,255,0.4)", marginTop: 1 }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Quest items */}
-        <div style={{ margin: "12px 14px 0" }}>
-          <div style={{ fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.4)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: 10 }}>Today</div>
-          {[
-            { name: "Tax return", xp: 50, done: true },
-            { name: "Gym bag → car", xp: 30, done: false },
-            { name: "Call dentist", xp: 40, done: false },
-          ].map((t) => (
-            <div key={t.name} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 0", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-              <div style={{ width: 20, height: 20, borderRadius: "50%", background: t.done ? "#30d158" : "rgba(255,255,255,0.1)", border: t.done ? "none" : "1.5px solid rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                {t.done && <span style={{ fontSize: 10, color: "#fff" }}>✓</span>}
-              </div>
-              <span style={{ flex: 1, fontSize: 13, fontWeight: 500, color: t.done ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.85)", textDecoration: t.done ? "line-through" : "none" }}>{t.name}</span>
-              <span style={{ fontSize: 11, fontWeight: 700, color: "#a78bfa" }}>+{t.xp}</span>
-            </div>
-          ))}
         </div>
       </div>
-    </IPhone>
+
+      {/* Just Start card */}
+      <div style={{ margin: 16, padding: "16px 18px", background: "#FAFAF8", borderRadius: 14, border: "1px solid #E4E4E7" }}>
+        <div style={{ fontSize: 11, fontWeight: 600, color: "#7C3AED", marginBottom: 8, letterSpacing: "0.05em", textTransform: "uppercase" }}>Just Start</div>
+        <div style={{ fontSize: 15, fontWeight: 600, color: "#18181B", marginBottom: 14, letterSpacing: "-0.01em" }}>Reply to Dr. Williams email</div>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#71717A", marginBottom: 12 }}>AI broke it down:</div>
+        {["Open Gmail", "Find the email", "Write one sentence"].map((step, i) => (
+          <div key={step} style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 0", borderTop: i === 0 ? "none" : "1px solid #F4F4F5" }}>
+            <div style={{ width: 20, height: 20, borderRadius: "50%", background: "#EDE9FE", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, color: "#7C3AED", flexShrink: 0 }}>{i + 1}</div>
+            <span style={{ fontSize: 13, color: "#3F3F46" }}>{step}</span>
+          </div>
+        ))}
+        <button style={{ width: "100%", marginTop: 14, padding: "12px", background: "#18181B", borderRadius: 10, border: "none", color: "#fff", fontSize: 14, fontWeight: 600, cursor: "pointer", letterSpacing: "-0.01em" }}>
+          Start · 5 minutes ⚡
+        </button>
+      </div>
+
+      {/* Today list */}
+      <div style={{ padding: "0 16px 16px" }}>
+        <div style={{ fontSize: 11, fontWeight: 600, color: "#A1A1AA", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 10 }}>Today</div>
+        {[
+          { name: "Tax return", done: true },
+          { name: "Reply to Dr. Williams", done: false },
+          { name: "Gym bag to car", done: false },
+        ].map((t, i) => (
+          <div key={t.name} style={{ display: "flex", alignItems: "center", gap: 10, padding: "9px 0", borderTop: i === 0 ? "none" : "1px solid #F4F4F5" }}>
+            <CheckCircle2 size={16} style={{ color: t.done ? "#22C55E" : "#D4D4D8", flexShrink: 0 }} strokeWidth={2.5} />
+            <span style={{ fontSize: 14, fontWeight: 500, color: t.done ? "#A1A1AA" : "#18181B", textDecoration: t.done ? "line-through" : "none" }}>{t.name}</span>
+            {!t.done && <span style={{ marginLeft: "auto", fontSize: 11, fontWeight: 600, color: "#7C3AED" }}>+40 XP</span>}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
 export function Hero() {
   return (
-    <section
-      style={{
-        minHeight: "100vh",
-        background: "#000",
-        position: "relative",
-        overflow: "hidden",
-        display: "flex",
-        alignItems: "center",
-        paddingTop: 52,
-      }}
-    >
-      {/* Purple glow */}
-      <div
-        style={{
-          position: "absolute",
-          top: -200,
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: 800,
-          height: 600,
-          background: "radial-gradient(ellipse at center, rgba(124,58,237,0.28) 0%, rgba(124,58,237,0.08) 45%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* Grid lines (subtle) */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)",
-          backgroundSize: "80px 80px",
-          pointerEvents: "none",
-        }}
-      />
-
-      <div className="container-lg" style={{ padding: "80px 24px", position: "relative", zIndex: 1 }}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left: Text */}
-          <div style={{ maxWidth: 560 }}>
-            <div className="feature-pill" style={{ marginBottom: 24 }}>
-              <Zap size={11} strokeWidth={2.5} />
-              Built for ADHD brains
+    <section style={{ background: "var(--bg)", minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: 56, overflow: "hidden" }}>
+      <div className="wrap" style={{ paddingTop: 64, paddingBottom: 80 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Left */}
+          <div style={{ maxWidth: 520 }}>
+            <div className="chip" style={{ marginBottom: 24 }}>
+              Built for ADHD
             </div>
 
-            <h1 className="apple-headline-xl" style={{ marginBottom: 24, fontSize: "clamp(38px, 7vw, 96px)" }}>
-              Start the task<br />
-              <span className="gradient-text">you&apos;ve been avoiding.</span>
+            <h1 className="display-xl" style={{ marginBottom: 22 }}>
+              Start the task<br />you&apos;ve been<br />avoiding.
             </h1>
 
-            <p style={{ fontSize: "clamp(16px, 2.5vw, 19px)", lineHeight: 1.6, color: "rgba(235,235,245,0.60)", letterSpacing: "-0.009em", marginBottom: 40, maxWidth: 440 }}>
-              Name it, do 5 minutes, earn XP for starting — not for being perfect. Forgiving streaks that survive bad weeks. Free to start.
+            <p className="body-lg" style={{ marginBottom: 36, maxWidth: 420 }}>
+              Name it. Do 5 minutes. Earn XP for starting — not for finishing. Forgiving streaks that survive the hard weeks.
             </p>
 
-            <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 12, marginBottom: 40 }}>
-              <a href="/auth/signup" className="btn-white" style={{ height: 52, fontSize: 17, paddingLeft: 28, paddingRight: 28 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 40 }}>
+              <a href="/auth/signup" className="btn btn-dark" style={{ height: 50, fontSize: 16, paddingLeft: 28, paddingRight: 28 }}>
                 Start free
-                <ArrowRight size={17} strokeWidth={2} />
+                <ArrowRight size={16} strokeWidth={2.5} />
               </a>
-              <a href="#features" className="btn-ghost-dark" style={{ height: 52, fontSize: 17, paddingLeft: 24, paddingRight: 24 }}>
+              <a href="#features" className="btn btn-outline" style={{ height: 50, fontSize: 16 }}>
                 See how it works
               </a>
             </div>
 
-            {/* Social proof */}
-            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <div style={{ display: "flex" }}>
-                {["#ff6b6b", "#4ecdc4", "#a78bfa", "#ffd93d", "#6bcf7f"].map((c, i) => (
-                  <div key={i} style={{ width: 28, height: 28, borderRadius: "50%", background: c, border: "2px solid #000", marginLeft: i > 0 ? -8 : 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11 }}>
-                    {["😮", "🧠", "⚡", "🔥", "✨"][i]}
-                  </div>
-                ))}
-              </div>
-              <span style={{ fontSize: 14, color: "rgba(235,235,245,0.50)", letterSpacing: "-0.009em" }}>
-                <strong style={{ color: "#fff" }}>2,400+</strong> ADHD brains already playing
-              </span>
+            {/* Proof chips */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {[
+                { icon: "✓", text: "Free to start" },
+                { icon: "✓", text: "No credit card" },
+                { icon: "✓", text: "2,400+ users" },
+              ].map((p) => (
+                <div key={p.text} style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 13, fontWeight: 500, color: "#71717A" }}>
+                  <span style={{ color: "#22C55E", fontWeight: 700 }}>{p.icon}</span>
+                  {p.text}
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Right: Phone */}
-          <div className="flex justify-center" style={{ position: "relative" }}>
-            {/* Floating badges */}
-            <div
-              style={{
-                position: "absolute",
-                top: 40,
-                right: -20,
-                zIndex: 10,
-                padding: "10px 14px",
-                background: "rgba(30,215,96,0.15)",
-                border: "1px solid rgba(48,209,88,0.30)",
-                borderRadius: 14,
-                backdropFilter: "blur(12px)",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                whiteSpace: "nowrap",
-              }}
-            >
-              <span style={{ fontSize: 18 }}>🔥</span>
-              <div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "#30d158" }}>14-day streak</div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.45)" }}>Survived a rough week</div>
-              </div>
-            </div>
-
-            <div
-              style={{
-                position: "absolute",
-                bottom: 80,
-                left: -30,
-                zIndex: 10,
-                padding: "10px 14px",
-                background: "rgba(167,139,250,0.15)",
-                border: "1px solid rgba(167,139,250,0.30)",
-                borderRadius: 14,
-                backdropFilter: "blur(12px)",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-              }}
-            >
-              <span style={{ fontSize: 18 }}>⚡</span>
-              <div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "#a78bfa" }}>+120 XP earned</div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.45)" }}>Just for starting</div>
-              </div>
-            </div>
-
-            <HeroPhone />
+          {/* Right: flat app preview */}
+          <div className="flex justify-center lg:justify-end">
+            <AppPreview />
           </div>
         </div>
       </div>
