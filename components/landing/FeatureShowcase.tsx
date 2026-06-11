@@ -1,5 +1,5 @@
 import React from "react";
-import { iPhone } from "@/components/devices/iPhone";
+import { IPhone } from "@/components/devices/iPhone";
 import { Zap, Flame, Snowflake, Brain, Timer, Trophy, Star } from "lucide-react";
 
 interface FeaturePoint {
@@ -47,7 +47,7 @@ function ShowcaseSection({ label, headline, sub, points, phoneContent, flip = fa
           </div>
         </div>
         <div style={{ order: flip ? 1 : 2, display: "flex", justifyContent: "center" }}>
-          <iPhone scale={0.82}>{phoneContent}</iPhone>
+          <IPhone scale={0.82}>{phoneContent}</IPhone>
         </div>
       </div>
     </section>

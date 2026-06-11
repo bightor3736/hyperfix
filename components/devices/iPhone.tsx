@@ -1,13 +1,13 @@
 import React from "react";
 
-interface iPhoneProps {
+interface IPhoneProps {
   children?: React.ReactNode;
   className?: string;
   scale?: number;
   color?: "black" | "silver";
 }
 
-export function iPhone({ children, className = "", scale = 1, color = "black" }: iPhoneProps) {
+export function IPhone({ children, className = "", scale = 1, color = "black" }: IPhoneProps) {
   const chassis = color === "black" ? "#1a1a1a" : "#e8e8ed";
   const edge = color === "black" ? "#2a2a2a" : "#d1d1d6";
   const btnColor = color === "black" ? "#2c2c2e" : "#c7c7cc";

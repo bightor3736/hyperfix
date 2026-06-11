@@ -1,10 +1,10 @@
 "use client";
 import { ArrowRight, Zap } from "lucide-react";
-import { iPhone } from "@/components/devices/iPhone";
+import { IPhone } from "@/components/devices/iPhone";
 
 function HeroPhone() {
   return (
-    <iPhone scale={0.85}>
+    <IPhone scale={0.85}>
       {/* App UI inside the phone */}
       <div style={{ background: "#111", height: "100%", padding: "56px 0 0" }}>
         {/* Header */}
@@ -67,7 +67,7 @@ function HeroPhone() {
           ))}
         </div>
       </div>
-    </iPhone>
+    </IPhone>
   );
 }
 
