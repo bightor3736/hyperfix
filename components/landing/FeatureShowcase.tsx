@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { IPhone } from "@/components/devices/iPhone";
 import { Zap, Flame, Snowflake, Brain, Timer, Trophy, Star } from "lucide-react";

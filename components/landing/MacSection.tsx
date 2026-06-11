@@ -1,3 +1,4 @@
+"use client";
 import { MacBook } from "@/components/devices/MacBook";
 
 function DashboardPreview() {

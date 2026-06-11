@@ -1,3 +1,4 @@
+"use client";
 import { AppIcon } from "@/components/Logo";
 import { ArrowRight } from "lucide-react";
 
