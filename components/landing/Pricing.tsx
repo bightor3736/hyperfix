@@ -1,239 +1,130 @@
 "use client";
-
 import { useState } from "react";
-import { Check, X, Zap } from "lucide-react";
-import { Reveal } from "./Reveal";
+import { Check } from "lucide-react";
 
 type Billing = "monthly" | "yearly";
-
-const FREE_FEATURES = [
-  "Unlimited tasks + the Just Start flow",
-  "Focus timer + 5-minute starts",
-  "XP for starting, daily quests & 7 levels",
-  "Forgiving streak + 1 freeze a month",
-  "Deep dives + brain bursts (earn XP)",
-  "Share card + custom accent colour",
-];
-
-const PRO_FEATURES = [
-  "5 streak freezes a month",
-  "XP multiplier, always on",
-  "Premium profile themes",
-  "Full stats, history & insights",
-  "Priority access to new features",
-];
-
-const comparison: { label: string; free: string | boolean; pro: string | boolean }[] = [
-  { label: "Hyperfixation logs", free: "Unlimited", pro: "Unlimited" },
-  { label: "Deep dives & brain bursts", free: true, pro: true },
-  { label: "XP, levels & daily quests", free: true, pro: true },
-  { label: "Streak freezes / month", free: "1", pro: "5" },
-  { label: "Focus timer", free: true, pro: true },
-  { label: "XP multiplier", free: false, pro: true },
-  { label: "Share card + custom accent", free: true, pro: true },
-  { label: "Premium profile themes", free: false, pro: true },
-  { label: "Full stats & insights", free: false, pro: true },
-];
-
-function Cell({ value }: { value: string | boolean }) {
-  if (value === true) return <Check className="mx-auto" size={17} style={{ color: "var(--ink)" }} strokeWidth={3} />;
-  if (value === false) return <X className="mx-auto" size={16} style={{ color: "var(--ink-faint)" }} strokeWidth={3} />;
-  return <span className="text-[13px] font-bold text-ink">{value}</span>;
-}
 
 export function Pricing() {
   const [billing, setBilling] = useState<Billing>("yearly");
 
-  return (
-    <section id="pricing" style={{ background: "var(--bg-soft)" }}>
-      <div className="mx-auto max-w-[1100px] px-5 py-24 sm:px-8 sm:py-28">
-        <Reveal>
-          <div className="max-w-[560px] mb-14">
-            <span
-              className="mb-5 inline-block text-[13px] font-medium"
-              style={{ color: "var(--ink-faint)", letterSpacing: "-0.009em" }}
-            >
-              Pricing
-            </span>
-            <h2
-              className="steep-display text-ink"
-              style={{ fontSize: "clamp(36px,5.5vw,52px)" }}
-            >
-              Free to play.{" "}
-              <span style={{ color: "var(--accent)", fontStyle: "italic" }}>More if you need it.</span>
-            </h2>
-            <p className="mt-6 text-[17px] leading-[1.65]" style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}>
-              The whole game is free. Power-Up adds more streak insurance, an XP multiplier, and premium themes.
-            </p>
-          </div>
-        </Reveal>
+  const FREE_FEATURES = [
+    "Unlimited tasks + Just Start flow",
+    "AI task breakdown (5/month)",
+    "Focus timer + 5-minute starts",
+    "XP, 7 levels + daily quests",
+    "Forgiving streak + 1 freeze/month",
+    "Shareable profile card",
+  ];
 
-        {/* Billing toggle */}
-        <Reveal>
+  const PRO_FEATURES = [
+    "Unlimited AI task breakdowns",
+    "5 streak freezes a month",
+    "1.5× XP multiplier",
+    "Premium profile themes",
+    "Full stats, history & insights",
+    "Priority access to new features",
+  ];
+
+  return (
+    <section id="pricing" style={{ background: "#f5f5f7", padding: "120px 0" }}>
+      <div className="container">
+        <div style={{ textAlign: "center", marginBottom: 64 }}>
+          <div className="apple-label" style={{ color: "#7c3aed", marginBottom: 16 }}>Pricing</div>
+          <h2 className="apple-headline-lg" style={{ color: "#1d1d1f", marginBottom: 20 }}>
+            Free to play.<br />
+            <span style={{ color: "#7c3aed" }}>More when you need it.</span>
+          </h2>
+          <p style={{ fontSize: 17, color: "#6e6e73", letterSpacing: "-0.009em", maxWidth: 420, margin: "0 auto 40px" }}>
+            The full game is free. Power-Up adds the extras for when you&apos;re properly hooked.
+          </p>
+
+          {/* Toggle */}
           <div
-            className="mb-12 inline-flex items-center p-1 text-[13px]"
-            style={{ borderRadius: 28, background: "var(--bg-elevated)", boxShadow: "var(--shadow)" }}
+            style={{
+              display: "inline-flex",
+              background: "rgba(0,0,0,0.06)",
+              borderRadius: 9999,
+              padding: 4,
+              gap: 2,
+            }}
             role="radiogroup"
-            aria-label="Billing period"
           >
             {(["monthly", "yearly"] as Billing[]).map((b) => (
               <button
                 key={b}
                 type="button"
-                role="radio"
-                aria-checked={billing === b}
                 onClick={() => setBilling(b)}
-                className="h-9 px-5 font-mono text-[12px] font-bold uppercase tracking-widest capitalize transition-colors"
-                style={
-                  billing === b
-                    ? { background: "var(--ink)", color: "var(--bg)", borderRadius: 5 }
-                    : { color: "var(--ink-muted)" }
-                }
+                style={{
+                  height: 34,
+                  padding: "0 18px",
+                  borderRadius: 9999,
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  background: billing === b ? "#fff" : "transparent",
+                  color: billing === b ? "#1d1d1f" : "#6e6e73",
+                  boxShadow: billing === b ? "0 1px 3px rgba(0,0,0,0.12)" : "none",
+                  transition: "all 0.15s",
+                }}
               >
                 {b === "yearly" ? "Yearly · save 33%" : "Monthly"}
               </button>
             ))}
           </div>
-        </Reveal>
-
-        {/* Tier cards */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 max-w-[840px] items-stretch">
-          {/* Free */}
-          <Reveal>
-            <article
-              className="flex flex-col p-8 h-full"
-              style={{ background: "var(--bg-elevated)", borderRadius: 28, boxShadow: "var(--shadow)" }}
-            >
-              <div>
-                <h3 className="text-[30px] font-bold leading-none text-ink" style={{ letterSpacing: "-0.02em" }}>Free Player</h3>
-                <p className="mt-3 text-[14px] font-medium text-ink-muted">Everything you need to start.</p>
-              </div>
-
-              <div className="mt-7 flex items-end gap-2">
-                <p className="text-[52px] font-bold leading-none text-ink" style={{ letterSpacing: "-0.03em" }}>$0</p>
-                <p className="mb-2 font-mono text-[12px] uppercase tracking-widest text-ink-muted">forever</p>
-              </div>
-
-              <a
-                href="/auth/signup"
-                className="brutal-btn mt-7 h-12 w-full text-[15px]"
-                style={{ background: "var(--bg-elevated)", color: "var(--ink)" }}
-              >
-                Start free
-              </a>
-              <p className="mt-3 text-center font-mono text-[11px] uppercase tracking-widest text-ink-faint">No credit card.</p>
-
-              <ul className="mt-8 space-y-3.5">
-                {FREE_FEATURES.map((f) => (
-                  <li key={f} className="flex items-start gap-3 text-[14px] font-medium leading-[1.5] text-ink">
-                    <span
-                      className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center"
-                      style={{ background: "var(--lime)", border: "1px solid var(--line)", borderRadius: 20 }}
-                    >
-                      <Check size={12} strokeWidth={3.5} style={{ color: "var(--ink)" }} />
-                    </span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </article>
-          </Reveal>
-
-          {/* Power-Up */}
-          <Reveal delay={80}>
-            <article
-              className="relative flex flex-col p-8 h-full"
-              style={{ background: "var(--pastel-yellow)", borderRadius: 28, boxShadow: "var(--shadow-lg)" }}
-            >
-              {/* MOST POPULAR badge */}
-              <span
-                className="brutal-tag absolute -top-3.5 right-6 font-bold"
-                style={{ background: "var(--accent)", color: "var(--accent-ink)", boxShadow: "var(--shadow-sm)" }}
-              >
-                <Zap size={12} strokeWidth={3} /> Most popular
-              </span>
-
-              <div>
-                <h3 className="text-[30px] font-bold leading-none text-ink" style={{ letterSpacing: "-0.02em" }}>Power-Up</h3>
-                <p className="mt-3 text-[14px] font-medium text-ink" style={{ opacity: 0.75 }}>For when you&apos;re properly hooked.</p>
-              </div>
-
-              <div className="mt-7 flex items-end gap-2">
-                <p className="text-[52px] font-bold leading-none text-ink" style={{ letterSpacing: "-0.03em" }}>
-                  {billing === "yearly" ? "$3.25" : "$5"}
-                </p>
-                <div className="mb-2">
-                  <p className="font-mono text-[12px] uppercase tracking-widest text-ink">per month</p>
-                  {billing === "yearly" && (
-                    <p className="font-mono text-[10px] uppercase tracking-widest text-ink" style={{ opacity: 0.7 }}>billed $39/year</p>
-                  )}
-                </div>
-              </div>
-
-              <a
-                href="/auth/signup"
-                className="brutal-btn mt-7 h-12 w-full text-[15px]"
-                style={{ background: "var(--accent)", color: "#fff" }}
-              >
-                Power up <Zap size={16} strokeWidth={3} />
-              </a>
-              <p className="mt-3 text-center font-mono text-[11px] uppercase tracking-widest text-ink" style={{ opacity: 0.7 }}>
-                Cancel anytime · 30-day refund
-              </p>
-
-              <p className="mt-8 mb-3 font-mono text-[12px] font-bold uppercase tracking-widest text-ink">Everything in Free, plus:</p>
-              <ul className="space-y-3.5">
-                {PRO_FEATURES.map((f) => (
-                  <li key={f} className="flex items-start gap-3 text-[14px] font-bold leading-[1.5] text-ink">
-                    <span
-                      className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center"
-                      style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)", borderRadius: 20 }}
-                    >
-                      <Check size={12} strokeWidth={3.5} style={{ color: "var(--ink)" }} />
-                    </span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </article>
-          </Reveal>
         </div>
 
-        {/* Comparison table */}
-        <Reveal>
-          <div className="mt-20 max-w-[840px]">
-            <h3 className="mb-8 text-[26px] font-bold leading-[1.1] text-ink" style={{ letterSpacing: "-0.02em" }}>
-              Compare the two
-            </h3>
-            <div
-              className="overflow-hidden"
-              style={{ borderRadius: 28, boxShadow: "var(--shadow)", background: "var(--bg-elevated)" }}
-            >
-              <div
-                className="grid grid-cols-[1.8fr_1fr_1fr] items-center px-5 py-3.5 font-mono text-[11px] font-bold uppercase tracking-widest"
-                style={{ background: "var(--accent)", color: "#fff" }}
-              >
-                <span />
-                <span className="text-center">Free</span>
-                <span className="text-center" style={{ color: "#fff", fontWeight: 800 }}>Power-Up</span>
-              </div>
-              {comparison.map((row, idx) => (
-                <div
-                  key={row.label}
-                  className="grid grid-cols-[1.8fr_1fr_1fr] items-center px-5 py-3.5"
-                  style={{
-                    borderTop: idx === 0 ? "none" : "1px solid var(--line)",
-                    background: idx % 2 === 1 ? "var(--bg-soft)" : "var(--bg-elevated)",
-                  }}
-                >
-                  <span className="pr-4 text-[13px] font-medium leading-[1.4] text-ink">{row.label}</span>
-                  <span className="text-center" style={{ borderLeft: "1px solid var(--line)" }}><Cell value={row.free} /></span>
-                  <span className="text-center" style={{ borderLeft: "1px solid var(--line)" }}><Cell value={row.pro} /></span>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, maxWidth: 840, margin: "0 auto" }}>
+          {/* Free */}
+          <div style={{ background: "#fff", borderRadius: 24, padding: 36, border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "#6e6e73", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: 8 }}>Free Player</div>
+            <div style={{ fontSize: 52, fontWeight: 800, color: "#1d1d1f", letterSpacing: "-0.035em", lineHeight: 1, marginBottom: 4 }}>$0</div>
+            <div style={{ fontSize: 13, color: "#aeaeb2", marginBottom: 28 }}>forever</div>
+            <a href="/auth/signup" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: 48, borderRadius: 9999, background: "#1d1d1f", color: "#fff", fontSize: 15, fontWeight: 600, textDecoration: "none", marginBottom: 10 }}>
+              Start free
+            </a>
+            <div style={{ fontSize: 12, color: "#aeaeb2", textAlign: "center", marginBottom: 28 }}>No credit card required</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              {FREE_FEATURES.map((f) => (
+                <div key={f} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                  <div style={{ width: 20, height: 20, borderRadius: "50%", background: "#e8f5e9", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
+                    <Check size={11} strokeWidth={3} color="#30d158" />
+                  </div>
+                  <span style={{ fontSize: 14, color: "#3a3a3c", lineHeight: 1.5 }}>{f}</span>
                 </div>
               ))}
             </div>
           </div>
-        </Reveal>
+
+          {/* Power-Up */}
+          <div style={{ background: "#1d1d1f", borderRadius: 24, padding: 36, position: "relative", boxShadow: "0 8px 40px rgba(0,0,0,0.24), 0 2px 8px rgba(0,0,0,0.12)" }}>
+            <div style={{ position: "absolute", top: -13, right: 24, padding: "5px 14px", background: "linear-gradient(135deg, #a78bfa, #7c3aed)", borderRadius: 9999, fontSize: 11, fontWeight: 700, color: "#fff", letterSpacing: "0.02em" }}>
+              ⚡ MOST POPULAR
+            </div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.50)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: 8 }}>Power-Up</div>
+            <div style={{ fontSize: 52, fontWeight: 800, color: "#fff", letterSpacing: "-0.035em", lineHeight: 1, marginBottom: 4 }}>
+              {billing === "yearly" ? "$3.25" : "$5"}
+            </div>
+            <div style={{ fontSize: 13, color: "rgba(255,255,255,0.40)", marginBottom: 28 }}>
+              per month{billing === "yearly" ? " · billed $39/year" : ""}
+            </div>
+            <a href="/auth/signup" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: 48, borderRadius: 9999, background: "linear-gradient(135deg, #a78bfa, #7c3aed)", color: "#fff", fontSize: 15, fontWeight: 600, textDecoration: "none", marginBottom: 10 }}>
+              ⚡ Power up
+            </a>
+            <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", textAlign: "center", marginBottom: 28 }}>Cancel anytime · 30-day refund</div>
+            <div style={{ fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.40)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 14 }}>Everything in Free, plus:</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              {PRO_FEATURES.map((f) => (
+                <div key={f} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                  <div style={{ width: 20, height: 20, borderRadius: "50%", background: "rgba(167,139,250,0.20)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
+                    <Check size={11} strokeWidth={3} color="#a78bfa" />
+                  </div>
+                  <span style={{ fontSize: 14, color: "rgba(255,255,255,0.75)", lineHeight: 1.5 }}>{f}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

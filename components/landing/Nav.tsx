@@ -1,19 +1,18 @@
 "use client";
-
 import { useEffect, useState } from "react";
-import { Wordmark } from "./Wordmark";
+import { Wordmark } from "@/components/Logo";
 
 const links = [
-  { label: "How it works", href: "#features" },
-  { label: "Pricing",      href: "#pricing" },
-  { label: "FAQ",          href: "#faq" },
+  { label: "Features", href: "#features" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 10);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -21,45 +20,66 @@ export function Nav() {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: "var(--bg-elevated)",
-        borderBottom: scrolled ? "1px solid var(--line)" : "1px solid transparent",
-        transition: "border-color 0.2s ease",
+        background: scrolled ? "rgba(0,0,0,0.72)" : "transparent",
+        backdropFilter: scrolled ? "saturate(180%) blur(20px)" : "none",
+        WebkitBackdropFilter: scrolled ? "saturate(180%) blur(20px)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "1px solid transparent",
       }}
     >
-      <div
-        className="mx-auto flex h-[64px] max-w-[1200px] items-center justify-between px-6 sm:px-8"
-      >
-        <Wordmark />
+      <div className="container-lg flex h-[52px] items-center justify-between">
+        <a href="/">
+          <Wordmark dark={true} />
+        </a>
 
-        {/* Nav links */}
-        <nav className="hidden items-center gap-1 md:flex">
-          {links.map((link) => (
+        <nav className="hidden items-center gap-0 md:flex">
+          {links.map((l) => (
             <a
-              key={link.href}
-              href={link.href}
-              className="px-4 py-2 text-[15px] transition-colors hover:text-ink"
-              style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}
+              key={l.href}
+              href={l.href}
+              style={{
+                fontFamily: 'var(--font-sys)',
+                fontSize: 14,
+                fontWeight: 400,
+                color: "rgba(255,255,255,0.72)",
+                padding: "0 16px",
+                letterSpacing: "-0.003em",
+                transition: "color 0.15s",
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
+              onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.72)")}
             >
-              {link.label}
+              {l.label}
             </a>
           ))}
         </nav>
 
-        {/* CTA group — Steep: text link + one filled Ink pill */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <a
             href="/auth/login"
-            className="hidden text-[15px] transition-opacity hover:opacity-70 sm:block"
-            style={{ color: "var(--ink)", letterSpacing: "-0.009em" }}
+            className="hidden sm:block"
+            style={{ fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.72)", letterSpacing: "-0.003em" }}
           >
             Log in
           </a>
           <a
             href="/auth/signup"
-            className="brutal-btn h-9 px-5 text-[15px]"
-            style={{ background: "var(--ink)", color: "#ffffff" }}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              height: 32,
+              padding: "0 16px",
+              borderRadius: 9999,
+              background: "rgba(255,255,255,0.92)",
+              color: "#000",
+              fontSize: 14,
+              fontWeight: 600,
+              letterSpacing: "-0.009em",
+              transition: "opacity 0.15s",
+            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = "0.82")}
+            onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
           >
             Get started
           </a>

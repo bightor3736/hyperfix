@@ -1,19 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Quicksand, Nunito, Inter, Playfair_Display } from "next/font/google";
+import { Quicksand, Nunito, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Suspense } from "react";
 import { AffTracker } from "@/components/AffTracker";
 import { CursorGlow } from "@/components/CursorGlow";
 import "./globals.css";
-
-// Playfair Display — editorial serif for Steep-style display headlines only.
-// Fills --font-display: used at 44px+ for hero and section openers, never body.
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600"],
-  variable: "--font-display",
-});
 
 // Quicksand — friendly rounded sans; body, labels, UI. Maps to --font-grotesk
 // (kept so all existing components restyle without markup changes).
@@ -171,7 +162,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${grotesk.variable} ${mono.variable} ${inter.variable}`}
+      className={`${grotesk.variable} ${mono.variable} ${inter.variable}`}
       suppressHydrationWarning
     >
       <head>

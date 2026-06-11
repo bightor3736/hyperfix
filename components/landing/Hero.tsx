@@ -1,318 +1,211 @@
 "use client";
+import { ArrowRight, Zap } from "lucide-react";
+import { iPhone } from "@/components/devices/iPhone";
 
-import { useState, useEffect } from "react";
-import { Check, Flame, Play, Zap, ArrowRight, Star } from "lucide-react";
-import { LogoMark } from "@/components/Logo";
-
-export function Hero() {
+function HeroPhone() {
   return (
-    <section className="relative overflow-hidden" style={{ background: "var(--bg-elevated)" }}>
-      {/* Steep hero glow — apricot wash radial from top-center */}
-      <div className="steep-hero-glow" aria-hidden />
+    <iPhone scale={0.85}>
+      {/* App UI inside the phone */}
+      <div style={{ background: "#111", height: "100%", padding: "56px 0 0" }}>
+        {/* Header */}
+        <div style={{ padding: "0 18px 16px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+          <div style={{ fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.4)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 4 }}>Daily Quest</div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>Good morning 👋</div>
+        </div>
 
-      <div className="relative mx-auto max-w-[1200px] px-6 pb-10 pt-20 sm:px-8 sm:pt-28">
-
-        {/* ── Centered headline block ── */}
-        <div className="mx-auto max-w-[760px] text-center">
-          {/* Eyebrow */}
-          <span
-            className="anim-fadeUp mb-8 inline-block rounded-full px-4 py-1.5 text-[13px]"
-            style={{
-              background: "var(--fill-soft)",
-              color: "var(--ink-muted)",
-              border: "1px solid var(--line)",
-              letterSpacing: "-0.009em",
-            }}
-          >
-            For ADHD brains
-          </span>
-
-          {/* Steep: large Signifier-style display headline */}
-          <h1
-            className="steep-display anim-fadeUp delay-100 text-ink"
-            style={{ fontSize: "clamp(42px, 7vw, 80px)" }}
-          >
-            Trick your brain into{" "}
-            <span style={{ color: "var(--accent)", fontStyle: "italic" }}>starting.</span>
-          </h1>
-
-          <p
-            className="anim-fadeUp delay-200 mx-auto mt-7 max-w-[520px] text-[18px] leading-[1.6]"
-            style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}
-          >
-            Name what you&apos;re avoiding, shrink it to five minutes, and earn XP
-            for starting — not for finishing. No guilt, no dead streaks.
-          </p>
-
-          {/* Steep: one filled Ink CTA + text link */}
-          <div className="anim-fadeUp delay-300 mt-9 flex flex-wrap items-center justify-center gap-4">
-            <a
-              href="/auth/signup"
-              className="brutal-btn h-[52px] px-8 text-[16px]"
-              style={{ background: "var(--ink)", color: "#ffffff" }}
-            >
-              Start for free
-            </a>
-            <a
-              href="#features"
-              className="text-[16px] transition-opacity hover:opacity-70"
-              style={{ color: "var(--ink)", letterSpacing: "-0.009em" }}
-            >
-              See how it works →
-            </a>
+        {/* XP bar */}
+        <div style={{ padding: "14px 18px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+            <span style={{ fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.5)" }}>Level 4 · Properly Hooked</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: "#a78bfa" }}>820 / 1000 XP</span>
           </div>
-
-          {/* Reassurance line */}
-          <div className="anim-fadeUp delay-400 mt-6 flex flex-wrap items-center justify-center gap-4">
-            <span className="inline-flex items-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} size={14} fill="var(--ink-faint)" stroke="var(--ink-faint)" />
-              ))}
-            </span>
-            <span className="text-[13px]" style={{ color: "var(--ink-faint)", letterSpacing: "-0.009em" }}>
-              Free to start · no credit card
-            </span>
+          <div style={{ height: 5, background: "rgba(255,255,255,0.08)", borderRadius: 99 }}>
+            <div style={{ width: "82%", height: "100%", borderRadius: 99, background: "linear-gradient(90deg, #7c3aed, #a78bfa)" }} />
           </div>
         </div>
 
-        {/* ── Floating product cards — Steep style ── */}
-        <div className="relative mx-auto mt-16 max-w-[860px]">
-
-          {/* Central app demo — the main product card */}
-          <div
-            className="relative mx-auto max-w-[480px]"
-            style={{
-              background: "var(--bg-elevated)",
-              borderRadius: 24,
-              boxShadow: "var(--shadow-lg)",
-              overflow: "hidden",
-            }}
-          >
-            <HeroStartDemo />
+        {/* Task card */}
+        <div style={{ margin: "8px 14px 12px", padding: "16px", background: "rgba(167,139,250,0.12)", borderRadius: 18, border: "1px solid rgba(167,139,250,0.2)" }}>
+          <div style={{ fontSize: 11, fontWeight: 600, color: "#a78bfa", marginBottom: 6, letterSpacing: "0.04em", textTransform: "uppercase" }}>Just Start</div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 10, letterSpacing: "-0.018em", lineHeight: 1.3 }}>Reply to Dr. Williams email</div>
+          <div style={{ display: "flex", gap: 8 }}>
+            <div style={{ flex: 1, padding: "10px 14px", background: "rgba(255,255,255,0.06)", borderRadius: 12, fontSize: 12, color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.08)" }}>Open Gmail</div>
+            <div style={{ flex: 1, padding: "10px 14px", background: "#7c3aed", borderRadius: 12, fontSize: 12, fontWeight: 700, color: "#fff", textAlign: "center" }}>Start ⚡</div>
           </div>
+        </div>
 
-          {/* Floating stat card — left */}
-          <div
-            className="absolute hidden md:block"
-            style={{
-              top: 20,
-              left: -60,
-              width: 160,
-              background: "var(--bg-elevated)",
-              borderRadius: 20,
-              boxShadow: "var(--shadow)",
-              padding: "16px 18px",
-              transform: "rotate(-2deg)",
-            }}
-          >
-            <p className="text-[11px]" style={{ color: "var(--ink-faint)", letterSpacing: "-0.009em" }}>Current streak</p>
-            <p className="mt-1 text-[32px] font-semibold leading-none tabular-nums" style={{ color: "var(--ink)", letterSpacing: "-0.04em" }}>14</p>
-            <p className="mt-1 text-[11px]" style={{ color: "var(--flame)" }}>🔥 days</p>
-          </div>
-
-          {/* Floating XP card — right */}
-          <div
-            className="absolute hidden md:block"
-            style={{
-              top: 32,
-              right: -50,
-              width: 148,
-              background: "var(--apricot)",
-              borderRadius: 20,
-              boxShadow: "var(--shadow)",
-              padding: "16px 18px",
-              transform: "rotate(1.5deg)",
-            }}
-          >
-            <p className="text-[11px]" style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}>XP earned</p>
-            <p className="mt-1 text-[28px] font-semibold leading-none tabular-nums" style={{ color: "var(--ink)", letterSpacing: "-0.04em" }}>+20</p>
-            <p className="mt-1 text-[11px]" style={{ color: "var(--ink-muted)" }}>for starting ✓</p>
-          </div>
-
-          {/* Floating level card — bottom left */}
-          <div
-            className="absolute hidden md:block"
-            style={{
-              bottom: 20,
-              left: -40,
-              width: 152,
-              background: "var(--sky)",
-              borderRadius: 20,
-              boxShadow: "var(--shadow)",
-              padding: "14px 18px",
-              transform: "rotate(1deg)",
-            }}
-          >
-            <p className="text-[11px]" style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}>Level</p>
-            <p className="mt-1 text-[15px] font-semibold leading-tight" style={{ color: "var(--ink)", letterSpacing: "-0.01em" }}>Deeply Unwell</p>
-            <div className="mt-2 h-1.5 overflow-hidden rounded-full" style={{ background: "rgba(23,25,28,0.1)" }}>
-              <div className="h-full rounded-full" style={{ width: "72%", background: "var(--accent)" }} />
+        {/* Stats row */}
+        <div style={{ display: "flex", margin: "0 14px", gap: 8 }}>
+          {[
+            { icon: "🔥", label: "Streak", value: "14d" },
+            { icon: "⚡", label: "XP today", value: "+120" },
+            { icon: "✓", label: "Tasks", value: "3 done" },
+          ].map((s) => (
+            <div key={s.label} style={{ flex: 1, padding: "12px 10px", background: "rgba(255,255,255,0.05)", borderRadius: 14, border: "1px solid rgba(255,255,255,0.07)", textAlign: "center" }}>
+              <div style={{ fontSize: 18, marginBottom: 2 }}>{s.icon}</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", letterSpacing: "-0.01em" }}>{s.value}</div>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,0.4)", marginTop: 1 }}>{s.label}</div>
             </div>
-          </div>
+          ))}
         </div>
 
-        {/* ── Proof strip — Steep white card below hero ── */}
-        <div
-          className="mt-20 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 rounded-[20px] px-8 py-6"
-          style={{
-            background: "var(--bg-elevated)",
-            boxShadow: "var(--shadow-sm)",
-          }}
-        >
-          {PROOF_ITEMS.map((p) => (
-            <span key={p.label} className="flex items-center gap-2.5 text-[14px]" style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}>
-              <span
-                className="flex h-6 w-6 items-center justify-center rounded-full"
-                style={{ background: p.tint, color: p.color }}
-              >
-                {p.icon}
-              </span>
-              {p.label}
-            </span>
+        {/* Quest items */}
+        <div style={{ margin: "12px 14px 0" }}>
+          <div style={{ fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.4)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: 10 }}>Today</div>
+          {[
+            { name: "Tax return", xp: 50, done: true },
+            { name: "Gym bag → car", xp: 30, done: false },
+            { name: "Call dentist", xp: 40, done: false },
+          ].map((t) => (
+            <div key={t.name} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 0", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+              <div style={{ width: 20, height: 20, borderRadius: "50%", background: t.done ? "#30d158" : "rgba(255,255,255,0.1)", border: t.done ? "none" : "1.5px solid rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                {t.done && <span style={{ fontSize: 10, color: "#fff" }}>✓</span>}
+              </div>
+              <span style={{ flex: 1, fontSize: 13, fontWeight: 500, color: t.done ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.85)", textDecoration: t.done ? "line-through" : "none" }}>{t.name}</span>
+              <span style={{ fontSize: 11, fontWeight: 700, color: "#a78bfa" }}>+{t.xp}</span>
+            </div>
           ))}
         </div>
       </div>
-    </section>
+    </iPhone>
   );
 }
 
-const PROOF_ITEMS = [
-  { label: "XP for starting, not finishing",  icon: <Zap size={13} strokeWidth={2.5} />,              tint: "var(--accent-soft)", color: "var(--accent)" },
-  { label: "5-minute deal your brain accepts", icon: <Play size={12} strokeWidth={2.5} fill="currentColor" />, tint: "var(--apricot)",      color: "var(--ink-muted)" },
-  { label: "Streaks that survive bad weeks",   icon: <Flame size={13} strokeWidth={2.5} />,             tint: "var(--flame-soft)",  color: "var(--flame)" },
-  { label: "Built with ADHD, for ADHD",        icon: <span>♥</span>,                                   tint: "var(--fill-soft)",   color: "var(--ink-muted)" },
-];
-
-/* ── Animated product demo card ── */
-const DEMO_TASKS: { task: string; step: string }[] = [
-  { task: "the email I've been dreading", step: "open it, write one line" },
-  { task: "my tax return",                step: "just find the login" },
-  { task: "the gym bag by the door",      step: "put on the shoes" },
-  { task: "that essay due Friday",        step: "type the title" },
-];
-
-type DemoPhase = "ask" | "deal" | "running" | "done";
-
-function HeroStartDemo() {
-  const [i, setI] = useState(0);
-  const [phase, setPhase] = useState<DemoPhase>("ask");
-  const [xp, setXp] = useState(140);
-  const [live, setLive] = useState(true);
-  const item = DEMO_TASKS[i];
-
-  useEffect(() => {
-    if (!live) return;
-    const delays: Record<DemoPhase, number> = { ask: 2000, deal: 1800, running: 1700, done: 2200 };
-    const t = setTimeout(() => {
-      setPhase((p) => {
-        if (p === "ask") return "deal";
-        if (p === "deal") return "running";
-        if (p === "running") { setXp((x) => x + 20); return "done"; }
-        setI((n) => (n + 1) % DEMO_TASKS.length);
-        return "ask";
-      });
-    }, delays[phase]);
-    return () => clearTimeout(t);
-  }, [phase, live]);
-
-  function advance() {
-    setLive(false);
-    setPhase((p) => {
-      if (p === "ask") return "deal";
-      if (p === "deal") return "running";
-      if (p === "running") { setXp((x) => x + 20); return "done"; }
-      setI((n) => (n + 1) % DEMO_TASKS.length);
-      return "ask";
-    });
-  }
-
+export function Hero() {
   return (
-    <div className="w-full p-6">
-      {/* Header row */}
-      <div className="mb-5 flex items-start justify-between">
-        <div>
-          <div className="mb-1 flex items-center gap-1.5">
-            <LogoMark size={15} color="var(--accent)" />
-            <span className="text-[11px] font-semibold" style={{ color: "var(--ink-faint)", letterSpacing: "-0.009em" }}>Just start</span>
-          </div>
-          <h3 className="steep-heading text-[22px] text-ink" style={{ fontSize: 22 }}>
-            {phase === "done" ? "You started." : "What are you avoiding?"}
-          </h3>
-        </div>
-        {/* XP badge — Steep Apricot Wash */}
-        <div
-          className="flex shrink-0 flex-col items-center rounded-[14px] px-3.5 py-2"
-          style={{ background: "var(--apricot)" }}
-        >
-          <span className="text-[20px] font-semibold leading-none tabular-nums" style={{ color: "var(--ink)", letterSpacing: "-0.04em" }}>{xp}</span>
-          <span className="mt-0.5 text-[9px] font-medium uppercase tracking-[0.08em]" style={{ color: "var(--ink-muted)" }}>XP</span>
-        </div>
-      </div>
-
-      {/* Task card */}
+    <section
+      style={{
+        minHeight: "100vh",
+        background: "#000",
+        position: "relative",
+        overflow: "hidden",
+        display: "flex",
+        alignItems: "center",
+        paddingTop: 52,
+      }}
+    >
+      {/* Purple glow */}
       <div
-        className="mb-4 rounded-[16px] p-4"
         style={{
-          background: phase === "done" ? "var(--sky)" : "var(--bg)",
-          border: "1px solid var(--line)",
+          position: "absolute",
+          top: -200,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: 800,
+          height: 600,
+          background: "radial-gradient(ellipse at center, rgba(124,58,237,0.28) 0%, rgba(124,58,237,0.08) 45%, transparent 70%)",
+          pointerEvents: "none",
         }}
-      >
-        <div className="mb-2 flex items-center justify-between">
-          <span
-            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium"
-            style={{
-              background: phase === "done" ? "var(--reward-mint)" : "var(--bg-elevated)",
-              color: phase === "done" ? "#fff" : "var(--ink-muted)",
-              border: phase === "done" ? "none" : "1px solid var(--line)",
-            }}
-          >
-            {phase === "done" ? <Check size={11} strokeWidth={2.5} /> : <Zap size={11} strokeWidth={2.5} />}
-            {phase === "done" ? "Started ✓" : "Dreaded task"}
-          </span>
-          {phase === "running" && (
-            <span className="flex items-center gap-1.5 text-[13px] font-semibold tabular-nums" style={{ color: "var(--ink)" }}>
-              <span className="live-dot" style={{ color: "var(--reward-mint)", width: 8, height: 8 }} />
-              4:59
-            </span>
-          )}
+      />
+
+      {/* Grid lines (subtle) */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: "linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+          pointerEvents: "none",
+        }}
+      />
+
+      <div className="container-lg" style={{ padding: "80px 24px", position: "relative", zIndex: 1 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 64, alignItems: "center" }}>
+          {/* Left: Text */}
+          <div style={{ maxWidth: 560 }}>
+            <div className="feature-pill" style={{ marginBottom: 24 }}>
+              <Zap size={11} strokeWidth={2.5} />
+              Built for ADHD brains
+            </div>
+
+            <h1 className="apple-headline-xl" style={{ marginBottom: 24 }}>
+              Start the task<br />
+              <span className="gradient-text">you&apos;ve been avoiding.</span>
+            </h1>
+
+            <p style={{ fontSize: 19, lineHeight: 1.6, color: "rgba(235,235,245,0.60)", letterSpacing: "-0.009em", marginBottom: 40, maxWidth: 440 }}>
+              Name it, do 5 minutes, earn XP for starting — not for being perfect. Forgiving streaks that survive bad weeks. Free to start.
+            </p>
+
+            <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 12, marginBottom: 40 }}>
+              <a href="/auth/signup" className="btn-white" style={{ height: 52, fontSize: 17, paddingLeft: 28, paddingRight: 28 }}>
+                Start free
+                <ArrowRight size={17} strokeWidth={2} />
+              </a>
+              <a href="#features" className="btn-ghost-dark" style={{ height: 52, fontSize: 17, paddingLeft: 24, paddingRight: 24 }}>
+                See how it works
+              </a>
+            </div>
+
+            {/* Social proof */}
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <div style={{ display: "flex" }}>
+                {["#ff6b6b", "#4ecdc4", "#a78bfa", "#ffd93d", "#6bcf7f"].map((c, i) => (
+                  <div key={i} style={{ width: 28, height: 28, borderRadius: "50%", background: c, border: "2px solid #000", marginLeft: i > 0 ? -8 : 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11 }}>
+                    {["😮", "🧠", "⚡", "🔥", "✨"][i]}
+                  </div>
+                ))}
+              </div>
+              <span style={{ fontSize: 14, color: "rgba(235,235,245,0.50)", letterSpacing: "-0.009em" }}>
+                <strong style={{ color: "#fff" }}>2,400+</strong> ADHD brains already playing
+              </span>
+            </div>
+          </div>
+
+          {/* Right: Phone */}
+          <div style={{ position: "relative", display: "flex", justifyContent: "center" }}>
+            {/* Floating badges */}
+            <div
+              style={{
+                position: "absolute",
+                top: 40,
+                right: -20,
+                zIndex: 10,
+                padding: "10px 14px",
+                background: "rgba(30,215,96,0.15)",
+                border: "1px solid rgba(48,209,88,0.30)",
+                borderRadius: 14,
+                backdropFilter: "blur(12px)",
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                whiteSpace: "nowrap",
+              }}
+            >
+              <span style={{ fontSize: 18 }}>🔥</span>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: "#30d158" }}>14-day streak</div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.45)" }}>Survived a rough week</div>
+              </div>
+            </div>
+
+            <div
+              style={{
+                position: "absolute",
+                bottom: 80,
+                left: -30,
+                zIndex: 10,
+                padding: "10px 14px",
+                background: "rgba(167,139,250,0.15)",
+                border: "1px solid rgba(167,139,250,0.30)",
+                borderRadius: 14,
+                backdropFilter: "blur(12px)",
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
+              <span style={{ fontSize: 18 }}>⚡</span>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: "#a78bfa" }}>+120 XP earned</div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.45)" }}>Just for starting</div>
+              </div>
+            </div>
+
+            <HeroPhone />
+          </div>
         </div>
-        <p className="text-[17px] font-semibold leading-snug text-ink" style={{ letterSpacing: "-0.015em" }}>
-          {item.task}
-        </p>
-        <p className="mt-1 text-[13px]" style={{ color: "var(--ink-muted)", letterSpacing: "-0.009em" }}>
-          {phase === "ask"     && "tap to name it"}
-          {phase === "deal"    && `smallest move: ${item.step}`}
-          {phase === "running" && "5 minutes. you can quit after."}
-          {phase === "done"    && "the hard part is over."}
-        </p>
       </div>
-
-      {/* CTA */}
-      {phase === "done" ? (
-        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--fill-soft)", color: "var(--ink)", border: "1px solid var(--line)" }}>
-          <Zap size={15} strokeWidth={2.5} /> Start another
-        </button>
-      ) : phase === "deal" ? (
-        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--ink)", color: "#fff" }}>
-          <Play size={16} strokeWidth={2.5} fill="currentColor" /> Do 5 minutes
-        </button>
-      ) : phase === "running" ? (
-        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--reward-mint)", color: "#fff" }}>
-          <Check size={16} strokeWidth={2.5} /> I started — +20 XP
-        </button>
-      ) : (
-        <button onClick={advance} className="brutal-btn w-full py-3.5 text-[15px]" style={{ background: "var(--ink)", color: "#fff" }}>
-          <ArrowRight size={16} strokeWidth={2.5} /> Name it
-        </button>
-      )}
-
-      {/* Footer */}
-      <div className="mt-4 flex items-center justify-between pt-3" style={{ borderTop: "1px solid var(--line)" }}>
-        <span className="flex items-center gap-1.5 text-[12px] font-medium" style={{ color: "var(--flame)" }}>
-          <Flame size={12} strokeWidth={2.5} fill="currentColor" /> 14-day streak
-        </span>
-        <span className="text-[12px]" style={{ color: "var(--ink-faint)", letterSpacing: "-0.009em" }}>Lvl 3 · Invested</span>
-      </div>
-    </div>
+    </section>
   );
 }
