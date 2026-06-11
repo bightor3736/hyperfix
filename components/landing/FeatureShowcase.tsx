@@ -27,28 +27,30 @@ function ShowcaseSection({ label, headline, sub, points, phoneContent, flip = fa
   const iconColor = "#a78bfa";
 
   return (
-    <section style={{ background: bg, padding: "120px 0", overflow: "hidden" }}>
-      <div className="container-lg" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
-        <div style={{ order: flip ? 2 : 1 }}>
-          <div className="apple-label" style={{ color: "#a78bfa", marginBottom: 18 }}>{label}</div>
-          <h2 className="apple-headline-md" style={{ color: textColor, marginBottom: 20, lineHeight: 1.10 }}>{headline}</h2>
-          <p style={{ fontSize: 17, lineHeight: 1.65, color: subColor, marginBottom: 40, letterSpacing: "-0.009em" }}>{sub}</p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            {points.map((p) => (
-              <div key={p.title} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-                <div style={{ width: 40, height: 40, borderRadius: 12, background: iconBg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: iconColor }}>
-                  {p.icon}
+    <section style={{ background: bg, padding: "80px 0", overflow: "hidden" }}>
+      <div className="container-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+          <div className={flip ? "md:order-2" : "md:order-1"}>
+            <div className="apple-label" style={{ color: "#a78bfa", marginBottom: 18 }}>{label}</div>
+            <h2 className="apple-headline-md" style={{ color: textColor, marginBottom: 20, lineHeight: 1.10, fontSize: "clamp(26px, 3.5vw, 40px)" }}>{headline}</h2>
+            <p style={{ fontSize: 16, lineHeight: 1.65, color: subColor, marginBottom: 36, letterSpacing: "-0.009em" }}>{sub}</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+              {points.map((p) => (
+                <div key={p.title} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 12, background: iconBg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: iconColor }}>
+                    {p.icon}
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 15, fontWeight: 600, color: textColor, letterSpacing: "-0.012em", marginBottom: 2 }}>{p.title}</div>
+                    <div style={{ fontSize: 14, color: subColor, lineHeight: 1.55 }}>{p.desc}</div>
+                  </div>
                 </div>
-                <div>
-                  <div style={{ fontSize: 16, fontWeight: 600, color: textColor, letterSpacing: "-0.012em", marginBottom: 2 }}>{p.title}</div>
-                  <div style={{ fontSize: 14, color: subColor, lineHeight: 1.55 }}>{p.desc}</div>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-        <div style={{ order: flip ? 1 : 2, display: "flex", justifyContent: "center" }}>
-          <IPhone scale={0.82}>{phoneContent}</IPhone>
+          <div className={`flex justify-center ${flip ? "md:order-1" : "md:order-2"}`}>
+            <IPhone scale={0.78}>{phoneContent}</IPhone>
+          </div>
         </div>
       </div>
     </section>

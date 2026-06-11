@@ -69,7 +69,7 @@ export function Footer() {
 
       {/* Links */}
       <div className="container" style={{ padding: "64px 24px 40px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 40 }}>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
               <AppIcon size={30} />

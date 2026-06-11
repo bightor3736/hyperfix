@@ -91,10 +91,23 @@ export function MacSection() {
           See your streak, XP, active fixations and daily quests in a clean dashboard that&apos;s actually calming to look at.
         </p>
       </div>
-      <div style={{ overflowX: "auto", padding: "0 24px", display: "flex", justifyContent: "center" }}>
-        <MacBook scale={0.85}>
+      {/* Desktop: MacBook frame */}
+      <div className="hidden md:flex justify-center" style={{ overflowX: "auto", padding: "0 24px" }}>
+        <MacBook scale={0.82}>
           <DashboardPreview />
         </MacBook>
+      </div>
+      {/* Mobile: card preview without the frame */}
+      <div className="md:hidden" style={{ margin: "0 16px" }}>
+        <div style={{ borderRadius: 20, overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 20px 60px rgba(0,0,0,0.5)" }}>
+          {/* Fake menu bar */}
+          <div style={{ height: 32, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", padding: "0 14px", gap: 6, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+            {["#ff5f57","#febc2e","#28c840"].map(c => <div key={c} style={{ width: 10, height: 10, borderRadius: "50%", background: c }} />)}
+          </div>
+          <div style={{ height: 340 }}>
+            <DashboardPreview />
+          </div>
+        </div>
       </div>
     </section>
   );

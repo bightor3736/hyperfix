@@ -102,10 +102,10 @@ export function Rings() {
           </p>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", gap: 60, flexWrap: "wrap" }}>
+        <div className="flex flex-wrap justify-center items-start gap-8 sm:gap-12 lg:gap-16">
           <ActivityRing
-            radius={88}
-            stroke={18}
+            radius={72}
+            stroke={14}
             color="#ff375f"
             trackColor="rgba(255,55,95,0.15)"
             progress={0.78}
@@ -115,8 +115,8 @@ export function Rings() {
             sub="Days in a row"
           />
           <ActivityRing
-            radius={88}
-            stroke={18}
+            radius={72}
+            stroke={14}
             color="#30d158"
             trackColor="rgba(48,209,88,0.12)"
             progress={0.65}
@@ -126,8 +126,8 @@ export function Rings() {
             sub="Points earned"
           />
           <ActivityRing
-            radius={88}
-            stroke={18}
+            radius={72}
+            stroke={14}
             color="#5ac8f5"
             trackColor="rgba(90,200,245,0.12)"
             progress={0.52}
@@ -139,7 +139,7 @@ export function Rings() {
         </div>
 
         {/* Stats row */}
-        <div style={{ display: "flex", justifyContent: "center", gap: 12, marginTop: 80, flexWrap: "wrap" }}>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-16 max-w-2xl mx-auto">
           {[
             { label: "Tasks started", value: "1,240" },
             { label: "Streak freezes saved", value: "89" },
@@ -149,16 +149,15 @@ export function Rings() {
             <div
               key={s.label}
               style={{
-                padding: "20px 28px",
+                padding: "16px 20px",
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: 18,
+                borderRadius: 16,
                 textAlign: "center",
-                minWidth: 160,
               }}
             >
-              <div style={{ fontSize: 28, fontWeight: 700, color: "#fff", letterSpacing: "-0.025em" }}>{s.value}</div>
-              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.40)", marginTop: 4, fontWeight: 500 }}>{s.label}</div>
+              <div style={{ fontSize: 24, fontWeight: 700, color: "#fff", letterSpacing: "-0.025em" }}>{s.value}</div>
+              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.40)", marginTop: 3, fontWeight: 500 }}>{s.label}</div>
             </div>
           ))}
         </div>

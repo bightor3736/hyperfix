@@ -74,7 +74,7 @@ export function Pricing() {
           </div>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, maxWidth: 840, margin: "0 auto" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5" style={{ maxWidth: 840, margin: "0 auto" }}>
           {/* Free */}
           <div style={{ background: "#fff", borderRadius: 24, padding: 36, border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
             <div style={{ fontSize: 13, fontWeight: 600, color: "#6e6e73", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: 8 }}>Free Player</div>

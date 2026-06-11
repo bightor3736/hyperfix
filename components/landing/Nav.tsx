@@ -28,7 +28,7 @@ export function Nav() {
         borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "1px solid transparent",
       }}
     >
-      <div className="container-lg flex h-[52px] items-center justify-between">
+      <div className="container-lg flex h-[52px] items-center justify-between px-4 sm:px-6">
         <a href="/">
           <Wordmark dark={true} />
         </a>

@@ -110,7 +110,7 @@ export function Hero() {
       />
 
       <div className="container-lg" style={{ padding: "80px 24px", position: "relative", zIndex: 1 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 64, alignItems: "center" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Text */}
           <div style={{ maxWidth: 560 }}>
             <div className="feature-pill" style={{ marginBottom: 24 }}>
@@ -118,12 +118,12 @@ export function Hero() {
               Built for ADHD brains
             </div>
 
-            <h1 className="apple-headline-xl" style={{ marginBottom: 24 }}>
+            <h1 className="apple-headline-xl" style={{ marginBottom: 24, fontSize: "clamp(38px, 7vw, 96px)" }}>
               Start the task<br />
               <span className="gradient-text">you&apos;ve been avoiding.</span>
             </h1>
 
-            <p style={{ fontSize: 19, lineHeight: 1.6, color: "rgba(235,235,245,0.60)", letterSpacing: "-0.009em", marginBottom: 40, maxWidth: 440 }}>
+            <p style={{ fontSize: "clamp(16px, 2.5vw, 19px)", lineHeight: 1.6, color: "rgba(235,235,245,0.60)", letterSpacing: "-0.009em", marginBottom: 40, maxWidth: 440 }}>
               Name it, do 5 minutes, earn XP for starting — not for being perfect. Forgiving streaks that survive bad weeks. Free to start.
             </p>
 
@@ -153,7 +153,7 @@ export function Hero() {
           </div>
 
           {/* Right: Phone */}
-          <div style={{ position: "relative", display: "flex", justifyContent: "center" }}>
+          <div className="flex justify-center" style={{ position: "relative" }}>
             {/* Floating badges */}
             <div
               style={{
