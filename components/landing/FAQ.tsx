@@ -14,10 +14,10 @@ export function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" style={{ background: "var(--bg)", borderTop: "1px solid var(--line)", padding: "100px 0" }}>
+    <section id="faq" style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.08)", padding: "100px 0" }}>
       <div className="wrap-sm">
         <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <div className="eyebrow" style={{ marginBottom: 14 }}>FAQ</div>
+          <div className="eyebrow" style={{ marginBottom: 14, color: "rgba(255,255,255,0.35)" }}>FAQ</div>
           <h2 className="display-lg">Common questions.</h2>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -25,9 +25,9 @@ export function FAQ() {
             <div
               key={f.q}
               style={{
-                background: "var(--bg-white)",
+                background: "rgba(255,255,255,0.03)",
                 borderRadius: 12,
-                border: "1px solid var(--line)",
+                border: "1px solid rgba(255,255,255,0.07)",
                 overflow: "hidden",
               }}
             >
@@ -47,14 +47,14 @@ export function FAQ() {
                   gap: 16,
                 }}
               >
-                <span style={{ fontSize: 15, fontWeight: 600, color: "var(--ink)", letterSpacing: "-0.012em" }}>{f.q}</span>
+                <span style={{ fontSize: 15, fontWeight: 600, color: "#ffffff", letterSpacing: "-0.012em" }}>{f.q}</span>
                 {open === i
-                  ? <Minus size={16} strokeWidth={2} color="#A1A1AA" style={{ flexShrink: 0 }} />
-                  : <Plus size={16} strokeWidth={2} color="#A1A1AA" style={{ flexShrink: 0 }} />
+                  ? <Minus size={16} strokeWidth={2} color="rgba(255,255,255,0.35)" style={{ flexShrink: 0 }} />
+                  : <Plus size={16} strokeWidth={2} color="rgba(255,255,255,0.35)" style={{ flexShrink: 0 }} />
                 }
               </button>
               {open === i && (
-                <div style={{ padding: "0 22px 18px", fontSize: 14, color: "#71717A", lineHeight: 1.65 }}>
+                <div style={{ padding: "0 22px 18px", fontSize: 14, color: "rgba(255,255,255,0.55)", lineHeight: 1.65 }}>
                   {f.a}
                 </div>
               )}
