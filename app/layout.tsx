@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Quicksand, Nunito, Inter } from "next/font/google";
+import { Quicksand, Nunito, Inter, Instrument_Serif } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Suspense } from "react";
 import { AffTracker } from "@/components/AffTracker";
@@ -28,6 +28,15 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-landing-sans",
+});
+
+// Instrument Serif — editorial italic accent for hero headline.
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  display: "swap",
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-serif",
 });
 
 const SITE_URL = "https://hyperfix.app";
@@ -162,7 +171,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${grotesk.variable} ${mono.variable} ${inter.variable}`}
+      className={`${grotesk.variable} ${mono.variable} ${inter.variable} ${instrumentSerif.variable}`}
       suppressHydrationWarning
     >
       <head>

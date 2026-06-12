@@ -10,6 +10,7 @@
 
 :root {
   --font: -apple-system, "Inter", "Helvetica Neue", system-ui, Arial, sans-serif;
+  --font-serif-display: var(--font-serif, "Georgia", serif);
 
   /* Canvas */
   --bg:         #FAFAF8;

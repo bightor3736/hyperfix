@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Nav } from "@/components/landing/Nav";
 import { Hero } from "@/components/landing/Hero";
 import { Features } from "@/components/landing/Features";
 import { Testimonials } from "@/components/landing/Testimonials";
@@ -23,7 +22,6 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ c
   return (
     <>
       <SourceCapture />
-      <Nav />
       <main>
         <Hero />
         <Features />
