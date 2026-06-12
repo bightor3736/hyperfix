@@ -32,8 +32,8 @@ export function Nav() {
 
         <nav className="hidden md:flex items-center">
           {[
-            { label: "How it works", href: "#features" },
-            { label: "Pricing", href: "#pricing" },
+            { label: "How it works", href: "/#features" },
+            { label: "Pricing", href: "/pricing" },
           ].map((l) => (
             <a
               key={l.href}

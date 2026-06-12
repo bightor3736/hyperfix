@@ -37,6 +37,7 @@ const FEATURES = [
 export function Solution() {
   return (
     <section
+      id="features"
       style={{
         padding: "128px 24px",
         borderTop: "1px solid rgba(255,255,255,0.08)",

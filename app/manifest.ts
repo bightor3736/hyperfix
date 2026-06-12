@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Start the task you've been avoiding. Name it, do 5 minutes, get rewarded for starting — the ADHD app that beats task paralysis.",
     start_url: "/dashboard",
     display: "standalone",
-    background_color: "#FAF6F0",
-    theme_color: "#6957E8",
+    background_color: "#000000",
+    theme_color: "#000000",
     orientation: "portrait",
     icons: [
       { src: "/icon?size=192", sizes: "192x192", type: "image/png", purpose: "maskable" },

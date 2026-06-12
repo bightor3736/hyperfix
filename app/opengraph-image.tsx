@@ -1,16 +1,11 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Hyperfix — ADHD accountability that actually works";
+export const alt = "Hyperfix — start the task you've been avoiding";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function OG() {
-  const BG = "#f9f8f7";
-  const INK = "#1a1615";
-  const MUTED = "#453f3d";
-  const ENERGY = "#14b8a6";
-
   return new ImageResponse(
     (
       <div
@@ -19,46 +14,77 @@ export default async function OG() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          padding: "64px 72px",
-          fontFamily: "serif",
-          background: BG,
-          backgroundImage: `radial-gradient(720px 480px at 18% 0%, rgba(20,184,166,0.18) 0%, ${BG} 60%), radial-gradient(560px 380px at 100% 100%, rgba(52,211,153,0.12) 0%, transparent 58%)`,
-          color: INK,
+          justifyContent: "space-between",
+          padding: "72px 80px",
+          background: "#000000",
+          color: "#ffffff",
           position: "relative",
         }}
       >
+        {/* subtle vignette */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            background:
+              "radial-gradient(900px 500px at 50% 110%, rgba(255,255,255,0.08) 0%, transparent 60%)",
+          }}
+        />
+
         {/* brand row */}
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div style={{ display: "flex", width: 56, height: 56, borderRadius: 16, background: ENERGY, alignItems: "center", justifyContent: "center" }}>
-            <svg width="36" height="36" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
-              <g fill="#ffffff">
-                <circle cx="14" cy="7.4" r="6.6" />
-                <circle cx="14" cy="20.6" r="6.6" />
-                <circle cx="7.4" cy="14" r="6.6" />
-                <circle cx="20.6" cy="14" r="6.6" />
-                <circle cx="14" cy="14" r="6.6" />
-              </g>
+        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+          <div
+            style={{
+              width: 56,
+              height: 56,
+              background: "#ffffff",
+              borderRadius: 15,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <svg width="46" height="46" viewBox="0 0 36 36">
+              <line x1="11" y1="9" x2="11" y2="27" stroke="#000000" strokeWidth="3.2" strokeLinecap="round" />
+              <path d="M11 19 C11 13.5 25 13.5 25 19" stroke="#000000" strokeWidth="3.2" strokeLinecap="round" fill="none" />
+              <line x1="25" y1="19" x2="25" y2="27" stroke="#000000" strokeWidth="3.2" strokeLinecap="round" />
             </svg>
           </div>
-          <span style={{ fontSize: 34, fontWeight: 600, letterSpacing: "-0.02em" }}>hyperfix</span>
+          <span style={{ fontSize: 34, fontWeight: 600, letterSpacing: "-1px" }}>hyperfix</span>
         </div>
 
         {/* headline */}
-        <div style={{ marginTop: 56, display: "flex", flexDirection: "column" }}>
-          <span style={{ fontSize: 92, lineHeight: 1.04, letterSpacing: "-0.03em", fontWeight: 600, color: INK }}>
-            Your ADHD,
+        <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+          <span
+            style={{
+              fontSize: 84,
+              fontWeight: 500,
+              letterSpacing: "-3px",
+              lineHeight: 1.05,
+              maxWidth: 980,
+            }}
+          >
+            Start the task you&apos;ve been avoiding.
           </span>
-          <span style={{ fontSize: 92, lineHeight: 1.04, letterSpacing: "-0.03em", fontWeight: 600, color: ENERGY }}>
-            finally on your side.
+          <span
+            style={{
+              fontSize: 30,
+              color: "rgba(255,255,255,0.55)",
+              maxWidth: 820,
+              lineHeight: 1.4,
+            }}
+          >
+            Name it. Do 5 minutes. Earn XP for starting — not for finishing.
           </span>
         </div>
 
-        {/* bottom row */}
-        <div style={{ position: "absolute", left: 72, right: 72, bottom: 60, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-          <span style={{ fontSize: 27, color: MUTED }}>
-            track hyperfixations · earn real XP · beat the wall
+        {/* footer row */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <span style={{ fontSize: 22, color: "rgba(255,255,255,0.35)" }}>
+            Built for the way ADHD actually works
           </span>
-          <span style={{ fontSize: 28, color: INK, fontWeight: 600 }}>hyperfix.app</span>
+          <span style={{ fontSize: 28, fontWeight: 600 }}>hyperfix.app</span>
         </div>
       </div>
     ),
