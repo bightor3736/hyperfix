@@ -1,171 +1,156 @@
 "use client";
 import { useState } from "react";
-import { Wordmark } from "@/components/Logo";
 
 const VIDEO_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260602_150901_c45b90ec-18d7-42ff-90e2-b95d7109e330.mp4";
+  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_120549_0cd82c36-56b3-4dd9-b190-069cfc3a623f.mp4";
 
-const NAV_LINKS = ["How it works", "Pricing"];
+const AVATAR_GRADIENTS = [
+  "linear-gradient(135deg,#2a2a2a 0%,#111 100%)",
+  "linear-gradient(135deg,#3a3a3a 0%,#1a1a1a 100%)",
+  "linear-gradient(135deg,#484848 0%,#282828 100%)",
+];
+
+function AvatarGroup() {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <div style={{ display: "flex" }}>
+        {AVATAR_GRADIENTS.map((bg, i) => (
+          <div
+            key={i}
+            style={{
+              width: 32, height: 32, borderRadius: "50%",
+              border: "2px solid #000", background: bg,
+              marginLeft: i === 0 ? 0 : -8, zIndex: AVATAR_GRADIENTS.length - i,
+              position: "relative",
+            }}
+          />
+        ))}
+      </div>
+      <span style={{ fontSize: 14, color: "rgba(255,255,255,0.55)" }}>
+        2,400+ people already started
+      </span>
+    </div>
+  );
+}
 
 export function Hero() {
   const [email, setEmail] = useState("");
-  const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSending(true);
     window.location.href = `/auth/signup?email=${encodeURIComponent(email)}`;
   }
 
   return (
-    <div className="min-h-screen bg-white p-3 sm:p-4">
-      {/* Full-bleed card */}
+    <section
+      style={{
+        position: "relative", width: "100%", height: "100vh",
+        overflow: "hidden", display: "flex", flexDirection: "column",
+        alignItems: "center", justifyContent: "center",
+      }}
+    >
+      {/* Background video */}
+      <video
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}
+        src={VIDEO_URL}
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
+      {/* Bottom fade */}
       <div
-        className="
-          relative rounded-2xl sm:rounded-3xl overflow-hidden
-          min-h-[calc(100vh-24px)] sm:min-h-[calc(100vh-32px)]
-        "
+        style={{
+          position: "absolute", bottom: 0, left: 0, right: 0, height: 256, zIndex: 1,
+          background: "linear-gradient(to top, #000 0%, transparent 100%)",
+        }}
+      />
+
+      {/* Content */}
+      <div
+        style={{
+          position: "relative", zIndex: 10, display: "flex", flexDirection: "column",
+          alignItems: "center", textAlign: "center",
+          padding: "112px 24px 0",
+          maxWidth: 900, margin: "0 auto",
+        }}
       >
-        {/* Background video */}
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          src={VIDEO_URL}
-          autoPlay
-          muted
-          loop
-          playsInline
-        />
-
-        {/* Dark scrim */}
-        <div className="absolute inset-0 bg-black/35" />
-
-        {/* Content */}
-        <div
-          className="
-            relative z-10 flex flex-col
-            min-h-[calc(100vh-24px)] sm:min-h-[calc(100vh-32px)]
-            p-4 sm:p-6 md:p-8 gap-6
-          "
-        >
-          {/* ── Nav inside the card ── */}
-          <nav className="flex items-center gap-3 sm:gap-6 bg-white/65 backdrop-blur-md rounded-2xl shadow-sm pl-3 sm:pl-4 pr-2 py-2 w-full sm:w-auto self-start">
-            <Wordmark dark={false} size={15} />
-
-            {/* Links — hidden on mobile */}
-            <div className="hidden sm:flex items-center gap-5">
-              {NAV_LINKS.map((label) => (
-                <a
-                  key={label}
-                  href={label === "How it works" ? "#features" : "#pricing"}
-                  className="text-gray-800 text-sm font-medium hover:opacity-60 transition-opacity whitespace-nowrap"
-                >
-                  {label}
-                </a>
-              ))}
-            </div>
-
-            <a
-              href="/auth/signup"
-              className="ml-auto bg-black text-white text-sm font-medium px-4 sm:px-5 py-2 rounded-xl hover:bg-gray-800 transition-colors whitespace-nowrap"
-            >
-              Get started
-            </a>
-          </nav>
-
-          {/* Spacer */}
-          <div className="flex-1 min-h-[2rem]" />
-
-          {/* ── Bottom row ── */}
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-            {/* Headline */}
-            <p className="text-white text-3xl sm:text-4xl xl:text-5xl font-medium leading-tight drop-shadow-lg lg:max-w-lg xl:max-w-2xl shrink-0">
-              Start the task<br />
-              you&apos;ve been{" "}
-              <span
-                style={{
-                  fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)",
-                  fontStyle: "italic",
-                  fontWeight: 400,
-                }}
-              >
-                avoiding.
-              </span>
-            </p>
-
-            {/* ── Sign-up card ── */}
-            <div className="w-full lg:w-[min(440px,45%)] shrink-0">
-              <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-5 sm:p-6 flex flex-col gap-4">
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-semibold text-black tracking-tight mb-1">
-                    Join 2,400+ people who started.
-                  </h2>
-                  <p className="text-sm text-gray-500">
-                    Free forever. No credit card. 5 minutes to try it.
-                  </p>
-                </div>
-
-                {sent ? (
-                  <div className="flex flex-col items-center justify-center py-6 gap-3">
-                    <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center text-xl">
-                      ✓
-                    </div>
-                    <p className="text-base font-semibold text-gray-900">
-                      You&apos;re in!
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      Check your email to continue.
-                    </p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-                    <input
-                      type="email"
-                      placeholder="Your email address"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="text-sm px-3 py-2.5 rounded-xl border border-gray-200 bg-transparent placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition"
-                    />
-                    <button
-                      type="submit"
-                      disabled={sending}
-                      className="w-full bg-black text-white text-sm font-semibold py-3 rounded-2xl hover:bg-gray-800 transition-colors disabled:opacity-60"
-                    >
-                      {sending ? "Redirecting…" : "Start free →"}
-                    </button>
-                  </form>
-                )}
-
-                {/* Divider + log in */}
-                <div className="flex items-center gap-3">
-                  <div className="flex-1 h-px bg-gray-100" />
-                  <span className="text-gray-400 text-xs font-medium whitespace-nowrap">
-                    Already have an account?
-                  </span>
-                  <div className="flex-1 h-px bg-gray-100" />
-                </div>
-
-                <a
-                  href="/auth/login"
-                  className="w-full text-center text-sm font-medium text-gray-600 hover:text-black transition-colors"
-                >
-                  Log in
-                </a>
-
-                {/* Proof chips */}
-                <div className="flex flex-wrap gap-3 pt-1">
-                  {["✓ Free to start", "✓ No credit card", "✓ ADHD-friendly"].map((t) => (
-                    <span key={t} className="text-xs font-medium text-gray-400">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+        <div style={{ marginBottom: 32 }}>
+          <AvatarGroup />
         </div>
+
+        <h1
+          style={{
+            fontSize: "clamp(40px, 8vw, 88px)",
+            fontWeight: 500,
+            letterSpacing: "-2px",
+            color: "#ffffff",
+            lineHeight: 1.05,
+            marginBottom: 24,
+          }}
+        >
+          Start the task{" "}
+          <br className="hidden md:block" />
+          you&apos;ve been{" "}
+          <span
+            style={{
+              fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)",
+              fontStyle: "italic",
+              fontWeight: 400,
+            }}
+          >
+            avoiding.
+          </span>
+        </h1>
+
+        <p
+          style={{
+            fontSize: 18,
+            color: "hsl(210 17% 95%)",
+            maxWidth: 480,
+            marginBottom: 40,
+            lineHeight: 1.6,
+          }}
+        >
+          Name it. Do 5 minutes. Earn XP for starting — not for finishing.
+          Forgiving streaks that survive the hard weeks.
+        </p>
+
+        {/* Email form */}
+        <form
+          onSubmit={handleSubmit}
+          className="liquid-glass"
+          style={{
+            borderRadius: 9999, padding: 8,
+            display: "flex", alignItems: "center", gap: 8,
+            width: "100%", maxWidth: 480,
+          }}
+        >
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            style={{
+              flex: 1, minWidth: 0, background: "transparent",
+              fontSize: 14, color: "#ffffff",
+              padding: "10px 16px", outline: "none", border: "none",
+            }}
+          />
+          <button
+            type="submit"
+            style={{
+              background: "#ffffff", color: "#000000",
+              fontSize: 13, fontWeight: 700, letterSpacing: "0.05em",
+              borderRadius: 9999, padding: "12px 28px",
+              border: "none", cursor: "pointer", whiteSpace: "nowrap",
+            }}
+          >
+            START FREE
+          </button>
+        </form>
       </div>
-    </div>
+    </section>
   );
 }

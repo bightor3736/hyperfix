@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { Nav } from "@/components/landing/Nav";
 import { Hero } from "@/components/landing/Hero";
-import { IntroScreen } from "@/components/landing/IntroScreen";
-import { Features } from "@/components/landing/Features";
-import { Testimonials } from "@/components/landing/Testimonials";
-import { Pricing } from "@/components/landing/Pricing";
-import { FAQ } from "@/components/landing/FAQ";
+import { SearchChanged } from "@/components/landing/SearchChanged";
+import { Mission } from "@/components/landing/Mission";
+import { Solution } from "@/components/landing/Solution";
+import { CTASection } from "@/components/landing/CTASection";
 import { Footer } from "@/components/landing/Footer";
+import { IntroScreen } from "@/components/landing/IntroScreen";
 import { SourceCapture } from "@/components/SourceCapture";
 
 export const metadata: Metadata = {
@@ -24,12 +25,13 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ c
     <>
       <SourceCapture />
       <IntroScreen />
-      <main>
+      <Nav />
+      <main id="main-content">
         <Hero />
-        <Features />
-        <Testimonials />
-        <Pricing />
-        <FAQ />
+        <SearchChanged />
+        <Mission />
+        <Solution />
+        <CTASection />
       </main>
       <Footer />
     </>
