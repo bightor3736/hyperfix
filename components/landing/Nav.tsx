@@ -1,14 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-
-function ConcentricMark() {
-  return (
-    <div className="relative flex items-center justify-center shrink-0" style={{ width: 22, height: 22 }}>
-      <div style={{ position: "absolute", width: 22, height: 22, borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.55)" }} />
-      <div style={{ width: 9, height: 9, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.55)" }} />
-    </div>
-  );
-}
+import { AppIcon } from "@/components/Logo";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -31,9 +23,9 @@ export function Nav() {
       }}
     >
       <div className="wrap flex h-[56px] items-center justify-between">
-        <a href="/" className="flex items-center gap-2.5" style={{ textDecoration: "none" }}>
-          <ConcentricMark />
-          <span style={{ fontWeight: 700, fontSize: 16, color: "#ffffff", letterSpacing: "-0.025em" }}>
+        <a href="/" className="flex items-center gap-2" style={{ textDecoration: "none" }}>
+          <AppIcon size={26} />
+          <span style={{ fontWeight: 600, fontSize: 16, color: "#ffffff", letterSpacing: "-0.025em" }}>
             hyperfix
           </span>
         </a>

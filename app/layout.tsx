@@ -41,13 +41,12 @@ const instrumentSerif = Instrument_Serif({
 
 const SITE_URL = "https://hyperfix.app";
 const SITE_NAME = "Hyperfix";
-const TITLE =
-  "Hyperfix — ADHD accountability that actually works";
+const TITLE = "Hyperfix — start the task you've been avoiding";
 const DESCRIPTION =
-  "Track your hyperfixations, earn XP for real actions, and beat the tasks your brain avoids. A warm, forgiving game built for ADHD — no leaderboards, just yours. Free to start.";
+  "The ADHD app that beats task paralysis. AI breaks down tasks, you do 5 minutes, earn XP for starting. Forgiving streaks. Free.";
 
 export const viewport: Viewport = {
-  themeColor: "#FAF6F0",
+  themeColor: "#000000",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -89,7 +88,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Hyperfix — your daily dopamine, on tap",
+        alt: "Hyperfix — start the task you've been avoiding",
       },
     ],
   },

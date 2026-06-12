@@ -2,6 +2,7 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Hls from "hls.js";
+import { AppIcon } from "@/components/Logo";
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 20 },
@@ -12,15 +13,6 @@ const fadeUp = (delay: number) => ({
 
 const HLS_URL =
   "https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8";
-
-function ConcentricMark() {
-  return (
-    <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: 40, height: 40 }}>
-      <div style={{ position: "absolute", width: 40, height: 40, borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.55)" }} />
-      <div style={{ width: 18, height: 18, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.55)" }} />
-    </div>
-  );
-}
 
 export function CTASection() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -73,7 +65,7 @@ export function CTASection() {
         }}
       >
         <motion.div {...fadeUp(0)} style={{ marginBottom: 32 }}>
-          <ConcentricMark />
+          <AppIcon size={44} />
         </motion.div>
 
         <motion.h2

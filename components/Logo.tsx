@@ -1,15 +1,12 @@
 export function AppIcon({ size = 36 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 36 36" fill="none" aria-hidden>
-      {/* Near-black rounded square */}
-      <rect width="36" height="36" rx="9" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)" strokeWidth="0.75"/>
-      {/* Clean white "h" letterform — left stroke + arch + right stroke */}
-      {/* Left vertical stroke */}
-      <line x1="11" y1="9" x2="11" y2="27" stroke="white" strokeWidth="3" strokeLinecap="round"/>
-      {/* Arch from midpoint of left stroke to top of right stroke */}
-      <path d="M11 19.5 C11 14 25 14 25 19.5" stroke="white" strokeWidth="3" strokeLinecap="round" fill="none"/>
-      {/* Right stroke from where arch lands down */}
-      <line x1="25" y1="19.5" x2="25" y2="27" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+      {/* Solid white rounded square */}
+      <rect width="36" height="36" rx="10" fill="#ffffff" />
+      {/* Black "h" letterform */}
+      <line x1="11" y1="9" x2="11" y2="27" stroke="#000000" strokeWidth="3.2" strokeLinecap="round"/>
+      <path d="M11 19 C11 13.5 25 13.5 25 19" stroke="#000000" strokeWidth="3.2" strokeLinecap="round" fill="none"/>
+      <line x1="25" y1="19" x2="25" y2="27" stroke="#000000" strokeWidth="3.2" strokeLinecap="round"/>
     </svg>
   );
 }
