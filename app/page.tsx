@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/landing/Hero";
+import { IntroScreen } from "@/components/landing/IntroScreen";
 import { Features } from "@/components/landing/Features";
 import { Testimonials } from "@/components/landing/Testimonials";
 import { Pricing } from "@/components/landing/Pricing";
@@ -22,6 +23,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ c
   return (
     <>
       <SourceCapture />
+      <IntroScreen />
       <main>
         <Hero />
         <Features />
