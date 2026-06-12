@@ -4,19 +4,15 @@ export default function SignupPage() {
   return (
     <div className="flex flex-col gap-1">
       <h1
-        className="text-[40px] leading-[1.04] text-ink mb-2 anim-fadeUp"
-        style={{
-          fontFamily: "var(--font-landing-sans), Inter, sans-serif",
-          fontWeight: 600,
-          letterSpacing: "-0.045em",
-        }}
+        className="anim-fadeUp"
+        style={{ fontSize: "clamp(32px,5vw,42px)", fontWeight: 600, letterSpacing: "-0.04em", lineHeight: 1.08, color: "var(--ink)", marginBottom: 8 }}
       >
         Start{" "}
         <span
           style={{
-            fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif",
+            fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)",
             fontStyle: "italic",
-            fontWeight: 600,
+            fontWeight: 400,
           }}
         >
           playing
@@ -24,8 +20,8 @@ export default function SignupPage() {
         .
       </h1>
       <p
-        className="text-[16px] text-ink-muted mb-1 anim-fadeUp delay-100"
-        style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", letterSpacing: "-0.01em" }}
+        className="anim-fadeUp delay-100"
+        style={{ fontSize: 15, color: "var(--ink-muted)", letterSpacing: "-0.01em", marginBottom: 4 }}
       >
         30 seconds to sign up. Free forever. Your first hit is waiting.
       </p>

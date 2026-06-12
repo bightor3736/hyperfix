@@ -2,7 +2,7 @@ export function AppIcon({ size = 36 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 36 36" fill="none" aria-hidden>
       {/* Near-black rounded square */}
-      <rect width="36" height="36" rx="9" fill="#18181B" />
+      <rect width="36" height="36" rx="9" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)" strokeWidth="0.75"/>
       {/* Clean white "h" letterform — left stroke + arch + right stroke */}
       {/* Left vertical stroke */}
       <line x1="11" y1="9" x2="11" y2="27" stroke="white" strokeWidth="3" strokeLinecap="round"/>

@@ -44,12 +44,12 @@ export function Features() {
   return (
     <div id="features">
       {/* Feature grid */}
-      <section style={{ background: "var(--bg-white)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "100px 0" }}>
+      <section style={{ background: "#000", borderTop: "1px solid rgba(255,255,255,0.08)", borderBottom: "1px solid rgba(255,255,255,0.08)", padding: "100px 0" }}>
         <div className="wrap">
           <div style={{ textAlign: "center", marginBottom: 64 }}>
-            <div className="eyebrow" style={{ marginBottom: 14 }}>Features</div>
+            <div className="eyebrow" style={{ marginBottom: 14, color: "rgba(255,255,255,0.35)" }}>Features</div>
             <h2 className="display-lg" style={{ marginBottom: 16 }}>Built for how ADHD actually works.</h2>
-            <p className="body-lg" style={{ maxWidth: 460, margin: "0 auto", color: "#71717A" }}>
+            <p className="body-lg" style={{ maxWidth: 460, margin: "0 auto", color: "rgba(255,255,255,0.55)" }}>
               Not another productivity system. A game that works with your brain, not against it.
             </p>
           </div>
@@ -57,11 +57,19 @@ export function Features() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((f) => (
               <div key={f.title}>
-                <div className="icon-box" style={{ marginBottom: 16 }}>
+                <div
+                  style={{
+                    width: 44, height: 44, borderRadius: 12,
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    color: "#ffffff", flexShrink: 0, marginBottom: 16,
+                  }}
+                >
                   {f.icon}
                 </div>
-                <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--ink)", letterSpacing: "-0.012em", marginBottom: 6 }}>{f.title}</h3>
-                <p style={{ fontSize: 14, color: "#71717A", lineHeight: 1.6 }}>{f.desc}</p>
+                <h3 style={{ fontSize: 16, fontWeight: 600, color: "#ffffff", letterSpacing: "-0.012em", marginBottom: 6 }}>{f.title}</h3>
+                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>{f.desc}</p>
               </div>
             ))}
           </div>
@@ -69,10 +77,10 @@ export function Features() {
       </section>
 
       {/* How it works — numbered steps */}
-      <section style={{ background: "var(--bg)", padding: "100px 0" }}>
+      <section style={{ background: "#0a0a0a", padding: "100px 0" }}>
         <div className="wrap">
           <div style={{ textAlign: "center", marginBottom: 64 }}>
-            <div className="eyebrow" style={{ marginBottom: 14 }}>The loop</div>
+            <div className="eyebrow" style={{ marginBottom: 14, color: "rgba(255,255,255,0.35)" }}>The loop</div>
             <h2 className="display-lg">Four steps, every day.</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -81,15 +89,14 @@ export function Features() {
                 key={s.n}
                 style={{
                   padding: "28px 24px",
-                  background: "var(--bg-white)",
-                  border: "1px solid var(--line)",
+                  background: "rgba(255,255,255,0.03)",
+                  border: "1px solid rgba(255,255,255,0.08)",
                   borderRadius: 16,
-                  boxShadow: "var(--shadow-xs)",
                 }}
               >
-                <div style={{ fontSize: 13, fontWeight: 700, color: "var(--accent-2)", marginBottom: 12, letterSpacing: "0.01em" }}>{s.n}</div>
-                <h3 style={{ fontSize: 17, fontWeight: 700, color: "var(--ink)", letterSpacing: "-0.015em", marginBottom: 8 }}>{s.title}</h3>
-                <p style={{ fontSize: 14, color: "#71717A", lineHeight: 1.6 }}>{s.body}</p>
+                <div style={{ fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,0.35)", marginBottom: 12, letterSpacing: "0.01em" }}>{s.n}</div>
+                <h3 style={{ fontSize: 17, fontWeight: 700, color: "#ffffff", letterSpacing: "-0.015em", marginBottom: 8 }}>{s.title}</h3>
+                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>{s.body}</p>
               </div>
             ))}
           </div>
