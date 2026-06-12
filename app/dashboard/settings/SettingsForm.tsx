@@ -391,8 +391,8 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
   const usernameHint = () => {
     if (usernameStatus === "checking") return <span style={{ color: "var(--ink-muted)" }}>Checking…</span>;
     if (usernameStatus === "available") return <span style={{ color: "var(--accent)" }}>✓ Available</span>;
-    if (usernameStatus === "taken") return <span style={{ color: "#737373" }}>✗ Taken</span>;
-    if (usernameStatus === "invalid") return <span style={{ color: "#737373" }}>3–20 chars, letters/numbers/underscore only</span>;
+    if (usernameStatus === "taken") return <span style={{ color: "rgba(255,255,255,0.55)" }}>✗ Taken</span>;
+    if (usernameStatus === "invalid") return <span style={{ color: "rgba(255,255,255,0.55)" }}>3–20 chars, letters/numbers/underscore only</span>;
     return null;
   };
 
@@ -493,7 +493,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             )}
 
             {uploadError && (
-              <p className="font-sans text-[12px]" style={{ color: "#737373" }}>
+              <p className="font-sans text-[12px]" style={{ color: "rgba(255,255,255,0.55)" }}>
                 {uploadError}
               </p>
             )}
@@ -520,7 +520,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             >
               {!bannerUrl && (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <p className="font-mono text-xs" style={{ color: "rgba(43,36,64,0.25)" }}>No banner set</p>
+                  <p className="font-mono text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>No banner set</p>
                 </div>
               )}
               <div className="absolute bottom-3 right-3 flex gap-2">
@@ -580,7 +580,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               </div>
             )}
             {bannerUploadError && (
-              <p className="font-sans text-[12px]" style={{ color: "#737373" }}>{bannerUploadError}</p>
+              <p className="font-sans text-[12px]" style={{ color: "rgba(255,255,255,0.55)" }}>{bannerUploadError}</p>
             )}
             <p className="font-mono text-[10px]" style={{ color: "var(--ink-faint)" }}>
               Recommended: 1500×500px · JPG or PNG · max 5MB
@@ -663,7 +663,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           <FieldGroup
             label="Bio"
             hint={
-              <span style={{ color: bio.length > 150 ? "#737373" : "var(--ink-faint)" }}>
+              <span style={{ color: bio.length > 150 ? "rgba(255,255,255,0.55)" : "var(--ink-faint)" }}>
                 {bio.length}/160
               </span>
             }
@@ -813,7 +813,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               />
             </FieldGroup>
             {passwordError && (
-              <p className="font-sans text-[12px]" style={{ color: "#737373" }}>
+              <p className="font-sans text-[12px]" style={{ color: "rgba(255,255,255,0.55)" }}>
                 {passwordError}
               </p>
             )}
@@ -884,9 +884,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             onClick={() => setShowDeleteModal(true)}
             className="self-start px-5 py-2.5 rounded-full font-sans text-sm font-medium transition-all hover:opacity-80 opacity-50 hover:opacity-70"
             style={{
-              background: "rgba(43,36,64,0.08)",
-              border: "1px solid rgba(43,36,64,0.2)",
-              color: "#737373",
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              color: "rgba(255,255,255,0.55)",
             }}
           >
             Delete account
@@ -915,9 +915,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             <span
               className="font-mono text-[9px] self-start sm:self-auto rounded px-2 py-1"
               style={{
-                background: "var(--accent)",
-                color: "var(--accent)",
-                border: "1px solid var(--accent-soft)",
+                background: "rgba(255,255,255,0.08)",
+                color: "#ffffff",
+                border: "1px solid rgba(255,255,255,0.12)",
               }}
             >
               PRO
@@ -926,7 +926,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
             <a
               href="/pricing"
               className="self-start sm:self-auto px-4 py-2 rounded-full font-sans text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
-              style={{ background: "var(--accent)", color: "var(--bg)" }}
+              style={{ background: "#ffffff", color: "#000000" }}
             >
               Upgrade to Pro →
             </a>
@@ -971,9 +971,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
         <p
           className="font-sans text-sm rounded-xl px-4 py-3"
           style={{
-            background: "rgba(43,36,64,0.08)",
-            border: "1px solid rgba(43,36,64,0.2)",
-            color: "#737373",
+            background: "rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.12)",
+            color: "rgba(255,255,255,0.55)",
           }}
         >
           {saveError}
@@ -993,8 +993,8 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
         type="button"
         onClick={handleSave}
         disabled={pending}
-        className="w-full py-4 rounded-2xl font-sans text-base font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-        style={{ background: "var(--accent)", color: "var(--bg)" }}
+        className="w-full py-4 font-sans text-base transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
+        style={{ background: "#ffffff", color: "#000000", fontWeight: 600, borderRadius: 10 }}
       >
         {pending ? "Saving…" : "Save changes"}
       </button>
@@ -1033,9 +1033,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
               <p
                 className="font-sans text-sm rounded-xl px-3 py-2 mb-4"
                 style={{
-                  background: "rgba(43,36,64,0.08)",
-                  border: "1px solid rgba(43,36,64,0.2)",
-                  color: "#737373",
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  color: "rgba(255,255,255,0.55)",
                 }}
               >
                 {deleteError}
@@ -1059,9 +1059,9 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
                 disabled={pending}
                 className="flex-1 py-2.5 rounded-xl font-sans text-sm font-bold transition-all hover:opacity-90 disabled:opacity-60"
                 style={{
-                  background: "rgba(43,36,64,0.15)",
-                  border: "1px solid rgba(43,36,64,0.3)",
-                  color: "#737373",
+                  background: "rgba(255,255,255,0.08)",
+                  border: "1px solid rgba(255,255,255,0.18)",
+                  color: "rgba(255,255,255,0.55)",
                 }}
               >
                 {pending ? "Deleting…" : "Yes, delete everything"}
@@ -1077,7 +1077,7 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
           className="fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 rounded-2xl font-sans text-sm font-bold z-50 pointer-events-none"
           style={{
             background: "var(--accent)",
-            border: "1px solid rgba(43,36,64,0.3)",
+            border: "1px solid rgba(255,255,255,0.18)",
             color: "var(--accent)",
             boxShadow: "0 4px 24px rgba(0,0,0,0.5)",
           }}
@@ -1092,14 +1092,15 @@ export function SettingsForm({ profile, userEmail, userId }: Props) {
 /* ── helpers ── */
 
 const inputStyle: React.CSSProperties = {
-  background: "var(--bg)",
-  border: "1px solid var(--line)",
+  background: "rgba(255,255,255,0.03)",
+  border: "1px solid rgba(255,255,255,0.08)",
   color: "var(--ink)",
 };
 
 const cardStyle: React.CSSProperties = {
-  background: "var(--bg)",
-  border: "1px solid var(--line)",
+  background: "rgba(255,255,255,0.03)",
+  border: "1px solid rgba(255,255,255,0.08)",
+  borderRadius: 16,
 };
 
 function ProTag() {
@@ -1120,8 +1121,8 @@ function ProTag() {
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
     <h2
-      className="font-sans text-[11px] font-semibold uppercase tracking-widest mb-5"
-      style={{ color: "var(--ink-faint)" }}
+      className="font-sans uppercase mb-5"
+      style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", color: "rgba(255,255,255,0.35)" }}
     >
       {children}
     </h2>
@@ -1236,9 +1237,9 @@ function ReferralCopyButton({ referralCode }: { referralCode: string }) {
           onClick={handleCopy}
           className="shrink-0 px-3 py-2 rounded-xl font-sans text-xs font-medium transition-all hover:opacity-80"
           style={{
-            background: copied ? "var(--accent)" : "var(--line)",
-            border: copied ? "1px solid var(--accent-soft)" : "1px solid var(--line)",
-            color: copied ? "var(--accent)" : "var(--ink-muted)",
+            background: copied ? "#ffffff" : "var(--line)",
+            border: "1px solid transparent",
+            color: copied ? "#000000" : "var(--ink-muted)",
           }}
         >
           {copied ? "Copied ✓" : "Copy"}

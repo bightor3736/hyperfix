@@ -13,12 +13,13 @@ const KIND_ICONS: Record<QuestKind, React.ReactNode> = {
   focus_session:   <Timer size={14} strokeWidth={2} />,
 };
 
+// Monochrome icon chips — color is reserved for the streak flame and XP.
 const KIND_COLORS: Record<QuestKind, string> = {
-  log_fixation:    "var(--accent)",
+  log_fixation:    "rgba(255,255,255,0.08)",
   fixation_checkin: "var(--flame)",
   deep_dive:       "var(--xp)",
-  brain_burst:     "#FF9F0A",
-  focus_session:   "#30D158",
+  brain_burst:     "rgba(255,255,255,0.08)",
+  focus_session:   "rgba(255,255,255,0.08)",
 };
 
 export function DailyQuestsClient({ initialQuests }: { initialQuests: Quest[] }) {
@@ -72,11 +73,11 @@ export function DailyQuestsClient({ initialQuests }: { initialQuests: Quest[] })
 
       {/* Apple grouped list */}
       <div
-        className="overflow-hidden rounded-[var(--radius-lg)]"
+        className="overflow-hidden"
         style={{
-          background: "var(--bg-elevated)",
-          border: "1px solid var(--line)",
-          boxShadow: "var(--shadow)",
+          background: "rgba(255,255,255,0.03)",
+          border: "1px solid rgba(255,255,255,0.08)",
+          borderRadius: 16,
         }}
       >
         {quests.map((quest, i) => {

@@ -149,8 +149,8 @@ export function NotificationBell() {
           <span
             className="absolute top-0.5 right-0.5 flex items-center justify-center rounded-full font-mono font-bold"
             style={{
-              background: "#E63946",
-              color: "var(--ink)",
+              background: "#ffffff",
+              color: "#000000",
               fontSize: 8,
               minWidth: 14,
               height: 14,

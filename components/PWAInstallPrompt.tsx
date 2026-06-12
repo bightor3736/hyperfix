@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { LogoMark } from "@/components/Logo";
+import { AppIcon } from "@/components/Logo";
 import { X, Share, Plus } from "lucide-react";
 
 interface BeforeInstallPromptEvent extends Event {
@@ -87,28 +87,25 @@ export function PWAInstallPrompt() {
       <div
         className="mx-auto flex max-w-sm items-center gap-3.5 p-4 anim-fadeUp"
         style={{
-          background: "var(--bg-elevated)",
-          border: "1.5px solid var(--line-strong)",
-          borderRadius: 20,
+          background: "rgba(10,10,10,0.95)",
+          border: "1px solid rgba(255,255,255,0.08)",
+          borderRadius: 16,
           boxShadow: "var(--shadow-lg)",
         }}
       >
-        <div
-          className="flex h-11 w-11 shrink-0 items-center justify-center"
-          style={{ background: "var(--accent)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
-        >
-          <LogoMark size={22} color="#fff" ink="#fff" />
+        <div className="shrink-0">
+          <AppIcon size={44} />
         </div>
 
         <div className="min-w-0 flex-1">
-          <p className="text-[14px] font-bold leading-tight text-ink">Put Hyperfix on your home screen</p>
+          <p className="text-[14px] font-semibold leading-tight" style={{ color: "#ffffff" }}>Put Hyperfix on your home screen</p>
           {isIOS ? (
-            <p className="mt-0.5 inline-flex flex-wrap items-center gap-1 text-[12px] font-medium text-ink-muted">
+            <p className="mt-0.5 inline-flex flex-wrap items-center gap-1 text-[12px] font-medium" style={{ color: "rgba(255,255,255,0.55)" }}>
               Tap <Share size={13} strokeWidth={2.5} className="inline" /> then
-              <span className="font-bold text-ink">Add to Home Screen</span>
+              <span className="font-semibold" style={{ color: "#ffffff" }}>Add to Home Screen</span>
             </p>
           ) : (
-            <p className="mt-0.5 font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">
+            <p className="mt-0.5 uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.08em", color: "rgba(255,255,255,0.35)" }}>
               One tap · no app store · reminders on
             </p>
           )}
@@ -118,7 +115,7 @@ export function PWAInstallPrompt() {
           <button
             onClick={handleInstall}
             className="brutal-btn shrink-0 px-3.5 py-2 text-[13px]"
-            style={{ background: "var(--accent)", color: "#fff", borderRadius: 16 }}
+            style={{ background: "#ffffff", color: "#000000", fontWeight: 600, borderRadius: 10 }}
           >
             <Plus size={14} strokeWidth={3} /> Add
           </button>

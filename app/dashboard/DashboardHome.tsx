@@ -24,10 +24,10 @@ export type DashboardHomeProps = {
 };
 
 const QUICK_ACTIONS: { icon: LucideIcon; label: string; href: string; iconBg: string; iconColor: string }[] = [
-  { icon: Plus,     label: "Log fix",    href: "/dashboard/new",       iconBg: "var(--accent)",  iconColor: "#fff" },
-  { icon: BookOpen, label: "Fixations",  href: "/dashboard/fixations", iconBg: "#30D158",        iconColor: "#fff" },
-  { icon: Sparkles, label: "XP",         href: "/dashboard/points",    iconBg: "var(--xp)",      iconColor: "#fff" },
-  { icon: Timer,    label: "Timer",      href: "/dashboard/timer",     iconBg: "#FF9F0A",        iconColor: "#fff" },
+  { icon: Plus,     label: "Log fix",    href: "/dashboard/new",       iconBg: "#ffffff",                  iconColor: "#000000" },
+  { icon: BookOpen, label: "Fixations",  href: "/dashboard/fixations", iconBg: "rgba(255,255,255,0.08)",   iconColor: "#ffffff" },
+  { icon: Sparkles, label: "XP",         href: "/dashboard/points",    iconBg: "var(--xp)",                iconColor: "#ffffff" },
+  { icon: Timer,    label: "Timer",      href: "/dashboard/timer",     iconBg: "rgba(255,255,255,0.08)",   iconColor: "#ffffff" },
 ];
 
 export function DashboardHome({
@@ -72,12 +72,20 @@ export function DashboardHome({
           >
             <span
               className="flex h-9 w-9 items-center justify-center rounded-full font-semibold text-[14px]"
-              style={{ background: "var(--accent)", color: "#fff" }}
+              style={{ background: "#ffffff", color: "#000000" }}
             >
               {firstName.charAt(0).toUpperCase()}
             </span>
             <div className="leading-tight">
-              <p className="text-[11px] font-medium" style={{ color: "var(--ink-faint)" }}>
+              <p
+                className="text-[11px]"
+                style={{
+                  fontWeight: 600,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.35)",
+                }}
+              >
                 {greeting}
               </p>
               <p className="text-[15px] font-semibold tracking-tight" style={{ color: "var(--ink)" }}>
@@ -103,16 +111,25 @@ export function DashboardHome({
 
         {/* XP + level card */}
         <div
-          className="rounded-[var(--radius-xl)] overflow-hidden mb-4"
+          className="overflow-hidden mb-4"
           style={{
-            background: "var(--bg-elevated)",
-            border: "1px solid var(--line)",
-            boxShadow: "var(--shadow)",
+            background: "rgba(255,255,255,0.03)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: 16,
           }}
         >
           {/* XP hero */}
           <div className="px-5 pt-5 pb-4">
-            <p className="text-[11px] font-medium uppercase tracking-[0.06em] mb-1" style={{ color: "var(--ink-faint)" }}>
+            <p
+              className="mb-1"
+              style={{
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.35)",
+              }}
+            >
               Total XP
             </p>
             <div className="flex items-end gap-3">
@@ -143,7 +160,7 @@ export function DashboardHome({
               <div className="h-1.5 overflow-hidden rounded-full" style={{ background: "var(--fill-soft)" }}>
                 <div
                   className="h-full rounded-full"
-                  style={{ width: `${levelPct}%`, background: "var(--accent)", transition: "width 0.6s ease" }}
+                  style={{ width: `${levelPct}%`, background: "var(--xp)", transition: "width 0.6s ease" }}
                 />
               </div>
             </div>
@@ -183,8 +200,8 @@ export function DashboardHome({
             <Link
               key={a.label}
               href={a.href}
-              className="flex flex-col items-center gap-2 py-3.5 rounded-[var(--radius-lg)] transition-colors hover:bg-[var(--fill-soft)]"
-              style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}
+              className="flex flex-col items-center gap-2 py-3.5 transition-colors hover:bg-[var(--fill-soft)]"
+              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}
             >
               <span
                 className="flex h-10 w-10 items-center justify-center rounded-[10px]"

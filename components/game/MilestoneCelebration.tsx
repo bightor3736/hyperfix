@@ -49,7 +49,7 @@ export function MilestoneCelebration({
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center px-5 anim-fadeIn"
-      style={{ background: accent }}
+      style={{ background: "rgba(0,0,0,0.88)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
       role="dialog"
       aria-modal="true"
     >
@@ -57,12 +57,12 @@ export function MilestoneCelebration({
 
       <div
         className="relative w-full max-w-[380px] p-7 text-center anim-pop"
-        style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
+        style={{ background: "#0a0a0a", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
       >
         {/* Badge */}
         <div
           className="mx-auto mb-5 flex h-16 w-16 items-center justify-center anim-wiggle"
-          style={{ background: accent, border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-sm)" }}
+          style={{ background: accent, borderRadius: 16 }}
         >
           {isLevel ? (
             <Trophy size={30} strokeWidth={2.5} style={{ color: "#fff" }} />
@@ -71,7 +71,7 @@ export function MilestoneCelebration({
           )}
         </div>
 
-        <p className="brutal-tag mx-auto mb-4" style={{ background: "var(--ink)", color: "var(--bg)" }}>
+        <p className="brutal-tag mx-auto mb-4" style={{ background: "#ffffff", color: "#000000" }}>
           {isLevel ? "Level up" : "Streak milestone"}
         </p>
 
@@ -122,7 +122,7 @@ export function MilestoneCelebration({
         {!isPro && isLevel && (
           <div
             className="mt-6 p-4 text-left"
-            style={{ background: "var(--yellow)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}
+            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}
           >
             <p className="inline-flex items-center gap-1.5 text-[14px] font-bold text-ink">
               <Zap size={14} strokeWidth={3} fill="var(--ink)" /> Level up faster
@@ -132,7 +132,7 @@ export function MilestoneCelebration({
             </p>
             <ProCheckoutButton
               className="brutal-btn mt-3 w-full py-2.5 text-[13px]"
-              style={{ background: "var(--ink)", color: "var(--bg)", borderRadius: 16 }}
+              style={{ background: "#ffffff", color: "#000000", borderRadius: 10 }}
             >
               Power up <Zap size={14} strokeWidth={3} />
             </ProCheckoutButton>

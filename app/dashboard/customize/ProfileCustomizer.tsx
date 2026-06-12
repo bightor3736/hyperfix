@@ -39,14 +39,14 @@ const STATUS_EMOJIS = ["🎯", "🔥", "🧠", "☕", "🎧", "🌙", "✨", "�
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl p-5 mb-4" style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)" }}>
+    <div className="p-5 mb-4" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}>
       {children}
     </div>
   );
 }
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
-  return <p className="font-mono text-[11px] uppercase tracking-widest mb-3" style={{ color: "var(--ink-faint)" }}>{children}</p>;
+  return <p className="uppercase mb-3" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", color: "rgba(255,255,255,0.35)" }}>{children}</p>;
 }
 
 export function ProfileCustomizer({ profile }: { profile: ProfileRow | null }) {
@@ -227,14 +227,14 @@ export function ProfileCustomizer({ profile }: { profile: ProfileRow | null }) {
         </div>
       </Card>
 
-      {error && <p className="font-sans text-[13px] mb-3" style={{ color: "#fca5a5" }}>{error}</p>}
+      {error && <p className="font-sans text-[13px] mb-3" style={{ color: "rgba(255,255,255,0.7)" }}>{error}</p>}
 
       <div className="flex items-center gap-3 sticky bottom-4 z-10">
         <button
           onClick={save}
           disabled={saving}
           className="press-pop flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl font-sans text-[15px] font-bold transition-all disabled:opacity-60"
-          style={{ background: saved ? "#5eead4" : "var(--invert-bg)", color: saved ? "#0f0d40" : "var(--invert-ink)", boxShadow: "0 8px 32px rgba(0,0,0,0.35)" }}
+          style={{ background: "#ffffff", color: "#000000", fontWeight: 600, boxShadow: "0 8px 32px rgba(0,0,0,0.35)" }}
         >
           {saving ? <Loader2 size={16} className="animate-spin" /> : saved ? <Check size={16} strokeWidth={2.5} /> : null}
           {saving ? "Saving…" : saved ? "Saved" : "Save profile"}
@@ -243,8 +243,8 @@ export function ProfileCustomizer({ profile }: { profile: ProfileRow | null }) {
           <Link
             href={`/u/${profile.username}`}
             target="_blank"
-            className="press-pop inline-flex items-center gap-2 px-4 py-3 rounded-2xl font-sans text-[14px] font-semibold"
-            style={{ background: "var(--bg-elevated)", border: "1px solid var(--line)", color: "var(--ink)" }}
+            className="press-pop liquid-glass inline-flex items-center gap-2 px-4 py-3 rounded-2xl font-sans text-[14px] font-semibold"
+            style={{ color: "#ffffff" }}
           >
             <ExternalLink size={15} /> View
           </Link>

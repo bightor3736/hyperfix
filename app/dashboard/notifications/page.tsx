@@ -15,9 +15,9 @@ import { legacyEmojiToType, getReactionMeta } from "@/lib/reactions";
 
 export const metadata: Metadata = { title: "Notifications · Hyperfix" };
 
-const CARD_BG = "var(--bg)";
+const CARD_BG = "rgba(255,255,255,0.03)";
 const CARD_BORDER = "var(--line)";
-const TEAL = "var(--accent)";
+const TEAL = "#FFFFFF";
 
 type NotifActor = {
   username: string | null;
@@ -59,7 +59,7 @@ function renderNotif(n: Notif): Rendered | null {
     const meta = type ? getReactionMeta(type) : null;
     return {
       Icon: HeartIcon,
-      iconColor: "#2B2440",
+      iconColor: "#FFFFFF",
       text: (
         <>
           <span style={{ color: "var(--ink)" }}>{name}</span>
@@ -88,7 +88,7 @@ function renderNotif(n: Notif): Rendered | null {
   if (n.type === "follow") {
     return {
       Icon: PinIcon,
-      iconColor: "#2B2440",
+      iconColor: "#FFFFFF",
       text: (
         <>
           <span style={{ color: "var(--ink)" }}>{name}</span>
@@ -101,7 +101,7 @@ function renderNotif(n: Notif): Rendered | null {
   if (n.type === "comment") {
     return {
       Icon: ChatIcon,
-      iconColor: "#2B2440",
+      iconColor: "#FFFFFF",
       text: (
         <>
           <span style={{ color: "var(--ink)" }}>{name}</span>
@@ -127,7 +127,7 @@ function renderNotif(n: Notif): Rendered | null {
   if (n.type === "streak") {
     return {
       Icon: FlameIcon,
-      iconColor: "#2B2440",
+      iconColor: "#FFFFFF",
       text: (
         <span style={{ color: "var(--ink)" }}>
           Your streak on <span>&ldquo;{fixTitle}&rdquo;</span> is still going. Don&apos;t break the chain.
@@ -139,7 +139,7 @@ function renderNotif(n: Notif): Rendered | null {
   if (n.type === "message") {
     return {
       Icon: ChatIcon,
-      iconColor: "var(--accent)",
+      iconColor: "#FFFFFF",
       text: (
         <>
           <span style={{ color: "var(--ink)" }}>{name}</span>
@@ -296,14 +296,13 @@ export default async function NotificationsPage() {
 
   return (
     <div className="min-h-screen pb-16" style={{ background: "var(--bg)" }}>
-      {/* Dark hero */}
-      <header className="relative overflow-hidden" style={{ background: ["radial-gradient(ellipse 80% 140% at 110% 65%, rgba(139,92,246,0.60) 0%, transparent 55%)", "radial-gradient(ellipse 50% 80% at 85% -5%, rgba(99,102,241,0.45) 0%, transparent 50%)", "linear-gradient(145deg, #1e1880 0%, #0f0d40 100%)"].join(", "), padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) 56px" }}>
-        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E\")", backgroundSize: "200px 200px", opacity: 0.7 }} />
-        <div className="relative z-10 flex items-end justify-between gap-4 flex-wrap">
+      {/* Hero */}
+      <header style={{ background: "#000000", borderBottom: "1px solid rgba(255,255,255,0.08)", padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) 40px" }}>
+        <div className="flex items-end justify-between gap-4 flex-wrap">
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] mb-2" style={{ color: "rgba(167,139,250,0.8)" }}>Notifications</p>
-            <h1 style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", fontWeight: 700, letterSpacing: "-0.05em", fontSize: "clamp(32px,5vw,48px)", lineHeight: 1, color: "#fff" }}>
-              What&apos;s been <span style={{ fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif", fontStyle: "italic" }}>happening</span>.
+            <p className="mb-2 uppercase" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>Notifications</p>
+            <h1 style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(32px,5vw,48px)", lineHeight: 1, color: "#ffffff" }}>
+              What&apos;s been <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>happening</span>.
             </h1>
             <p className="mt-3 font-sans text-[15px]" style={{ color: "rgba(255,255,255,0.55)" }}>
               Reactions, follows, comments — all the signs you&apos;re not alone in this.
@@ -313,7 +312,7 @@ export default async function NotificationsPage() {
         </div>
       </header>
 
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8" style={{ marginTop: -24 }}>
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8" style={{ marginTop: 32 }}>
 
         {notifications.length === 0 ? (
           <div

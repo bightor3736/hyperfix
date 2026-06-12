@@ -5,6 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { NotificationBell } from "@/components/NotificationBell";
+import { AppIcon } from "@/components/Logo";
 import {
   LayoutDashboard,
   Settings,
@@ -87,8 +88,8 @@ export function DashboardSidebarClient({
 
   return (
     <aside
-      className="apple-glass hidden lg:flex flex-col h-screen w-[220px] shrink-0 fixed left-0 top-0 z-40"
-      style={{ background: "var(--bg-elevated)" }}
+      className="hidden lg:flex flex-col h-screen w-60 shrink-0 fixed left-0 top-0 z-40"
+      style={{ background: "#000000", borderRight: "1px solid rgba(255,255,255,0.08)" }}
     >
       {/* ── App title ── */}
       <div
@@ -97,10 +98,15 @@ export function DashboardSidebarClient({
       >
         <Link
           href="/dashboard"
-          className="font-display text-[15px] font-semibold tracking-tight transition-opacity hover:opacity-70"
-          style={{ color: "var(--ink)" }}
+          className="flex items-center gap-2.5 transition-opacity hover:opacity-70"
         >
-          hyperfix
+          <AppIcon size={24} />
+          <span
+            className="font-display text-[15px] font-semibold tracking-tight"
+            style={{ color: "var(--ink)" }}
+          >
+            hyperfix
+          </span>
         </Link>
         <NotificationBell />
       </div>
@@ -121,7 +127,7 @@ export function DashboardSidebarClient({
         ) : (
           <div
             className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-semibold shrink-0"
-            style={{ background: "var(--accent)", color: "#fff" }}
+            style={{ background: "#ffffff", color: "#000000" }}
           >
             {initials}
           </div>
@@ -131,7 +137,7 @@ export function DashboardSidebarClient({
             {displayName}
           </p>
           {isPro && (
-            <p className="text-[10px] font-semibold" style={{ color: "var(--accent)" }}>
+            <p className="text-[10px] font-semibold" style={{ color: "rgba(255,255,255,0.55)" }}>
               Pro
             </p>
           )}
@@ -155,7 +161,7 @@ export function DashboardSidebarClient({
           {streakFreezes > 0 && (
             <span
               className="flex items-center gap-1 text-[11px] font-medium"
-              style={{ color: "var(--accent)" }}
+              style={{ color: "rgba(255,255,255,0.55)" }}
             >
               <Snowflake size={10} strokeWidth={2} />
               {streakFreezes}
@@ -172,7 +178,7 @@ export function DashboardSidebarClient({
         >
           <div
             className="h-full rounded-full"
-            style={{ width: `${levelPct}%`, background: "var(--accent)" }}
+            style={{ width: `${levelPct}%`, background: "var(--xp)" }}
           />
         </div>
         <p className="mt-1 text-[10px]" style={{ color: "var(--ink-faint)" }}>
@@ -186,8 +192,13 @@ export function DashboardSidebarClient({
           <div key={si}>
             {section.label && (
               <p
-                className="px-2 mb-1 text-[11px] font-semibold uppercase tracking-[0.06em]"
-                style={{ color: "var(--ink-faint)" }}
+                className="px-2 mb-1 uppercase"
+                style={{
+                  fontSize: 11,
+                  fontWeight: 600,
+                  letterSpacing: "0.08em",
+                  color: "rgba(255,255,255,0.35)",
+                }}
               >
                 {section.label}
               </p>
@@ -201,15 +212,15 @@ export function DashboardSidebarClient({
                     href={item.href}
                     className="flex items-center gap-2.5 px-2.5 py-2 rounded-[9px] transition-colors"
                     style={{
-                      background: active ? "var(--accent-soft)" : "transparent",
-                      color: active ? "var(--accent)" : "var(--ink-muted)",
+                      background: active ? "rgba(255,255,255,0.08)" : "transparent",
+                      color: active ? "#ffffff" : "var(--ink-muted)",
                     }}
                   >
                     <span
                       className="flex h-6 w-6 items-center justify-center rounded-[6px] shrink-0"
                       style={{
-                        background: active ? "var(--accent)" : "var(--fill-soft)",
-                        color: active ? "#fff" : "var(--ink-muted)",
+                        background: active ? "#ffffff" : "var(--fill-soft)",
+                        color: active ? "#000000" : "var(--ink-muted)",
                       }}
                     >
                       {item.icon}

@@ -6,7 +6,7 @@ import { FixStatusPill, type FixStatus } from "@/components/FixStatusPill";
 import { checkInFix, bulkCheckInFixes } from "@/app/actions/fixes";
 import { CountUp } from "@/components/CountUp";
 import { Search, Check, Plus } from "lucide-react";
-import { CategoryIcon, CATEGORY_COLOR } from "@/components/CategoryIcon";
+import { CategoryIcon } from "@/components/CategoryIcon";
 import { useToast } from "@/components/Toast";
 
 // ── QuickExportButton ─────────────────────────────────────────────────────────
@@ -59,7 +59,7 @@ function QuickExportButton({ fixId, title }: { fixId: string; title: string }) {
         state === "done"
           ? {
               background: "var(--accent-soft)",
-              border: "1px solid rgba(111,138,99,0.3)",
+              border: "1px solid rgba(255,255,255,0.2)",
               color: "var(--accent)",
             }
           : {
@@ -170,7 +170,7 @@ const CATEGORY_FILTERS = [
 ] as const;
 type SortOrder = "newest" | "longest" | "intense" | "unchecked";
 
-const TEAL = "var(--accent)";
+const TEAL = "#ffffff";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -180,16 +180,12 @@ function getDayCount(startedAt: string): number {
   return Math.max(1, Math.ceil((now.getTime() - start.getTime()) / 86_400_000));
 }
 
-function intensityColor(intensity: number): string {
-  if (intensity >= 8) return "#E63946";
-  if (intensity >= 6) return "#FB923C";
-  return TEAL;
+function intensityColor(_intensity: number): string {
+  return "#ffffff";
 }
 
-function intensityRGB(intensity: number): string {
-  if (intensity >= 8) return "230,57,70";
-  if (intensity >= 6) return "251,146,60";
-  return "111,138,99";
+function intensityRGB(_intensity: number): string {
+  return "255,255,255";
 }
 
 function getMilestone(days: number): { label: string } | null {
@@ -229,9 +225,6 @@ function FixGridCard({
   }
 
   const delay = `${Math.min(index, 6) * 60}ms`;
-  const catColor =
-    (CATEGORY_COLOR as Record<string, string>)[fix.category.toLowerCase()] ||
-    TEAL;
 
   if (fix.banner_url) {
     // ── Banner card variant ──────────────────────────────────────────────────
@@ -256,13 +249,13 @@ function FixGridCard({
           <div className="absolute bottom-2 left-3 flex items-baseline gap-1.5">
             <span
               className="font-display leading-none tracking-tight"
-              style={{ fontSize: 28, color: "#f3eee0" }}
+              style={{ fontSize: 28, color: "#ffffff" }}
             >
               {days}
             </span>
             <span
               className="font-mono uppercase tracking-widest"
-              style={{ fontSize: 9, color: "rgba(243,238,224,0.7)" }}
+              style={{ fontSize: 9, color: "rgba(255,255,255,0.7)" }}
             >
               day{days !== 1 ? "s" : ""}
             </span>
@@ -271,7 +264,7 @@ function FixGridCard({
           <div
             className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5"
             style={{
-              background: "rgba(43,36,64,0.55)",
+              background: "rgba(0,0,0,0.55)",
               border: `1px solid rgba(${rgb},0.4)`,
               backdropFilter: "blur(8px)",
               color,
@@ -310,9 +303,9 @@ function FixGridCard({
             <span
               className="inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-widest rounded-full px-2 py-0.5"
               style={{
-                background: `${catColor}14`,
-                color: catColor,
-                border: `1px solid ${catColor}33`,
+                background: "rgba(255,255,255,0.06)",
+                color: "rgba(255,255,255,0.7)",
+                border: "1px solid rgba(255,255,255,0.1)",
               }}
             >
               <CategoryIcon category={fix.category} size={9} />
@@ -361,7 +354,7 @@ function FixGridCard({
                 className="h-full rounded-full transition-all"
                 style={{
                   width: `${pct}%`,
-                  background: `linear-gradient(to right, rgba(${rgb},0.4), ${color})`,
+                  background: "#ffffff",
                 }}
               />
             </div>
@@ -424,9 +417,9 @@ function FixGridCard({
           <span
             className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest rounded-full px-2.5 py-1"
             style={{
-              background: `${catColor}14`,
-              color: catColor,
-              border: `1px solid ${catColor}33`,
+              background: "rgba(255,255,255,0.06)",
+              color: "rgba(255,255,255,0.7)",
+              border: "1px solid rgba(255,255,255,0.1)",
             }}
           >
             <CategoryIcon category={fix.category} size={9} />
@@ -519,7 +512,7 @@ function FixGridCard({
               className="h-full rounded-full transition-all"
               style={{
                 width: `${pct}%`,
-                background: `linear-gradient(to right, rgba(${rgb},0.4), ${color})`,
+                background: "#ffffff",
               }}
             />
           </div>

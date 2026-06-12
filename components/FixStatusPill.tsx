@@ -18,63 +18,39 @@ type PillConfig = {
   icon: string;
 };
 
+// Monochrome system: differentiation comes from the glyph + ink strength,
+// never from hue. Active-ish statuses read brighter; finished ones fade.
+const PILL_BRIGHT: PillConfig = {
+  bg: "rgba(255,255,255,0.08)",
+  border: "rgba(255,255,255,0.18)",
+  text: "#ffffff",
+  glow: "transparent",
+  icon: "✦",
+};
+const PILL_MID: PillConfig = {
+  bg: "rgba(255,255,255,0.05)",
+  border: "rgba(255,255,255,0.12)",
+  text: "rgba(255,255,255,0.7)",
+  glow: "transparent",
+  icon: "◐",
+};
+const PILL_FAINT: PillConfig = {
+  bg: "rgba(255,255,255,0.03)",
+  border: "rgba(255,255,255,0.08)",
+  text: "rgba(255,255,255,0.45)",
+  glow: "transparent",
+  icon: "◌",
+};
+
 const CONFIG: Record<FixStatus, PillConfig> = {
-  "Day 1": {
-    bg: "rgba(20, 184, 166, 0.12)",
-    border: "rgba(20, 184, 166, 0.35)",
-    text: "#5eead4",
-    glow: "rgba(20, 184, 166, 0.18)",
-    icon: "✦",
-  },
-  "Obsessing": {
-    bg: "rgba(163, 230, 53, 0.11)",
-    border: "rgba(163, 230, 53, 0.38)",
-    text: "#a3e635",
-    glow: "rgba(163, 230, 53, 0.18)",
-    icon: "◉",
-  },
-  "On loop": {
-    bg: "rgba(139, 92, 246, 0.13)",
-    border: "rgba(139, 92, 246, 0.4)",
-    text: "#c4b5fd",
-    glow: "rgba(139, 92, 246, 0.2)",
-    icon: "↻",
-  },
-  "Fading": {
-    bg: "rgba(234, 179, 8, 0.10)",
-    border: "rgba(234, 179, 8, 0.32)",
-    text: "#fcd34d",
-    glow: "rgba(234, 179, 8, 0.15)",
-    icon: "◐",
-  },
-  "Post-fix": {
-    bg: "rgba(71, 130, 180, 0.12)",
-    border: "rgba(71, 130, 180, 0.35)",
-    text: "#93c5fd",
-    glow: "rgba(71, 130, 180, 0.18)",
-    icon: "⌁",
-  },
-  "Ended": {
-    bg: "rgba(244, 244, 244, 0.06)",
-    border: "rgba(244, 244, 244, 0.14)",
-    text: "rgba(244, 244, 244, 0.45)",
-    glow: "rgba(244, 244, 244, 0.06)",
-    icon: "◌",
-  },
-  "Dormant": {
-    bg: "rgba(56, 80, 130, 0.13)",
-    border: "rgba(56, 80, 130, 0.38)",
-    text: "#a5b4fc",
-    glow: "rgba(56, 80, 130, 0.18)",
-    icon: "◑",
-  },
-  "Send help": {
-    bg: "rgba(225, 29, 72, 0.11)",
-    border: "rgba(225, 29, 72, 0.38)",
-    text: "#fda4af",
-    glow: "rgba(225, 29, 72, 0.18)",
-    icon: "⚠",
-  },
+  "Day 1":     { ...PILL_BRIGHT, icon: "✦" },
+  "Obsessing": { ...PILL_BRIGHT, icon: "◉" },
+  "On loop":   { ...PILL_BRIGHT, icon: "↻" },
+  "Fading":    { ...PILL_MID,   icon: "◐" },
+  "Post-fix":  { ...PILL_MID,   icon: "⌁" },
+  "Ended":     { ...PILL_FAINT, icon: "◌" },
+  "Dormant":   { ...PILL_FAINT, icon: "◑" },
+  "Send help": { ...PILL_BRIGHT, icon: "⚠" },
 };
 
 export function FixStatusPill({
@@ -98,7 +74,6 @@ export function FixStatusPill({
         background: c.bg,
         border: `1px solid ${c.border}`,
         color: c.text,
-        boxShadow: `0 0 12px ${c.glow}, inset 0 1px 0 transparent`,
       }}
     >
       <span

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { PRO_FEATURES } from "@/lib/pro-features";
 
-const TEAL = "var(--accent)";
+const TEAL = "#ffffff";
 
 function FeatureList() {
   return (

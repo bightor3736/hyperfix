@@ -109,38 +109,31 @@ export default function TimerPage() {
     setJustFinished(false);
   }
 
-  const accent = mode === "focus" ? "#a78bfa" : "#5eead4";
-  const ringBg = "rgba(255,255,255,0.10)";
+  const accent = "#ffffff";
+  const ringBg = "rgba(255,255,255,0.08)";
   const R = 130, C = 2 * Math.PI * R;
 
   return (
-    <div className="min-h-screen pb-24 flex flex-col" style={{
-      background: [
-        "radial-gradient(ellipse 80% 100% at 50% 120%, rgba(139,92,246,0.35) 0%, transparent 60%)",
-        "radial-gradient(ellipse 60% 60% at 50% -10%, rgba(99,102,241,0.30) 0%, transparent 55%)",
-        "linear-gradient(160deg, #1e1880 0%, #0f0d40 100%)",
-      ].join(", "),
-    }}>
-      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E\")", backgroundSize: "200px 200px", opacity: 0.6 }} />
+    <div className="min-h-screen pb-24 flex flex-col" style={{ background: "#000000" }}>
 
       <div className="relative z-10 flex-1 flex flex-col items-center px-5 pt-10">
 
         {/* Header */}
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] mb-1" style={{ color: "rgba(167,139,250,0.8)" }}>Focus timer</p>
-        <h1 className="mb-6 text-center" style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", fontWeight: 700, letterSpacing: "-0.05em", fontSize: "clamp(30px,5vw,44px)", lineHeight: 1, color: "#fff" }}>
-          Lock <span style={{ fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif", fontStyle: "italic" }}>in</span>.
+        <p className="mb-1 uppercase" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>Focus timer</p>
+        <h1 className="mb-6 text-center" style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(30px,5vw,44px)", lineHeight: 1, color: "#ffffff" }}>
+          Lock <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>in</span>.
         </h1>
 
         {/* Mode toggle */}
-        <div className="flex gap-1 p-1 rounded-2xl mb-7" style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.10)" }}>
+        <div className="flex gap-1 p-1 mb-7" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}>
           {(["focus", "break"] as const).map((m) => (
             <button
               key={m}
               onClick={() => selectMode(m)}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl font-sans text-[13px] font-semibold transition-all"
               style={{
-                background: mode === m ? "rgba(255,255,255,0.14)" : "transparent",
-                color: mode === m ? "#fff" : "rgba(255,255,255,0.5)",
+                background: mode === m ? "#ffffff" : "transparent",
+                color: mode === m ? "#000000" : "rgba(255,255,255,0.55)",
               }}
             >
               {m === "focus" ? <Brain size={14} strokeWidth={2} /> : <Coffee size={14} strokeWidth={2} />}
@@ -156,7 +149,7 @@ export default function TimerPage() {
             <circle
               cx={150} cy={150} r={R} fill="none" stroke={accent} strokeWidth={14} strokeLinecap="round"
               strokeDasharray={C} strokeDashoffset={C - (pct / 100) * C}
-              style={{ transition: "stroke-dashoffset 0.5s linear", filter: `drop-shadow(0 0 12px ${accent}88)` }}
+              style={{ transition: "stroke-dashoffset 0.5s linear" }}
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -164,14 +157,14 @@ export default function TimerPage() {
               <>
                 <Check size={48} strokeWidth={2.5} style={{ color: accent }} />
                 <p className="mt-2 font-sans text-[15px] font-semibold" style={{ color: "#fff" }}>Session done!</p>
-                <p className="font-mono text-[10px] uppercase tracking-widest mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>+XP earned</p>
+                <p className="mt-1 uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.08em", color: "#A78BFA" }}>+XP earned</p>
               </>
             ) : (
               <>
-                <span className="tabular-nums" style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", fontWeight: 700, fontSize: 64, letterSpacing: "-0.04em", color: "#fff", lineHeight: 1 }}>
+                <span className="tabular-nums" style={{ fontWeight: 700, fontSize: 64, letterSpacing: "-0.04em", color: "#fff", lineHeight: 1 }}>
                   {fmt(remaining)}
                 </span>
-                <p className="font-mono text-[10px] uppercase tracking-widest mt-2" style={{ color: "rgba(255,255,255,0.45)" }}>
+                <p className="mt-2 uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.08em", color: "rgba(255,255,255,0.35)" }}>
                   {mode === "focus" ? "Deep work" : "Recharge"}
                 </p>
               </>
@@ -187,9 +180,9 @@ export default function TimerPage() {
               onClick={() => selectMinutes(m)}
               className="px-4 py-2 rounded-xl font-sans text-[13px] font-semibold tabular-nums transition-all"
               style={{
-                background: minutes === m ? "rgba(255,255,255,0.16)" : "rgba(255,255,255,0.06)",
-                color: minutes === m ? "#fff" : "rgba(255,255,255,0.5)",
-                border: `1px solid ${minutes === m ? "rgba(255,255,255,0.22)" : "rgba(255,255,255,0.08)"}`,
+                background: minutes === m ? "#ffffff" : "rgba(255,255,255,0.03)",
+                color: minutes === m ? "#000000" : "rgba(255,255,255,0.55)",
+                border: `1px solid ${minutes === m ? "#ffffff" : "rgba(255,255,255,0.08)"}`,
               }}
             >
               {m}m
@@ -204,7 +197,7 @@ export default function TimerPage() {
             onChange={(e) => setTask(e.target.value)}
             placeholder="What are you working on?"
             className="w-full max-w-sm rounded-2xl px-4 py-3 font-sans text-[14px] outline-none mb-6 text-center"
-            style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)", color: "#fff" }}
+            style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", color: "#fff" }}
           />
         )}
 
@@ -214,9 +207,9 @@ export default function TimerPage() {
             onClick={() => setRunning((r) => !r)}
             className="press-pop flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-sans text-[16px] font-bold transition-all"
             style={{
-              background: running ? "rgba(255,255,255,0.14)" : "linear-gradient(135deg, #6366f1 0%, #a855f7 100%)",
-              color: "#fff",
-              boxShadow: running ? "none" : "0 8px 32px rgba(139,92,246,0.5)",
+              background: running ? "rgba(255,255,255,0.08)" : "#ffffff",
+              color: running ? "#ffffff" : "#000000",
+              fontWeight: 600,
               minWidth: 160,
             }}
           >
@@ -226,7 +219,7 @@ export default function TimerPage() {
           <button
             onClick={reset}
             className="press-pop flex items-center justify-center rounded-2xl transition-all"
-            style={{ width: 56, height: 56, background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.7)" }}
+            style={{ width: 56, height: 56, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.55)" }}
           >
             <RotateCcw size={20} strokeWidth={2} />
           </button>
@@ -234,8 +227,8 @@ export default function TimerPage() {
 
         {/* Today's sessions */}
         {sessions > 0 && (
-          <div className="mt-7 inline-flex items-center gap-1.5 px-4 py-2 rounded-full font-mono text-[11px] uppercase tracking-widest"
-            style={{ background: "rgba(167,139,250,0.18)", border: "1px solid rgba(167,139,250,0.3)", color: "#a78bfa" }}>
+          <div className="mt-7 inline-flex items-center gap-1.5 px-4 py-2 rounded-full uppercase"
+            style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.55)" }}>
             <Brain size={12} strokeWidth={2} /> {sessions} focus session{sessions === 1 ? "" : "s"} today
           </div>
         )}

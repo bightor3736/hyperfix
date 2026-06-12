@@ -3,8 +3,9 @@
 import { useCallback, useEffect, useState } from "react";
 
 const cardStyle: React.CSSProperties = {
-  background: "var(--bg)",
-  border: "1px solid var(--line)",
+  background: "rgba(255,255,255,0.03)",
+  border: "1px solid rgba(255,255,255,0.08)",
+  borderRadius: 16,
 };
 
 function urlBase64ToUint8Array(base64String: string): Uint8Array {
@@ -136,9 +137,9 @@ export function PushToggle() {
 
   const buttonStyle: React.CSSProperties = enabled
     ? {
-        background: "var(--accent)",
-        border: "1px solid rgba(111,138,99,0.3)",
-        color: "var(--accent)",
+        background: "#ffffff",
+        border: "1px solid transparent",
+        color: "#000000",
       }
     : {
         background: "var(--line)",
@@ -172,7 +173,7 @@ export function PushToggle() {
         </button>
       </div>
       {error && (
-        <p className="font-sans text-[12px]" style={{ color: "#fda4af" }}>
+        <p className="font-sans text-[12px]" style={{ color: "rgba(255,255,255,0.7)" }}>
           {error}
         </p>
       )}

@@ -45,7 +45,7 @@ export function FirstHitCelebration({
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center px-5 anim-fadeIn"
-      style={{ background: "var(--accent)" }}
+      style={{ background: "rgba(0,0,0,0.88)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
       role="dialog"
       aria-modal="true"
     >
@@ -53,17 +53,17 @@ export function FirstHitCelebration({
 
       <div
         className="relative w-full max-w-[380px] p-7 text-center anim-pop"
-        style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
+        style={{ background: "#0a0a0a", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
       >
         {/* Badge */}
         <div
           className="mx-auto mb-5 flex h-16 w-16 items-center justify-center anim-wiggle"
-          style={{ background: "var(--yellow)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-sm)" }}
+          style={{ background: "var(--xp)", borderRadius: 16 }}
         >
-          <Zap size={30} strokeWidth={2.5} style={{ color: "var(--ink)" }} fill="var(--ink)" />
+          <Zap size={30} strokeWidth={2.5} style={{ color: "#ffffff" }} fill="#ffffff" />
         </div>
 
-        <p className="brutal-tag mx-auto mb-4" style={{ background: "var(--ink)", color: "var(--bg)" }}>
+        <p className="brutal-tag mx-auto mb-4" style={{ background: "#ffffff", color: "#000000" }}>
           Your first hit
         </p>
 
@@ -76,10 +76,10 @@ export function FirstHitCelebration({
         </p>
 
         {/* Fixation */}
-        <div className="mt-6 p-4 text-left" style={{ background: "var(--bg-soft)", border: "1.5px solid var(--line-strong)", borderRadius: 16 }}>
+        <div className="mt-6 p-4 text-left" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}>
           <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">Now tracking</p>
           <p className="mt-0.5 text-[18px] font-bold leading-snug text-ink" style={{ letterSpacing: "-0.02em" }}>{fixationName}</p>
-          <p className="mt-2 inline-flex items-center gap-1.5 px-2 py-0.5 font-mono text-[10px] font-bold uppercase" style={{ background: "var(--xp)", color: "#fff", border: "1px solid var(--line)", borderRadius: 999 }}>
+          <p className="mt-2 inline-flex items-center gap-1.5 px-2 py-0.5 font-mono text-[10px] font-bold uppercase" style={{ background: "var(--xp)", color: "#ffffff", borderRadius: 999 }}>
             Level 1 · {levelName}
           </p>
         </div>
@@ -95,7 +95,7 @@ export function FirstHitCelebration({
           href="/dashboard"
           onClick={onClose}
           className="brutal-btn mt-6 w-full py-3.5 text-[15px]"
-          style={{ background: "var(--accent)", color: "var(--accent-ink)", borderRadius: 16 }}
+          style={{ background: "#ffffff", color: "#000000", fontWeight: 600, borderRadius: 10 }}
         >
           Take me in <ArrowRight size={17} strokeWidth={3} />
         </Link>

@@ -238,10 +238,9 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
     <section
       className="overflow-hidden"
       style={{
-        background: "var(--bg-elevated)",
-        border: "1px solid var(--line)",
-        borderRadius: "var(--radius-xl)",
-        boxShadow: "var(--shadow)",
+        background: "rgba(255,255,255,0.03)",
+        border: "1px solid rgba(255,255,255,0.08)",
+        borderRadius: 16,
       }}
     >
       <div className="p-5 sm:p-6">
@@ -252,7 +251,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
           <div className="flex items-center gap-2 mb-4">
             <span
               className="flex h-8 w-8 items-center justify-center rounded-[8px]"
-              style={{ background: "var(--coral)", color: "#fff" }}
+              style={{ background: "#ffffff", color: "#000000" }}
             >
               <Zap size={16} strokeWidth={2.5} />
             </span>
@@ -264,7 +263,10 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
             className="leading-tight"
             style={{ fontSize: "clamp(22px,5vw,28px)", fontWeight: 700, letterSpacing: "-0.02em", color: "var(--ink)" }}
           >
-            What are you avoiding?
+            What are you{" "}
+            <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>
+              avoiding?
+            </span>
           </h2>
           <p className="mt-2 text-[14px] leading-snug" style={{ color: "var(--ink-muted)" }}>
             {welcome
@@ -295,7 +297,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
               type="submit"
               disabled={!title.trim() || submitting}
               className="brutal-btn w-full py-3.5 text-[15px] font-semibold disabled:opacity-40"
-              style={{ background: "var(--accent)", color: "#fff" }}
+              style={{ background: "#ffffff", color: "#000000" }}
             >
               {submitting ? "One sec…" : <>Let&apos;s start <ArrowRight size={16} strokeWidth={2.5} /></>}
             </button>
@@ -328,7 +330,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
                     <button
                       onClick={() => resume(t)}
                       className="brutal-btn shrink-0 px-3 py-1.5 text-[12px] font-semibold"
-                      style={{ background: "var(--accent)", color: "#fff" }}
+                      style={{ background: "#ffffff", color: "#000000" }}
                     >
                       <Play size={11} strokeWidth={2.5} fill="currentColor" /> Go
                     </button>
@@ -400,8 +402,8 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
                   className="flex-1 py-2.5 text-[13px] font-semibold rounded-[10px] transition-all"
                   style={
                     minutes === m
-                      ? { background: "var(--accent)", color: "#fff" }
-                      : { background: "var(--fill-soft)", color: "var(--ink-muted)" }
+                      ? { background: "#ffffff", color: "#000000" }
+                      : { background: "rgba(255,255,255,0.04)", color: "var(--ink-muted)" }
                   }
                 >
                   {m}m
@@ -412,7 +414,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
 
           <div
             className="mt-5 p-4 rounded-[10px]"
-            style={{ background: "var(--reward-amber-soft)", border: "1px solid var(--line)" }}
+            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
           >
             <p className="text-[14px] font-semibold leading-snug" style={{ color: "var(--ink)" }}>
               The deal: do {minutes} minutes. Then you&apos;re allowed to stop.
@@ -425,7 +427,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
           <button
             onClick={launch}
             className="brutal-btn mt-4 w-full py-3.5 text-[15px] font-semibold"
-            style={{ background: "var(--accent)", color: "#fff" }}
+            style={{ background: "#ffffff", color: "#000000" }}
           >
             Start now <Play size={16} strokeWidth={2.5} fill="currentColor" />
           </button>
@@ -436,7 +438,7 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
       {phase === "running" && (
         <div className="flex flex-col items-center text-center">
           <p className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.06em]" style={{ color: "var(--ink-faint)" }}>
-            {running && <span className="live-dot" style={{ color: "var(--lime)", width: 8, height: 8 }} />}
+            {running && <span className="live-dot" style={{ color: "#ffffff", width: 8, height: 8 }} />}
             {running ? "Live — working on" : "Paused — working on"}
           </p>
           <h2
@@ -466,8 +468,8 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
               onClick={() => setRunning((r) => !r)}
               className="brutal-btn px-6 py-3 text-[14px] font-semibold"
               style={{
-                background: running ? "var(--fill-soft)" : "var(--accent)",
-                color: running ? "var(--ink)" : "#fff",
+                background: running ? "rgba(255,255,255,0.08)" : "#ffffff",
+                color: running ? "#ffffff" : "#000000",
               }}
             >
               {running ? <Pause size={16} strokeWidth={2.5} fill="currentColor" /> : <Play size={16} strokeWidth={2.5} fill="currentColor" />}
@@ -475,8 +477,8 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
             </button>
             <button
               onClick={finish}
-              className="brutal-btn px-5 py-3 text-[13px] font-semibold"
-              style={{ background: "var(--reward-mint)", color: "#fff" }}
+              className="brutal-btn liquid-glass px-5 py-3 text-[13px] font-semibold"
+              style={{ color: "#ffffff" }}
             >
               <Check size={15} strokeWidth={2.5} /> I started
             </button>
@@ -496,9 +498,9 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
         <div className="flex flex-col items-center text-center anim-pop">
           <div
             className="flex h-16 w-16 items-center justify-center rounded-[18px] anim-wiggle"
-            style={{ background: "var(--reward-mint)", boxShadow: "0 4px 16px rgba(48,209,88,0.35)" }}
+            style={{ background: "#ffffff" }}
           >
-            <Check size={30} strokeWidth={2.5} style={{ color: "#fff" }} />
+            <Check size={30} strokeWidth={2.5} style={{ color: "#000000" }} />
           </div>
           <h2
             className="mt-5 leading-none"
@@ -522,22 +524,22 @@ export function JustStart({ welcome = false }: { welcome?: boolean }) {
             <button
               onClick={launch}
               className="brutal-btn w-full py-3.5 text-[14px] font-semibold"
-              style={{ background: "var(--accent)", color: "#fff" }}
+              style={{ background: "#ffffff", color: "#000000" }}
             >
               Keep going — another round <ArrowRight size={15} strokeWidth={2.5} />
             </button>
             <div className="flex gap-2">
               <button
                 onClick={() => { if (activeId) markDone(activeId); reset(); }}
-                className="brutal-btn flex-1 py-3 text-[13px] font-semibold"
-                style={{ background: "var(--reward-mint)", color: "#fff" }}
+                className="brutal-btn liquid-glass flex-1 py-3 text-[13px] font-semibold"
+                style={{ color: "#ffffff" }}
               >
                 <Check size={14} strokeWidth={2.5} /> It&apos;s done
               </button>
               <button
                 onClick={reset}
                 className="brutal-btn flex-1 py-3 text-[13px] font-semibold"
-                style={{ background: "var(--fill-soft)", color: "var(--ink)" }}
+                style={{ background: "rgba(255,255,255,0.08)", color: "#ffffff" }}
               >
                 Save for later
               </button>

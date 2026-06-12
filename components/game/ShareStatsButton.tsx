@@ -87,7 +87,7 @@ export function ShareStatsButton({ name, streak, level, levelNum, xp, hits, fixa
       <button
         onClick={() => setOpen(true)}
         className="brutal-btn inline-flex items-center gap-2 px-4 py-2 text-[13px]"
-        style={{ background: "var(--accent)", color: "var(--accent-ink)", borderRadius: 16 }}
+        style={{ background: "#ffffff", color: "#000000", fontWeight: 600, borderRadius: 10 }}
       >
         <Share2 size={14} strokeWidth={2.5} />
         Share my card
@@ -96,12 +96,12 @@ export function ShareStatsButton({ name, streak, level, levelNum, xp, hits, fixa
       {open && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center px-4"
-          style={{ background: "rgba(43,36,64,0.6)" }}
+          style={{ background: "rgba(0,0,0,0.75)" }}
           onClick={() => setOpen(false)}
         >
           <div
             className="w-full max-w-sm overflow-hidden anim-pop"
-            style={{ background: "var(--bg-elevated)", border: "1.5px solid var(--line-strong)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
+            style={{ background: "#0a0a0a", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1.5px solid var(--line-strong)" }}>
@@ -125,7 +125,7 @@ export function ShareStatsButton({ name, streak, level, levelNum, xp, hits, fixa
                   onClick={nativeShare}
                   disabled={busy}
                   className="brutal-btn flex-1 py-3 text-[14px] disabled:opacity-50"
-                  style={{ background: "var(--accent)", color: "#fff", borderRadius: 16 }}
+                  style={{ background: "#ffffff", color: "#000000", fontWeight: 600, borderRadius: 10 }}
                 >
                   {busy ? <Loader2 size={16} className="animate-spin" /> : <Share2 size={16} strokeWidth={2.5} />}
                   Share
@@ -134,7 +134,7 @@ export function ShareStatsButton({ name, streak, level, levelNum, xp, hits, fixa
                   onClick={downloadCard}
                   disabled={busy}
                   className="brutal-btn px-4 py-3 text-[13px] disabled:opacity-50"
-                  style={{ background: "var(--bg-elevated)", color: "var(--ink)", borderRadius: 16 }}
+                  style={{ background: "rgba(255,255,255,0.08)", color: "#ffffff", borderRadius: 10 }}
                 >
                   <Download size={15} strokeWidth={2.5} />
                 </button>

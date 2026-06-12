@@ -40,10 +40,9 @@ export function OnboardingModal({ totalFixes }: { totalFixes: number }) {
       <div
         className="relative w-full max-w-md rounded-3xl p-8 flex flex-col gap-7 anim-scaleIn"
         style={{
-          background: "var(--bg)",
-          border: "1px solid var(--accent)",
-          boxShadow:
-            "0 32px 80px rgba(0,0,0,0.7), 0 0 60px var(--accent-soft)",
+          background: "#0a0a0a",
+          border: "1px solid rgba(255,255,255,0.12)",
+          boxShadow: "0 32px 80px rgba(0,0,0,0.7)",
         }}
       >
         <div>
@@ -132,9 +131,9 @@ function Step({
         style={{
           width: 24,
           height: 24,
-          background: "var(--accent-soft)",
-          color: "var(--accent)",
-          border: "1px solid rgba(111,138,99,0.25)",
+          background: "rgba(255,255,255,0.08)",
+          color: "#ffffff",
+          border: "1px solid rgba(255,255,255,0.12)",
         }}
       >
         {n}

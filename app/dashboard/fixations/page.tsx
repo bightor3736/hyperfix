@@ -487,32 +487,21 @@ export default function FixationsPage() {
         </div>
       )}
 
-      {/* Dark hero */}
+      {/* Hero */}
       <header
-        className="relative overflow-hidden"
         style={{
-          background: [
-            "radial-gradient(ellipse 80% 140% at 110% 65%, rgba(139,92,246,0.60) 0%, transparent 55%)",
-            "radial-gradient(ellipse 50% 80%  at 85%  -5%, rgba(99,102,241,0.45) 0%, transparent 50%)",
-            "linear-gradient(145deg, #1e1880 0%, #0f0d40 100%)",
-          ].join(", "),
-          padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) 56px",
+          background: "#000000",
+          borderBottom: "1px solid rgba(255,255,255,0.08)",
+          padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) 40px",
         }}
       >
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E\")",
-            backgroundSize: "200px 200px", opacity: 0.7,
-          }}
-        />
-        <div className="relative z-10">
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] mb-2" style={{ color: "rgba(167,139,250,0.8)" }}>
+        <div>
+          <p className="mb-2 uppercase" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>
             Personal log
           </p>
-          <h1 style={{ fontFamily: "var(--font-landing-sans), Inter, sans-serif", fontWeight: 700, letterSpacing: "-0.05em", fontSize: "clamp(36px,5.5vw,54px)", lineHeight: 1, color: "#fff" }}>
+          <h1 style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(36px,5.5vw,54px)", lineHeight: 1, color: "#ffffff" }}>
             Hyper
-            <span style={{ fontFamily: "var(--font-landing-serif), 'Source Serif 4', serif", fontStyle: "italic" }}>
+            <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>
               fixations
             </span>
             .
@@ -529,11 +518,11 @@ export default function FixationsPage() {
               ].map(({ label, value }) => (
                 <div
                   key={label}
-                  className="flex flex-col items-center rounded-2xl px-4 py-2.5"
-                  style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)" }}
+                  className="flex flex-col items-center px-4 py-2.5"
+                  style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}
                 >
-                  <span className="text-[20px] font-bold tabular-nums leading-none" style={{ color: "#fff", fontFamily: "var(--font-landing-sans), Inter, sans-serif", letterSpacing: "-0.03em" }}>{value}</span>
-                  <span className="font-mono text-[9px] uppercase tracking-widest mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>{label}</span>
+                  <span className="text-[20px] font-bold tabular-nums leading-none" style={{ color: "#ffffff", letterSpacing: "-0.03em" }}>{value}</span>
+                  <span className="mt-1 uppercase" style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.08em", color: "rgba(255,255,255,0.35)" }}>{label}</span>
                 </div>
               ))}
             </div>
@@ -542,7 +531,7 @@ export default function FixationsPage() {
       </header>
 
       {/* Content */}
-      <div className="max-w-2xl mx-auto px-5 sm:px-8" style={{ marginTop: -24 }}>
+      <div className="max-w-2xl mx-auto px-5 sm:px-8" style={{ marginTop: 32 }}>
 
         {/* Add form */}
         <div className="mb-4">
