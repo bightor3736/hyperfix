@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
+import { Nav } from "@/components/landing/Nav";
+import { Footer } from "@/components/landing/Footer";
 import { createClient } from "@/lib/supabase/server";
 import { UnsubscribeForm } from "./UnsubscribeForm";
 
@@ -19,17 +19,19 @@ export default async function UnsubscribePage() {
   return (
     <>
       <Nav />
-      <main className="min-h-screen flex items-center justify-center px-6 py-24" style={{ background: "var(--bg)" }}>
+      <main className="min-h-screen flex items-center justify-center px-6 py-32" style={{ background: "#000000" }}>
         <div className="max-w-md w-full text-center">
-          <p className="font-mono text-[10px] uppercase tracking-widest mb-5" style={{ color: "var(--accent)" }}>
-            email
+          <p className="uppercase mb-5" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>
+            Email
           </p>
 
           <h1
-            className="font-display mb-6"
-            style={{ color: "var(--ink)", fontSize: "clamp(32px, 5vw, 44px)", letterSpacing: "-0.02em", fontWeight: 600, lineHeight: 1.05 }}
+            className="mb-6"
+            style={{ color: "#ffffff", fontSize: "clamp(32px, 5vw, 44px)", letterSpacing: "-0.025em", fontWeight: 500, lineHeight: 1.05 }}
           >
-            Unsubscribe
+            <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>
+              Unsubscribe
+            </span>
           </h1>
 
           {user ? (

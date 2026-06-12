@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
+import { Nav } from "@/components/landing/Nav";
+import { Footer } from "@/components/landing/Footer";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — Hyperfix",
@@ -46,31 +46,38 @@ const sections = [
 
 export default function PrivacyPage() {
   return (
-    <main id="main-content" className="relative z-10 text-ink" style={{ background: "var(--bg)" }}>
+    <main id="main-content" className="relative z-10" style={{ background: "#000000", color: "#ffffff" }}>
       <Nav />
 
-      <section className="px-6 sm:px-10 pt-16 sm:pt-20 pb-6 border-b" style={{ borderColor: "var(--line)" }}>
-        <div className="max-w-3xl mx-auto">
-          <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: "var(--accent)" }}>
-            legal
+      <section className="px-6 sm:px-10 pt-32 sm:pt-40 pb-10" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+        <div className="mx-auto" style={{ maxWidth: 720 }}>
+          <p className="uppercase mb-4" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>
+            Legal
           </p>
-          <h1 className="font-display" style={{ color: "var(--ink)", fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.02, letterSpacing: "-0.02em", fontWeight: 600 }}>
-            Privacy Policy
+          <h1 style={{ color: "#ffffff", fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.05, letterSpacing: "-0.025em", fontWeight: 500 }}>
+            Privacy{" "}
+            <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>
+              Policy
+            </span>
           </h1>
-          <p className="mt-5 font-mono text-[11px] uppercase tracking-widest tabular-nums" style={{ color: "var(--ink-muted)" }}>
+          <p className="mt-5 uppercase tabular-nums" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>
             Effective: May 2026
           </p>
         </div>
       </section>
 
       <section className="px-6 sm:px-10 py-16 sm:py-20">
-        <div className="max-w-3xl mx-auto divide-y divide-[var(--line)]">
-          {sections.map((s) => (
-            <div key={s.h} className="py-8 grid sm:grid-cols-3 gap-4 sm:gap-10">
-              <h2 className="font-display text-lg tracking-tight text-ink sm:pt-1">
+        <div className="mx-auto" style={{ maxWidth: 720 }}>
+          {sections.map((s, i) => (
+            <div
+              key={s.h}
+              className="py-8 grid sm:grid-cols-3 gap-4 sm:gap-10"
+              style={{ borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,0.08)" }}
+            >
+              <h2 className="text-lg tracking-tight sm:pt-1" style={{ color: "#ffffff", fontWeight: 600 }}>
                 {s.h}
               </h2>
-              <p className="sm:col-span-2 font-sans text-base text-[var(--ink-muted)] leading-relaxed">
+              <p className="sm:col-span-2 text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
                 {s.body}
               </p>
             </div>

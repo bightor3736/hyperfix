@@ -6,69 +6,63 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const TEAL = "var(--accent)";
-const CARD_BORDER = "var(--line)";
-const NOISE_URL =
-  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
-
 export default function NotFound() {
   return (
-    <main className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative" style={{ background: "var(--bg)" }}>
-      <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.06 }} />
-
+    <main className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative" style={{ background: "#000000" }}>
       <div className="relative max-w-xl w-full text-center anim-fadeUp">
-        <p className="font-mono text-[10px] uppercase tracking-widest mb-6" style={{ color: "var(--accent)" }}>
+        <p className="uppercase mb-6" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>
           404
         </p>
         <h1
-          className="font-display tabular-nums mb-3"
+          className="tabular-nums mb-3"
           style={{
-            color: "var(--ink)",
+            color: "#ffffff",
             fontSize: "clamp(80px, 18vw, 160px)",
             lineHeight: 0.9,
             letterSpacing: "-0.05em",
             fontWeight: 600,
-            textShadow: "0 0 60px var(--accent)",
           }}
         >
           404
         </h1>
         <h2
-          className="font-display mt-6"
+          className="mt-6"
           style={{
-            color: "var(--ink)",
+            color: "#ffffff",
             fontSize: "clamp(28px, 5vw, 40px)",
-            letterSpacing: "-0.02em",
-            fontWeight: 600,
+            letterSpacing: "-0.025em",
+            fontWeight: 500,
             lineHeight: 1.05,
           }}
         >
-          This fix doesn&apos;t exist.
+          This fix doesn&apos;t{" "}
+          <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>
+            exist.
+          </span>
         </h2>
-        <p className="mt-4 font-sans text-base max-w-md mx-auto" style={{ color: "var(--ink-muted)" }}>
+        <p className="mt-4 text-base max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.55)" }}>
           It may have ended. Or it never started. Or someone shared the wrong link.
         </p>
 
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3 transition-all hover:opacity-95 active:scale-[0.98]"
+            className="inline-flex items-center gap-2 text-sm font-semibold px-6 py-3 transition-all hover:opacity-95 active:scale-[0.98]"
             style={{
-              background: "var(--ink)",
-              color: "var(--bg)",
-              borderRadius: 999,
+              background: "#ffffff",
+              color: "#000000",
+              fontWeight: 600,
+              borderRadius: 9999,
             }}
           >
             Go home
           </Link>
           <Link
             href="/explore"
-            className="inline-flex items-center gap-2 font-sans text-sm font-medium px-6 py-3 transition-all hover:opacity-80"
+            className="liquid-glass inline-flex items-center gap-2 text-sm font-medium px-6 py-3 transition-all hover:opacity-80"
             style={{
-              background: "var(--accent-soft)",
-              border: "1px solid var(--accent)",
-              color: TEAL,
-              borderRadius: 999,
+              color: "#ffffff",
+              borderRadius: 9999,
             }}
           >
             Explore public fixations →

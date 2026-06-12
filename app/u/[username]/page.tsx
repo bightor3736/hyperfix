@@ -177,7 +177,7 @@ export default async function PublicProfilePage({
     <div
       className="min-h-screen"
       style={{
-        background: "#09090B",
+        background: "#000000",
         color: "#FAFAFA",
         fontFamily: "var(--font-grotesk), system-ui, sans-serif",
       }}
@@ -271,7 +271,7 @@ export default async function PublicProfilePage({
                   className="absolute -bottom-1 -right-1 h-4 w-4 rounded-full"
                   style={{
                     background: "#30D158",
-                    border: "2px solid #09090B",
+                    border: "2px solid #000000",
                     boxShadow: "0 0 6px rgba(48,209,88,0.6)",
                   }}
                 />
@@ -579,7 +579,7 @@ export default async function PublicProfilePage({
           <div
             className="mx-auto flex max-w-md items-center justify-between gap-4 rounded-[16px] px-5 py-3.5"
             style={{
-              background: "rgba(20,20,24,0.92)",
+              background: "rgba(0,0,0,0.92)",
               border: "1px solid rgba(255,255,255,0.10)",
               backdropFilter: "blur(20px)",
               boxShadow: "0 8px 40px rgba(0,0,0,0.6)",

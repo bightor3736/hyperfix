@@ -46,7 +46,7 @@ export default async function LeaderboardPage() {
           </Link>
           <Link
             href="/dashboard"
-            className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-ink-muted hover:text-accent transition-colors"
+            className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-ink-muted hover:text-ink transition-colors"
           >
             <ArrowLeft size={12} strokeWidth={1.5} />
             Dashboard
@@ -55,7 +55,10 @@ export default async function LeaderboardPage() {
 
         {/* Header */}
         <header className="mb-8 anim-fadeUp">
-          <p className="font-mono text-[11px] uppercase tracking-widest text-accent mb-2">
+          <p
+            className="uppercase mb-2"
+            style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}
+          >
             global ranking
           </p>
           <h1
@@ -73,10 +76,13 @@ export default async function LeaderboardPage() {
         {/* Your rank callout */}
         {myRank >= 0 && (
           <div
-            className="mb-6 rounded-2xl border p-4 flex items-center justify-between anim-fadeUp delay-100"
-            style={{ background: "var(--accent-soft)", borderColor: "var(--accent)" }}
+            className="mb-6 p-4 flex items-center justify-between anim-fadeUp delay-100"
+            style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}
           >
-            <span className="font-mono text-[11px] uppercase tracking-widest text-accent">
+            <span
+              className="uppercase"
+              style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}
+            >
               your rank
             </span>
             <span className="font-display text-2xl text-ink tabular-nums">
@@ -88,7 +94,10 @@ export default async function LeaderboardPage() {
         {/* List */}
         <div className="space-y-2 anim-fadeUp delay-200">
           {rows.length === 0 && (
-            <div className="rounded-2xl border border-line bg-bg-elevated p-10 text-center">
+            <div
+              className="p-10 text-center"
+              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}
+            >
               <p className="text-ink-muted">
                 No one&apos;s on the board yet. Be the first — go check in.
               </p>
@@ -101,16 +110,17 @@ export default async function LeaderboardPage() {
             const { level } = levelForPoints(row.total_points);
             const name = row.display_name || row.username || "anonymous";
             const medalColor =
-              rank === 1 ? "#2B2440" : rank === 2 ? "#737373" : "#a3a3a3";
+              rank === 1 ? "#ffffff" : rank === 2 ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.4)";
 
             return (
               <Link
                 key={row.id}
                 href={row.username ? `/u/${row.username}` : "/leaderboard"}
-                className="flex items-center gap-4 rounded-2xl border p-3.5 transition-all hover:-translate-y-0.5"
+                className="flex items-center gap-4 p-3.5 transition-all hover:-translate-y-0.5"
                 style={{
-                  background: isMe ? "var(--accent-soft)" : "var(--bg-elevated)",
-                  borderColor: isMe ? "var(--accent)" : "var(--line)",
+                  background: "rgba(255,255,255,0.03)",
+                  border: isMe ? "1px solid rgba(255,255,255,0.25)" : "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 16,
                 }}
               >
                 {/* Rank */}
@@ -132,9 +142,9 @@ export default async function LeaderboardPage() {
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 overflow-hidden"
                   style={{
-                    background: row.avatar_url ? "transparent" : "var(--accent-soft)",
-                    border: "1px solid var(--accent)",
-                    color: "var(--accent)",
+                    background: row.avatar_url ? "transparent" : "rgba(255,255,255,0.06)",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    color: "rgba(255,255,255,0.7)",
                   }}
                 >
                   {row.avatar_url ? (
@@ -150,7 +160,10 @@ export default async function LeaderboardPage() {
                   <p className="font-sans text-sm font-medium text-ink truncate">
                     {name}
                     {isMe && (
-                      <span className="ml-2 font-mono text-[9px] uppercase tracking-widest text-accent">
+                      <span
+                        className="ml-2 uppercase"
+                        style={{ fontSize: 9, fontWeight: 600, letterSpacing: "2px", color: "rgba(255,255,255,0.55)" }}
+                      >
                         you
                       </span>
                     )}
@@ -162,7 +175,7 @@ export default async function LeaderboardPage() {
 
                 {/* Points */}
                 <div className="text-right shrink-0">
-                  <p className="font-display text-lg text-ink tabular-nums leading-none">
+                  <p className="font-display text-lg tabular-nums leading-none" style={{ color: "#A78BFA" }}>
                     {row.total_points.toLocaleString()}
                   </p>
                   <p className="font-mono text-[9px] uppercase tracking-widest text-ink-faint mt-0.5">

@@ -34,11 +34,11 @@ export function UnsubscribeForm({ email: prefillEmail }: { email?: string }) {
   if (status === "done") {
     return (
       <div
-        className="rounded-2xl px-6 py-5 text-left"
-        style={{ background: "var(--accent-soft)", border: "1px solid var(--accent)" }}
+        className="px-6 py-5 text-left"
+        style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}
       >
-        <p className="font-mono text-[11px] uppercase tracking-widest mb-1" style={{ color: "var(--accent)" }}>done</p>
-        <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
+        <p className="uppercase mb-1" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.55)" }}>done</p>
+        <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
           You&apos;ve been unsubscribed ✓. If you signed up with an account, you can manage notification preferences in settings.
         </p>
       </div>
@@ -62,21 +62,21 @@ export function UnsubscribeForm({ email: prefillEmail }: { email?: string }) {
         disabled={status === "pending" || !!prefillEmail}
         className="w-full px-4 py-3.5 font-mono text-sm focus:outline-none focus:ring-1 transition-colors disabled:opacity-60"
         style={{
-          background: "#1C1C1E",
-          border: "1px solid var(--line)",
-          borderRadius: 20,
-          color: "var(--ink)",
+          background: "rgba(255,255,255,0.03)",
+          border: "1px solid rgba(255,255,255,0.08)",
+          borderRadius: 10,
+          color: "#ffffff",
         }}
       />
       <button
         type="submit"
         disabled={status === "pending"}
-        className="w-full px-6 py-3.5 font-mono text-[11px] uppercase tracking-widest font-bold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
+        className="w-full px-6 py-3.5 text-sm transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
         style={{
-          background: "var(--line)",
-          border: "1px solid var(--line-strong)",
-          borderRadius: 999,
-          color: "var(--ink-muted)",
+          background: "#ffffff",
+          borderRadius: 9999,
+          color: "#000000",
+          fontWeight: 600,
         }}
       >
         {status === "pending" ? "Unsubscribing…" : "Unsubscribe from all emails"}

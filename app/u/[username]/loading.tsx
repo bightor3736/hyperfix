@@ -1,7 +1,7 @@
 import { FixCardSkeleton } from "@/components/FixCardSkeleton";
 
-const CARD_BG = "var(--bg)";
-const CARD_BORDER = "var(--line)";
+const CARD_BG = "rgba(255,255,255,0.03)";
+const CARD_BORDER = "rgba(255,255,255,0.08)";
 
 export default function ProfileLoading() {
   return (

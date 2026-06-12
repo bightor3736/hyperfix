@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
-import { RevealSection } from "@/components/RevealSection";
+import { Nav } from "@/components/landing/Nav";
+import { Footer } from "@/components/landing/Footer";
 
 export const metadata: Metadata = {
   title: "Terms of Service — Hyperfix",
@@ -9,12 +8,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://hyperfix.app/tos" },
   robots: { index: true, follow: false },
 };
-
-const TEAL = "var(--accent)";
-const CARD_BG = "var(--bg)";
-const CARD_BORDER = "var(--line)";
-const NOISE_URL =
-  "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 const EFFECTIVE = "May 2026";
 
@@ -65,49 +58,45 @@ export default function TosPage() {
   return (
     <>
       <Nav />
-      <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative" style={{ background: "var(--bg)" }}>
-        <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
-
-        <main id="main-content" className="relative max-w-3xl mx-auto flex flex-col gap-6">
+      <div className="min-h-screen px-6 sm:px-10 pt-32 sm:pt-40 pb-16 relative" style={{ background: "#000000", color: "#ffffff" }}>
+        <main id="main-content" className="relative mx-auto flex flex-col gap-10" style={{ maxWidth: 720 }}>
           {/* Hero — tight, restrained */}
           <div className="anim-fadeUp">
-            <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: "var(--accent)" }}>
-              legal
+            <p className="uppercase mb-4" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>
+              Legal
             </p>
-            <h1 className="font-display" style={{ color: "var(--ink)", fontSize: "clamp(32px, 5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.02em", fontWeight: 600 }}>
-              Terms of Service
+            <h1 style={{ color: "#ffffff", fontSize: "clamp(32px, 5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.025em", fontWeight: 500 }}>
+              Terms of{" "}
+              <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>
+                Service
+              </span>
             </h1>
-            <p className="mt-3 font-mono text-xs" style={{ color: "var(--ink-muted)" }}>
+            <p className="mt-4 uppercase tabular-nums" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>
               Effective {EFFECTIVE}
             </p>
           </div>
 
-          <RevealSection>
-            <div className="motion-card relative overflow-hidden rounded-3xl p-6 sm:p-10" style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}>
-              <div aria-hidden className="absolute inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.22 }} />
-              <div className="relative flex flex-col gap-10">
-                {sections.map((s) => (
-                  <div key={s.h}>
-                    <h2 className="font-display mb-3" style={{ color: TEAL, fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em" }}>
-                      {s.h}
-                    </h2>
-                    <p className="font-sans leading-relaxed" style={{ color: "var(--line)", fontSize: 15, lineHeight: 1.7 }}>
-                      {s.body}
-                    </p>
-                  </div>
-                ))}
-
-                <div className="mt-4 pt-8 flex flex-col sm:flex-row gap-4" style={{ borderTop: "1px solid var(--line)" }}>
-                  <a href="/privacy" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: TEAL }}>
-                    Privacy Policy →
-                  </a>
-                  <a href="/" className="font-sans text-sm transition-opacity hover:opacity-80" style={{ color: "var(--ink-muted)" }}>
-                    ← Back to Hyperfix
-                  </a>
-                </div>
+          <div className="flex flex-col gap-10">
+            {sections.map((s) => (
+              <div key={s.h}>
+                <h2 className="mb-3" style={{ color: "#ffffff", fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em" }}>
+                  {s.h}
+                </h2>
+                <p className="leading-relaxed" style={{ color: "rgba(255,255,255,0.65)", fontSize: 15, lineHeight: 1.7 }}>
+                  {s.body}
+                </p>
               </div>
+            ))}
+
+            <div className="mt-4 pt-8 flex flex-col sm:flex-row gap-4" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+              <a href="/privacy" className="text-sm transition-opacity hover:opacity-80" style={{ color: "#ffffff" }}>
+                Privacy Policy →
+              </a>
+              <a href="/" className="text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.55)" }}>
+                ← Back to Hyperfix
+              </a>
             </div>
-          </RevealSection>
+          </div>
         </main>
       </div>
       <Footer />
