@@ -18,10 +18,10 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section style={{ background: "var(--bg-2)", borderTop: "1px solid var(--line)", padding: "100px 0" }}>
+    <section style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.08)", padding: "100px 0" }}>
       <div className="wrap">
         <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <div className="eyebrow" style={{ marginBottom: 14 }}>What people say</div>
+          <div className="eyebrow" style={{ marginBottom: 14, color: "rgba(255,255,255,0.35)" }}>What people say</div>
           <h2 className="display-lg">Real humans, real starts.</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -29,19 +29,18 @@ export function Testimonials() {
             <div
               key={t.name}
               style={{
-                background: "var(--bg-white)",
-                border: "1px solid var(--line)",
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.08)",
                 borderRadius: 16,
                 padding: "28px",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
               }}
             >
-              <p style={{ fontSize: 15, lineHeight: 1.65, color: "#3F3F46", marginBottom: 20 }}>
+              <p style={{ fontSize: 15, lineHeight: 1.65, color: "rgba(255,255,255,0.65)", marginBottom: 20 }}>
                 &ldquo;{t.quote}&rdquo;
               </p>
               <div>
-                <div style={{ fontSize: 14, fontWeight: 600, color: "var(--ink)" }}>{t.name}</div>
-                <div style={{ fontSize: 12, color: "#A1A1AA", marginTop: 2 }}>{t.tag}</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: "#ffffff" }}>{t.name}</div>
+                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginTop: 2 }}>{t.tag}</div>
               </div>
             </div>
           ))}
