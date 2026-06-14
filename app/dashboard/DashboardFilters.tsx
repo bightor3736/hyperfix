@@ -170,7 +170,7 @@ const CATEGORY_FILTERS = [
 ] as const;
 type SortOrder = "newest" | "longest" | "intense" | "unchecked";
 
-const TEAL = "#ffffff";
+const WHITE = "#ffffff";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -279,7 +279,7 @@ function FixGridCard({
           {checkedInToday && (
             <div
               className="absolute top-2 right-2 w-5 h-5 rounded-full flex items-center justify-center"
-              style={{ background: TEAL, color: "var(--bg)" }}
+              style={{ background: WHITE, color: "var(--bg)" }}
             >
               <svg
                 width="10"

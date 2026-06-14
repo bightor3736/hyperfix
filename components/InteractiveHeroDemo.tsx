@@ -49,7 +49,7 @@ export function InteractiveHeroDemo() {
     return () => clearInterval(t);
   }, [showCard]);
 
-  const intensityColor = intensity >= 9 ? "#E63946" : intensity >= 7 ? "#FB923C" : TEAL;
+  const intensityColor = intensity >= 7 ? "var(--flame)" : TEAL;
   const displayTitle = title.trim() || PLACEHOLDERS[placeholderIdx];
 
   function handleStart() {
@@ -155,7 +155,7 @@ export function InteractiveHeroDemo() {
             <button
               onClick={handleStart}
               className="font-sans text-sm font-semibold px-5 py-3 rounded-full transition-all hover:opacity-90 active:scale-[0.98]"
-              style={{ background: TEAL, color: "#0A1F1C" }}
+              style={{ background: TEAL, color: "var(--ink)" }}
             >
               {showCard ? "see it for real →" : "start counting →"}
             </button>

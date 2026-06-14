@@ -133,7 +133,7 @@ export function ShareFixationCard({ fixId, isPublic, title, days, intensity }: P
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-widest transition-all duration-150 hover:opacity-90 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
               background: state === "success" ? "var(--accent)" : state === "error" ? "rgba(225,29,72,0.15)" : TEAL,
-              color: state === "success" ? TEAL : state === "error" ? "#fda4af" : "var(--bg)",
+              color: state === "success" ? TEAL : state === "error" ? "#F87171" : "var(--bg)",
               border: state === "success"
                 ? "1px solid var(--accent-soft)"
                 : state === "error"

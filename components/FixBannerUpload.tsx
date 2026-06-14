@@ -214,7 +214,7 @@ export function FixBannerUpload({ userId, fixId, bannerUrl, onChange }: Props) {
           </div>
         </div>
       )}
-      {error && <p className="font-sans text-[12px]" style={{ color: "#fda4af" }}>{error}</p>}
+      {error && <p className="font-sans text-[12px]" style={{ color: "#F87171" }}>{error}</p>}
       <p className="font-mono text-[10px]" style={{ color: "var(--ink-faint)" }}>
         1500×500px recommended · JPG or PNG · max 5MB
       </p>

@@ -17,7 +17,7 @@ export const metadata: Metadata = { title: "Notifications · Hyperfix" };
 
 const CARD_BG = "rgba(255,255,255,0.03)";
 const CARD_BORDER = "var(--line)";
-const TEAL = "#FFFFFF";
+const WHITE = "#FFFFFF";
 
 type NotifActor = {
   username: string | null;
@@ -115,7 +115,7 @@ function renderNotif(n: Notif): Rendered | null {
   if (n.type === "milestone") {
     return {
       Icon: SparkleIcon,
-      iconColor: TEAL,
+      iconColor: WHITE,
       text: (
         <span style={{ color: "var(--ink)" }}>
           You hit a milestone on <span style={{ color: "var(--ink)" }}>&ldquo;{fixTitle}&rdquo;</span>
@@ -243,7 +243,7 @@ export default async function NotificationsPage() {
           {!n.read ? (
             <span
               className="block w-1.5 h-1.5 rounded-full"
-              style={{ background: TEAL }}
+              style={{ background: WHITE }}
               aria-label="unread"
             />
           ) : (

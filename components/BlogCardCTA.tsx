@@ -27,7 +27,7 @@ export function BlogCardCTA() {
         <div>
           <p
             className="font-mono text-[10px] uppercase tracking-widest mb-3"
-            style={{ color: "rgba(215,38,56,0.7)" }}
+            style={{ color: "var(--ink-muted)" }}
           >
             track yours
           </p>
@@ -48,8 +48,8 @@ export function BlogCardCTA() {
             href="/join"
             className="inline-flex items-center gap-2 font-sans text-sm font-semibold px-6 py-3.5 rounded-full transition-all hover:opacity-95 active:scale-[0.98]"
             style={{
-              background: "#D72638",
-              color: "var(--ink)",
+              background: "var(--ink)",
+              color: "var(--bg)",
               textDecoration: "none",
             }}
           >

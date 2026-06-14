@@ -4,14 +4,14 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { PRO_FEATURES } from "@/lib/pro-features";
 
-const TEAL = "#ffffff";
+const WHITE = "#ffffff";
 
 function FeatureList() {
   return (
     <div className="flex flex-col gap-3">
       {PRO_FEATURES.map((f) => (
         <div key={f.name} className="flex items-start gap-3">
-          <span className="shrink-0 leading-none mt-0.5 inline-flex" style={{ color: TEAL }} aria-hidden>
+          <span className="shrink-0 leading-none mt-0.5 inline-flex" style={{ color: WHITE }} aria-hidden>
             <f.Icon size={18} />
           </span>
           <div className="min-w-0">
@@ -32,8 +32,8 @@ function FeatureList() {
 export function ProUpsellWall({ heading, blurb }: { heading?: string; blurb?: string }) {
   return (
     <div className="max-w-xl mx-auto px-6 py-16">
-      <div className="rounded-3xl p-8 sm:p-10" style={{ background: "var(--bg)", border: `1px solid ${TEAL}33` }}>
-        <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: TEAL }}>
+      <div className="rounded-3xl p-8 sm:p-10" style={{ background: "var(--bg)", border: `1px solid ${WHITE}33` }}>
+        <p className="font-mono text-[10px] uppercase tracking-widest mb-3" style={{ color: WHITE }}>
           Hyperfix Pro
         </p>
         <h1 className="font-display text-2xl font-medium mb-2" style={{ color: "var(--ink)" }}>
@@ -48,7 +48,7 @@ export function ProUpsellWall({ heading, blurb }: { heading?: string; blurb?: st
         <Link
           href="/pricing"
           className="inline-block w-full text-center px-6 py-3.5 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98]"
-          style={{ background: TEAL, color: "var(--bg)" }}
+          style={{ background: WHITE, color: "var(--bg)" }}
         >
           Upgrade to Pro →
         </Link>
@@ -86,11 +86,11 @@ export function ProUpsellModal({
     >
       <div
         className="w-full max-w-md rounded-3xl p-6 sm:p-7 max-h-[88vh] overflow-y-auto anim-fadeUp"
-        style={{ background: "var(--bg)", border: `1px solid ${TEAL}33` }}
+        style={{ background: "var(--bg)", border: `1px solid ${WHITE}33` }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-4 mb-1">
-          <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: TEAL }}>
+          <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: WHITE }}>
             Hyperfix Pro
           </p>
           <button
@@ -115,7 +115,7 @@ export function ProUpsellModal({
         <Link
           href="/pricing"
           className="block w-full text-center px-6 py-3.5 rounded-full font-sans text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98]"
-          style={{ background: TEAL, color: "var(--bg)" }}
+          style={{ background: WHITE, color: "var(--bg)" }}
         >
           Upgrade to Pro →
         </Link>

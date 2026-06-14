@@ -3,7 +3,7 @@
 // Six dark widgets styled like iOS system apps — each displaying hyperfixation data.
 
 const LIME = "var(--accent)";
-const ORANGE = "#FB923C";
+const ORANGE = "var(--flame)";
 const PINK = "#F472B6";
 const GOLD = "#EAB308";
 const WHITE = "var(--ink)";
@@ -166,7 +166,7 @@ function WidgetActivity() {
         <div style={row("flex-end", 8)}>
           <span style={{ color: DIM, fontSize: 13, fontWeight: 700 }}>9/10</span>
           <div style={{
-            background: "#E63946",
+            background: "var(--flame)",
             borderRadius: 999,
             width: 28,
             height: 28,
@@ -419,7 +419,7 @@ function WidgetRadio() {
     <div style={cardStyle}>
       <div style={row("space-between")}>
         <div style={row("flex-start", 6)}>
-          <div style={{ width: 10, height: 10, borderRadius: 999, background: "#E63946" }} />
+          <div style={{ width: 10, height: 10, borderRadius: 999, background: "var(--ink)" }} />
           <span style={{ color: WHITE, fontSize: 14, fontWeight: 700 }}>Loop Hard</span>
           <sup style={{ color: DIM, fontSize: 9 }}>™</sup>
         </div>

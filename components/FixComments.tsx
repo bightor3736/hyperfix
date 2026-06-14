@@ -351,7 +351,7 @@ export function FixComments({ fixId, initialComments, currentUserId }: Props) {
       {actionError && (
         <p
           className="font-sans text-xs mb-3"
-          style={{ color: "#fda4af" }}
+          style={{ color: "#F87171" }}
           role="alert"
         >
           {actionError}

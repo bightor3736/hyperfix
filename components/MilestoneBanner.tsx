@@ -124,7 +124,7 @@ export function MilestoneBanner({ milestones }: Props) {
             <div className="flex items-start gap-4 pr-6">
               <span
                 style={{
-                  color: fix.days >= 100 ? "#D72638" : "var(--accent)",
+                  color: fix.days >= 100 ? "var(--flame)" : "var(--accent)",
                   display: "inline-flex",
                   flexShrink: 0,
                 }}
@@ -160,12 +160,12 @@ export function MilestoneBanner({ milestones }: Props) {
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-mono text-sm font-bold transition-all duration-150 active:scale-[0.97]"
                 style={{
                   background: isDone
-                    ? "rgba(13,148,136,0.15)"
+                    ? "rgba(255,255,255,0.03)"
                     : fix.days >= 100
-                    ? "#D72638"
+                    ? "var(--flame)"
                     : "var(--accent)",
-                  color: isDone ? "#0D9488" : fix.days >= 100 ? "var(--ink)" : "#0A1F1C",
-                  border: isDone ? "1px solid rgba(13,148,136,0.3)" : "none",
+                  color: isDone ? "var(--ink-muted)" : "var(--ink)",
+                  border: isDone ? "1px solid var(--line)" : "none",
                   cursor: exporting ? "wait" : "pointer",
                   opacity: exporting && exporting !== fix.id ? 0.5 : 1,
                 }}

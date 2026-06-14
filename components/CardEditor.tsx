@@ -110,7 +110,7 @@ export function CardEditor({ fixId, userId, initialBannerUrl, initialCardStyle, 
             onClick={handleDownload}
             disabled={downloading}
             className="inline-flex items-center gap-2 px-5 py-3 rounded-full font-sans text-sm font-semibold transition-all hover:opacity-90 active:scale-95 disabled:opacity-50"
-            style={{ background: TEAL, color: "#0A1F1C" }}
+            style={{ background: TEAL, color: "var(--ink)" }}
           >
             {downloading ? (
               <>
