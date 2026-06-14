@@ -13,12 +13,22 @@ export async function PATCH(
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { id } = await params;
-  const body = (await req.json()) as {
+  let body: {
     status?: "active" | "fading" | "archived";
     intensity?: number;
     description?: string;
     checkin?: boolean;
   };
+  try {
+    body = (await req.json()) as {
+      status?: "active" | "fading" | "archived";
+      intensity?: number;
+      description?: string;
+      checkin?: boolean;
+    };
+  } catch {
+    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+  }
 
   // Verify ownership
   const { data: existing } = await supabase

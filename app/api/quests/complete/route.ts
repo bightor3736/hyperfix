@@ -7,7 +7,12 @@ export async function POST(req: Request) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { questId } = await req.json();
+  let questId;
+  try {
+    ({ questId } = await req.json());
+  } catch {
+    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+  }
   if (!questId) return NextResponse.json({ error: "Missing questId" }, { status: 400 });
 
   const admin = createAdminClient();

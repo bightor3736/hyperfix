@@ -11,7 +11,12 @@ export async function POST(req: Request) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { goals } = (await req.json()) as { goals?: string[] };
+  let goals: string[] | undefined;
+  try {
+    ({ goals } = (await req.json()) as { goals?: string[] });
+  } catch {
+    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+  }
   const clean = Array.isArray(goals) ? goals.filter((g) => VALID_GOALS.has(g)).slice(0, 8) : [];
 
   const { error } = await supabase

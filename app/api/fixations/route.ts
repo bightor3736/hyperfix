@@ -24,11 +24,20 @@ export async function POST(req: Request) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const body = (await req.json()) as {
+  let body: {
     name: string;
     description?: string;
     intensity?: number;
   };
+  try {
+    body = (await req.json()) as {
+      name: string;
+      description?: string;
+      intensity?: number;
+    };
+  } catch {
+    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+  }
 
   if (!body.name?.trim()) {
     return NextResponse.json({ error: "Name is required" }, { status: 400 });
