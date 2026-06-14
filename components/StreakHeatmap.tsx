@@ -182,7 +182,7 @@ export function StreakHeatmap({ dates }: { dates: string[] }) {
           <div
             className="font-mono text-[10px] whitespace-nowrap px-2.5 py-1.5 rounded-lg"
             style={{
-              background: "#1C1C1E",
+              background: "var(--bg-white)",
               border: "1px solid var(--line)",
               color: tooltip.checkedIn ? "var(--accent)" : "var(--ink-muted)",
               boxShadow: "0 4px 16px rgba(0,0,0,0.5)",

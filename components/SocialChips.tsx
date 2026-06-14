@@ -148,9 +148,9 @@ export function SocialChips({
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-all hover:opacity-80"
             style={{
-              background: "rgba(7,7,8,0.6)",
+              background: "var(--accent-soft)",
               border: "1px solid var(--accent)",
-              color: TEAL,
+              color: "#E1431F",
               backdropFilter: "blur(8px)",
             }}
             aria-label={name}

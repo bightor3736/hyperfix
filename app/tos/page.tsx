@@ -58,20 +58,20 @@ export default function TosPage() {
   return (
     <>
       <Nav />
-      <div className="min-h-screen px-6 sm:px-10 pt-32 sm:pt-40 pb-16 relative" style={{ background: "#000000", color: "#ffffff" }}>
+      <div className="min-h-screen px-6 sm:px-10 pt-32 sm:pt-40 pb-16 relative" style={{ background: "var(--bg)", color: "var(--ink)" }}>
         <main id="main-content" className="relative mx-auto flex flex-col gap-10" style={{ maxWidth: 720 }}>
           {/* Hero — tight, restrained */}
           <div className="anim-fadeUp">
-            <p className="uppercase mb-4" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>
+            <p className="uppercase mb-4" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-faint)" }}>
               Legal
             </p>
-            <h1 style={{ color: "#ffffff", fontSize: "clamp(32px, 5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.025em", fontWeight: 500 }}>
+            <h1 style={{ color: "var(--ink)", fontSize: "clamp(32px, 5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.025em", fontWeight: 500 }}>
               Terms of{" "}
               <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>
                 Service
               </span>
             </h1>
-            <p className="mt-4 uppercase tabular-nums" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>
+            <p className="mt-4 uppercase tabular-nums" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-faint)" }}>
               Effective {EFFECTIVE}
             </p>
           </div>
@@ -79,20 +79,20 @@ export default function TosPage() {
           <div className="flex flex-col gap-10">
             {sections.map((s) => (
               <div key={s.h}>
-                <h2 className="mb-3" style={{ color: "#ffffff", fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em" }}>
+                <h2 className="mb-3" style={{ color: "var(--ink)", fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em" }}>
                   {s.h}
                 </h2>
-                <p className="leading-relaxed" style={{ color: "rgba(255,255,255,0.65)", fontSize: 15, lineHeight: 1.7 }}>
+                <p className="leading-relaxed" style={{ color: "rgba(24,20,16,0.70)", fontSize: 15, lineHeight: 1.7 }}>
                   {s.body}
                 </p>
               </div>
             ))}
 
-            <div className="mt-4 pt-8 flex flex-col sm:flex-row gap-4" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-              <a href="/privacy" className="text-sm transition-opacity hover:opacity-80" style={{ color: "#ffffff" }}>
+            <div className="mt-4 pt-8 flex flex-col sm:flex-row gap-4" style={{ borderTop: "1px solid var(--line)" }}>
+              <a href="/privacy" className="text-sm transition-opacity hover:opacity-80" style={{ color: "var(--ink)" }}>
                 Privacy Policy →
               </a>
-              <a href="/" className="text-sm transition-opacity hover:opacity-80" style={{ color: "rgba(255,255,255,0.55)" }}>
+              <a href="/" className="text-sm transition-opacity hover:opacity-80" style={{ color: "var(--ink-muted)" }}>
                 ← Back to Hyperfix
               </a>
             </div>

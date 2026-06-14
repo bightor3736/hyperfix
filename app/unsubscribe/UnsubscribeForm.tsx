@@ -35,10 +35,10 @@ export function UnsubscribeForm({ email: prefillEmail }: { email?: string }) {
     return (
       <div
         className="px-6 py-5 text-left"
-        style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}
+        style={{ background: "var(--fill)", border: "1px solid var(--line)", borderRadius: 16 }}
       >
-        <p className="uppercase mb-1" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.55)" }}>done</p>
-        <p className="font-sans text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
+        <p className="uppercase mb-1" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-muted)" }}>done</p>
+        <p className="font-sans text-sm" style={{ color: "var(--ink-muted)" }}>
           You&apos;ve been unsubscribed ✓. If you signed up with an account, you can manage notification preferences in settings.
         </p>
       </div>
@@ -48,7 +48,7 @@ export function UnsubscribeForm({ email: prefillEmail }: { email?: string }) {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-sm mx-auto">
       {errorMsg && (
-        <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "#ef4444" }}>
+        <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "#E5484D" }}>
           {errorMsg}
         </p>
       )}
@@ -62,10 +62,10 @@ export function UnsubscribeForm({ email: prefillEmail }: { email?: string }) {
         disabled={status === "pending" || !!prefillEmail}
         className="w-full px-4 py-3.5 font-mono text-sm focus:outline-none focus:ring-1 transition-colors disabled:opacity-60"
         style={{
-          background: "rgba(255,255,255,0.03)",
-          border: "1px solid rgba(255,255,255,0.08)",
+          background: "var(--fill)",
+          border: "1px solid var(--line)",
           borderRadius: 10,
-          color: "#ffffff",
+          color: "var(--ink)",
         }}
       />
       <button
@@ -73,9 +73,9 @@ export function UnsubscribeForm({ email: prefillEmail }: { email?: string }) {
         disabled={status === "pending"}
         className="w-full px-6 py-3.5 text-sm transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
         style={{
-          background: "#ffffff",
+          background: "var(--accent)",
           borderRadius: 9999,
-          color: "#000000",
+          color: "#fff",
           fontWeight: 600,
         }}
       >

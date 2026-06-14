@@ -15,11 +15,11 @@ const KIND_ICONS: Record<QuestKind, React.ReactNode> = {
 
 // Monochrome icon chips — color is reserved for the streak flame and XP.
 const KIND_COLORS: Record<QuestKind, string> = {
-  log_fixation:    "rgba(255,255,255,0.08)",
+  log_fixation:    "var(--ink)",
   fixation_checkin: "var(--flame)",
   deep_dive:       "var(--xp)",
-  brain_burst:     "rgba(255,255,255,0.08)",
-  focus_session:   "rgba(255,255,255,0.08)",
+  brain_burst:     "var(--ink)",
+  focus_session:   "var(--ink)",
 };
 
 export function DailyQuestsClient({ initialQuests }: { initialQuests: Quest[] }) {
@@ -75,8 +75,8 @@ export function DailyQuestsClient({ initialQuests }: { initialQuests: Quest[] })
       <div
         className="overflow-hidden"
         style={{
-          background: "rgba(255,255,255,0.03)",
-          border: "1px solid rgba(255,255,255,0.08)",
+          background: "var(--bg-white)",
+          border: "1px solid var(--line)",
           borderRadius: 16,
         }}
       >

@@ -8,15 +8,15 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative" style={{ background: "#000000" }}>
+    <main className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative" style={{ background: "var(--bg)" }}>
       <div className="relative max-w-xl w-full text-center anim-fadeUp">
-        <p className="uppercase mb-6" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>
+        <p className="uppercase mb-6" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-faint)" }}>
           404
         </p>
         <h1
           className="tabular-nums mb-3"
           style={{
-            color: "#ffffff",
+            color: "var(--ink)",
             fontSize: "clamp(80px, 18vw, 160px)",
             lineHeight: 0.9,
             letterSpacing: "-0.05em",
@@ -28,7 +28,7 @@ export default function NotFound() {
         <h2
           className="mt-6"
           style={{
-            color: "#ffffff",
+            color: "var(--ink)",
             fontSize: "clamp(28px, 5vw, 40px)",
             letterSpacing: "-0.025em",
             fontWeight: 500,
@@ -40,7 +40,7 @@ export default function NotFound() {
             exist.
           </span>
         </h2>
-        <p className="mt-4 text-base max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.55)" }}>
+        <p className="mt-4 text-base max-w-md mx-auto" style={{ color: "var(--ink-muted)" }}>
           It may have ended. Or it never started. Or someone shared the wrong link.
         </p>
 
@@ -49,8 +49,8 @@ export default function NotFound() {
             href="/"
             className="inline-flex items-center gap-2 text-sm font-semibold px-6 py-3 transition-all hover:opacity-95 active:scale-[0.98]"
             style={{
-              background: "#ffffff",
-              color: "#000000",
+              background: "var(--accent)",
+              color: "#fff",
               fontWeight: 600,
               borderRadius: 9999,
             }}
@@ -61,7 +61,7 @@ export default function NotFound() {
             href="/explore"
             className="liquid-glass inline-flex items-center gap-2 text-sm font-medium px-6 py-3 transition-all hover:opacity-80"
             style={{
-              color: "#ffffff",
+              color: "var(--ink)",
               borderRadius: 9999,
             }}
           >

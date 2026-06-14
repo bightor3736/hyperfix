@@ -21,9 +21,9 @@ export function PageHero({
       className="relative overflow-hidden"
       style={{
         background: [
-          "radial-gradient(ellipse 80% 140% at 110% 65%, rgba(139,92,246,0.60) 0%, transparent 55%)",
-          "radial-gradient(ellipse 50% 80%  at 85%  -5%, rgba(99,102,241,0.45) 0%, transparent 50%)",
-          "linear-gradient(145deg, #1e1880 0%, #0f0d40 100%)",
+          "radial-gradient(ellipse 80% 140% at 110% 65%, rgba(109,90,230,0.55) 0%, transparent 55%)",
+          "radial-gradient(ellipse 50% 80%  at 85%  -5%, rgba(109,90,230,0.30) 0%, transparent 50%)",
+          "linear-gradient(145deg, var(--xp) 0%, #4a3bc4 100%)",
         ].join(", "),
         padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) clamp(32px,4vw,44px)",
       }}
@@ -35,7 +35,7 @@ export function PageHero({
       <div className="relative z-10">
         <p
           className="font-mono text-[11px] uppercase tracking-[0.18em] mb-2"
-          style={{ color: "rgba(167,139,250,0.8)" }}
+          style={{ color: "rgba(255,255,255,0.8)" }}
         >
           {label}
         </p>

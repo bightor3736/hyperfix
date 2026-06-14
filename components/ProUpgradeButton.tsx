@@ -44,7 +44,7 @@ export function ProUpgradeButton() {
       onClick={handleClick}
       disabled={loading}
       className="relative flex items-center justify-center font-sans text-sm font-semibold py-3.5 rounded-full transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
-      style={{ background: "var(--ink)", color: "#030603" }}
+      style={{ background: "var(--ink)", color: "var(--bg)" }}
     >
       {loading ? "Loading…" : "Choose Plan"}
     </button>

@@ -114,28 +114,28 @@ export default async function PointsPage() {
       {/* Hero */}
       <header
         style={{
-          background: "#000000",
-          borderBottom: "1px solid rgba(255,255,255,0.08)",
+          background: "var(--bg-white)",
+          borderBottom: "1px solid var(--line)",
           padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) 40px",
         }}
       >
         <div>
-          <p className="mb-2 uppercase" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>Your progress</p>
+          <p className="mb-2 uppercase" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-faint)" }}>Your progress</p>
           <div className="flex items-end justify-between gap-4 flex-wrap">
             <div>
-              <h1 style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(36px,6vw,56px)", lineHeight: 1, color: "#ffffff" }}>
+              <h1 style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(36px,6vw,56px)", lineHeight: 1, color: "var(--ink)" }}>
                 <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>{totalPoints.toLocaleString()}</span>
-                <span className="ml-2 align-middle" style={{ letterSpacing: "0.08em", color: "rgba(255,255,255,0.35)", fontSize: 16, fontWeight: 600 }}>XP</span>
+                <span className="ml-2 align-middle" style={{ letterSpacing: "0.08em", color: "var(--ink-faint)", fontSize: 16, fontWeight: 600 }}>XP</span>
               </h1>
-              <p className="mt-2 font-sans text-[15px]" style={{ color: "rgba(255,255,255,0.55)" }}>
-                You&apos;re <span style={{ color: "#A78BFA", fontWeight: 600 }}>{level.name}</span>.{" "}
+              <p className="mt-2 font-sans text-[15px]" style={{ color: "var(--ink-muted)" }}>
+                You&apos;re <span style={{ color: "var(--xp)", fontWeight: 600 }}>{level.name}</span>.{" "}
                 {next ? `${pointsToNext.toLocaleString()} XP to ${next.name}.` : "Maximum unwellness achieved."}
               </p>
             </div>
             <Link
               href="/leaderboard"
-              className="liquid-glass inline-flex items-center gap-2 h-10 px-5 rounded-full text-[13px] font-medium hover:opacity-90 transition-opacity"
-              style={{ color: "#ffffff" }}
+              className="inline-flex items-center gap-2 h-10 px-5 rounded-full text-[13px] font-medium hover:opacity-90 transition-opacity"
+              style={{ background: "var(--ink)", color: "var(--bg)" }}
             >
               <Trophy size={14} strokeWidth={1.5} />
               Leaderboard
@@ -148,13 +148,13 @@ export default async function PointsPage() {
               { label: "longest", value: longestStreak },
               { label: "freezes", value: streakFreezes },
             ].map(({ label, value }) => (
-              <div key={label} className="flex flex-col items-center px-4 py-2.5" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}>
-                <span className="text-[20px] font-bold tabular-nums leading-none" style={{ color: "#ffffff", letterSpacing: "-0.03em" }}>{value}</span>
-                <span className="mt-1 uppercase" style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.08em", color: "rgba(255,255,255,0.35)" }}>{label}</span>
+              <div key={label} className="flex flex-col items-center px-4 py-2.5" style={{ background: "var(--fill)", border: "1px solid var(--line)", borderRadius: 16 }}>
+                <span className="text-[20px] font-bold tabular-nums leading-none" style={{ color: "var(--ink)", letterSpacing: "-0.03em" }}>{value}</span>
+                <span className="mt-1 uppercase" style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.08em", color: "var(--ink-faint)" }}>{label}</span>
               </div>
             ))}
             {streakFreezes === 0 && !isPro && (
-              <Link href="/pricing" className="liquid-glass flex items-center px-4 py-2.5 rounded-full text-[11px] font-semibold uppercase transition-all hover:opacity-80" style={{ letterSpacing: "0.08em", color: "#ffffff" }}>
+              <Link href="/pricing" className="flex items-center px-4 py-2.5 rounded-full text-[11px] font-semibold uppercase transition-all hover:opacity-80" style={{ letterSpacing: "0.08em", background: "var(--accent)", color: "#fff" }}>
                 Get Pro freezes →
               </Link>
             )}

@@ -110,7 +110,7 @@ export function CardEditor({ fixId, userId, initialBannerUrl, initialCardStyle, 
             onClick={handleDownload}
             disabled={downloading}
             className="inline-flex items-center gap-2 px-5 py-3 rounded-full font-sans text-sm font-semibold transition-all hover:opacity-90 active:scale-95 disabled:opacity-50"
-            style={{ background: TEAL, color: "var(--ink)" }}
+            style={{ background: TEAL, color: "#fff" }}
           >
             {downloading ? (
               <>
@@ -175,7 +175,7 @@ export function CardEditor({ fixId, userId, initialBannerUrl, initialCardStyle, 
                   className="text-left rounded-2xl p-3 transition-all disabled:opacity-40"
                   style={{
                     background: isActive ? "var(--accent-soft)" : CARD_BG,
-                    border: `1px solid ${isActive ? "rgba(111,138,99,0.3)" : CARD_BORDER}`,
+                    border: `1px solid ${isActive ? "var(--accent)" : CARD_BORDER}`,
                     cursor: disabled ? "not-allowed" : "pointer",
                   }}
                 >

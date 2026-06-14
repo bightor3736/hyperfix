@@ -53,7 +53,7 @@ export function FirstHitCelebration({
 
       <div
         className="relative w-full max-w-[380px] p-7 text-center anim-pop"
-        style={{ background: "#0a0a0a", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
+        style={{ background: "var(--bg-white)", border: "1px solid var(--line)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
       >
         {/* Badge */}
         <div
@@ -63,7 +63,7 @@ export function FirstHitCelebration({
           <Zap size={30} strokeWidth={2.5} style={{ color: "#ffffff" }} fill="#ffffff" />
         </div>
 
-        <p className="brutal-tag mx-auto mb-4" style={{ background: "#ffffff", color: "#000000" }}>
+        <p className="brutal-tag mx-auto mb-4" style={{ background: "var(--accent)", color: "#fff" }}>
           Your first hit
         </p>
 
@@ -76,7 +76,7 @@ export function FirstHitCelebration({
         </p>
 
         {/* Fixation */}
-        <div className="mt-6 p-4 text-left" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}>
+        <div className="mt-6 p-4 text-left" style={{ background: "var(--fill)", border: "1px solid var(--line)", borderRadius: 16 }}>
           <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-ink-faint">Now tracking</p>
           <p className="mt-0.5 text-[18px] font-bold leading-snug text-ink" style={{ letterSpacing: "-0.02em" }}>{fixationName}</p>
           <p className="mt-2 inline-flex items-center gap-1.5 px-2 py-0.5 font-mono text-[10px] font-bold uppercase" style={{ background: "var(--xp)", color: "#ffffff", borderRadius: 999 }}>
@@ -95,7 +95,7 @@ export function FirstHitCelebration({
           href="/dashboard"
           onClick={onClose}
           className="brutal-btn mt-6 w-full py-3.5 text-[15px]"
-          style={{ background: "#ffffff", color: "#000000", fontWeight: 600, borderRadius: 10 }}
+          style={{ background: "var(--accent)", color: "#fff", fontWeight: 600, borderRadius: 10 }}
         >
           Take me in <ArrowRight size={17} strokeWidth={3} />
         </Link>

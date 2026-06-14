@@ -155,7 +155,7 @@ export function InteractiveHeroDemo() {
             <button
               onClick={handleStart}
               className="font-sans text-sm font-semibold px-5 py-3 rounded-full transition-all hover:opacity-90 active:scale-[0.98]"
-              style={{ background: TEAL, color: "var(--ink)" }}
+              style={{ background: TEAL, color: "#fff" }}
             >
               {showCard ? "see it for real →" : "start counting →"}
             </button>
@@ -173,7 +173,7 @@ export function InteractiveHeroDemo() {
                 width: 250,
                 aspectRatio: "9 / 14",
                 background:
-                  "radial-gradient(ellipse 110% 80% at 50% 120%, var(--accent) 0%, var(--accent) 12%, #0E4F47 32%, #08231F 56%, var(--bg) 82%)",
+                  "radial-gradient(ellipse 110% 80% at 50% 120%, var(--accent-soft) 0%, var(--accent-soft) 12%, var(--bg-soft) 40%, var(--bg-white) 70%)",
                 borderRadius: 18,
                 border: "1px solid var(--accent-soft)",
                 boxShadow:
@@ -195,7 +195,7 @@ export function InteractiveHeroDemo() {
                 className="absolute top-0 left-0 right-0 pointer-events-none"
                 style={{
                   height: "55%",
-                  background: "linear-gradient(180deg, rgba(7,7,8,0.7) 0%, rgba(7,7,8,0.2) 60%, transparent 100%)",
+                  background: "linear-gradient(180deg, rgba(251,247,241,0.7) 0%, rgba(251,247,241,0.2) 60%, transparent 100%)",
                 }}
               />
 

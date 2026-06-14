@@ -89,7 +89,7 @@ export function DashboardSidebarClient({
   return (
     <aside
       className="hidden lg:flex flex-col h-screen w-60 shrink-0 fixed left-0 top-0 z-40"
-      style={{ background: "#000000", borderRight: "1px solid rgba(255,255,255,0.08)" }}
+      style={{ background: "var(--bg-white)", borderRight: "1px solid var(--line)" }}
     >
       {/* ── App title ── */}
       <div
@@ -127,7 +127,7 @@ export function DashboardSidebarClient({
         ) : (
           <div
             className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-semibold shrink-0"
-            style={{ background: "#ffffff", color: "#000000" }}
+            style={{ background: "var(--ink)", color: "var(--bg)" }}
           >
             {initials}
           </div>
@@ -137,7 +137,7 @@ export function DashboardSidebarClient({
             {displayName}
           </p>
           {isPro && (
-            <p className="text-[10px] font-semibold" style={{ color: "rgba(255,255,255,0.55)" }}>
+            <p className="text-[10px] font-semibold" style={{ color: "var(--ink-muted)" }}>
               Pro
             </p>
           )}
@@ -161,7 +161,7 @@ export function DashboardSidebarClient({
           {streakFreezes > 0 && (
             <span
               className="flex items-center gap-1 text-[11px] font-medium"
-              style={{ color: "rgba(255,255,255,0.55)" }}
+              style={{ color: "var(--ink-muted)" }}
             >
               <Snowflake size={10} strokeWidth={2} />
               {streakFreezes}
@@ -197,7 +197,7 @@ export function DashboardSidebarClient({
                   fontSize: 11,
                   fontWeight: 600,
                   letterSpacing: "0.08em",
-                  color: "rgba(255,255,255,0.35)",
+                  color: "var(--ink-faint)",
                 }}
               >
                 {section.label}
@@ -212,15 +212,15 @@ export function DashboardSidebarClient({
                     href={item.href}
                     className="flex items-center gap-2.5 px-2.5 py-2 rounded-[9px] transition-colors"
                     style={{
-                      background: active ? "rgba(255,255,255,0.08)" : "transparent",
-                      color: active ? "#ffffff" : "var(--ink-muted)",
+                      background: active ? "var(--fill)" : "transparent",
+                      color: active ? "var(--ink)" : "var(--ink-muted)",
                     }}
                   >
                     <span
                       className="flex h-6 w-6 items-center justify-center rounded-[6px] shrink-0"
                       style={{
-                        background: active ? "#ffffff" : "var(--fill-soft)",
-                        color: active ? "#000000" : "var(--ink-muted)",
+                        background: active ? "var(--ink)" : "var(--fill-soft)",
+                        color: active ? "var(--bg)" : "var(--ink-muted)",
                       }}
                     >
                       {item.icon}

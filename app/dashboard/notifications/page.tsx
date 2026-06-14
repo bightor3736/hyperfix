@@ -15,9 +15,9 @@ import { legacyEmojiToType, getReactionMeta } from "@/lib/reactions";
 
 export const metadata: Metadata = { title: "Notifications · Hyperfix" };
 
-const CARD_BG = "rgba(255,255,255,0.03)";
+const CARD_BG = "var(--bg-white)";
 const CARD_BORDER = "var(--line)";
-const WHITE = "#FFFFFF";
+const WHITE = "var(--ink)";
 
 type NotifActor = {
   username: string | null;
@@ -59,7 +59,7 @@ function renderNotif(n: Notif): Rendered | null {
     const meta = type ? getReactionMeta(type) : null;
     return {
       Icon: HeartIcon,
-      iconColor: "#FFFFFF",
+      iconColor: "#FF5A36",
       text: (
         <>
           <span style={{ color: "var(--ink)" }}>{name}</span>
@@ -88,7 +88,7 @@ function renderNotif(n: Notif): Rendered | null {
   if (n.type === "follow") {
     return {
       Icon: PinIcon,
-      iconColor: "#FFFFFF",
+      iconColor: "#181410",
       text: (
         <>
           <span style={{ color: "var(--ink)" }}>{name}</span>
@@ -101,7 +101,7 @@ function renderNotif(n: Notif): Rendered | null {
   if (n.type === "comment") {
     return {
       Icon: ChatIcon,
-      iconColor: "#FFFFFF",
+      iconColor: "#181410",
       text: (
         <>
           <span style={{ color: "var(--ink)" }}>{name}</span>
@@ -115,7 +115,7 @@ function renderNotif(n: Notif): Rendered | null {
   if (n.type === "milestone") {
     return {
       Icon: SparkleIcon,
-      iconColor: WHITE,
+      iconColor: "#6D5AE6",
       text: (
         <span style={{ color: "var(--ink)" }}>
           You hit a milestone on <span style={{ color: "var(--ink)" }}>&ldquo;{fixTitle}&rdquo;</span>
@@ -127,7 +127,7 @@ function renderNotif(n: Notif): Rendered | null {
   if (n.type === "streak") {
     return {
       Icon: FlameIcon,
-      iconColor: "#FFFFFF",
+      iconColor: "#F2541B",
       text: (
         <span style={{ color: "var(--ink)" }}>
           Your streak on <span>&ldquo;{fixTitle}&rdquo;</span> is still going. Don&apos;t break the chain.
@@ -139,7 +139,7 @@ function renderNotif(n: Notif): Rendered | null {
   if (n.type === "message") {
     return {
       Icon: ChatIcon,
-      iconColor: "#FFFFFF",
+      iconColor: "#181410",
       text: (
         <>
           <span style={{ color: "var(--ink)" }}>{name}</span>
@@ -297,14 +297,14 @@ export default async function NotificationsPage() {
   return (
     <div className="min-h-screen pb-16" style={{ background: "var(--bg)" }}>
       {/* Hero */}
-      <header style={{ background: "#000000", borderBottom: "1px solid rgba(255,255,255,0.08)", padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) 40px" }}>
+      <header style={{ background: "var(--bg-white)", borderBottom: "1px solid var(--line)", padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) 40px" }}>
         <div className="flex items-end justify-between gap-4 flex-wrap">
           <div>
-            <p className="mb-2 uppercase" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>Notifications</p>
-            <h1 style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(32px,5vw,48px)", lineHeight: 1, color: "#ffffff" }}>
+            <p className="mb-2 uppercase" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-faint)" }}>Notifications</p>
+            <h1 style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(32px,5vw,48px)", lineHeight: 1, color: "var(--ink)" }}>
               What&apos;s been <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>happening</span>.
             </h1>
-            <p className="mt-3 font-sans text-[15px]" style={{ color: "rgba(255,255,255,0.55)" }}>
+            <p className="mt-3 font-sans text-[15px]" style={{ color: "var(--ink-muted)" }}>
               Reactions, follows, comments — all the signs you&apos;re not alone in this.
             </p>
           </div>

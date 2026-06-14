@@ -57,7 +57,7 @@ export function MilestoneCelebration({
 
       <div
         className="relative w-full max-w-[380px] p-7 text-center anim-pop"
-        style={{ background: "#0a0a0a", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
+        style={{ background: "var(--bg-white)", border: "1px solid var(--line)", borderRadius: 16, boxShadow: "var(--shadow-xl)" }}
       >
         {/* Badge */}
         <div
@@ -71,7 +71,7 @@ export function MilestoneCelebration({
           )}
         </div>
 
-        <p className="brutal-tag mx-auto mb-4" style={{ background: "#ffffff", color: "#000000" }}>
+        <p className="brutal-tag mx-auto mb-4" style={{ background: "var(--accent)", color: "#fff" }}>
           {isLevel ? "Level up" : "Streak milestone"}
         </p>
 
@@ -122,7 +122,7 @@ export function MilestoneCelebration({
         {!isPro && isLevel && (
           <div
             className="mt-6 p-4 text-left"
-            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}
+            style={{ background: "var(--fill)", border: "1px solid var(--line)", borderRadius: 16 }}
           >
             <p className="inline-flex items-center gap-1.5 text-[14px] font-bold text-ink">
               <Zap size={14} strokeWidth={3} fill="var(--ink)" /> Level up faster
@@ -132,7 +132,7 @@ export function MilestoneCelebration({
             </p>
             <ProCheckoutButton
               className="brutal-btn mt-3 w-full py-2.5 text-[13px]"
-              style={{ background: "#ffffff", color: "#000000", borderRadius: 10 }}
+              style={{ background: "var(--accent)", color: "#fff", borderRadius: 10 }}
             >
               Power up <Zap size={14} strokeWidth={3} />
             </ProCheckoutButton>

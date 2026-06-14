@@ -79,14 +79,14 @@ export default function OnboardingUsernamePage() {
   }
 
   const borderColor =
-    validation === "available" ? "rgba(255,255,255,0.45)"
+    validation === "available" ? "var(--ink)"
     : validation === "taken" || validation === "invalid" ? "rgba(248,113,113,0.4)"
-    : "rgba(255,255,255,0.08)";
+    : "var(--line)";
 
   const feedbackColor =
-    validation === "available" ? "#ffffff"
+    validation === "available" ? "var(--ink)"
     : validation === "taken" ? "#F87171"
-    : "rgba(255,255,255,0.55)";
+    : "var(--ink-muted)";
 
   const feedbackText =
     validation === "available" ? "Available"
@@ -102,7 +102,7 @@ export default function OnboardingUsernamePage() {
       <div aria-hidden className="fixed inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
 
       {/* Soft white bloom — top center */}
-      <div aria-hidden className="fixed top-0 left-1/2 -translate-x-1/2 pointer-events-none" style={{ width: 560, height: 320, background: "radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.07) 0%, transparent 70%)" }} />
+      <div aria-hidden className="fixed top-0 left-1/2 -translate-x-1/2 pointer-events-none" style={{ width: 560, height: 320, background: "radial-gradient(ellipse at 50% 0%, rgba(255,90,54,0.06) 0%, transparent 70%)" }} />
 
       {/* Content */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 py-12">
@@ -116,24 +116,24 @@ export default function OnboardingUsernamePage() {
         <div
           className="w-full max-w-[380px] p-8 anim-fadeUp"
           style={{
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid rgba(255,255,255,0.08)",
+            background: "var(--fill)",
+            border: "1px solid var(--line)",
             borderRadius: 16,
             boxShadow: "0 32px 80px rgba(0,0,0,0.45)",
           }}
         >
           {/* Step indicator */}
           <div className="flex items-center gap-2 mb-7">
-            <div className="h-1 w-8 rounded-full" style={{ background: "#ffffff" }} />
-            <div className="h-1 w-8 rounded-full" style={{ background: "#ffffff" }} />
-            <div className="h-1 w-8 rounded-full" style={{ background: "rgba(255,255,255,0.12)" }} />
-            <span className="ml-auto font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>step 2 of 3</span>
+            <div className="h-1 w-8 rounded-full" style={{ background: "var(--ink)" }} />
+            <div className="h-1 w-8 rounded-full" style={{ background: "var(--ink)" }} />
+            <div className="h-1 w-8 rounded-full" style={{ background: "var(--line)" }} />
+            <span className="ml-auto font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>step 2 of 3</span>
           </div>
 
           {/* Heading */}
           <span
             className="inline-flex items-center uppercase mb-4"
-            style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}
+            style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-faint)" }}
           >
             almost there
           </span>
@@ -155,7 +155,7 @@ export default function OnboardingUsernamePage() {
                 style={{
                   background: "transparent",
                   border: `1px solid ${borderColor}`,
-                  boxShadow: validation === "available" ? "0 0 0 3px rgba(255,255,255,0.08)" : "none",
+                  boxShadow: validation === "available" ? "0 0 0 3px var(--fill)" : "none",
                 }}
               >
                 <span className="pl-4 font-mono text-sm select-none" style={{ color: "var(--ink-faint)" }}>@</span>
@@ -200,8 +200,8 @@ export default function OnboardingUsernamePage() {
               disabled={!canSubmit}
               className="w-full py-3 rounded-full font-sans text-sm font-semibold transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] disabled:cursor-not-allowed"
               style={{
-                background: canSubmit ? "#ffffff" : "rgba(255,255,255,0.08)",
-                color: canSubmit ? "#000000" : "rgba(255,255,255,0.35)",
+                background: canSubmit ? "var(--accent)" : "var(--fill)",
+                color: canSubmit ? "#fff" : "var(--ink-faint)",
                 fontWeight: 600,
               }}
             >
@@ -216,12 +216,12 @@ export default function OnboardingUsernamePage() {
 
         <div
           className="relative z-10 mt-4 px-5 py-3.5 text-center max-w-[380px] w-full"
-          style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}
+          style={{ background: "var(--fill)", border: "1px solid var(--line)", borderRadius: 16 }}
         >
-          <p className="uppercase mb-1" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.55)" }}>
+          <p className="uppercase mb-1" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-muted)" }}>
             unlock Pro free
           </p>
-          <p className="font-sans text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>
+          <p className="font-sans text-xs" style={{ color: "var(--ink-muted)" }}>
             Refer 3 friends → get Hyperfix Pro forever. Your referral link is waiting on the dashboard.
           </p>
         </div>

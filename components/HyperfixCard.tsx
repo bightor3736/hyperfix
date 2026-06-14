@@ -114,8 +114,8 @@ export default function HyperfixCard({
         <div style={{ paddingBottom: 10, display: "flex", flexDirection: "column", gap: 2 }}>
           <span style={{ color: "var(--ink-faint)", fontSize: 13, fontWeight: 600 }}>days</span>
           <span style={{
-            background: "#ffffff",
-            color: "#000000",
+            background: "var(--ink)",
+            color: "var(--bg)",
             borderRadius: 999,
             padding: "2px 8px",
             fontSize: 10,
@@ -178,7 +178,7 @@ export default function HyperfixCard({
       {/* ── NOTE ── */}
       <div style={{
         marginTop: 10,
-        borderLeft: "2px solid rgba(255,255,255,0.2)",
+        borderLeft: "2px solid var(--line-strong)",
         paddingLeft: 10,
         color: "var(--ink-muted)",
         fontSize: 13,

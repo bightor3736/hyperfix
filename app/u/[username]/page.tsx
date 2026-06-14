@@ -177,8 +177,8 @@ export default async function PublicProfilePage({
     <div
       className="min-h-screen"
       style={{
-        background: "#000000",
-        color: "#FAFAFA",
+        background: "var(--bg)",
+        color: "var(--ink)",
         fontFamily: "var(--font-grotesk), system-ui, sans-serif",
       }}
     >
@@ -197,19 +197,19 @@ export default async function PublicProfilePage({
       {/* ── NAV ── */}
       <nav
         className="relative z-10 flex items-center justify-between px-5 py-3 sm:px-8"
-        style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+        style={{ borderBottom: "1px solid var(--line)" }}
       >
         <Link
           href="/"
           className="font-display text-[16px] font-semibold tracking-tight transition-opacity hover:opacity-70"
-          style={{ color: "#FAFAFA" }}
+          style={{ color: "var(--ink)" }}
         >
           hyperfix
         </Link>
         <Link
           href={currentUser ? "/dashboard" : "/auth/login"}
           className="rounded-full px-4 py-1.5 text-[13px] font-medium transition-opacity hover:opacity-80"
-          style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.10)", color: "rgba(255,255,255,0.6)" }}
+          style={{ background: "var(--fill)", border: "1px solid var(--line)", color: "rgba(24,20,16,0.70)" }}
         >
           {currentUser ? "my dashboard" : "log in"}
         </Link>
@@ -271,7 +271,7 @@ export default async function PublicProfilePage({
                   className="absolute -bottom-1 -right-1 h-4 w-4 rounded-full"
                   style={{
                     background: "#30D158",
-                    border: "2px solid #000000",
+                    border: "2px solid var(--bg)",
                     boxShadow: "0 0 6px rgba(48,209,88,0.6)",
                   }}
                 />
@@ -283,7 +283,7 @@ export default async function PublicProfilePage({
               <div className="flex flex-wrap items-center gap-2.5">
                 <h1
                   className="font-display font-bold tracking-tight leading-tight"
-                  style={{ fontSize: "clamp(22px,4vw,30px)", color: "#FAFAFA" }}
+                  style={{ fontSize: "clamp(22px,4vw,30px)", color: "var(--ink)" }}
                 >
                   {displayName}
                 </h1>
@@ -298,13 +298,13 @@ export default async function PublicProfilePage({
               </div>
 
               <div className="mt-1 flex flex-wrap items-center gap-2">
-                <span className="text-[13px]" style={{ color: "rgba(255,255,255,0.4)" }}>
+                <span className="text-[13px]" style={{ color: "var(--ink-faint)" }}>
                   @{typedProfile.username}
                 </span>
                 {typedProfile.pronouns && (
                   <span
                     className="rounded-full px-2 py-0.5 text-[11px]"
-                    style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.4)" }}
+                    style={{ background: "var(--fill)", color: "var(--ink-faint)" }}
                   >
                     {typedProfile.pronouns}
                   </span>
@@ -312,7 +312,7 @@ export default async function PublicProfilePage({
                 {(typedProfile.status_emoji || typedProfile.status_text) && (
                   <span
                     className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[12px]"
-                    style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.08)" }}
+                    style={{ background: "var(--fill)", color: "var(--ink-muted)", border: "1px solid var(--line)" }}
                   >
                     {typedProfile.status_emoji && <span>{typedProfile.status_emoji}</span>}
                     {typedProfile.status_text && <span>{typedProfile.status_text}</span>}
@@ -323,7 +323,7 @@ export default async function PublicProfilePage({
               {typedProfile.bio && (
                 <p
                   className="mt-2 max-w-[500px] text-[14px] leading-relaxed"
-                  style={{ color: "rgba(255,255,255,0.55)" }}
+                  style={{ color: "var(--ink-muted)" }}
                 >
                   {typedProfile.bio}
                 </p>
@@ -352,7 +352,7 @@ export default async function PublicProfilePage({
                 <Link
                   href="/dashboard/settings"
                   className="rounded-full px-4 py-2 text-[13px] font-medium transition-opacity hover:opacity-80"
-                  style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)", color: "rgba(255,255,255,0.6)" }}
+                  style={{ background: "var(--fill)", border: "1px solid var(--line)", color: "rgba(24,20,16,0.70)" }}
                 >
                   Edit
                 </Link>
@@ -363,7 +363,7 @@ export default async function PublicProfilePage({
           {/* ── STATS ROW ── */}
           <div
             className="mt-8 flex items-stretch rounded-[14px] overflow-hidden"
-            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+            style={{ background: "var(--fill)", border: "1px solid var(--line)" }}
           >
             {[
               { label: "fixations", value: visibleFixes.length, href: undefined as string | undefined },
@@ -375,11 +375,11 @@ export default async function PublicProfilePage({
                 <div className="flex flex-col items-center gap-0.5 px-5 py-3.5">
                   <span
                     className="tabular-nums font-display font-semibold leading-none"
-                    style={{ fontSize: "clamp(18px,3vw,22px)", color: "#FAFAFA" }}
+                    style={{ fontSize: "clamp(18px,3vw,22px)", color: "var(--ink)" }}
                   >
                     {s.value}
                   </span>
-                  <span className="text-[11px] font-medium" style={{ color: "rgba(255,255,255,0.35)" }}>
+                  <span className="text-[11px] font-medium" style={{ color: "var(--ink-muted)" }}>
                     {s.label}
                   </span>
                 </div>
@@ -388,7 +388,7 @@ export default async function PublicProfilePage({
                 <div
                   key={s.label}
                   className="flex-1 text-center"
-                  style={{ borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.07)" : "none" }}
+                  style={{ borderLeft: i > 0 ? "1px solid var(--line)" : "none" }}
                 >
                   {s.href
                     ? <Link href={s.href} className="block transition-opacity hover:opacity-70">{inner}</Link>
@@ -400,16 +400,16 @@ export default async function PublicProfilePage({
 
           {/* XP + level bar */}
           <div className="mt-4 flex items-center gap-3">
-            <span className="text-[11px] font-medium shrink-0" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <span className="text-[11px] font-medium shrink-0" style={{ color: "var(--ink-muted)" }}>
               {level.name}
             </span>
-            <div className="h-1 flex-1 overflow-hidden rounded-full" style={{ background: "rgba(255,255,255,0.08)" }}>
+            <div className="h-1 flex-1 overflow-hidden rounded-full" style={{ background: "var(--fill)" }}>
               <div
                 className="h-full rounded-full"
                 style={{ width: `${expPct}%`, background: `linear-gradient(90deg, ${accentHex}, ${hexToRgba(accentHex, 0.6)})` }}
               />
             </div>
-            <span className="text-[11px] tabular-nums shrink-0" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <span className="text-[11px] tabular-nums shrink-0" style={{ color: "var(--ink-muted)" }}>
               {totalPoints.toLocaleString()} XP
             </span>
           </div>
@@ -428,11 +428,11 @@ export default async function PublicProfilePage({
             <div className="mb-4 flex items-center justify-between">
               <h2
                 className="text-[13px] font-semibold uppercase tracking-[0.06em]"
-                style={{ color: "rgba(255,255,255,0.3)" }}
+                style={{ color: "var(--ink-faint)" }}
               >
                 {activeFixes.length > 0 ? "Currently into" : "Fixations"}
               </h2>
-              <span className="text-[12px]" style={{ color: "rgba(255,255,255,0.2)" }}>
+              <span className="text-[12px]" style={{ color: "var(--ink-faint)" }}>
                 {visibleFixes.length} total
               </span>
             </div>
@@ -449,8 +449,8 @@ export default async function PublicProfilePage({
                     key={fix.id}
                     className="group relative overflow-hidden rounded-[16px] transition-transform duration-200 hover:-translate-y-0.5"
                     style={{
-                      background: "rgba(255,255,255,0.04)",
-                      border: "1px solid rgba(255,255,255,0.07)",
+                      background: "var(--bg-white)",
+                      border: "1px solid var(--line)",
                       cursor: "default",
                     }}
                   >
@@ -478,15 +478,15 @@ export default async function PublicProfilePage({
                       <div className="flex items-start justify-between gap-3 mb-3">
                         <h3
                           className="font-display font-semibold leading-tight flex-1 min-w-0"
-                          style={{ fontSize: "clamp(14px,2vw,16px)", color: "#FAFAFA", lineHeight: 1.3 }}
+                          style={{ fontSize: "clamp(14px,2vw,16px)", color: "var(--ink)", lineHeight: 1.3 }}
                         >
                           {fix.name}
                         </h3>
                         <span
                           className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
                           style={{
-                            background: isActive ? hexToRgba(from, 0.15) : "rgba(255,255,255,0.06)",
-                            color: isActive ? from : "rgba(255,255,255,0.3)",
+                            background: isActive ? hexToRgba(from, 0.15) : "var(--fill)",
+                            color: isActive ? from : "var(--ink-faint)",
                             border: `1px solid ${isActive ? hexToRgba(from, 0.25) : "transparent"}`,
                           }}
                         >
@@ -498,7 +498,7 @@ export default async function PublicProfilePage({
                       {fix.description && (
                         <p
                           className="mb-4 text-[12px] leading-relaxed line-clamp-2"
-                          style={{ color: "rgba(255,255,255,0.4)" }}
+                          style={{ color: "var(--ink-faint)" }}
                         >
                           {fix.description}
                         </p>
@@ -510,22 +510,22 @@ export default async function PublicProfilePage({
                           <div className="flex items-baseline gap-1">
                             <span
                               className="font-display font-bold tabular-nums leading-none"
-                              style={{ fontSize: 32, color: "#FAFAFA", letterSpacing: "-0.04em" }}
+                              style={{ fontSize: 32, color: "var(--ink)", letterSpacing: "-0.04em" }}
                             >
                               {days}
                             </span>
-                            <span className="text-[12px]" style={{ color: "rgba(255,255,255,0.35)" }}>
+                            <span className="text-[12px]" style={{ color: "var(--ink-muted)" }}>
                               days
                             </span>
                           </div>
-                          <p className="mt-0.5 text-[11px]" style={{ color: "rgba(255,255,255,0.25)" }}>
+                          <p className="mt-0.5 text-[11px]" style={{ color: "var(--ink-faint)" }}>
                             {timeAgo(fix.started_at)}
                           </p>
                         </div>
 
                         {/* Intensity */}
                         <div className="flex flex-col items-end gap-1.5">
-                          <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>
+                          <span className="text-[10px]" style={{ color: "var(--ink-faint)" }}>
                             intensity
                           </span>
                           <div className="flex items-center gap-1">
@@ -538,7 +538,7 @@ export default async function PublicProfilePage({
                                   height: v <= fix.intensity ? 14 : 8,
                                   background: v <= fix.intensity
                                     ? `linear-gradient(180deg, ${from}, ${to})`
-                                    : "rgba(255,255,255,0.08)",
+                                    : "var(--fill)",
                                   transition: "height 0.2s ease",
                                 }}
                               />
@@ -559,11 +559,11 @@ export default async function PublicProfilePage({
           <div className="mt-16 flex flex-col items-center text-center">
             <div
               className="mb-4 flex h-16 w-16 items-center justify-center rounded-[18px] text-3xl"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+              style={{ background: "var(--fill)", border: "1px solid var(--line)" }}
             >
               🎯
             </div>
-            <p className="text-[14px] font-medium" style={{ color: "rgba(255,255,255,0.3)" }}>
+            <p className="text-[14px] font-medium" style={{ color: "var(--ink-faint)" }}>
               No fixations shared yet
             </p>
           </div>
@@ -579,17 +579,17 @@ export default async function PublicProfilePage({
           <div
             className="mx-auto flex max-w-md items-center justify-between gap-4 rounded-[16px] px-5 py-3.5"
             style={{
-              background: "rgba(0,0,0,0.92)",
-              border: "1px solid rgba(255,255,255,0.10)",
+              background: "var(--bg-white)",
+              border: "1px solid var(--line)",
               backdropFilter: "blur(20px)",
-              boxShadow: "0 8px 40px rgba(0,0,0,0.6)",
+              boxShadow: "0 8px 40px rgba(24,20,16,0.12)",
             }}
           >
             <div className="min-w-0">
-              <p className="truncate text-[14px] font-semibold" style={{ color: "#FAFAFA" }}>
+              <p className="truncate text-[14px] font-semibold" style={{ color: "var(--ink)" }}>
                 Track your hyperfixations
               </p>
-              <p className="text-[12px]" style={{ color: "rgba(255,255,255,0.4)" }}>
+              <p className="text-[12px]" style={{ color: "var(--ink-faint)" }}>
                 free · 30 seconds
               </p>
             </div>

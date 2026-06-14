@@ -32,7 +32,7 @@ export function OnboardingModal({ totalFixes }: { totalFixes: number }) {
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 anim-fadeIn"
       style={{
-        background: "rgba(7,7,8,0.85)",
+        background: "rgba(24,20,16,0.45)",
         backdropFilter: "blur(8px)",
         WebkitBackdropFilter: "blur(8px)",
       }}
@@ -40,9 +40,9 @@ export function OnboardingModal({ totalFixes }: { totalFixes: number }) {
       <div
         className="relative w-full max-w-md rounded-3xl p-8 flex flex-col gap-7 anim-scaleIn"
         style={{
-          background: "#0a0a0a",
-          border: "1px solid rgba(255,255,255,0.12)",
-          boxShadow: "0 32px 80px rgba(0,0,0,0.7)",
+          background: "var(--bg-white)",
+          border: "1px solid var(--line)",
+          boxShadow: "0 32px 80px rgba(0,0,0,0.2)",
         }}
       >
         <div>
@@ -102,7 +102,7 @@ export function OnboardingModal({ totalFixes }: { totalFixes: number }) {
           <button
             type="button"
             onClick={dismiss}
-            className="w-full font-sans text-sm text-center transition-colors hover:text-white"
+            className="w-full font-sans text-sm text-center transition-colors hover:text-[var(--ink)]"
             style={{ color: "var(--ink-muted)" }}
           >
             Skip
@@ -131,9 +131,9 @@ function Step({
         style={{
           width: 24,
           height: 24,
-          background: "rgba(255,255,255,0.08)",
-          color: "#ffffff",
-          border: "1px solid rgba(255,255,255,0.12)",
+          background: "var(--fill)",
+          color: "var(--ink)",
+          border: "1px solid var(--line)",
         }}
       >
         {n}

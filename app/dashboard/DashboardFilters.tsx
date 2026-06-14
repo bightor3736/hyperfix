@@ -59,7 +59,7 @@ function QuickExportButton({ fixId, title }: { fixId: string; title: string }) {
         state === "done"
           ? {
               background: "var(--accent-soft)",
-              border: "1px solid rgba(255,255,255,0.2)",
+              border: "1px solid var(--line)",
               color: "var(--accent)",
             }
           : {
@@ -170,7 +170,7 @@ const CATEGORY_FILTERS = [
 ] as const;
 type SortOrder = "newest" | "longest" | "intense" | "unchecked";
 
-const WHITE = "#ffffff";
+const WHITE = "var(--ink)";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -181,11 +181,11 @@ function getDayCount(startedAt: string): number {
 }
 
 function intensityColor(_intensity: number): string {
-  return "#ffffff";
+  return "var(--accent)";
 }
 
 function intensityRGB(_intensity: number): string {
-  return "255,255,255";
+  return "255,90,54";
 }
 
 function getMilestone(days: number): { label: string } | null {
@@ -303,9 +303,9 @@ function FixGridCard({
             <span
               className="inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-widest rounded-full px-2 py-0.5"
               style={{
-                background: "rgba(255,255,255,0.06)",
-                color: "rgba(255,255,255,0.7)",
-                border: "1px solid rgba(255,255,255,0.1)",
+                background: "var(--fill)",
+                color: "var(--ink-muted)",
+                border: "1px solid var(--line)",
               }}
             >
               <CategoryIcon category={fix.category} size={9} />
@@ -354,7 +354,7 @@ function FixGridCard({
                 className="h-full rounded-full transition-all"
                 style={{
                   width: `${pct}%`,
-                  background: "#ffffff",
+                  background: "var(--accent)",
                 }}
               />
             </div>
@@ -417,9 +417,9 @@ function FixGridCard({
           <span
             className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest rounded-full px-2.5 py-1"
             style={{
-              background: "rgba(255,255,255,0.06)",
-              color: "rgba(255,255,255,0.7)",
-              border: "1px solid rgba(255,255,255,0.1)",
+              background: "var(--fill)",
+              color: "var(--ink-muted)",
+              border: "1px solid var(--line)",
             }}
           >
             <CategoryIcon category={fix.category} size={9} />
@@ -512,7 +512,7 @@ function FixGridCard({
               className="h-full rounded-full transition-all"
               style={{
                 width: `${pct}%`,
-                background: "#ffffff",
+                background: "var(--accent)",
               }}
             />
           </div>

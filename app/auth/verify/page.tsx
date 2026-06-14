@@ -48,7 +48,7 @@ export default function VerifyPage() {
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 rounded-2xl py-3 font-sans text-sm font-medium transition-all hover:-translate-y-px active:scale-[0.98]"
           style={{
-            background: "rgba(15,16,17,0.85)",
+            background: "var(--bg-white)",
             border: "1px solid var(--line)",
             color: "var(--ink)",
           }}
@@ -67,7 +67,7 @@ export default function VerifyPage() {
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 rounded-2xl py-3 font-sans text-sm font-medium transition-all hover:-translate-y-px active:scale-[0.98]"
           style={{
-            background: "rgba(15,16,17,0.85)",
+            background: "var(--bg-white)",
             border: "1px solid var(--line)",
             color: "var(--ink)",
           }}

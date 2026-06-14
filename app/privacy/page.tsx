@@ -46,21 +46,21 @@ const sections = [
 
 export default function PrivacyPage() {
   return (
-    <main id="main-content" className="relative z-10" style={{ background: "#000000", color: "#ffffff" }}>
+    <main id="main-content" className="relative z-10" style={{ background: "var(--bg)", color: "var(--ink)" }}>
       <Nav />
 
-      <section className="px-6 sm:px-10 pt-32 sm:pt-40 pb-10" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+      <section className="px-6 sm:px-10 pt-32 sm:pt-40 pb-10" style={{ borderBottom: "1px solid var(--line)" }}>
         <div className="mx-auto" style={{ maxWidth: 720 }}>
-          <p className="uppercase mb-4" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>
+          <p className="uppercase mb-4" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-faint)" }}>
             Legal
           </p>
-          <h1 style={{ color: "#ffffff", fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.05, letterSpacing: "-0.025em", fontWeight: 500 }}>
+          <h1 style={{ color: "var(--ink)", fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.05, letterSpacing: "-0.025em", fontWeight: 500 }}>
             Privacy{" "}
             <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>
               Policy
             </span>
           </h1>
-          <p className="mt-5 uppercase tabular-nums" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>
+          <p className="mt-5 uppercase tabular-nums" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-faint)" }}>
             Effective: May 2026
           </p>
         </div>
@@ -72,12 +72,12 @@ export default function PrivacyPage() {
             <div
               key={s.h}
               className="py-8 grid sm:grid-cols-3 gap-4 sm:gap-10"
-              style={{ borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,0.08)" }}
+              style={{ borderTop: i === 0 ? "none" : "1px solid var(--line)" }}
             >
-              <h2 className="text-lg tracking-tight sm:pt-1" style={{ color: "#ffffff", fontWeight: 600 }}>
+              <h2 className="text-lg tracking-tight sm:pt-1" style={{ color: "var(--ink)", fontWeight: 600 }}>
                 {s.h}
               </h2>
-              <p className="sm:col-span-2 text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+              <p className="sm:col-span-2 text-base leading-relaxed" style={{ color: "rgba(24,20,16,0.70)" }}>
                 {s.body}
               </p>
             </div>

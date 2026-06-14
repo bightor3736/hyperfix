@@ -114,7 +114,7 @@ export function AddToListButton({ fixId }: { fixId: string }) {
         <div
           className="absolute z-50 mt-2 w-64 rounded-xl overflow-hidden"
           style={{
-            background: "#1A1A1C",
+            background: "var(--bg-white)",
             border: "1px solid var(--line)",
             boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
             right: 0,

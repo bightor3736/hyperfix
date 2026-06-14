@@ -109,31 +109,31 @@ export default function TimerPage() {
     setJustFinished(false);
   }
 
-  const accent = "#ffffff";
-  const ringBg = "rgba(255,255,255,0.08)";
+  const accent = "var(--accent)";
+  const ringBg = "var(--line)";
   const R = 130, C = 2 * Math.PI * R;
 
   return (
-    <div className="min-h-screen pb-24 flex flex-col" style={{ background: "#000000" }}>
+    <div className="min-h-screen pb-24 flex flex-col" style={{ background: "var(--bg)" }}>
 
       <div className="relative z-10 flex-1 flex flex-col items-center px-5 pt-10">
 
         {/* Header */}
-        <p className="mb-1 uppercase" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>Focus timer</p>
-        <h1 className="mb-6 text-center" style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(30px,5vw,44px)", lineHeight: 1, color: "#ffffff" }}>
+        <p className="mb-1 uppercase" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-faint)" }}>Focus timer</p>
+        <h1 className="mb-6 text-center" style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(30px,5vw,44px)", lineHeight: 1, color: "var(--ink)" }}>
           Lock <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>in</span>.
         </h1>
 
         {/* Mode toggle */}
-        <div className="flex gap-1 p-1 mb-7" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}>
+        <div className="flex gap-1 p-1 mb-7" style={{ background: "var(--fill)", border: "1px solid var(--line)", borderRadius: 16 }}>
           {(["focus", "break"] as const).map((m) => (
             <button
               key={m}
               onClick={() => selectMode(m)}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl font-sans text-[13px] font-semibold transition-all"
               style={{
-                background: mode === m ? "#ffffff" : "transparent",
-                color: mode === m ? "#000000" : "rgba(255,255,255,0.55)",
+                background: mode === m ? "var(--ink)" : "transparent",
+                color: mode === m ? "var(--bg)" : "var(--ink-muted)",
               }}
             >
               {m === "focus" ? <Brain size={14} strokeWidth={2} /> : <Coffee size={14} strokeWidth={2} />}
@@ -156,15 +156,15 @@ export default function TimerPage() {
             {justFinished ? (
               <>
                 <Check size={48} strokeWidth={2.5} style={{ color: accent }} />
-                <p className="mt-2 font-sans text-[15px] font-semibold" style={{ color: "#fff" }}>Session done!</p>
-                <p className="mt-1 uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.08em", color: "#A78BFA" }}>+XP earned</p>
+                <p className="mt-2 font-sans text-[15px] font-semibold" style={{ color: "var(--ink)" }}>Session done!</p>
+                <p className="mt-1 uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.08em", color: "var(--xp)" }}>+XP earned</p>
               </>
             ) : (
               <>
-                <span className="tabular-nums" style={{ fontWeight: 700, fontSize: 64, letterSpacing: "-0.04em", color: "#fff", lineHeight: 1 }}>
+                <span className="tabular-nums" style={{ fontWeight: 700, fontSize: 64, letterSpacing: "-0.04em", color: "var(--ink)", lineHeight: 1 }}>
                   {fmt(remaining)}
                 </span>
-                <p className="mt-2 uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.08em", color: "rgba(255,255,255,0.35)" }}>
+                <p className="mt-2 uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.08em", color: "var(--ink-faint)" }}>
                   {mode === "focus" ? "Deep work" : "Recharge"}
                 </p>
               </>
@@ -180,9 +180,9 @@ export default function TimerPage() {
               onClick={() => selectMinutes(m)}
               className="px-4 py-2 rounded-xl font-sans text-[13px] font-semibold tabular-nums transition-all"
               style={{
-                background: minutes === m ? "#ffffff" : "rgba(255,255,255,0.03)",
-                color: minutes === m ? "#000000" : "rgba(255,255,255,0.55)",
-                border: `1px solid ${minutes === m ? "#ffffff" : "rgba(255,255,255,0.08)"}`,
+                background: minutes === m ? "var(--ink)" : "var(--fill)",
+                color: minutes === m ? "var(--bg)" : "var(--ink-muted)",
+                border: `1px solid ${minutes === m ? "var(--ink)" : "var(--line)"}`,
               }}
             >
               {m}m
@@ -197,7 +197,7 @@ export default function TimerPage() {
             onChange={(e) => setTask(e.target.value)}
             placeholder="What are you working on?"
             className="w-full max-w-sm rounded-2xl px-4 py-3 font-sans text-[14px] outline-none mb-6 text-center"
-            style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", color: "#fff" }}
+            style={{ background: "var(--fill)", border: "1px solid var(--line)", color: "var(--ink)" }}
           />
         )}
 
@@ -207,8 +207,8 @@ export default function TimerPage() {
             onClick={() => setRunning((r) => !r)}
             className="press-pop flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-sans text-[16px] font-bold transition-all"
             style={{
-              background: running ? "rgba(255,255,255,0.08)" : "#ffffff",
-              color: running ? "#ffffff" : "#000000",
+              background: running ? "var(--fill)" : "var(--accent)",
+              color: running ? "var(--ink)" : "#fff",
               fontWeight: 600,
               minWidth: 160,
             }}
@@ -219,7 +219,7 @@ export default function TimerPage() {
           <button
             onClick={reset}
             className="press-pop flex items-center justify-center rounded-2xl transition-all"
-            style={{ width: 56, height: 56, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.55)" }}
+            style={{ width: 56, height: 56, background: "var(--fill)", border: "1px solid var(--line)", color: "var(--ink-muted)" }}
           >
             <RotateCcw size={20} strokeWidth={2} />
           </button>
@@ -228,7 +228,7 @@ export default function TimerPage() {
         {/* Today's sessions */}
         {sessions > 0 && (
           <div className="mt-7 inline-flex items-center gap-1.5 px-4 py-2 rounded-full uppercase"
-            style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.55)" }}>
+            style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", background: "var(--fill)", border: "1px solid var(--line)", color: "var(--ink-muted)" }}>
             <Brain size={12} strokeWidth={2} /> {sessions} focus session{sessions === 1 ? "" : "s"} today
           </div>
         )}

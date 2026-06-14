@@ -389,7 +389,7 @@ function WidgetMusic() {
           }} />
           <span style={{ color: WHITE, fontSize: 14, fontWeight: 700 }}>Ended</span>
         </div>
-        <Pill color="#1C1C1E" textColor={DIM} small>2.4 MB</Pill>
+        <Pill color="var(--fill)" textColor={DIM} small>2.4 MB</Pill>
       </div>
 
       <div style={{ marginTop: 12, ...row("flex-end", 6), alignItems: "flex-end" }}>
@@ -474,10 +474,10 @@ function WidgetRadio() {
       {/* controls */}
       <div style={{ ...row("space-between"), marginTop: 16 }}>
         {[
-          { icon: "★", bg: "#2A2A2E" },
-          { icon: "⏮", bg: "#2A2A2E" },
-          { icon: "⏸", bg: "#2A2A2E" },
-          { icon: "⏭", bg: "#2A2A2E" },
+          { icon: "★", bg: "var(--fill)" },
+          { icon: "⏮", bg: "var(--fill)" },
+          { icon: "⏸", bg: "var(--fill)" },
+          { icon: "⏭", bg: "var(--fill)" },
         ].map((b, i) => (
           <div key={i} style={{
             background: b.bg,
@@ -529,16 +529,16 @@ const label: React.CSSProperties = {
 
 export default function WidgetGallery() {
   return (
-    <section className="px-6 sm:px-10 py-20 sm:py-32 bg-ink">
+    <section className="px-6 sm:px-10 py-20 sm:py-32 bg-bg-soft">
       <div className="max-w-6xl mx-auto">
         <div className="mb-12">
-          <span className="stamp border-paper/30 text-paper/60 mb-6 inline-block">widget gallery</span>
-          <h2 className="font-display text-4xl sm:text-6xl leading-[0.98] tracking-tightest text-paper">
+          <span className="stamp border-ink/20 text-ink-muted mb-6 inline-block">widget gallery</span>
+          <h2 className="font-display text-4xl sm:text-6xl leading-[0.98] tracking-tightest text-ink">
             Your fix.
             <br />
             <span className="italic text-accent">Everywhere you look.</span>
           </h2>
-          <p className="mt-6 font-sans text-lg text-inkSoft max-w-xl leading-snug">
+          <p className="mt-6 font-sans text-lg text-ink-muted max-w-xl leading-snug">
             Day counters that look like step trackers. Intensity bars that look like stock charts.
             Loop counts that look like radio dials. Your hyperfixation, measured like everything
             else on your phone.

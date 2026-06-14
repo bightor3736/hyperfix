@@ -24,10 +24,10 @@ export type DashboardHomeProps = {
 };
 
 const QUICK_ACTIONS: { icon: LucideIcon; label: string; href: string; iconBg: string; iconColor: string }[] = [
-  { icon: Plus,     label: "Log fix",    href: "/dashboard/new",       iconBg: "#ffffff",                  iconColor: "#000000" },
-  { icon: BookOpen, label: "Fixations",  href: "/dashboard/fixations", iconBg: "rgba(255,255,255,0.08)",   iconColor: "#ffffff" },
+  { icon: Plus,     label: "Log fix",    href: "/dashboard/new",       iconBg: "var(--accent)",            iconColor: "#ffffff" },
+  { icon: BookOpen, label: "Fixations",  href: "/dashboard/fixations", iconBg: "var(--fill)",              iconColor: "var(--ink)" },
   { icon: Sparkles, label: "XP",         href: "/dashboard/points",    iconBg: "var(--xp)",                iconColor: "#ffffff" },
-  { icon: Timer,    label: "Timer",      href: "/dashboard/timer",     iconBg: "rgba(255,255,255,0.08)",   iconColor: "#ffffff" },
+  { icon: Timer,    label: "Timer",      href: "/dashboard/timer",     iconBg: "var(--fill)",              iconColor: "var(--ink)" },
 ];
 
 export function DashboardHome({
@@ -72,7 +72,7 @@ export function DashboardHome({
           >
             <span
               className="flex h-9 w-9 items-center justify-center rounded-full font-semibold text-[14px]"
-              style={{ background: "#ffffff", color: "#000000" }}
+              style={{ background: "var(--ink)", color: "var(--bg)" }}
             >
               {firstName.charAt(0).toUpperCase()}
             </span>
@@ -83,7 +83,7 @@ export function DashboardHome({
                   fontWeight: 600,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.35)",
+                  color: "var(--ink-faint)",
                 }}
               >
                 {greeting}
@@ -113,8 +113,8 @@ export function DashboardHome({
         <div
           className="overflow-hidden mb-4"
           style={{
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid rgba(255,255,255,0.08)",
+            background: "var(--bg-white)",
+            border: "1px solid var(--line)",
             borderRadius: 16,
           }}
         >
@@ -127,7 +127,7 @@ export function DashboardHome({
                 fontWeight: 600,
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
-                color: "rgba(255,255,255,0.35)",
+                color: "var(--ink-faint)",
               }}
             >
               Total XP
@@ -201,7 +201,7 @@ export function DashboardHome({
               key={a.label}
               href={a.href}
               className="flex flex-col items-center gap-2 py-3.5 transition-colors hover:bg-[var(--fill-soft)]"
-              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}
+              style={{ background: "var(--bg-white)", border: "1px solid var(--line)", borderRadius: 16 }}
             >
               <span
                 className="flex h-10 w-10 items-center justify-center rounded-[10px]"

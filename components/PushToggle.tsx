@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useState } from "react";
 
 const cardStyle: React.CSSProperties = {
-  background: "rgba(255,255,255,0.03)",
-  border: "1px solid rgba(255,255,255,0.08)",
+  background: "var(--fill)",
+  border: "1px solid var(--line)",
   borderRadius: 16,
 };
 
@@ -137,9 +137,9 @@ export function PushToggle() {
 
   const buttonStyle: React.CSSProperties = enabled
     ? {
-        background: "#ffffff",
+        background: "var(--ink)",
         border: "1px solid transparent",
-        color: "#000000",
+        color: "var(--bg)",
       }
     : {
         background: "var(--line)",
@@ -173,7 +173,7 @@ export function PushToggle() {
         </button>
       </div>
       {error && (
-        <p className="font-sans text-[12px]" style={{ color: "rgba(255,255,255,0.7)" }}>
+        <p className="font-sans text-[12px]" style={{ color: "#E5484D" }}>
           {error}
         </p>
       )}

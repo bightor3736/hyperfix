@@ -18,10 +18,10 @@ export const metadata: Metadata = {
   },
 };
 
-const CARD_BG = "rgba(255,255,255,0.03)";
-const CARD_BORDER = "1px solid rgba(255,255,255,0.08)";
-const MUTED = "rgba(255,255,255,0.55)";
-const FAINT = "rgba(255,255,255,0.35)";
+const CARD_BG = "var(--bg-white)";
+const CARD_BORDER = "1px solid var(--line)";
+const MUTED = "var(--ink-muted)";
+const FAINT = "var(--ink-faint)";
 const SERIF = {
   fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)",
   fontStyle: "italic" as const,
@@ -84,7 +84,7 @@ function MicroLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Check({ color = "#ffffff", size = 16 }: { color?: string; size?: number }) {
+function Check({ color = "var(--ink)", size = 16 }: { color?: string; size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0" aria-hidden="true">
       <path d="M20 6 9 17l-5-5" />
@@ -104,7 +104,7 @@ function Cell({ value, isPro = false }: { value: string | boolean; isPro?: boole
   if (value === true) {
     return (
       <span className="inline-flex">
-        <Check color={isPro ? "#ffffff" : MUTED} size={15} />
+        <Check color={isPro ? "var(--ink)" : MUTED} size={15} />
       </span>
     );
   }
@@ -112,7 +112,7 @@ function Cell({ value, isPro = false }: { value: string | boolean; isPro?: boole
   return (
     <span
       className="text-sm tabular-nums"
-      style={{ color: isPro ? "#ffffff" : MUTED, fontWeight: isPro ? 600 : 400 }}
+      style={{ color: isPro ? "var(--ink)" : MUTED, fontWeight: isPro ? 600 : 400 }}
     >
       {value}
     </span>
@@ -133,17 +133,17 @@ export default function PricingPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <div className="relative min-h-screen" style={{ background: "#000000" }}>
+      <div className="relative min-h-screen" style={{ background: "var(--bg)" }}>
         <Nav />
 
-        <main id="main-content" className="relative" style={{ zIndex: 1, color: "#ffffff" }}>
+        <main id="main-content" className="relative" style={{ zIndex: 1, color: "var(--ink)" }}>
           {/* HERO ----------------------------------------------------------- */}
           <section className="relative px-6 sm:px-10 pt-32 sm:pt-40 pb-14 sm:pb-20">
             <div className="relative max-w-3xl mx-auto text-center">
               <span className="anim-fadeUp"><MicroLabel>Pricing</MicroLabel></span>
               <h1
                 className="mt-7 anim-fadeUp delay-100"
-                style={{ fontSize: "clamp(36px, 6vw, 60px)", lineHeight: 1.05, letterSpacing: "-0.025em", fontWeight: 500, color: "#ffffff" }}
+                style={{ fontSize: "clamp(36px, 6vw, 60px)", lineHeight: 1.05, letterSpacing: "-0.025em", fontWeight: 500, color: "var(--ink)" }}
               >
                 Free forever. Pro for the chronically{" "}
                 <span style={SERIF}>obsessed.</span>
@@ -169,13 +169,13 @@ export default function PricingPage() {
                   style={{ background: CARD_BG, border: CARD_BORDER, borderRadius: 16 }}
                 >
                   <div className="relative flex flex-col h-full">
-                    <h3 style={{ fontSize: 24, fontWeight: 600, color: "#ffffff" }}>Free</h3>
+                    <h3 style={{ fontSize: 24, fontWeight: 600, color: "var(--ink)" }}>Free</h3>
                     <p className="mt-2 text-base" style={{ color: MUTED }}>
                       Everything you need to log, count, and share.
                     </p>
                     <p
                       className="mt-7 tabular-nums"
-                      style={{ fontSize: 56, fontWeight: 600, letterSpacing: "-0.02em", color: "#ffffff" }}
+                      style={{ fontSize: 56, fontWeight: 600, letterSpacing: "-0.02em", color: "var(--ink)" }}
                     >
                       $0
                       <span className="text-lg" style={{ color: MUTED, fontWeight: 400 }}>/mo</span>
@@ -195,7 +195,7 @@ export default function PricingPage() {
                     <a
                       href="/join"
                       className="liquid-glass inline-flex w-full items-center justify-between text-base font-semibold px-6 py-4 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98]"
-                      style={{ color: "#ffffff", borderRadius: 9999 }}
+                      style={{ color: "var(--ink)", borderRadius: 9999 }}
                     >
                       Get started free
                       <span aria-hidden>→</span>
@@ -211,7 +211,7 @@ export default function PricingPage() {
                     className="relative overflow-hidden p-7 sm:p-9 flex flex-col h-full"
                     style={{
                       background: CARD_BG,
-                      border: "1px solid rgba(255,255,255,0.18)",
+                      border: "1px solid rgba(24,20,16,0.18)",
                       borderRadius: 16,
                     }}
                   >
@@ -222,26 +222,26 @@ export default function PricingPage() {
                         fontSize: 10,
                         fontWeight: 600,
                         letterSpacing: "2px",
-                        background: "#ffffff",
-                        color: "#000000",
+                        background: "var(--accent)",
+                        color: "#fff",
                       }}
                     >
                       Popular
                     </span>
                     <div className="relative flex flex-col h-full">
-                      <h3 style={{ fontSize: 24, fontWeight: 600, color: "#ffffff" }}>Pro</h3>
+                      <h3 style={{ fontSize: 24, fontWeight: 600, color: "var(--ink)" }}>Pro</h3>
                       <p className="mt-2 text-base" style={{ color: MUTED }}>
                         For the chronically unwell who want the full toolkit.
                       </p>
                       <p
                         className="mt-7 tabular-nums"
-                        style={{ fontSize: 48, fontWeight: 600, letterSpacing: "-0.02em", color: "#ffffff" }}
+                        style={{ fontSize: 48, fontWeight: 600, letterSpacing: "-0.02em", color: "var(--ink)" }}
                       >
                         $5
                         <span className="text-lg" style={{ color: MUTED, fontWeight: 400 }}> / month</span>
                       </p>
                       <p className="mt-2 text-sm" style={{ color: MUTED }}>
-                        or <span style={{ color: "#ffffff", fontWeight: 600 }}>$39/year</span> — save 35%
+                        or <span style={{ color: "var(--ink)", fontWeight: 600 }}>$39/year</span> — save 35%
                       </p>
                       <p className="mt-2 text-xs" style={{ color: FAINT }}>
                         Cancel anytime. Pro unlocks unlimited fixes and the full toolkit.
@@ -251,13 +251,13 @@ export default function PricingPage() {
                           <li
                             key={f.label}
                             className="flex items-start gap-3 text-base leading-snug"
-                            style={{ color: f.highlight ? "#ffffff" : MUTED }}
+                            style={{ color: f.highlight ? "var(--ink)" : MUTED }}
                           >
-                            <span className="mt-0.5"><Check color="#ffffff" /></span>
+                            <span className="mt-0.5"><Check color="var(--ink)" /></span>
                             <span style={f.highlight ? { fontWeight: 600 } : undefined}>
                               {f.highlight ? (
                                 <>
-                                  <strong className="font-semibold" style={{ color: "#ffffff" }}>{f.label}</strong>
+                                  <strong className="font-semibold" style={{ color: "var(--ink)" }}>{f.label}</strong>
                                 </>
                               ) : (
                                 f.label
@@ -268,7 +268,7 @@ export default function PricingPage() {
                       </ul>
                       <ProCheckoutButton
                         className="inline-flex w-full items-center justify-center gap-2 text-base font-semibold px-6 py-4 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] disabled:opacity-70"
-                        style={{ background: "#ffffff", color: "#000000", borderRadius: 9999, fontWeight: 600 }}
+                        style={{ background: "var(--accent)", color: "#fff", borderRadius: 9999, fontWeight: 600 }}
                         label="Get Pro"
                       />
                     </div>
@@ -289,7 +289,7 @@ export default function PricingPage() {
                 <RevealSection delay={100}>
                   <h2
                     className="mt-6"
-                    style={{ fontSize: "clamp(28px, 4.5vw, 44px)", lineHeight: 1.05, letterSpacing: "-0.025em", fontWeight: 500, color: "#ffffff" }}
+                    style={{ fontSize: "clamp(28px, 4.5vw, 44px)", lineHeight: 1.05, letterSpacing: "-0.025em", fontWeight: 500, color: "var(--ink)" }}
                   >
                     Free vs. Pro, <span style={SERIF}>side by side.</span>
                   </h2>
@@ -304,7 +304,7 @@ export default function PricingPage() {
                   <div className="overflow-x-auto">
                     <table className="w-full border-collapse">
                       <thead>
-                        <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+                        <tr style={{ borderBottom: "1px solid var(--line)" }}>
                           <th
                             className="text-left uppercase px-5 sm:px-7 py-4"
                             style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: FAINT }}
@@ -319,7 +319,7 @@ export default function PricingPage() {
                           </th>
                           <th
                             className="text-center uppercase px-4 py-4"
-                            style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "#ffffff", width: "20%" }}
+                            style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink)", width: "20%" }}
                           >
                             Pro
                           </th>
@@ -331,12 +331,12 @@ export default function PricingPage() {
                             key={row.feature}
                             style={{
                               borderBottom:
-                                i === comparisonRows.length - 1 ? "none" : "1px solid rgba(255,255,255,0.08)",
+                                i === comparisonRows.length - 1 ? "none" : "1px solid var(--line)",
                             }}
                           >
                             <td
                               className="text-sm sm:text-base px-5 sm:px-7 py-4"
-                              style={{ color: "rgba(255,255,255,0.8)" }}
+                              style={{ color: "rgba(24,20,16,0.70)" }}
                             >
                               {row.feature}
                             </td>
@@ -347,7 +347,7 @@ export default function PricingPage() {
                               className="text-center px-4 py-4"
                               style={
                                 row.free === false
-                                  ? { background: "rgba(255,255,255,0.03)" }
+                                  ? { background: "var(--fill)" }
                                   : undefined
                               }
                             >
@@ -366,7 +366,7 @@ export default function PricingPage() {
           {/* FINAL CTA ----------------------------------------------------- */}
           <section
             className="relative px-6 sm:px-10 py-20 sm:py-28"
-            style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+            style={{ borderTop: "1px solid var(--line)" }}
           >
             <div className="relative max-w-2xl mx-auto text-center">
               <RevealSection>
@@ -375,7 +375,7 @@ export default function PricingPage() {
               <RevealSection delay={100}>
                 <h2
                   className="mt-5"
-                  style={{ fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.05, letterSpacing: "-0.025em", fontWeight: 500, color: "#ffffff" }}
+                  style={{ fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.05, letterSpacing: "-0.025em", fontWeight: 500, color: "var(--ink)" }}
                 >
                   Start your hyperfixation <span style={SERIF}>toolkit.</span>
                 </h2>
@@ -384,7 +384,7 @@ export default function PricingPage() {
                 <div className="mt-10 flex justify-center">
                   <ProCheckoutButton
                     className="inline-flex items-center justify-center gap-2 text-base font-semibold px-8 py-4 transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] disabled:opacity-70"
-                    style={{ background: "#ffffff", color: "#000000", borderRadius: 9999, minWidth: 220, fontWeight: 600 }}
+                    style={{ background: "var(--accent)", color: "#fff", borderRadius: 9999, minWidth: 220, fontWeight: 600 }}
                     label="Get Pro"
                   />
                 </div>
@@ -402,7 +402,7 @@ export default function PricingPage() {
           {/* FAQ ------------------------------------------------------------ */}
           <section
             className="relative px-6 sm:px-10 py-20 sm:py-28"
-            style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+            style={{ borderTop: "1px solid var(--line)" }}
           >
             <div className="relative max-w-3xl mx-auto">
               <div className="text-center">
@@ -410,7 +410,7 @@ export default function PricingPage() {
                 <RevealSection delay={100}>
                   <h2
                     className="mt-6"
-                    style={{ fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.05, letterSpacing: "-0.025em", fontWeight: 500, color: "#ffffff" }}
+                    style={{ fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.05, letterSpacing: "-0.025em", fontWeight: 500, color: "var(--ink)" }}
                   >
                     <span style={SERIF}>Questions.</span>
                   </h2>
@@ -424,18 +424,18 @@ export default function PricingPage() {
                       style={{ background: CARD_BG, border: CARD_BORDER, borderRadius: 16 }}
                     >
                       <summary className="flex items-center justify-between gap-6 cursor-pointer list-none px-6 py-5">
-                        <h3 style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.01em", color: "#ffffff" }}>{q}</h3>
+                        <h3 style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.01em", color: "var(--ink)" }}>{q}</h3>
                         <span
                           aria-hidden
                           className="shrink-0 flex items-center justify-center rounded-full transition-transform group-open:rotate-45"
-                          style={{ width: 32, height: 32, border: "1px solid rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.7)" }}
+                          style={{ width: 32, height: 32, border: "1px solid var(--line)", color: "rgba(24,20,16,0.70)" }}
                         >
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                             <path d="M12 5v14M5 12h14" />
                           </svg>
                         </span>
                       </summary>
-                      <p className="px-6 pb-6 text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>{a}</p>
+                      <p className="px-6 pb-6 text-base leading-relaxed" style={{ color: "rgba(24,20,16,0.70)" }}>{a}</p>
                     </details>
                   </RevealSection>
                 ))}

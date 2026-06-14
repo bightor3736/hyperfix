@@ -21,23 +21,23 @@ type PillConfig = {
 // Monochrome system: differentiation comes from the glyph + ink strength,
 // never from hue. Active-ish statuses read brighter; finished ones fade.
 const PILL_BRIGHT: PillConfig = {
-  bg: "rgba(255,255,255,0.08)",
-  border: "rgba(255,255,255,0.18)",
-  text: "#ffffff",
+  bg: "var(--fill)",
+  border: "var(--line-strong)",
+  text: "var(--ink)",
   glow: "transparent",
   icon: "✦",
 };
 const PILL_MID: PillConfig = {
-  bg: "rgba(255,255,255,0.05)",
-  border: "rgba(255,255,255,0.12)",
-  text: "rgba(255,255,255,0.7)",
+  bg: "var(--fill)",
+  border: "var(--line)",
+  text: "var(--ink-muted)",
   glow: "transparent",
   icon: "◐",
 };
 const PILL_FAINT: PillConfig = {
-  bg: "rgba(255,255,255,0.03)",
-  border: "rgba(255,255,255,0.08)",
-  text: "rgba(255,255,255,0.45)",
+  bg: "var(--fill)",
+  border: "var(--line)",
+  text: "var(--ink-faint)",
   glow: "transparent",
   icon: "◌",
 };

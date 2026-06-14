@@ -19,15 +19,15 @@ export default async function UnsubscribePage() {
   return (
     <>
       <Nav />
-      <main className="min-h-screen flex items-center justify-center px-6 py-32" style={{ background: "#000000" }}>
+      <main className="min-h-screen flex items-center justify-center px-6 py-32" style={{ background: "var(--bg)" }}>
         <div className="max-w-md w-full text-center">
-          <p className="uppercase mb-5" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>
+          <p className="uppercase mb-5" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-faint)" }}>
             Email
           </p>
 
           <h1
             className="mb-6"
-            style={{ color: "#ffffff", fontSize: "clamp(32px, 5vw, 44px)", letterSpacing: "-0.025em", fontWeight: 500, lineHeight: 1.05 }}
+            style={{ color: "var(--ink)", fontSize: "clamp(32px, 5vw, 44px)", letterSpacing: "-0.025em", fontWeight: 500, lineHeight: 1.05 }}
           >
             <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>
               Unsubscribe

@@ -57,28 +57,28 @@ export default async function AchievementsPage() {
       {/* Hero */}
       <header
         style={{
-          background: "#000000",
-          borderBottom: "1px solid rgba(255,255,255,0.08)",
+          background: "var(--bg-white)",
+          borderBottom: "1px solid var(--line)",
           padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) 40px",
         }}
       >
         <div>
-          <p className="mb-2 uppercase" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>Achievements</p>
+          <p className="mb-2 uppercase" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-faint)" }}>Achievements</p>
           <div className="flex items-end justify-between gap-4 flex-wrap">
             <div>
-              <h1 style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(36px,5.5vw,54px)", lineHeight: 1, color: "#ffffff" }}>
+              <h1 style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(36px,5.5vw,54px)", lineHeight: 1, color: "var(--ink)" }}>
                 Badges <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>earned</span>.
               </h1>
-              <p className="mt-3 font-sans text-[15px]" style={{ color: "rgba(255,255,255,0.55)" }}>
+              <p className="mt-3 font-sans text-[15px]" style={{ color: "var(--ink-muted)" }}>
                 {closest
-                  ? <>Closest unlock: <span style={{ color: "#ffffff", fontWeight: 600 }}>{closest.name}</span> — {closest.progress}% there.</>
+                  ? <>Closest unlock: <span style={{ color: "var(--ink)", fontWeight: 600 }}>{closest.name}</span> — {closest.progress}% there.</>
                   : "Every badge unlocked. Absolutely feral."}
               </p>
             </div>
             <Link
               href="/dashboard/points"
-              className="liquid-glass inline-flex items-center gap-2 h-10 px-5 rounded-full text-[13px] font-medium hover:opacity-90 transition-opacity"
-              style={{ color: "#ffffff" }}
+              className="inline-flex items-center gap-2 h-10 px-5 rounded-full text-[13px] font-medium hover:opacity-90 transition-opacity"
+              style={{ background: "var(--accent)", color: "#fff" }}
             >
               <Sparkles size={14} strokeWidth={1.5} />
               XP & Levels
@@ -89,9 +89,9 @@ export default async function AchievementsPage() {
               { label: "unlocked", value: unlocked },
               { label: "total", value: achievements.length },
             ].map(({ label, value }) => (
-              <div key={label} className="flex flex-col items-center px-4 py-2.5" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}>
-                <span className="text-[20px] font-bold tabular-nums leading-none" style={{ color: "#ffffff", letterSpacing: "-0.03em" }}>{value}</span>
-                <span className="mt-1 uppercase" style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.08em", color: "rgba(255,255,255,0.35)" }}>{label}</span>
+              <div key={label} className="flex flex-col items-center px-4 py-2.5" style={{ background: "var(--fill)", border: "1px solid var(--line)", borderRadius: 16 }}>
+                <span className="text-[20px] font-bold tabular-nums leading-none" style={{ color: "var(--ink)", letterSpacing: "-0.03em" }}>{value}</span>
+                <span className="mt-1 uppercase" style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.08em", color: "var(--ink-faint)" }}>{label}</span>
               </div>
             ))}
           </div>

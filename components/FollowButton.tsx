@@ -89,14 +89,14 @@ export function FollowButton({
       className="px-4 py-1.5 rounded-full font-sans text-sm font-semibold transition-all duration-150 inline-block"
       style={{
         background: "transparent",
-        border: "1px solid rgba(111,138,99,0.3)",
+        border: "1px solid var(--line-strong)",
         color: "var(--accent)",
       }}
       onMouseEnter={(e) => {
         (e.currentTarget as HTMLAnchorElement).style.borderColor = "var(--accent)";
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(111,138,99,0.3)";
+        (e.currentTarget as HTMLAnchorElement).style.borderColor = "var(--line-strong)";
       }}
     >
       Follow
@@ -182,14 +182,14 @@ export function FollowButtonLoggedIn({
       className="px-4 py-1.5 rounded-full font-sans text-sm font-semibold transition-all duration-150 disabled:opacity-60"
       style={{
         background: "transparent",
-        border: "1px solid rgba(111,138,99,0.3)",
+        border: "1px solid var(--line-strong)",
         color: "var(--accent)",
       }}
       onMouseEnter={(e) => {
         (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--accent)";
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(111,138,99,0.3)";
+        (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--line-strong)";
       }}
     >
       Follow

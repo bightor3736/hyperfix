@@ -490,23 +490,23 @@ export default function FixationsPage() {
       {/* Hero */}
       <header
         style={{
-          background: "#000000",
-          borderBottom: "1px solid rgba(255,255,255,0.08)",
+          background: "var(--bg-white)",
+          borderBottom: "1px solid var(--line)",
           padding: "clamp(28px,4.5vw,44px) clamp(20px,5vw,44px) 40px",
         }}
       >
         <div>
-          <p className="mb-2 uppercase" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}>
+          <p className="mb-2 uppercase" style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-faint)" }}>
             Personal log
           </p>
-          <h1 style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(36px,5.5vw,54px)", lineHeight: 1, color: "#ffffff" }}>
+          <h1 style={{ fontWeight: 500, letterSpacing: "-0.04em", fontSize: "clamp(36px,5.5vw,54px)", lineHeight: 1, color: "var(--ink)" }}>
             Hyper
             <span style={{ fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)", fontStyle: "italic", fontWeight: 400 }}>
               fixations
             </span>
             .
           </h1>
-          <p className="mt-3 font-sans text-[15px]" style={{ color: "rgba(255,255,255,0.55)" }}>
+          <p className="mt-3 font-sans text-[15px]" style={{ color: "var(--ink-muted)" }}>
             Log what you&apos;re deep in. Check in daily. Archive when it fades.
           </p>
           {fixations.length > 0 && (
@@ -519,10 +519,10 @@ export default function FixationsPage() {
                 <div
                   key={label}
                   className="flex flex-col items-center px-4 py-2.5"
-                  style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}
+                  style={{ background: "var(--fill)", border: "1px solid var(--line)", borderRadius: 16 }}
                 >
-                  <span className="text-[20px] font-bold tabular-nums leading-none" style={{ color: "#ffffff", letterSpacing: "-0.03em" }}>{value}</span>
-                  <span className="mt-1 uppercase" style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.08em", color: "rgba(255,255,255,0.35)" }}>{label}</span>
+                  <span className="text-[20px] font-bold tabular-nums leading-none" style={{ color: "var(--ink)", letterSpacing: "-0.03em" }}>{value}</span>
+                  <span className="mt-1 uppercase" style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.08em", color: "var(--ink-faint)" }}>{label}</span>
                 </div>
               ))}
             </div>

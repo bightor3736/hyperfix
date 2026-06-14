@@ -57,7 +57,7 @@ export default async function LeaderboardPage() {
         <header className="mb-8 anim-fadeUp">
           <p
             className="uppercase mb-2"
-            style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}
+            style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-faint)" }}
           >
             global ranking
           </p>
@@ -77,11 +77,11 @@ export default async function LeaderboardPage() {
         {myRank >= 0 && (
           <div
             className="mb-6 p-4 flex items-center justify-between anim-fadeUp delay-100"
-            style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}
+            style={{ background: "var(--bg-white)", border: "1px solid var(--line)", borderRadius: 16 }}
           >
             <span
               className="uppercase"
-              style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}
+              style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-faint)" }}
             >
               your rank
             </span>
@@ -96,7 +96,7 @@ export default async function LeaderboardPage() {
           {rows.length === 0 && (
             <div
               className="p-10 text-center"
-              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16 }}
+              style={{ background: "var(--bg-white)", border: "1px solid var(--line)", borderRadius: 16 }}
             >
               <p className="text-ink-muted">
                 No one&apos;s on the board yet. Be the first — go check in.
@@ -110,7 +110,7 @@ export default async function LeaderboardPage() {
             const { level } = levelForPoints(row.total_points);
             const name = row.display_name || row.username || "anonymous";
             const medalColor =
-              rank === 1 ? "#ffffff" : rank === 2 ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.4)";
+              rank === 1 ? "#FFD700" : rank === 2 ? "rgba(24,20,16,0.70)" : "var(--ink-faint)";
 
             return (
               <Link
@@ -118,8 +118,8 @@ export default async function LeaderboardPage() {
                 href={row.username ? `/u/${row.username}` : "/leaderboard"}
                 className="flex items-center gap-4 p-3.5 transition-all hover:-translate-y-0.5"
                 style={{
-                  background: "rgba(255,255,255,0.03)",
-                  border: isMe ? "1px solid rgba(255,255,255,0.25)" : "1px solid rgba(255,255,255,0.08)",
+                  background: "var(--bg-white)",
+                  border: isMe ? "1px solid var(--ink-faint)" : "1px solid var(--line)",
                   borderRadius: 16,
                 }}
               >
@@ -142,9 +142,9 @@ export default async function LeaderboardPage() {
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 overflow-hidden"
                   style={{
-                    background: row.avatar_url ? "transparent" : "rgba(255,255,255,0.06)",
-                    border: "1px solid rgba(255,255,255,0.12)",
-                    color: "rgba(255,255,255,0.7)",
+                    background: row.avatar_url ? "transparent" : "var(--fill)",
+                    border: "1px solid var(--line)",
+                    color: "rgba(24,20,16,0.70)",
                   }}
                 >
                   {row.avatar_url ? (
@@ -162,7 +162,7 @@ export default async function LeaderboardPage() {
                     {isMe && (
                       <span
                         className="ml-2 uppercase"
-                        style={{ fontSize: 9, fontWeight: 600, letterSpacing: "2px", color: "rgba(255,255,255,0.55)" }}
+                        style={{ fontSize: 9, fontWeight: 600, letterSpacing: "2px", color: "var(--ink-muted)" }}
                       >
                         you
                       </span>
@@ -175,7 +175,7 @@ export default async function LeaderboardPage() {
 
                 {/* Points */}
                 <div className="text-right shrink-0">
-                  <p className="font-display text-lg tabular-nums leading-none" style={{ color: "#A78BFA" }}>
+                  <p className="font-display text-lg tabular-nums leading-none" style={{ color: "var(--xp)" }}>
                     {row.total_points.toLocaleString()}
                   </p>
                   <p className="font-mono text-[9px] uppercase tracking-widest text-ink-faint mt-0.5">

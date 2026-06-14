@@ -29,15 +29,15 @@ export function useToast() {
 }
 
 function ToastIcon({ type }: { type: ToastType }) {
-  if (type === "success") return <TickSquare set="bold" size={16} primaryColor="#ffffff" />;
-  if (type === "error") return <CloseSquare set="bold" size={16} primaryColor="rgba(255,255,255,0.7)" />;
+  if (type === "success") return <TickSquare set="bold" size={16} primaryColor="#1FA968" />;
+  if (type === "error") return <CloseSquare set="bold" size={16} primaryColor="#E5484D" />;
   return <InfoCircle set="light" size={16} primaryColor="var(--ink-muted)" />;
 }
 
 function ToastBorderColor(type: ToastType) {
-  if (type === "success") return "rgba(255,255,255,0.2)";
-  if (type === "error") return "rgba(255,255,255,0.25)";
-  return "rgba(255,255,255,0.12)";
+  if (type === "success") return "rgba(31,169,104,0.35)";
+  if (type === "error") return "rgba(229,72,77,0.35)";
+  return "var(--line)";
 }
 
 function SingleToast({ item, onDismiss }: { item: ToastItem; onDismiss: (id: string) => void }) {
@@ -46,7 +46,7 @@ function SingleToast({ item, onDismiss }: { item: ToastItem; onDismiss: (id: str
       onClick={() => onDismiss(item.id)}
       className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer select-none"
       style={{
-        background: "rgba(10,10,10,0.95)",
+        background: "var(--bg-white)",
         backdropFilter: "blur(16px)",
         WebkitBackdropFilter: "blur(16px)",
         border: `1px solid ${ToastBorderColor(item.type)}`,

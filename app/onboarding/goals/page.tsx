@@ -49,7 +49,7 @@ export default function OnboardingGoalsPage() {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "var(--bg)", color: "var(--ink)" }}>
       <div aria-hidden className="fixed inset-0 pointer-events-none mix-blend-overlay" style={{ backgroundImage: NOISE_URL, backgroundSize: "240px 240px", opacity: 0.08 }} />
-      <div aria-hidden className="fixed top-0 left-1/2 -translate-x-1/2 pointer-events-none" style={{ width: 560, height: 320, background: "radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.07) 0%, transparent 70%)" }} />
+      <div aria-hidden className="fixed top-0 left-1/2 -translate-x-1/2 pointer-events-none" style={{ width: 560, height: 320, background: "radial-gradient(ellipse at 50% 0%, rgba(255,90,54,0.06) 0%, transparent 70%)" }} />
 
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 py-12">
         <a href="/" className="mb-10 inline-block transition-transform hover:scale-[1.02]">
@@ -58,19 +58,19 @@ export default function OnboardingGoalsPage() {
 
         <div
           className="w-full max-w-[440px] p-8 anim-fadeUp"
-          style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, boxShadow: "0 32px 80px rgba(0,0,0,0.45)" }}
+          style={{ background: "var(--fill)", border: "1px solid var(--line)", borderRadius: 16, boxShadow: "0 32px 80px rgba(0,0,0,0.45)" }}
         >
           {/* Step indicator */}
           <div className="flex items-center gap-2 mb-7">
-            <div className="h-1 w-8 rounded-full" style={{ background: "#ffffff" }} />
-            <div className="h-1 w-8 rounded-full" style={{ background: "#ffffff" }} />
-            <div className="h-1 w-8 rounded-full" style={{ background: "#ffffff" }} />
-            <span className="ml-auto font-mono text-[10px] uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>step 3 of 3</span>
+            <div className="h-1 w-8 rounded-full" style={{ background: "var(--ink)" }} />
+            <div className="h-1 w-8 rounded-full" style={{ background: "var(--ink)" }} />
+            <div className="h-1 w-8 rounded-full" style={{ background: "var(--ink)" }} />
+            <span className="ml-auto font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--ink-faint)" }}>step 3 of 3</span>
           </div>
 
           <span
             className="inline-flex items-center uppercase mb-4"
-            style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "rgba(255,255,255,0.35)" }}
+            style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", color: "var(--ink-faint)" }}
           >
             last step
           </span>
@@ -92,15 +92,15 @@ export default function OnboardingGoalsPage() {
                   onClick={() => toggle(key)}
                   className="relative flex items-center gap-2.5 px-3.5 py-3 rounded-2xl text-left transition-all active:scale-[0.98]"
                   style={{
-                    background: on ? "rgba(255,255,255,0.08)" : "transparent",
-                    border: `1px solid ${on ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.08)"}`,
+                    background: on ? "var(--fill)" : "transparent",
+                    border: `1px solid ${on ? "var(--ink)" : "var(--line)"}`,
                   }}
                 >
-                  <Icon size={16} strokeWidth={2} style={{ color: on ? "#ffffff" : "rgba(255,255,255,0.55)", flexShrink: 0 }} />
-                  <span className="font-sans text-[13px] font-medium leading-tight" style={{ color: on ? "#ffffff" : "rgba(255,255,255,0.75)" }}>{label}</span>
+                  <Icon size={16} strokeWidth={2} style={{ color: on ? "var(--ink)" : "var(--ink-muted)", flexShrink: 0 }} />
+                  <span className="font-sans text-[13px] font-medium leading-tight" style={{ color: on ? "var(--ink)" : "rgba(24,20,16,0.70)" }}>{label}</span>
                   {on && (
-                    <span className="absolute top-1.5 right-1.5 flex items-center justify-center rounded-full" style={{ width: 16, height: 16, background: "#ffffff" }}>
-                      <Check size={10} strokeWidth={3} style={{ color: "#000000" }} />
+                    <span className="absolute top-1.5 right-1.5 flex items-center justify-center rounded-full" style={{ width: 16, height: 16, background: "var(--ink)" }}>
+                      <Check size={10} strokeWidth={3} style={{ color: "var(--bg)" }} />
                     </span>
                   )}
                 </button>
@@ -113,7 +113,7 @@ export default function OnboardingGoalsPage() {
             onClick={finish}
             disabled={submitting}
             className="w-full py-3 rounded-full font-sans text-sm font-semibold transition-all duration-200 hover:opacity-95 hover:-translate-y-px active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
-            style={{ background: "#ffffff", color: "#000000", fontWeight: 600 }}
+            style={{ background: "var(--accent)", color: "#fff", fontWeight: 600 }}
           >
             {submitting ? "Setting up…" : selected.size > 0 ? `Let's go → (${selected.size})` : "Let's go →"}
           </button>
