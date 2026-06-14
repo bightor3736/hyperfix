@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { Flame, Trophy, Bell, Plus, BookOpen, Sparkles, Timer, type LucideIcon } from "lucide-react";
+import { Bell, BookOpen, Sparkles, Timer, Trophy, ArrowUpRight, type LucideIcon } from "lucide-react";
 import { DailyQuestsClient } from "@/components/DailyQuestsClient";
 import { JustStart } from "@/components/start/JustStart";
 import { MilestoneWatcher } from "@/components/game/MilestoneWatcher";
+import { LevelRing } from "@/components/dashboard/LevelRing";
+import { StreakWeek } from "@/components/dashboard/StreakWeek";
 import type { Quest } from "@/lib/quests/generate";
 
 export type DashboardHomeProps = {
@@ -23,12 +25,16 @@ export type DashboardHomeProps = {
   currentLevelPoints?: number;
 };
 
-const QUICK_ACTIONS: { icon: LucideIcon; label: string; href: string; iconBg: string; iconColor: string }[] = [
-  { icon: Plus,     label: "Log fix",    href: "/dashboard/new",       iconBg: "var(--accent)",            iconColor: "#ffffff" },
-  { icon: BookOpen, label: "Fixations",  href: "/dashboard/fixations", iconBg: "var(--fill)",              iconColor: "var(--ink)" },
-  { icon: Sparkles, label: "XP",         href: "/dashboard/points",    iconBg: "var(--xp)",                iconColor: "#ffffff" },
-  { icon: Timer,    label: "Timer",      href: "/dashboard/timer",     iconBg: "var(--fill)",              iconColor: "var(--ink)" },
+const SHORTCUTS: { icon: LucideIcon; label: string; href: string }[] = [
+  { icon: BookOpen, label: "Fixations", href: "/dashboard/fixations" },
+  { icon: Sparkles, label: "XP & Levels", href: "/dashboard/points" },
+  { icon: Trophy, label: "Achievements", href: "/dashboard/achievements" },
+  { icon: Timer, label: "Focus Timer", href: "/dashboard/timer" },
 ];
+
+function todayLabel() {
+  return new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
+}
 
 export function DashboardHome({
   firstName,
@@ -38,19 +44,15 @@ export function DashboardHome({
   levelNum,
   totalPoints,
   currentStreak,
+  streakFreezes,
   quests,
   isPro = false,
   welcome = false,
   nextLevelPoints,
   currentLevelPoints = 0,
 }: DashboardHomeProps) {
-  const levelPct = nextLevelPoints
-    ? Math.min(100, Math.max(0, ((totalPoints - currentLevelPoints) / (nextLevelPoints - currentLevelPoints)) * 100))
-    : 100;
-
   return (
     <div className="min-h-screen" style={{ background: "var(--bg)" }}>
-
       <MilestoneWatcher
         levelNum={levelNum}
         levelName={levelName}
@@ -60,176 +62,103 @@ export function DashboardHome({
         isPro={isPro}
       />
 
-      {/* ── HEADER ── */}
-      <header className="sticky top-0 z-10 anim-fadeUp" style={{ background: "var(--bg)", borderBottom: "1px solid var(--line)" }}>
-        <div
-          className="mx-auto flex items-center justify-between"
-          style={{ maxWidth: 640, padding: "12px 16px" }}
-        >
-          <Link
-            href={username ? `/u/${username}` : "/dashboard/customize"}
-            className="flex items-center gap-2.5 transition-opacity hover:opacity-70"
-          >
-            <span
-              className="flex h-9 w-9 items-center justify-center rounded-full font-semibold text-[14px]"
-              style={{ background: "var(--ink)", color: "var(--bg)" }}
-            >
-              {firstName.charAt(0).toUpperCase()}
-            </span>
-            <div className="leading-tight">
-              <p
-                className="text-[11px]"
-                style={{
-                  fontWeight: 600,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  color: "var(--ink-faint)",
-                }}
-              >
-                {greeting}
-              </p>
-              <p className="text-[15px] font-semibold tracking-tight" style={{ color: "var(--ink)" }}>
-                {firstName}
-              </p>
-            </div>
-          </Link>
+      <div className="mx-auto" style={{ maxWidth: 880, padding: "28px 20px 120px" }}>
+        {/* ── Greeting ── */}
+        <header className="anim-fadeUp" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, marginBottom: 28 }}>
+          <div>
+            <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--ink-faint)" }}>
+              {todayLabel()}
+            </p>
+            <h1 style={{ marginTop: 6, fontSize: "clamp(26px, 4.5vw, 38px)", fontWeight: 700, letterSpacing: "-0.03em", color: "var(--ink)", lineHeight: 1.05 }}>
+              {greeting},{" "}
+              <span style={{ fontFamily: "var(--font-serif-display, serif)", fontStyle: "italic", fontWeight: 400 }}>
+                {firstName}.
+              </span>
+            </h1>
+          </div>
           <Link
             href="/dashboard/notifications"
-            className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-[var(--fill-soft)]"
+            className="flex items-center justify-center rounded-full shrink-0 lg:hidden"
+            style={{ width: 42, height: 42, background: "var(--card)", border: "1px solid var(--line)", color: "var(--ink-muted)" }}
             aria-label="Notifications"
           >
-            <Bell size={18} strokeWidth={1.75} style={{ color: "var(--ink-muted)" }} />
+            <Bell size={18} strokeWidth={1.75} />
           </Link>
+        </header>
+
+        {/* ── Hero: the action comes first ── */}
+        <div className="anim-fadeUp" style={{ animationDelay: "40ms", marginBottom: 16 }}>
+          <JustStart welcome={welcome} />
         </div>
-      </header>
 
-      {/* ── CONTENT ── */}
-      <div
-        className="mx-auto pb-28 anim-fadeUp"
-        style={{ maxWidth: 640, padding: "20px 16px", animationDelay: "40ms" }}
-      >
-
-        {/* XP + level card */}
+        {/* ── Status bento ── */}
         <div
-          className="overflow-hidden mb-4"
+          className="anim-fadeUp"
           style={{
-            background: "var(--bg-white)",
-            border: "1px solid var(--line)",
-            borderRadius: 16,
+            animationDelay: "80ms",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gap: 16,
+            marginBottom: 16,
           }}
         >
-          {/* XP hero */}
-          <div className="px-5 pt-5 pb-4">
-            <p
-              className="mb-1"
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                color: "var(--ink-faint)",
-              }}
-            >
-              Total XP
-            </p>
-            <div className="flex items-end gap-3">
-              <p
-                className="font-display leading-none tracking-tight tabular-nums"
-                style={{ fontSize: "clamp(40px,9vw,56px)", fontWeight: 700, color: "var(--ink)" }}
-              >
-                {totalPoints.toLocaleString()}
-              </p>
-              <span
-                className="mb-1 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold"
-                style={{ background: "var(--xp-soft)", color: "var(--xp)" }}
-              >
-                <Trophy size={11} strokeWidth={2} /> {levelName}
-              </span>
-            </div>
-
-            {/* Level progress */}
-            <div className="mt-4">
-              <div className="mb-1.5 flex items-center justify-between">
-                <span className="text-[10px] font-medium" style={{ color: "var(--ink-faint)" }}>{levelName}</span>
-                {nextLevelPoints && (
-                  <span className="text-[10px] tabular-nums" style={{ color: "var(--ink-faint)" }}>
-                    {(nextLevelPoints - totalPoints).toLocaleString()} XP to next
-                  </span>
-                )}
-              </div>
-              <div className="h-1.5 overflow-hidden rounded-full" style={{ background: "var(--fill-soft)" }}>
-                <div
-                  className="h-full rounded-full"
-                  style={{ width: `${levelPct}%`, background: "var(--xp)", transition: "width 0.6s ease" }}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Stat row */}
-          <div
-            className="flex items-stretch"
-            style={{ borderTop: "1px solid var(--line)" }}
-          >
-            <Link
-              href="/dashboard/points"
-              className="flex flex-1 items-center justify-center gap-2 py-3 transition-colors hover:bg-[var(--fill-faint)]"
-            >
-              <Flame size={14} strokeWidth={2.5} fill="currentColor" style={{ color: "var(--flame)" }} />
-              <span className="text-[13px] font-semibold tabular-nums" style={{ color: "var(--ink)" }}>
-                {currentStreak}
-              </span>
-              <span className="text-[11px]" style={{ color: "var(--ink-faint)" }}>streak</span>
-            </Link>
-            <div style={{ width: 1, background: "var(--line)", margin: "8px 0" }} />
-            <Link
-              href="/dashboard/achievements"
-              className="flex flex-1 items-center justify-center gap-2 py-3 transition-colors hover:bg-[var(--fill-faint)]"
-            >
-              <Sparkles size={14} strokeWidth={2} style={{ color: "var(--xp)" }} />
-              <span className="text-[13px] font-semibold" style={{ color: "var(--ink)" }}>
-                {levelName}
-              </span>
-            </Link>
-          </div>
+          <LevelRing
+            levelNum={levelNum}
+            levelName={levelName}
+            totalPoints={totalPoints}
+            currentLevelPoints={currentLevelPoints}
+            nextLevelPoints={nextLevelPoints}
+          />
+          <StreakWeek currentStreak={currentStreak} streakFreezes={streakFreezes} />
         </div>
 
-        {/* Quick actions */}
-        <div className="grid grid-cols-4 gap-3 mb-4">
-          {QUICK_ACTIONS.map((a) => (
+        {/* ── Daily quests ── */}
+        <div className="anim-fadeUp" style={{ animationDelay: "120ms", marginBottom: 16 }}>
+          <DailyQuestsClient initialQuests={quests} />
+        </div>
+
+        {/* ── Shortcuts ── */}
+        <div
+          className="anim-fadeUp"
+          style={{
+            animationDelay: "160ms",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+            gap: 10,
+          }}
+        >
+          {SHORTCUTS.map((s) => (
             <Link
-              key={a.label}
-              href={a.href}
-              className="flex flex-col items-center gap-2 py-3.5 transition-colors hover:bg-[var(--fill-soft)]"
-              style={{ background: "var(--bg-white)", border: "1px solid var(--line)", borderRadius: 16 }}
+              key={s.label}
+              href={s.href}
+              style={{
+                display: "flex", alignItems: "center", gap: 11,
+                padding: "13px 14px", borderRadius: 14,
+                background: "var(--card)", border: "1px solid var(--line)",
+                textDecoration: "none", transition: "border-color 0.15s",
+              }}
             >
               <span
-                className="flex h-10 w-10 items-center justify-center rounded-[10px]"
-                style={{ background: a.iconBg, color: a.iconColor }}
+                style={{
+                  display: "inline-flex", alignItems: "center", justifyContent: "center",
+                  width: 34, height: 34, borderRadius: 10,
+                  background: "var(--accent-soft)", color: "var(--accent)", flexShrink: 0,
+                }}
               >
-                <a.icon size={18} strokeWidth={1.75} />
+                <s.icon size={17} strokeWidth={2} />
               </span>
-              <span className="text-[11px] font-medium text-center" style={{ color: "var(--ink-muted)" }}>
-                {a.label}
-              </span>
+              <span style={{ fontSize: 13.5, fontWeight: 600, color: "var(--ink)", flex: 1 }}>{s.label}</span>
+              <ArrowUpRight size={15} strokeWidth={2} style={{ color: "var(--ink-faint)" }} />
             </Link>
           ))}
         </div>
 
-        {/* Start section */}
-        <JustStart welcome={welcome} />
-
-        <div style={{ height: 20 }} />
-
-        <DailyQuestsClient initialQuests={quests} />
-
         {username && (
-          <p className="text-center text-[12px] pt-6 pb-2" style={{ color: "var(--ink-faint)" }}>
+          <p className="text-center" style={{ fontSize: 12, color: "var(--ink-faint)", paddingTop: 28 }}>
             @{username}
           </p>
         )}
       </div>
-
     </div>
   );
 }
