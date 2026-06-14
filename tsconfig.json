@@ -36,9 +36,6 @@
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "reels",
-    "forma-landing",
-    "mindloop"
+    "node_modules"
   ]
 }
