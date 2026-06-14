@@ -157,7 +157,7 @@ export function SearchChanged() {
           ))}
         </div>
 
-        <p style={{ fontSize: 14, color: "rgba(255,255,255,0.35)", textAlign: "center" }}>
+        <p style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", textAlign: "center" }}>
           {TAGLINE}
         </p>
       </div>

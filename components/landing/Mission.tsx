@@ -1,6 +1,7 @@
 "use client";
 import { useRef } from "react";
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion, MotionValue } from "framer-motion";
+import { LandingVideo } from "./LandingVideo";
 
 const VIDEO_URL =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_132944_a0d124bb-eaa1-4082-aa30-2310efb42b4b.mp4";
@@ -18,19 +19,22 @@ function Word({
   progress,
   start,
   end,
+  reduceMotion,
 }: {
   word: string;
   progress: MotionValue<number>;
   start: number;
   end: number;
+  reduceMotion: boolean;
 }) {
-  const opacity = useTransform(progress, [start, end], [0.15, 1]);
+  const animatedOpacity = useTransform(progress, [start, end], [0.15, 1]);
   const clean = word.replace(/[^a-zA-Z]/g, "").toLowerCase();
   const isHighlighted = HIGHLIGHTED.has(clean) || HIGHLIGHTED.has(word.toLowerCase());
   return (
     <motion.span
       style={{
-        opacity,
+        // Reduced-motion users see the full text immediately, no scroll reveal.
+        opacity: reduceMotion ? 1 : animatedOpacity,
         color: isHighlighted ? "#ffffff" : "hsl(210 17% 95%)",
         display: "inline",
       }}
@@ -48,6 +52,7 @@ function ScrollParagraph({
   style?: React.CSSProperties;
 }) {
   const ref = useRef<HTMLParagraphElement>(null);
+  const reduceMotion = useReducedMotion() ?? false;
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start 0.9", "end 0.4"],
@@ -65,6 +70,7 @@ function ScrollParagraph({
             progress={scrollYProgress}
             start={start}
             end={end}
+            reduceMotion={reduceMotion}
           />
         );
       })}
@@ -78,16 +84,11 @@ export function Mission() {
       <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
         {/* Video */}
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 96 }}>
-          <video
-            style={{
-              width: "100%", maxWidth: 800, aspectRatio: "1/1",
-              objectFit: "cover", borderRadius: 16,
-            }}
+          <LandingVideo
             src={VIDEO_URL}
-            autoPlay
-            muted
-            loop
-            playsInline
+            aspectRatio="1 / 1"
+            ariaLabel="A task being broken into small steps inside Hyperfix"
+            style={{ maxWidth: 800 }}
           />
         </div>
 

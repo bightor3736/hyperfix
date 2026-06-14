@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { LandingVideo } from "./LandingVideo";
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 20 },
@@ -48,7 +49,7 @@ export function Solution() {
           {...fadeUp(0)}
           style={{
             fontSize: 11, fontWeight: 600, letterSpacing: "3px",
-            textTransform: "uppercase", color: "rgba(255,255,255,0.35)",
+            textTransform: "uppercase", color: "rgba(255,255,255,0.5)",
             marginBottom: 16,
           }}
         >
@@ -80,16 +81,10 @@ export function Solution() {
 
         {/* Wide video */}
         <motion.div {...fadeUp(0.2)} style={{ marginBottom: 64 }}>
-          <video
-            style={{
-              width: "100%", borderRadius: 16,
-              aspectRatio: "3/1", objectFit: "cover",
-            }}
+          <LandingVideo
             src={VIDEO_URL}
-            autoPlay
-            muted
-            loop
-            playsInline
+            aspectRatio="3 / 1"
+            ariaLabel="Hyperfix turning a big task into tiny, doable steps"
           />
         </motion.div>
 

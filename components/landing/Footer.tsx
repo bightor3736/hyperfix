@@ -89,7 +89,7 @@ export function Footer() {
                   hyperfix
                 </span>
               </div>
-              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)", lineHeight: 1.6, maxWidth: 200 }}>
+              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", lineHeight: 1.6, maxWidth: 200 }}>
                 Start the task you&apos;ve been avoiding. Built for the way ADHD actually works.
               </p>
             </div>
@@ -99,7 +99,7 @@ export function Footer() {
                 <h4
                   style={{
                     fontSize: 11, fontWeight: 600,
-                    color: "rgba(255,255,255,0.30)",
+                    color: "rgba(255,255,255,0.5)",
                     letterSpacing: "0.07em", textTransform: "uppercase",
                     marginBottom: 14,
                   }}
@@ -132,10 +132,10 @@ export function Footer() {
               flexWrap: "wrap", gap: 8,
             }}
           >
-            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.25)" }}>
+            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }}>
               © 2026 Hyperfix · Built for brains that run hot.
             </p>
-            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.25)" }}>
+            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }}>
               Made for ADHD. No guilt. No shame.
             </p>
           </div>

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { LandingVideo } from "./LandingVideo";
 
 const VIDEO_URL =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_120549_0cd82c36-56b3-4dd9-b190-069cfc3a623f.mp4";
@@ -26,8 +27,8 @@ function AvatarGroup() {
           />
         ))}
       </div>
-      <span style={{ fontSize: 14, color: "rgba(255,255,255,0.55)" }}>
-        2,400+ people already started
+      <span style={{ fontSize: 14, color: "rgba(255,255,255,0.7)" }}>
+        Join people beating task paralysis
       </span>
     </div>
   );
@@ -50,13 +51,12 @@ export function Hero() {
       }}
     >
       {/* Background video */}
-      <video
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}
+      <LandingVideo
         src={VIDEO_URL}
-        autoPlay
-        muted
-        loop
-        playsInline
+        eager
+        fill
+        ariaLabel="Hyperfix app in motion"
+        style={{ zIndex: 0 }}
       />
       {/* Bottom fade */}
       <div
@@ -129,6 +129,7 @@ export function Hero() {
           <input
             type="email"
             placeholder="Enter your email"
+            aria-label="Email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
