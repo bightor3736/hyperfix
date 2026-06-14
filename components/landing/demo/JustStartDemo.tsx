@@ -19,14 +19,15 @@ const TASK = "the email I've been dreading";
 const STEP = "just open it and write one line";
 
 const card: React.CSSProperties = {
-  background: "rgba(255,255,255,0.03)",
-  border: "1px solid rgba(255,255,255,0.08)",
-  borderRadius: 16,
+  background: "#FFFFFF",
+  border: "1px solid rgba(24,20,16,0.10)",
+  borderRadius: 20,
+  boxShadow: "0 14px 36px rgba(24,20,16,0.10)",
 };
-const fill: React.CSSProperties = { background: "rgba(255,255,255,0.05)" };
-const ink = "var(--ink, #fff)";
-const muted = "rgba(255,255,255,0.55)";
-const faint = "rgba(255,255,255,0.4)";
+const fill: React.CSSProperties = { background: "rgba(24,20,16,0.04)" };
+const ink = "#181410";
+const muted = "rgba(24,20,16,0.60)";
+const faint = "rgba(24,20,16,0.42)";
 
 function fmt(s: number) {
   const m = Math.floor(s / 60);
@@ -82,7 +83,7 @@ export function JustStartDemo() {
         <span
           style={{
             display: "inline-flex", alignItems: "center", justifyContent: "center",
-            width: 30, height: 30, borderRadius: 8, background: "#fff", color: "#000",
+            width: 30, height: 30, borderRadius: 8, background: "#FF5A36", color: "#fff",
           }}
         >
           <Zap size={15} strokeWidth={2.5} />
@@ -125,8 +126,8 @@ export function JustStartDemo() {
                     style={{
                       flex: 1, textAlign: "center", padding: "9px 0", borderRadius: 10,
                       fontSize: 13, fontWeight: 600,
-                      background: m === 5 ? "#fff" : "rgba(255,255,255,0.04)",
-                      color: m === 5 ? "#000" : muted,
+                      background: m === 5 ? "#181410" : "rgba(24,20,16,0.04)",
+                      color: m === 5 ? "#fff" : muted,
                     }}
                   >
                     {m}m
@@ -139,7 +140,7 @@ export function JustStartDemo() {
           {phase === "running" && (
             <Step key="running" center>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 11, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: faint }}>
-                <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff", boxShadow: "0 0 0 0 rgba(255,255,255,0.5)" }} className="live-dot" />
+                <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#FF5A36" }} className="live-dot" />
                 Live — working on
               </span>
               <Title small center style={{ marginTop: 6 }}>{TASK}</Title>
@@ -159,11 +160,11 @@ export function JustStartDemo() {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 260, damping: 18 }}
                 style={{
-                  width: 60, height: 60, borderRadius: 18, background: "#fff",
+                  width: 60, height: 60, borderRadius: 18, background: "#FF5A36",
                   display: "flex", alignItems: "center", justifyContent: "center",
                 }}
               >
-                <Check size={28} strokeWidth={2.5} color="#000" />
+                <Check size={28} strokeWidth={2.5} color="#fff" />
               </motion.div>
               <Title center style={{ marginTop: 18 }}>You started.</Title>
               <p style={{ fontSize: 13, color: muted, marginTop: 6 }}>
@@ -238,7 +239,7 @@ function PrimaryBtn({ children }: { children: React.ReactNode }) {
     <div
       style={{
         marginTop: 14, width: "100%", padding: "13px 0", borderRadius: 10,
-        background: "#fff", color: "#000", fontSize: 14, fontWeight: 600,
+        background: "#FF5A36", color: "#fff", fontSize: 14, fontWeight: 600,
         display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
       }}
     >
@@ -253,7 +254,7 @@ function Caret() {
       aria-hidden
       animate={{ opacity: [1, 0] }}
       transition={{ duration: 0.6, repeat: Infinity, repeatType: "reverse" }}
-      style={{ display: "inline-block", width: 2, height: 15, marginLeft: 2, background: "#fff", verticalAlign: "middle" }}
+      style={{ display: "inline-block", width: 2, height: 15, marginLeft: 2, background: "#FF5A36", verticalAlign: "middle" }}
     />
   );
 }

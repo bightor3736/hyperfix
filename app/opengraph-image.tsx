@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Hyperfix — start the task you've been avoiding";
+export const alt = "Hyperfix — start small, that counts";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -16,19 +16,19 @@ export default async function OG() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px 80px",
-          background: "#000000",
-          color: "#ffffff",
+          background: "#FBF7F1",
+          color: "#181410",
           position: "relative",
         }}
       >
-        {/* subtle vignette */}
+        {/* warm spark glow */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             display: "flex",
             background:
-              "radial-gradient(900px 500px at 50% 110%, rgba(255,255,255,0.08) 0%, transparent 60%)",
+              "radial-gradient(700px 460px at 88% 6%, rgba(255,90,54,0.18) 0%, transparent 60%)",
           }}
         />
 
@@ -36,53 +36,55 @@ export default async function OG() {
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
           <div
             style={{
-              width: 56,
-              height: 56,
-              background: "#ffffff",
-              borderRadius: 15,
+              width: 60,
+              height: 60,
+              background: "#FF5A36",
+              borderRadius: 16,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           >
-            <svg width="46" height="46" viewBox="0 0 36 36">
-              <line x1="11" y1="9" x2="11" y2="27" stroke="#000000" strokeWidth="3.2" strokeLinecap="round" />
-              <path d="M11 19 C11 13.5 25 13.5 25 19" stroke="#000000" strokeWidth="3.2" strokeLinecap="round" fill="none" />
-              <line x1="25" y1="19" x2="25" y2="27" stroke="#000000" strokeWidth="3.2" strokeLinecap="round" />
+            <svg width="52" height="52" viewBox="0 0 36 36">
+              <path
+                d="M20.5 6.5 L11 19.8 a1 1 0 0 0 0.82 1.58 H16.4 L15 29.2 a0.6 0.6 0 0 0 1.08 0.45 L25.4 16.2 a1 1 0 0 0 -0.82 -1.58 H19.9 L21.6 7.1 a0.6 0.6 0 0 0 -1.1 -0.6 Z"
+                fill="#ffffff"
+              />
             </svg>
           </div>
-          <span style={{ fontSize: 34, fontWeight: 600, letterSpacing: "-1px" }}>hyperfix</span>
+          <span style={{ fontSize: 36, fontWeight: 600, letterSpacing: "-1px" }}>hyperfix</span>
         </div>
 
         {/* headline */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 26 }}>
           <span
             style={{
-              fontSize: 84,
-              fontWeight: 500,
+              fontSize: 86,
+              fontWeight: 600,
               letterSpacing: "-3px",
-              lineHeight: 1.05,
-              maxWidth: 980,
+              lineHeight: 1.04,
+              maxWidth: 960,
             }}
           >
-            Start the task you&apos;ve been avoiding.
+            Start small.{" "}
+            <span style={{ color: "#FF5A36" }}>That counts.</span>
           </span>
           <span
             style={{
               fontSize: 30,
-              color: "rgba(255,255,255,0.55)",
+              color: "rgba(24,20,16,0.62)",
               maxWidth: 820,
               lineHeight: 1.4,
             }}
           >
-            Name it. Do 5 minutes. Earn XP for starting — not for finishing.
+            The ADHD app that rewards you for starting — not finishing. Five minutes counts.
           </span>
         </div>
 
         {/* footer row */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <span style={{ fontSize: 22, color: "rgba(255,255,255,0.35)" }}>
-            Built for the way ADHD actually works
+          <span style={{ fontSize: 22, color: "rgba(24,20,16,0.45)" }}>
+            No guilt. No streak resets. No leaderboards.
           </span>
           <span style={{ fontSize: 28, fontWeight: 600 }}>hyperfix.app</span>
         </div>

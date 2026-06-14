@@ -10,14 +10,14 @@ import { Flame, Trophy, Sparkles, Plus, Timer, Check } from "lucide-react";
  * daily quest. XP ticks up and a quest checks off on a gentle loop. No video.
  */
 
-const cardBg = "rgba(255,255,255,0.03)";
-const cardBorder = "1px solid rgba(255,255,255,0.08)";
-const line = "1px solid rgba(255,255,255,0.08)";
-const ink = "var(--ink, #fff)";
-const muted = "rgba(255,255,255,0.55)";
-const faint = "rgba(255,255,255,0.4)";
-const xp = "var(--xp, #A78BFA)";
-const flame = "var(--flame, #F97316)";
+const cardBg = "#FFFFFF";
+const cardBorder = "1px solid rgba(24,20,16,0.10)";
+const line = "1px solid rgba(24,20,16,0.10)";
+const ink = "#181410";
+const muted = "rgba(24,20,16,0.60)";
+const faint = "rgba(24,20,16,0.42)";
+const xp = "#6D5AE6";
+const flame = "#F2541B";
 
 const START_XP = 1240;
 const NEXT_LEVEL = 1500;
@@ -58,10 +58,11 @@ export function DashboardDemo() {
         flexWrap: "wrap",
         gap: 16,
         width: "100%",
-        background: "radial-gradient(120% 120% at 50% 0%, #121212 0%, #000 80%)",
+        background: "linear-gradient(150deg, #F8F2E8 0%, #FBF7F1 100%)",
         border: cardBorder,
-        borderRadius: 16,
+        borderRadius: 20,
         padding: 20,
+        boxShadow: "0 20px 48px rgba(24,20,16,0.10)",
         alignItems: "stretch",
       }}
     >
@@ -75,7 +76,7 @@ export function DashboardDemo() {
             <span style={{ fontSize: 48, fontWeight: 700, letterSpacing: "-0.02em", color: ink, lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>
               {points.toLocaleString()}
             </span>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 4, padding: "5px 10px", borderRadius: 9999, background: "rgba(167,139,250,0.14)", color: xp, fontSize: 11, fontWeight: 600 }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 4, padding: "5px 10px", borderRadius: 9999, background: "rgba(109,90,230,0.12)", color: xp, fontSize: 11, fontWeight: 600 }}>
               <Trophy size={11} strokeWidth={2} /> Momentum
             </span>
           </div>
@@ -88,7 +89,7 @@ export function DashboardDemo() {
                 {(NEXT_LEVEL - points).toLocaleString()} XP to next
               </span>
             </div>
-            <div style={{ height: 6, borderRadius: 9999, background: "rgba(255,255,255,0.06)", overflow: "hidden" }}>
+            <div style={{ height: 6, borderRadius: 9999, background: "rgba(24,20,16,0.08)", overflow: "hidden" }}>
               <motion.div
                 animate={{ width: `${pct}%` }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
@@ -105,7 +106,7 @@ export function DashboardDemo() {
             <span style={{ fontSize: 13, fontWeight: 600, color: ink, fontVariantNumeric: "tabular-nums" }}>12</span>
             <span style={{ fontSize: 11, color: faint }}>streak</span>
           </div>
-          <div style={{ width: 1, background: "rgba(255,255,255,0.08)", margin: "8px 0" }} />
+          <div style={{ width: 1, background: "rgba(24,20,16,0.10)", margin: "8px 0" }} />
           <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "12px 0" }}>
             <Sparkles size={14} strokeWidth={2} color={xp} />
             <span style={{ fontSize: 13, fontWeight: 600, color: ink }}>Momentum</span>
@@ -116,8 +117,8 @@ export function DashboardDemo() {
       {/* ── right column: quick actions + quest ── */}
       <div style={{ flex: "1 1 220px", display: "flex", flexDirection: "column", gap: 16 }}>
         <div style={{ display: "flex", gap: 12 }}>
-          <QuickTile icon={<Plus size={17} strokeWidth={1.75} color="#000" />} bg="#fff" label="Log fix" />
-          <QuickTile icon={<Timer size={17} strokeWidth={1.75} color="#fff" />} bg="rgba(255,255,255,0.08)" label="Timer" />
+          <QuickTile icon={<Plus size={17} strokeWidth={2} color="#fff" />} bg="#FF5A36" label="Log fix" />
+          <QuickTile icon={<Timer size={17} strokeWidth={2} color="#181410" />} bg="rgba(24,20,16,0.06)" label="Timer" />
         </div>
 
         {/* daily quest */}
@@ -129,7 +130,7 @@ export function DashboardDemo() {
             <motion.span
               animate={{
                 background: questDone ? xp : "transparent",
-                borderColor: questDone ? xp : "rgba(255,255,255,0.25)",
+                borderColor: questDone ? xp : "rgba(24,20,16,0.25)",
               }}
               transition={{ duration: 0.3 }}
               style={{

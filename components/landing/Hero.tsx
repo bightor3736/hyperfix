@@ -1,35 +1,15 @@
 "use client";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { AmbientBackdrop } from "./demo/AmbientBackdrop";
+import { JustStartDemo } from "./demo/JustStartDemo";
 
-const AVATAR_GRADIENTS = [
-  "linear-gradient(135deg,#2a2a2a 0%,#111 100%)",
-  "linear-gradient(135deg,#3a3a3a 0%,#1a1a1a 100%)",
-  "linear-gradient(135deg,#484848 0%,#282828 100%)",
-];
-
-function AvatarGroup() {
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-      <div style={{ display: "flex" }}>
-        {AVATAR_GRADIENTS.map((bg, i) => (
-          <div
-            key={i}
-            style={{
-              width: 32, height: 32, borderRadius: "50%",
-              border: "2px solid #000", background: bg,
-              marginLeft: i === 0 ? 0 : -8, zIndex: AVATAR_GRADIENTS.length - i,
-              position: "relative",
-            }}
-          />
-        ))}
-      </div>
-      <span style={{ fontSize: 14, color: "rgba(255,255,255,0.7)" }}>
-        Join people beating task paralysis
-      </span>
-    </div>
-  );
-}
+const fadeUp = (delay: number) => ({
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, delay, ease: "easeOut" as const },
+});
 
 export function Hero() {
   const [email, setEmail] = useState("");
@@ -40,108 +20,114 @@ export function Hero() {
   }
 
   return (
-    <section
-      style={{
-        position: "relative", width: "100%", height: "100vh",
-        overflow: "hidden", display: "flex", flexDirection: "column",
-        alignItems: "center", justifyContent: "center",
-      }}
-    >
-      {/* Ambient coded backdrop */}
+    <section style={{ position: "relative", overflow: "hidden", paddingTop: 132, paddingBottom: 80 }}>
       <AmbientBackdrop style={{ zIndex: 0 }} />
-      {/* Bottom fade */}
-      <div
-        style={{
-          position: "absolute", bottom: 0, left: 0, right: 0, height: 256, zIndex: 1,
-          background: "linear-gradient(to top, #000 0%, transparent 100%)",
-        }}
-      />
 
-      {/* Content */}
       <div
         style={{
-          position: "relative", zIndex: 10, display: "flex", flexDirection: "column",
-          alignItems: "center", textAlign: "center",
-          padding: "112px 24px 0",
-          maxWidth: 900, margin: "0 auto",
+          position: "relative",
+          zIndex: 1,
+          maxWidth: 1120,
+          margin: "0 auto",
+          padding: "0 24px",
+          display: "grid",
+          gridTemplateColumns: "minmax(0,1fr)",
+          gap: 56,
+          alignItems: "center",
         }}
+        className="hero-grid"
       >
-        <div style={{ marginBottom: 32 }}>
-          <AvatarGroup />
+        {/* copy */}
+        <div style={{ maxWidth: 560 }}>
+          <motion.span
+            {...fadeUp(0)}
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 8,
+              padding: "6px 12px", borderRadius: 9999,
+              background: "var(--accent-soft)", color: "var(--accent-text)",
+              fontSize: 12, fontWeight: 600, letterSpacing: "0.02em",
+              marginBottom: 22,
+            }}
+          >
+            ⚡ Built for ADHD brains
+          </motion.span>
+
+          <motion.h1
+            {...fadeUp(0.06)}
+            style={{
+              fontSize: "clamp(40px, 6.5vw, 68px)",
+              fontWeight: 600,
+              letterSpacing: "-0.035em",
+              lineHeight: 1.03,
+              color: "var(--ink)",
+            }}
+          >
+            Start small.{" "}
+            <span style={{ color: "var(--accent)" }}>That counts.</span>
+          </motion.h1>
+
+          <motion.p
+            {...fadeUp(0.12)}
+            style={{
+              marginTop: 22,
+              fontSize: 19,
+              lineHeight: 1.55,
+              color: "var(--ink-3)",
+              maxWidth: 480,
+            }}
+          >
+            Hyperfix rewards you for <em style={{ fontFamily: "var(--font-serif-display, serif)", fontStyle: "italic" }}>starting</em> — not finishing.
+            Name the thing, do five minutes, earn XP. No guilt, no streak resets, no leaderboards.
+          </motion.p>
+
+          {/* email form */}
+          <motion.form
+            {...fadeUp(0.18)}
+            onSubmit={handleSubmit}
+            style={{ marginTop: 30, display: "flex", flexWrap: "wrap", gap: 10, maxWidth: 460 }}
+          >
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@email.com"
+              aria-label="Email address"
+              style={{
+                flex: "1 1 200px", minWidth: 0,
+                height: 52, padding: "0 18px", borderRadius: 14,
+                background: "var(--bg-white)", border: "1px solid var(--line-strong)",
+                fontSize: 15, color: "var(--ink)", outline: "none",
+              }}
+            />
+            <button
+              type="submit"
+              style={{
+                height: 52, padding: "0 24px", borderRadius: 14,
+                background: "var(--accent)", color: "#fff", border: "none",
+                fontSize: 15, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap",
+                display: "inline-flex", alignItems: "center", gap: 8,
+                boxShadow: "0 8px 22px rgba(255,90,54,0.32)",
+              }}
+            >
+              Start free <ArrowRight size={17} strokeWidth={2.5} />
+            </button>
+          </motion.form>
+
+          <motion.p {...fadeUp(0.24)} style={{ marginTop: 14, fontSize: 13, color: "var(--ink-faint)" }}>
+            Free forever · no credit card · 60 seconds to your first win
+          </motion.p>
         </div>
 
-        <h1
-          style={{
-            fontSize: "clamp(40px, 8vw, 88px)",
-            fontWeight: 500,
-            letterSpacing: "-2px",
-            color: "#ffffff",
-            lineHeight: 1.05,
-            marginBottom: 24,
-          }}
+        {/* product demo */}
+        <motion.div
+          initial={{ opacity: 0, y: 24, rotate: -1 }}
+          animate={{ opacity: 1, y: 0, rotate: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          style={{ display: "flex", justifyContent: "center" }}
         >
-          Start the task{" "}
-          <br className="hidden md:block" />
-          you&apos;ve been{" "}
-          <span
-            style={{
-              fontFamily: "var(--font-serif-display, 'Instrument Serif', serif)",
-              fontStyle: "italic",
-              fontWeight: 400,
-            }}
-          >
-            avoiding.
-          </span>
-        </h1>
-
-        <p
-          style={{
-            fontSize: 18,
-            color: "hsl(210 17% 95%)",
-            maxWidth: 480,
-            marginBottom: 40,
-            lineHeight: 1.6,
-          }}
-        >
-          Name it. Do 5 minutes. Earn XP for starting — not for finishing.
-          Forgiving streaks that survive the hard weeks.
-        </p>
-
-        {/* Email form */}
-        <form
-          onSubmit={handleSubmit}
-          className="liquid-glass"
-          style={{
-            borderRadius: 9999, padding: 8,
-            display: "flex", alignItems: "center", gap: 8,
-            width: "100%", maxWidth: 480,
-          }}
-        >
-          <input
-            type="email"
-            placeholder="Enter your email"
-            aria-label="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{
-              flex: 1, minWidth: 0, background: "transparent",
-              fontSize: 14, color: "#ffffff",
-              padding: "10px 16px", outline: "none", border: "none",
-            }}
-          />
-          <button
-            type="submit"
-            style={{
-              background: "#ffffff", color: "#000000",
-              fontSize: 13, fontWeight: 700, letterSpacing: "0.05em",
-              borderRadius: 9999, padding: "12px 28px",
-              border: "none", cursor: "pointer", whiteSpace: "nowrap",
-            }}
-          >
-            START FREE
-          </button>
-        </form>
+          <JustStartDemo />
+        </motion.div>
       </div>
     </section>
   );

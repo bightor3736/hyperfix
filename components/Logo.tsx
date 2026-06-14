@@ -1,30 +1,35 @@
-export function AppIcon({ size = 36 }: { size?: number }) {
+/* Hyperfix mark — a coral "spark" tile: rounded square with a clean bolt.
+   The bolt ties to the product's core action: Just Start. */
+
+const SPARK = "#FF5A36";
+
+export function AppIcon({ size = 36, tile = SPARK }: { size?: number; tile?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 36 36" fill="none" aria-hidden>
-      {/* Solid white rounded square */}
-      <rect width="36" height="36" rx="10" fill="#ffffff" />
-      {/* Black "h" letterform */}
-      <line x1="11" y1="9" x2="11" y2="27" stroke="#000000" strokeWidth="3.2" strokeLinecap="round"/>
-      <path d="M11 19 C11 13.5 25 13.5 25 19" stroke="#000000" strokeWidth="3.2" strokeLinecap="round" fill="none"/>
-      <line x1="25" y1="19" x2="25" y2="27" stroke="#000000" strokeWidth="3.2" strokeLinecap="round"/>
+      <rect width="36" height="36" rx="10" fill={tile} />
+      {/* chunky rounded lightning bolt */}
+      <path
+        d="M20.5 6.5 L11 19.8 a1 1 0 0 0 0.82 1.58 H16.4 L15 29.2 a0.6 0.6 0 0 0 1.08 0.45 L25.4 16.2 a1 1 0 0 0 -0.82 -1.58 H19.9 L21.6 7.1 a0.6 0.6 0 0 0 -1.1 -0.6 Z"
+        fill="#ffffff"
+      />
     </svg>
   );
 }
 
-export function LogoMark({ size = 28, className = "" }: { size?: number; className?: string; color?: string; ink?: string }) {
+export function LogoMark({ size = 28 }: { size?: number; className?: string; color?: string; ink?: string }) {
   return <AppIcon size={size} />;
 }
 
 export function Wordmark({ dark = false, size = 18 }: { dark?: boolean; size?: number }) {
   return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
-      <AppIcon size={size + 12} />
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 9 }}>
+      <AppIcon size={size + 10} />
       <span style={{
-        fontFamily: '-apple-system, "Inter", "Helvetica Neue", system-ui, sans-serif',
+        fontFamily: 'var(--font), -apple-system, "Inter", system-ui, sans-serif',
         fontSize: size,
         fontWeight: 600,
-        letterSpacing: "-0.025em",
-        color: dark ? "#ffffff" : "#18181B",
+        letterSpacing: "-0.03em",
+        color: dark ? "#FBF7F1" : "var(--ink, #181410)",
         lineHeight: 1,
       }}>
         hyperfix
@@ -33,24 +38,23 @@ export function Wordmark({ dark = false, size = 18 }: { dark?: boolean; size?: n
   );
 }
 
-// Legacy exports for dashboard compatibility
-export function LogoTile({ size = 40, className = "", tile = "var(--accent)" }: { size?: number; className?: string; tile?: string }) {
-  const radius = Math.max(8, Math.round(size * 0.28));
+/* ── Compatibility exports used across the app ── */
+export function LogoTile({ size = 40, className = "", tile = SPARK }: { size?: number; className?: string; tile?: string }) {
   return (
-    <span className={`inline-flex items-center justify-center ${className}`} style={{ width: size, height: size, background: tile, borderRadius: radius }}>
-      <AppIcon size={Math.round(size * 0.62)} />
+    <span className={`inline-flex items-center justify-center ${className}`} style={{ width: size, height: size }}>
+      <AppIcon size={size} tile={tile} />
     </span>
   );
 }
 export function LogoWordmark({ className = "", size = "md" }: { className?: string; size?: "sm" | "md" | "lg" }) {
   const fontSize = size === "sm" ? "text-[22px]" : size === "lg" ? "text-[42px]" : "text-[28px]";
-  return <span className={`leading-none text-ink ${fontSize} ${className}`} style={{ fontWeight: 600, letterSpacing: "-0.025em" }}>hyperfix</span>;
+  return <span className={`leading-none ${fontSize} ${className}`} style={{ color: "var(--ink)", fontWeight: 600, letterSpacing: "-0.03em" }}>hyperfix</span>;
 }
 export { LogoWordmark as LogoFull };
 export function LogoLockup({ className = "", size = "md" }: { className?: string; size?: "sm" | "md" | "lg" }) {
   const markPx = size === "sm" ? 24 : size === "lg" ? 42 : 30;
   return <span className={`inline-flex items-center gap-2.5 ${className}`}><AppIcon size={markPx} /><LogoWordmark size={size} /></span>;
 }
-export function SparkIcon({ size = 20, className = "" }: { size?: number; className?: string; color?: string }) {
+export function SparkIcon({ size = 20 }: { size?: number; className?: string; color?: string }) {
   return <AppIcon size={size} />;
 }
