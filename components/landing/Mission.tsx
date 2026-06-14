@@ -1,10 +1,7 @@
 "use client";
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion, MotionValue } from "framer-motion";
-import { LandingVideo } from "./LandingVideo";
-
-const VIDEO_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_132944_a0d124bb-eaa1-4082-aa30-2310efb42b4b.mp4";
+import { JustStartDemo } from "./demo/JustStartDemo";
 
 const PARA1 =
   "We're building a space where starting is enough — where ADHD brains find momentum, every small step earns a real win, and no streak ever dies from a hard week.";
@@ -82,14 +79,9 @@ export function Mission() {
   return (
     <section style={{ paddingTop: 0, paddingBottom: "176px", paddingLeft: 24, paddingRight: 24 }}>
       <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-        {/* Video */}
+        {/* Coded product demo: the real "Just Start" flow */}
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 96 }}>
-          <LandingVideo
-            src={VIDEO_URL}
-            aspectRatio="1 / 1"
-            ariaLabel="A task being broken into small steps inside Hyperfix"
-            style={{ maxWidth: 800 }}
-          />
+          <JustStartDemo />
         </div>
 
         {/* Scroll-driven text */}

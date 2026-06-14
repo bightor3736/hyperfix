@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { LandingVideo } from "./LandingVideo";
+import { DashboardDemo } from "./demo/DashboardDemo";
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 20 },
@@ -8,9 +8,6 @@ const fadeUp = (delay: number) => ({
   viewport: { once: true, margin: "-100px" },
   transition: { duration: 0.6, delay, ease: "easeOut" as const },
 });
-
-const VIDEO_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_125119_8e5ae31c-0021-4396-bc08-f7aebeb877a2.mp4";
 
 const FEATURES = [
   {
@@ -79,13 +76,9 @@ export function Solution() {
           </span>
         </motion.h2>
 
-        {/* Wide video */}
+        {/* Coded product demo: the dashboard */}
         <motion.div {...fadeUp(0.2)} style={{ marginBottom: 64 }}>
-          <LandingVideo
-            src={VIDEO_URL}
-            aspectRatio="3 / 1"
-            ariaLabel="Hyperfix turning a big task into tiny, doable steps"
-          />
+          <DashboardDemo />
         </motion.div>
 
         {/* Feature grid */}

@@ -1,10 +1,7 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { AppIcon } from "@/components/Logo";
-
-const FALLBACK_BG =
-  "radial-gradient(130% 130% at 50% 0%, #1c1c1c 0%, #0a0a0a 55%, #000 100%)";
+import { AmbientBackdrop } from "./demo/AmbientBackdrop";
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 20 },
@@ -13,88 +10,20 @@ const fadeUp = (delay: number) => ({
   transition: { duration: 0.6, delay, ease: "easeOut" as const },
 });
 
-const HLS_URL =
-  "https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8";
-
 export function CTASection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const reduceMotion = useReducedMotion();
-  const [inView, setInView] = useState(false);
-
-  // Only mount/observe the section enters the viewport.
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setInView(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: "300px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  // Lazily load HLS only when in view and motion is allowed.
-  useEffect(() => {
-    if (!inView || reduceMotion) return;
-    const video = videoRef.current;
-    if (!video) return;
-    let destroy: (() => void) | undefined;
-    let cancelled = false;
-
-    if (video.canPlayType("application/vnd.apple.mpegurl")) {
-      // Safari / iOS native HLS — no library needed.
-      video.src = HLS_URL;
-      video.play().catch(() => {});
-    } else {
-      import("hls.js").then(({ default: Hls }) => {
-        if (cancelled || !Hls.isSupported()) return;
-        const hls = new Hls({ autoStartLoad: true });
-        hls.loadSource(HLS_URL);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play().catch(() => {}));
-        destroy = () => hls.destroy();
-      });
-    }
-
-    return () => {
-      cancelled = true;
-      destroy?.();
-    };
-  }, [inView, reduceMotion]);
-
   return (
     <section
-      ref={sectionRef}
       style={{
         position: "relative",
         padding: "128px 24px",
         borderTop: "1px solid rgba(255,255,255,0.08)",
         overflow: "hidden",
-        background: FALLBACK_BG,
       }}
     >
-      {/* HLS video background (skipped for reduced-motion users) */}
-      {!reduceMotion && (
-        <video
-          ref={videoRef}
-          muted
-          loop
-          playsInline
-          aria-hidden="true"
-          style={{
-            position: "absolute", inset: 0,
-            width: "100%", height: "100%", objectFit: "cover", zIndex: 0,
-          }}
-        />
-      )}
+      {/* Ambient coded backdrop */}
+      <AmbientBackdrop />
       {/* Overlay */}
-      <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.55)", zIndex: 1 }} />
+      <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.35)", zIndex: 1 }} />
 
       {/* Content */}
       <div

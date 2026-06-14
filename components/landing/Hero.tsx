@@ -1,9 +1,6 @@
 "use client";
 import { useState } from "react";
-import { LandingVideo } from "./LandingVideo";
-
-const VIDEO_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_120549_0cd82c36-56b3-4dd9-b190-069cfc3a623f.mp4";
+import { AmbientBackdrop } from "./demo/AmbientBackdrop";
 
 const AVATAR_GRADIENTS = [
   "linear-gradient(135deg,#2a2a2a 0%,#111 100%)",
@@ -50,14 +47,8 @@ export function Hero() {
         alignItems: "center", justifyContent: "center",
       }}
     >
-      {/* Background video */}
-      <LandingVideo
-        src={VIDEO_URL}
-        eager
-        fill
-        ariaLabel="Hyperfix app in motion"
-        style={{ zIndex: 0 }}
-      />
+      {/* Ambient coded backdrop */}
+      <AmbientBackdrop style={{ zIndex: 0 }} />
       {/* Bottom fade */}
       <div
         style={{

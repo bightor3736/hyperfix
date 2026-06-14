@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { AmbientBackdrop } from "@/components/landing/demo/AmbientBackdrop";
 
 function ConcentricMark({ size = 28 }: { size?: number }) {
   return (
@@ -10,36 +10,17 @@ function ConcentricMark({ size = 28 }: { size?: number }) {
   );
 }
 
-const VIDEO_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_120549_0cd82c36-56b3-4dd9-b190-069cfc3a623f.mp4";
-
 function RightPanel() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const v = videoRef.current;
-    if (v) v.play().catch(() => {});
-  }, []);
-
   return (
     <div className="relative hidden lg:flex lg:w-[48%] xl:w-[46%] p-5">
       <div
         className="relative w-full overflow-hidden flex flex-col justify-between p-10"
         style={{ borderRadius: 20, border: "1px solid rgba(255,255,255,0.08)" }}
       >
-        {/* background video */}
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ zIndex: 0 }}
-          src={VIDEO_URL}
-        />
+        {/* ambient coded backdrop */}
+        <AmbientBackdrop />
         {/* dark overlay */}
-        <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.55)", zIndex: 1 }} />
+        <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.35)", zIndex: 1 }} />
 
         {/* top logo */}
         <div className="relative z-10 flex justify-end">
